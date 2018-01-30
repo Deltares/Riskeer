@@ -83,6 +83,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             {
                 CreateInstance = context => new StructureCollectionProperties<StabilityPointStructure>(context.WrappedData)
             };
+            yield return new PropertyInfo<StabilityPointStructuresOutputContext, StabilityPointStructuresOutputProperties>
+            {
+                CreateInstance = context => new StabilityPointStructuresOutputProperties(context.WrappedData.Output,
+                                                                                         context.FailureMechanism,
+                                                                                         context.AssessmentSection)
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

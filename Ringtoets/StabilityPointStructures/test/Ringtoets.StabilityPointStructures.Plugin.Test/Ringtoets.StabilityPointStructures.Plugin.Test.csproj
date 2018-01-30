@@ -35,6 +35,7 @@
     <Compile Include="PropertyInfos\StabilityPointStructureCollectionPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\StabilityPointStructuresFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\StabilityPointStructuresInputContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\StabilityPointStructuresOutputPropertyInfoTest.cs" />
     <Compile Include="StabilityPointStructuresPluginTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
