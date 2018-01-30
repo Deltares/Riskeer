@@ -71,25 +71,25 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void SetDesignWaterLevelCalculations(HydraulicLocationEntity entity, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity,
+            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity7,
                                                       hydraulicBoundaryLocation.DesignWaterLevelCalculation1);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity1,
+            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity6,
                                                       hydraulicBoundaryLocation.DesignWaterLevelCalculation2);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity2,
+            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity5,
                                                       hydraulicBoundaryLocation.DesignWaterLevelCalculation3);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity3,
+            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity4,
                                                       hydraulicBoundaryLocation.DesignWaterLevelCalculation4);
         }
 
         private static void SetWaveHeightCalculations(HydraulicLocationEntity entity, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity4,
+            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity3,
                                                       hydraulicBoundaryLocation.WaveHeightCalculation1);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity5,
+            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity2,
                                                       hydraulicBoundaryLocation.WaveHeightCalculation2);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity6,
+            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity1,
                                                       hydraulicBoundaryLocation.WaveHeightCalculation3);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity7,
+            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity,
                                                       hydraulicBoundaryLocation.WaveHeightCalculation4);
         }
 

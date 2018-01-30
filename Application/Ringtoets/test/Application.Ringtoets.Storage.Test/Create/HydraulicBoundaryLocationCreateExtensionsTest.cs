@@ -136,14 +136,14 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(coordinateY, entity.LocationY);
             Assert.AreEqual(order, entity.Order);
 
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation1, entity.HydraulicLocationCalculationEntity);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation2, entity.HydraulicLocationCalculationEntity1);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation3, entity.HydraulicLocationCalculationEntity2);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation4, entity.HydraulicLocationCalculationEntity3);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation1, entity.HydraulicLocationCalculationEntity4);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation2, entity.HydraulicLocationCalculationEntity5);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation3, entity.HydraulicLocationCalculationEntity6);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation4, entity.HydraulicLocationCalculationEntity7);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation1, entity.HydraulicLocationCalculationEntity7);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation2, entity.HydraulicLocationCalculationEntity6);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation3, entity.HydraulicLocationCalculationEntity5);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation4, entity.HydraulicLocationCalculationEntity4);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation1, entity.HydraulicLocationCalculationEntity3);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation2, entity.HydraulicLocationCalculationEntity2);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation3, entity.HydraulicLocationCalculationEntity1);
+            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation4, entity.HydraulicLocationCalculationEntity);
         }
 
         [Test]

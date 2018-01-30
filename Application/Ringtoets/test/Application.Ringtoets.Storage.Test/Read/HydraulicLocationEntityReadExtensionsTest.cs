@@ -98,22 +98,22 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
 
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity7,
                                                        location.DesignWaterLevelCalculation1);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity1,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity6,
                                                        location.DesignWaterLevelCalculation2);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity2,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity5,
                                                        location.DesignWaterLevelCalculation3);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity3,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity4,
                                                        location.DesignWaterLevelCalculation4);
 
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity4,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity3,
                                                        location.WaveHeightCalculation1);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity5,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity2,
                                                        location.WaveHeightCalculation2);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity6,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity1,
                                                        location.WaveHeightCalculation3);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity7,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity,
                                                        location.WaveHeightCalculation4);
 
             Assert.IsTrue(collector.Contains(entity));
@@ -145,22 +145,22 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(location);
 
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity7,
                                                        location.DesignWaterLevelCalculation1);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity1,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity6,
                                                        location.DesignWaterLevelCalculation2);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity2,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity5,
                                                        location.DesignWaterLevelCalculation3);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity3,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity4,
                                                        location.DesignWaterLevelCalculation4);
 
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity4,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity3,
                                                        location.WaveHeightCalculation1);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity5,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity2,
                                                        location.WaveHeightCalculation2);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity6,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity1,
                                                        location.WaveHeightCalculation3);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity7,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity,
                                                        location.WaveHeightCalculation4);
         }
 
@@ -190,22 +190,22 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(location);
 
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity7,
                                                        location.DesignWaterLevelCalculation1);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity1,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity6,
                                                        location.DesignWaterLevelCalculation2);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity2,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity5,
                                                        location.DesignWaterLevelCalculation3);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity3,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity4,
                                                        location.DesignWaterLevelCalculation4);
 
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity4,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity3,
                                                        location.WaveHeightCalculation1);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity5,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity2,
                                                        location.WaveHeightCalculation2);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity6,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity1,
                                                        location.WaveHeightCalculation3);
-            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity7,
+            AssertHydraulicBoundaryLocationCalculation(entity.HydraulicLocationCalculationEntity,
                                                        location.WaveHeightCalculation4);
         }
 
