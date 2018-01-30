@@ -325,7 +325,6 @@ SELECT
     JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId);
 
 -- Perform the migration of the output entities
-
 INSERT INTO HydraulicLocationOutputEntity (
 	[HydraulicLocationOutputEntityId],
 	[HydraulicLocationCalculationEntityId],
@@ -354,19 +353,10 @@ FROM [SOURCEPROJECT].HydraulicLocationOutputEntity hlo
 JOIN [SOURCEPROJECT].HydraulicLocationEntity hl ON hlo.HydraulicLocationEntityId = hl.HydraulicLocationEntityId
 JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId)
 JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
-WHERE NormativeNormType = 2;
+WHERE NormativeNormType = 2
 
+UNION 
 
-INSERT INTO HydraulicLocationOutputEntity (
-	[HydraulicLocationOutputEntityId],
-	[HydraulicLocationCalculationEntityId],
-	[GeneralResultSubMechanismIllustrationPointEntityId],
-	[Result],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence])
 SELECT
 	[HydraulicLocationEntityOutputId],
 	CASE WHEN [HydraulicLocationOutputType] = 1
@@ -435,7 +425,6 @@ UPDATE HydraulicLocationCalculationEntity
         JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
         WHERE NormativeNormType = 1 AND hle.ShouldWaveHeightIllustrationPointsBeCalculated = 1
     );
-
 
 -- Cleanup
 DROP TABLE TempHydraulicLocationCalculationEntity;
