@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -54,6 +55,7 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.MetaDataAttributeNameProviders;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -94,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
                     context,
-                    () => context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation),
+                    () => GetAssessmentLevel(context.Calculation),
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
 
@@ -778,7 +780,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
                 GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                   assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation),
+                                                                                   GetAssessmentLevel(calculation),
                                                                                    assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                    assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             }
@@ -917,7 +919,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(context.WrappedData,
-                                                                               context.AssessmentSection.GetNormativeAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation),
+                                                                               GetAssessmentLevel(context.WrappedData),
                                                                                context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
@@ -958,5 +960,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
+
+        private static RoundedDouble GetAssessmentLevel(ICalculation<WaveConditionsInput> calculation)
+        {
+            return calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
+        }
     }
 }

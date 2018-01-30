@@ -476,7 +476,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
                     var i = 0;
-                    foreach (RoundedDouble waterLevel in GetWaterLevels(calculation, assessmentSection))
+                    foreach (RoundedDouble waterLevel in GetWaterLevels(calculation))
                     {
                         Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i + 1]);
                         StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);
@@ -544,7 +544,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
                     var i = 0;
-                    foreach (RoundedDouble waterLevel in GetWaterLevels(calculation, assessmentSection))
+                    foreach (RoundedDouble waterLevel in GetWaterLevels(calculation))
                     {
                         Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", msgs[i + 1]);
                         StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie", msgs[i + 2]);
@@ -612,7 +612,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                  mechanismSpecificNorm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
-                                                                                 GetWaterLevels(calculation, assessmentSection).ElementAt(waterLevelIndex++),
+                                                                                 GetWaterLevels(calculation).ElementAt(waterLevelIndex++),
                                                                                  generalInput.GeneralWaveConditionsInput.A,
                                                                                  generalInput.GeneralWaveConditionsInput.B,
                                                                                  generalInput.GeneralWaveConditionsInput.C);
@@ -788,7 +788,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
 
-                    RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
+                    RoundedDouble[] waterLevels = GetWaterLevels(calculation).ToArray();
                     RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
                     RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                     RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
@@ -866,7 +866,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 };
 
                 // Assert
-                RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
+                RoundedDouble[] waterLevels = GetWaterLevels(calculation).ToArray();
                 RoundedDouble waterLevelUpperBoundaryRevetment = waterLevels[0];
                 RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                 RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
@@ -1025,7 +1025,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
                     {
-                        DesignWaterLevelCalculation3 =
+                        DesignWaterLevelCalculation1 =
                         {
                             Output = new TestHydraulicBoundaryLocationOutput(12)
                         }
@@ -1056,9 +1056,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             return (RoundedDouble) 9.3;
         }
 
-        private static IEnumerable<RoundedDouble> GetWaterLevels(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, IAssessmentSection assessmentSection)
+        private static IEnumerable<RoundedDouble> GetWaterLevels(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
-            return calculation.InputParameters.GetWaterLevels(assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
+            return calculation.InputParameters.GetWaterLevels(calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN);
         }
     }
 }
