@@ -104,7 +104,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
 
             yield return new ViewInfo<
-                FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
+                ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
                 IEnumerable<ClosingStructuresFailureMechanismSectionResult>,
                 ClosingStructuresFailureMechanismResultView>
             {
@@ -143,7 +143,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -354,14 +354,14 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         #region ClosingStructuresFailureMechanismContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(ClosingStructuresFailureMechanismContext context)
         {
-            ClosingStructuresFailureMechanism wrappedData = closingStructuresFailureMechanismContext.WrappedData;
+            ClosingStructuresFailureMechanism wrappedData = context.WrappedData;
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, closingStructuresFailureMechanismContext.Parent), TreeFolderCategory.Input),
-                new ClosingStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, closingStructuresFailureMechanismContext.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, context.Parent), TreeFolderCategory.Input),
+                new ClosingStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, context.Parent),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, context.Parent), TreeFolderCategory.Output)
             };
         }
 
@@ -384,13 +384,13 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(ClosingStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
+                new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }

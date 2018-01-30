@@ -31,8 +31,8 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -43,22 +43,27 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
     {
         private MockRepository mocks;
         private ViewInfo info;
+        private ClosingStructuresPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            using (var plugin = new ClosingStructuresPlugin())
-            {
-                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ClosingStructuresFailureMechanismResultView));
-            }
+            plugin = new ClosingStructuresPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ClosingStructuresFailureMechanismResultView));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<ClosingStructuresFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -66,23 +71,29 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var context = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism,
+                                                                                                                              assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
             var view = mocks.StrictMock<ClosingStructuresFailureMechanismResultView>();
             mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
             string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -90,36 +101,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual("Resultaat", viewName);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<ClosingStructuresFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -264,6 +245,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -288,6 +270,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -296,10 +279,14 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var view = mocks.StrictMock<ClosingStructuresFailureMechanismResultView>();
-            var context = new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
             view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
+            
+            var context = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism,
+                                                                                                                              assessmentSection);
 
             // Call
             info.AfterCreate(view, context);
