@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 {
@@ -34,7 +33,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
     public class WaveImpactAsphaltCoverFailureMechanismTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_Always_PropertiesSet()
         {
             // Call
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -44,8 +43,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Golfklappen op asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AGK", failureMechanism.Code);
-
-            Assert.IsInstanceOf<GeneralWaveConditionsInput>(failureMechanism.GeneralInput);
+            Assert.IsNotNull(failureMechanism.GeneralWaveImpactAsphaltCoverInput);
+            Assert.IsNotNull(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Hydraulische randvoorwaarden", failureMechanism.WaveConditionsCalculationGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);

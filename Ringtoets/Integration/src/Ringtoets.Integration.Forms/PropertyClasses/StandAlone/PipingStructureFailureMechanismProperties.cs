@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
             Data = data;
         }
 
-        #region Semi-probabilistic parameters
+        #region Length effect parameters
 
         [DynamicVisible]
         [PropertyOrder(4)]

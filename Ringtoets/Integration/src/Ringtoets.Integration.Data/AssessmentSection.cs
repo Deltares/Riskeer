@@ -218,9 +218,11 @@ namespace Ringtoets.Integration.Data
             set
             {
                 referenceLine = value;
-                Piping.PipingProbabilityAssessmentInput.SectionLength = value?.Length ?? double.NaN;
-                MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength = value?.Length ?? double.NaN;
-                MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength = value?.Length ?? double.NaN;
+                double sectionLength = value?.Length ?? double.NaN;
+                Piping.PipingProbabilityAssessmentInput.SectionLength = sectionLength;
+                MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength = sectionLength;
+                MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength = sectionLength;
+                WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength = sectionLength;
             }
         }
 

@@ -428,6 +428,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(referenceLine.Length, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(referenceLine.Length, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(referenceLine.Length, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(referenceLine.Length, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
         }
 
         [Test]
@@ -443,6 +444,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(double.NaN, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
             Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
         }
 
         private IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)

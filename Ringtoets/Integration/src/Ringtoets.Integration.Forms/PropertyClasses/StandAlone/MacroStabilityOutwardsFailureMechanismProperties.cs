@@ -110,7 +110,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
 
         #endregion
 
-        #region Semi-probabilistic parameters
+        #region Length effect parameters
 
         [DynamicVisible]
         [PropertyOrder(4)]

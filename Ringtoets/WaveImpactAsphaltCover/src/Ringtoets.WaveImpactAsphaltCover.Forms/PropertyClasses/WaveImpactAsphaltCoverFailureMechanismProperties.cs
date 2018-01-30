@@ -19,11 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsRevetmentFormsResources = Ringtoets.Revetment.Forms.Properties.Resources;
 
@@ -34,6 +36,21 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismProperties : ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.
+        /// </summary>
+        /// <param name="data">The instance to show the properties of.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            Data = data;
+        }
+
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
@@ -48,7 +65,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         {
             return nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
-                   || nameof(C).Equals(propertyName);
+                   || nameof(C).Equals(propertyName)
+                   || nameof(SectionLength).Equals(propertyName)
+                   || nameof(DeltaL).Equals(propertyName)
+                   || nameof(N).Equals(propertyName);
         }
 
         #region General
@@ -91,10 +111,58 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
 
         #endregion
 
-        #region Model settings
+        #region Length effect parameters
 
         [DynamicVisible]
         [PropertyOrder(4)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Description))]
+        public RoundedDouble SectionLength
+        {
+            get
+            {
+                return new RoundedDouble(2, data.GeneralWaveImpactAsphaltCoverInput.SectionLength);
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_Description))]
+        public RoundedDouble DeltaL
+        {
+            get
+            {
+                return data.GeneralWaveImpactAsphaltCoverInput.DeltaL;
+            }
+            set
+            {
+                data.GeneralWaveImpactAsphaltCoverInput.DeltaL = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(6)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return new RoundedDouble(2, data.GeneralWaveImpactAsphaltCoverInput.N);
+            }
+        }
+
+        #endregion
+
+        #region Model settings
+
+        [DynamicVisible]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_A_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_A_Description))]
@@ -107,7 +175,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(5)]
+        [PropertyOrder(8)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_B_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_B_Description))]
@@ -120,7 +188,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(6)]
+        [PropertyOrder(9)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_C_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_C_Description))]

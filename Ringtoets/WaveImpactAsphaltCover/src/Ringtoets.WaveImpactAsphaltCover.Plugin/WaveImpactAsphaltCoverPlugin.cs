@@ -62,10 +62,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             yield return new PropertyInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismProperties>
             {
-                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismProperties
-                {
-                    Data = context.WrappedData
-                }
+                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>

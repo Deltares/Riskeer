@@ -51,6 +51,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
             GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);
+            GeneralWaveImpactAsphaltCoverInput = new GeneralWaveImpactAsphaltCoverInput();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -70,6 +71,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// Gets the general wave conditions input parameters that apply to each calculation.
         /// </summary>
         public GeneralWaveConditionsInput GeneralInput { get; }
+
+        /// <summary>
+        /// Gets the general wave impact asphalt cover input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralWaveImpactAsphaltCoverInput GeneralWaveImpactAsphaltCoverInput { get; }
 
         /// <summary>
         /// Gets the container of all wave conditions calculations.
