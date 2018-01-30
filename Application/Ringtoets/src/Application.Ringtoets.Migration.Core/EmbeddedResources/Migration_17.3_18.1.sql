@@ -181,7 +181,16 @@ SELECT [VersionId],
 	[FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
 INSERT INTO WaterPressureAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity;
-INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
+INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity (
+	[WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[ForeshoreProfileCollectionSourcePath],
+	[DeltaL])
+SELECT [WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[ForeshoreProfileCollectionSourcePath],
+	"1000"
+FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
 INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;

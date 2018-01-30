@@ -35,6 +35,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long WaveImpactAsphaltCoverFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string ForeshoreProfileCollectionSourcePath { get; set; }
+        public double DeltaL { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

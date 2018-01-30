@@ -68,7 +68,8 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         {
             var metaEntity = new WaveImpactAsphaltCoverFailureMechanismMetaEntity
             {
-                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone()
+                ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
+                DeltaL = failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL
             };
 
             entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Add(metaEntity);

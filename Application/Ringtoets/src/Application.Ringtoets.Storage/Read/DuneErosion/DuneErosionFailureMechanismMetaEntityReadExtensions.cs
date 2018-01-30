@@ -40,13 +40,19 @@ namespace Application.Ringtoets.Storage.Read.DuneErosion
         /// to use to update the <paramref name="input"/>.</param>
         /// <param name="input">The <see cref="GeneralDuneErosionInput"/> to be updated.</param>
         /// <returns>A new <see cref="GeneralDuneErosionInput"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this DuneErosionFailureMechanismMetaEntity entity, GeneralDuneErosionInput input)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
+
             input.N = (RoundedDouble) entity.N;
         }
     }

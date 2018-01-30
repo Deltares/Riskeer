@@ -44,14 +44,15 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="inputToUpdate"/>
         /// or <paramref name="collector"/> is <c>null</c>.</exception>
-        public static void Read<T>(this IStructuresCalculationEntity entity,
-                                   StructuresInputBase<T> inputToUpdate,
-                                   ReadConversionCollector collector) where T : StructureBase
+        internal static void Read<T>(this IStructuresCalculationEntity entity,
+                                     StructuresInputBase<T> inputToUpdate,
+                                     ReadConversionCollector collector) where T : StructureBase
         {
             if (inputToUpdate == null)
             {
                 throw new ArgumentNullException(nameof(inputToUpdate));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -61,6 +62,7 @@ namespace Application.Ringtoets.Storage.Read
             {
                 inputToUpdate.ForeshoreProfile = entity.ForeshoreProfileEntity.Read(collector);
             }
+
             if (entity.HydraulicLocationEntity != null)
             {
                 inputToUpdate.HydraulicBoundaryLocation = entity.HydraulicLocationEntity.Read(collector);

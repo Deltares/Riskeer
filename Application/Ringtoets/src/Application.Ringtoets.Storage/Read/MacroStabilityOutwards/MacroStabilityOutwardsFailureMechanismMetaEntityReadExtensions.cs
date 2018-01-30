@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityOutwards
         /// <param name="probabilityAssessmentInput">The <see cref="MacroStabilityOutwardsProbabilityAssessmentInput"/> 
         /// to set the properties of <see cref="MacroStabilityOutwardsProbabilityAssessmentInput"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public static void ReadProbabilityAssessmentInput(this MacroStabilityOutwardsFailureMechanismMetaEntity entity,
+        internal static void ReadProbabilityAssessmentInput(this MacroStabilityOutwardsFailureMechanismMetaEntity entity,
                                                           MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (entity == null)

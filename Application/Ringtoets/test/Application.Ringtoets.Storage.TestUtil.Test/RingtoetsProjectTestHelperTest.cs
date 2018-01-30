@@ -98,6 +98,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             AssertStabilityPointStructuresFailureMechanism(assessmentSection);
 
+            AssertPipingStructureFailureMechanism(assessmentSection);
+
             AssertDuneErosionFailureMechanism(assessmentSection);
         }
 
@@ -463,7 +465,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreSame(calculationWithOutput, sectionResult.Calculation);
         }
 
-        private static void AsserPipingStructureFailureMechanism(AssessmentSection assessmentSection)
+        private static void AssertPipingStructureFailureMechanism(AssessmentSection assessmentSection)
         {
             PipingStructureFailureMechanism failureMechanism = assessmentSection.PipingStructure;
             Assert.AreEqual(12.5, failureMechanism.N, failureMechanism.N.GetAccuracy());

@@ -34,6 +34,20 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
     public class GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
+        public void ReadGrassCoverErosionOutwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var input = new GeneralGrassCoverErosionOutwardsInput();
+
+            // Call
+            TestDelegate test = () => ((GrassCoverErosionOutwardsFailureMechanismMetaEntity) null).Read(input);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
         public void Read_GeneralInputIsNull_ThrowArgumentNullException()
         {
             // Setup

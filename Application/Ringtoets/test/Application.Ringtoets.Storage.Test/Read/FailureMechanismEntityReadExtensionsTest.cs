@@ -1069,7 +1069,6 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithPropertiesSet(bool isRelevant)
         {
             // Setup
-            int n = new Random(21).Next(1, 20);
             var entity = new FailureMechanismEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
@@ -1080,7 +1079,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
                     {
-                        N = n
+                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
@@ -1101,6 +1100,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
             Assert.AreEqual(entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
+
             Assert.IsNull(failureMechanism.DikeProfiles.SourcePath);
         }
 
@@ -1242,7 +1242,6 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithPropertiesSet(bool isRelevant)
         {
             // Setup
-            int n = new Random(21).Next(1, 20);
             var entity = new FailureMechanismEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
@@ -1253,7 +1252,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        N = n
+                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
@@ -1506,7 +1505,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
                     {
-                        N = 12.34
+                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
                     }
                 }
             };
@@ -1523,6 +1522,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            RoundedDouble actualN = failureMechanism.GeneralInput.N;
+            Assert.AreEqual(entity.StabilityStoneCoverFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
@@ -1674,7 +1676,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -1690,6 +1695,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            RoundedDouble actualDeltaL = failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL;
+            Assert.AreEqual(entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().DeltaL, actualDeltaL, actualDeltaL.GetAccuracy());
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
@@ -1720,7 +1728,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -1752,7 +1763,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
                     }
                 }
             };
@@ -1796,7 +1808,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
                     }
                 }
             };
@@ -1839,7 +1852,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new HeightStructuresFailureMechanismMetaEntity
                     {
-                        N = 1
+                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
                     }
                 }
             };
@@ -1856,6 +1869,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            RoundedDouble actualN = failureMechanism.GeneralInput.N;
+            Assert.AreEqual(entity.HeightStructuresFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
@@ -2323,7 +2339,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
                     {
-                        N = 1
+                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
                     }
                 }
             };
@@ -2341,6 +2357,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
+            RoundedDouble actualN = failureMechanism.GeneralInput.N;
+            Assert.AreEqual(entity.StabilityPointStructuresFailureMechanismMetaEntities.Single().N, actualN, actualN.GetAccuracy());
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
         }
 
@@ -2628,7 +2646,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new PipingStructureFailureMechanismMetaEntity
                     {
-                        N = random.NextDouble() + 1.0
+                        N = random.NextRoundedDouble(1.0, 20.0)
                     }
                 }
             };

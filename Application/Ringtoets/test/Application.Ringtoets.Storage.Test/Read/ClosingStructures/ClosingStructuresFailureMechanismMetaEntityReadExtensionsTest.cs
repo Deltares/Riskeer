@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.ClosingStructures;
 using NUnit.Framework;
@@ -30,12 +31,23 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
     public class ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
+        public void ReadClosingStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((ClosingStructuresFailureMechanismMetaEntity) null).Read();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
         public void Read_Always_ReturnGeneralClosingStructuresInput()
         {
             // Setup
             var entity = new ClosingStructuresFailureMechanismMetaEntity
             {
-                N2A = 3
+                N2A = new Random(39).Next(1, 40)
             };
 
             // Call

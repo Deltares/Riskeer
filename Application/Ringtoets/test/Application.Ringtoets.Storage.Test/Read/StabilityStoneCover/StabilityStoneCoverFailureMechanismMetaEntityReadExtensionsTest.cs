@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
@@ -31,12 +33,23 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
     public class StabilityStoneCoverFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
+        public void ReadStabilityStoneCoverFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ((StabilityStoneCoverFailureMechanismMetaEntity) null).Read();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
         public void Read_Always_ReturnGeneralStabilityStoneCoverWaveConditionsInput()
         {
             // Setup
             var entity = new StabilityStoneCoverFailureMechanismMetaEntity
             {
-                N = 3.1415
+                N = new Random(39).NextRoundedDouble(1.0, 20.0)
             };
 
             // Call

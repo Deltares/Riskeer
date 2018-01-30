@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -38,8 +39,14 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
         /// <param name="entity">The <see cref="StabilityStoneCoverFailureMechanismMetaEntity"/>
         /// to create <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/> for.</param>
         /// <returns>A new <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static GeneralStabilityStoneCoverWaveConditionsInput Read(this StabilityStoneCoverFailureMechanismMetaEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return new GeneralStabilityStoneCoverWaveConditionsInput
             {
                 N = (RoundedDouble) entity.N

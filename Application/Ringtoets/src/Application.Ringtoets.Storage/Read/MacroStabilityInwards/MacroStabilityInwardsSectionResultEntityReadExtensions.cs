@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         /// update the <paramref name="sectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void Read(this MacroStabilityInwardsSectionResultEntity entity, MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
+        internal static void Read(this MacroStabilityInwardsSectionResultEntity entity, MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
             {

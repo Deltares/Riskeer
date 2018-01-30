@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -69,6 +70,10 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
                 NotRelevantComments =
                 {
                     Body = "Really not relevant"
+                },
+                GeneralWaveImpactAsphaltCoverInput =
+                {
+                    DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -83,6 +88,8 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL,
+                            entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().DeltaL);
         }
 
         [Test]

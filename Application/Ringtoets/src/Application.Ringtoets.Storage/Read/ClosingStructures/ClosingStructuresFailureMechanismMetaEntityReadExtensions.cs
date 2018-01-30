@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.ClosingStructures.Data;
 
@@ -37,8 +38,14 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
         /// <param name="entity">The <see cref="ClosingStructuresFailureMechanismMetaEntity"/>
         /// to create <see cref="GeneralClosingStructuresInput"/> for.</param>
         /// <returns>A new <see cref="GeneralClosingStructuresInput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static GeneralClosingStructuresInput Read(this ClosingStructuresFailureMechanismMetaEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return new GeneralClosingStructuresInput
             {
                 N2A = entity.N2A

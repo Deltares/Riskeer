@@ -653,6 +653,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
 
             ReadWaveImpactAsphaltCoverRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
+            failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL = (RoundedDouble) entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().DeltaL;
         }
 
         private static void ReadWaveImpactAsphaltCoverMechanismSectionResults(this FailureMechanismEntity entity,

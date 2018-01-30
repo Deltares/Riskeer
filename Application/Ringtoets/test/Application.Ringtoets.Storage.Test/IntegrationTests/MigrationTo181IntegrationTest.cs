@@ -67,6 +67,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertStabilityStoneCoverFailureMechanism(reader);
                     AssertMacroStabilityOutwardsFailureMechanism(reader);
                     AssertPipingStructureFailureMechanism(reader);
+                    AssertWaveImpactAsphaltCoverFailureMechanism(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -287,24 +288,33 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertMacroStabilityOutwardsFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string validateFailureMechanisms =
+            const string validateMacroStabilityOutwardsFailureMechanisms =
                 "SELECT COUNT() = (SELECT COUNT() FROM FailureMechanismEntity WHERE FailureMechanismType = 13) " +
                 "FROM [MacroStabilityOutwardsFailureMechanismMetaEntity] " +
                 "WHERE [A] = 0.033 " +
                 "AND [FailureMechanismEntityId] IN " +
                 "(SELECT [FailureMechanismEntityId] FROM [FailureMechanismEntity] WHERE [FailureMechanismType] = 13);";
-            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
+            reader.AssertReturnedDataIsValid(validateMacroStabilityOutwardsFailureMechanisms);
         }
 
         private static void AssertPipingStructureFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string validateFailureMechanisms =
+            const string validatePipingStructureFailureMechanisms =
                 "SELECT COUNT() = (SELECT COUNT() FROM FailureMechanismEntity WHERE FailureMechanismType = 11) " +
                 "FROM [PipingStructureFailureMechanismMetaEntity] " +
                 "WHERE [N] = 1.0 " +
                 "AND [FailureMechanismEntityId] IN " +
                 "(SELECT [FailureMechanismEntityId] FROM [FailureMechanismEntity] WHERE [FailureMechanismType] = 11);";
-            reader.AssertReturnedDataIsValid(validateFailureMechanisms);
+            reader.AssertReturnedDataIsValid(validatePipingStructureFailureMechanisms);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverFailureMechanism(MigratedDatabaseReader reader)
+        {
+            const string validateWaveImpactAsphaltCoverFailureMechanism =
+                "SELECT COUNT() = 0 " +
+                "FROM [WaveImpactAsphaltCoverFailureMechanismMetaEntity] " +
+                "WHERE [DeltaL] IS NOT 1000;";
+            reader.AssertReturnedDataIsValid(validateWaveImpactAsphaltCoverFailureMechanism);
         }
 
         #region Migrated Hydraulic Boundary Locations

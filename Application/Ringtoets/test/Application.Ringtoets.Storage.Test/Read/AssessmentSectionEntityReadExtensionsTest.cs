@@ -743,7 +743,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(notRelevantComments, section.MacroStabilityOutwards.NotRelevantComments.Body);
 
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityOutwards
-                                                                                                .MacroStabilityOutwardsProbabilityAssessmentInput;
+                                                                                                 .MacroStabilityOutwardsProbabilityAssessmentInput;
             Assert.AreEqual(parameterA, probabilityAssessmentInput.A);
         }
 
@@ -758,7 +758,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
 
-            int n = new Random(21).Next(1, 20);
+            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
@@ -879,7 +879,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
 
-            int n = new Random(21).Next(1, 20);
+            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
@@ -1022,6 +1022,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
+            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1035,7 +1036,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
                     {
-                        N = 3.9
+                        N = n
                     }
                 }
             };
@@ -1052,6 +1053,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.StabilityStoneCover.InputComments.Body);
             Assert.AreEqual(outputComments, section.StabilityStoneCover.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.StabilityStoneCover.NotRelevantComments.Body);
+            Assert.AreEqual(n, section.StabilityStoneCover.GeneralInput.N, section.StabilityStoneCover.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
@@ -1167,6 +1169,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
+            RoundedDouble deltaL = new Random(39).NextRoundedDouble(1.0, 2000.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1178,7 +1181,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 NotRelevantComments = notRelevantComments,
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        DeltaL = deltaL
+                    }
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -1194,6 +1200,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.WaveImpactAsphaltCover.InputComments.Body);
             Assert.AreEqual(outputComments, section.WaveImpactAsphaltCover.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.WaveImpactAsphaltCover.NotRelevantComments.Body);
+            Assert.AreEqual(deltaL,
+                            section.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.DeltaL,
+                            section.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.DeltaL.GetAccuracy());
         }
 
         [Test]
@@ -1229,7 +1238,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
                     {
-                        ForeshoreProfileCollectionSourcePath = fileLocation
+                        ForeshoreProfileCollectionSourcePath = fileLocation,
+                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
                     }
                 }
             };
@@ -1276,7 +1286,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
-                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity()
+                    new WaveImpactAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
+                    }
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -1302,6 +1315,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
+            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1315,7 +1329,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new HeightStructuresFailureMechanismMetaEntity
                     {
-                        N = 5
+                        N = n
                     }
                 }
             };
@@ -1332,6 +1346,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.HeightStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.HeightStructures.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.HeightStructures.NotRelevantComments.Body);
+            Assert.AreEqual(n,
+                            section.HeightStructures.GeneralInput.N,
+                            section.HeightStructures.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
@@ -1344,6 +1361,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
+            int n2a = new Random(39).Next(1, 40);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1357,7 +1375,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new ClosingStructuresFailureMechanismMetaEntity
                     {
-                        N2A = 3
+                        N2A = n2a
                     }
                 }
             };
@@ -1374,6 +1392,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.ClosingStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.ClosingStructures.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.ClosingStructures.NotRelevantComments.Body);
+            Assert.AreEqual(n2a, section.ClosingStructures.GeneralInput.N2A);
         }
 
         [Test]
@@ -1386,6 +1405,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
+            RoundedDouble n = new Random(39).NextRoundedDouble(1.0, 20.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1399,7 +1419,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
                     {
-                        N = 5
+                        N = n
                     }
                 }
             };
@@ -1416,6 +1436,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.StabilityPointStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.StabilityPointStructures.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.StabilityPointStructures.NotRelevantComments.Body);
+            Assert.AreEqual(n,
+                            section.StabilityPointStructures.GeneralInput.N,
+                            section.StabilityPointStructures.GeneralInput.N.GetAccuracy());
         }
 
         [Test]
@@ -1426,7 +1449,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
-            bool isRelevant = new Random().NextBoolean();
+            var random = new Random(39);
+            bool isRelevant = random.NextBoolean();
+            RoundedDouble n = random.NextRoundedDouble(1.0, 20.0);
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -1440,7 +1465,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new DuneErosionFailureMechanismMetaEntity
                     {
-                        N = 3
+                        N = n
                     }
                 }
             };
@@ -1457,6 +1482,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.DuneErosion.InputComments.Body);
             Assert.AreEqual(outputComments, section.DuneErosion.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.DuneErosion.NotRelevantComments.Body);
+            Assert.AreEqual(n,
+                            section.DuneErosion.GeneralInput.N,
+                            section.DuneErosion.GeneralInput.N.GetAccuracy());
         }
 
         [Test]

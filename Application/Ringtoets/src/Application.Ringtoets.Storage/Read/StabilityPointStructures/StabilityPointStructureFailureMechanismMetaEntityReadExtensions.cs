@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -38,8 +39,14 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
         /// <param name="entity">The <see cref="StabilityPointStructuresFailureMechanismMetaEntity"/>
         /// to create <see cref="GeneralStabilityPointStructuresInput"/> for.</param>
         /// <returns>A new <see cref="GeneralStabilityPointStructuresInput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static GeneralStabilityPointStructuresInput Read(this StabilityPointStructuresFailureMechanismMetaEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return new GeneralStabilityPointStructuresInput
             {
                 N = (RoundedDouble) entity.N

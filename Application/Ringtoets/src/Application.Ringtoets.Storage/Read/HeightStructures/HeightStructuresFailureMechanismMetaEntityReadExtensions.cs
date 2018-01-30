@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.HeightStructures.Data;
@@ -38,8 +39,14 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
         /// <param name="entity">The <see cref="HeightStructuresFailureMechanismMetaEntity"/>
         /// to create <see cref="GeneralHeightStructuresInput"/> for.</param>
         /// <returns>A new <see cref="GeneralHeightStructuresInput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static GeneralHeightStructuresInput Read(this HeightStructuresFailureMechanismMetaEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return new GeneralHeightStructuresInput
             {
                 N = (RoundedDouble) entity.N

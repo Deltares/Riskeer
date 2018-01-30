@@ -127,13 +127,14 @@
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileTwoDEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileOneDEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ProbabilityAssessmentOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StructureCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityPointStructures\StabilityPointStructureFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />

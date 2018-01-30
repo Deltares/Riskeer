@@ -39,9 +39,14 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsFailureMechanismMetaEntity"/>
         /// to use to update the <paramref name="input"/>.</param>
         /// <param name="input">The <see cref="GeneralGrassCoverErosionInwardsInput"/> to be updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this GrassCoverErosionInwardsFailureMechanismMetaEntity entity, GeneralGrassCoverErosionInwardsInput input)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
