@@ -37,8 +37,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="sectionResult">The section result to get the assessment layer 2A for.</param>
         /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
-        /// <returns>The calculated assessment layer 2A; or <see cref="double.NaN"/> when there are no
-        /// is no calculation assigned to the section result or the calculation is not performed.</returns>
+        /// <returns>The calculated assessment layer 2A; or <see cref="double.NaN"/> when there is no
+        /// calculation assigned to the section result or the calculation is not performed.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetAssessmentLayerTwoA(this GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
                                                     GrassCoverErosionInwardsFailureMechanism failureMechanism,
