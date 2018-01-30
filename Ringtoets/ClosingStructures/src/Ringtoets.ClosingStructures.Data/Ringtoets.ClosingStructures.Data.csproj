@@ -13,7 +13,7 @@
   <ItemGroup>
     <Compile Include="ClosingStructure.cs" />
     <Compile Include="ClosingStructuresFailureMechanism.cs" />
-    <Compile Include="ClosingStructuresfailureMechanismSection2aAssessmentResultExtensions.cs" />
+    <Compile Include="ClosingStructuresFailureMechanismSection2aAssessmentResultExtensions.cs" />
     <Compile Include="ClosingStructuresInput.cs" />
     <Compile Include="ClosingStructureInflowModelType.cs" />
     <Compile Include="ClosingStructuresProbabilityAssessmentOutputFactory.cs" />

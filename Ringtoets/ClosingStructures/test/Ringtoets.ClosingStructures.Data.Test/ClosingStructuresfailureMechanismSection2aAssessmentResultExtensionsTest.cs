@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.ClosingStructures.Data.Test
 {
     [TestFixture]
-    public class ClosingStructuresfailureMechanismSection2aAssessmentResultExtensionsTest
+    public class ClosingStructuresFailureMechanismSection2aAssessmentResultExtensionsTest
     {
         [Test]
         public void GetAssessmentLayerTwoA_SectionResultNull_ThrowsArgumentNullException()
@@ -42,7 +42,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresfailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(null,
+            TestDelegate call = () => ClosingStructuresFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(null,
                                                                                                                                   new ClosingStructuresFailureMechanism(),
                                                                                                                                   assessmentSection);
 

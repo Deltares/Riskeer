@@ -30,7 +30,7 @@ namespace Ringtoets.ClosingStructures.Data
     /// Extension methods for obtaining level 2a results from output for an assessment of the 
     /// closing structures failure mechanism.
     /// </summary>
-    public static class ClosingStructuresfailureMechanismSection2aAssessmentResultExtensions
+    public static class ClosingStructuresFailureMechanismSection2aAssessmentResultExtensions
     {
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
