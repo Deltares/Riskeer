@@ -70,9 +70,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             yield return new PropertyInfo<StabilityPointStructuresFailureMechanismContext, StabilityPointStructuresFailureMechanismProperties>
             {
-                CreateInstance = context => new StabilityPointStructuresFailureMechanismProperties(
-                    context.WrappedData,
-                    new FailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>())
+                CreateInstance = context => new StabilityPointStructuresFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<StabilityPointStructure, StabilityPointStructureProperties>();
             yield return new PropertyInfo<StabilityPointStructuresInputContext, StabilityPointStructuresInputContextProperties>

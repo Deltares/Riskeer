@@ -28,8 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 
@@ -51,32 +49,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler =
-                mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate test = () => new StabilityPointStructuresFailureMechanismProperties(null, changeHandler);
+            TestDelegate test = () => new StabilityPointStructuresFailureMechanismProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new StabilityPointStructuresFailureMechanismProperties(
-                new StabilityPointStructuresFailureMechanism(),
-                null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("handler", paramName);
         }
 
         [Test]
@@ -85,17 +63,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<StabilityPointStructuresFailureMechanism>>(properties);
@@ -122,17 +96,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 IsRelevant = true
             };
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -207,24 +177,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor belastingeffect [-]",
                                                                             "Modelfactor belastingeffect.",
                                                                             true);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 IsRelevant = false
             };
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -252,7 +217,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -270,12 +234,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<StabilityPointStructuresFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new IObservable[0]);
-
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             TestDelegate test = () => properties.N = (RoundedDouble) value;
@@ -301,12 +260,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<StabilityPointStructuresFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new IObservable[0]);
-
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) value;
@@ -322,16 +276,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<StabilityPointStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             var properties = new StabilityPointStructuresFailureMechanismProperties(
                 new StabilityPointStructuresFailureMechanism
                 {
                     IsRelevant = isRelevant
-                },
-                changeHandler);
+                });
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -346,8 +295,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorLoadEffect)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
         }
     }
 }
