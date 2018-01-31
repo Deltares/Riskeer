@@ -88,12 +88,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                    data,
-                    value,
-                    (f, v) => f.GeneralInput.N = v);
-
-                NotifyAffectedObjects(affectedObjects);
+                data.GeneralInput.N = value;
+                data.NotifyObservers();
             }
         }
 
@@ -102,19 +98,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
+            return data.IsRelevant || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
         }
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
