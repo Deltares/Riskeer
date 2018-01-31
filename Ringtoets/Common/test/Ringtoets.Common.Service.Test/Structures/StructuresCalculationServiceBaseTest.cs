@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Structures;
@@ -440,7 +439,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             // Call
             TestDelegate test = () => new TestStructuresCalculationService(messageProvider)
-                .Calculate(null, new GeneralTestInput(), 0, 1, 1, string.Empty, string.Empty);
+                .Calculate(null, new GeneralTestInput(), string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -460,7 +459,7 @@ namespace Ringtoets.Common.Service.Test.Structures
 
             // Call
             TestDelegate test = () => new TestStructuresCalculationService(messageProvider)
-                .Calculate(calculation, null, 0, 1, 1, string.Empty, string.Empty);
+                .Calculate(calculation, null, string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -504,7 +503,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -564,7 +563,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -617,7 +616,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -669,7 +668,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -726,7 +725,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 var service = new TestStructuresCalculationService(messageProvider);
 
                 // Call
-                Action call = () => service.Calculate(calculation, new GeneralTestInput(), 1, 1, 1, validFilePath, validPreprocessorDirectory);
+                Action call = () => service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -776,7 +775,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.Calculate(calculation, new GeneralTestInput(), 0, 0.5, 1, validFilePath, validPreprocessorDirectory);
+                service.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -843,7 +842,7 @@ namespace Ringtoets.Common.Service.Test.Structures
                 {
                     try
                     {
-                        structuresCalculationService.Calculate(calculation, new GeneralTestInput(), 0, 0.5, 1, validFilePath, validPreprocessorDirectory);
+                        structuresCalculationService.Calculate(calculation, new GeneralTestInput(), validFilePath, validPreprocessorDirectory);
                     }
                     catch (HydraRingCalculationException)
                     {

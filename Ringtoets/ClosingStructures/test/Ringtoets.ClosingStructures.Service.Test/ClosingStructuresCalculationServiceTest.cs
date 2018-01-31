@@ -309,15 +309,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
         public void Calculate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
-
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
@@ -333,9 +329,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
                                                             failureMechanism.GeneralInput,
-                                                            failureMechanism.GeneralInput.N,
-                                                            assessmentSection.FailureMechanismContribution.Norm,
-                                                            failureMechanism.Contribution,
                                                             validFilePath,
                                                             validPreprocessorDirectory);
 
@@ -384,9 +377,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
-                                                                    failureMechanism.GeneralInput.N,
-                                                                    assessmentSection.FailureMechanismContribution.Norm,
-                                                                    failureMechanism.Contribution,
                                                                     validFilePath,
                                                                     validPreprocessorDirectory);
 
@@ -468,9 +458,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
-                                                                    failureMechanism.GeneralInput.N,
-                                                                    assessmentSection.FailureMechanismContribution.Norm,
-                                                                    failureMechanism.Contribution,
                                                                     validFilePath,
                                                                     validPreprocessorDirectory);
 
@@ -550,9 +537,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
-                                                                    failureMechanism.GeneralInput.N,
-                                                                    assessmentSection.FailureMechanismContribution.Norm,
-                                                                    failureMechanism.Contribution,
                                                                     validFilePath,
                                                                     validPreprocessorDirectory);
 
@@ -634,9 +618,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
-                                                                    failureMechanism.GeneralInput.N,
-                                                                    assessmentSection.FailureMechanismContribution.Norm,
-                                                                    failureMechanism.Contribution,
                                                                     validFilePath,
                                                                     validPreprocessorDirectory);
 
@@ -714,9 +695,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
-                                                                    failureMechanism.GeneralInput.N,
-                                                                    assessmentSection.FailureMechanismContribution.Norm,
-                                                                    failureMechanism.Contribution,
                                                                     validFilePath,
                                                                     validPreprocessorDirectory);
 
@@ -795,9 +773,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
-                                                                    failureMechanism.GeneralInput.N,
-                                                                    assessmentSection.FailureMechanismContribution.Norm,
-                                                                    failureMechanism.Contribution,
                                                                     validFilePath,
                                                                     validPreprocessorDirectory);
 
@@ -870,9 +845,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     failureMechanism.GeneralInput,
-                                                                    failureMechanism.GeneralInput.N,
-                                                                    assessmentSection.FailureMechanismContribution.Norm,
-                                                                    failureMechanism.Contribution,
                                                                     validFilePath,
                                                                     preprocessorDirectory);
 
@@ -935,9 +907,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 Action call = () => new ClosingStructuresCalculationService().Calculate(calculation,
                                                                                         failureMechanism.GeneralInput,
-                                                                                        failureMechanism.GeneralInput.N,
-                                                                                        assessmentSection.FailureMechanismContribution.Norm,
-                                                                                        failureMechanism.Contribution,
                                                                                         validFilePath,
                                                                                         validPreprocessorDirectory);
 
@@ -994,9 +963,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     {
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             failureMechanism.GeneralInput,
-                                                                            failureMechanism.GeneralInput.N,
-                                                                            assessmentSection.FailureMechanismContribution.Norm,
-                                                                            failureMechanism.Contribution,
                                                                             validFilePath,
                                                                             validPreprocessorDirectory);
                     }
@@ -1059,9 +1025,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     {
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             failureMechanism.GeneralInput,
-                                                                            failureMechanism.GeneralInput.N,
-                                                                            assessmentSection.FailureMechanismContribution.Norm,
-                                                                            failureMechanism.Contribution,
                                                                             validFilePath,
                                                                             validPreprocessorDirectory);
                     }
@@ -1126,9 +1089,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     {
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             failureMechanism.GeneralInput,
-                                                                            failureMechanism.GeneralInput.N,
-                                                                            assessmentSection.FailureMechanismContribution.Norm,
-                                                                            failureMechanism.Contribution,
                                                                             validFilePath,
                                                                             validPreprocessorDirectory);
                     }

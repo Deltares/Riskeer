@@ -93,9 +93,6 @@ namespace Ringtoets.StabilityPointStructures.Service
 
             calculationService.Calculate(calculation,
                                          failureMechanism.GeneralInput,
-                                         failureMechanism.GeneralInput.N,
-                                         assessmentSection.FailureMechanismContribution.Norm,
-                                         failureMechanism.Contribution,
                                          hydraulicBoundaryDatabaseFilePath,
                                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }

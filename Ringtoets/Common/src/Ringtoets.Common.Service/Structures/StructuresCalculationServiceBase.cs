@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.IllustrationPoints;
@@ -103,6 +102,7 @@ namespace Ringtoets.Common.Service.Structures
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -122,9 +122,6 @@ namespace Ringtoets.Common.Service.Structures
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
         /// <param name="generalInput">The general inputs used in the calculations.</param>
-        /// <param name="lengthEffectN">The 'N' parameter used to factor in the 'length effect'.</param>
-        /// <param name="norm">The norm used in the calculation.</param>
-        /// <param name="contribution">The contribution used in the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
@@ -144,9 +141,6 @@ namespace Ringtoets.Common.Service.Structures
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(StructuresCalculation<TStructureInput> calculation,
                               TGeneralInput generalInput,
-                              double lengthEffectN,
-                              double norm,
-                              double contribution,
                               string hydraulicBoundaryDatabaseFilePath,
                               string preprocessorDirectory)
         {
@@ -154,6 +148,7 @@ namespace Ringtoets.Common.Service.Structures
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (generalInput == null)
             {
                 throw new ArgumentNullException(nameof(generalInput));
@@ -170,7 +165,7 @@ namespace Ringtoets.Common.Service.Structures
             var exceptionThrown = false;
             try
             {
-                PerformCalculation(calculation, lengthEffectN, norm, contribution, input);
+                PerformCalculation(calculation, input);
             }
             catch (HydraRingCalculationException)
             {
@@ -246,15 +241,9 @@ namespace Ringtoets.Common.Service.Structures
         /// Performs a structures calculation.
         /// </summary>
         /// <param name="calculation">The structures calculation to use.</param>
-        /// <param name="lengthEffectN">The 'N' parameter used to factor in the 'length effect'.</param>
-        /// <param name="norm">The norm used in the calculation.</param>
-        /// <param name="contribution">The contribution used in the calculation.</param>
         /// <param name="calculationInput">The HydraRing calculation input used for the calculation.</param>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         private void PerformCalculation(StructuresCalculation<TStructureInput> calculation,
-                                        double lengthEffectN,
-                                        double norm,
-                                        double contribution,
                                         TCalculationInput calculationInput)
         {
             calculator.Calculate(calculationInput);
@@ -336,7 +325,7 @@ namespace Ringtoets.Common.Service.Structures
 
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
             string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                  preprocessorDirectory);
+                                                                                                                   preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
                 validationResults.Add(databaseFilePathValidationProblem);
@@ -371,6 +360,7 @@ namespace Ringtoets.Common.Service.Structures
                     validationResults.AddRange(validationRule.Validate());
                 }
             }
+
             return validationResults.ToArray();
         }
     }

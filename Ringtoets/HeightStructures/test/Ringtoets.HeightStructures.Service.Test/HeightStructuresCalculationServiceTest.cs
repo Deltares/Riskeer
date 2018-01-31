@@ -407,9 +407,6 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
                                                                                        failureMechanism.GeneralInput,
-                                                                                       failureMechanism.GeneralInput.N,
-                                                                                       assessmentSection.FailureMechanismContribution.Norm,
-                                                                                       failureMechanism.Contribution,
                                                                                        validFilePath,
                                                                                        validPreprocessorDirectory);
 
@@ -462,9 +459,6 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
                                                                                        failureMechanism.GeneralInput,
-                                                                                       failureMechanism.GeneralInput.N,
-                                                                                       assessmentSection.FailureMechanismContribution.Norm,
-                                                                                       failureMechanism.Contribution,
                                                                                        validFilePath,
                                                                                        validPreprocessorDirectory);
 
@@ -517,9 +511,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Call
                 new HeightStructuresCalculationService().Calculate(calculation,
                                                                    failureMechanism.GeneralInput,
-                                                                   failureMechanism.GeneralInput.N,
-                                                                   assessmentSection.FailureMechanismContribution.Norm,
-                                                                   failureMechanism.Contribution,
                                                                    validFilePath,
                                                                    validPreprocessorDirectory);
 
@@ -595,9 +586,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Call
                 new HeightStructuresCalculationService().Calculate(calculation,
                                                                    failureMechanism.GeneralInput,
-                                                                   failureMechanism.GeneralInput.N,
-                                                                   assessmentSection.FailureMechanismContribution.Norm,
-                                                                   failureMechanism.Contribution,
                                                                    validFilePath,
                                                                    validPreprocessorDirectory);
 
@@ -674,9 +662,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                     {
                         new HeightStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
                     }
@@ -740,9 +725,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                     {
                         new HeightStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
                     }
@@ -807,9 +789,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                     {
                         new HeightStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
                     }
@@ -870,9 +849,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Call
                 new HeightStructuresCalculationService().Calculate(calculation,
                                                                    failureMechanism.GeneralInput,
-                                                                   failureMechanism.GeneralInput.N,
-                                                                   assessmentSection.FailureMechanismContribution.Norm,
-                                                                   failureMechanism.Contribution,
                                                                    validFilePath,
                                                                    preprocessorDirectory);
 

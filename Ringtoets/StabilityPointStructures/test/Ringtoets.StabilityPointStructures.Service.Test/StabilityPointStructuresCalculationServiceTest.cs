@@ -498,14 +498,11 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         public void Calculate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
-                                                                                                       mockRepository);
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
@@ -522,9 +519,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
                                                             failureMechanism.GeneralInput,
-                                                            failureMechanism.GeneralInput.N,
-                                                            assessmentSection.FailureMechanismContribution.Norm,
-                                                            failureMechanism.Contribution,
                                                             validFilePath,
                                                             validPreprocessorDirectory);
 
@@ -567,9 +561,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
                                                             failureMechanism.GeneralInput,
-                                                            failureMechanism.GeneralInput.N,
-                                                            assessmentSection.FailureMechanismContribution.Norm,
-                                                            failureMechanism.Contribution,
                                                             validFilePath,
                                                             validPreprocessorDirectory);
 
@@ -619,9 +610,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
 
@@ -743,9 +731,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
 
@@ -864,9 +849,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
 
@@ -988,9 +970,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
 
@@ -1109,9 +1088,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
 
@@ -1233,9 +1209,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
 
@@ -1354,9 +1327,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
 
@@ -1478,9 +1448,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            validPreprocessorDirectory);
 
@@ -1595,9 +1562,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 // Call
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            failureMechanism.GeneralInput,
-                                                                           failureMechanism.GeneralInput.N,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanism.Contribution,
                                                                            validFilePath,
                                                                            preprocessorDirectory);
 
@@ -1662,9 +1626,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 Action call = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                                                failureMechanism.GeneralInput,
-                                                                                               failureMechanism.GeneralInput.N,
-                                                                                               assessmentSection.FailureMechanismContribution.Norm,
-                                                                                               failureMechanism.Contribution,
                                                                                                validFilePath,
                                                                                                validPreprocessorDirectory);
 
@@ -1722,9 +1683,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     {
                         new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                                    failureMechanism.GeneralInput,
-                                                                                   failureMechanism.GeneralInput.N,
-                                                                                   assessmentSection.FailureMechanismContribution.Norm,
-                                                                                   failureMechanism.Contribution,
                                                                                    validFilePath,
                                                                                    validPreprocessorDirectory);
                     }
@@ -1787,9 +1745,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     {
                         new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                                    failureMechanism.GeneralInput,
-                                                                                   failureMechanism.GeneralInput.N,
-                                                                                   assessmentSection.FailureMechanismContribution.Norm,
-                                                                                   failureMechanism.Contribution,
                                                                                    validFilePath,
                                                                                    validPreprocessorDirectory);
                     }
@@ -1853,9 +1808,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     {
                         new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                                    failureMechanism.GeneralInput,
-                                                                                   failureMechanism.GeneralInput.N,
-                                                                                   assessmentSection.FailureMechanismContribution.Norm,
-                                                                                   failureMechanism.Contribution,
                                                                                    validFilePath,
                                                                                    validPreprocessorDirectory);
                     }
