@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Common.Data.Structures
 {
@@ -47,12 +46,7 @@ namespace Ringtoets.Common.Data.Structures
         /// Gets the reliability of the calculation.
         /// </summary>
         public double Reliability { get; }
-
-        /// <summary>
-        /// Gets the probabilistic assessment output.
-        /// </summary>
-        public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; private set; }
-
+        
         /// <summary>
         /// Gets the value indicating whether the output contains a general result with illustration points.
         /// </summary>
