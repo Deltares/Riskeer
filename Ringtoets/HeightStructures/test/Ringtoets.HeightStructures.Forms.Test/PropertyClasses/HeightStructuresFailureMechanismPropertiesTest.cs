@@ -246,18 +246,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observable = mockRepository.StrictMock<IObservable>();
+            var observer = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<HeightStructuresFailureMechanism, double>(
                 failureMechanism,
                 value,
-                new[]
-                {
-                    observable
-                });
+                new IObservable[0]);
 
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
@@ -267,7 +265,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
 
@@ -279,19 +276,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observable = mockRepository.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<HeightStructuresFailureMechanism, double>(
                 failureMechanism,
                 value,
-                new[]
-                {
-                    observable
-                });
+                new IObservable[0]);
 
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
@@ -300,7 +294,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
 
