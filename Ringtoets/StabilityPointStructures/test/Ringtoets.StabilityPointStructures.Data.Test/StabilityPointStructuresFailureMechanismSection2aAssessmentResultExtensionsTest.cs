@@ -24,6 +24,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
@@ -60,7 +61,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
 
             // Call
             TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(null, assessmentSection);
@@ -76,7 +77,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
 
             // Call
             TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(), null);
@@ -95,7 +96,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
 
             // Call
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(), assessmentSection);
@@ -113,7 +114,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
             {
                 Calculation = new TestStabilityPointStructuresCalculation()
             };
@@ -135,7 +136,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
             {
                 Calculation = new TestStabilityPointStructuresCalculation
                 {

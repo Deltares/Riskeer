@@ -26,6 +26,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Data;
@@ -100,7 +101,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                 // Assert
                 Assert.AreEqual(8, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresFailureMechanismContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructure)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresScenariosContext)));
@@ -129,8 +130,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>),
-                    typeof(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>),
+                    typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>),
+                    typeof(IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>),
                     typeof(StabilityPointStructuresFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(

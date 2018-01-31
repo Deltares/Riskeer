@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
@@ -61,8 +62,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>), info.ViewDataType);
         }
 
         [Test]
@@ -74,7 +75,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -305,7 +306,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -324,7 +325,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);

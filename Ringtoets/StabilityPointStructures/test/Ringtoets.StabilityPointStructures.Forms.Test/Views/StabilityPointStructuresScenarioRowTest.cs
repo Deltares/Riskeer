@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             });
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
 
             // Call
             var row = new StabilityPointStructuresScenarioRow(sectionResult);
@@ -75,7 +75,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             });
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
 
             var row = new StabilityPointStructuresScenarioRow(sectionResult);
 
@@ -103,7 +103,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             });
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
             sectionResult.Attach(observer);
 
             var row = new StabilityPointStructuresScenarioRow(sectionResult);

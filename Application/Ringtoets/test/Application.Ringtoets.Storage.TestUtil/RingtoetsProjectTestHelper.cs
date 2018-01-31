@@ -616,12 +616,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults,
+        private static void SetSectionResults(IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults,
                                               StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
-            foreach (StabilityPointStructuresFailureMechanismSectionResult sectionResult in sectionResults)
+            foreach (StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();

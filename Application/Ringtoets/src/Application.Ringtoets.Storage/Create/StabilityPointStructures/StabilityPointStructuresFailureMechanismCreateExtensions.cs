@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
@@ -54,10 +55,10 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults,
+            IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> failureMechanismSectionResult in sectionResults)
             {
                 StabilityPointStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

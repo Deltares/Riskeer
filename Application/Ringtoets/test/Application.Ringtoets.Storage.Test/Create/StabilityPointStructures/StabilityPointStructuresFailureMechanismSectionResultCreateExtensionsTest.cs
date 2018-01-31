@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(new TestFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
             RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
                 AssessmentLayerThree = assessmentLayerThreeResult
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(new TestFailureMechanismSection())
             {
                 AssessmentLayerThree = RoundedDouble.NaN
             };
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         {
             // Setup
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(new TestFailureMechanismSection())
             {
                 Calculation = calculation
             };

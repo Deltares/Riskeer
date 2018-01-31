@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.StabilityPointStructures.Data;
@@ -46,7 +47,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>));
         }
 
         [TearDown]
@@ -91,7 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(
                 mechanism.SectionResults, mechanism, assessmentSection);
 
             // Call

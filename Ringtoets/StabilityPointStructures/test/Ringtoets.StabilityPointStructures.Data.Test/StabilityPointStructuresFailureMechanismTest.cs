@@ -42,7 +42,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", failureMechanism.Name);
             Assert.AreEqual("STKWp", failureMechanism.Code);
 
@@ -70,7 +70,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(failureMechanism.SectionResults.ElementAt(0));
         }
 
         [Test]

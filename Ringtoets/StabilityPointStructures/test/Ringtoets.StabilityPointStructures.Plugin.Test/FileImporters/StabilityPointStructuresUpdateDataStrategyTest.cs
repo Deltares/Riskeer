@@ -634,7 +634,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
                                                                          failureMechanism.Calculations
                                                                                          .Cast<StructuresCalculation<StabilityPointStructuresInput>>());
 
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
 
@@ -706,7 +706,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults,
                                                                          failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
 
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
 

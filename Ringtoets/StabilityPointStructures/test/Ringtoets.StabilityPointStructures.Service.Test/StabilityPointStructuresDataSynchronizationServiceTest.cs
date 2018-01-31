@@ -164,16 +164,16 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                                .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                                                                                                .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                                                                                                                .ToArray();
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
-                                                                                                                  .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
-                                                                                                                  .ToArray();
+            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>[] sectionResultsWithStructure = failureMechanism.SectionResults
+                                                                                                                                   .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
+                                                                                                                                   .ToArray();
             StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithOutput = calculationsWithStructure.Where(c => c.HasOutput)
                                                                                                                      .ToArray();
 
             int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
-                                                                                                     .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
-                                                                                                     .ToArray();
+            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>[] sectionResults = failureMechanism.SectionResults
+                                                                                                                      .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
+                                                                                                                      .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithOutput);
@@ -191,11 +191,13 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 Assert.IsNull(calculation.InputParameters.Structure);
             }
+
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
             }
-            foreach (StabilityPointStructuresFailureMechanismSectionResult sectionResult in sectionResultsWithStructure)
+
+            foreach (StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult in sectionResultsWithStructure)
             {
                 Assert.IsNull(sectionResult.Calculation);
             }
@@ -208,14 +210,17 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 CollectionAssert.Contains(array, calculation.InputParameters);
             }
+
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationsWithOutput)
             {
                 CollectionAssert.Contains(array, calculation);
             }
-            foreach (StabilityPointStructuresFailureMechanismSectionResult result in sectionResultsWithStructure)
+
+            foreach (StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result in sectionResultsWithStructure)
             {
                 CollectionAssert.Contains(array, result);
             }
+
             Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
                             "Other section results with a different calculation/structure should still have their association.");
         }
@@ -291,10 +296,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);
-            StabilityPointStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
-                                                                                            .First(sr => ReferenceEquals(sr.Section, section1));
-            StabilityPointStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
-                                                                                            .First(sr => ReferenceEquals(sr.Section, section2));
+            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result1 = failureMechanism.SectionResults
+                                                                                                             .First(sr => ReferenceEquals(sr.Section, section1));
+            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result2 = failureMechanism.SectionResults
+                                                                                                             .First(sr => ReferenceEquals(sr.Section, section2));
             result1.Calculation = calculation1;
             result2.Calculation = calculation2;
 

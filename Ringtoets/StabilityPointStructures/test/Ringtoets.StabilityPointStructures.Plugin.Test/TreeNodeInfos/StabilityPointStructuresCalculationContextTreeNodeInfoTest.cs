@@ -42,7 +42,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -722,8 +721,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
 
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
                                                                           parent,
@@ -763,8 +767,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var foreshoreProfileInput = new TestForeshoreProfile();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            calculation.InputParameters.ForeshoreProfile = foreshoreProfileInput;
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = foreshoreProfileInput
+                }
+            };
             TestForeshoreProfile.ChangeBreakWaterProperties(foreshoreProfileInput);
 
             var nodeData = new StabilityPointStructuresCalculationContext(calculation,
@@ -1142,7 +1151,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result = failureMechanism.SectionResults.First();
             result.Calculation = elementToBeRemoved;
 
             // Call

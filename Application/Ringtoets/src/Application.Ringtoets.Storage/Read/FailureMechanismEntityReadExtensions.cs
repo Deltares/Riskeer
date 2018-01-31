@@ -1040,7 +1040,8 @@ namespace Application.Ringtoets.Storage.Read
             foreach (StabilityPointStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result = failureMechanism.SectionResults
+                                                                                                                .Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result, collector);
             }

@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             var entity = new StabilityPointStructuresSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(new StabilityPointStructuresFailureMechanismSectionResult(
+            TestDelegate call = () => entity.Read(new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(
                                                       new TestFailureMechanismSection()), null);
 
             // Assert
@@ -81,14 +81,13 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 LayerThree = layerThree,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
             Assert.AreEqual(layerThree ?? double.NaN, sectionResult.AssessmentLayerThree, 1e-6);
             Assert.IsNotNull(sectionResult);
             Assert.IsNull(sectionResult.Calculation);
@@ -108,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             {
                 StabilityPointStructuresCalculationEntity = calculationEntity
             };
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);

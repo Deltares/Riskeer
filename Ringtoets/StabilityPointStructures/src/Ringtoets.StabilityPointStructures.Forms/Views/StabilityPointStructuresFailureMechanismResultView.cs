@@ -35,9 +35,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="StructuresFailureMechanismSectionResult{T}"/>.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult>
+    public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -93,7 +93,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             }
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult)
         {
             if (FailureMechanism == null)
             {

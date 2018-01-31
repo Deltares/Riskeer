@@ -30,10 +30,10 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// Class for displaying <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> as a row in a grid view.
+    /// This class represents a row of <see cref="StructuresFailureMechanismSectionResult{T}"/> for stability point structures
     /// </summary>
     public class StabilityPointStructuresFailureMechanismSectionResultRow
-        : FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>
+        : FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
     {
         private readonly StabilityPointStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -41,12 +41,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="StructuresFailureMechanismSectionResult{T}"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult,
+        public StabilityPointStructuresFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult,
                                                                         StabilityPointStructuresFailureMechanism failureMechanism,
                                                                         IAssessmentSection assessmentSection)
             : base(sectionResult)
@@ -66,7 +66,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="StabilityPointStructuresFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
+        /// Gets the value representing the result of the layer 2a assessment.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
@@ -97,7 +97,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         /// <summary>
         /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
-        /// <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
+        /// <see cref="StructuresFailureMechanismSectionResult{T}"/>.
         /// </summary>
         /// <returns><c>null</c> if the wrapped section result does not have a calculation
         /// set. Otherwise the calculation of the wrapped section result is returned.</returns>

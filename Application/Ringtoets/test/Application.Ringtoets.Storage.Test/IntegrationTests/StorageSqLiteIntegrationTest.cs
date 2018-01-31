@@ -793,15 +793,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> expectedSectionResults,
-                                                                 IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> expectedSectionResults,
+                                                                 IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
                                      (expectedItem, actualItem) =>
                                      {
                                          Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerTwoA, actualItem.AssessmentLayerTwoA);
                                          Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
                                          if (expectedItem.Calculation == null)
                                          {

@@ -27,19 +27,19 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>,
+    /// Container of a <see cref="StructuresFailureMechanismSectionResult{T}"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
     public class StabilityPointStructuresScenarioRow : IScenarioRow<StructuresCalculation<StabilityPointStructuresInput>>
     {
-        private readonly StabilityPointStructuresFailureMechanismSectionResult sectionResult;
+        private readonly StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresScenarioRow"/> class.
         /// </summary>
         /// <param name="sectionResult">The section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresScenarioRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+        public StabilityPointStructuresScenarioRow(StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult)
         {
             if (sectionResult == null)
             {

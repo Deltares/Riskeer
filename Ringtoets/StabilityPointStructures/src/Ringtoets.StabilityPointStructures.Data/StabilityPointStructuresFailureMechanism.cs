@@ -35,9 +35,9 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>
+    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
     {
-        private readonly List<StabilityPointStructuresFailureMechanismSectionResult> sectionResults;
+        private readonly List<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
@@ -51,7 +51,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             };
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
-            sectionResults = new List<StabilityPointStructuresFailureMechanismSectionResult>();
+            sectionResults = new List<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -80,7 +80,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults
+        public IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> SectionResults
         {
             get
             {
@@ -92,7 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             base.AddSection(section);
 
-            sectionResults.Add(new StabilityPointStructuresFailureMechanismSectionResult(section));
+            sectionResults.Add(new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section));
         }
 
         public override void ClearAllSections()

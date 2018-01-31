@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
@@ -359,7 +360,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             {
                 location
             }));
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
+            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = calculation;
 
             StructureCollection<StabilityPointStructure> targetCollection = failureMechanism.StabilityPointStructures;

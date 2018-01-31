@@ -102,8 +102,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             };
 
             yield return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
-                IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
+                ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>,
+                IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>,
                 StabilityPointStructuresFailureMechanismResultView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -132,7 +132,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -411,7 +411,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return new object[]
             {
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+                new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
