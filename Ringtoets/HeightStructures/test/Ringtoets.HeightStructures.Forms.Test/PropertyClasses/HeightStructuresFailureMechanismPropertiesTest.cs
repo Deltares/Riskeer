@@ -28,8 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 
@@ -47,33 +45,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int modelFactorStorageVolumePropertyIndex = 6;
 
         [Test]
-        public void Constructor_DataIsNull_ThrowArgumentNullException()
+        public void Constructor_DataNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate test = () => new HeightStructuresFailureMechanismProperties(null, changeHandler);
+            TestDelegate test = () => new HeightStructuresFailureMechanismProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new HeightStructuresFailureMechanismProperties(
-                new HeightStructuresFailureMechanism(),
-                null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("handler", paramName);
         }
 
         [Test]
@@ -82,17 +61,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
             // Call
-            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HeightStructuresFailureMechanism>>(properties);
@@ -110,25 +85,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.Mean, properties.ModelFactorStorageVolume.Mean);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.StandardDeviation, properties.ModelFactorStorageVolume.StandardDeviation);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             // Call
             var properties = new HeightStructuresFailureMechanismProperties(
                 new HeightStructuresFailureMechanism
                 {
                     IsRelevant = true
-                },
-                changeHandler);
+                });
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -187,25 +154,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor kombergend vermogen [-]",
                                                                             "Modelfactor kombergend vermogen.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             // Call
             var properties = new HeightStructuresFailureMechanismProperties(
                 new HeightStructuresFailureMechanism
                 {
                     IsRelevant = false
-                },
-                changeHandler);
+                });
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -233,8 +192,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -252,12 +209,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<HeightStructuresFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new IObservable[0]);
-
-            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             TestDelegate test = () => properties.N = (RoundedDouble) value;
@@ -282,12 +234,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.Attach(observer);
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<HeightStructuresFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new IObservable[0]);
 
-            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) value;
@@ -303,16 +251,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             var properties = new HeightStructuresFailureMechanismProperties(
                 new HeightStructuresFailureMechanism
                 {
                     IsRelevant = isRelevant
-                },
-                changeHandler);
+                });
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -325,8 +268,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
         }
     }
 }

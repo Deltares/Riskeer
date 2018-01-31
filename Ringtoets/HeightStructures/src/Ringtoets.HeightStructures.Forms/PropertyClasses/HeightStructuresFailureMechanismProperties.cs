@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -46,30 +44,20 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int modelFactorOvertoppingFlowPropertyIndex = 6;
         private const int modelFactorStorageVolumePropertyIndex = 7;
 
-        private readonly IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> propertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismProperties(
-            HeightStructuresFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler<HeightStructuresFailureMechanism> handler)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
+        /// is <c>null</c>.</exception>
+        public HeightStructuresFailureMechanismProperties(HeightStructuresFailureMechanism data)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
             Data = data;
-            propertyChangeHandler = handler;
         }
 
         #region Length effect parameters
