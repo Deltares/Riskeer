@@ -30,6 +30,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -63,15 +65,22 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            using (var view = new StabilityPointStructuresFailureMechanismResultView())
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult>>(view);
                 Assert.IsNull(view.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -726,7 +735,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         private StabilityPointStructuresFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultView();
+            var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

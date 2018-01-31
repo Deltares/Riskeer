@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -88,14 +89,19 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var constructionResultView = new StabilityPointStructuresFailureMechanismResultView();
+            var constructionResultView = new StabilityPointStructuresFailureMechanismResultView(assessmentSection);
 
             // Call
             string viewName = info.GetViewName(constructionResultView, failureMechanism.SectionResults);
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -117,7 +123,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView())
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection))
             {
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
@@ -147,7 +153,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView())
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -176,7 +182,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView())
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -194,7 +200,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            using (var view = new StabilityPointStructuresFailureMechanismResultView())
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection))
             {
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
@@ -205,13 +215,19 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            using (var view = new StabilityPointStructuresFailureMechanismResultView())
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection))
             {
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
@@ -222,6 +238,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -235,7 +253,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView())
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -261,7 +279,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(),
                                                                                               assessmentSection);
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView())
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -294,6 +312,28 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             info.AfterCreate(view, context);
 
             // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_Always_ReturnsView()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
+            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+                failureMechanism.SectionResults,
+                failureMechanism,
+                assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismResultView>(view);
             mocks.VerifyAll();
         }
     }
