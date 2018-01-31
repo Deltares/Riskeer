@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -53,49 +51,26 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         private const int modelFactorSubCriticalFlowPropertyIndex = 10;
         private const int modelFactorInflowVolumePropertyIndex = 11;
 
-        private readonly IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> propertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public ClosingStructuresFailureMechanismProperties(
-            ClosingStructuresFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism> handler)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
+        /// is <c>null</c>.</exception>
+        public ClosingStructuresFailureMechanismProperties(ClosingStructuresFailureMechanism data)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
             Data = data;
-            propertyChangeHandler = handler;
         }
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
+            return data.IsRelevant || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
         }
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)

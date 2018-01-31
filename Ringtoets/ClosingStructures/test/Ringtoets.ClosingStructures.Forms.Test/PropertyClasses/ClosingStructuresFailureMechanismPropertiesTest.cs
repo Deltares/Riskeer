@@ -29,8 +29,6 @@ using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 {
@@ -38,33 +36,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
     public class ClosingStructuresFailureMechanismPropertiesTest
     {
         [Test]
-        public void Constructor_DataIsNull_ThrowArgumentNullException()
+        public void Constructor_DataNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate test = () => new ClosingStructuresFailureMechanismProperties(null, changeHandler);
+            TestDelegate test = () => new ClosingStructuresFailureMechanismProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new ClosingStructuresFailureMechanismProperties(
-                new ClosingStructuresFailureMechanism(),
-                null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("handler", paramName);
         }
 
         [Test]
@@ -73,17 +52,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
             // Call
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ClosingStructuresFailureMechanism>>(properties);
@@ -111,25 +86,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.Mean, properties.ModelFactorSubCriticalFlow.Mean);
             Assert.AreEqual(generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation, properties.ModelFactorSubCriticalFlow.CoefficientOfVariation);
             Assert.AreEqual(generalInput.ModelFactorInflowVolume, properties.ModelFactorInflowVolume);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             // Call
             var properties = new ClosingStructuresFailureMechanismProperties(
                 new ClosingStructuresFailureMechanism
                 {
                     IsRelevant = true
-                },
-                changeHandler);
+                });
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -217,24 +184,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor instromend volume [-]",
                                                                             "Modelfactor instromend volume.",
                                                                             true);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             // Call
             var properties = new ClosingStructuresFailureMechanismProperties(
                 new ClosingStructuresFailureMechanism
                 {
                     IsRelevant = false
-                },
-                changeHandler);
+                });
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -262,7 +222,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -280,12 +239,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<ClosingStructuresFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new IObservable[0]);
-
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             TestDelegate test = () => properties.N2A = value;
@@ -312,12 +266,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<ClosingStructuresFailureMechanism, double>(
-                failureMechanism,
-                value,
-                new IObservable[0]);
-
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.N2A = value;
@@ -333,16 +282,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<ClosingStructuresFailureMechanism>>();
-            mocks.ReplayAll();
-
             var properties = new ClosingStructuresFailureMechanismProperties(
                 new ClosingStructuresFailureMechanism
                 {
                     IsRelevant = isRelevant
-                },
-                changeHandler);
+                });
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -359,8 +303,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
         }
     }
 }
