@@ -64,7 +64,6 @@
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileCreateExtensions.cs" />
     <Compile Include="Create\MacroStabilityInwards\MacroStabilityInwardsSurfaceLineCreateExtensions.cs" />
     <Compile Include="Create\StructuresCalculationCreateExtensions.cs" />
-    <Compile Include="Create\ProbabilityAssessmentOutputCreateExtensions.cs" />
     <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\IllustrationPoints\TopLevelSubMechanismIllustrationPointCreateExtensions.cs" />
@@ -413,7 +412,6 @@
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsSoilProfileOneDEntityReadExtensions.cs" />
     <Compile Include="Read\MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismMetaEntityReadExtensions.cs" />
-    <Compile Include="Read\ProbabilityAssessmentOutputEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\StructureCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresCalculationEntityReadExtensions.cs" />
