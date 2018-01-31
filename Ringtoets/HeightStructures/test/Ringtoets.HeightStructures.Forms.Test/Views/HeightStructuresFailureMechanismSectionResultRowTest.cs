@@ -22,6 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
@@ -40,11 +42,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section);
 
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
             // Call
-            var row = new HeightStructuresFailureMechanismSectionResultRow(result);
+            var row = new HeightStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>>(row);
@@ -55,25 +63,68 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
             TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => new HeightStructuresFailureMechanismSectionResultRow(result, null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => new HeightStructuresFailureMechanismSectionResultRow(result, new HeightStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void AssessmentLayerTwoA_NoCalculationSet_ReturnNaN()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(sectionResult.Calculation);
 
-            var resultRow = new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+            var resultRow = new HeightStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -82,6 +133,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             if (status == CalculationScenarioStatus.Failed)
             {
@@ -94,23 +151,30 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Calculation = calculation
             };
 
-            var resultRow = new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+            var resultRow = new HeightStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
         {
             // Setup
-            const double probability = 0.95;
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            const double reliability = 0.95;
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new TestStructuresOutput(probability)
+                Output = new TestStructuresOutput(reliability)
             };
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -119,38 +183,52 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Calculation = calculation
             };
 
-            var resultRow = new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+            var resultRow = new HeightStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(probability, assessmentLayerTwoA);
+            Assert.AreEqual(reliability, assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(result.Calculation);
 
-            var row = new HeightStructuresFailureMechanismSectionResultRow(result);
+            var row = new HeightStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
             // Call
             StructuresCalculation<HeightStructuresInput> calculation = row.GetSectionResultCalculation();
 
             // Assert
             Assert.IsNull(calculation);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
             var expectedCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -159,31 +237,39 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Calculation = expectedCalculation
             };
 
-            var row = new HeightStructuresFailureMechanismSectionResultRow(result);
+            var row = new HeightStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
             // Call
             StructuresCalculation<HeightStructuresInput> calculation = row.GetSectionResultCalculation();
 
             // Assert
             Assert.AreSame(expectedCalculation, calculation);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
             var random = new Random(21);
             double assessmentLayerThree = random.NextDouble();
 
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            var row = new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+            var row = new HeightStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
+            mocks.VerifyAll();
         }
     }
 }

@@ -304,7 +304,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
@@ -336,7 +336,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var calculation = new StructuresCalculation<HeightStructuresInput>();
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
@@ -371,7 +371,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var calculation = new StructuresCalculation<HeightStructuresInput>
                 {
@@ -409,7 +409,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var calculation = new StructuresCalculation<HeightStructuresInput>
@@ -447,7 +447,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             HeightStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
         {
-            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 view.Data = new[]
                 {
@@ -475,7 +475,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (HeightStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var successfulCalculation = new StructuresCalculation<HeightStructuresInput>

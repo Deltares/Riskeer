@@ -107,7 +107,12 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         protected override object CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+            if (FailureMechanism == null)
+            {
+                return null;
+            }
+
+            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult, (HeightStructuresFailureMechanism) FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()
