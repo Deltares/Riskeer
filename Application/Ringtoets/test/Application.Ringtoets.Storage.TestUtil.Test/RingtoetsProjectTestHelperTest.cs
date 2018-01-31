@@ -332,6 +332,9 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private static void AssertWaveImpactAsphaltCoverFailureMechanism(AssessmentSection assessmentSection)
         {
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaveImpactAsphaltCover;
+            Assert.AreEqual(1337.0,
+                            failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL,
+                            failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL.GetAccuracy());
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
             Assert.NotNull(failureMechanism.WaveConditionsCalculationGroup);
             Assert.AreEqual(3, failureMechanism.WaveConditionsCalculationGroup.Children.Count);

@@ -511,7 +511,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 8;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 8.0;
 
             StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure("id structure1");
             failureMechanism.StabilityPointStructures.AddRange(new[]
@@ -1644,7 +1644,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 15;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
             var dikeProfile1 = new DikeProfile(new Point2D(1, 2),
                                                new[]
                                                {
@@ -1894,7 +1894,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 15;
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
@@ -1989,6 +1989,8 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
+            failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL = (RoundedDouble) 1337.0;
+
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
