@@ -44,7 +44,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
@@ -579,16 +578,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertProbabilityAssessmentOutput(ProbabilityAssessmentOutput expectedOutput,
-                                                              ProbabilityAssessmentOutput actualOutput)
-        {
-            Assert.AreEqual(expectedOutput.FactorOfSafety, actualOutput.FactorOfSafety);
-            Assert.AreEqual(expectedOutput.Probability, actualOutput.Probability);
-            Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
-            Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);
-            Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
-        }
-
         private static void AssertWaveConditionsInput(WaveConditionsInput expectedInput, WaveConditionsInput actualInput)
         {
             AssertReferencedObject(() => expectedInput.ForeshoreProfile,
@@ -875,8 +864,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             StructuresOutput expectedOutput = expectedCalculation.Output;
             StructuresOutput actualOutput = actualCalculation.Output;
             Assert.IsNotNull(actualOutput);
-            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput,
-                                              actualOutput.ProbabilityAssessmentOutput);
+            Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
 
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
                 expectedOutput.GeneralResult,
@@ -1005,8 +993,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             StructuresOutput expectedOutput = expectedCalculation.Output;
             StructuresOutput actualOutput = actualCalculation.Output;
             Assert.IsNotNull(actualOutput);
-            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput,
-                                              actualOutput.ProbabilityAssessmentOutput);
+            Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
 
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
                 expectedOutput.GeneralResult,
@@ -1183,8 +1170,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             StructuresOutput expectedOutput = expectedCalculation.Output;
             StructuresOutput actualOutput = actualCalculation.Output;
             Assert.IsNotNull(actualOutput);
-            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput,
-                                              actualOutput.ProbabilityAssessmentOutput);
+            Assert.AreEqual(expectedOutput.Reliability, actualOutput.Reliability);
 
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(
                 expectedOutput.GeneralResult,

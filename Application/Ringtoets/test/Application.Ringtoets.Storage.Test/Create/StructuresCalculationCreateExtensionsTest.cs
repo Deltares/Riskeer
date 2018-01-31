@@ -30,7 +30,6 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
@@ -46,12 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         private static void AssertStructuresOutputEntity<T>(StructuresOutput output, T outputEntity)
             where T : IHasGeneralResultFaultTreeIllustrationPointEntity, IProbabilityAssessmentOutputEntity
         {
-            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = output.ProbabilityAssessmentOutput;
-            Assert.AreEqual(expectedProbabilityAssessmentOutput.RequiredProbability, outputEntity.RequiredProbability);
-            Assert.AreEqual(expectedProbabilityAssessmentOutput.RequiredReliability, outputEntity.RequiredReliability);
-            Assert.AreEqual(expectedProbabilityAssessmentOutput.Probability, outputEntity.Probability);
-            Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, outputEntity.Reliability);
-            Assert.AreEqual(expectedProbabilityAssessmentOutput.FactorOfSafety, outputEntity.FactorOfSafety);
+            Assert.AreEqual(output.Reliability, outputEntity.Reliability);
 
             Assert.IsNull(outputEntity.GeneralResultFaultTreeIllustrationPointEntity);
         }

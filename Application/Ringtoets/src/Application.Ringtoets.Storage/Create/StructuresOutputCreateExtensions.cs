@@ -51,8 +51,10 @@ namespace Application.Ringtoets.Storage.Create
                 throw new ArgumentNullException(nameof(structuresOutput));
             }
 
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = structuresOutput.ProbabilityAssessmentOutput;
-            var outputEntity = probabilityAssessmentOutput.Create<TOutputEntity>();
+            var outputEntity = new TOutputEntity
+            {
+                Reliability = structuresOutput.Reliability.ToNaNAsNull()
+            };
 
             SetGeneralResult(structuresOutput, outputEntity);
 

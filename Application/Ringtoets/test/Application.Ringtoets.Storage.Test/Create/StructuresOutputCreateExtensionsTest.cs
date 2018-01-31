@@ -64,15 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = output.ProbabilityAssessmentOutput;
-            Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety, entity.FactorOfSafety,
-                            probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
-            Assert.AreEqual(probabilityAssessmentOutput.Reliability, entity.Reliability,
-                            probabilityAssessmentOutput.Reliability.GetAccuracy());
-            Assert.AreEqual(probabilityAssessmentOutput.Probability, entity.Probability);
-            Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability, entity.RequiredReliability,
-                            probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
+            Assert.AreEqual(output.Reliability, entity.Reliability);
             Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
@@ -94,11 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.IsNull(entity.FactorOfSafety);
             Assert.IsNull(entity.Reliability);
-            Assert.IsNull(entity.Probability);
-            Assert.IsNull(entity.RequiredReliability);
-            Assert.IsNull(entity.RequiredProbability);
             Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
@@ -113,15 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = output.ProbabilityAssessmentOutput;
-            Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety, entity.FactorOfSafety,
-                            probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
-            Assert.AreEqual(probabilityAssessmentOutput.Reliability, entity.Reliability,
-                            probabilityAssessmentOutput.Reliability.GetAccuracy());
-            Assert.AreEqual(probabilityAssessmentOutput.Probability, entity.Probability);
-            Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability, entity.RequiredReliability,
-                            probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
+            Assert.AreEqual(output.Reliability, entity.Reliability);
             GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
