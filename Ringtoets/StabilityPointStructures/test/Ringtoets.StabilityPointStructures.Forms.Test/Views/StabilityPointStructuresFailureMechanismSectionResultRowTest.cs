@@ -134,11 +134,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             if (status == CalculationScenarioStatus.Failed)
@@ -166,16 +165,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            const double probability = 0.95;
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
-                Output = new TestStructuresOutput(probability)
+                Output = new TestStructuresOutput(0.95)
             };
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -190,7 +187,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(probability, assessmentLayerTwoA);
+            Assert.AreEqual(0.17105612630848185, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 

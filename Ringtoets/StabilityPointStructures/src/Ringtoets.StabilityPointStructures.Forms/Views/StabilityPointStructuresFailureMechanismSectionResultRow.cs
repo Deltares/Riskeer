@@ -73,7 +73,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                return SectionResult.GetAssessmentLayerTwoA(failureMechanism, assessmentSection);
             }
         }
 
