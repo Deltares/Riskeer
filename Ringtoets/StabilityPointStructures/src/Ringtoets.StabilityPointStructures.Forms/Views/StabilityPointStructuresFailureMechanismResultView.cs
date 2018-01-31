@@ -95,7 +95,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         protected override object CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult);
+            if (FailureMechanism == null)
+            {
+                return null;
+            }
+
+            return new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult,
+                                                                                (StabilityPointStructuresFailureMechanism) FailureMechanism,
+                                                                                assessmentSection);
         }
 
         protected override void Dispose(bool disposing)

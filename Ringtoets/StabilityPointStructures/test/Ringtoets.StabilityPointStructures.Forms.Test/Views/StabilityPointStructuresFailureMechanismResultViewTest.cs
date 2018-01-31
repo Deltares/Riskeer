@@ -265,7 +265,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
-            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 // When
                 view.Data = new[]
@@ -333,7 +333,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 view.Data = new[]
                 {
@@ -388,7 +388,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
@@ -421,7 +421,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
@@ -456,7 +456,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 var calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
@@ -492,7 +492,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError()
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -529,7 +529,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             StabilityPointStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
         {
-            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 view.Data = new[]
                 {
@@ -557,7 +557,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = ShowFailureMechanismResultsView())
+            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 const double probability = 0.56789;
                 var successfulCalculation = new StructuresCalculation<StabilityPointStructuresInput>
