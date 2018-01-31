@@ -138,12 +138,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                    data,
-                    value,
-                    (f, v) => f.GeneralInput.N2A = v);
-
-                NotifyAffectedObjects(affectedObjects);
+                data.GeneralInput.N2A = value;
+                data.NotifyObservers();
             }
         }
 

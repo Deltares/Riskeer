@@ -274,18 +274,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observable = mockRepository.StrictMock<IObservable>();
+            var observer = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<ClosingStructuresFailureMechanism, double>(
                 failureMechanism,
                 value,
-                new[]
-                {
-                    observable
-                });
+                new IObservable[0]);
 
             var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
@@ -295,7 +293,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
 
@@ -308,19 +305,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observable = mockRepository.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
+
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<ClosingStructuresFailureMechanism, double>(
                 failureMechanism,
                 value,
-                new[]
-                {
-                    observable
-                });
+                new IObservable[0]);
 
             var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, changeHandler);
 
@@ -329,7 +324,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N2A);
-            Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
 
