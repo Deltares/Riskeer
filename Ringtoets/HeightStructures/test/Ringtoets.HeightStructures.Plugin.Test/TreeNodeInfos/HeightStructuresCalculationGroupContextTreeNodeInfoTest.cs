@@ -1793,7 +1793,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             group.Children.Add(calculation);
 
-            HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            StructuresFailureMechanismSectionResult<HeightStructuresInput> result = failureMechanism.SectionResults.First();
             result.Calculation = calculation;
 
             // Call

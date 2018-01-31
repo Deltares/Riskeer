@@ -885,12 +885,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
+        private static void SetSectionResults(IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults,
                                               StructuresCalculation<HeightStructuresInput> calculation)
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
-            foreach (HeightStructuresFailureMechanismSectionResult sectionResult in sectionResults)
+            foreach (StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();

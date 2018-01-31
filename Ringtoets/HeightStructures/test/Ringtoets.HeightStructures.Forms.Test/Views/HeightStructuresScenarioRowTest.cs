@@ -44,7 +44,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             });
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
 
             // Call
             var row = new HeightStructuresScenarioRow(sectionResult);
@@ -75,7 +75,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             });
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
 
             var row = new HeightStructuresScenarioRow(sectionResult);
 
@@ -103,7 +103,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             });
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
             sectionResult.Attach(observer);
 
             var row = new HeightStructuresScenarioRow(sectionResult);

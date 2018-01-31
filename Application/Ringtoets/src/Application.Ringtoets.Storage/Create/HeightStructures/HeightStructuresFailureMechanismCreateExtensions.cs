@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.HeightStructures
@@ -54,10 +55,10 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
+            IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (StructuresFailureMechanismSectionResult<HeightStructuresInput> failureMechanismSectionResult in sectionResults)
             {
                 HeightStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

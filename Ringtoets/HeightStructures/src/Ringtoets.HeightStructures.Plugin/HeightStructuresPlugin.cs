@@ -176,8 +176,8 @@ namespace Ringtoets.HeightStructures.Plugin
             };
 
             yield return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
-                IEnumerable<HeightStructuresFailureMechanismSectionResult>,
+                ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>,
+                IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>>,
                 HeightStructuresFailureMechanismResultView>
             {
                 GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -245,7 +245,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -403,7 +403,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return new object[]
             {
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
+                new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };

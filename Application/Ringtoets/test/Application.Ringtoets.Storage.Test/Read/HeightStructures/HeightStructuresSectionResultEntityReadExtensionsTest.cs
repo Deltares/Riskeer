@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             var entity = new HeightStructuresSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(new HeightStructuresFailureMechanismSectionResult(
+            TestDelegate call = () => entity.Read(new StructuresFailureMechanismSectionResult<HeightStructuresInput>(
                                                       new TestFailureMechanismSection()), null);
 
             // Assert
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
                 LayerThree = layerThree,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
@@ -110,7 +110,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             {
                 HeightStructuresCalculationEntity = calculationEntity
             };
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);

@@ -30,20 +30,20 @@ using Ringtoets.HeightStructures.Data;
 namespace Ringtoets.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+    /// This class represents a row of <see cref="StructuresFailureMechanismSectionResult{T}"/> for height structures.
     /// </summary>
-    internal class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>
+    internal class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
     {
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResult"/> this row contains.</param>
+        /// <param name="sectionResult">The <see cref="StructuresFailureMechanismSectionResult{T}"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult,
+        public HeightStructuresFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult,
                                                                 HeightStructuresFailureMechanism failureMechanism,
                                                                 IAssessmentSection assessmentSection)
             : base(sectionResult)
@@ -81,7 +81,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the assessment layer two a of the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+        /// Gets the value representing the result of the layer 2a assessment.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
@@ -94,7 +94,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         /// <summary>
         /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
-        /// <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+        /// <see cref="StructuresFailureMechanismSectionResult{T}"/>.
         /// </summary>
         /// <returns><c>null</c> if the wrapped section result does not have a calculation
         /// set. Otherwise the calculation of the wrapped section result is returned.</returns>

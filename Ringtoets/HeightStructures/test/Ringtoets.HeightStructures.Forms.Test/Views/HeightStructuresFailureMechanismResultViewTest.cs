@@ -73,7 +73,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (var view = new HeightStructuresFailureMechanismResultView(assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<HeightStructuresInput>>>(view);
                 Assert.IsNull(view.Data);
             }
             mocks.VerifyAll();
@@ -119,8 +119,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 };
 
                 var section = new FailureMechanismSection("test", points);
-                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
-                var testData = new List<HeightStructuresFailureMechanismSectionResult>
+                var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+                var testData = new List<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
                 {
                     sectionResult
                 };
@@ -291,9 +291,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
 
-                var dataObject = view.Data as List<HeightStructuresFailureMechanismSectionResult>;
+                var dataObject = view.Data as List<StructuresFailureMechanismSectionResult<HeightStructuresInput>>;
                 Assert.IsNotNull(dataObject);
-                HeightStructuresFailureMechanismSectionResult row = dataObject.First();
+                StructuresFailureMechanismSectionResult<HeightStructuresInput> row = dataObject.First();
                 Assert.AreEqual(newValue, row.AssessmentLayerThree);
             }
         }
@@ -307,7 +307,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
                 {
                     AssessmentLayerOne = assessmentLayerOneState
                 };
@@ -340,7 +340,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             {
                 var calculation = new StructuresCalculation<HeightStructuresInput>();
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
                 {
                     Calculation = calculation,
                     AssessmentLayerOne = assessmentLayerOneState
@@ -378,7 +378,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(double.NaN)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
                 {
                     Calculation = calculation,
                     AssessmentLayerOne = assessmentLayerOneState
@@ -416,7 +416,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(0.56789)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
                 {
                     Calculation = calculation,
                     AssessmentLayerOne = assessmentLayerOneState
@@ -444,7 +444,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         [Test]
         [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSections))]
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
-            HeightStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
+            StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult, string expectedValue)
         {
             using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
@@ -486,7 +486,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(double.NaN)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+                var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
                 {
                     Calculation = successfulCalculation,
                     AssessmentLayerOne = assessmentLayerOneState
@@ -521,16 +521,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         {
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
 
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient
             }, "-").SetName("SectionWithoutCalculation");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<HeightStructuresInput>()
             }, "-").SetName("SectionWithCalculationNoOutput");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<HeightStructuresInput>
@@ -538,7 +538,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(double.NaN)
                 }
             }, "-").SetName("SectionWithInvalidCalculationOutput");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<HeightStructuresInput>

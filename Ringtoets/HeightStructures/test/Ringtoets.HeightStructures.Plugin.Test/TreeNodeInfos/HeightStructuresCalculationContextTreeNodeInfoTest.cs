@@ -1329,7 +1329,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            StructuresFailureMechanismSectionResult<HeightStructuresInput> result = failureMechanism.SectionResults.First();
             result.Calculation = elementToBeRemoved;
 
             // Call

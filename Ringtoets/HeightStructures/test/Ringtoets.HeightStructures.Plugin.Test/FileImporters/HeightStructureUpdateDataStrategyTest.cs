@@ -610,7 +610,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults,
                                                                          failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
 
-            HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+            StructuresFailureMechanismSectionResult<HeightStructuresInput>[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
 
@@ -682,7 +682,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults,
                                                                          failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
 
-            HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
+            StructuresFailureMechanismSectionResult<HeightStructuresInput>[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
 

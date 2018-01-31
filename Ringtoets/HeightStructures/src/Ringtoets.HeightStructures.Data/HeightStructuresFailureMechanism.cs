@@ -34,9 +34,9 @@ namespace Ringtoets.HeightStructures.Data
     /// <summary>
     /// Failure mechanism for Height structures.
     /// </summary>
-    public class HeightStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<HeightStructuresFailureMechanismSectionResult>
+    public class HeightStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
     {
-        private readonly List<HeightStructuresFailureMechanismSectionResult> sectionResults;
+        private readonly List<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
@@ -44,7 +44,7 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code)
         {
-            sectionResults = new List<HeightStructuresFailureMechanismSectionResult>();
+            sectionResults = new List<StructuresFailureMechanismSectionResult<HeightStructuresInput>>();
             CalculationsGroup = new CalculationGroup
             {
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
@@ -82,7 +82,7 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public CalculationGroup CalculationsGroup { get; }
 
-        public IEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults
+        public IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> SectionResults
         {
             get
             {
@@ -94,7 +94,7 @@ namespace Ringtoets.HeightStructures.Data
         {
             base.AddSection(section);
 
-            sectionResults.Add(new HeightStructuresFailureMechanismSectionResult(section));
+            sectionResults.Add(new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section));
         }
 
         public override void ClearAllSections()

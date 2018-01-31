@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
@@ -61,8 +62,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IEnumerable<HeightStructuresFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>>), info.ViewDataType);
         }
 
         [Test]
@@ -85,12 +86,13 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             var sectionResults = new[]
             {
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+                new StructuresFailureMechanismSectionResult<HeightStructuresInput>(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             };
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(sectionResults,
-                                                                                                                             new HeightStructuresFailureMechanism(),
-                                                                                                                             assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(
+                sectionResults,
+                new HeightStructuresFailureMechanism(),
+                assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -295,7 +297,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -314,9 +316,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults,
-                                                                                                                             failureMechanism,
-                                                                                                                             assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(
+                failureMechanism.SectionResults,
+                failureMechanism,
+                assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

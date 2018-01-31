@@ -322,7 +322,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             {
                 location
             }));
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
+            StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = calculation;
 
             failureMechanism.HeightStructures.AddRange(new[]

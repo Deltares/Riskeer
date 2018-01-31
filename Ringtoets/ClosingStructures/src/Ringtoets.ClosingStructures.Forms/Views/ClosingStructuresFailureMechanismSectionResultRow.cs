@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// Class for displaying <see cref="StructuresFailureMechanismSectionResult{T}"/> for closing structures as a row in a grid view.
+    /// This class represents a row of <see cref="StructuresFailureMechanismSectionResult{T}"/> for closing structures
     /// </summary>
     public class ClosingStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
     {
