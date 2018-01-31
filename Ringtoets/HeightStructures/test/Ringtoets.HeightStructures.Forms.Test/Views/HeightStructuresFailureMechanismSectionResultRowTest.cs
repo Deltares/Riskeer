@@ -133,11 +133,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             if (status == CalculationScenarioStatus.Failed)
@@ -165,16 +164,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            const double reliability = 0.95;
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
-                Output = new TestStructuresOutput(reliability)
+                Output = new TestStructuresOutput(0.95)
             };
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -189,7 +186,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(reliability, assessmentLayerTwoA);
+            Assert.AreEqual(0.17105612630848185, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 

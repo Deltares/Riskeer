@@ -411,10 +411,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Given
             using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                const double probability = 0.56789;
                 var calculation = new StructuresCalculation<HeightStructuresInput>
                 {
-                    Output = new TestStructuresOutput(probability)
+                    Output = new TestStructuresOutput(0.56789)
                 };
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
@@ -437,7 +436,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
             }
         }
@@ -477,10 +476,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Given
             using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                const double probability = 0.56789;
                 var successfulCalculation = new StructuresCalculation<HeightStructuresInput>
                 {
-                    Output = new TestStructuresOutput(probability)
+                    Output = new TestStructuresOutput(0.56789)
                 };
 
                 var failedCalculation = new StructuresCalculation<HeightStructuresInput>
@@ -506,7 +504,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Precondition
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(probability), formattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 // When
@@ -522,7 +520,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private static IEnumerable AssessmentLayerOneStateIsSufficientVariousSections()
         {
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-            const double probability = 0.56789;
 
             yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
             {
@@ -546,9 +543,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<HeightStructuresInput>
                 {
-                    Output = new TestStructuresOutput(probability)
+                    Output = new TestStructuresOutput(0.56789)
                 }
-            }, ProbabilityFormattingHelper.Format(probability)).SetName("SectionWithValidCalculationOutput");
+            }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutput");
         }
 
         private static FailureMechanismSection CreateSimpleFailureMechanismSection()

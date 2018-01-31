@@ -88,7 +88,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                return SectionResult.GetAssessmentLayerTwoA(failureMechanism, assessmentSection);
             }
         }
 
