@@ -167,23 +167,5 @@ namespace Ringtoets.Common.Data.Test.Probability
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
-
-        [Test]
-        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
-        {
-            // Setup
-            var random = new Random(5);
-            var original = new ProbabilityAssessmentOutput(random.NextDouble(),
-                                                           random.NextDouble(),
-                                                           random.NextDouble(),
-                                                           random.NextDouble(),
-                                                           random.NextDouble());
-
-            // Call
-            object clone = original.Clone();
-
-            // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
-        }
     }
 }

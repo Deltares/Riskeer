@@ -30,7 +30,6 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.ClosingStructures.Plugin.Test.PropertyInfos
 {
@@ -72,7 +71,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.PropertyInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation
             {
-                Output = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null)
+                Output = new StructuresOutput(0, null)
             };
 
             // Call

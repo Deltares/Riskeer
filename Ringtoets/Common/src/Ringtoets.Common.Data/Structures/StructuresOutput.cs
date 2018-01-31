@@ -34,23 +34,12 @@ namespace Ringtoets.Common.Data.Structures
         /// Creates a new instance of <see cref="StructuresOutput"/>.
         /// </summary>
         /// <param name="reliability">The reliability of the calculation.</param>
-        /// <param name="probabilityAssessmentOutput">The results of the probabilistic
-        /// assessment calculation.</param>
         /// <param name="generalResult">The general result of this output with the 
         /// fault tree illustration points.</param>
-        /// <exception cref="ArgumentNullException">Thrown when 
-        /// <paramref name="probabilityAssessmentOutput"/> is <c>null</c>.</exception>
         public StructuresOutput(double reliability,
-                                ProbabilityAssessmentOutput probabilityAssessmentOutput,
                                 GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
-            if (probabilityAssessmentOutput == null)
-            {
-                throw new ArgumentNullException(nameof(probabilityAssessmentOutput));
-            }
-
             Reliability = reliability;
-            ProbabilityAssessmentOutput = probabilityAssessmentOutput;
             GeneralResult = generalResult;
         }
 
@@ -83,8 +72,6 @@ namespace Ringtoets.Common.Data.Structures
         public object Clone()
         {
             var clone = (StructuresOutput) MemberwiseClone();
-
-            clone.ProbabilityAssessmentOutput = (ProbabilityAssessmentOutput) ProbabilityAssessmentOutput.Clone();
 
             if (GeneralResult != null)
             {

@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -72,7 +71,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.PropertyInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculation
             {
-                Output = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null)
+                Output = new StructuresOutput(0, null)
             };
 
             // Call

@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.Common.Data.TestUtil
@@ -42,11 +40,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Creates a new instance of <see cref="TestStructuresOutput"/>.
         /// </summary>
         /// <param name="reliability">The reliability of failure.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting 
-        /// <paramref name="reliability"/> that falls  outside the [0.0, 1.0] range 
-        /// and isn't <see cref="double.NaN"/>.</exception>
         public TestStructuresOutput(double reliability)
-            : base(reliability, new ProbabilityAssessmentOutput(0, 0, reliability, 0, 0), null) {}
+            : base(reliability, null) {}
 
         /// <summary>
         /// Creates new instance of <see cref="TestStructuresOutput"/>.
@@ -54,6 +49,6 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <param name="generalResult">The general result of this output with the 
         /// fault tree illustration points.</param>
         public TestStructuresOutput(GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
-            : base(0, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), generalResult) {}
+            : base(0, generalResult) {}
     }
 }

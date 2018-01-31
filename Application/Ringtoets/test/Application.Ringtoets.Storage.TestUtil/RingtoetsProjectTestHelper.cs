@@ -37,7 +37,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -460,12 +459,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             var random = new Random(56);
             var output = new StructuresOutput(
                 random.NextDouble(),
-                new ProbabilityAssessmentOutput(
-                    random.NextDouble(),
-                    random.NextDouble(),
-                    random.NextDouble(),
-                    random.NextDouble(),
-                    random.NextDouble()),
                 GetConfiguredGeneralResultFaultTreeIllustrationPoint());
             return output;
         }
@@ -566,7 +559,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             Structure = stabilityPointStructure,
                             ShouldIllustrationPointsBeCalculated = false
                         },
-                        Output = new StructuresOutput(0.11, new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12), null)
+                        Output = new StructuresOutput(0.11, null)
                     },
                     new StructuresCalculation<StabilityPointStructuresInput>
                     {
@@ -687,7 +680,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             UseForeshore = true,
                             ShouldIllustrationPointsBeCalculated = false
                         },
-                        Output = new StructuresOutput(0.11, new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12), null)
+                        Output = new StructuresOutput(0.11, null)
                     },
                     new StructuresCalculation<ClosingStructuresInput>
                     {
@@ -855,7 +848,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             Structure = heightStructure,
                             ShouldIllustrationPointsBeCalculated = false
                         },
-                        Output = new StructuresOutput(0.11, new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12), null)
+                        Output = new StructuresOutput(0.11, null)
                     },
                     new StructuresCalculation<HeightStructuresInput>
                     {

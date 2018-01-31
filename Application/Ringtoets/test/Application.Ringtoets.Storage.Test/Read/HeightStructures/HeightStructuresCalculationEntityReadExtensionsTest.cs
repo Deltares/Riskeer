@@ -29,7 +29,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
@@ -203,12 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
 
             // Assert
             StructuresOutput calculationOutput = calculation.Output;
-            ProbabilityAssessmentOutput actualProbabilityAssessmentOutput = calculationOutput.ProbabilityAssessmentOutput;
-            Assert.IsNaN(actualProbabilityAssessmentOutput.RequiredProbability);
-            Assert.IsNaN(actualProbabilityAssessmentOutput.RequiredReliability);
-            Assert.IsNaN(actualProbabilityAssessmentOutput.Probability);
-            Assert.IsNaN(actualProbabilityAssessmentOutput.Reliability);
-            Assert.IsNaN(actualProbabilityAssessmentOutput.FactorOfSafety);
+            Assert.IsNaN(calculationOutput.Reliability);
             Assert.IsFalse(calculationOutput.HasGeneralResult);
         }
 

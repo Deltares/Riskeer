@@ -24,9 +24,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Test.Create
@@ -51,13 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(567);
             var output = new StructuresOutput(
-                random.NextDouble(),
-                new ProbabilityAssessmentOutput(
-                    random.NextDouble(),
-                    random.NextDouble(),
-                    random.NextDouble(),
-                    random.NextDouble(),
-                    random.NextDouble()), null);
+                random.NextDouble(), null);
 
             // Call
             var entity = output.Create<TestStructureOutputEntity>();
@@ -73,13 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var output = new StructuresOutput(
-                double.NaN,
-                new ProbabilityAssessmentOutput(
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN,
-                    double.NaN), null);
+                double.NaN, null);
 
             // Call
             var entity = output.Create<TestStructureOutputEntity>();
@@ -94,7 +80,9 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_CalculationWithOutputAndGeneralResult_ReturnEntityWithOutputAndGeneralResult()
         {
             // Setup
-            StructuresOutput output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            var random = new Random(567);
+            var output = new StructuresOutput(random.NextDouble(),
+                                              new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             var entity = output.Create<TestStructureOutputEntity>();

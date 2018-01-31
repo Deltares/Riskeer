@@ -33,37 +33,24 @@ namespace Ringtoets.Common.Data.Test.Structures
     public class StructuresOutputTest
     {
         [Test]
-        public void Constructor_ProbabilityAssessmentNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new StructuresOutput(double.NaN, null, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("probabilityAssessmentOutput", exception.ParamName);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Constructor_ValidProbabilityAssessmentOutputAndGeneralResult_ReturnsExpectedProperties(
+        public void Constructor_ExpectedValues(
             bool withIllustrationPoints)
         {
             // Setup
             var random = new Random(39);
             double reliability = random.NextDouble();
-            var output = new TestProbabilityAssessmentOutput();
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
                                                                                   ? new TestGeneralResultFaultTreeIllustrationPoint()
                                                                                   : null;
 
             // Call
-            var structuresOutput = new StructuresOutput(reliability, output, generalResult);
+            var structuresOutput = new StructuresOutput(reliability, generalResult);
 
             // Assert
             Assert.IsInstanceOf<ICloneable>(structuresOutput);
             Assert.AreEqual(reliability, structuresOutput.Reliability);
-            Assert.AreSame(output, structuresOutput.ProbabilityAssessmentOutput);
             Assert.AreEqual(withIllustrationPoints, structuresOutput.HasGeneralResult);
             Assert.AreSame(generalResult, structuresOutput.GeneralResult);
         }

@@ -26,7 +26,6 @@ using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
@@ -396,12 +395,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
 
             // Assert
             StructuresOutput calculationOutput = calculation.Output;
-            ProbabilityAssessmentOutput actualProbabilityAssessmentOutput = calculationOutput.ProbabilityAssessmentOutput;
-            Assert.IsNaN(actualProbabilityAssessmentOutput.RequiredProbability);
-            Assert.IsNaN(actualProbabilityAssessmentOutput.RequiredReliability);
-            Assert.IsNaN(actualProbabilityAssessmentOutput.Probability);
-            Assert.IsNaN(actualProbabilityAssessmentOutput.Reliability);
-            Assert.IsNaN(actualProbabilityAssessmentOutput.FactorOfSafety);
+            Assert.IsNaN(calculationOutput.Reliability);
             Assert.IsFalse(calculationOutput.HasGeneralResult);
         }
 

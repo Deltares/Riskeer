@@ -24,7 +24,6 @@ using Core.Common.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.Common.Data.TestUtil
@@ -105,11 +104,6 @@ namespace Ringtoets.Common.Data.TestUtil
             var random = new Random(21);
 
             return new StructuresOutput(random.NextDouble(),
-                                        new ProbabilityAssessmentOutput(random.NextDouble(),
-                                                                        random.NextDouble(),
-                                                                        random.NextDouble(),
-                                                                        random.NextDouble(),
-                                                                        random.NextDouble()),
                                         generalResult);
         }
     }

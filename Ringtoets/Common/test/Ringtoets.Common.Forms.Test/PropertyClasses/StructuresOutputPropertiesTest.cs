@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var structuresOutput = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null);
+            var structuresOutput = new StructuresOutput(0, null);
 
             // Call
             var properties = new SimpleStructuresOutputProperties(structuresOutput);
@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void IllustrationPoints_WithoutGeneralResult_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
         {
             // Setup
-            var structuresOutput = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null);
+            var structuresOutput = new StructuresOutput(0, null);
             var properties = new SimpleStructuresOutputProperties(structuresOutput);
 
             // Call
@@ -128,9 +128,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_HasGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
-            var structuresOutput = new StructuresOutput(0, probabilityAssessmentOutput, generalResult);
+            var structuresOutput = new StructuresOutput(0, generalResult);
 
             // Call
             var properties = new SimpleStructuresOutputProperties(structuresOutput);
@@ -207,8 +206,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_NoGeneralResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
-            var structuresOutput = new StructuresOutput(0, probabilityAssessmentOutput, null);
+            var structuresOutput = new StructuresOutput(0, null);
 
             // Call
             var properties = new SimpleStructuresOutputProperties(structuresOutput);

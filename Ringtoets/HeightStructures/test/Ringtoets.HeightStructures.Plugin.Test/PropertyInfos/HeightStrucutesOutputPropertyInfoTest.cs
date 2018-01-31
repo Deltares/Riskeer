@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -72,7 +71,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.PropertyInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculation
             {
-                Output = new StructuresOutput(0, new TestProbabilityAssessmentOutput(), null)
+                Output = new StructuresOutput(0, null)
             };
 
             // Call

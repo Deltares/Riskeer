@@ -297,7 +297,7 @@ namespace Ringtoets.Common.Service.Structures
                                        e.Message));
             }
 
-            calculation.Output = new StructuresOutput(reliability, probabilityAssessmentOutput, generalResult);
+            calculation.Output = new StructuresOutput(reliability, generalResult);
         }
 
         /// <summary>

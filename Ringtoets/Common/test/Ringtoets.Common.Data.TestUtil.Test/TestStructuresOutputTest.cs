@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
@@ -37,14 +36,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<StructuresOutput>(output);
-
-            ProbabilityAssessmentOutput probabilityAssessmentOutput =
-                output.ProbabilityAssessmentOutput;
-            Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety.Value);
-            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(0, probabilityAssessmentOutput.Probability);
-            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability.Value);
-            Assert.AreEqual(0, probabilityAssessmentOutput.Reliability.Value);
+            Assert.AreEqual(0, output.Reliability);
             Assert.IsNull(output.GeneralResult);
             Assert.IsFalse(output.HasGeneralResult);
         }
@@ -60,14 +52,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<StructuresOutput>(output);
-
-            ProbabilityAssessmentOutput probabilityAssessmentOutput =
-                output.ProbabilityAssessmentOutput;
-            Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety.Value);
-            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(0, probabilityAssessmentOutput.Probability);
-            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability.Value);
-            Assert.AreEqual(0, probabilityAssessmentOutput.Reliability.Value);
+            Assert.AreEqual(0, output.Reliability);
             Assert.AreSame(generalResult, output.GeneralResult);
             Assert.IsTrue(output.HasGeneralResult);
         }
@@ -83,14 +68,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<StructuresOutput>(output);
-
-            ProbabilityAssessmentOutput probabilityAssessmentOutput =
-                output.ProbabilityAssessmentOutput;
-            Assert.AreEqual(0, probabilityAssessmentOutput.FactorOfSafety.Value);
-            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(reliability, probabilityAssessmentOutput.Probability);
-            Assert.AreEqual(0, probabilityAssessmentOutput.RequiredReliability.Value);
-            Assert.AreEqual(0, probabilityAssessmentOutput.Reliability.Value);
+            Assert.AreEqual(reliability, output.Reliability);
             Assert.IsNull(output.GeneralResult);
             Assert.IsFalse(output.HasGeneralResult);
         }
