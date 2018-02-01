@@ -40,6 +40,7 @@
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsGroupContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\WaveHeightLocationsGroupContextTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ReferenceLinePropertiesTest.cs" />

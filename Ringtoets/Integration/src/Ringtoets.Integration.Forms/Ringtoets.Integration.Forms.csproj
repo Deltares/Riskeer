@@ -35,6 +35,7 @@
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationContext.cs" />
+    <Compile Include="PresentationObjects\WaveHeightLocationsGroupContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationsContext.cs" />
     <Compile Include="PropertyClasses\BackgroundDataProperties.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
