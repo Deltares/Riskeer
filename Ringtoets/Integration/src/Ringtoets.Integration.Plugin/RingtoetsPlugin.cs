@@ -1660,10 +1660,10 @@ namespace Ringtoets.Integration.Plugin
             {
                 return new object[]
                 {
-                    new DesignWaterLevelLocationsContext(nodeData.WrappedData.Locations,
-                                                         nodeData.AssessmentSection),
-                    new WaveHeightLocationsContext(nodeData.WrappedData.Locations,
-                                                   nodeData.AssessmentSection)
+                    new DesignWaterLevelLocationsGroupContext(nodeData.WrappedData.Locations,
+                                                              nodeData.AssessmentSection),
+                    new WaveHeightLocationsGroupContext(nodeData.WrappedData.Locations,
+                                                        nodeData.AssessmentSection)
                 };
             }
 

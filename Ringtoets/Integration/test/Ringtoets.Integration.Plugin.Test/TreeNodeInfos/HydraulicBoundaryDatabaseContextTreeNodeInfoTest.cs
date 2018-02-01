@@ -166,6 +166,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     info.ContextMenuStrip(nodeData, null, treeViewControl);
                 }
             }
+
             // Assert
             mocks.VerifyAll();
         }
@@ -259,11 +260,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(2, objects.Length);
-                var designWaterLevelLocationsContext = (DesignWaterLevelLocationsContext) objects[0];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, designWaterLevelLocationsContext.WrappedData);
+                var designWaterLevelLocationsGroupContext = (DesignWaterLevelLocationsGroupContext) objects[0];
+                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, designWaterLevelLocationsGroupContext.WrappedData);
 
-                var waveHeightLocationsContext = (WaveHeightLocationsContext) objects[1];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, waveHeightLocationsContext.WrappedData);
+                var waveHeightLocationsGroupContext = (WaveHeightLocationsGroupContext) objects[1];
+                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, waveHeightLocationsGroupContext.WrappedData);
             }
         }
 
@@ -335,6 +336,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     CollectionAssert.IsNotEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -388,6 +390,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -442,6 +445,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -527,6 +531,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Assert.AreSame(currentFirstGrassCoverErosionOutwardsLocation, assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.First());
                 }
             }
+
             mocks.VerifyAll();
         }
 
