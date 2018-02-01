@@ -38,21 +38,37 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The locations that the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DesignWaterLevelLocationsContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
-                                                IAssessmentSection assessmentSection) : base(wrappedData)
+                                                IAssessmentSection assessmentSection,
+                                                Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+            : base(wrappedData)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             AssessmentSection = assessmentSection;
+            GetCalculationFunc = getCalculationFunc;
         }
 
         /// <summary>
         /// Gets the assessment section that the context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
+
+        /// <summary>
+        /// Gets the <see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        public Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> GetCalculationFunc { get; }
     }
 }
