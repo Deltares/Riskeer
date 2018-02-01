@@ -115,7 +115,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             ObservableList<HydraulicBoundaryLocation> locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
 
-            var context = new WaveHeightLocationsContext(locations, assessmentSection);
+            var context = new WaveHeightLocationsContext(locations,
+                                                         assessmentSection,
+                                                         hbl => new HydraulicBoundaryLocationCalculation());
 
             // Call
             object viewData = info.GetViewData(context);
@@ -129,7 +131,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
+            var context = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                         assessmentSection,
+                                                         hbl => new HydraulicBoundaryLocationCalculation());
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
@@ -160,7 +164,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var locations = new ObservableList<HydraulicBoundaryLocation>();
-            var context = new WaveHeightLocationsContext(locations, assessmentSection);
+            var context = new WaveHeightLocationsContext(locations,
+                                                         assessmentSection,
+                                                         hbl => new HydraulicBoundaryLocationCalculation());
 
             using (var view = new WaveHeightLocationsView(locations,
                                                           hbl => new HydraulicBoundaryLocationCalculation(),

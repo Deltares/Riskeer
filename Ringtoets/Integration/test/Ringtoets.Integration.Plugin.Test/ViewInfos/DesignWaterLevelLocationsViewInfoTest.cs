@@ -114,7 +114,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             ObservableList<HydraulicBoundaryLocation> locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            var context = new DesignWaterLevelLocationsContext(locations, assessmentSection);
+            var context = new DesignWaterLevelLocationsContext(locations,
+                                                               assessmentSection,
+                                                               hbl => new HydraulicBoundaryLocationCalculation());
 
             // Call
             object viewData = info.GetViewData(context);
@@ -129,7 +131,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
-                                                               assessmentSection);
+                                                               assessmentSection,
+                                                               hbl => new HydraulicBoundaryLocationCalculation());
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
@@ -158,10 +161,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
-                                                               assessmentSection);
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var context = new DesignWaterLevelLocationsContext(locations,
+                                                               assessmentSection,
+                                                               hbl => new HydraulicBoundaryLocationCalculation());
 
-            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
+            using (var view = new DesignWaterLevelLocationsView(locations,
                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
                                                                 new ObservableTestAssessmentSectionStub(),
                                                                 () => 0.01))
