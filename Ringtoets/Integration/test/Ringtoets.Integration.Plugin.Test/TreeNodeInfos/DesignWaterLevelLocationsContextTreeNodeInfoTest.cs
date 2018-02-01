@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsGeneralFolderIcon()
+        public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Setup
             using (var plugin = new RingtoetsPlugin())
@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(null);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
             }
         }
 
@@ -158,6 +158,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     info.ContextMenuStrip(nodeData, null, treeViewControl);
                 }
             }
+
             // Assert
             mockRepository.VerifyAll();
         }
@@ -348,6 +349,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -416,6 +418,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -483,6 +486,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -562,6 +566,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 

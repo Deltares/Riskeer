@@ -709,17 +709,29 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
+            yield return new TreeNodeInfo<DesignWaterLevelLocationsGroupContext>
+            {
+                Text = context => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon
+            };
+
             yield return new TreeNodeInfo<DesignWaterLevelLocationsContext>
             {
-                Text = designWaterLevel => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
-                Image = designWaterLevel => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DesignWaterLevelLocationsContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<WaveHeightLocationsGroupContext>
+            {
+                Text = context => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon
             };
 
             yield return new TreeNodeInfo<WaveHeightLocationsContext>
             {
-                Text = waveHeight => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
-                Image = waveHeight => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                Text = context => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = WaveHeightLocationsContextMenuStrip
             };
 
