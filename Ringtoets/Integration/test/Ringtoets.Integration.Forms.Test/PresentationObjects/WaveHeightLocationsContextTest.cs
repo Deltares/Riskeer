@@ -42,14 +42,16 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> calculationFunc = hbl => null;
 
             // Call
-            var presentationObject = new WaveHeightLocationsContext(locations, assessmentSection);
+            var presentationObject = new WaveHeightLocationsContext(locations, assessmentSection, calculationFunc);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
             Assert.AreSame(locations, presentationObject.WrappedData);
             Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
+            Assert.AreSame(calculationFunc, presentationObject.GetCalculationFunc);
             mockRepository.VerifyAll();
         }
 
@@ -57,11 +59,27 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), null);
+            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), null, hbl => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getCalculationFunc", exception.ParamName);
         }
     }
 }
