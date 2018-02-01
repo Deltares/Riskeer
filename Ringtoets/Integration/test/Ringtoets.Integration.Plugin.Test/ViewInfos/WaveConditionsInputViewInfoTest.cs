@@ -431,7 +431,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInputContextDatas))]
+        [TestCaseSource(nameof(GetInputContextDatasWithExpectedStyling))]
         public void CreateInstance_WaveConditionsInputContext_ReturnViewWithStylingApplied(WaveConditionsInputContext context,
                                                                                            Color revetmentLineColor,
                                                                                            string designWaterLevelName)
@@ -456,6 +456,20 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Assert.AreEqual(revetmentLineColor, revetmentChartData.Style.Color);
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetInputContextDatasWithExpectedAssessmentLevel))]
+        public void CreateInstance_WaveConditionsInputContext_ReturnViewWithCorrespondingAssessmentLevel(WaveConditionsInputContext context, double assessmentLevel)
+        {
+            // Call 
+            var view = (WaveConditionsInputView) info.CreateInstance(context);
+            view.Data = context.Calculation;
+
+            // Assert
+            ChartDataCollection chartData = view.Chart.Data;
+            var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
+            Assert.AreEqual(assessmentLevel, designWaterLevelChartData.Points.First().Y);
+        }
+
         private static RoundedDouble GetTestNormativeAssessmentLevel()
         {
             return (RoundedDouble) 1.1;
@@ -469,7 +483,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         private const int revetmentBaseChartDataIndex = 7;
         private const int revetmentChartDataIndex = 8;
 
-        private static IEnumerable<TestCaseData> GetInputContextDatas()
+        private static IEnumerable<TestCaseData> GetInputContextDatasWithExpectedStyling()
         {
             yield return new TestCaseData(
                     new GrassCoverErosionOutwardsWaveConditionsInputContext(
@@ -499,6 +513,76 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                         new ForeshoreProfile[0]),
                     Color.Gray,
                     "Toetspeil")
+                .SetName("Wave impact asphalt cover input context");
+        }
+
+        private static IEnumerable<TestCaseData> GetInputContextDatasWithExpectedAssessmentLevel()
+        {
+            const double assessmentLevel1 = 1.1;
+            const double assessmentLevel2 = 2.2;
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation1 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel1)
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel2)
+                }
+            };
+
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+            };
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            yield return new TestCaseData(
+                    new GrassCoverErosionOutwardsWaveConditionsInputContext(
+                        waveConditionsInput,
+                        new GrassCoverErosionOutwardsWaveConditionsCalculation
+                        {
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
+                        assessmentSection,
+                        new GrassCoverErosionOutwardsFailureMechanism()),
+                    assessmentLevel1)
+                .SetName("Grass outwards input context");
+
+            yield return new TestCaseData(
+                    new StabilityStoneCoverWaveConditionsInputContext(
+                        waveConditionsInput,
+                        new StabilityStoneCoverWaveConditionsCalculation
+                        {
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
+                        assessmentSection,
+                        new ForeshoreProfile[0]),
+                    assessmentLevel2)
+                .SetName("Stability stone cover input context");
+
+            yield return new TestCaseData(
+                    new WaveImpactAsphaltCoverWaveConditionsInputContext(
+                        waveConditionsInput,
+                        new WaveImpactAsphaltCoverWaveConditionsCalculation
+                        {
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
+                        assessmentSection,
+                        new ForeshoreProfile[0]),
+                    assessmentLevel2)
                 .SetName("Wave impact asphalt cover input context");
         }
 
