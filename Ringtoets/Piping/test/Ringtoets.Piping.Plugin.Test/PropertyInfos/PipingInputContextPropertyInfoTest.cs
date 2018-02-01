@@ -23,8 +23,8 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -60,15 +60,41 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
             Assert.AreEqual(typeof(PipingInputContextProperties), info.PropertyObjectType);
         }
 
-        [Test]
-        public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
+        [TestCase(NormType.Signaling)]
+        [TestCase(NormType.LowerLimit)]
+        public void CreateInstance_Always_ExpectedProperties(NormType normType)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            const double designWaterLevelSignaling = 1.1;
+            const double designWaterLevelLowerLimit = 2.2;
 
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput());
+            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            {
+                DesignWaterLevelCalculation2 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevelSignaling)
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevelLowerLimit)
+                }
+            };
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = normType
+                }
+            };
+
+            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation
+                }
+            };
 
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingInputContext(
@@ -85,7 +111,10 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
             Assert.IsInstanceOf<PipingInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
-            mocks.VerifyAll();
+            double expectedAssessmentLevel = normType == NormType.Signaling
+                                                 ? designWaterLevelSignaling
+                                                 : designWaterLevelLowerLimit;
+            Assert.AreEqual(expectedAssessmentLevel, ((PipingInputContextProperties) objectProperties).AssessmentLevel);
         }
     }
 }
