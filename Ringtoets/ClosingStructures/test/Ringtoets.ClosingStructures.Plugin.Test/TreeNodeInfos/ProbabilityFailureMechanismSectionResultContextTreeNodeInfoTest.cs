@@ -73,26 +73,16 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             using (var plugin = new ClosingStructuresPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
-                var mechanism = new ClosingStructuresFailureMechanism();
-                var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(mechanism.SectionResults, mechanism,
-                                                                                                                                                   assessmentSection);
-
                 // Call
-                string text = info.Text(context);
+                string text = info.Text(null);
 
                 // Assert
                 Assert.AreEqual("Resultaat", text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

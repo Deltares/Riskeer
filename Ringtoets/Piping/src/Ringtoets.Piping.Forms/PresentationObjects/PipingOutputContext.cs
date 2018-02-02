@@ -55,8 +55,14 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             AssessmentSection = assessmentSection;
         }
 
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
         public PipingFailureMechanism FailureMechanism { get; }
 
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
         public IAssessmentSection AssessmentSection { get; }
     }
 }

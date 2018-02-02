@@ -486,7 +486,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_AssessmentLayerOneStateSufficientAndAssessmentLayerTwoAHasError_DoesNotShowError()
+        public void FailureMechanismResultView_AssessmentLayerOneStateSufficientAndAssessmentLayerTwoAHasNaNOutput_DoesNotShowError()
         {
             // Setup
             const int rowIndex = 0;
@@ -514,13 +514,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated(AssessmentLayerOneState assessmentLayerOneState)
+        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated()
         {
             // Given
-            const int rowIndex = 0;
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (MacroStabilityInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
@@ -539,8 +535,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
-
-                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 MacroStabilityInwardsFailureMechanismSectionResultRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                                                                         .Select(r => r.DataBoundItem)

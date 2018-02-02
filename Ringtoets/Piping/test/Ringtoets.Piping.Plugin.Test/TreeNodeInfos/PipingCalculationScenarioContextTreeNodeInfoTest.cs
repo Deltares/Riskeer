@@ -975,7 +975,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {

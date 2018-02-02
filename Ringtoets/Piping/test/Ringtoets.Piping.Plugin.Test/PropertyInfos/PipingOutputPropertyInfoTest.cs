@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithPipingOutputAsData()
+        public void CreateInstance_ValidData_NewPropertiesWithPipingOutputAsData()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();

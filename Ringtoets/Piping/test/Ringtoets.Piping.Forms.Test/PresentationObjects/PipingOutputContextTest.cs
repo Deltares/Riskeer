@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructore_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new PipingOutputContext(new TestPipingOutput(), new PipingFailureMechanism(), null);

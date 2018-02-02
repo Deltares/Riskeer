@@ -17,7 +17,7 @@
   <ItemGroup>
     <Compile Include="PipingCloneAssert.cs" />
     <Compile Include="PipingInputFactory.cs" />
-    <Compile Include="PipingCalculationScenarioFactory.cs" />
+    <Compile Include="PipingCalculationScenarioTestFactory.cs" />
     <Compile Include="PipingStochasticSoilModelTestFactory.cs" />
     <Compile Include="PipingTestDataGenerator.cs" />
     <Compile Include="PipingTestDataGeneratorHelper.cs" />

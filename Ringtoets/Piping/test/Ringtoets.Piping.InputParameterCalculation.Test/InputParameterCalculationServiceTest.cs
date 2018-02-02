@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_InvalidPipingCalculationWithOutput_ReturnsNaN()
         {
             // Setup
-            PipingCalculation invalidPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculation invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Make invalid by having surface line partially above soil profile:
             double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_CompleteInput_InputSetOnSubCalculator()
         {
             // Setup
-            PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
             PipingInput input = validPipingCalculation.InputParameters;
 
             using (new PipingSubCalculatorFactoryConfig())
@@ -216,7 +216,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
         public static void CalculatePiezometricHeadAtExit_CompleteInput_InputSetOnSubCalculator()
         {
             // Setup
-            PipingCalculation validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
             PipingInput input = validPipingCalculation.InputParameters;
 
             using (new PipingSubCalculatorFactoryConfig())

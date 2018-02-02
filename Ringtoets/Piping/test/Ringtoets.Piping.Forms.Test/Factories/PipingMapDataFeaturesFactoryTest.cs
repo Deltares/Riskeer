@@ -173,8 +173,8 @@ namespace Ringtoets.Piping.Forms.Test.Factories
         public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesCollection()
         {
             // Setup
-            PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
-            PipingCalculationScenario calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculationB = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
 
             calculationA.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 3.0);
             calculationB.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(1.0, 4.0);

@@ -122,27 +122,21 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var group = new CalculationGroup();
-            var failureMechanism = new PipingFailureMechanism();
-
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
             var gui = mocks.Stub<IGui>();
 
-            var context = new PipingScenariosContext(group, failureMechanism, assessmentSection);
-
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
+                info.ContextMenuStrip(null, null, treeViewControl);
 
                 // Assert
                 mocks.VerifyAll();

@@ -94,11 +94,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
             using (var view = new PipingFailureMechanismResultView(assessmentSection))
             {
                 // Call
-                string viewName = info.GetViewName(view, failureMechanism.SectionResults);
+                string viewName = info.GetViewName(view, null);
 
                 // Assert
                 Assert.AreEqual("Resultaat", viewName);

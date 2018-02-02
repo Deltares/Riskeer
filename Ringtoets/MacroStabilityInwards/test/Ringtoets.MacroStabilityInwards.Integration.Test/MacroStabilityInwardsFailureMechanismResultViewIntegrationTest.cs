@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -120,9 +121,12 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
-                calculation1.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+                calculation1.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+                {
+                    FactorOfStability = 0.5
+                });
                 calculation1.NotifyObservers();
-                Assert.AreEqual("1/14",
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5),
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -130,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 var calculation3 = new MacroStabilityInwardsCalculationScenario();
                 nestedCalculationGroup.Children.Add(calculation3);
                 nestedCalculationGroup.NotifyObservers();
-                Assert.AreEqual("1/14",
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5),
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -164,7 +168,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 // Set contribution again so we have a probability.
                 calculation1.Contribution = (RoundedDouble) 1.0;
                 calculation1.NotifyObservers();
-                Assert.AreEqual("1/14",
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5),
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 

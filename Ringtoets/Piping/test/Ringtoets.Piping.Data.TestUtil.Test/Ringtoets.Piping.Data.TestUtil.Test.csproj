@@ -15,7 +15,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PipingCalculationScenarioFactoryTest.cs" />
+    <Compile Include="PipingCalculationScenarioTestFactoryTest.cs" />
     <Compile Include="PipingInputFactoryTest.cs" />
     <Compile Include="PipingStochasticSoilModelTestFactoryTest.cs" />
     <Compile Include="PipingTestDataGeneratorTest.cs" />

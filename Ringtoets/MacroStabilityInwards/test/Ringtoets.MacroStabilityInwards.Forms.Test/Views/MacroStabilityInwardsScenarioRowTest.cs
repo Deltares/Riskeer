@@ -94,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateCalculatedMacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -120,7 +120,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -144,7 +144,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void IsRelevant_AlwaysOnChange_NotifyObserversAndCalculationPropertyChanged(bool newValue)
         {
             // Setup
-            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
             var mocks = new MockRepository();
@@ -169,7 +169,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
             var mocks = new MockRepository();

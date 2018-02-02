@@ -220,6 +220,34 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        public void AssessmentLayerTwoA_NoRelevantScenarios_ReturnNaN()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
+
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, new[]
+            {
+                scenario
+            }, failureMechanism, assessmentSection);
+
+            // Call
+            double assessmentLayerTwoA = row.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void AssessmentLayerTwoA_RelevantScenariosDone_ResultOfSection()
         {
             // Setup

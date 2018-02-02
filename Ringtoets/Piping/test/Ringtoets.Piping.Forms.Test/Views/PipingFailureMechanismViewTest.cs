@@ -298,9 +298,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     stochasticSoilModel2
                 }, arbitraryFilePath);
 
-                PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
-                PipingCalculationScenario calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationB = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationB.InputParameters.SurfaceLine = surfaceLineB;
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
@@ -661,9 +661,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-                PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
-                PipingCalculationScenario calculationB = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationB = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationB.InputParameters.SurfaceLine = surfaceLineB;
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
@@ -710,7 +710,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-                PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
 
                 var failureMechanism = new PipingFailureMechanism();
@@ -760,7 +760,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-                PipingCalculationScenario calculationA = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
                 calculationA.InputParameters.SurfaceLine = surfaceLineA;
 
                 var failureMechanism = new PipingFailureMechanism();

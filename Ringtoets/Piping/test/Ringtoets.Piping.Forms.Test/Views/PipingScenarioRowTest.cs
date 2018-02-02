@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
             TestDelegate test = () => new PipingScenarioRow(calculation, null, assessmentSection);
@@ -73,10 +73,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Constructore_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
             TestDelegate call = () => new PipingScenarioRow(calculation, new PipingFailureMechanism(), null);
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.Output = new TestPipingOutput();
 
             // Call
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
 
             // Call
             var row = new PipingScenarioRow(calculation, new PipingFailureMechanism(), assessmentSection);
@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.Attach(observer);
 
             var row = new PipingScenarioRow(calculation, new PipingFailureMechanism(), assessmentSection);
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             int newValue = new Random().Next(0, 100);
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
             calculation.Attach(observer);
 
             var row = new PipingScenarioRow(calculation, new PipingFailureMechanism(), assessmentSection);

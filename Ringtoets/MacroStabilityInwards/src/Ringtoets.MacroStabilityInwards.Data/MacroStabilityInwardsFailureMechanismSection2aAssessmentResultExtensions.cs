@@ -71,8 +71,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
 
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios = sectionResult
-                .GetCalculationScenarios(calculations)
-                .Where(cs => cs.Status == CalculationScenarioStatus.Done);
+                                                                                         .GetCalculationScenarios(calculations)
+                                                                                         .Where(cs => cs.Status == CalculationScenarioStatus.Done);
 
             if (calculationScenarios.Any())
             {
@@ -85,6 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
                     totalAssessmentLayerTwoA += derivedOutput.MacroStabilityInwardsProbability * (double) scenario.Contribution;
                 }
+
                 return totalAssessmentLayerTwoA;
             }
 
@@ -100,8 +101,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
                                                          IEnumerable<MacroStabilityInwardsCalculationScenario> calculations)
         {
             return (RoundedDouble) macroStabilityInwardsFailureMechanismSectionResult
-                .GetCalculationScenarios(calculations)
-                .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+                                   .GetCalculationScenarios(calculations)
+                                   .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
 
         /// <summary>
@@ -138,7 +139,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 if (!Enum.IsDefined(typeof(CalculationScenarioStatus), calculationScenarioStatus))
                 {
                     throw new InvalidEnumArgumentException(nameof(macroStabilityInwardsFailureMechanismSectionResult),
-                                                           (int)calculationScenarioStatus,
+                                                           (int) calculationScenarioStatus,
                                                            typeof(CalculationScenarioStatus));
                 }
 

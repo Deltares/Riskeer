@@ -320,7 +320,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
                 calculationScenario.Contribution = (RoundedDouble) 0.3;
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
@@ -355,7 +355,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
                 view.Data = pipingFailureMechanism.SectionResults;
@@ -387,7 +387,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
                 calculationScenario.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
@@ -478,7 +478,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateIrrelevantPipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
@@ -499,7 +499,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_AssessmentLayerOneStateSufficientAndAssessmentLayerTwoAHasError_DoesNotShowError()
+        public void FailureMechanismResultView_AssessmentLayerOneStateSufficientAndAssessmentLayerTwoANaN_DoesNotShowError()
         {
             // Setup
             const int rowIndex = 0;
@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
+                PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
                 calculationScenario.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
@@ -528,22 +528,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated(AssessmentLayerOneState assessmentLayerOneState)
+        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated()
         {
             // Given
-            const int rowIndex = 0;
-
             var pipingFailureMechanism = new PipingFailureMechanism();
             using (PipingFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
-                PipingCalculationScenario calculationScenario1 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                PipingCalculationScenario calculationScenario1 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
-                calculationScenario1.Contribution = (RoundedDouble) 0.6;
-                PipingCalculationScenario calculationScenario2 = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
+                PipingCalculationScenario calculationScenario2 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(
                     pipingFailureMechanism.Sections.First());
-                calculationScenario2.Contribution = (RoundedDouble) 0.4;
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario1);
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario2);
 
@@ -551,8 +545,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
-
-                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
 
                 PipingFailureMechanismSectionResultRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                                                          .Select(r => r.DataBoundItem)

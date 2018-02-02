@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var originalOutput = new TestPipingOutput();
 
-            PipingCalculationScenario invalidPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            PipingCalculationScenario invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = originalOutput;
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation,
@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Run_ValidPipingCalculation_PerformPipingValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Output = null;
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Service.Test
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observer);
 

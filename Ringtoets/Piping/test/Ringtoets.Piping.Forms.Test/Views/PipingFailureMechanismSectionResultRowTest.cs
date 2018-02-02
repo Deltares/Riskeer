@@ -168,8 +168,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            PipingCalculationScenario scenarioA = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
-            PipingCalculationScenario scenarioB = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario scenarioA = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario scenarioB = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             var result = new PipingFailureMechanismSectionResult(section);
             var row = new PipingFailureMechanismSectionResultRow(result, new[]
@@ -227,7 +227,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(section);
+            PipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
             scenario.Contribution = (RoundedDouble) 1.0;
 
             var result = new PipingFailureMechanismSectionResult(section);

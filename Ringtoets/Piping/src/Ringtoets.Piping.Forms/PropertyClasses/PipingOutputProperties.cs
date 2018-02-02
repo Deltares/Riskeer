@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {

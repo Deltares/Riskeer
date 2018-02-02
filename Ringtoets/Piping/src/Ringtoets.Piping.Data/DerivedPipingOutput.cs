@@ -57,10 +57,10 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a probability that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public DerivedPipingOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability,
-                                             double heaveFactorOfSafety, double heaveReliability, double heaveProbability,
-                                             double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability,
-                                             double requiredProbability, double requiredReliability,
-                                             double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
+                                   double heaveFactorOfSafety, double heaveReliability, double heaveProbability,
+                                   double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability,
+                                   double requiredProbability, double requiredReliability,
+                                   double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
         {
             UpliftFactorOfSafety = new RoundedDouble(3, upliftFactorOfSafety);
             UpliftReliability = new RoundedDouble(5, upliftReliability);
@@ -99,20 +99,17 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Get the required reliability of the piping failure mechanism,
-        /// which is a value greater than 0.
+        /// Get the required reliability of the piping failure mechanism.
         /// </summary>
         public RoundedDouble RequiredReliability { get; }
 
         /// <summary>
-        /// Gets the factor of safety of the piping failure mechanism,
-        /// which is a value greater than 0.
+        /// Gets the factor of safety of the piping failure mechanism.
         /// </summary>
         public RoundedDouble PipingFactorOfSafety { get; }
 
         /// <summary>
-        /// Gets the reliability of the piping failure mechanism,
-        /// which is a value greater than 0.
+        /// Gets the reliability of the piping failure mechanism.
         /// </summary>
         public RoundedDouble PipingReliability { get; }
 
@@ -136,14 +133,12 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the factor of safety for the uplift sub mechanism,
-        /// which is a value greater than 0.
+        /// Gets the factor of safety for the uplift sub mechanism.
         /// </summary>
         public RoundedDouble UpliftFactorOfSafety { get; }
 
         /// <summary>
-        /// Gets the reliability for the uplift sub mechanism,
-        /// which is a value greater than 0.
+        /// Gets the reliability for the uplift sub mechanism.
         /// </summary>
         public RoundedDouble UpliftReliability { get; }
 
@@ -167,14 +162,12 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the factor of safety for the heave sub mechanism,
-        /// which is a value greater than 0.
+        /// Gets the factor of safety for the heave sub mechanism.
         /// </summary>
         public RoundedDouble HeaveFactorOfSafety { get; }
 
         /// <summary>
-        /// Gets the reliability for the heave sub mechanism,
-        /// which is a value greater than 0.
+        /// Gets the reliability for the heave sub mechanism.
         /// </summary>
         public RoundedDouble HeaveReliability { get; }
 
@@ -198,14 +191,12 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the factor of safety for the Sellmeijer sub mechanism,
-        /// which is a value greater than 0.
+        /// Gets the factor of safety for the Sellmeijer sub mechanism.
         /// </summary>
         public RoundedDouble SellmeijerFactorOfSafety { get; }
 
         /// <summary>
-        /// Gets the reliability for the Sellmeijer sub mechanism,
-        /// which is a value greater than 0.
+        /// Gets the reliability for the Sellmeijer sub mechanism.
         /// </summary>
         public RoundedDouble SellmeijerReliability { get; }
 

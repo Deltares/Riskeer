@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(0.0)]
         [TestCase(0.123456789)]
         [TestCase(1.0)]
-        public void RequiredProbability_SetValidValues_ReturnNewlySetValue(double requiredProbability)
+        public void Constructor_ValidRequiredProbability_ExpectedValues(double requiredProbability)
         {
             // Setup
             var random = new Random(21);
@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(-346587.456)]
         [TestCase(1.0 + 1e-6)]
         [TestCase(346587.456)]
-        public void RequiredProbability_SetInvalidValues_ThrowArgumentOutOfRangeException(double requiredProbability)
+        public void Constructor_InvalidRequiredProbability_ThrowArgumentOutOfRangeException(double requiredProbability)
         {
             // Setup
             var random = new Random(21);
@@ -189,7 +189,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(0.0)]
         [TestCase(0.123456789)]
         [TestCase(1.0)]
-        public void SellmeijerProbability_SetValidValues_ReturnNewlySetValue(double sellmeijerProbability)
+        public void Constructor_ValidSellmeijerProbability_ExpectedValues(double sellmeijerProbability)
         {
             // Setup
             var random = new Random(21);
@@ -236,7 +236,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(-346587.456)]
         [TestCase(1.0 + 1e-6)]
         [TestCase(346587.456)]
-        public void SellmeijerProbability_SetInvalidValues_ThrowArgumentOutOfRangeException(double sellmeijerProbability)
+        public void Constructor_InvalidSellmeijerProbability_ThrowArgumentOutOfRangeException(double sellmeijerProbability)
         {
             // Setup
             var random = new Random(21);
@@ -281,7 +281,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(0.0)]
         [TestCase(0.123456789)]
         [TestCase(1.0)]
-        public void HeaveProbability_SetValidValues_ReturnNewlySetValue(double heaveProbability)
+        public void Constructor_ValidHeaveProbability_ExpectedValues(double heaveProbability)
         {
             // Setup
             var random = new Random(21);
@@ -328,7 +328,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(-346587.456)]
         [TestCase(1.0 + 1e-2)]
         [TestCase(346587.456)]
-        public void HeaveProbability_SetInvalidValues_ThrowArgumentOutOfRangeException(double heaveProbability)
+        public void Constructor_InvalidHeaveProbability_ThrowArgumentOutOfRangeException(double heaveProbability)
         {
             // Setup
             var random = new Random(21);
@@ -373,7 +373,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(0.0)]
         [TestCase(0.123456789)]
         [TestCase(1.0)]
-        public void UpliftProbability_SetValidValues_ReturnNewlySetValue(double upliftProbability)
+        public void Constructor_ValidUpliftProbability_ExpectedValues(double upliftProbability)
         {
             // Setup
             var random = new Random(21);
@@ -420,7 +420,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(-346587.456)]
         [TestCase(1.0 + 1e-6)]
         [TestCase(346587.456)]
-        public void UpliftProbability_SetInvalidValues_ThrowArgumentOutOfRangeException(double upliftProbability)
+        public void Constructor_InvalidUpliftProbability_ThrowArgumentOutOfRangeException(double upliftProbability)
         {
             // Setup
             var random = new Random(21);
@@ -465,7 +465,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(0.0)]
         [TestCase(0.123456789)]
         [TestCase(1.0)]
-        public void PipingProbability_SetValidValues_ReturnNewlySetValue(double pipingProbability)
+        public void Constructor_ValidPipingProbability_ExpectedValues(double pipingProbability)
         {
             // Setup
             var random = new Random(21);
@@ -512,7 +512,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(-346587.456)]
         [TestCase(1.0 + 1e-2)]
         [TestCase(346587.456)]
-        public void PipingProbability_SetInvalidValues_ThrowArgumentOutOfRangeException(double pipingProbability)
+        public void Constructor_InvalidPipingProbability_ThrowArgumentOutOfRangeException(double pipingProbability)
         {
             // Setup
             var random = new Random(21);

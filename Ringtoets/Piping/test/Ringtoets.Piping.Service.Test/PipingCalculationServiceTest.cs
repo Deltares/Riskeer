@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Service.Test
         [SetUp]
         public void Setup()
         {
-            testCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithValidInput();
+            testCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
             testSurfaceLineTopLevel = testCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var output = new TestPipingOutput();
-            PipingCalculation invalidPipingCalculation = PipingCalculationScenarioFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            PipingCalculation invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = output;
 
             // Call

@@ -61,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithOutputAsData()
+        public void CreateInstance_ValidData_NewPropertiesWithOutputAsData()
         {
             // Setup            
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

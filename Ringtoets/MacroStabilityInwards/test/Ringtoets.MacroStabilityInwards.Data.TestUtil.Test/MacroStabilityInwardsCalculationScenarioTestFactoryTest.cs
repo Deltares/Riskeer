@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         public void CreateMacroStabilityInwardsCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(double factoryOfStability)
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factoryOfStability, section);
@@ -80,7 +80,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         public void CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput_WithSection_CreatesRelevantCalculationWithOutputSetToNaN()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(section);
@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         public void CreateIrrelevantMacroStabilityInwardsCalculationScenario_WithSection_CreatesIrrelevantCalculation()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
@@ -132,7 +132,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         public void CreateNotCalculatedMacroStabilityInwardsCalculationScenario_WithSection_CreatesRelevantCalculationWithoutOutput()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
@@ -173,10 +173,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             MacroStabilityInwardsOutput output = scenario.Output;
             Assert.IsNotNull(output);
-            Assert.AreEqual(0.69717486793975103, output.FactorOfStability);
-            Assert.AreEqual(0.040462733730889267, output.ZValue);
-            Assert.AreEqual(0.97911632898222489, output.ForbiddenZonesXEntryMax);
-            Assert.AreEqual(0.44677048942389452, output.ForbiddenZonesXEntryMin);
+            Assert.IsFalse(double.IsNaN(output.FactorOfStability) && double.IsInfinity(output.FactorOfStability));
+            Assert.IsFalse(double.IsNaN(output.ZValue) && double.IsInfinity(output.ZValue));
+            Assert.IsFalse(double.IsNaN(output.ForbiddenZonesXEntryMax) && double.IsInfinity(output.ForbiddenZonesXEntryMax));
+            Assert.IsFalse(double.IsNaN(output.ForbiddenZonesXEntryMin) && double.IsInfinity(output.ForbiddenZonesXEntryMin));
             Assert.IsNotNull(output.SlidingCurve);
             Assert.IsNotNull(output.SlipPlane);
         }
@@ -372,14 +372,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             expectedSurfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
             expectedSurfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
             Assert.AreEqual(expectedSurfaceLine, inputParameters.SurfaceLine);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0)
-            });
         }
     }
 }

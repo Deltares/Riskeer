@@ -70,10 +70,9 @@ namespace Ringtoets.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            List<PipingCalculationScenario> calculationScenarios = sectionResult
-                                                                   .GetCalculationScenarios(calculations)
-                                                                   .Where(cs => cs.Status == CalculationScenarioStatus.Done)
-                                                                   .ToList();
+            IEnumerable<PipingCalculationScenario> calculationScenarios = sectionResult
+                                                                          .GetCalculationScenarios(calculations)
+                                                                          .Where(cs => cs.Status == CalculationScenarioStatus.Done);
 
             if (calculationScenarios.Any())
             {

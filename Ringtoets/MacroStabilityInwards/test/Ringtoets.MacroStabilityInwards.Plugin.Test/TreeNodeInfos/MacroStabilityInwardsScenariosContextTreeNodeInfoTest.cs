@@ -81,41 +81,21 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnScenarios()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var group = new CalculationGroup();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsScenariosContext(group, failureMechanism, assessmentSection);
-
             // Call
-            string text = info.Text(context);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Scenario's", text);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedImage()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var group = new CalculationGroup();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsScenariosContext(group, failureMechanism, assessmentSection);
-
             // Call
-            Image image = info.Image(context);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.ScenariosIcon, image);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -123,26 +103,20 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
-            var group = new CalculationGroup();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsScenariosContext(group, failureMechanism, assessmentSection);
-
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
+                info.ContextMenuStrip(null, null, treeViewControl);
 
                 // Assert
                 mocks.VerifyAll();
