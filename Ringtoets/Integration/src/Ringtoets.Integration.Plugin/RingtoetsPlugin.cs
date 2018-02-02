@@ -712,7 +712,8 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<DesignWaterLevelLocationsGroupContext>
             {
                 Text = context => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = DesignWaterLevelLocationsGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<DesignWaterLevelLocationsContext>
@@ -725,7 +726,8 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<WaveHeightLocationsGroupContext>
             {
                 Text = context => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = WaveHeightLocationsGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<WaveHeightLocationsContext>
@@ -1864,6 +1866,28 @@ namespace Ringtoets.Integration.Plugin
             affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
 
             log.Info(RingtoetsFormsResources.Calculations_Cleared);
+        }
+
+        private static object[] DesignWaterLevelLocationsGroupContextChildNodeObjects(DesignWaterLevelLocationsGroupContext context)
+        {
+            return new object[]
+            {
+                new DesignWaterLevelLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.DesignWaterLevelCalculation1),
+                new DesignWaterLevelLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.DesignWaterLevelCalculation2),
+                new DesignWaterLevelLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.DesignWaterLevelCalculation3),
+                new DesignWaterLevelLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.DesignWaterLevelCalculation4)
+            };
+        }
+
+        private static object[] WaveHeightLocationsGroupContextChildNodeObjects(WaveHeightLocationsGroupContext context)
+        {
+            return new object[]
+            {
+                new WaveHeightLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.WaveHeightCalculation1),
+                new WaveHeightLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.WaveHeightCalculation2),
+                new WaveHeightLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.WaveHeightCalculation3),
+                new WaveHeightLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.WaveHeightCalculation4)
+            };
         }
 
         #endregion

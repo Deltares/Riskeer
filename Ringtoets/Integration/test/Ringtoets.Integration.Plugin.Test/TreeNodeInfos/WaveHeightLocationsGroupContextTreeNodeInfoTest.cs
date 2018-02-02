@@ -21,10 +21,15 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -48,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ExpandOnCreate);
-                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNotNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNull(info.CanRemove);
@@ -94,6 +99,43 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
             }
+        }
+
+        [Test]
+        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var locationsGroupContext = new WaveHeightLocationsGroupContext(locations, assessmentSection);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                object[] childNodeObjects = info.ChildNodeObjects(locationsGroupContext);
+
+                // Assert
+                Assert.AreEqual(4, childNodeObjects.Length);
+
+                WaveHeightLocationsContext[] locationsContexts = childNodeObjects.OfType<WaveHeightLocationsContext>().ToArray();
+                Assert.AreEqual(4, locationsContexts.Length);
+
+                Assert.IsTrue(locationsContexts.All(c => ReferenceEquals(locations, c.WrappedData)));
+                Assert.IsTrue(locationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
+
+                var testLocation = new TestHydraulicBoundaryLocation();
+                Assert.AreSame(testLocation.WaveHeightCalculation1, locationsContexts[0].GetCalculationFunc(testLocation));
+                Assert.AreSame(testLocation.WaveHeightCalculation2, locationsContexts[1].GetCalculationFunc(testLocation));
+                Assert.AreSame(testLocation.WaveHeightCalculation3, locationsContexts[2].GetCalculationFunc(testLocation));
+                Assert.AreSame(testLocation.WaveHeightCalculation4, locationsContexts[3].GetCalculationFunc(testLocation));
+            }
+
+            mocks.VerifyAll();
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
