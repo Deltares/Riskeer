@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Ringtoets.Common.Data.Hydraulics;
@@ -36,8 +37,14 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="HydraulicLocationOutputEntity"/> to create <see cref="HydraulicBoundaryLocationOutput"/> for.</param>
         /// <returns>A new <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <param name="entity"></param> is <c>null</c>.</exception>
         internal static HydraulicBoundaryLocationOutput Read(this HydraulicLocationOutputEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return new HydraulicBoundaryLocationOutput(entity.Result.ToNullAsNaN(),
                                                        entity.TargetProbability.ToNullAsNaN(),
                                                        entity.TargetReliability.ToNullAsNaN(),

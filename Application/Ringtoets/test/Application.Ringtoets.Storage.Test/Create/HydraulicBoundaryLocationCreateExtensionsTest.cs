@@ -26,9 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -47,6 +45,20 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", parameterName);
+        }
+
+        [Test]
+        public void Create_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => ((HydraulicBoundaryLocation) null).Create(new PersistenceRegistry(), random.Next());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("location", exception.ParamName);
         }
 
         [Test]
@@ -195,6 +207,21 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => ((HydraulicBoundaryLocation) null).CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(
+                new PersistenceRegistry(), random.Next());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("location", exception.ParamName);
+        }
+
+        [Test]
         public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistry_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithPropertiesSet()
         {
             // Setup
@@ -304,64 +331,6 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistryAndGeneralResult_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithOutputAndGeneralResultSet()
-        {
-            // Setup
-            var random = new Random(21);
-            var hydraulicBoundaryLocationDesignWaterLevelOutput = new HydraulicBoundaryLocationOutput(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
-                new TestGeneralResultSubMechanismIllustrationPoint());
-
-            var hydraulicBoundaryLocationWaveHeightOutput = new HydraulicBoundaryLocationOutput(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
-                new TestGeneralResultSubMechanismIllustrationPoint());
-
-            bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
-                    },
-                    Output = hydraulicBoundaryLocationDesignWaterLevelOutput
-                },
-                WaveHeightCalculation1 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
-                    },
-                    Output = hydraulicBoundaryLocationWaveHeightOutput
-                }
-            };
-            var registry = new PersistenceRegistry();
-
-            // Call
-            GrassCoverErosionOutwardsHydraulicLocationEntity entity =
-                hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
-
-            // Assert
-            Assert.IsNotNull(entity);
-            GrassCoverErosionOutwardsHydraulicLocationOutputEntity designWaterLevelOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
-            Assert.IsNotNull(designWaterLevelOutputEntity);
-            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, designWaterLevelOutputEntity);
-            Assert.IsNotNull(designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
-            AssertGeneralResult(hydraulicBoundaryLocationWaveHeightOutput.GeneralResult,
-                                designWaterLevelOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
-
-            GrassCoverErosionOutwardsHydraulicLocationOutputEntity waveHeightOutputEntity = GetHydraulicLocationOutputEntity(entity, HydraulicLocationOutputType.DesignWaterLevel);
-            Assert.IsNotNull(waveHeightOutputEntity);
-            AssertHydraulicBoundaryLocationOutput(hydraulicBoundaryLocationDesignWaterLevelOutput, waveHeightOutputEntity);
-            Assert.IsNotNull(waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
-            AssertGeneralResult(hydraulicBoundaryLocationWaveHeightOutput.GeneralResult,
-                                waveHeightOutputEntity.GeneralResultSubMechanismIllustrationPointEntity);
-        }
-
-        [Test]
         public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_HydraulicBoundaryLocationSavedMultipleTimes_ReturnSameEntity()
         {
             // Setup
@@ -410,19 +379,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
-        }
-
-        private static void AssertGeneralResult(GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoint,
-                                                GeneralResultSubMechanismIllustrationPointEntity entity)
-        {
-            WindDirection governingWindDirection = illustrationPoint.GoverningWindDirection;
-            TestHelper.AssertAreEqualButNotSame(governingWindDirection.Name, entity.GoverningWindDirectionName);
-            Assert.AreEqual(governingWindDirection.Angle, entity.GoverningWindDirectionAngle,
-                            governingWindDirection.Angle.GetAccuracy());
-
-            Assert.AreEqual(illustrationPoint.Stochasts.Count(), entity.StochastEntities.Count);
-            Assert.AreEqual(illustrationPoint.TopLevelIllustrationPoints.Count(),
-                            entity.TopLevelSubMechanismIllustrationPointEntities.Count);
         }
     }
 }

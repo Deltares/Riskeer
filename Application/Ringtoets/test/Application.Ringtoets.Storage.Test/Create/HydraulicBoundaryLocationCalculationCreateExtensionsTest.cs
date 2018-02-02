@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_CalculationWithOutputAndWithoutGeneralResult_ReturnsHydraulicLocationCalculationEntityWithOutput()
+        public void Create_CalculationWithOutput_ReturnsHydraulicLocationCalculationEntityWithOutput()
         {
             // Setup
             var random = new Random(33);
@@ -94,68 +94,14 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(Convert.ToByte(shouldIllustrationPointsBeCalculated), entity.ShouldIllustrationPointsBeCalculated);
 
             HydraulicLocationOutputEntity outputEntity = entity.HydraulicLocationOutputEntities.Single();
-            AssertHydraulicLocationOutput(calculation.Output, outputEntity);
-        }
 
-        [Test]
-        public void Create_CalculationWithOutputAndGeneralResult_ReturnsHydraulicLocationCalculationEntityWithOutput()
-        {
-            // Setup
-            var random = new Random(33);
-            bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
-            var calculation = new HydraulicBoundaryLocationCalculation
-            {
-                InputParameters =
-                {
-                    ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
-                },
-                Output = new HydraulicBoundaryLocationOutput(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                    random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
-                    new TestGeneralResultSubMechanismIllustrationPoint())
-            };
-
-            // Call
-            HydraulicLocationCalculationEntity entity = calculation.Create();
-
-            // Assert
-            Assert.IsNotNull(entity);
-            Assert.AreEqual(Convert.ToByte(shouldIllustrationPointsBeCalculated), entity.ShouldIllustrationPointsBeCalculated);
-
-            HydraulicLocationOutputEntity outputEntity = entity.HydraulicLocationOutputEntities.Single();
-            AssertHydraulicLocationOutput(calculation.Output, outputEntity);
-        }
-
-        private static void AssertHydraulicLocationOutput(HydraulicBoundaryLocationOutput expectedOutput,
-                                                          HydraulicLocationOutputEntity actualOutput)
-        {
-            AssertNullableDouble(expectedOutput.CalculatedProbability, actualOutput.CalculatedProbability);
-            AssertNullableDouble(expectedOutput.CalculatedReliability, actualOutput.CalculatedReliability);
-            AssertNullableDouble(expectedOutput.TargetReliability, actualOutput.TargetReliability);
-            AssertNullableDouble(expectedOutput.TargetProbability, actualOutput.TargetProbability);
-
-            if (expectedOutput.GeneralResult != null)
-            {
-                Assert.IsNotNull(actualOutput.GeneralResultSubMechanismIllustrationPointEntity);
-            }
-            else
-            {
-                Assert.IsNull(actualOutput.GeneralResultSubMechanismIllustrationPointEntity);
-            }
-
-            Assert.AreEqual(Convert.ToByte(expectedOutput.CalculationConvergence), actualOutput.CalculationConvergence);
-        }
-
-        private static void AssertNullableDouble(double expectedDouble, double? actualDouble)
-        {
-            if (double.IsNaN(expectedDouble))
-            {
-                Assert.IsNull(actualDouble);
-            }
-            else
-            {
-                Assert.AreEqual(expectedDouble, actualDouble);
-            }
+            HydraulicBoundaryLocationOutput expectedOutput = calculation.Output;
+            Assert.AreEqual(expectedOutput.CalculatedProbability, outputEntity.CalculatedProbability);
+            Assert.AreEqual(expectedOutput.CalculatedReliability, outputEntity.CalculatedReliability);
+            Assert.AreEqual(expectedOutput.TargetReliability, outputEntity.TargetReliability);
+            Assert.AreEqual(expectedOutput.TargetProbability, outputEntity.TargetProbability);
+            Assert.IsNull(outputEntity.GeneralResultSubMechanismIllustrationPointEntity);
+            Assert.AreEqual(Convert.ToByte(expectedOutput.CalculationConvergence), outputEntity.CalculationConvergence);
         }
     }
 }

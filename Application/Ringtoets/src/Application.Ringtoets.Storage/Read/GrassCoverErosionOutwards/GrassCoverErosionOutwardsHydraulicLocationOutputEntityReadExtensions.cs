@@ -19,11 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
+namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionOutwardsHydraulicLocationOutputEntity"/> related to creating 
@@ -38,14 +39,20 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         /// <param name="entity">The <see cref="GrassCoverErosionOutwardsHydraulicLocationOutputEntity"/>
         ///  to create <see cref="HydraulicBoundaryLocationOutput"/> for.</param>
         /// <returns>A new <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <param name="entity"></param> is <c>null</c>.</exception>
         internal static HydraulicBoundaryLocationOutput Read(this GrassCoverErosionOutwardsHydraulicLocationOutputEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return new HydraulicBoundaryLocationOutput(entity.Result.ToNullAsNaN(),
                                                        entity.TargetProbability.ToNullAsNaN(),
                                                        entity.TargetReliability.ToNullAsNaN(),
                                                        entity.CalculatedProbability.ToNullAsNaN(),
                                                        entity.CalculatedReliability.ToNullAsNaN(),
-                                                       (CalculationConvergence)entity.CalculationConvergence,
+                                                       (CalculationConvergence) entity.CalculationConvergence,
                                                        entity.GeneralResultSubMechanismIllustrationPointEntity?.Read());
         }
     }

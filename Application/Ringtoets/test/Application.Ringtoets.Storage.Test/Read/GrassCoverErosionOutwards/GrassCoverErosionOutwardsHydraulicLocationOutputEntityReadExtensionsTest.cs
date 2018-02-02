@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -36,6 +36,17 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
     [TestFixture]
     public class GrassCoverErosionOutwardsHydraulicLocationOutputEntityReadExtensionsTest
     {
+        [Test]
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((GrassCoverErosionOutwardsHydraulicLocationOutputEntity) null).Read();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
         [Test]
         [Combinatorial]
         public void Read_ValidParameters_ReturnsHydraulicBoundaryLocationOutput(

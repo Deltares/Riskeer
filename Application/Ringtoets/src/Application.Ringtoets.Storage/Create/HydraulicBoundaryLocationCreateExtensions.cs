@@ -38,9 +38,15 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="HydraulicLocationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> or <param name="location"></param> 
+        /// is <c>null</c>.</exception>
         internal static HydraulicLocationEntity Create(this HydraulicBoundaryLocation location, PersistenceRegistry registry, int order)
         {
+            if (location == null)
+            {
+                throw new ArgumentNullException(nameof(location));
+            }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
@@ -72,11 +78,6 @@ namespace Application.Ringtoets.Storage.Create
             return entity;
         }
 
-        private static byte GetShouldIllustrationPointsBeCalculated(HydraulicBoundaryLocationCalculation calculation)
-        {
-            return Convert.ToByte(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-        }
-
         #region Grass CoverErosion Outwards HydraulicLocation
 
         /// <summary>
@@ -85,11 +86,17 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="location">The location to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
-        /// <returns>A new <see cref="HydraulicLocationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> or <param name="location"></param> 
+        /// is <c>null</c>.</exception>
         internal static GrassCoverErosionOutwardsHydraulicLocationEntity CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(
             this HydraulicBoundaryLocation location, PersistenceRegistry registry, int order)
         {
+            if (location == null)
+            {
+                throw new ArgumentNullException(nameof(location));
+            }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
@@ -131,6 +138,11 @@ namespace Application.Ringtoets.Storage.Create
 
                 entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(grassCoverErosionOutwardsHydraulicLocationOutputEntity);
             }
+        }
+
+        private static byte GetShouldIllustrationPointsBeCalculated(HydraulicBoundaryLocationCalculation calculation)
+        {
+            return Convert.ToByte(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
         }
 
         #endregion

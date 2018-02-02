@@ -22,6 +22,7 @@ Application/Ringtoets/src/Application.Ringtoets.Setup/Examples.wxs
 Application/Ringtoets/src/Application.Ringtoets.Setup/RingtoetsPayload.wxs
 Application/Ringtoets/src/Application.Ringtoets.Setup/ThirdPartyLicensesPayload.wxs
 Core/Common/src/Core.Common.Version/GlobalAssembly.cs
+*.ldb
 
 # ReSharper is a .NET coding add-in
 _ReSharper*/
@@ -58,4 +59,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-*.ldb

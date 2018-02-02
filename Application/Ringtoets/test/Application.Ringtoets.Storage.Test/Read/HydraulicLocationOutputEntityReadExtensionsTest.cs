@@ -37,6 +37,17 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class HydraulicLocationOutputEntityReadExtensionsTest
     {
         [Test]
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((HydraulicLocationOutputEntity) null).Read();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
         [Combinatorial]
         public void Read_ValidParameters_ReturnsHydraulicBoundaryLocationOutput(
             [Values(HydraulicLocationOutputType.DesignWaterLevel, HydraulicLocationOutputType.WaveHeight)] HydraulicLocationOutputType outputType,
