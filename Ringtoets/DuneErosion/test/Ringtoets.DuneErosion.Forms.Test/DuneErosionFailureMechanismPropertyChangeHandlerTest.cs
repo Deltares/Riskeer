@@ -123,7 +123,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
             if (dialogBoxWillBeShown)
             {
                 Assert.AreEqual("Bevestigen", title);
-                string expectedMessage = "Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle randvoorwaarden locaties in dit toetsspoor verwijderd worden." + Environment.NewLine +
+                string expectedMessage = "Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties in dit toetsspoor verwijderd worden." + Environment.NewLine +
                                          Environment.NewLine +
                                          "Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, message);

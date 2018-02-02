@@ -1357,7 +1357,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u een parameter in een toetsspoor wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden.
+        ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
