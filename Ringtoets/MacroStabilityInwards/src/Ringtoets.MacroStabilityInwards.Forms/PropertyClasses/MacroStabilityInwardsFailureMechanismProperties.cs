@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -38,60 +35,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismProperties : ObjectProperties<MacroStabilityInwardsFailureMechanism>
     {
-        private readonly IFailureMechanismPropertyChangeHandler<MacroStabilityInwardsFailureMechanism> propertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data,
-                                                               IFailureMechanismPropertyChangeHandler<MacroStabilityInwardsFailureMechanism> handler)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
             Data = data;
-            propertyChangeHandler = handler;
         }
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
-            SetFailureMechanismPropertyValueDelegate<MacroStabilityInwardsFailureMechanism, TValue> setPropertyValue,
-            TValue value)
-        {
-            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                data,
-                value,
-                setPropertyValue);
-
-            NotifyAffectedObjects(affectedObjects);
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
+            return data.IsRelevant || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
         }
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
