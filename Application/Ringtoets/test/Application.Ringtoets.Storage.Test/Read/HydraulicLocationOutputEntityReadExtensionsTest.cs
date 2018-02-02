@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -48,11 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [Combinatorial]
-        public void Read_ValidParameters_ReturnsHydraulicBoundaryLocationOutput(
-            [Values(HydraulicLocationOutputType.DesignWaterLevel, HydraulicLocationOutputType.WaveHeight)] HydraulicLocationOutputType outputType,
-            [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void Read_ValidParameters_ReturnsHydraulicBoundaryLocationOutput()
         {
             // Setup
             var random = new Random(22);
@@ -61,6 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             double targetReliability = random.NextDouble();
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
             var entity = new HydraulicLocationOutputEntity
             {
                 Result = result,
@@ -85,11 +81,12 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_NaNParameters_ReturnsHydraulicBoundaryLocationOutputWithNaN(
-            [Values(CalculationConvergence.CalculatedNotConverged, CalculationConvergence.CalculatedConverged,
-                CalculationConvergence.NotCalculated)] CalculationConvergence convergence)
+        public void Read_NaNParameters_ReturnsHydraulicBoundaryLocationOutputWithNaN()
         {
             // Setup
+            var random = new Random(21);
+            var convergence = random.NextEnumValue<CalculationConvergence>();
+
             var entity = new HydraulicLocationOutputEntity
             {
                 Result = double.NaN,

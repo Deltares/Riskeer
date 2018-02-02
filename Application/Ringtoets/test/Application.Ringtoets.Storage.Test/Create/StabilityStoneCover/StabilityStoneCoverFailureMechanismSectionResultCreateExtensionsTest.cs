@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
@@ -39,24 +40,22 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         {
             // Setup
             var random = new Random(21);
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            var assessmentLayerTwoAResult = random.NextEnumValue<AssessmentLayerTwoAResult>();
-            double assessmentLayerThreeResult = random.NextDouble();
 
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerTwoA = assessmentLayerTwoAResult,
-                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+                AssessmentLayerOne = random.NextEnumValue<AssessmentLayerOneState>(),
+                AssessmentLayerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>(),
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
 
             // Call
             StabilityStoneCoverSectionResultEntity result = sectionResult.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(Convert.ToByte(assessmentLayerTwoAResult), result.LayerTwoA);
-            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
+            Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerOne), result.LayerOne);
+            Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerTwoA), result.LayerTwoA);
+            Assert.AreEqual(sectionResult.AssessmentLayerThree, result.LayerThree,
+                            sectionResult.AssessmentLayerThree.GetAccuracy());
         }
 
         [Test]

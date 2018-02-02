@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityLengthwise
@@ -39,21 +40,20 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityLengthwise
         {
             // Setup
             var random = new Random(21);
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            double assessmentLayerThreeResult = random.NextDouble();
 
             var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+                AssessmentLayerOne = random.NextEnumValue<AssessmentLayerOneState>(),
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
 
             // Call
             StrengthStabilityLengthwiseConstructionSectionResultEntity result = sectionResult.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
+            Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerOne), result.LayerOne);
+            Assert.AreEqual(sectionResult.AssessmentLayerThree, result.LayerThree,
+                            sectionResult.AssessmentLayerThree.GetAccuracy());
         }
 
         [Test]

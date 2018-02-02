@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -47,15 +48,14 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [Combinatorial]
-        public void Read_ParameterValues_SectionResultWithParameterValues(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
-            [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed,
-                AssessmentLayerTwoAResult.Successful)] AssessmentLayerTwoAResult layerTwoA,
-            [Values(0.1, 0.2, null)] double? layerThree)
+        public void Read_ParameterValues_SectionResultWithParameterValues()
         {
             // Setup
+            var random = new Random(21);
+            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
+            var layerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>();
+            double layerThree = random.NextDouble();
+
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
@@ -73,10 +73,39 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.Read(sectionResult);
 
             // Assert
-            Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
-            Assert.AreEqual(layerThree ?? double.NaN, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+        }
+
+        [Test]
+        public void Read_EntityWithNullValues_SectionResultWitNaNValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
+            var layerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>();
+
+            var collector = new ReadConversionCollector();
+
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
+            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            var entity = new MicrostabilitySectionResultEntity
+            {
+                LayerThree = null,
+                LayerTwoA = Convert.ToByte(layerTwoA),
+                LayerOne = Convert.ToByte(layerOne),
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            entity.Read(sectionResult);
+
+            // Assert
+            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
+            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
+            Assert.IsNaN(sectionResult.AssessmentLayerThree);
         }
     }
 }

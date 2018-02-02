@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -62,13 +63,13 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        [Combinatorial]
-        public void Read_ParameterValues_SectionResultWithParameterValues(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState layerOne,
-            [Values(0.1, 0.2, null)] double? layerThree)
+        public void Read_ParameterValues_SectionResultWithParameterValues()
         {
             // Setup
+            var random = new Random(21);
+            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
+            double layerThree = random.NextDouble();
+
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
@@ -85,9 +86,37 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             entity.Read(sectionResult, collector);
 
             // Assert
-            Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerThree ?? double.NaN, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.IsNull(sectionResult.Calculation);
+        }
+
+        [Test]
+        public void Read_EntityWithNullValues_SectionResultWithNaNValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
+
+            var collector = new ReadConversionCollector();
+
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
+            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            
+            var entity = new GrassCoverErosionInwardsSectionResultEntity
+            {
+                LayerThree = null,
+                LayerOne = Convert.ToByte(layerOne),
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            entity.Read(sectionResult, collector);
+
+            // Assert
+            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
+            Assert.IsNaN(sectionResult.AssessmentLayerThree);
             Assert.IsNull(sectionResult.Calculation);
         }
 

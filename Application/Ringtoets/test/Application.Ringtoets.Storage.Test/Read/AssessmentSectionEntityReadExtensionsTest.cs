@@ -114,17 +114,16 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [Combinatorial]
-        public void Read_WithBackgroundData_ReturnsNewAssessmentSectionWithBackgroundData(
-            [Values(true, false)] bool isConfigured)
+        public void Read_WithBackgroundData_ReturnsNewAssessmentSectionWithBackgroundData()
         {
             // Setup
+            var random = new Random(21);
+
             const string mapDataName = "Background";
-            const double transparency = 0.0;
-            bool isVisible = isConfigured;
+            double transparency = random.GetFromRange(0, 1);
+            bool isVisible = random.NextBoolean();
             const BackgroundDataType backgroundDataType = BackgroundDataType.WellKnown;
 
-            var random = new Random(21);
             var wellKnownTileSource = random.NextEnumValue<RingtoetsWellKnownTileSource>();
             string wellKnownTileSourceValue = ((int) wellKnownTileSource).ToString();
 
@@ -157,7 +156,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             BackgroundData backgroundData = section.BackgroundData;
             Assert.AreEqual(isVisible, backgroundData.IsVisible);
-            Assert.AreEqual(transparency, backgroundData.Transparency);
+            Assert.AreEqual(transparency, backgroundData.Transparency,
+                            backgroundData.Transparency.GetAccuracy());
             Assert.AreEqual(mapDataName, backgroundData.Name);
 
             Assert.IsNotNull(backgroundData.Configuration);
