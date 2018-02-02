@@ -153,7 +153,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             {
                 otherFailureMechanism
             });
-
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -185,7 +184,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 new TestFailureMechanism(),
                 failureMechanism
             });
-
             mocks.ReplayAll();
 
             using (var view = new PipingFailureMechanismResultView(assessmentSection)

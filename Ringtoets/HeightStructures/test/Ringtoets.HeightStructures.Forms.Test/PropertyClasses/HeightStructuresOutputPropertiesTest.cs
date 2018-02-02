@@ -91,6 +91,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var random = new Random(39);
             double reliability = random.NextDouble();

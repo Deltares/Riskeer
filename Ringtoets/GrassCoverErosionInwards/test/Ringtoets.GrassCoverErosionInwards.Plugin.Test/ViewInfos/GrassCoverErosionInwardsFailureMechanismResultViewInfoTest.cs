@@ -294,8 +294,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
 
-            mocks.ReplayAll();
-
             var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
                 failureMechanism,
@@ -316,6 +314,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults,
                                                                                                                                      failureMechanism,

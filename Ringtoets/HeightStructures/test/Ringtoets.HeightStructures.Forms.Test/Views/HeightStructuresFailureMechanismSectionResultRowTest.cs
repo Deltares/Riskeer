@@ -137,6 +137,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             if (status == CalculationScenarioStatus.Failed)
@@ -168,6 +169,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {

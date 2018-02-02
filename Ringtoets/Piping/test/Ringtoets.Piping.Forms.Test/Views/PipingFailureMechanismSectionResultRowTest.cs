@@ -224,6 +224,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             PipingCalculationScenario scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(section);

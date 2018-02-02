@@ -67,6 +67,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var output = new TestPipingOutput();
             var context = new PipingOutputContext(output, failureMechanism, assessmentSection);

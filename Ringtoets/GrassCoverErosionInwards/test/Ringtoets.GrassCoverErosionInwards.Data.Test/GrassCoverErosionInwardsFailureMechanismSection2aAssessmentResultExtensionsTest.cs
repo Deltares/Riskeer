@@ -102,6 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -123,6 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -133,6 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)

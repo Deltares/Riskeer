@@ -116,6 +116,7 @@ namespace Ringtoets.Piping.Data.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
@@ -243,6 +244,7 @@ namespace Ringtoets.Piping.Data.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
@@ -254,10 +256,10 @@ namespace Ringtoets.Piping.Data.Test
             PipingCalculationScenario pipingCalculationScenario2 = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             pipingCalculationScenario1.IsRelevant = true;
-            pipingCalculationScenario1.Contribution = (RoundedDouble)contribution1;
+            pipingCalculationScenario1.Contribution = (RoundedDouble) contribution1;
 
             pipingCalculationScenario2.IsRelevant = true;
-            pipingCalculationScenario2.Contribution = (RoundedDouble)contribution2;
+            pipingCalculationScenario2.Contribution = (RoundedDouble) contribution2;
             pipingCalculationScenario2.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
             var calculations = new[]

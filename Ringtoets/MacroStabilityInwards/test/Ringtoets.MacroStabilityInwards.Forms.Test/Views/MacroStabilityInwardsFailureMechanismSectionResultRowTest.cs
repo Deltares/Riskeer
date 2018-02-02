@@ -67,6 +67,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA));
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerThree));
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -226,6 +227,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             MacroStabilityInwardsCalculationScenario scenario =
@@ -274,6 +276,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
+            mocks.VerifyAll();
         }
     }
 }

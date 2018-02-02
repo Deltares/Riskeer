@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -60,6 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var grassCoverErosionInwardsOutput = new TestGrassCoverErosionInwardsOutput();
 
@@ -127,15 +127,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var random = new Random(39);
             double waveHeight = random.NextDouble();
             bool isOvertoppingDominant = Convert.ToBoolean(random.Next(0, 2));
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double probability = random.NextDouble();
             double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
             double dikeHeight = random.NextDouble();
             double dikeHeightTargetProbability = random.NextDouble();
             double dikeHeightTargetReliability = random.NextDouble();
@@ -148,11 +145,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             double overtoppingRateCalculatedProbability = random.NextDouble();
             double overtoppingRateCalculatedReliability = random.NextDouble();
             var overtoppingRateConvergence = random.NextEnumValue<CalculationConvergence>();
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability,
-                                                                              requiredReliability,
-                                                                              probability,
-                                                                              reliability,
-                                                                              factorOfSafety);
+
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      isOvertoppingDominant,
                                                      reliability,
@@ -186,7 +179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(0, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0), properties.RequiredProbability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), properties.Probability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), properties.Probability);
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);
 
@@ -238,7 +231,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var resultOutput = new OvertoppingOutput(10,
                                                      true,
                                                      0,
@@ -276,7 +268,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             DikeHeightOutput dikeHeightOutput = null;
             OvertoppingRateOutput overtoppingRateOutput = null;
 
@@ -317,6 +308,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 AssertOvertoppingRateOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
             }
+
             mocks.VerifyAll();
         }
 
@@ -332,7 +324,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      true,
                                                      0,

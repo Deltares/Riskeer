@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.Helpers;
@@ -66,6 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var overtoppingOutput = new TestOvertoppingOutput(0.5);
 
@@ -137,20 +137,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var random = new Random(39);
             double waveHeight = random.NextDouble();
             bool isOvertoppingDominant = random.NextBoolean();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double probability = random.NextDouble();
             double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability,
-                                                                              requiredReliability,
-                                                                              probability,
-                                                                              reliability,
-                                                                              factorOfSafety);
 
             var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
 
@@ -173,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(0, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0), properties.RequiredProbability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), properties.Probability);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), properties.Probability);
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);
 
@@ -209,6 +201,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var overtoppingOutput = new TestOvertoppingOutput(0.5);
             var properties = new OvertoppingOutputProperties(overtoppingOutput, failureMechanism, assessmentSection);
@@ -231,8 +224,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
-            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
                                                           true,
                                                           0,
@@ -315,8 +308,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
-            var probabilityAssessmentOutput = new TestProbabilityAssessmentOutput();
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
                                                           true,
                                                           0,

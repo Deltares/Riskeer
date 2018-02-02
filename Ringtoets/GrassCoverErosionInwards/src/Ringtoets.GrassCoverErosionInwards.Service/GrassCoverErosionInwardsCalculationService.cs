@@ -175,8 +175,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                            generalInput,
                                                                            hydraulicBoundaryDatabaseFilePath,
                                                                            usePreprocessor,
-                                                                           assessmentSection.FailureMechanismContribution.Norm,
-                                                                           failureMechanismContribution,
                                                                            numberOfCalculators);
 
                 if (canceled)
@@ -252,8 +250,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
-        /// <param name="norm">The norm which has been defined on the assessment section.</param>
-        /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section</param>
         /// <param name="numberOfCalculators">The total number of calculations to perform.</param>
         /// <returns>A <see cref="OvertoppingOutput"/>.</returns>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
@@ -261,8 +257,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                        GeneralGrassCoverErosionInwardsInput generalInput,
                                                        string hydraulicBoundaryDatabaseFilePath,
                                                        bool usePreprocessor,
-                                                       double norm,
-                                                       double failureMechanismContribution,
                                                        int numberOfCalculators)
         {
             NotifyProgress(string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_calculation_of_type_0,

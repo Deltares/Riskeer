@@ -91,6 +91,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var output = new TestStructuresOutput();
 
@@ -109,6 +110,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(expectedProbabilityOutput.Reliability, probabilityOutput.Reliability);
             Assert.AreEqual(expectedProbabilityOutput.RequiredProbability, probabilityOutput.RequiredProbability);
             Assert.AreEqual(expectedProbabilityOutput.RequiredReliability, probabilityOutput.RequiredReliability);
+            mocks.VerifyAll();
         }
     }
 }

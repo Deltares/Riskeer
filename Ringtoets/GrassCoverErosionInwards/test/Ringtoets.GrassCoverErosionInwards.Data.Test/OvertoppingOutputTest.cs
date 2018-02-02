@@ -23,7 +23,6 @@ using System;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
@@ -40,17 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             const double waveHeight = 3.2934;
-            const double requiredProbability = 0.2;
-            const double requiredReliability = 0.3;
-            const double probability = 0.4;
             const double reliability = 0.1;
-            const double factorOfSafety = 0.7;
-
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability,
-                                                                              requiredReliability,
-                                                                              probability,
-                                                                              reliability,
-                                                                              factorOfSafety);
 
             GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult = withIllustrationPoints
                                                                                   ? new TestGeneralResultFaultTreeIllustrationPoint()
@@ -64,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.IsTrue(output.IsOvertoppingDominant);
-            Assert.AreEqual(reliability, output.Reliability, 1e-6);
+            Assert.AreEqual(reliability, output.Reliability);
 
             Assert.IsTrue(output.HasWaveHeight);
 

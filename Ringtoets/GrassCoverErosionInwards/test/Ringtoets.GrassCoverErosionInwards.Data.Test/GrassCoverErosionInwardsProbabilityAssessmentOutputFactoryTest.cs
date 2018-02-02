@@ -97,6 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var output = new TestOvertoppingOutput(0);
 
@@ -115,6 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(expectedProbabilityOutput.Reliability, probabilityOutput.Reliability);
             Assert.AreEqual(expectedProbabilityOutput.RequiredProbability, probabilityOutput.RequiredProbability);
             Assert.AreEqual(expectedProbabilityOutput.RequiredReliability, probabilityOutput.RequiredReliability);
+            mocks.VerifyAll();
         }
     }
 }

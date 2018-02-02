@@ -89,6 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var output = new TestPipingOutput();
 
@@ -109,6 +110,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var random = new Random(22);
             double upliftEffectiveStress = random.NextDouble();
@@ -136,7 +138,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
-            var expectedDerivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
+            DerivedPipingOutput expectedDerivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
             const string probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.UpliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
@@ -169,6 +171,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             // Call
             var properties = new PipingOutputProperties(new TestPipingOutput(), failureMechanism, assessmentSection);
@@ -314,7 +317,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                             "Veiligheidsfactor [-]",
                                                                             "De veiligheidsfactor voor deze berekening.",
                                                                             true);
-
             mocks.VerifyAll();
         }
     }

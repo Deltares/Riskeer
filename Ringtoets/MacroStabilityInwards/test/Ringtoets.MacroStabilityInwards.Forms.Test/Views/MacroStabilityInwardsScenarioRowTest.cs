@@ -98,6 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             // Call
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
@@ -111,6 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
                 calculation.Output, failureMechanism, assessmentSection);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -122,6 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             // Call
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
@@ -132,6 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
             Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
             Assert.AreEqual("-", row.FailureProbabilityMacroStabilityInwards);
+            mocks.VerifyAll();
         }
 
         [Test]

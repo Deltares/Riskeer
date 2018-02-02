@@ -315,6 +315,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(
                 failureMechanism.SectionResults,

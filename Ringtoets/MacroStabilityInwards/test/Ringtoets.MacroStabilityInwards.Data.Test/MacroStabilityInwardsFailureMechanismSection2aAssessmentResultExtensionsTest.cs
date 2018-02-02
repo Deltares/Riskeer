@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -121,8 +120,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             const double contribution1 = 0.2;
@@ -170,8 +170,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            
-            FailureMechanismSection section = CreateSection();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -193,7 +193,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario calculationScenario1 = MacroStabilityInwardsCalculationScenarioFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
@@ -225,7 +225,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
@@ -249,6 +249,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
@@ -284,7 +285,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetTotalContribution_Always_ReturnsTotalRelevantScenarioContribution()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
@@ -313,7 +314,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetCalculationScenarioStatus_ScenarioNotCalculated_ReturnsStatusNotCalculated()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
@@ -332,7 +333,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetCalculationScenarioStatus_ScenarioNaNOutput_ReturnsStatusDone()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(section);
@@ -352,7 +353,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetCalculationScenarioStatus_ScenarioNaNOutputAndNotCalculated_ReturnsStatusNotCalculated()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
@@ -378,7 +379,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetCalculationScenarioStatus_ScenariosCalculated_ReturnsStatusDone()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(0.1, section);
@@ -398,7 +399,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetCalculationScenarioStatus_NoScenarios_ReturnsStatusDone()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -406,15 +407,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Done, status);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("test", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
         }
     }
 }

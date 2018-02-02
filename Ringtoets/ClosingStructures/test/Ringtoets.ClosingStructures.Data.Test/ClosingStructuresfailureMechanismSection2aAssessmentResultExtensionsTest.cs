@@ -134,6 +134,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)

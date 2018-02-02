@@ -68,6 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var output = new TestGrassCoverErosionInwardsOutput();
             var calculation = new GrassCoverErosionInwardsCalculation

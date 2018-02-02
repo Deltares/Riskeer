@@ -137,6 +137,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             if (status == CalculationScenarioStatus.Failed)
@@ -168,6 +169,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             const double reliability = 0.586789;
             var calculation = new StructuresCalculation<ClosingStructuresInput>

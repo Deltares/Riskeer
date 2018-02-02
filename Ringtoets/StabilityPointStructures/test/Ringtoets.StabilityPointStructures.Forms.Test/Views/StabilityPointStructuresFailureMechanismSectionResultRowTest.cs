@@ -138,6 +138,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             if (status == CalculationScenarioStatus.Failed)
@@ -169,6 +170,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {

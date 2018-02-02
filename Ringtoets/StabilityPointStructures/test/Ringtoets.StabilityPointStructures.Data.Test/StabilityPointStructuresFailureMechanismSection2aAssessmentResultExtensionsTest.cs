@@ -103,6 +103,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -124,6 +125,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -134,6 +136,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)

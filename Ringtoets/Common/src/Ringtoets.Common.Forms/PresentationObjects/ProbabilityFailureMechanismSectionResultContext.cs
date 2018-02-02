@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
-    /// /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/>.</typeparam>
+    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/>.</typeparam>
     public class ProbabilityFailureMechanismSectionResultContext<T> : FailureMechanismSectionResultContext<T> where T : FailureMechanismSectionResult
     {
         /// <summary>
