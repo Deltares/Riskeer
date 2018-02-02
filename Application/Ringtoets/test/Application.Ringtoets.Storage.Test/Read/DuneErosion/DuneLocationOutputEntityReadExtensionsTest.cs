@@ -63,13 +63,13 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             DuneLocationOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual((RoundedDouble) waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
-            Assert.AreEqual((RoundedDouble) wavePeriod, output.WavePeriod, output.WavePeriod.GetAccuracy());
+            Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.AreEqual(wavePeriod, output.WavePeriod, output.WavePeriod.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
-            Assert.AreEqual((RoundedDouble) targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual((RoundedDouble) calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }
 

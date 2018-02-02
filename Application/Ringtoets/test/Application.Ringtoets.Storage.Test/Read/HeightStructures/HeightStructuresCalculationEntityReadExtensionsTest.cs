@@ -178,7 +178,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.AreEqual(flagUsage, input.UseForeshore);
             Assert.AreEqual(!flagUsage, input.UseBreakWater);
             Assert.AreEqual(type, input.BreakWater.Type);
-            Assert.AreEqual((RoundedDouble) breakWaterHeight, input.BreakWater.Height, input.BreakWater.Height.GetAccuracy());
+            Assert.AreEqual(breakWaterHeight, input.BreakWater.Height, input.BreakWater.Height.GetAccuracy());
             CollectionAssert.AreEqual(points, input.ForeshoreProfile.Geometry);
             Assert.IsNotNull(input.ForeshoreProfile);
         }

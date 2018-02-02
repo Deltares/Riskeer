@@ -75,11 +75,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             HydraulicBoundaryLocationOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual((RoundedDouble) result, output.Result, output.Result.GetAccuracy());
+            Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
             Assert.AreEqual(targetProbability, output.TargetProbability);
-            Assert.AreEqual((RoundedDouble) targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
+            Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual((RoundedDouble) calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
             Assert.AreEqual(convergence, output.CalculationConvergence);
             Assert.IsNull(output.GeneralResult);
         }
