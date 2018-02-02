@@ -15,7 +15,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MacroStabilityInwardsCalculationScenarioFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsCalculationScenarioTestFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsGridTestFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsInputFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsSliceTestFactoryTest.cs" />

@@ -50,7 +50,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
-            Assert.IsNaN(sectionResult.GetAssessmentLayerTwoA(new MacroStabilityInwardsCalculationScenario[0], failureMechanism, assessmentSection));
             mocks.VerifyAll();
         }
 

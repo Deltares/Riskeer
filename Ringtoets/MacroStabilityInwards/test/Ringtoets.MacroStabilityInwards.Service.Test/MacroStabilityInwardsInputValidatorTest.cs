@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         [SetUp]
         public void Setup()
         {
-            input = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput().InputParameters;
+            input = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput().InputParameters;
         }
 
         [Test]

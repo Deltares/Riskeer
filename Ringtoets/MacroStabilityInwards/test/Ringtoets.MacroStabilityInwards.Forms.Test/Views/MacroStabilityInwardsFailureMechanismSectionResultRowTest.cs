@@ -170,9 +170,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             MacroStabilityInwardsCalculationScenario scenarioA =
-                MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
             MacroStabilityInwardsCalculationScenario scenarioB =
-                MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
@@ -203,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
 
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
             var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, new[]
@@ -231,7 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             MacroStabilityInwardsCalculationScenario scenario =
-                MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(0.2, section);
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(0.2, section);
             scenario.Contribution = (RoundedDouble) 1.0;
 
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);

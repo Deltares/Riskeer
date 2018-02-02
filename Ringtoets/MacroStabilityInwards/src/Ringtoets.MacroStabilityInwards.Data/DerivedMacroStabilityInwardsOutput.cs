@@ -82,20 +82,17 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Get the required reliability of the macro stability inwards failure mechanism,
-        /// which is a value greater than 0.
+        /// Get the required reliability of the macro stability inwards failure mechanism.
         /// </summary>
         public RoundedDouble RequiredReliability { get; }
 
         /// <summary>
-        /// Gets the factor of safety of the macro stability inwards failure mechanism,
-        /// which is a value greater than 0.
+        /// Gets the factor of safety of the macro stability inwards failure mechanism.
         /// </summary>
         public RoundedDouble MacroStabilityInwardsFactorOfSafety { get; }
 
         /// <summary>
-        /// Gets the reliability of the macro stability inwards failure mechanism,
-        /// which is a value greater than 0.
+        /// Gets the reliability of the macro stability inwards failure mechanism.
         /// </summary>
         public RoundedDouble MacroStabilityInwardsReliability { get; }
 

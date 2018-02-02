@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
         [SetUp]
         public void Setup()
         {
-            testCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            testCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
         }
 
         [Test]

@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [TestCase(0.0)]
         [TestCase(0.123456789)]
         [TestCase(1.0)]
-        public void RequiredProbability_SetValidValues_ReturnNewlySetValue(double requiredProbability)
+        public void Constructor_ValidRequiredProbability_ExpectedValues(double requiredProbability)
         {
             // Setup
             var random = new Random(21);
@@ -99,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [TestCase(-346587.456)]
         [TestCase(1.0 + 1e-6)]
         [TestCase(346587.456)]
-        public void RequiredProbability_SetInvalidValues_ThrowArgumentOutOfRangeException(double requiredProbability)
+        public void Constructor_InvalidRequiredProbability_ThrowsArgumentOutOfRangeException(double requiredProbability)
         {
             // Setup
             var random = new Random(21);
@@ -128,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [TestCase(0.0)]
         [TestCase(0.123456789)]
         [TestCase(1.0)]
-        public void MacroStabilityInwardsProbability_SetValidValues_ReturnNewlySetValue(double macroStabilityInwardsProbability)
+        public void Constructor_ValidMacroStabilityInwardsProbability_ExpectedValues(double macroStabilityInwardsProbability)
         {
             // Setup
             var random = new Random(21);
@@ -159,7 +159,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         [TestCase(-346587.456)]
         [TestCase(1.0 + 1e-2)]
         [TestCase(346587.456)]
-        public void MacroStabilityInwardsProbability_SetInvalidValues_ThrowArgumentOutOfRangeException(double macroStabilityInwardsProbability)
+        public void Constructor_InvalidMacroStabilityInwardsProbability_ThrowsArgumentOutOfRangeException(double macroStabilityInwardsProbability)
         {
             // Setup
             var random = new Random(21);

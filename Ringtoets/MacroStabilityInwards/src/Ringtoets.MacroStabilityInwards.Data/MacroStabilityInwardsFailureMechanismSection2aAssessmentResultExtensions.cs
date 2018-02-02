@@ -70,10 +70,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            List<MacroStabilityInwardsCalculationScenario> calculationScenarios = sectionResult
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios = sectionResult
                 .GetCalculationScenarios(calculations)
-                .Where(cs => cs.Status == CalculationScenarioStatus.Done)
-                .ToList();
+                .Where(cs => cs.Status == CalculationScenarioStatus.Done);
 
             if (calculationScenarios.Any())
             {

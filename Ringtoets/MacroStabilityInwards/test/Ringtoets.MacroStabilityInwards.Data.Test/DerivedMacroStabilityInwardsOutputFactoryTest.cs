@@ -99,13 +99,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+            {
+                FactorOfStability = new Random(21).NextDouble()
+            });
 
             // Call
             DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.697, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());
+            Assert.AreEqual(output.FactorOfStability, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());
             Assert.AreEqual(0.707, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
             Assert.AreEqual(0.073605149538226278, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
             Assert.AreEqual(1.44946, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());

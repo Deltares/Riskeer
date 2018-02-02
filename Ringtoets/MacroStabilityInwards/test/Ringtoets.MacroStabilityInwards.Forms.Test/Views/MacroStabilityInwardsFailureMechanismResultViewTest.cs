@@ -307,7 +307,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (MacroStabilityInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
-                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(
+                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(
                     1.0 / 1000.0,
                     failureMechanism.Sections.First());
                 calculationScenario.Contribution = (RoundedDouble) 0.3;
@@ -342,7 +342,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (MacroStabilityInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
-                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(
+                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(
                     (RoundedDouble) 1e-3,
                     failureMechanism.Sections.First());
                 failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
@@ -375,7 +375,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
-                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(
+                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(
                     failureMechanism.Sections.First());
                 failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
@@ -406,7 +406,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (MacroStabilityInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
-                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(
+                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(
                     failureMechanism.Sections.First());
                 failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
                 view.Data = failureMechanism.SectionResults;
@@ -465,7 +465,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
-                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(
+                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(
                     failureMechanism.Sections.First());
                 failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
@@ -494,7 +494,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
-                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(
+                MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(
                     failureMechanism.Sections.First());
                 failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
@@ -524,11 +524,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (MacroStabilityInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView(failureMechanism))
             {
-                MacroStabilityInwardsCalculationScenario calculationScenario1 = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(
+                MacroStabilityInwardsCalculationScenario calculationScenario1 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(
                     0.1,
                     failureMechanism.Sections.First());
                 calculationScenario1.Contribution = (RoundedDouble) 0.6;
-                MacroStabilityInwardsCalculationScenario calculationScenario2 = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenario(
+                MacroStabilityInwardsCalculationScenario calculationScenario2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(
                     0.2,
                     failureMechanism.Sections.First());
                 calculationScenario2.Contribution = (RoundedDouble) 0.4;

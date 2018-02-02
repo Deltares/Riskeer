@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
 
-                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
                 calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
                 // Call
@@ -124,7 +124,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Data_SetToNull_ChartControlDataNull()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             using (var form = new Form())

@@ -18,7 +18,7 @@
     <Compile Include="MacroStabilityInwardsCloneAssert.cs" />
     <Compile Include="MacroStabilityInwardsGridTestFactory.cs" />
     <Compile Include="MacroStabilityInwardsInputFactory.cs" />
-    <Compile Include="MacroStabilityInwardsCalculationScenarioFactory.cs" />
+    <Compile Include="MacroStabilityInwardsCalculationScenarioTestFactory.cs" />
     <Compile Include="MacroStabilityInwardsSliceTestFactory.cs" />
     <Compile Include="MacroStabilityInwardsStochasticSoilModelTestFactory.cs" />
     <Compile Include="SoilProfile\MacroStabilityInwardsPreconsolidationStressTestFactory.cs" />

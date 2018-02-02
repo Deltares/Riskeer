@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Setup
             MacroStabilityInwardsOutput originalOutput = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
-            MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
+            MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             invalidMacroStabilityInwardsCalculation.Output = originalOutput;
 
             var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation, GetTestNormativeAssessmentLevel());
@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Run_ValidMacroStabilityInwardsCalculation_PerformMacroStabilityInwardsValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             validMacroStabilityInwardsCalculation.Output = null;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -137,7 +137,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
             validMacroStabilityInwardsCalculation.Output = null;
             validMacroStabilityInwardsCalculation.Attach(observer);
 

@@ -84,7 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var control = new MacroStabilityInwardsOutputChartControl())
             {
-                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
                 // Call
                 control.Data = calculation;

@@ -1,0 +1,385 @@
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.MacroStabilityInwards.Service;
+
+namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
+{
+    [TestFixture]
+    public class MacroStabilityInwardsCalculationScenarioTestFactoryTest
+    {
+        [Test]
+        public void CreateMacroStabilityInwardsCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(double.NaN, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("section", paramName);
+        }
+
+        [Test]
+        [TestCase(double.NaN, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(NaN)")]
+        [TestCase(0.0, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(0.0)")]
+        [TestCase(0.8, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(0.8)")]
+        [TestCase(1.0, TestName = "CreateCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(1.0)")]
+        public void CreateMacroStabilityInwardsCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(double factoryOfStability)
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            // Call
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factoryOfStability, section);
+
+            // Assert
+            Assert.IsNotNull(scenario.Output);
+            Assert.AreEqual(factoryOfStability, scenario.Output.FactorOfStability, 1e-6);
+            Assert.IsTrue(scenario.IsRelevant);
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput_WithNoSection_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("section", paramName);
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput_WithSection_CreatesRelevantCalculationWithOutputSetToNaN()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            // Call
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(section);
+
+            // Assert
+            Assert.IsNotNull(scenario.Output);
+            Assert.IsNaN(scenario.Output.FactorOfStability);
+            Assert.IsTrue(scenario.IsRelevant);
+        }
+
+        [Test]
+        public void CreateIrrelevantMacroStabilityInwardsCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("section", paramName);
+        }
+
+        [Test]
+        public void CreateIrrelevantMacroStabilityInwardsCalculationScenario_WithSection_CreatesIrrelevantCalculation()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            // Call
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
+
+            // Assert
+            Assert.IsFalse(scenario.IsRelevant);
+            Assert.IsNotNull(scenario.Output);
+            Assert.AreEqual(0.2, scenario.Output.FactorOfStability);
+        }
+
+        [Test]
+        public void CreateNotCalculatedMacroStabilityInwardsCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("section", paramName);
+        }
+
+        [Test]
+        public void CreateNotCalculatedMacroStabilityInwardsCalculationScenario_WithSection_CreatesRelevantCalculationWithoutOutput()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            // Call
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+
+            // Assert
+            Assert.IsNull(scenario.Output);
+            Assert.IsTrue(scenario.IsRelevant);
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput_ReturnMacroStabilityInwardsCalculationScenario()
+        {
+            // Call
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
+
+            // Assert
+            Assert.IsFalse(MacroStabilityInwardsCalculationService.Validate(scenario, (RoundedDouble) 1.1));
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsCalculationScenarioWithValidInput_ReturnMacroStabilityInwardsCalculationScenario()
+        {
+            // Call
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
+            // Assert
+            Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(scenario, (RoundedDouble) 1.1));
+        }
+
+        [Test]
+        public void CreateCalculatedMacroStabilityInwardsCalculationScenario_ReturnMacroStabilityInwardsCalculationScenario()
+        {
+            // Call
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateCalculatedMacroStabilityInwardsCalculationScenario();
+
+            // Assert
+            AssertInput(scenario.InputParameters);
+
+            MacroStabilityInwardsOutput output = scenario.Output;
+            Assert.IsNotNull(output);
+            Assert.AreEqual(0.69717486793975103, output.FactorOfStability);
+            Assert.AreEqual(0.040462733730889267, output.ZValue);
+            Assert.AreEqual(0.97911632898222489, output.ForbiddenZonesXEntryMax);
+            Assert.AreEqual(0.44677048942389452, output.ForbiddenZonesXEntryMin);
+            Assert.IsNotNull(output.SlidingCurve);
+            Assert.IsNotNull(output.SlipPlane);
+        }
+
+        private static void AssertInput(MacroStabilityInwardsInput inputParameters)
+        {
+            Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
+                            inputParameters.DikeSoilScenario);
+            Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Outwards,
+                            inputParameters.PiezometricHeadPhreaticLine2Outwards.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Inwards,
+                            inputParameters.PiezometricHeadPhreaticLine2Inwards.GetAccuracy());
+            Assert.IsTrue(inputParameters.AdjustPhreaticLine3And4ForUplift);
+            Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine3,
+                            inputParameters.LeakageLengthOutwardsPhreaticLine3.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine3,
+                            inputParameters.LeakageLengthInwardsPhreaticLine3.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine4,
+                            inputParameters.LeakageLengthInwardsPhreaticLine4.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine4,
+                            inputParameters.LeakageLengthOutwardsPhreaticLine4.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.SlipPlaneMinimumDepth,
+                            inputParameters.SlipPlaneMinimumDepth.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.SlipPlaneMinimumLength,
+                            inputParameters.SlipPlaneMinimumLength.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder,
+                            inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver,
+                            inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver.GetAccuracy());
+
+            Assert.AreEqual(0.5, inputParameters.LocationInputExtreme.WaterLevelPolder,
+                            inputParameters.LocationInputExtreme.WaterLevelPolder.GetAccuracy());
+            Assert.IsFalse(inputParameters.LocationInputExtreme.UseDefaultOffsets);
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver,
+                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder,
+                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder,
+                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside,
+                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PenetrationLength,
+                            inputParameters.LocationInputExtreme.PenetrationLength.GetAccuracy());
+
+            Assert.AreEqual(0.5, inputParameters.LocationInputDaily.WaterLevelPolder);
+            Assert.IsFalse(inputParameters.LocationInputDaily.UseDefaultOffsets);
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver,
+                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder,
+                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder,
+                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside,
+                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
+            Assert.AreEqual(0, inputParameters.LocationInputDaily.PenetrationLength,
+                            inputParameters.LocationInputDaily.PenetrationLength.GetAccuracy());
+
+            Assert.IsTrue(inputParameters.DrainageConstructionPresent);
+            Assert.AreEqual(0.35, inputParameters.XCoordinateDrainageConstruction,
+                            inputParameters.XCoordinateDrainageConstruction.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.ZCoordinateDrainageConstruction,
+                            inputParameters.ZCoordinateDrainageConstruction.GetAccuracy());
+            Assert.AreEqual(MacroStabilityInwardsGridDeterminationType.Manual, inputParameters.GridDeterminationType);
+            Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.Specified, inputParameters.TangentLineDeterminationType);
+            Assert.AreEqual(2, inputParameters.TangentLineZTop,
+                            inputParameters.TangentLineZTop.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.TangentLineZBottom,
+                            inputParameters.TangentLineZBottom.GetAccuracy());
+            Assert.AreEqual(10, inputParameters.TangentLineNumber);
+            Assert.AreEqual(0.3, inputParameters.LeftGrid.XLeft,
+                            inputParameters.LeftGrid.XLeft.GetAccuracy());
+            Assert.AreEqual(0.4, inputParameters.LeftGrid.XRight,
+                            inputParameters.LeftGrid.XRight.GetAccuracy());
+            Assert.AreEqual(2, inputParameters.LeftGrid.ZTop,
+                            inputParameters.LeftGrid.ZTop.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeftGrid.ZBottom,
+                            inputParameters.LeftGrid.ZBottom.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.LeftGrid.NumberOfVerticalPoints);
+            Assert.AreEqual(1, inputParameters.LeftGrid.NumberOfHorizontalPoints);
+
+            Assert.AreEqual(0.4, inputParameters.RightGrid.XLeft,
+                            inputParameters.RightGrid.XLeft.GetAccuracy());
+            Assert.AreEqual(0.5, inputParameters.RightGrid.XRight,
+                            inputParameters.RightGrid.XRight.GetAccuracy());
+            Assert.AreEqual(2, inputParameters.RightGrid.ZTop,
+                            inputParameters.RightGrid.ZTop.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.RightGrid.ZBottom,
+                            inputParameters.RightGrid.ZBottom.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.RightGrid.NumberOfVerticalPoints);
+            Assert.AreEqual(1, inputParameters.RightGrid.NumberOfHorizontalPoints);
+
+            Assert.IsTrue(inputParameters.CreateZones);
+            Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, inputParameters.ZoningBoundariesDeterminationType);
+            Assert.AreEqual(0.1, inputParameters.ZoneBoundaryLeft, inputParameters.ZoneBoundaryLeft.GetAccuracy());
+            Assert.AreEqual(0.2, inputParameters.ZoneBoundaryRight, inputParameters.ZoneBoundaryRight.GetAccuracy());
+
+            Assert.AreEqual(0, inputParameters.StochasticSoilProfile.Probability);
+            Assert.AreEqual("Ondergrondschematisatie", inputParameters.StochasticSoilProfile.SoilProfile.Name);
+            Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile1D>(inputParameters.StochasticSoilProfile.SoilProfile);
+            var soilProfile1D = (MacroStabilityInwardsSoilProfile1D) inputParameters.StochasticSoilProfile.SoilProfile;
+            Assert.AreEqual(0, soilProfile1D.Bottom);
+            CollectionAssert.AreEqual(new[]
+            {
+                new MacroStabilityInwardsSoilLayer1D(10.56)
+                {
+                    Data =
+                    {
+                        MaterialName = "Clay",
+                        IsAquifer = false,
+                        Cohesion = new VariationCoefficientLogNormalDistribution(),
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
+                        AbovePhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.2,
+                            Shift = (RoundedDouble) 0.1
+                        },
+                        BelowPhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 15,
+                            CoefficientOfVariation = (RoundedDouble) 0.5,
+                            Shift = (RoundedDouble) 0.2
+                        }
+                    }
+                },
+                new MacroStabilityInwardsSoilLayer1D(6.0)
+                {
+                    Data =
+                    {
+                        MaterialName = "Sand",
+                        IsAquifer = true,
+                        Cohesion = new VariationCoefficientLogNormalDistribution(),
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
+                        AbovePhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.2,
+                            Shift = (RoundedDouble) 0.1
+                        },
+                        BelowPhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 15,
+                            CoefficientOfVariation = (RoundedDouble) 0.5,
+                            Shift = (RoundedDouble) 0.2
+                        }
+                    }
+                },
+                new MacroStabilityInwardsSoilLayer1D(0.1)
+                {
+                    Data =
+                    {
+                        MaterialName = "Soil",
+                        IsAquifer = false,
+                        Cohesion = new VariationCoefficientLogNormalDistribution(),
+                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
+                        AbovePhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.2,
+                            Shift = (RoundedDouble) 0.1
+                        },
+                        BelowPhreaticLevel =
+                        {
+                            Mean = (RoundedDouble) 15,
+                            CoefficientOfVariation = (RoundedDouble) 0.5,
+                            Shift = (RoundedDouble) 0.2
+                        }
+                    }
+                }
+            }, soilProfile1D.Layers);
+
+            var expectedSurfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            var firstCharacteristicPointLocation = new Point3D(0.1, 0.0, 2);
+            var secondCharacteristicPointLocation = new Point3D(0.2, 0.0, 2);
+            var thirdCharacteristicPointLocation = new Point3D(0.3, 0.0, 3);
+            var fourthCharacteristicPointLocation = new Point3D(0.4, 0.0, 3);
+            var fifthCharacteristicPointLocation = new Point3D(0.5, 0.0, 1);
+            var sixthCharacteristicPointLocation = new Point3D(0.6, 0.0, 1);
+
+            expectedSurfaceLine.SetGeometry(new[]
+            {
+                firstCharacteristicPointLocation,
+                secondCharacteristicPointLocation,
+                thirdCharacteristicPointLocation,
+                fourthCharacteristicPointLocation,
+                fifthCharacteristicPointLocation,
+                sixthCharacteristicPointLocation
+            });
+            expectedSurfaceLine.SetSurfaceLevelOutsideAt(firstCharacteristicPointLocation);
+            expectedSurfaceLine.SetDikeToeAtRiverAt(secondCharacteristicPointLocation);
+            expectedSurfaceLine.SetDikeTopAtRiverAt(thirdCharacteristicPointLocation);
+            expectedSurfaceLine.SetDikeTopAtPolderAt(fourthCharacteristicPointLocation);
+            expectedSurfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
+            expectedSurfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
+            Assert.AreEqual(expectedSurfaceLine, inputParameters.SurfaceLine);
+        }
+
+        private static FailureMechanismSection CreateSection()
+        {
+            return new FailureMechanismSection("name", new[]
+            {
+                new Point2D(0, 0)
+            });
+        }
+    }
+}
