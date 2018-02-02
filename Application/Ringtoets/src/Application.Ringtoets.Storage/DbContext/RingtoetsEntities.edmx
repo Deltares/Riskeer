@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\RingtoetsGIT\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=D:\Repos\Riskeer\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -154,11 +154,7 @@
           <Property Name="ClosingStructuresOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClosingStructuresCalculationEntityId" Type="integer" Nullable="false" />
           <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="integer" />
-          <Property Name="RequiredProbability" Type="real" />
-          <Property Name="RequiredReliability" Type="real" />
-          <Property Name="Probability" Type="real" />
           <Property Name="Reliability" Type="real" />
-          <Property Name="FactorOfSafety" Type="real" />
         </EntityType>
         <EntityType Name="ClosingStructuresSectionResultEntity">
           <Key>
@@ -394,11 +390,7 @@
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="IsOvertoppingDominant" Type="tinyint" Nullable="false" />
           <Property Name="WaveHeight" Type="real" />
-          <Property Name="RequiredProbability" Type="real" />
-          <Property Name="RequiredReliability" Type="real" />
-          <Property Name="Probability" Type="real" />
           <Property Name="Reliability" Type="real" />
-          <Property Name="FactorOfSafety" Type="real" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsOvertoppingRateOutputEntity">
           <Key>
@@ -610,11 +602,7 @@
           <Property Name="HeightStructuresOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HeightStructuresCalculationEntityId" Type="integer" Nullable="false" />
           <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="integer" />
-          <Property Name="RequiredProbability" Type="real" />
-          <Property Name="RequiredReliability" Type="real" />
-          <Property Name="Probability" Type="real" />
           <Property Name="Reliability" Type="real" />
-          <Property Name="FactorOfSafety" Type="real" />
         </EntityType>
         <EntityType Name="HeightStructuresSectionResultEntity">
           <Key>
@@ -840,19 +828,6 @@
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="real" />
         </EntityType>
-        <EntityType Name="MacroStabilityInwardsSemiProbabilisticOutputEntity">
-          <Key>
-            <PropertyRef Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" />
-          </Key>
-          <Property Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MacroStabilityInwardsCalculationEntityId" Type="integer" Nullable="false" />
-          <Property Name="FactorOfStability" Type="real" />
-          <Property Name="RequiredProbability" Type="real" />
-          <Property Name="RequiredReliability" Type="real" />
-          <Property Name="MacroStabilityInwardsProbability" Type="real" />
-          <Property Name="MacroStabilityInwardsReliability" Type="real" />
-          <Property Name="MacroStabilityInwardsFactorOfSafety" Type="real" />
-        </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayerOneDEntity">
           <Key>
             <PropertyRef Name="MacroStabilityInwardsSoilLayerOneDEntityId" />
@@ -1047,28 +1022,6 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="real" />
-        </EntityType>
-        <EntityType Name="PipingSemiProbabilisticOutputEntity">
-          <Key>
-            <PropertyRef Name="PipingSemiProbabilisticOutputEntityId" />
-          </Key>
-          <Property Name="PipingSemiProbabilisticOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PipingCalculationEntityId" Type="integer" Nullable="false" />
-          <Property Name="Order" Type="int" Nullable="false" />
-          <Property Name="UpliftFactorOfSafety" Type="real" />
-          <Property Name="UpliftReliability" Type="real" />
-          <Property Name="UpliftProbability" Type="real" />
-          <Property Name="HeaveFactorOfSafety" Type="real" />
-          <Property Name="HeaveReliability" Type="real" />
-          <Property Name="HeaveProbability" Type="real" />
-          <Property Name="SellmeijerFactorOfSafety" Type="real" />
-          <Property Name="SellmeijerReliability" Type="real" />
-          <Property Name="SellmeijerProbability" Type="real" />
-          <Property Name="RequiredProbability" Type="real" />
-          <Property Name="RequiredReliability" Type="real" />
-          <Property Name="PipingProbability" Type="real" />
-          <Property Name="PipingReliability" Type="real" />
-          <Property Name="PipingFactorOfSafety" Type="real" />
         </EntityType>
         <EntityType Name="PipingSoilLayerEntity">
           <Key>
@@ -1270,16 +1223,12 @@
         </EntityType>
         <EntityType Name="StabilityPointStructuresOutputEntity">
           <Key>
-            <PropertyRef Name="StabilityPointStructuresOutputEntity" />
+            <PropertyRef Name="StabilityPointStructuresOutputEntityId" />
           </Key>
-          <Property Name="StabilityPointStructuresOutputEntity" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StabilityPointStructuresOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StabilityPointStructuresCalculationEntityId" Type="integer" Nullable="false" />
           <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="integer" />
-          <Property Name="RequiredProbability" Type="real" />
-          <Property Name="RequiredReliability" Type="real" />
-          <Property Name="Probability" Type="real" />
           <Property Name="Reliability" Type="real" />
-          <Property Name="FactorOfSafety" Type="real" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresSectionResultEntity">
           <Key>
@@ -2567,18 +2516,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0">
-          <End Role="MacroStabilityInwardsCalculationEntity" Type="Self.MacroStabilityInwardsCalculationEntity" Multiplicity="1" />
-          <End Role="MacroStabilityInwardsSemiProbabilisticOutputEntity" Type="Self.MacroStabilityInwardsSemiProbabilisticOutputEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MacroStabilityInwardsCalculationEntity">
-              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
-            </Principal>
-            <Dependent Role="MacroStabilityInwardsSemiProbabilisticOutputEntity">
-              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MacroStabilityInwardsSoilLayerOneDEntity_0_0">
           <End Role="MacroStabilityInwardsSoilProfileOneDEntity" Type="Self.MacroStabilityInwardsSoilProfileOneDEntity" Multiplicity="1" />
           <End Role="MacroStabilityInwardsSoilLayerOneDEntity" Type="Self.MacroStabilityInwardsSoilLayerOneDEntity" Multiplicity="*" />
@@ -2792,18 +2729,6 @@
             </Principal>
             <Dependent Role="PipingSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PipingSemiProbabilisticOutputEntity_0_0">
-          <End Role="PipingCalculationEntity" Type="Self.PipingCalculationEntity" Multiplicity="1" />
-          <End Role="PipingSemiProbabilisticOutputEntity" Type="Self.PipingSemiProbabilisticOutputEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PipingCalculationEntity">
-              <PropertyRef Name="PipingCalculationEntityId" />
-            </Principal>
-            <Dependent Role="PipingSemiProbabilisticOutputEntity">
-              <PropertyRef Name="PipingCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3306,7 +3231,6 @@
           <EntitySet Name="MacroStabilityInwardsFailureMechanismMetaEntity" EntityType="Self.MacroStabilityInwardsFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsPreconsolidationStressEntity" EntityType="Self.MacroStabilityInwardsPreconsolidationStressEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSectionResultEntity" EntityType="Self.MacroStabilityInwardsSectionResultEntity" store:Type="Tables" />
-          <EntitySet Name="MacroStabilityInwardsSemiProbabilisticOutputEntity" EntityType="Self.MacroStabilityInwardsSemiProbabilisticOutputEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSoilLayerOneDEntity" EntityType="Self.MacroStabilityInwardsSoilLayerOneDEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSoilLayerTwoDEntity" EntityType="Self.MacroStabilityInwardsSoilLayerTwoDEntity" store:Type="Tables" />
           <EntitySet Name="MacroStabilityInwardsSoilProfileOneDEntity" EntityType="Self.MacroStabilityInwardsSoilProfileOneDEntity" store:Type="Tables" />
@@ -3321,7 +3245,6 @@
           <EntitySet Name="PipingCharacteristicPointEntity" EntityType="Self.PipingCharacteristicPointEntity" store:Type="Tables" />
           <EntitySet Name="PipingFailureMechanismMetaEntity" EntityType="Self.PipingFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="PipingSectionResultEntity" EntityType="Self.PipingSectionResultEntity" store:Type="Tables" />
-          <EntitySet Name="PipingSemiProbabilisticOutputEntity" EntityType="Self.PipingSemiProbabilisticOutputEntity" store:Type="Tables" />
           <EntitySet Name="PipingSoilLayerEntity" EntityType="Self.PipingSoilLayerEntity" store:Type="Tables" />
           <EntitySet Name="PipingSoilProfileEntity" EntityType="Self.PipingSoilProfileEntity" store:Type="Tables" />
           <EntitySet Name="PipingStochasticSoilProfileEntity" EntityType="Self.PipingStochasticSoilProfileEntity" store:Type="Tables" />
@@ -3700,10 +3623,6 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="MacroStabilityInwardsSectionResultEntity" EntitySet="MacroStabilityInwardsSectionResultEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" Association="Self.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0">
-            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntity" />
-            <End Role="MacroStabilityInwardsSemiProbabilisticOutputEntity" EntitySet="MacroStabilityInwardsSemiProbabilisticOutputEntity" />
-          </AssociationSet>
           <AssociationSet Name="FK_MacroStabilityInwardsSoilLayerOneDEntity_0_0" Association="Self.FK_MacroStabilityInwardsSoilLayerOneDEntity_0_0">
             <End Role="MacroStabilityInwardsSoilProfileOneDEntity" EntitySet="MacroStabilityInwardsSoilProfileOneDEntity" />
             <End Role="MacroStabilityInwardsSoilLayerOneDEntity" EntitySet="MacroStabilityInwardsSoilLayerOneDEntity" />
@@ -3775,10 +3694,6 @@
           <AssociationSet Name="FK_PipingSectionResultEntity_0_0" Association="Self.FK_PipingSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="PipingSectionResultEntity" EntitySet="PipingSectionResultEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PipingSemiProbabilisticOutputEntity_0_0" Association="Self.FK_PipingSemiProbabilisticOutputEntity_0_0">
-            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntity" />
-            <End Role="PipingSemiProbabilisticOutputEntity" EntitySet="PipingSemiProbabilisticOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingSoilLayerEntity_0_0" Association="Self.FK_PipingSoilLayerEntity_0_0">
             <End Role="PipingSoilProfileEntity" EntitySet="PipingSoilProfileEntity" />
@@ -3984,7 +3899,6 @@
           <EntitySet Name="MacroStabilityInwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" />
           <EntitySet Name="MacroStabilityInwardsPreconsolidationStressEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsPreconsolidationStressEntity" />
           <EntitySet Name="MacroStabilityInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity" />
-          <EntitySet Name="MacroStabilityInwardsSemiProbabilisticOutputEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSemiProbabilisticOutputEntity" />
           <EntitySet Name="MacroStabilityInwardsSoilLayerOneDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerOneDEntity" />
           <EntitySet Name="MacroStabilityInwardsSoilLayerTwoDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" />
           <EntitySet Name="MacroStabilityInwardsSoilProfileOneDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" />
@@ -3998,7 +3912,6 @@
           <EntitySet Name="PipingCharacteristicPointEntities" EntityType="RingtoetsEntitiesModel.PipingCharacteristicPointEntity" />
           <EntitySet Name="PipingFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" />
           <EntitySet Name="PipingSectionResultEntities" EntityType="RingtoetsEntitiesModel.PipingSectionResultEntity" />
-          <EntitySet Name="PipingSemiProbabilisticOutputEntities" EntityType="RingtoetsEntitiesModel.PipingSemiProbabilisticOutputEntity" />
           <EntitySet Name="PipingSoilLayerEntities" EntityType="RingtoetsEntitiesModel.PipingSoilLayerEntity" />
           <EntitySet Name="PipingSoilProfileEntities" EntityType="RingtoetsEntitiesModel.PipingSoilProfileEntity" />
           <EntitySet Name="PipingStochasticSoilProfileEntities" EntityType="RingtoetsEntitiesModel.PipingStochasticSoilProfileEntity" />
@@ -4473,10 +4386,6 @@
             <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntities" />
             <End Role="MacroStabilityInwardsCalculationOutputEntity" EntitySet="MacroStabilityInwardsCalculationOutputEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0">
-            <End Role="MacroStabilityInwardsCalculationEntity" EntitySet="MacroStabilityInwardsCalculationEntities" />
-            <End Role="MacroStabilityInwardsSemiProbabilisticOutputEntity" EntitySet="MacroStabilityInwardsSemiProbabilisticOutputEntities" />
-          </AssociationSet>
           <AssociationSet Name="FK_MacroStabilityInwardsCharacteristicPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCharacteristicPointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
             <End Role="MacroStabilityInwardsCharacteristicPointEntity" EntitySet="MacroStabilityInwardsCharacteristicPointEntities" />
@@ -4516,10 +4425,6 @@
           <AssociationSet Name="FK_PipingCalculationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationOutputEntity_0_0">
             <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntities" />
             <End Role="PipingCalculationOutputEntity" EntitySet="PipingCalculationOutputEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PipingSemiProbabilisticOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingSemiProbabilisticOutputEntity_0_0">
-            <End Role="PipingCalculationEntity" EntitySet="PipingCalculationEntities" />
-            <End Role="PipingSemiProbabilisticOutputEntity" EntitySet="PipingSemiProbabilisticOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingCharacteristicPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingCharacteristicPointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
@@ -4780,11 +4685,7 @@
           <Property Name="ClosingStructuresOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClosingStructuresCalculationEntityId" Type="Int64" Nullable="false" />
           <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="Int64" />
-          <Property Name="RequiredProbability" Type="Double" />
-          <Property Name="RequiredReliability" Type="Double" />
-          <Property Name="Probability" Type="Double" />
           <Property Name="Reliability" Type="Double" />
-          <Property Name="FactorOfSafety" Type="Double" />
           <NavigationProperty Name="ClosingStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_1_0" FromRole="ClosingStructuresOutputEntity" ToRole="ClosingStructuresCalculationEntity" />
           <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_0_0" FromRole="ClosingStructuresOutputEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
         </EntityType>
@@ -5074,11 +4975,7 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="IsOvertoppingDominant" Type="Byte" Nullable="false" />
           <Property Name="WaveHeight" Type="Double" />
-          <Property Name="RequiredProbability" Type="Double" />
-          <Property Name="RequiredReliability" Type="Double" />
-          <Property Name="Probability" Type="Double" />
           <Property Name="Reliability" Type="Double" />
-          <Property Name="FactorOfSafety" Type="Double" />
           <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_1_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_0_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsDikeHeightOutputEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsDikeHeightOutputEntity_0_0" FromRole="GrassCoverErosionInwardsOutputEntity" ToRole="GrassCoverErosionInwardsDikeHeightOutputEntity" />
@@ -5321,11 +5218,7 @@
           <Property Name="HeightStructuresOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HeightStructuresCalculationEntityId" Type="Int64" Nullable="false" />
           <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="Int64" />
-          <Property Name="RequiredProbability" Type="Double" />
-          <Property Name="RequiredReliability" Type="Double" />
-          <Property Name="Probability" Type="Double" />
           <Property Name="Reliability" Type="Double" />
-          <Property Name="FactorOfSafety" Type="Double" />
           <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresOutputEntity_1_0" FromRole="HeightStructuresOutputEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresOutputEntity_0_0" FromRole="HeightStructuresOutputEntity" ToRole="HeightStructuresCalculationEntity" />
         </EntityType>
@@ -5488,7 +5381,6 @@
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_0_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="SurfaceLineEntity" />
           <NavigationProperty Name="MacroStabilityInwardsStochasticSoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_1_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="MacroStabilityInwardsStochasticSoilProfileEntity" />
           <NavigationProperty Name="MacroStabilityInwardsCalculationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationOutputEntity_0_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="MacroStabilityInwardsCalculationOutputEntity" />
-          <NavigationProperty Name="MacroStabilityInwardsSemiProbabilisticOutputEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" FromRole="MacroStabilityInwardsCalculationEntity" ToRole="MacroStabilityInwardsSemiProbabilisticOutputEntity" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsCalculationOutputEntity">
           <Key>
@@ -5579,20 +5471,6 @@
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" FromRole="MacroStabilityInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
-        </EntityType>
-        <EntityType Name="MacroStabilityInwardsSemiProbabilisticOutputEntity">
-          <Key>
-            <PropertyRef Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" />
-          </Key>
-          <Property Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MacroStabilityInwardsCalculationEntityId" Type="Int64" Nullable="false" />
-          <Property Name="FactorOfStability" Type="Double" />
-          <Property Name="RequiredProbability" Type="Double" />
-          <Property Name="RequiredReliability" Type="Double" />
-          <Property Name="MacroStabilityInwardsProbability" Type="Double" />
-          <Property Name="MacroStabilityInwardsReliability" Type="Double" />
-          <Property Name="MacroStabilityInwardsFactorOfSafety" Type="Double" />
-          <NavigationProperty Name="MacroStabilityInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" FromRole="MacroStabilityInwardsSemiProbabilisticOutputEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayerOneDEntity">
           <Key>
@@ -5751,7 +5629,6 @@
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="PipingCalculationEntity" ToRole="SurfaceLineEntity" />
           <NavigationProperty Name="PipingStochasticSoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" FromRole="PipingCalculationEntity" ToRole="PipingStochasticSoilProfileEntity" />
           <NavigationProperty Name="PipingCalculationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationOutputEntity_0_0" FromRole="PipingCalculationEntity" ToRole="PipingCalculationOutputEntity" />
-          <NavigationProperty Name="PipingSemiProbabilisticOutputEntities" Relationship="RingtoetsEntitiesModel.FK_PipingSemiProbabilisticOutputEntity_0_0" FromRole="PipingCalculationEntity" ToRole="PipingSemiProbabilisticOutputEntity" />
         </EntityType>
         <EntityType Name="PipingCalculationOutputEntity">
           <Key>
@@ -5806,29 +5683,6 @@
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_PipingSectionResultEntity_0_0" FromRole="PipingSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
-        </EntityType>
-        <EntityType Name="PipingSemiProbabilisticOutputEntity">
-          <Key>
-            <PropertyRef Name="PipingSemiProbabilisticOutputEntityId" />
-          </Key>
-          <Property Name="PipingSemiProbabilisticOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PipingCalculationEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="UpliftFactorOfSafety" Type="Double" />
-          <Property Name="UpliftReliability" Type="Double" />
-          <Property Name="UpliftProbability" Type="Double" />
-          <Property Name="HeaveFactorOfSafety" Type="Double" />
-          <Property Name="HeaveReliability" Type="Double" />
-          <Property Name="HeaveProbability" Type="Double" />
-          <Property Name="SellmeijerFactorOfSafety" Type="Double" />
-          <Property Name="SellmeijerReliability" Type="Double" />
-          <Property Name="SellmeijerProbability" Type="Double" />
-          <Property Name="RequiredProbability" Type="Double" />
-          <Property Name="RequiredReliability" Type="Double" />
-          <Property Name="PipingProbability" Type="Double" />
-          <Property Name="PipingReliability" Type="Double" />
-          <Property Name="PipingFactorOfSafety" Type="Double" />
-          <NavigationProperty Name="PipingCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_PipingSemiProbabilisticOutputEntity_0_0" FromRole="PipingSemiProbabilisticOutputEntity" ToRole="PipingCalculationEntity" />
         </EntityType>
         <EntityType Name="PipingSoilLayerEntity">
           <Key>
@@ -6048,16 +5902,12 @@
         </EntityType>
         <EntityType Name="StabilityPointStructuresOutputEntity">
           <Key>
-            <PropertyRef Name="StabilityPointStructuresOutputEntity1" />
+            <PropertyRef Name="StabilityPointStructuresOutputEntityId" />
           </Key>
-          <Property Name="StabilityPointStructuresOutputEntity1" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StabilityPointStructuresOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StabilityPointStructuresCalculationEntityId" Type="Int64" Nullable="false" />
           <Property Name="GeneralResultFaultTreeIllustrationPointEntityId" Type="Int64" />
-          <Property Name="RequiredProbability" Type="Double" />
-          <Property Name="RequiredReliability" Type="Double" />
-          <Property Name="Probability" Type="Double" />
           <Property Name="Reliability" Type="Double" />
-          <Property Name="FactorOfSafety" Type="Double" />
           <NavigationProperty Name="GeneralResultFaultTreeIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresOutputEntity_1_0" FromRole="StabilityPointStructuresOutputEntity" ToRole="GeneralResultFaultTreeIllustrationPointEntity" />
           <NavigationProperty Name="StabilityPointStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresOutputEntity_0_0" FromRole="StabilityPointStructuresOutputEntity" ToRole="StabilityPointStructuresCalculationEntity" />
         </EntityType>
@@ -7674,18 +7524,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Role="MacroStabilityInwardsCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSemiProbabilisticOutputEntity" Role="MacroStabilityInwardsSemiProbabilisticOutputEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MacroStabilityInwardsCalculationEntity">
-              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
-            </Principal>
-            <Dependent Role="MacroStabilityInwardsSemiProbabilisticOutputEntity">
-              <PropertyRef Name="MacroStabilityInwardsCalculationEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MacroStabilityInwardsCharacteristicPointEntity_0_0">
           <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" Role="MacroStabilityInwardsCharacteristicPointEntity" Multiplicity="*" />
@@ -7802,18 +7640,6 @@
               <PropertyRef Name="PipingCalculationEntityId" />
             </Principal>
             <Dependent Role="PipingCalculationOutputEntity">
-              <PropertyRef Name="PipingCalculationEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PipingSemiProbabilisticOutputEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.PipingCalculationEntity" Role="PipingCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.PipingSemiProbabilisticOutputEntity" Role="PipingSemiProbabilisticOutputEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PipingCalculationEntity">
-              <PropertyRef Name="PipingCalculationEntityId" />
-            </Principal>
-            <Dependent Role="PipingSemiProbabilisticOutputEntity">
               <PropertyRef Name="PipingCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -8136,11 +7962,7 @@
           <EntitySetMapping Name="ClosingStructuresOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ClosingStructuresOutputEntity">
               <MappingFragment StoreEntitySet="ClosingStructuresOutputEntity">
-                <ScalarProperty Name="FactorOfSafety" ColumnName="FactorOfSafety" />
                 <ScalarProperty Name="Reliability" ColumnName="Reliability" />
-                <ScalarProperty Name="Probability" ColumnName="Probability" />
-                <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
-                <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
                 <ScalarProperty Name="GeneralResultFaultTreeIllustrationPointEntityId" ColumnName="GeneralResultFaultTreeIllustrationPointEntityId" />
                 <ScalarProperty Name="ClosingStructuresCalculationEntityId" ColumnName="ClosingStructuresCalculationEntityId" />
                 <ScalarProperty Name="ClosingStructuresOutputEntityId" ColumnName="ClosingStructuresOutputEntityId" />
@@ -8357,11 +8179,7 @@
           <EntitySetMapping Name="GrassCoverErosionInwardsOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionInwardsOutputEntity">
-                <ScalarProperty Name="FactorOfSafety" ColumnName="FactorOfSafety" />
                 <ScalarProperty Name="Reliability" ColumnName="Reliability" />
-                <ScalarProperty Name="Probability" ColumnName="Probability" />
-                <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
-                <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
                 <ScalarProperty Name="IsOvertoppingDominant" ColumnName="IsOvertoppingDominant" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
@@ -8590,11 +8408,7 @@
           <EntitySetMapping Name="HeightStructuresOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HeightStructuresOutputEntity">
               <MappingFragment StoreEntitySet="HeightStructuresOutputEntity">
-                <ScalarProperty Name="FactorOfSafety" ColumnName="FactorOfSafety" />
                 <ScalarProperty Name="Reliability" ColumnName="Reliability" />
-                <ScalarProperty Name="Probability" ColumnName="Probability" />
-                <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
-                <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
                 <ScalarProperty Name="GeneralResultFaultTreeIllustrationPointEntityId" ColumnName="GeneralResultFaultTreeIllustrationPointEntityId" />
                 <ScalarProperty Name="HeightStructuresCalculationEntityId" ColumnName="HeightStructuresCalculationEntityId" />
                 <ScalarProperty Name="HeightStructuresOutputEntityId" ColumnName="HeightStructuresOutputEntityId" />
@@ -8829,20 +8643,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MacroStabilityInwardsSemiProbabilisticOutputEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSemiProbabilisticOutputEntity">
-              <MappingFragment StoreEntitySet="MacroStabilityInwardsSemiProbabilisticOutputEntity">
-                <ScalarProperty Name="MacroStabilityInwardsFactorOfSafety" ColumnName="MacroStabilityInwardsFactorOfSafety" />
-                <ScalarProperty Name="MacroStabilityInwardsReliability" ColumnName="MacroStabilityInwardsReliability" />
-                <ScalarProperty Name="MacroStabilityInwardsProbability" ColumnName="MacroStabilityInwardsProbability" />
-                <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
-                <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
-                <ScalarProperty Name="FactorOfStability" ColumnName="FactorOfStability" />
-                <ScalarProperty Name="MacroStabilityInwardsCalculationEntityId" ColumnName="MacroStabilityInwardsCalculationEntityId" />
-                <ScalarProperty Name="MacroStabilityInwardsSemiProbabilisticOutputEntityId" ColumnName="MacroStabilityInwardsSemiProbabilisticOutputEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="MacroStabilityInwardsSoilLayerOneDEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerOneDEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsSoilLayerOneDEntity">
@@ -9040,29 +8840,6 @@
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="PipingSectionResultEntityId" ColumnName="PipingSectionResultEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PipingSemiProbabilisticOutputEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingSemiProbabilisticOutputEntity">
-              <MappingFragment StoreEntitySet="PipingSemiProbabilisticOutputEntity">
-                <ScalarProperty Name="PipingFactorOfSafety" ColumnName="PipingFactorOfSafety" />
-                <ScalarProperty Name="PipingReliability" ColumnName="PipingReliability" />
-                <ScalarProperty Name="PipingProbability" ColumnName="PipingProbability" />
-                <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
-                <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
-                <ScalarProperty Name="SellmeijerProbability" ColumnName="SellmeijerProbability" />
-                <ScalarProperty Name="SellmeijerReliability" ColumnName="SellmeijerReliability" />
-                <ScalarProperty Name="SellmeijerFactorOfSafety" ColumnName="SellmeijerFactorOfSafety" />
-                <ScalarProperty Name="HeaveProbability" ColumnName="HeaveProbability" />
-                <ScalarProperty Name="HeaveReliability" ColumnName="HeaveReliability" />
-                <ScalarProperty Name="HeaveFactorOfSafety" ColumnName="HeaveFactorOfSafety" />
-                <ScalarProperty Name="UpliftProbability" ColumnName="UpliftProbability" />
-                <ScalarProperty Name="UpliftReliability" ColumnName="UpliftReliability" />
-                <ScalarProperty Name="UpliftFactorOfSafety" ColumnName="UpliftFactorOfSafety" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="PipingCalculationEntityId" ColumnName="PipingCalculationEntityId" />
-                <ScalarProperty Name="PipingSemiProbabilisticOutputEntityId" ColumnName="PipingSemiProbabilisticOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9276,14 +9053,10 @@
           <EntitySetMapping Name="StabilityPointStructuresOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityPointStructuresOutputEntity">
               <MappingFragment StoreEntitySet="StabilityPointStructuresOutputEntity">
-                <ScalarProperty Name="FactorOfSafety" ColumnName="FactorOfSafety" />
                 <ScalarProperty Name="Reliability" ColumnName="Reliability" />
-                <ScalarProperty Name="Probability" ColumnName="Probability" />
-                <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
-                <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
                 <ScalarProperty Name="GeneralResultFaultTreeIllustrationPointEntityId" ColumnName="GeneralResultFaultTreeIllustrationPointEntityId" />
                 <ScalarProperty Name="StabilityPointStructuresCalculationEntityId" ColumnName="StabilityPointStructuresCalculationEntityId" />
-                <ScalarProperty Name="StabilityPointStructuresOutputEntity1" ColumnName="StabilityPointStructuresOutputEntity" />
+                <ScalarProperty Name="StabilityPointStructuresOutputEntityId" ColumnName="StabilityPointStructuresOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

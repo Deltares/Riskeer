@@ -48,11 +48,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
         public byte IsOvertoppingDominant { get; set; }
         public double? WaveHeight { get; set; }
-        public double? RequiredProbability { get; set; }
-        public double? RequiredReliability { get; set; }
-        public double? Probability { get; set; }
         public double? Reliability { get; set; }
-        public double? FactorOfSafety { get; set; }
 
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
         public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }

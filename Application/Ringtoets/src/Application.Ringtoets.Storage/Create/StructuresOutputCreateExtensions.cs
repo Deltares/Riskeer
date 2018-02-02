@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.Create.IllustrationPoints;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 
 namespace Application.Ringtoets.Storage.Create
@@ -42,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="structuresOutput"/>
         /// is <c>null.</c></exception>
         public static TOutputEntity Create<TOutputEntity>(this StructuresOutput structuresOutput)
-            where TOutputEntity : IProbabilityAssessmentOutputEntity,
+            where TOutputEntity : IStructuresOutputEntity,
             IHasGeneralResultFaultTreeIllustrationPointEntity,
             new()
         {

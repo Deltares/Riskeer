@@ -38,10 +38,6 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public virtual ClosingStructuresCalculationEntity ClosingStructuresCalculationEntity { get; set; }
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
-        public double? RequiredProbability { get; set; }
-        public double? RequiredReliability { get; set; }
-        public double? Probability { get; set; }
         public double? Reliability { get; set; }
-        public double? FactorOfSafety { get; set; }
     }
 }

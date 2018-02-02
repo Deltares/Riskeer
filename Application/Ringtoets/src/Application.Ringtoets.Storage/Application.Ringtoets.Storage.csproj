@@ -225,9 +225,6 @@
     <Compile Include="DbContext\MacroStabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\MacroStabilityInwardsSemiProbabilisticOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="DbContext\MacroStabilityInwardsSoilLayerOneDEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -253,7 +250,7 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PartialClosingStructuresOutputEntity.cs" />
-    <Compile Include="DbContext\IProbabilityAssessmentOutputEntity.cs" />
+    <Compile Include="DbContext\IStructuresOutputEntity.cs" />
     <Compile Include="DbContext\IStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialClosingStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialGeneralResultFaultTreeIllustrationPointEntity.cs" />
@@ -275,9 +272,6 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingSectionResultEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\PipingSemiProbabilisticOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\PipingSoilLayerEntity.cs">

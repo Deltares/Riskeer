@@ -32,16 +32,12 @@ namespace Application.Ringtoets.Storage.DbContext
 {
     public partial class StabilityPointStructuresOutputEntity
     {
-        public long StabilityPointStructuresOutputEntity1 { get; set; }
+        public long StabilityPointStructuresOutputEntityId { get; set; }
         public long StabilityPointStructuresCalculationEntityId { get; set; }
         public long? GeneralResultFaultTreeIllustrationPointEntityId { get; set; }
         public virtual StabilityPointStructuresCalculationEntity StabilityPointStructuresCalculationEntity { get; set; }
 
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
-        public double? RequiredProbability { get; set; }
-        public double? RequiredReliability { get; set; }
-        public double? Probability { get; set; }
         public double? Reliability { get; set; }
-        public double? FactorOfSafety { get; set; }
     }
 }

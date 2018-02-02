@@ -39,7 +39,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public PipingCalculationEntity()
         {
             PipingCalculationOutputEntities = new HashSet<PipingCalculationOutputEntity>();
-            PipingSemiProbabilisticOutputEntities = new HashSet<PipingSemiProbabilisticOutputEntity>();
         }
 
         public long PipingCalculationEntityId { get; set; }
@@ -68,8 +67,5 @@ namespace Application.Ringtoets.Storage.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationOutputEntity> PipingCalculationOutputEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingSemiProbabilisticOutputEntity> PipingSemiProbabilisticOutputEntities { get; set; }
     }
 }

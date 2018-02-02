@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             GeneralResultEntityTestHelper.AssertGeneralResultPropertyValues(output.GeneralResult, entity.GeneralResultFaultTreeIllustrationPointEntity);
         }
 
-        private class TestStructureOutputEntity : IProbabilityAssessmentOutputEntity,
+        private class TestStructureOutputEntity : IStructuresOutputEntity,
                                                   IHasGeneralResultFaultTreeIllustrationPointEntity
         {
             public GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }

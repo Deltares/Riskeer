@@ -39,7 +39,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public MacroStabilityInwardsCalculationEntity()
         {
             MacroStabilityInwardsCalculationOutputEntities = new HashSet<MacroStabilityInwardsCalculationOutputEntity>();
-            MacroStabilityInwardsSemiProbabilisticOutputEntities = new HashSet<MacroStabilityInwardsSemiProbabilisticOutputEntity>();
         }
 
         public long MacroStabilityInwardsCalculationEntityId { get; set; }
@@ -114,8 +113,5 @@ namespace Application.Ringtoets.Storage.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacroStabilityInwardsCalculationOutputEntity> MacroStabilityInwardsCalculationOutputEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MacroStabilityInwardsSemiProbabilisticOutputEntity> MacroStabilityInwardsSemiProbabilisticOutputEntities { get; set; }
     }
 }

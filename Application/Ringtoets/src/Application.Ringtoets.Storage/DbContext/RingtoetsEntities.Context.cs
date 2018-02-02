@@ -85,7 +85,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<MacroStabilityInwardsFailureMechanismMetaEntity> MacroStabilityInwardsFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsPreconsolidationStressEntity> MacroStabilityInwardsPreconsolidationStressEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsSectionResultEntity> MacroStabilityInwardsSectionResultEntities { get; set; }
-        public virtual DbSet<MacroStabilityInwardsSemiProbabilisticOutputEntity> MacroStabilityInwardsSemiProbabilisticOutputEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsSoilLayerOneDEntity> MacroStabilityInwardsSoilLayerOneDEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsSoilLayerTwoDEntity> MacroStabilityInwardsSoilLayerTwoDEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsSoilProfileOneDEntity> MacroStabilityInwardsSoilProfileOneDEntities { get; set; }
@@ -99,7 +98,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<PipingCharacteristicPointEntity> PipingCharacteristicPointEntities { get; set; }
         public virtual DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }
-        public virtual DbSet<PipingSemiProbabilisticOutputEntity> PipingSemiProbabilisticOutputEntities { get; set; }
         public virtual DbSet<PipingSoilLayerEntity> PipingSoilLayerEntities { get; set; }
         public virtual DbSet<PipingSoilProfileEntity> PipingSoilProfileEntities { get; set; }
         public virtual DbSet<PipingStochasticSoilProfileEntity> PipingStochasticSoilProfileEntities { get; set; }

@@ -68,6 +68,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertMacroStabilityOutwardsFailureMechanism(reader);
                     AssertPipingStructureFailureMechanism(reader);
                     AssertWaveImpactAsphaltCoverFailureMechanism(reader);
+                    AssertGrassCoverErosionInwardsOutput(reader, sourceFilePath);
+                    AssertClosingStructuresOutput(reader, sourceFilePath);
+                    AssertHeightStructuresOutput(reader, sourceFilePath);
+                    AssertStabilityPointStructuresOutput(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -317,6 +321,64 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             reader.AssertReturnedDataIsValid(validateWaveImpactAsphaltCoverFailureMechanism);
         }
 
+        private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateGrassCoverErosionInwardsOutputEntities =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity) " +
+                "FROM GrassCoverErosionInwardsOutputEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity OLD USING(GrassCoverErosionInwardsOutputEntityId) " +
+                "WHERE NEW.GrassCoverErosionInwardsCalculationEntityId = OLD.GrassCoverErosionInwardsCalculationEntityId " +
+                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
+                "AND NEW.IsOvertoppingDominant = OLD.IsOvertoppingDominant " +
+                "AND NEW.WaveHeight IS OLD.WaveHeight " +
+                "AND NEW.Reliability IS OLD.Reliability;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateGrassCoverErosionInwardsOutputEntities);
+        }
+
+        private static void AssertClosingStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateClosingStructuresOutputEntities =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity) " +
+                "FROM ClosingStructuresOutputEntity NEW " +
+                "JOIN [SOURCEPROJECT].ClosingStructuresOutputEntity OLD USING(ClosingStructuresOutputEntityId) " +
+                "WHERE NEW.ClosingStructuresCalculationEntityId = OLD.ClosingStructuresCalculationEntityId " +
+                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
+                "AND NEW.Reliability IS OLD.Reliability;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateClosingStructuresOutputEntities);
+        }
+
+        private static void AssertHeightStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateHeightStructuresOutputEntities =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity) " +
+                "FROM HeightStructuresOutputEntity NEW " +
+                "JOIN [SOURCEPROJECT].HeightStructuresOutputEntity OLD USING(HeightStructuresOutputEntityId) " +
+                "WHERE NEW.HeightStructuresCalculationEntityId = OLD.HeightStructuresCalculationEntityId " +
+                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
+                "AND NEW.Reliability IS OLD.Reliability;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateHeightStructuresOutputEntities);
+        }
+
+        private static void AssertStabilityPointStructuresOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateStabilityPointStructuresOutputEntities =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity) " +
+                "FROM StabilityPointStructuresOutputEntity NEW " +
+                "JOIN [SOURCEPROJECT].StabilityPointStructuresOutputEntity OLD ON OLD.StabilityPointStructuresOutputEntity = NEW.StabilityPointStructuresOutputEntityId " +
+                "WHERE NEW.StabilityPointStructuresCalculationEntityId = OLD.StabilityPointStructuresCalculationEntityId " +
+                "AND NEW.GeneralResultFaultTreeIllustrationPointEntityId IS OLD.GeneralResultFaultTreeIllustrationPointEntityId " +
+                "AND NEW.Reliability IS OLD.Reliability;" +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateStabilityPointStructuresOutputEntities);
+        }
+
         #region Migrated Hydraulic Boundary Locations
 
         private static void AssertHydraulicBoundaryLocations(MigratedDatabaseReader reader, string sourceFilePath)
@@ -423,7 +485,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             reader.AssertReturnedDataIsValid(validateCalculation4Entities);
         }
 
-        private static void AssertWaveHeightCalculations(MigratedDatabaseReader reader, 
+        private static void AssertWaveHeightCalculations(MigratedDatabaseReader reader,
                                                          HydraulicLocationValidationQueryGenerator queryGenerator)
         {
             string validateCalculation5Entities =
@@ -451,8 +513,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         /// </summary>
         private class HydraulicLocationValidationQueryGenerator
         {
-            private readonly string sourceFilePath;
-
             /// <summary>
             /// Enum to indicate the hydraulic location output types.
             /// </summary>
@@ -485,6 +545,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 /// </summary>
                 SignalingNorm = 2
             }
+
+            private readonly string sourceFilePath;
 
             /// <summary>
             /// Creates a new instance of <see cref="HydraulicLocationValidationQueryGenerator"/>.

@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.IllustrationPoints;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
@@ -60,15 +59,6 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                          Convert.ToBoolean(entity.IsOvertoppingDominant),
                                          entity.Reliability.ToNullAsNaN(),
                                          entity.GeneralResultFaultTreeIllustrationPointEntity?.Read());
-        }
-
-        private static ProbabilityAssessmentOutput ReadProbabilityAssessmentOutput(GrassCoverErosionInwardsOutputEntity entity)
-        {
-            return new ProbabilityAssessmentOutput(entity.RequiredProbability.ToNullAsNaN(),
-                                                   entity.RequiredReliability.ToNullAsNaN(),
-                                                   entity.Probability.ToNullAsNaN(),
-                                                   entity.Reliability.ToNullAsNaN(),
-                                                   entity.FactorOfSafety.ToNullAsNaN());
         }
 
         private static DikeHeightOutput GetDikeHeightOutput(GrassCoverErosionInwardsOutputEntity entity)

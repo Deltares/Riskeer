@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class StructuresCalculationCreateExtensionsTest
     {
         private static void AssertStructuresOutputEntity<T>(StructuresOutput output, T outputEntity)
-            where T : IHasGeneralResultFaultTreeIllustrationPointEntity, IProbabilityAssessmentOutputEntity
+            where T : IHasGeneralResultFaultTreeIllustrationPointEntity, IStructuresOutputEntity
         {
             Assert.AreEqual(output.Reliability, outputEntity.Reliability);
 

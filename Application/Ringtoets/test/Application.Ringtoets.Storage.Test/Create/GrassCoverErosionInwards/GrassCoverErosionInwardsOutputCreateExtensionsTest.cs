@@ -97,11 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Assert
             Assert.IsNull(entity.WaveHeight);
             Assert.AreEqual(Convert.ToByte(overtoppingOutput.IsOvertoppingDominant), entity.IsOvertoppingDominant);
-            Assert.IsNull(entity.FactorOfSafety);
-            Assert.IsNull(entity.Probability);
             Assert.IsNull(entity.Reliability);
-            Assert.IsNull(entity.RequiredProbability);
-            Assert.IsNull(entity.RequiredReliability);
             Assert.IsNull(entity.GeneralResultFaultTreeIllustrationPointEntity);
 
             GrassCoverErosionInwardsDikeHeightOutputEntity dikeHeightEntity = entity.GrassCoverErosionInwardsDikeHeightOutputEntities.First();

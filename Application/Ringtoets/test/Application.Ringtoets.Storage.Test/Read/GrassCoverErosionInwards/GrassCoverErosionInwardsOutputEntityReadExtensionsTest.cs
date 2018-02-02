@@ -50,11 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             {
                 WaveHeight = 1.1,
                 IsOvertoppingDominant = Convert.ToByte(false),
-                Probability = 0.7,
-                RequiredProbability = 0.4,
-                RequiredReliability = 0.5,
                 Reliability = 0.2,
-                FactorOfSafety = 9.5
             };
 
             // Call
@@ -78,11 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             {
                 WaveHeight = null,
                 IsOvertoppingDominant = Convert.ToByte(true),
-                Probability = null,
-                RequiredProbability = null,
-                RequiredReliability = null,
                 Reliability = null,
-                FactorOfSafety = null,
                 GeneralResultFaultTreeIllustrationPointEntity = null
             };
 
@@ -113,11 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             {
                 WaveHeight = null,
                 IsOvertoppingDominant = Convert.ToByte(true),
-                Probability = null,
-                RequiredProbability = null,
-                RequiredReliability = null,
                 Reliability = null,
-                FactorOfSafety = null,
                 GeneralResultFaultTreeIllustrationPointEntity = generalResultEntity
             };
 

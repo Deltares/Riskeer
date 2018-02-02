@@ -96,7 +96,6 @@ namespace Application.Ringtoets.Storage.DbContext
             MacroStabilityInwardsPreconsolidationStressEntities.Load();
             MacroStabilityInwardsCalculationEntities.Load();
             MacroStabilityInwardsCalculationOutputEntities.Load();
-            MacroStabilityInwardsSemiProbabilisticOutputEntities.Load();
             MacroStabilityOutwardsSectionResultEntities.Load();
             MacroStabilityOutwardsFailureMechanismMetaEntities.Load();
             MicrostabilitySectionResultEntities.Load();
@@ -106,7 +105,6 @@ namespace Application.Ringtoets.Storage.DbContext
             PipingCharacteristicPointEntities.Load();
             PipingFailureMechanismMetaEntities.Load();
             PipingSectionResultEntities.Load();
-            PipingSemiProbabilisticOutputEntities.Load();
             PipingSoilLayerEntities.Load();
             PipingSoilProfileEntities.Load();
             PipingStructureFailureMechanismMetaEntities.Load();
