@@ -24,6 +24,7 @@ using Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -34,13 +35,13 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityLengthwise
     public class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        [Combinatorial]
-        public void Create_VariousResults_ReturnsEntity(
-            [Values(AssessmentLayerOneState.NotAssessed, AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerOneState.Sufficient)] AssessmentLayerOneState assessmentLayerOneResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
+        public void Create_ValidData_ReturnsEntity()
         {
             // Setup
+            var random = new Random(21);
+            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            double assessmentLayerThreeResult = random.NextDouble();
+
             var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
