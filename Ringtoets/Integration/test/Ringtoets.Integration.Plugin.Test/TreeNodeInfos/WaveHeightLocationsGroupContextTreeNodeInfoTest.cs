@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.Text);
                 Assert.IsNull(info.ForeColor);
                 Assert.IsNotNull(info.Image);
-                Assert.IsNotNull(info.ContextMenuStrip);
+                Assert.IsNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ExpandOnCreate);
                 Assert.IsNull(info.ChildNodeObjects);

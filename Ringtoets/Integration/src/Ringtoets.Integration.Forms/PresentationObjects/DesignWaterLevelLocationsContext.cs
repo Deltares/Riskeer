@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
 
             if (getCalculationFunc == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(getCalculationFunc));
             }
 
             AssessmentSection = assessmentSection;
