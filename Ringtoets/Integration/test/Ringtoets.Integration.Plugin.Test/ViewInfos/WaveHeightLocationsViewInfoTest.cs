@@ -117,7 +117,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var context = new WaveHeightLocationsContext(locations,
                                                          assessmentSection,
-                                                         hbl => new HydraulicBoundaryLocationCalculation());
+                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                         "Category");
 
             // Call
             object viewData = info.GetViewData(context);
@@ -133,7 +134,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
                                                          assessmentSection,
-                                                         hbl => new HydraulicBoundaryLocationCalculation());
+                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                         "Category");
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
@@ -166,7 +168,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             var context = new WaveHeightLocationsContext(locations,
                                                          assessmentSection,
-                                                         hbl => new HydraulicBoundaryLocationCalculation());
+                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                         "Category");
 
             using (var view = new WaveHeightLocationsView(locations,
                                                           hbl => new HydraulicBoundaryLocationCalculation(),

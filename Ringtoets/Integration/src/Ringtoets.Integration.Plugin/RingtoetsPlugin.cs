@@ -1872,10 +1872,22 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new DesignWaterLevelLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.DesignWaterLevelCalculation1),
-                new DesignWaterLevelLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.DesignWaterLevelCalculation2),
-                new DesignWaterLevelLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.DesignWaterLevelCalculation3),
-                new DesignWaterLevelLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.DesignWaterLevelCalculation4)
+                new DesignWaterLevelLocationsContext(context.WrappedData,
+                                                     context.AssessmentSection,
+                                                     hbl => hbl.DesignWaterLevelCalculation1,
+                                                     RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
+                new DesignWaterLevelLocationsContext(context.WrappedData,
+                                                     context.AssessmentSection,
+                                                     hbl => hbl.DesignWaterLevelCalculation2,
+                                                     RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
+                new DesignWaterLevelLocationsContext(context.WrappedData,
+                                                     context.AssessmentSection,
+                                                     hbl => hbl.DesignWaterLevelCalculation3,
+                                                     RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
+                new DesignWaterLevelLocationsContext(context.WrappedData,
+                                                     context.AssessmentSection,
+                                                     hbl => hbl.DesignWaterLevelCalculation4,
+                                                     RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
             };
         }
 
@@ -1883,10 +1895,22 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new WaveHeightLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.WaveHeightCalculation1),
-                new WaveHeightLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.WaveHeightCalculation2),
-                new WaveHeightLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.WaveHeightCalculation3),
-                new WaveHeightLocationsContext(context.WrappedData, context.AssessmentSection, hbl => hbl.WaveHeightCalculation4)
+                new WaveHeightLocationsContext(context.WrappedData,
+                                               context.AssessmentSection,
+                                               hbl => hbl.WaveHeightCalculation1,
+                                               RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
+                new WaveHeightLocationsContext(context.WrappedData,
+                                               context.AssessmentSection,
+                                               hbl => hbl.WaveHeightCalculation2,
+                                               RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
+                new WaveHeightLocationsContext(context.WrappedData,
+                                               context.AssessmentSection,
+                                               hbl => hbl.WaveHeightCalculation3,
+                                               RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
+                new WaveHeightLocationsContext(context.WrappedData,
+                                               context.AssessmentSection,
+                                               hbl => hbl.WaveHeightCalculation4,
+                                               RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
             };
         }
 

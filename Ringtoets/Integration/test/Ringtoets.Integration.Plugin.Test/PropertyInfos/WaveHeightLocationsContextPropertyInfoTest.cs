@@ -59,7 +59,10 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var context = new WaveHeightLocationsContext(hydraulicBoundaryDatabase.Locations, assessmentSection, hbl => new HydraulicBoundaryLocationCalculation());
+            var context = new WaveHeightLocationsContext(hydraulicBoundaryDatabase.Locations,
+                                                         assessmentSection,
+                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                         "Category");
 
             using (var plugin = new RingtoetsPlugin())
             {

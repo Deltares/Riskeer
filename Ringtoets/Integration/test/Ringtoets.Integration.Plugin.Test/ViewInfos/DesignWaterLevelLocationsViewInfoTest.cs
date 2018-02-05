@@ -116,7 +116,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             ObservableList<HydraulicBoundaryLocation> locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             var context = new DesignWaterLevelLocationsContext(locations,
                                                                assessmentSection,
-                                                               hbl => new HydraulicBoundaryLocationCalculation());
+                                                               hbl => new HydraulicBoundaryLocationCalculation(),
+                                                               "Category");
 
             // Call
             object viewData = info.GetViewData(context);
@@ -132,7 +133,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
                                                                assessmentSection,
-                                                               hbl => new HydraulicBoundaryLocationCalculation());
+                                                               hbl => new HydraulicBoundaryLocationCalculation(),
+                                                               "Category");
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
@@ -164,7 +166,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             var context = new DesignWaterLevelLocationsContext(locations,
                                                                assessmentSection,
-                                                               hbl => new HydraulicBoundaryLocationCalculation());
+                                                               hbl => new HydraulicBoundaryLocationCalculation(),
+                                                               "Category");
 
             using (var view = new DesignWaterLevelLocationsView(locations,
                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
