@@ -676,7 +676,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             protected override object GetLocationSelection(LocationsView<HydraulicBoundaryLocation> view, object selectedRowObject)
             {
-                return new WaveHeightLocationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = ((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject;
+
+                return new WaveHeightLocationContext(hydraulicBoundaryLocation, GetCalculationForLocation(hydraulicBoundaryLocation));
             }
 
             protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredLocationsView(Form form)

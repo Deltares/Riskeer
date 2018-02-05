@@ -71,9 +71,14 @@ namespace Ringtoets.Integration.Forms.Views
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
 
-            return currentRow != null
-                       ? new DesignWaterLevelLocationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject)
-                       : null;
+            if (currentRow != null)
+            {
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
+
+                return new DesignWaterLevelLocationContext(hydraulicBoundaryLocation, GetCalculationFunc(hydraulicBoundaryLocation));
+            }
+
+            return null;
         }
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
