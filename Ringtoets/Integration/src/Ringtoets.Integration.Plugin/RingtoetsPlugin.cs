@@ -718,7 +718,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<DesignWaterLevelLocationsContext>
             {
-                Text = context => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
+                Text = context => context.CategoryBoundaryName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DesignWaterLevelLocationsContextMenuStrip
             };
@@ -732,7 +732,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<WaveHeightLocationsContext>
             {
-                Text = context => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
+                Text = context => context.CategoryBoundaryName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = WaveHeightLocationsContextMenuStrip
             };

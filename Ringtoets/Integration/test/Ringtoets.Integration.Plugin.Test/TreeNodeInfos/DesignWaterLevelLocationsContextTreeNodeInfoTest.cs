@@ -89,19 +89,31 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsSetName()
+        public void Text_Always_ReturnsCategoryBoundaryName()
         {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            mockRepository.ReplayAll();
+
+            const string categoryBoundaryName = "Category";
+            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                               assessmentSection,
+                                                               hbl => new HydraulicBoundaryLocationCalculation(),
+                                                               categoryBoundaryName);
+
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                string text = info.Text(null);
+                string text = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("Toetspeilen", text);
+                Assert.AreEqual(categoryBoundaryName, text);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
