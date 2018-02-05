@@ -42,9 +42,10 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(null,
-                                                                                                                                 new HeightStructuresFailureMechanism(),
-                                                                                                                                 assessmentSection);
+            TestDelegate call = () => HeightStructuresFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(
+                null,
+                new HeightStructuresFailureMechanism(),
+                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -99,7 +100,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new HeightStructuresFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new HeightStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
@@ -121,7 +123,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new HeightStructuresFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new HeightStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
@@ -143,15 +146,16 @@ namespace Ringtoets.HeightStructures.Data.Test
             {
                 Calculation = new TestHeightStructuresCalculation
                 {
-                    Output = new TestStructuresOutput(new Random(39).NextDouble())
+                    Output = new TestStructuresOutput(0.8)
                 }
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new HeightStructuresFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new HeightStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.45984249809357164, assessmentLayerTwoA);
+            Assert.AreEqual(0.21185539858339669, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
     }

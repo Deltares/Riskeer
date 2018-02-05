@@ -42,9 +42,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(null,
-                                                                                                                                  new ClosingStructuresFailureMechanism(),
-                                                                                                                                  assessmentSection);
+            TestDelegate call = () => ClosingStructuresFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(
+                null,
+                new ClosingStructuresFailureMechanism(),
+                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -99,7 +100,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
@@ -121,7 +123,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
@@ -143,15 +146,16 @@ namespace Ringtoets.ClosingStructures.Data.Test
             {
                 Calculation = new TestClosingStructuresCalculation
                 {
-                    Output = new TestStructuresOutput(new Random(39).NextDouble())
+                    Output = new TestStructuresOutput(0.45)
                 }
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.45984249809357164, assessmentLayerTwoA);
+            Assert.AreEqual(0.32635522028792008, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
     }

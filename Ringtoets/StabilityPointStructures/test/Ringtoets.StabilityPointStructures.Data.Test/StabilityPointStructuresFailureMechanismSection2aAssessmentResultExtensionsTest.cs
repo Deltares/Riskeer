@@ -42,9 +42,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(null,
-                                                                                                                                 new StabilityPointStructuresFailureMechanism(),
-                                                                                                                                 assessmentSection);
+            TestDelegate call = () => StabilityPointStructuresFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(
+                null,
+                new StabilityPointStructuresFailureMechanism(),
+                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -99,7 +100,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
@@ -121,7 +123,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
@@ -143,15 +146,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             {
                 Calculation = new TestStabilityPointStructuresCalculation
                 {
-                    Output = new TestStructuresOutput(new Random(39).NextDouble())
+                    Output = new TestStructuresOutput(0.75)
                 }
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(), assessmentSection);
+            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.45984249809357164, assessmentLayerTwoA);
+            Assert.AreEqual(0.22662735237686821, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
     }
