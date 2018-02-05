@@ -175,6 +175,9 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Updates the row with the current derived output of the calculation scenario.
+        /// </summary>
         public void Update()
         {
             CreateDerivedOutput();

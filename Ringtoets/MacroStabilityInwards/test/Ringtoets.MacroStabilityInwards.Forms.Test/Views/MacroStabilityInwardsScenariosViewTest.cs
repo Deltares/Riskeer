@@ -327,6 +327,39 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenMacroStabilityInwardscenarioView_WhenCalculationNotifiesObserver_ThenViewUpdated()
+        {
+            // Given
+            using (ShowFullyConfiguredMacroStabilityInwardsScenarioView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                var refreshed = 0;
+                dataGridView.Invalidated += (sender, args) => refreshed++;
+
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(2, rows.Count);
+
+                DataGridViewRow calculationRow = rows[1];
+                MacroStabilityInwardsCalculationScenario calculation = ((MacroStabilityInwardsScenarioRow) calculationRow.DataBoundItem).Calculation;
+
+                // Precondition
+                DataGridViewCellCollection cells = calculationRow.Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(1), cells[failureProbabilityColumnIndex].FormattedValue);
+
+                // When
+                calculation.ClearOutput();
+                calculation.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, refreshed);
+                Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
+            }
+        }
+
         public override void Setup()
         {
             base.Setup();

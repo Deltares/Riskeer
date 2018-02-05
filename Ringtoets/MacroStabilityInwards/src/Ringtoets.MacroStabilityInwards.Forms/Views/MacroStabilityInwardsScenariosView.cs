@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -46,6 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly Observer failureMechanismObserver;
         private CalculationGroup calculationGroup;
         private MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism;
+        private List<MacroStabilityInwardsScenarioRow> scenarioRows;
 
         /// <summary>
         /// Creates a new instance of the <see cref="MacroStabilityInwardsScenariosView"/> class.
@@ -59,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-            
+
             InitializeComponent();
             InitializeDataGridView();
             InitializeListBox();
@@ -74,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                                                                                                                                                         .OfType<MacroStabilityInwardsCalculationScenario>()
                                                                                                                                                         .Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, cg => cg.Children);
-            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(dataGridViewControl.RefreshDataGridView, cg => cg.Children);
+            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(UpdateScenarios, cg => cg.Children);
         }
 
         /// <summary>
@@ -174,15 +176,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = calculationGroup
-                .GetCalculations()
-                .OfType<MacroStabilityInwardsCalculationScenario>()
-                .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+                                                                                 .GetCalculations()
+                                                                                 .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            List<MacroStabilityInwardsScenarioRow> dataSource = calculations.Select(pc => new MacroStabilityInwardsScenarioRow(
-                                                                                        pc,
-                                                                                        MacroStabilityInwardsFailureMechanism,
-                                                                                        assessmentSection)).ToList();
-            dataGridViewControl.SetDataSource(dataSource);
+            scenarioRows = calculations.Select(pc => new MacroStabilityInwardsScenarioRow(
+                                                   pc,
+                                                   MacroStabilityInwardsFailureMechanism,
+                                                   assessmentSection)).ToList();
+            dataGridViewControl.SetDataSource(scenarioRows);
+        }
+
+        private void UpdateScenarios()
+        {
+            scenarioRows.ForEachElementDo(row => row.Update());
+            dataGridViewControl.RefreshDataGridView();
         }
 
         #region Event handling

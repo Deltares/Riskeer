@@ -35,7 +35,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// </summary>
     internal class MacroStabilityInwardsScenarioRow
     {
-        private readonly DerivedMacroStabilityInwardsOutput derivedOutput;
+        private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private DerivedMacroStabilityInwardsOutput derivedOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationRow"/>.
@@ -64,11 +66,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
 
             Calculation = calculation;
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
 
-            if (Calculation.HasOutput)
-            {
-                derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism, assessmentSection);
-            }
+            CreateDerivedOutput();
         }
 
         /// <summary>
@@ -131,6 +132,21 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                            ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.MacroStabilityInwardsProbability);
             }
+        }
+
+        /// <summary>
+        /// Updates the row with the current derived output of the calculation scenario.
+        /// </summary>
+        public void Update()
+        {
+            CreateDerivedOutput();
+        }
+
+        private void CreateDerivedOutput()
+        {
+            derivedOutput = Calculation.HasOutput
+                                ? DerivedMacroStabilityInwardsOutputFactory.Create(Calculation.Output, failureMechanism, assessmentSection)
+                                : null;
         }
     }
 }

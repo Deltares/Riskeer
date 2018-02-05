@@ -192,5 +192,98 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(newValue, calculation.Contribution * 100, calculation.Contribution.GetAccuracy());
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void GivenScenarioRow_WhenOutputSetAndUpdate_ThenDerivedOutputUpdated()
+        {
+            // Given
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Precondition
+            Assert.AreEqual("-", row.FailureProbabilityMacroStabilityInwards);
+
+            // When
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            row.Update();
+
+            // Then
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenScenarioRow_WhenOutputSetToNullAndUpdate_ThenDerivedOutputUpdated()
+        {
+            // Given
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Precondition
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+
+            // When
+            calculation.Output = null;
+            row.Update();
+
+            // Then
+            Assert.AreEqual("-", row.FailureProbabilityMacroStabilityInwards);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenScenarioRow_WhenOutputChangedAndUpdate_ThenDerivedOutputUpdated()
+        {
+            // Given
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Precondition
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+
+            var random = new Random(11);
+
+            // When
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+            {
+                FactorOfStability = random.NextDouble()
+            });
+            row.Update();
+
+            // Then
+            DerivedMacroStabilityInwardsOutput newExpectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(newExpectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+            mocks.VerifyAll();
+        }
     }
 }
