@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.MacroStabilityInwardsProbability);
             }
         }

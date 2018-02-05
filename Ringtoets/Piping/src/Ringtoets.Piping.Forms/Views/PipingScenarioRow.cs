@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.PipingProbability);
             }
         }
@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.UpliftProbability);
             }
         }
@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.HeaveProbability);
             }
         }
@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.Forms.Views
             get
             {
                 return derivedOutput == null
-                           ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
+                           ? RingtoetsCommonFormsResources.RoundedDouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.SellmeijerProbability);
             }
         }

@@ -45,12 +45,14 @@ namespace Ringtoets.Common.Forms.TypeConverters
             {
                 if (double.IsNaN(doubleValue))
                 {
-                    return Resources.RoundedRouble_No_result_dash;
+                    return Resources.RoundedDouble_No_result_dash;
                 }
+
                 if (double.IsNegativeInfinity(doubleValue))
                 {
                     return CommonBaseResources.RoundedDouble_ToString_NegativeInfinity;
                 }
+
                 if (double.IsPositiveInfinity(doubleValue))
                 {
                     return CommonBaseResources.RoundedDouble_ToString_PositiveInfinity;
@@ -58,6 +60,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
 
                 return ProbabilityFormattingHelper.Format(doubleValue);
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -66,7 +69,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
             var text = value as string;
             if (text != null)
             {
-                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.RoundedRouble_No_result_dash)
+                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.RoundedDouble_No_result_dash)
                 {
                     return double.NaN;
                 }
@@ -77,6 +80,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
                     {
                         return Convert.ToDouble(text);
                     }
+
                     string returnPeriodValue = text.Substring(2).ToLower();
                     return returnPeriodValue != CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower()
                                ? 1 / Convert.ToDouble(returnPeriodValue)
@@ -93,6 +97,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
                                                     exception);
                 }
             }
+
             return base.ConvertFrom(context, culture, value);
         }
 
@@ -102,6 +107,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
             {
                 return true;
             }
+
             return base.CanConvertFrom(context, sourceType);
         }
     }

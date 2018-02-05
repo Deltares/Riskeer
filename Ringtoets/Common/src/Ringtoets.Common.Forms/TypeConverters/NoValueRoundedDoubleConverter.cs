@@ -40,11 +40,12 @@ namespace Ringtoets.Common.Forms.TypeConverters
             var text = value as string;
             if (text != null)
             {
-                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.RoundedRouble_No_result_dash)
+                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.RoundedDouble_No_result_dash)
                 {
                     return RoundedDouble.NaN;
                 }
             }
+
             return base.ConvertFrom(context, culture, value);
         }
 
@@ -55,9 +56,10 @@ namespace Ringtoets.Common.Forms.TypeConverters
             {
                 if (double.IsNaN(roundedDoubleValue))
                 {
-                    return Resources.RoundedRouble_No_result_dash;
+                    return Resources.RoundedDouble_No_result_dash;
                 }
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }

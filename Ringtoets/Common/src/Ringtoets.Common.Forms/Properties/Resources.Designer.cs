@@ -2578,9 +2578,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to -.
         /// </summary>
-        public static string RoundedRouble_No_result_dash {
+        public static string RoundedDouble_No_result_dash {
             get {
-                return ResourceManager.GetString("RoundedRouble_No_result_dash", resourceCulture);
+                return ResourceManager.GetString("RoundedDouble_No_result_dash", resourceCulture);
             }
         }
         

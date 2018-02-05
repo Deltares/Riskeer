@@ -247,7 +247,7 @@
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output" xml:space="preserve">
     <value>Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.</value>
   </data>
-  <data name="RoundedRouble_No_result_dash" xml:space="preserve">
+  <data name="RoundedDouble_No_result_dash" xml:space="preserve">
     <value>-</value>
   </data>
   <data name="FailureMechanismIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
