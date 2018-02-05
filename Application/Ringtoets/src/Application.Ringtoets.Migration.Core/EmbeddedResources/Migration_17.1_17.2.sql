@@ -1772,7 +1772,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	"Het geregistreerde resultaat voor de toets op maat in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM PipingSectionResultEntity as psr
 	JOIN [SOURCEPROJECT].PipingSectionResultEntity AS source ON psr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = psr.[FailureMechanismSectionEntityId]
@@ -1785,7 +1785,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	"Het geregistreerde resultaat voor de toets op maat in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM GrassCoverErosionInwardsSectionResultEntity as gceisr
 	JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity AS source ON gceisr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = gceisr.[FailureMechanismSectionEntityId]
@@ -1798,7 +1798,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	"Het geregistreerde resultaat voor de toets op maat in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM ClosingStructuresSectionResultEntity as cssr
 	JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity AS source ON cssr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = cssr.[FailureMechanismSectionEntityId]
@@ -1811,7 +1811,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	"Het geregistreerde resultaat voor de toets op maat in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM HeightStructuresSectionResultEntity as hssr
 	JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity AS source ON hssr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = hssr.[FailureMechanismSectionEntityId]
@@ -1824,7 +1824,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	"Het geregistreerde resultaat voor de toets op maat in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM StabilityPointStructuresSectionResultEntity as spssr
 	JOIN [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity AS source ON spssr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = spssr.[FailureMechanismSectionEntityId]
@@ -1837,7 +1837,7 @@ SELECT
 	asfm.[AssessmentSectionName],
 	asfm.[FailureMechanismId],
 	asfm.[FailureMechanismName],
-	"Het geregistreerde resultaat voor toetslaag 3 in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
+	"Het geregistreerde resultaat voor de toets op maat in '" || fms.[Name] || "' ('" || source.[LayerThree] || "') kon niet worden geconverteerd naar een geldige kans en is verwijderd."
 	FROM MacroStabilityInwardsSectionResultEntity as msisr
 	JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity AS source ON msisr.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = msisr.[FailureMechanismSectionEntityId]

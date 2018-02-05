@@ -1059,10 +1059,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(2, messages.Length);
 
             MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 1' ('5.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
+                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor de toets op maat in 'Vak 1' ('5.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
                 messages[0]);
             MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor toetslaag 3 in 'Vak 2' ('-10.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
+                new MigrationLogMessage("17.1", newVersion, "    - Het geregistreerde resultaat voor de toets op maat in 'Vak 2' ('-10.0') kon niet worden geconverteerd naar een geldige kans en is verwijderd."),
                 messages[1]);
         }
 
