@@ -200,6 +200,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                 {
                     return null;
                 }
+
                 ViewInfo selectedViewInfo = viewTypeDictionary[viewSelector.SelectedItem];
 
                 if (viewSelector.DefaultViewName == null)
@@ -223,13 +224,17 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private bool IsViewData(IView view, object data)
         {
-            ViewInfo viewInfo = GetViewInfoForView(view);
-            return data.Equals(view.Data) || IsDataForView(data, viewInfo) && Equals(viewInfo.GetViewData(data), view.Data);
-        }
+            if (data.Equals(view.Data))
+            {
+                return true;
+            }
 
-        private static bool IsDataForView(object data, ViewInfo info)
-        {
-            return info != null && data.GetType().Implements(info.DataType) && info.AdditionalDataCheck(data);
+            ViewInfo viewInfo = GetViewInfoForView(view);
+
+            return viewInfo != null
+                   && data.GetType().Implements(viewInfo.DataType)
+                   && viewInfo.AdditionalDataCheck(data)
+                   && Equals(viewInfo.GetViewData(data), view.Data);
         }
 
         private ViewInfo GetViewInfoForView(IView view)
