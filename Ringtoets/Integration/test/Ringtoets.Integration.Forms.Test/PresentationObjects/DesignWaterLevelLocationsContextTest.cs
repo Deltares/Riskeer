@@ -109,7 +109,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
+            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
         }
 
         [Test]
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
+            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
         }
     }
 }

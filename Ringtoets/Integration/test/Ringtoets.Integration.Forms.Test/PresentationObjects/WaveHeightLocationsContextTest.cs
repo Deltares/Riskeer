@@ -103,13 +103,13 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                           assessmentSection,
-                                                                           hbl => null,
-                                                                           null);
+                                                                     assessmentSection,
+                                                                     hbl => null,
+                                                                     null);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
+            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
         }
 
         [Test]
@@ -122,13 +122,13 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                           assessmentSection,
-                                                                           hbl => null,
-                                                                           string.Empty);
+                                                                     assessmentSection,
+                                                                     hbl => null,
+                                                                     string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
+            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
         }
     }
 }

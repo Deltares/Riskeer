@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
 
             if (string.IsNullOrEmpty(categoryBoundaryName))
             {
-                throw new ArgumentException(nameof(categoryBoundaryName));
+                throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
             }
 
             AssessmentSection = assessmentSection;
