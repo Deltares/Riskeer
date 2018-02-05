@@ -97,11 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                                                   IHasGeneralResultFaultTreeIllustrationPointEntity
         {
             public GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
-            public double? RequiredProbability { get; set; }
-            public double? RequiredReliability { get; set; }
-            public double? Probability { get; set; }
             public double? Reliability { get; set; }
-            public double? FactorOfSafety { get; set; }
         }
     }
 }
