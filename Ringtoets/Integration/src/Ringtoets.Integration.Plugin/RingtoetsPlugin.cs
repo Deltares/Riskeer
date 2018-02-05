@@ -327,7 +327,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsProperties>
             {
                 CreateInstance = context => new DesignWaterLevelLocationsProperties(context.WrappedData,
-                                                                                    hbl => hbl.DesignWaterLevelCalculation1)
+                                                                                    context.GetCalculationFunc)
             };
             yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationProperties>
             {
@@ -336,7 +336,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsProperties>
             {
                 CreateInstance = context => new WaveHeightLocationsProperties(context.WrappedData,
-                                                                              hbl => hbl.WaveHeightCalculation1)
+                                                                              context.GetCalculationFunc)
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationProperties>
             {
@@ -401,7 +401,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
                 CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData,
-                                                                              hbl => hbl.DesignWaterLevelCalculation1,
+                                                                              context.GetCalculationFunc,
                                                                               context.AssessmentSection,
                                                                               () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
@@ -414,7 +414,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
                 CreateInstance = context => new WaveHeightLocationsView(context.WrappedData,
-                                                                        hbl => hbl.WaveHeightCalculation1,
+                                                                        context.GetCalculationFunc,
                                                                         context.AssessmentSection,
                                                                         () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
@@ -1701,7 +1701,7 @@ namespace Ringtoets.Integration.Plugin
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                               assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                               assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                              hbl => hbl.DesignWaterLevelCalculation1,
+                                                                                              nodeData.GetCalculationFunc,
                                                                                               assessmentSection.FailureMechanismContribution.Norm,
                                                                                               new DesignWaterLevelCalculationMessageProvider());
                 });
@@ -1734,7 +1734,7 @@ namespace Ringtoets.Integration.Plugin
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                         assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                        hbl => hbl.WaveHeightCalculation1,
+                                                                                        nodeData.GetCalculationFunc,
                                                                                         assessmentSection.FailureMechanismContribution.Norm,
                                                                                         new WaveHeightCalculationMessageProvider());
                 });

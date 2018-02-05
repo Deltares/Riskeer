@@ -518,9 +518,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Id = string.Empty
             };
 
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
             var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                          assessmentSection,
-                                                         hbl => new HydraulicBoundaryLocationCalculation());
+                                                         hbl => hydraulicBoundaryLocationCalculation);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -570,7 +571,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                             Assert.AreEqual($"Golfhoogte berekenen voor locatie '{locationName}' is gelukt.", msgs[7]);
                         });
-                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.WaveHeightCalculation1.Output.CalculationConvergence);
+                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
                     }
                 }
             }

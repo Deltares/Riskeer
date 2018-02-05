@@ -515,9 +515,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
             var context = new DesignWaterLevelLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                assessmentSection,
-                                                               hbl => new HydraulicBoundaryLocationCalculation());
+                                                               hbl => hydraulicBoundaryLocationCalculation);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -568,7 +569,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' is gelukt.", msgs[7]);
                         });
 
-                        HydraulicBoundaryLocationOutput output = location.DesignWaterLevelCalculation1.Output;
+                        HydraulicBoundaryLocationOutput output = hydraulicBoundaryLocationCalculation.Output;
                         Assert.AreEqual(0, output.Result, output.Result.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
                     }
