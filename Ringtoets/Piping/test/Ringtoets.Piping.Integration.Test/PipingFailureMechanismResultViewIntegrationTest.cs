@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Integration.Test
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
-                pipingCalculation1.Output = PipingOutputTestFactory.Create();
+                pipingCalculation1.Output = PipingOutputTestFactory.Create(0.26065, 0.81398, 0.38024);
                 pipingCalculation1.NotifyObservers();
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4),
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);

@@ -318,9 +318,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                                         .Select(r => r.DataBoundItem)
-                                                                                         .Cast<PipingScenarioRow>()
-                                                                                         .ToArray();
+                                                                    .Select(r => r.DataBoundItem)
+                                                                    .Cast<PipingScenarioRow>()
+                                                                    .ToArray();
 
                 // When
                 view.PipingFailureMechanism.PipingProbabilityAssessmentInput.A = 0.01;
@@ -328,9 +328,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Then
                 PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                                   .Select(r => r.DataBoundItem)
-                                                                                   .Cast<PipingScenarioRow>()
-                                                                                   .ToArray();
+                                                              .Select(r => r.DataBoundItem)
+                                                              .Cast<PipingScenarioRow>()
+                                                              .ToArray();
 
                 CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
             }
@@ -346,7 +346,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 int refreshed = 0;
                 dataGridView.Invalidated += (sender, args) => refreshed++;
-                
+
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 DataGridViewRow calculationRow = rows[1];
                 PipingCalculationScenario calculation = ((PipingScenarioRow) calculationRow.DataBoundItem).Calculation;
@@ -468,8 +468,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                             EntryPointL = (RoundedDouble) 7.7777,
                             ExitPointL = (RoundedDouble) 8.8888
                         },
-                        Output = PipingOutputTestFactory.Create()
-        }
+                        Output = PipingOutputTestFactory.Create(0.26065, 0.81398, 0.38024)
+                    }
                 }
             };
 
