@@ -30,28 +30,19 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
     public class WaveHeightLocationContextTest
     {
         [Test]
-        public void Constructor_NullHydraulicBoundaryLocation_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new WaveHeightLocationContext(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
-        }
-
-        [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => null;
 
             // Call
-            var presentationObject = new WaveHeightLocationContext(hydraulicBoundaryLocation);
+            var presentationObject = new WaveHeightLocationContext(hydraulicBoundaryLocation, getCalculationFunc);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationContext>(presentationObject);
             Assert.AreSame(hydraulicBoundaryLocation, presentationObject.WrappedData);
+            Assert.AreSame(getCalculationFunc, presentationObject.GetCalculationFunc);
         }
     }
 }
