@@ -1436,7 +1436,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetslaag 1.
+        ///   Looks up a localized string similar to Eenvoudige toets.
         /// </summary>
         public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one {
             get {
@@ -1445,7 +1445,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetslaag 3.
+        ///   Looks up a localized string similar to Toets op maat.
         /// </summary>
         public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three {
             get {
@@ -1454,7 +1454,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetslaag 2a.
+        ///   Looks up a localized string similar to Gedetailleerde toets per vak.
         /// </summary>
         public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a {
             get {
