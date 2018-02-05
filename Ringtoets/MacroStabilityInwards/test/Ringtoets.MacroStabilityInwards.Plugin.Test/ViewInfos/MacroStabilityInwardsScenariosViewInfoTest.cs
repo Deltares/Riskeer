@@ -107,41 +107,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AdditionalDataCheck_ScenariosContextWithFailureMechanismParent_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var scenariosContext = new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(scenariosContext);
-
-            // Assert
-            Assert.IsTrue(additionalDataCheck);
-        }
-
-        [Test]
-        public void AdditionalDataCheck_ScenariosContextWithoutFailureMechanismParent_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculationsGroup = new CalculationGroup();
-            var scenariosContext = new MacroStabilityInwardsScenariosContext(calculationsGroup, failureMechanism, assessmentSection);
-
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(scenariosContext);
-
-            // Assert
-            Assert.IsFalse(additionalDataCheck);
-        }
-
-        [Test]
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup

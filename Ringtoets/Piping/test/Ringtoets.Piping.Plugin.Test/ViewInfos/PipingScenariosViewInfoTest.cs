@@ -109,43 +109,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AdditionalDataCheck_PipingScenariosContextWithPipingFailureMechanismParent_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingScenariosContext = new PipingScenariosContext(pipingFailureMechanism.CalculationsGroup, pipingFailureMechanism, assessmentSection);
-
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(pipingScenariosContext);
-
-            // Assert
-            Assert.IsTrue(additionalDataCheck);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AdditionalDataCheck_PipingScenariosContextWithoutPipingFailureMechanismParent_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingCalculationsGroup = new CalculationGroup();
-            var pipingScenariosContext = new PipingScenariosContext(pipingCalculationsGroup, pipingFailureMechanism, assessmentSection);
-
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(pipingScenariosContext);
-
-            // Assert
-            Assert.IsFalse(additionalDataCheck);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CloseForData_AssessmentSectionRemovedWithoutPipingFailureMechanism_ReturnsFalse()
         {
             // Setup
@@ -364,7 +327,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             // Call
             IView view = info.CreateInstance(context);
-            
+
             // Assert
             Assert.IsInstanceOf<PipingScenariosView>(view);
             mocks.VerifyAll();

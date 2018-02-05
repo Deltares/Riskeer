@@ -252,7 +252,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon,
-                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = CloseScenariosViewForData,
                 AfterCreate = (view, context) => { view.MacroStabilityInwardsFailureMechanism = context.FailureMechanism; },
                 CreateInstance = context => new MacroStabilityInwardsScenariosView(context.AssessmentSection)
