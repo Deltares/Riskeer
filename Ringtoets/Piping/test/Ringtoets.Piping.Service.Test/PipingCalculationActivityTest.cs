@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Run_InvalidPipingCalculationWithOutput_LogValidationStartAndEndWithErrors()
         {
             // Setup
-            var originalOutput = new TestPipingOutput();
+            PipingOutput originalOutput = PipingOutputTestFactory.Create();
 
             PipingCalculationScenario invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = originalOutput;

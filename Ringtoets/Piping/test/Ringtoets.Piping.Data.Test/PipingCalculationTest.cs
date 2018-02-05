@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
 
             // Call
@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
 
             // Call

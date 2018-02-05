@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static PipingCalculationScenario CreatePipingCalculationScenario(FailureMechanismSection section)
         {
             PipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
-            scenario.Output = new TestPipingOutput();
+            scenario.Output = PipingOutputTestFactory.Create();
 
             return scenario;
         }

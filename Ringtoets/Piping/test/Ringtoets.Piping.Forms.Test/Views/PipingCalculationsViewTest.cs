@@ -1085,7 +1085,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 if (useCalculationWithOutput)
                 {
-                    pipingCalculation.Output = new TestPipingOutput();
+                    pipingCalculation.Output = PipingOutputTestFactory.Create();
                 }
 
                 pipingCalculation.Attach(pipingCalculationObserver);
@@ -1158,7 +1158,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 if (useCalculationWithOutput)
                 {
-                    pipingCalculation.Output = new TestPipingOutput();
+                    pipingCalculation.Output = PipingOutputTestFactory.Create();
                 }
 
                 pipingCalculation.Attach(pipingCalculationObserver);

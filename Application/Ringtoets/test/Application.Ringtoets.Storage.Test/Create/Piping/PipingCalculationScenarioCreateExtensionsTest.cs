@@ -245,7 +245,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var registry = new PersistenceRegistry();
 
-            var newOutput = new TestPipingOutput();
+            PipingOutput newOutput = PipingOutputTestFactory.Create();
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = newOutput

@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var output = new TestPipingOutput();
+            PipingOutput output = PipingOutputTestFactory.Create();
             var context = new PipingOutputContext(output, failureMechanism, assessmentSection);
 
             // Call

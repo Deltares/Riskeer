@@ -997,7 +997,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                                 StandardDeviation = (RoundedDouble) 4.4
                             }
                         },
-                        Output = new TestPipingOutput()
+                        Output = PipingOutputTestFactory.Create()
                     },
                     new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
                     {
@@ -1029,7 +1029,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             UseAssessmentLevelManualInput = true,
                             AssessmentLevel = (RoundedDouble) 6.0
                         },
-                        Output = new TestPipingOutput()
+                        Output = PipingOutputTestFactory.Create()
                     }
                 }
             });

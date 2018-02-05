@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
@@ -223,7 +223,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
@@ -408,7 +408,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
@@ -498,7 +498,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation

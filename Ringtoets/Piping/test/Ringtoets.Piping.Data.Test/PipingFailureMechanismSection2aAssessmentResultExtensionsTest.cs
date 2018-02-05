@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Data.Test
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(1.0231368235852602e-10, assessmentLayerTwoA);
+            Assert.AreEqual(0.028693041013187315, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 

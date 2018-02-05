@@ -121,9 +121,9 @@ namespace Ringtoets.Piping.Integration.Test
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
-                pipingCalculation1.Output = new TestPipingOutput();
+                pipingCalculation1.Output = PipingOutputTestFactory.Create();
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual("1/980.908.719.666.769.000.000",
+                Assert.AreEqual("1/4.123",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Integration.Test
                 var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput());
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
-                Assert.AreEqual("1/980.908.719.666.769.000.000",
+                Assert.AreEqual("1/4.123",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Set contribution again so we have a probability.
                 pipingCalculation1.Contribution = (RoundedDouble) 1.0;
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual("1/980.908.719.666.769.000.000",
+                Assert.AreEqual("1/4.123",
                                 dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 

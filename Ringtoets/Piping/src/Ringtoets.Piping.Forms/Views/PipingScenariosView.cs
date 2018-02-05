@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -46,6 +47,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly Observer pipingFailureMechanismObserver;
         private CalculationGroup calculationGroup;
         private PipingFailureMechanism pipingFailureMechanism;
+        private List<PipingScenarioRow> pipingScenarioRows;
 
         /// <summary>
         /// Creates a new instance of the <see cref="PipingScenariosView"/> class.
@@ -71,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Views
             // The concat is needed to observe the input of calculations in child groups.
             pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
             pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
-            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(dataGridViewControl.RefreshDataGridView, pcg => pcg.Children);
+            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateCalculations, pcg => pcg.Children);
         }
 
         /// <summary>
@@ -183,12 +185,18 @@ namespace Ringtoets.Piping.Forms.Views
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<PipingCalculationScenario> pipingCalculations = calculationGroup
-                .GetCalculations()
-                .OfType<PipingCalculationScenario>()
-                .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+                                                                        .GetCalculations()
+                                                                        .OfType<PipingCalculationScenario>()
+                                                                        .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            List<PipingScenarioRow> dataSource = pipingCalculations.Select(pc => new PipingScenarioRow(pc, pipingFailureMechanism, assessmentSection)).ToList();
-            dataGridViewControl.SetDataSource(dataSource);
+            pipingScenarioRows = pipingCalculations.Select(pc => new PipingScenarioRow(pc, pipingFailureMechanism, assessmentSection)).ToList();
+            dataGridViewControl.SetDataSource(pipingScenarioRows);
+        }
+
+        private void UpdateCalculations()
+        {
+            pipingScenarioRows.ForEachElementDo(row => row.Update());
+            dataGridViewControl.RefreshDataGridView();
         }
 
         #region Event handling

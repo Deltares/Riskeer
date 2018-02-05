@@ -302,7 +302,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel1
                 },
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             var calculationWithSurfaceLineAndSoilModel = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -322,7 +322,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine2,
                     StochasticSoilModel = stochasticSoilModel2
                 },
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             var calculationWithHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -351,7 +351,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel2,
                     StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.First()
                 },
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -362,7 +362,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel1,
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.First()
                 },
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             var subCalculationWithHydraulicBoundaryLocation = new PipingCalculationScenario(new GeneralPipingInput())
             {

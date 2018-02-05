@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
 
             // Call

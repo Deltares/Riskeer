@@ -238,11 +238,11 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var generalInputParameters = new GeneralPipingInput();
                 var pipingCalculation1 = new PipingCalculationScenario(generalInputParameters)
                 {
-                    Output = new TestPipingOutput()
+                    Output = PipingOutputTestFactory.Create()
                 };
                 var pipingCalculation2 = new PipingCalculationScenario(generalInputParameters)
                 {
-                    Output = new TestPipingOutput()
+                    Output = PipingOutputTestFactory.Create()
                 };
 
                 var observer = mocks.StrictMock<IObserver>();
@@ -313,7 +313,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestPipingFailureMechanism();
             var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
@@ -447,7 +447,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    Output = new TestPipingOutput()
+                    Output = PipingOutputTestFactory.Create()
                 };
 
                 var failureMechanism = new PipingFailureMechanism();

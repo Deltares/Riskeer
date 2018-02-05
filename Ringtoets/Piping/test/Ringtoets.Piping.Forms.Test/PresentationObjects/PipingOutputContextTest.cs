@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingOutputContext(new TestPipingOutput(), null, assessmentSection);
+            TestDelegate test = () => new PipingOutputContext(PipingOutputTestFactory.Create(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingOutputContext(new TestPipingOutput(), new PipingFailureMechanism(), null);
+            TestDelegate call = () => new PipingOutputContext(PipingOutputTestFactory.Create(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var output = new TestPipingOutput();
+            PipingOutput output = PipingOutputTestFactory.Create();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call

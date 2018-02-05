@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingOutputProperties(new TestPipingOutput(), null, assessmentSection);
+            TestDelegate test = () => new PipingOutputProperties(PipingOutputTestFactory.Create(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingOutputProperties(new TestPipingOutput(), new PipingFailureMechanism(), null);
+            TestDelegate call = () => new PipingOutputProperties(PipingOutputTestFactory.Create(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var output = new TestPipingOutput();
+            PipingOutput output = PipingOutputTestFactory.Create();
 
             // Call
             var properties = new PipingOutputProperties(output, failureMechanism, assessmentSection);
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new PipingOutputProperties(new TestPipingOutput(), failureMechanism, assessmentSection);
+            var properties = new PipingOutputProperties(PipingOutputTestFactory.Create(), failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

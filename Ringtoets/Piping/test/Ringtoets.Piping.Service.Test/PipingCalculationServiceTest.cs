@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Validate_InvalidPipingCalculationWithOutput_ReturnsFalseNoOutputChange()
         {
             // Setup
-            var output = new TestPipingOutput();
+            PipingOutput output = PipingOutputTestFactory.Create();
             PipingCalculation invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = output;
 
@@ -999,7 +999,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Calculate_ValidPipingCalculationWithOutput_ShouldChangeOutput()
         {
             // Setup
-            var output = new TestPipingOutput();
+            PipingOutput output = PipingOutputTestFactory.Create();
             RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
 
             testCalculation.Output = output;

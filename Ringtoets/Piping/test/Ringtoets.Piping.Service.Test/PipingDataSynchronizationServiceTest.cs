@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
 
             // Call

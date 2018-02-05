@@ -35,7 +35,9 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     internal class PipingScenarioRow
     {
-        private readonly DerivedPipingOutput derivedOutput;
+        private readonly PipingFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private DerivedPipingOutput derivedOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
@@ -63,11 +65,10 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             Calculation = calculation;
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
 
-            if (calculation.HasOutput)
-            {
-                derivedOutput = DerivedPipingOutputFactory.Create(calculation.Output, failureMechanism, assessmentSection);
-            }
+            CreateDerivedOutput();
         }
 
         /// <summary>
@@ -172,6 +173,18 @@ namespace Ringtoets.Piping.Forms.Views
                            ? RingtoetsCommonFormsResources.RoundedRouble_No_result_dash
                            : ProbabilityFormattingHelper.Format(derivedOutput.SellmeijerProbability);
             }
+        }
+
+        public void Update()
+        {
+            CreateDerivedOutput();
+        }
+
+        private void CreateDerivedOutput()
+        {
+            derivedOutput = Calculation.HasOutput
+                                ? DerivedPipingOutputFactory.Create(Calculation.Output, failureMechanism, assessmentSection)
+                                : null;
         }
     }
 }

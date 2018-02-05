@@ -465,7 +465,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
 
-            var pipingOutput = new TestPipingOutput();
+            PipingOutput pipingOutput = PipingOutputTestFactory.Create();
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =

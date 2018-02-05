@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -225,7 +225,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    Output = new TestPipingOutput()
+                    Output = PipingOutputTestFactory.Create()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -645,7 +645,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 PipingSurfaceLine surfaceLine;
                 PipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
-                calculation.Output = new TestPipingOutput();
+                calculation.Output = PipingOutputTestFactory.Create();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -707,7 +707,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 PipingSurfaceLine surfaceLine;
                 PipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
-                calculation.Output = new TestPipingOutput();
+                calculation.Output = PipingOutputTestFactory.Create();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -1071,7 +1071,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                calculation.Output = new TestPipingOutput();
+                calculation.Output = PipingOutputTestFactory.Create();
                 calculation.Attach(observer);
 
                 string messageBoxText = null, messageBoxTitle = null;

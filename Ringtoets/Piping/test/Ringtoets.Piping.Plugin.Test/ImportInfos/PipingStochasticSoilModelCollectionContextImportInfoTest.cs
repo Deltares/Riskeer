@@ -176,7 +176,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             var failureMechanism = new PipingFailureMechanism();
             var calculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = new TestPipingOutput()
+                Output = PipingOutputTestFactory.Create()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 

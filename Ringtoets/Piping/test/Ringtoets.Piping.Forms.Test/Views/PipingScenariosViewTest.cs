@@ -239,10 +239,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("1/980.908.719.666.769.000.000", cells[failureProbabilityPipingColumnIndex].FormattedValue);
-            Assert.AreEqual("1/204.463.909.053", cells[failureProbabilityUpliftColumnIndex].FormattedValue);
-            Assert.AreEqual("1/31.469.301", cells[failureProbabilityHeaveColumnIndex].FormattedValue);
-            Assert.AreEqual("1/980.908.719.666.769.000.000", cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
+            Assert.AreEqual("1/4.123", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual("1/4.123", cells[failureProbabilityUpliftColumnIndex].FormattedValue);
+            Assert.AreEqual("1/26", cells[failureProbabilityHeaveColumnIndex].FormattedValue);
+            Assert.AreEqual("1/36", cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -333,6 +333,46 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                                                                    .ToArray();
 
                 CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenPipingScenarioView_WhenCalculationNotifiesObserver_ThenViewUpdated()
+        {
+            // Given
+            using (ShowFullyConfiguredPipingScenarioView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                int refreshed = 0;
+                dataGridView.Invalidated += (sender, args) => refreshed++;
+                
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(2, rows.Count);
+
+                DataGridViewRow calculationRow = rows[1];
+                PipingCalculationScenario calculation = ((PipingScenarioRow) calculationRow.DataBoundItem).Calculation;
+
+                // Precondition
+                DataGridViewCellCollection cells = calculationRow.Cells;
+                Assert.AreEqual(7, cells.Count);
+                Assert.AreEqual("1/4.123", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+                Assert.AreEqual("1/4.123", cells[failureProbabilityUpliftColumnIndex].FormattedValue);
+                Assert.AreEqual("1/26", cells[failureProbabilityHeaveColumnIndex].FormattedValue);
+                Assert.AreEqual("1/36", cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
+
+                // When
+                calculation.ClearOutput();
+                calculation.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, refreshed);
+
+                Assert.AreEqual("-", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+                Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilityUpliftColumnIndex].FormattedValue);
+                Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
+                Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
             }
         }
 
@@ -431,8 +471,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                             EntryPointL = (RoundedDouble) 7.7777,
                             ExitPointL = (RoundedDouble) 8.8888
                         },
-                        Output = new TestPipingOutput()
-                    }
+                        Output = PipingOutputTestFactory.Create()
+        }
                 }
             };
 

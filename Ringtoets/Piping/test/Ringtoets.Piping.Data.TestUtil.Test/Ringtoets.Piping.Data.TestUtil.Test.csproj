@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="PipingCalculationScenarioTestFactoryTest.cs" />
     <Compile Include="PipingInputFactoryTest.cs" />
+    <Compile Include="PipingOutputTestFactoryTest.cs" />
     <Compile Include="PipingStochasticSoilModelTestFactoryTest.cs" />
     <Compile Include="PipingTestDataGeneratorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

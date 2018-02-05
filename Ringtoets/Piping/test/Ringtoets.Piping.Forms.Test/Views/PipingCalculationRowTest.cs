@@ -472,12 +472,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            TestPipingOutput assignedOutput = null;
+            PipingOutput assignedOutput = null;
 
             PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
             if (hasOutput)
             {
-                assignedOutput = new TestPipingOutput();
+                assignedOutput = PipingOutputTestFactory.Create();
             }
             calculation.Output = assignedOutput;
 

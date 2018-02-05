@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
-            calculation.Output = new TestPipingOutput();
+            calculation.Output = PipingOutputTestFactory.Create();
 
             // Call
             var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
@@ -191,5 +191,113 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution * 100);
             mocks.VerifyAll();
         }
-    }
+
+        [Test]
+        public void GivenScenarioRow_WhenOutputSetAndUpdate_ThenDerivedOutputUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+
+            var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Precondition
+            Assert.AreEqual("-", row.FailureProbabilityPiping);
+            Assert.AreEqual("-", row.FailureProbabilityUplift);
+            Assert.AreEqual("-", row.FailureProbabilityHeave);
+            Assert.AreEqual("-", row.FailureProbabilitySellmeijer);
+
+            // When
+            calculation.Output = PipingOutputTestFactory.Create();
+            row.Update();
+
+            // Then
+            DerivedPipingOutput expectedDerivedOutput = DerivedPipingOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.PipingProbability), row.FailureProbabilityPiping);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.UpliftProbability), row.FailureProbabilityUplift);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.HeaveProbability), row.FailureProbabilityHeave);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.SellmeijerProbability), row.FailureProbabilitySellmeijer);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenScenarioRow_WhenOutputSetToNullAndUpdate_ThenDerivedOutputUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculation.Output = PipingOutputTestFactory.Create();
+
+            var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Precondition
+            DerivedPipingOutput expectedDerivedOutput = DerivedPipingOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.PipingProbability), row.FailureProbabilityPiping);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.UpliftProbability), row.FailureProbabilityUplift);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.HeaveProbability), row.FailureProbabilityHeave);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.SellmeijerProbability), row.FailureProbabilitySellmeijer);
+
+            // When
+            calculation.Output = null;
+            row.Update();
+
+            // Then
+            Assert.AreEqual("-", row.FailureProbabilityPiping);
+            Assert.AreEqual("-", row.FailureProbabilityUplift);
+            Assert.AreEqual("-", row.FailureProbabilityHeave);
+            Assert.AreEqual("-", row.FailureProbabilitySellmeijer);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenScenarioRow_WhenOutputChangedAndUpdate_ThenDerivedOutputUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculation.Output = PipingOutputTestFactory.Create();
+
+            var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Precondition
+            DerivedPipingOutput expectedDerivedOutput = DerivedPipingOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.PipingProbability), row.FailureProbabilityPiping);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.UpliftProbability), row.FailureProbabilityUplift);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.HeaveProbability), row.FailureProbabilityHeave);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.SellmeijerProbability), row.FailureProbabilitySellmeijer);
+
+            var random = new Random(11);
+
+            // When
+            calculation.Output = PipingOutputTestFactory.Create(random.NextDouble(), random.NextDouble(), random.NextDouble());
+            row.Update();
+
+            // Then
+            DerivedPipingOutput newExpectedDerivedOutput = DerivedPipingOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(newExpectedDerivedOutput.PipingProbability), row.FailureProbabilityPiping);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(newExpectedDerivedOutput.UpliftProbability), row.FailureProbabilityUplift);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(newExpectedDerivedOutput.HeaveProbability), row.FailureProbabilityHeave);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(newExpectedDerivedOutput.SellmeijerProbability), row.FailureProbabilitySellmeijer);
+            mocks.VerifyAll();
+        }
+    }    
 }
