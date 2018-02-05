@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="HydraulicLocationOutputEntity"/> to create <see cref="HydraulicBoundaryLocationOutput"/> for.</param>
         /// <returns>A new <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <param name="entity"></param> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static HydraulicBoundaryLocationOutput Read(this HydraulicLocationOutputEntity entity)
         {
             if (entity == null)

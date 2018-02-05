@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Create
                 TargetReliability = output.TargetReliability.ToNaNAsNull(),
                 CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
                 CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
-                CalculationConvergence = (byte)output.CalculationConvergence,
+                CalculationConvergence = (byte) output.CalculationConvergence,
                 GeneralResultSubMechanismIllustrationPointEntity = output.GeneralResult?.CreateGeneralResultSubMechanismIllustrationPointEntity()
             };
         }

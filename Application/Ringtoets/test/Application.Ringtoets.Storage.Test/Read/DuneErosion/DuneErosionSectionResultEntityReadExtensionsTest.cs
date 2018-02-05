@@ -82,6 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
         [Test]
         public void Read_EntityWithNullValues_SectionResultWithNaNValues()
         {
+            // Setup
             var random = new Random(21);
             var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
             var layerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>();
