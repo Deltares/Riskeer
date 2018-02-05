@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
     public class HydraulicBoundaryLocationContextTest
     {
         [Test]
-        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("getCalculationFunc", paramName);
+            Assert.AreEqual("calculation", paramName);
         }
 
         [Test]
@@ -49,22 +49,22 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => null;
+            var calculation = new HydraulicBoundaryLocationCalculation();
 
             // Call
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, getCalculationFunc);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, calculation);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(context);
             Assert.AreSame(hydraulicBoundaryLocation, context.WrappedData);
-            Assert.AreSame(getCalculationFunc, context.GetCalculationFunc);
+            Assert.AreSame(calculation, context.Calculation);
         }
 
         private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
         {
             public TestHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData,
-                                                        Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-                : base(wrappedData, getCalculationFunc) {}
+                                                        HydraulicBoundaryLocationCalculation calculation)
+                : base(wrappedData, calculation) {}
         }
     }
 }

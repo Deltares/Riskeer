@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -34,15 +33,15 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
-            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => null;
+            var calculation = new HydraulicBoundaryLocationCalculation();
 
             // Call
-            var presentationObject = new DesignWaterLevelLocationContext(hydraulicBoundaryLocation, getCalculationFunc);
+            var presentationObject = new DesignWaterLevelLocationContext(hydraulicBoundaryLocation, calculation);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationContext>(presentationObject);
             Assert.AreSame(hydraulicBoundaryLocation, presentationObject.WrappedData);
-            Assert.AreSame(getCalculationFunc, presentationObject.GetCalculationFunc);
+            Assert.AreSame(calculation, presentationObject.Calculation);
         }
     }
 }

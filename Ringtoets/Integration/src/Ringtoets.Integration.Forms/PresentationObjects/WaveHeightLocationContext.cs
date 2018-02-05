@@ -35,11 +35,10 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> which the <see cref="WaveHeightLocationContext"/>
         /// belongs to.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="calculation">The <see cref="HydraulicBoundaryLocationCalculation"/> at stake.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public WaveHeightLocationContext(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                         Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-            : base(hydraulicBoundaryLocation, getCalculationFunc) {}
+                                         HydraulicBoundaryLocationCalculation calculation)
+            : base(hydraulicBoundaryLocation, calculation) {}
     }
 }
