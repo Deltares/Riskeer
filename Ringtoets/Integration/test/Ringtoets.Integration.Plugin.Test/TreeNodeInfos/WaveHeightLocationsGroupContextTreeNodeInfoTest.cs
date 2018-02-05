@@ -129,9 +129,17 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(locationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
 
                 var testLocation = new TestHydraulicBoundaryLocation();
+
+                Assert.AreEqual("A+->A", locationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation1, locationsContexts[0].GetCalculationFunc(testLocation));
+
+                Assert.AreEqual("A->B", locationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation2, locationsContexts[1].GetCalculationFunc(testLocation));
+
+                Assert.AreEqual("B->C", locationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation3, locationsContexts[2].GetCalculationFunc(testLocation));
+
+                Assert.AreEqual("C->D", locationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation4, locationsContexts[3].GetCalculationFunc(testLocation));
             }
 
