@@ -33,11 +33,27 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> 
-        /// which the <see cref="HydraulicBoundaryLocationContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
-        /// is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData)
-            : base(wrappedData) {}
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> which the <see cref="HydraulicBoundaryLocationContext"/>
+        /// belongs to.</param>
+        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData,
+                                                   Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+            : base(wrappedData)
+        {
+            if (getCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getCalculationFunc));
+            }
+
+            GetCalculationFunc = getCalculationFunc;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// based on <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        public Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> GetCalculationFunc { get; }
     }
 }

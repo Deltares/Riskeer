@@ -31,14 +31,17 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
     public class HydraulicBoundaryLocationContextTest
     {
         [Test]
-        public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(null);
+            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
+            Assert.AreEqual("getCalculationFunc", paramName);
         }
 
         [Test]
@@ -46,19 +49,22 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => null;
 
             // Call
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, getCalculationFunc);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(context);
             Assert.AreSame(hydraulicBoundaryLocation, context.WrappedData);
+            Assert.AreSame(getCalculationFunc, context.GetCalculationFunc);
         }
 
         private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
         {
-            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData)
-                : base(wrappedData) {}
+            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData,
+                                                        Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+                : base(wrappedData, getCalculationFunc) {}
         }
     }
 }
