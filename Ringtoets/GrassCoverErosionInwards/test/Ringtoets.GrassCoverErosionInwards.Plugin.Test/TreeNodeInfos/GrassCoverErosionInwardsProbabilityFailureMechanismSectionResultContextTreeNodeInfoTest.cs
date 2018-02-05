@@ -29,30 +29,31 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
+namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private MacroStabilityInwardsPlugin plugin;
+        private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>));
+            plugin = new GrassCoverErosionInwardsPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>));
         }
 
         [TearDown]
         public void TearDown()
         {
             plugin.Dispose();
+
             mocks.VerifyAll();
         }
 
@@ -90,8 +91,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var mechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(mechanism.SectionResults, mechanism, assessmentSection);
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                                     failureMechanism,
+                                                                                                                                     assessmentSection);
 
             // Call
             string text = info.Text(context);

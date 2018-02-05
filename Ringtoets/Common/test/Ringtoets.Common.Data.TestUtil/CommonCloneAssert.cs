@@ -287,6 +287,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(StructuresOutput original, StructuresOutput clone)
         {
+            Assert.AreEqual(original.Reliability, clone.Reliability);
             CoreCloneAssert.AreObjectClones(original.GeneralResult, clone.GeneralResult, AreClones);
         }
 

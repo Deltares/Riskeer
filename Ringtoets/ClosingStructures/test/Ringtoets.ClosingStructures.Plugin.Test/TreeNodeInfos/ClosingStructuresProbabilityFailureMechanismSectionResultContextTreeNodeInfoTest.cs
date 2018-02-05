@@ -37,7 +37,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class ClosingStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()

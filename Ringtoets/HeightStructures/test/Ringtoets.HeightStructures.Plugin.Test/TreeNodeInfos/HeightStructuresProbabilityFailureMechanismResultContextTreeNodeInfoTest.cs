@@ -36,7 +36,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ProbabilityFailureMechanismResultContextTreeNodeInfoTest
+    public class HeightStructuresProbabilityFailureMechanismResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private HeightStructuresPlugin plugin;

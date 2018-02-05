@@ -143,7 +143,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             {
                 Calculation = new TestHeightStructuresCalculation
                 {
-                    Output = new TestStructuresOutput()
+                    Output = new TestStructuresOutput(new Random(39).NextDouble())
                 }
             };
 
@@ -151,7 +151,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new HeightStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.5, assessmentLayerTwoA);
+            Assert.AreEqual(0.45984249809357164, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
     }

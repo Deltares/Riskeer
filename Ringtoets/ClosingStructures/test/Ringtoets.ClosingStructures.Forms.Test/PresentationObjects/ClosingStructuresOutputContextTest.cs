@@ -71,6 +71,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
         }
     }
 }

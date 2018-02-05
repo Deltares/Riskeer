@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -261,17 +260,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result1 = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
 
             using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
@@ -340,7 +339,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {

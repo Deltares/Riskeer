@@ -301,8 +301,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             view.Expect(v => v.FailureMechanism = failureMechanism);
             mocks.ReplayAll();
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(failureMechanism.SectionResults, failureMechanism,
-                                                                                                                                               assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(
+                failureMechanism.SectionResults, failureMechanism,
+                assessmentSection);
 
             // Call
             info.AfterCreate(view, context);
@@ -318,9 +319,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(failureMechanism.SectionResults,
-                                                                                                                                               failureMechanism,
-                                                                                                                                               assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(
+                failureMechanism.SectionResults,
+                failureMechanism,
+                assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

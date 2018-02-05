@@ -110,6 +110,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(expectedProbabilityOutput.Reliability, probabilityOutput.Reliability);
             Assert.AreEqual(expectedProbabilityOutput.RequiredProbability, probabilityOutput.RequiredProbability);
             Assert.AreEqual(expectedProbabilityOutput.RequiredReliability, probabilityOutput.RequiredReliability);
+            mocks.VerifyAll();
         }
     }
 }

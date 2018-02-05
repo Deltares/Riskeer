@@ -54,7 +54,7 @@
     <Compile Include="PropertyInfos\PipingInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\PipingFailureMechanismPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationScenarioContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingFailureMechanismContextTreeNodeInfoTest.cs" />

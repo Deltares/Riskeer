@@ -103,6 +103,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -124,6 +125,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -141,7 +143,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             {
                 Calculation = new TestClosingStructuresCalculation
                 {
-                    Output = new TestStructuresOutput()
+                    Output = new TestStructuresOutput(new Random(39).NextDouble())
                 }
             };
 
@@ -149,7 +151,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.5, assessmentLayerTwoA);
+            Assert.AreEqual(0.45984249809357164, assessmentLayerTwoA);
             mocks.VerifyAll();
         }
     }

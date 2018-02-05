@@ -94,9 +94,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var random = new Random(39);
-            double reliability = random.NextDouble();
-
-            var structuresOutput = new TestStructuresOutput(reliability);
+            var structuresOutput = new TestStructuresOutput(random.NextDouble());
 
             // Call
             var properties = new ClosingStructuresOutputProperties(structuresOutput, failureMechanism, assessmentSection);
@@ -109,7 +107,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
             Assert.AreEqual(expectedProbabilityAssessmentOutput.FactorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
     }
 }

@@ -35,7 +35,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class PipingProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;

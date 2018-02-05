@@ -20,11 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
-using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -48,8 +45,6 @@ namespace Ringtoets.Common.Data.Test.Probability
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Assert
-            Assert.IsInstanceOf<CloneableObservable>(probabilityAssessmentOutput);
-            Assert.IsInstanceOf<ICalculationOutput>(probabilityAssessmentOutput);
             Assert.AreEqual(requiredProbability, probabilityAssessmentOutput.RequiredProbability);
             Assert.AreEqual(5, probabilityAssessmentOutput.RequiredReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(requiredReliability, probabilityAssessmentOutput.RequiredReliability, probabilityAssessmentOutput.RequiredReliability.GetAccuracy());

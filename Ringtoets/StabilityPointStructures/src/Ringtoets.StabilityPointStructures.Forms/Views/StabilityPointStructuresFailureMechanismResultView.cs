@@ -35,7 +35,8 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+    /// The view for a collection of <see cref="StructuresFailureMechanismSectionResult{T}"/>
+    /// for stability point structures.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
     {

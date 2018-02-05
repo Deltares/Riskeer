@@ -20,16 +20,14 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Data.Probability
 {
     /// <summary>
     /// This class contains the results of a probabilistic assessment calculation.
     /// </summary>
-    public class ProbabilityAssessmentOutput : CloneableObservable, ICalculationOutput
+    public class ProbabilityAssessmentOutput
     {
         private double requiredProbability;
         private double probability;

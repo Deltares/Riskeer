@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -252,17 +251,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var result1 = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
 
             using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
@@ -331,7 +330,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var result = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {

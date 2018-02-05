@@ -66,7 +66,7 @@ namespace Ringtoets.HeightStructures.Data
             }
 
             ProbabilityAssessmentOutput derivedOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(sectionResult.Calculation.Output,
-                                                                                                                   failureMechanism, assessmentSection);
+                                                                                                                  failureMechanism, assessmentSection);
 
             return derivedOutput.Probability;
         }
