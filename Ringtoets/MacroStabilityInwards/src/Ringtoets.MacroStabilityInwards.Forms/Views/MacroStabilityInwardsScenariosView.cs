@@ -76,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                                                                                                                                                         .OfType<MacroStabilityInwardsCalculationScenario>()
                                                                                                                                                         .Select(pc => pc.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, cg => cg.Children);
-            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(UpdateScenarios, cg => cg.Children);
+            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(UpdateScenarioRows, cg => cg.Children);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             dataGridViewControl.SetDataSource(scenarioRows);
         }
 
-        private void UpdateScenarios()
+        private void UpdateScenarioRows()
         {
             scenarioRows.ForEachElementDo(row => row.Update());
             dataGridViewControl.RefreshDataGridView();

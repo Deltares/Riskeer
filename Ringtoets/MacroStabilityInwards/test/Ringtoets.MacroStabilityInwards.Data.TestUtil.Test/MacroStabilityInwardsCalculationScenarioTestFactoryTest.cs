@@ -173,12 +173,17 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
 
             MacroStabilityInwardsOutput output = scenario.Output;
             Assert.IsNotNull(output);
-            Assert.IsFalse(double.IsNaN(output.FactorOfStability) && double.IsInfinity(output.FactorOfStability));
-            Assert.IsFalse(double.IsNaN(output.ZValue) && double.IsInfinity(output.ZValue));
-            Assert.IsFalse(double.IsNaN(output.ForbiddenZonesXEntryMax) && double.IsInfinity(output.ForbiddenZonesXEntryMax));
-            Assert.IsFalse(double.IsNaN(output.ForbiddenZonesXEntryMin) && double.IsInfinity(output.ForbiddenZonesXEntryMin));
+            Assert.IsTrue(IsValidDouble(output.FactorOfStability));
+            Assert.IsTrue(IsValidDouble(output.ZValue));
+            Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMax));
+            Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMin));
             Assert.IsNotNull(output.SlidingCurve);
             Assert.IsNotNull(output.SlipPlane);
+        }
+
+        private static bool IsValidDouble(double value)
+        {
+            return !double.IsNaN(value) && !double.IsInfinity(value);
         }
 
         private static void AssertInput(MacroStabilityInwardsInput inputParameters)

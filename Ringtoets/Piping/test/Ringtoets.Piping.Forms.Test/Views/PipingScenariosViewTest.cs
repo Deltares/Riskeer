@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -212,7 +213,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
         public void PipingScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
@@ -239,10 +239,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("1/4.123", cells[failureProbabilityPipingColumnIndex].FormattedValue);
-            Assert.AreEqual("1/4.123", cells[failureProbabilityUpliftColumnIndex].FormattedValue);
-            Assert.AreEqual("1/26", cells[failureProbabilityHeaveColumnIndex].FormattedValue);
-            Assert.AreEqual("1/36", cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityUpliftColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.038461838), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.027777778), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -337,7 +337,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
         public void GivenPipingScenarioView_WhenCalculationNotifiesObserver_ThenViewUpdated()
         {
             // Given
@@ -349,18 +348,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 dataGridView.Invalidated += (sender, args) => refreshed++;
                 
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(2, rows.Count);
-
                 DataGridViewRow calculationRow = rows[1];
                 PipingCalculationScenario calculation = ((PipingScenarioRow) calculationRow.DataBoundItem).Calculation;
 
                 // Precondition
                 DataGridViewCellCollection cells = calculationRow.Cells;
                 Assert.AreEqual(7, cells.Count);
-                Assert.AreEqual("1/4.123", cells[failureProbabilityPipingColumnIndex].FormattedValue);
-                Assert.AreEqual("1/4.123", cells[failureProbabilityUpliftColumnIndex].FormattedValue);
-                Assert.AreEqual("1/26", cells[failureProbabilityHeaveColumnIndex].FormattedValue);
-                Assert.AreEqual("1/36", cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityPipingColumnIndex].FormattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityUpliftColumnIndex].FormattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.038461838), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.027777778), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
 
                 // When
                 calculation.ClearOutput();

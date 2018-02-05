@@ -359,7 +359,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
-                Assert.AreEqual($"1/{1 / 1}",
+                Assert.AreEqual("1/1",
                                 formattedValue);
             }
         }

@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Views
             // The concat is needed to observe the input of calculations in child groups.
             pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
             pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
-            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateScenarios, pcg => pcg.Children);
+            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateScenarioRows, pcg => pcg.Children);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridViewControl.SetDataSource(pipingScenarioRows);
         }
 
-        private void UpdateScenarios()
+        private void UpdateScenarioRows()
         {
             pipingScenarioRows.ForEachElementDo(row => row.Update());
             dataGridViewControl.RefreshDataGridView();

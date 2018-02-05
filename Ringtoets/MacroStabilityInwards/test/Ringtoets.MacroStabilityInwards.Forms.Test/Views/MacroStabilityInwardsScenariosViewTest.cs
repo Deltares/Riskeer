@@ -328,7 +328,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
         public void GivenMacroStabilityInwardscenarioView_WhenCalculationNotifiesObserver_ThenViewUpdated()
         {
             // Given
@@ -340,8 +339,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 dataGridView.Invalidated += (sender, args) => refreshed++;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(2, rows.Count);
-
                 DataGridViewRow calculationRow = rows[1];
                 MacroStabilityInwardsCalculationScenario calculation = ((MacroStabilityInwardsScenarioRow) calculationRow.DataBoundItem).Calculation;
 
