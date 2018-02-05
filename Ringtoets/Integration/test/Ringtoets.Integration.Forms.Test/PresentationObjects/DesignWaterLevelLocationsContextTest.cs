@@ -43,15 +43,20 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> calculationFunc = hbl => null;
+            const string categoryBoundaryName = "Test name";
 
             // Call
-            var presentationObject = new DesignWaterLevelLocationsContext(locations, assessmentSection, calculationFunc);
+            var presentationObject = new DesignWaterLevelLocationsContext(locations,
+                                                                          assessmentSection,
+                                                                          calculationFunc,
+                                                                          categoryBoundaryName);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
             Assert.AreSame(locations, presentationObject.WrappedData);
             Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
             Assert.AreSame(calculationFunc, presentationObject.GetCalculationFunc);
+            Assert.AreEqual(categoryBoundaryName, presentationObject.CategoryBoundaryName);
             mockRepository.VerifyAll();
         }
 
@@ -59,7 +64,10 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), null, hbl => null);
+            TestDelegate call = () => new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                           null,
+                                                                           hbl => null,
+                                                                           "Test name");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -75,11 +83,52 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, null);
+            TestDelegate call = () => new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                           assessmentSection,
+                                                                           null,
+                                                                           "Test name");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("getCalculationFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                           assessmentSection,
+                                                                           hbl => null,
+                                                                           null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_CategoryBoundaryNameEmpty_ThrowsArgumentException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                           assessmentSection,
+                                                                           hbl => null,
+                                                                           string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
         }
     }
 }

@@ -40,10 +40,14 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="WaveHeightLocationsContext"/> belongs to.</param>
         /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
         /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="assessmentSection"/>
+        /// or <paramref name="getCalculationFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public WaveHeightLocationsContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
                                           IAssessmentSection assessmentSection,
-                                          Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+                                          Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
+                                          string categoryBoundaryName)
             : base(wrappedData)
         {
             if (assessmentSection == null)
@@ -56,8 +60,14 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(getCalculationFunc));
             }
 
+            if (string.IsNullOrEmpty(categoryBoundaryName))
+            {
+                throw new ArgumentException(nameof(categoryBoundaryName));
+            }
+
             AssessmentSection = assessmentSection;
             GetCalculationFunc = getCalculationFunc;
+            CategoryBoundaryName = categoryBoundaryName;
         }
 
         /// <summary>
@@ -70,5 +80,10 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// based on <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         public Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> GetCalculationFunc { get; }
+
+        /// <summary>
+        /// Gets the name of the category boundary.
+        /// </summary>
+        public string CategoryBoundaryName { get; }
     }
 }
