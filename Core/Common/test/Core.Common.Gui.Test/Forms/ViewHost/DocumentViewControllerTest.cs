@@ -41,6 +41,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+
             mocks.ReplayAll();
 
             // Call
@@ -62,6 +65,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+
             mocks.ReplayAll();
 
             var viewInfos = new ViewInfo[]
@@ -88,6 +94,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -147,6 +154,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+
             mocks.ReplayAll();
 
             var viewInfos = new ViewInfo[0];
@@ -170,6 +180,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -223,6 +234,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -258,9 +270,11 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
+
             mocks.ReplayAll();
 
             var data = new A();
@@ -292,6 +306,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -332,6 +347,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
 
             mocks.ReplayAll();
@@ -369,6 +385,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -411,6 +428,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -460,6 +478,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -509,6 +528,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -546,6 +566,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data1)));
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data2)));
@@ -578,6 +599,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(viewList);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => viewList.Add(invocation.Arguments[0] as TestView));
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -609,6 +631,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+
             mocks.ReplayAll();
 
             var documentViewController = new DocumentViewController(viewHost, Enumerable.Empty<ViewInfo>(), dialogParent);
@@ -631,6 +656,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+
             mocks.ReplayAll();
 
             var viewInfos = new ViewInfo[]
@@ -663,6 +691,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+
             mocks.ReplayAll();
 
             var viewInfos = new ViewInfo[]
@@ -697,6 +728,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+
             mocks.ReplayAll();
 
             var viewInfos = new ViewInfo[]
@@ -749,6 +783,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new[]
             {
                 testView,
@@ -791,6 +826,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new[]
             {
                 testView,
@@ -838,6 +874,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 testViewDerivative
             };
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
             viewHost.Expect(vh => vh.Remove(testView)).WhenCalled(x => documentViews.Remove(testView));
 
@@ -883,6 +920,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 testViewDerivative
             };
 
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
             viewHost.Expect(vh => vh.Remove(testView)).WhenCalled(x => documentViews.Remove(testView));
             viewHost.Expect(vh => vh.Remove(testViewDerivative)).WhenCalled(x => documentViews.Remove(testViewDerivative));
