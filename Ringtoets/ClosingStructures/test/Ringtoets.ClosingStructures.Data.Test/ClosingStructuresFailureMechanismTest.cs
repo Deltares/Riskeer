@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -61,7 +62,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AddSection_WithSection_AddedClosingStructuresFailureMechanismSectionResult()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.SectionResults.Attach(observer);
 
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -70,14 +77,20 @@ namespace Ringtoets.ClosingStructures.Data.Test
             }));
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count);
             Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(failureMechanism.SectionResults.ElementAt(0));
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -89,23 +102,25 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 new Point2D(2, 1)
             }));
 
+            failureMechanism.SectionResults.Attach(observer);
+
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
-            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count);
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
-            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count);
+            mocks.ReplayAll();
         }
 
         [Test]
         public void Calculations_MultipleChildrenAdded_ReturnClosingStructuresCalculations()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 CalculationsGroup =
@@ -119,15 +134,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 }
             };
 
-            mocks.ReplayAll();
-
             // Call
             List<ICalculation> calculations = failureMechanism.Calculations.ToList();
 
             // Assert
             Assert.AreEqual(2, calculations.Count);
             Assert.IsTrue(calculations.All(c => c is StructuresCalculation<ClosingStructuresInput>));
-            mocks.VerifyAll();
         }
     }
 }

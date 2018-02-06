@@ -94,12 +94,14 @@ namespace Ringtoets.ClosingStructures.Data
             base.AddSection(section);
 
             sectionResults.Add(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section));
+            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
+            sectionResults.NotifyObservers();
         }
     }
 }
