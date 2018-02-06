@@ -23,49 +23,48 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.CategoriesOutput;
-using AssemblyTool.Kernel.Data;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data.Output;
+using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test
 {
     /// <summary>
     /// Class for asserting categories result.
     /// </summary>
-    public static class AssemblyCategoryResultAssert
+    public static class AssessmentSectionAssemblyCategoryAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="CalculationOutput{AssessmentSectionCategoriesOutput}"/>.</param>
-        /// <param name="actual">The actual <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>.</param>
+        /// <param name="original">The original <see cref="CalculationOutput{T}"/>.</param>
+        /// <param name="actual">The actual <see cref="IEnumerable{T}"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssessmentSectionAssemblyCategoriesResult(CalculationOutput<AssessmentSectionCategoriesOutput[]> original,
-                                                                           IEnumerable<AssessmentSectionAssemblyCategoryResult> actual)
+        public static void AssertAssessmentSectionAssemblyCategories(CalculationOutput<AssessmentSectionCategory[]> original,
+                                                                           IEnumerable<AssessmentSectionAssemblyCategory> actual)
         {
             Assert.AreEqual(original.Result.Length, actual.Count());
 
-            CollectionAssert.AreEqual(original.Result.Select(o => GetResultType(o.Category)), actual.Select(r => r.Category));
+            CollectionAssert.AreEqual(original.Result.Select(o => GetCategoryGroup(o.CategoryGroup)), actual.Select(r => r.Group));
             CollectionAssert.AreEqual(original.Result.Select(o => o.LowerBoundary), actual.Select(r => r.LowerBoundary));
             CollectionAssert.AreEqual(original.Result.Select(o => o.UpperBoundary), actual.Select(r => r.UpperBoundary));
         }
 
-        private static AssessmentSectionAssemblyCategoryResultType GetResultType(AssessmentSectionAssemblyCategory category)
+        private static AssessmentSectionAssemblyCategoryGroup GetCategoryGroup(AssessmentSectionCategoryGroup category)
         {
             switch (category)
             {
-                case AssessmentSectionAssemblyCategory.APlus:
-                    return AssessmentSectionAssemblyCategoryResultType.APlus;
-                case AssessmentSectionAssemblyCategory.A:
-                    return AssessmentSectionAssemblyCategoryResultType.A;
-                case AssessmentSectionAssemblyCategory.B:
-                    return AssessmentSectionAssemblyCategoryResultType.B;
-                case AssessmentSectionAssemblyCategory.C:
-                    return AssessmentSectionAssemblyCategoryResultType.C;
-                case AssessmentSectionAssemblyCategory.D:
-                    return AssessmentSectionAssemblyCategoryResultType.D;
+                case AssessmentSectionCategoryGroup.APlus:
+                    return AssessmentSectionAssemblyCategoryGroup.APlus;
+                case AssessmentSectionCategoryGroup.A:
+                    return AssessmentSectionAssemblyCategoryGroup.A;
+                case AssessmentSectionCategoryGroup.B:
+                    return AssessmentSectionAssemblyCategoryGroup.B;
+                case AssessmentSectionCategoryGroup.C:
+                    return AssessmentSectionAssemblyCategoryGroup.C;
+                case AssessmentSectionCategoryGroup.D:
+                    return AssessmentSectionAssemblyCategoryGroup.D;
                 default:
                     throw new NotSupportedException();
             }

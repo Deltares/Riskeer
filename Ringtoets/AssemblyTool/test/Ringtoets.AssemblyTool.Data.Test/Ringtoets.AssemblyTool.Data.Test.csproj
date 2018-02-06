@@ -14,10 +14,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Input\AssemblyCategoriesCalculatorInputTest.cs" />
-    <Compile Include="Output\AssemblyCategoryResultTest.cs" />
-    <Compile Include="Output\AssessmentSectionAssemblyCategoryResultTest.cs" />
-    <Compile Include="Output\AssessmentSectionAssemblyCategoryResultTypeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -35,5 +31,9 @@
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Ringtoets.AssemblyTool.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Input\" />
+    <Folder Include="Output\" />
   </ItemGroup>
 </Project>

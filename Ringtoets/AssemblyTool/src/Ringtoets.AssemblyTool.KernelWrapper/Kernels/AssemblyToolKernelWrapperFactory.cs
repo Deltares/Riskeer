@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using AssemblyTool.Kernel.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
@@ -45,9 +46,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
             }
         }
 
-        public IAssemblyCategoriesKernel CreateAssemblyCategoriesKernel()
+        public ICategoriesCalculator CreateAssemblyCategoriesKernel()
         {
-            return new AssemblyCategoriesKernelWrapper();
+            return new CategoriesCalculator();
         }
     }
 }

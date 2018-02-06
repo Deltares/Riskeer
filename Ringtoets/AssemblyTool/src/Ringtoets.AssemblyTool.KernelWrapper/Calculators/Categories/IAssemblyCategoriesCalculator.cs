@@ -21,8 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.Data.Input;
-using Ringtoets.AssemblyTool.Data.Output;
+using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 {
@@ -41,15 +40,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <summary>
         /// Performs the calculation for getting the assessment section categories.
         /// </summary>
-        /// <param name="input">The <see cref="AssemblyCategoriesCalculatorInput"/> containing
-        /// all the values required for performing the assembly categories calculation.</param>
+        /// <param name="signalingNorm">The signaling norm to calculate with.</param>
+        /// <param name="lowerBoundaryNorm">The lower boundary norm to calculate with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
-        /// <see cref="AssessmentSectionAssemblyCategoryResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
-        /// is <c>null</c>.</exception>
+        /// <see cref="AssessmentSectionAssemblyCategory"/>.</returns>        
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// when performing the calculation.</exception>
-        IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
-            AssemblyCategoriesCalculatorInput input);
+        IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(
+            double signalingNorm, double lowerBoundaryNorm);
     }
 }

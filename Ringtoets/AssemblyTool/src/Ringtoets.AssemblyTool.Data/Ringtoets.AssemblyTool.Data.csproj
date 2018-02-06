@@ -11,15 +11,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Input\AssemblyCategoriesCalculatorInput.cs" />
-    <Compile Include="Output\AssessmentSectionAssemblyCategoryResult.cs" />
-    <Compile Include="Output\AssessmentSectionAssemblyCategoryResultType.cs" />
-    <Compile Include="Output\AssemblyCategoryResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Input\" />
+    <Folder Include="Output\" />
   </ItemGroup>
 </Project>

@@ -24,16 +24,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.CategoriesOutput;
-using AssemblyTool.Kernel.Data;
-using Ringtoets.AssemblyTool.Data.Output;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="AssemblyCategoryResult"/> instances.
+    /// Creates <see cref="AssessmentSectionAssemblyCategory"/> instances.
     /// </summary>
-    internal static class AssemblyCategoryResultCreator
+    internal static class AssessmentSectionAssemblyCategoryCreator
     {
         /// <summary>
         /// Creates an <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>
@@ -43,12 +42,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <returns>An <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>
         /// with information taken from the <paramref name="output"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionAssemblyCategory"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionCategoryGroup"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionAssemblyCategory"/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public static IEnumerable<AssessmentSectionAssemblyCategoryResult> CreateAssessmentSectionAssemblyCategoryResult(
-            CalculationOutput<AssessmentSectionCategoriesOutput[]> output)
+        public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(
+            CalculationOutput<AssessmentSectionCategory[]> output)
         {
             if (output == null)
             {
@@ -56,41 +55,41 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return output.Result.Select(
-                             categoriesOutput => new AssessmentSectionAssemblyCategoryResult(categoriesOutput.LowerBoundary,
-                                                                                             categoriesOutput.UpperBoundary,
-                                                                                             ConvertAssessmentSectionCategoryType(categoriesOutput.Category))).ToArray();
+                categoriesOutput => new AssessmentSectionAssemblyCategory(categoriesOutput.LowerBoundary,
+                                                                          categoriesOutput.UpperBoundary,
+                                                                          ConvertAssessmentSectionCategoryGroup(categoriesOutput.CategoryGroup))).ToArray();
         }
 
         /// <summary>
-        /// Converts a <see cref="category"/> into a <see cref="AssessmentSectionAssemblyCategoryResultType"/>.
+        /// Converts a <see cref="category"/> into a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
         /// </summary>
-        /// <param name="category">The <see cref="AssessmentSectionAssemblyCategory"/> to convert.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyCategoryResultType"/> based on <paramref name="category"/>.</returns>
+        /// <param name="category">The <see cref="AssessmentSectionCategoryGroup"/> to convert.</param>
+        /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        private static AssessmentSectionAssemblyCategoryResultType ConvertAssessmentSectionCategoryType(AssessmentSectionAssemblyCategory category)
+        private static AssessmentSectionAssemblyCategoryGroup ConvertAssessmentSectionCategoryGroup(AssessmentSectionCategoryGroup category)
         {
-            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyCategory), category))
+            if (!Enum.IsDefined(typeof(AssessmentSectionCategoryGroup), category))
             {
                 throw new InvalidEnumArgumentException(nameof(category),
                                                        (int) category,
-                                                       typeof(AssessmentSectionAssemblyCategory));
+                                                       typeof(AssessmentSectionCategoryGroup));
             }
 
             switch (category)
             {
-                case AssessmentSectionAssemblyCategory.APlus:
-                    return AssessmentSectionAssemblyCategoryResultType.APlus;
-                case AssessmentSectionAssemblyCategory.A:
-                    return AssessmentSectionAssemblyCategoryResultType.A;
-                case AssessmentSectionAssemblyCategory.B:
-                    return AssessmentSectionAssemblyCategoryResultType.B;
-                case AssessmentSectionAssemblyCategory.C:
-                    return AssessmentSectionAssemblyCategoryResultType.C;
-                case AssessmentSectionAssemblyCategory.D:
-                    return AssessmentSectionAssemblyCategoryResultType.D;
+                case AssessmentSectionCategoryGroup.APlus:
+                    return AssessmentSectionAssemblyCategoryGroup.APlus;
+                case AssessmentSectionCategoryGroup.A:
+                    return AssessmentSectionAssemblyCategoryGroup.A;
+                case AssessmentSectionCategoryGroup.B:
+                    return AssessmentSectionAssemblyCategoryGroup.B;
+                case AssessmentSectionCategoryGroup.C:
+                    return AssessmentSectionAssemblyCategoryGroup.C;
+                case AssessmentSectionCategoryGroup.D:
+                    return AssessmentSectionAssemblyCategoryGroup.D;
                 default:
                     throw new NotSupportedException();
             }

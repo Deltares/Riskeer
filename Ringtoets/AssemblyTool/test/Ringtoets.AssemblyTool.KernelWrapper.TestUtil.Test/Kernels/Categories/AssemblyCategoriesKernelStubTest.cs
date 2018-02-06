@@ -21,7 +21,10 @@
 
 using System;
 using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.CategoriesOutput;
+using AssemblyTool.Kernel.Categories;
+using AssemblyTool.Kernel.Categories.CalculatorInput;
+using AssemblyTool.Kernel.Data;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
@@ -38,22 +41,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             var kernelStub = new AssemblyCategoriesKernelStub();
 
             // Assert
-            Assert.IsInstanceOf<IAssemblyCategoriesKernel>(kernelStub);
+            Assert.IsInstanceOf<ICategoriesCalculator>(kernelStub);
             Assert.IsFalse(kernelStub.Calculated);
         }
 
         [Test]
-        public void Calculate_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
         {
             // Setup
             var random = new Random(11);
-            double lowerBoundaryNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            var lowerBoundaryNorm = new Probability(random.NextDouble());
+            var signalingNorm = new Probability(random.NextDouble());
 
             var kernelStub = new AssemblyCategoriesKernelStub();
-            
+            var input = new CalculateAssessmentSectionCategoriesInput(signalingNorm, lowerBoundaryNorm);
+
             // Call
-            kernelStub.Calculate(signalingNorm, lowerBoundaryNorm);
+            kernelStub.CalculateAssessmentSectionCategories(input);
 
             // Assert
             Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
@@ -61,55 +65,58 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void Calculate_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
         {
             // Setup
             var kernelStub = new AssemblyCategoriesKernelStub();
 
+            // Precondition
+            Assert.IsFalse(kernelStub.Calculated);
+
             // Call
-            kernelStub.Calculate(0, 0);
+            kernelStub.CalculateAssessmentSectionCategories(new CalculateAssessmentSectionCategoriesInput(new Probability(0), new Probability(0)));
 
             // Assert
             Assert.IsTrue(kernelStub.Calculated);
         }
 
         [Test]
-        public void Calculate_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategoriesOutput()
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
         {
             // Setup
             var kernelStub = new AssemblyCategoriesKernelStub
             {
-                AssessmentSectionCategoriesOutput = new CalculationOutput<AssessmentSectionCategoriesOutput[]>(new AssessmentSectionCategoriesOutput[0])
+                AssessmentSectionCategoriesOutput = new CalculationOutput<AssessmentSectionCategory[]>(new AssessmentSectionCategory[0])
             };
 
             // Call
-            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernelStub.Calculate(0, 0);
+            CalculationOutput<AssessmentSectionCategory[]> output = kernelStub.CalculateAssessmentSectionCategories(new CalculateAssessmentSectionCategoriesInput(new Probability(0), new Probability(0)));
 
             // Assert
             Assert.AreSame(kernelStub.AssessmentSectionCategoriesOutput, output);
         }
 
         [Test]
-        public void Calculate_ThrowExceptionOnCalculateTrue_ThrowsAssemblyCategoriesKernelWrapperException()
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsAssemblyCategoriesKernelWrapperException()
         {
             // Setup
-            var kernel = new AssemblyCategoriesKernelStub
+            var kernelStub = new AssemblyCategoriesKernelStub
             {
                 ThrowExceptionOnCalculate = true
             };
 
             // Precondition
-            Assert.IsFalse(kernel.Calculated);
+            Assert.IsFalse(kernelStub.Calculated);
 
             // Call
-            TestDelegate test = () => kernel.Calculate(0, 0);
+            TestDelegate test = () => kernelStub.CalculateAssessmentSectionCategories(new CalculateAssessmentSectionCategoriesInput(new Probability(0), new Probability(0)));
 
             // Assert
             var exception = Assert.Throws<AssemblyCategoriesKernelWrapperException>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
-            Assert.IsFalse(kernel.Calculated);
-            Assert.IsNull(kernel.AssessmentSectionCategoriesOutput);
+            Assert.IsFalse(kernelStub.Calculated);
+            Assert.IsNull(kernelStub.AssessmentSectionCategoriesOutput);
         }
     }
 }

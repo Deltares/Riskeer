@@ -41,7 +41,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
             // Assert
             Assert.IsInstanceOf<IAssemblyToolCalculatorFactory>(factory);
             Assert.IsNotNull(factory.LastCreatedAssemblyCategoriesCalculator);
-            Assert.IsNull(factory.LastCreatedAssemblyCategoriesCalculator.Input);
         }
 
         [Test]

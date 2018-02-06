@@ -19,13 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data.Input;
-using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categories
 {
@@ -40,7 +40,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
 
             // Assert
             Assert.IsInstanceOf<IAssemblyCategoriesCalculator>(calculator);
-            Assert.IsNull(calculator.Input);
             Assert.IsNull(calculator.AssessmentSectionCategoriesOutput);
         }
 
@@ -51,7 +50,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            AssessmentSectionAssemblyCategoryResult[] result = calculator.CalculateAssessmentSectionCategories(null).ToArray();
+            AssessmentSectionAssemblyCategory[] result = calculator.CalculateAssessmentSectionCategories(0, 0).ToArray();
 
             // Assert
             Assert.AreEqual(3, result.Length);
@@ -69,24 +68,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             }, result.Select(r => r.UpperBoundary));
             CollectionAssert.AreEqual(new[]
             {
-                AssessmentSectionAssemblyCategoryResultType.A,
-                AssessmentSectionAssemblyCategoryResultType.B,
-                AssessmentSectionAssemblyCategoryResultType.C
-            }, result.Select(r => r.Category));
+                AssessmentSectionAssemblyCategoryGroup.A,
+                AssessmentSectionAssemblyCategoryGroup.B,
+                AssessmentSectionAssemblyCategoryGroup.C
+            }, result.Select(r => r.Group));
         }
 
         [Test]
         public void CalculateAssessmentSectionCategories_OutputSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
         {
             // Setup
-            var output = new AssessmentSectionAssemblyCategoryResult[0];
+            var output = new AssessmentSectionAssemblyCategory[0];
             var calculator = new AssemblyCategoriesCalculatorStub
             {
                 AssessmentSectionCategoriesOutput = output
             };
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategoryResult> result = calculator.CalculateAssessmentSectionCategories(null);
+            IEnumerable<AssessmentSectionAssemblyCategory> result = calculator.CalculateAssessmentSectionCategories(0 ,0);
 
             // Assert
             Assert.AreSame(output, result);
@@ -96,14 +95,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_SetsInput()
         {
             // Setup
-            var input = new AssemblyCategoriesCalculatorInput(0, 0);
+            var random = new Random(39);
+            double signalingNorm = random.NextDouble();
+            double lowerBoundaryNorm = random.NextDouble();
+
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            calculator.CalculateAssessmentSectionCategories(input);
+            calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
 
             // Assert
-            Assert.AreSame(input, calculator.Input);
+            Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
+            Assert.AreEqual(lowerBoundaryNorm, calculator.LowerBoundaryNorm);
         }
 
         [Test]
@@ -116,14 +119,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             };
 
             // Call
-            TestDelegate test = () => calculator.CalculateAssessmentSectionCategories(new AssemblyCategoriesCalculatorInput(0, 0));
+            TestDelegate test = () => calculator.CalculateAssessmentSectionCategories(0, 0);
 
             // Assert
             var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
-
-            Assert.IsNull(calculator.Input);
         }
     }
 }

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.CategoriesOutput;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories
@@ -45,6 +45,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories
         /// <returns>The calculation output.</returns>
         /// <exception cref="AssemblyCategoriesKernelWrapperException">Thrown when an error occurs
         /// when performing the calculation.</exception>
-        CalculationOutput<AssessmentSectionCategoriesOutput[]> Calculate(double signalingNorm, double lowerBoundaryNorm);
+        CalculationOutput<AssessmentSectionCategory[]> Calculate(double signalingNorm, double lowerBoundaryNorm);
     }
 }

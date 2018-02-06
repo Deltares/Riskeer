@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.Data.Input;
-using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
+using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 {
@@ -33,36 +32,41 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
     public class AssemblyCategoriesCalculatorStub : IAssemblyCategoriesCalculator
     {
         /// <summary>
-        /// Gets the assembly categories calculator input.
+        /// Gets the signaling norm that is used in the calculation.
         /// </summary>
-        public AssemblyCategoriesCalculatorInput Input { get; private set; }
+        public double SignalingNorm { get; private set; }
 
         /// <summary>
-        /// Gets or sets the output of the <see cref="CalculateAssessmentSectionCategories"/> calculation.
+        /// Gets the lower boundary norm that is used in the calculation.
         /// </summary>
-        public IEnumerable<AssessmentSectionAssemblyCategoryResult> AssessmentSectionCategoriesOutput { get; set; }
+        public double LowerBoundaryNorm { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyCategory"/> calculation.
+        /// </summary>
+        public IEnumerable<AssessmentSectionAssemblyCategory> AssessmentSectionCategoriesOutput { get; set; }
 
         /// <summary>
         /// Indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        public IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
-            AssemblyCategoriesCalculatorInput input)
+        public IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(double signalingNorm, double lowerBoundaryNorm)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new AssemblyCategoriesCalculatorException("Message", new AssemblyCategoriesKernelWrapperException());
             }
 
-            Input = input;
+            SignalingNorm = signalingNorm;
+            LowerBoundaryNorm = lowerBoundaryNorm;
 
             return AssessmentSectionCategoriesOutput
                    ?? (AssessmentSectionCategoriesOutput = new[]
                    {
-                       new AssessmentSectionAssemblyCategoryResult(1, 2, AssessmentSectionAssemblyCategoryResultType.A),
-                       new AssessmentSectionAssemblyCategoryResult(2.01, 3, AssessmentSectionAssemblyCategoryResultType.B),
-                       new AssessmentSectionAssemblyCategoryResult(3.01, 4, AssessmentSectionAssemblyCategoryResultType.C)
+                       new AssessmentSectionAssemblyCategory(1, 2, AssessmentSectionAssemblyCategoryGroup.A),
+                       new AssessmentSectionAssemblyCategory(2.01, 3, AssessmentSectionAssemblyCategoryGroup.B),
+                       new AssessmentSectionAssemblyCategory(3.01, 4, AssessmentSectionAssemblyCategoryGroup.C)
                    });
         }
     }

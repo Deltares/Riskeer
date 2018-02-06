@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
@@ -39,25 +38,17 @@ namespace Ringtoets.Common.Service.AssemblyTool
         /// <summary>
         /// Calculates the assessment section assembly categories.
         /// </summary>
-        /// <param name="input">The input to use in the calculation.</param>
+        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
+        /// <param name="lowerBoundaryNorm">The lower boundary norm to use in the calculation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyCategory"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        public static IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionAssemblyCategories(AssemblyCategoryInput input)
+        public static IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerBoundaryNorm)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelWrapperFactory.Instance);
 
             try
             {
-                IEnumerable<AssessmentSectionAssemblyCategoryResult> categories = calculator.CalculateAssessmentSectionCategories(
-                    AssemblyCategoryInputConverter.Convert(input));
-
-                return AssemblyCategoryConverter.ConvertToAssessmentSectionAssemblyCategories(categories);
+                return calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
             }
             catch (Exception e) when (e is AssemblyCategoriesCalculatorException || e is AssemblyCategoryConversionException)
             {

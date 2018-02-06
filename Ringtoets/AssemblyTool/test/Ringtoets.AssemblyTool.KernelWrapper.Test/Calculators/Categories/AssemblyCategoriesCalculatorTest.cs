@@ -22,18 +22,17 @@
 using System;
 using System.Collections.Generic;
 using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.CategoriesOutput;
 using AssemblyTool.Kernel.Data;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data.Input;
-using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {
@@ -68,32 +67,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_InputNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var factory = mocks.Stub<IAssemblyToolKernelFactory>();
-            mocks.ReplayAll();
-
-            var calculator = new AssemblyCategoriesCalculator(factory);
-
-            // Call
-            TestDelegate call = () => calculator.CalculateAssessmentSectionCategories(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("input", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CalculateAssessmentSectionCategories_WithInput_InputCorrectlySetToKernel()
         {
             // Setup
             var random = new Random(11);
             double lowerBoundaryNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
-            var input = new AssemblyCategoriesCalculatorInput(signalingNorm, lowerBoundaryNorm);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -104,7 +83,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                calculator.CalculateAssessmentSectionCategories(input);
+                calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
 
                 // Assert
                 Assert.AreEqual(lowerBoundaryNorm, kernel.LowerBoundaryNorm);
@@ -119,22 +98,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             var random = new Random(11);
             double lowerBoundaryNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
-            var input = new AssemblyCategoriesCalculatorInput(signalingNorm, lowerBoundaryNorm);
-            CalculationOutput<AssessmentSectionCategoriesOutput[]> output = CreateKernelOutput();
+            CalculationOutput<AssessmentSectionCategory[]> output = CreateKernelOutput();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelWrapperFactory.Instance;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelWrapperFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.AssessmentSectionCategoriesOutput = output;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                IEnumerable<AssessmentSectionAssemblyCategoryResult> result = calculator.CalculateAssessmentSectionCategories(input);
+                IEnumerable<AssessmentSectionAssemblyCategory> result = calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
 
                 // Assert
-                AssemblyCategoryResultAssert.AssertAssessmentSectionAssemblyCategoriesResult(output, result);
+                AssessmentSectionAssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(output, result);
             }
         }
 
@@ -145,7 +123,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             var random = new Random(11);
             double lowerBoundaryNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
-            var input = new AssemblyCategoriesCalculatorInput(signalingNorm, lowerBoundaryNorm);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -156,7 +133,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.CalculateAssessmentSectionCategories(input);
+                TestDelegate test = () => calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
@@ -165,16 +142,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             }
         }
 
-        private static CalculationOutput<AssessmentSectionCategoriesOutput[]> CreateKernelOutput()
+        private static CalculationOutput<AssessmentSectionCategory[]> CreateKernelOutput()
         {
             var random = new Random(11);
 
-            return new CalculationOutput<AssessmentSectionCategoriesOutput[]>(new[]
+            return new CalculationOutput<AssessmentSectionCategory[]>(new[]
             {
-                new AssessmentSectionCategoriesOutput(random.NextEnumValue<AssessmentSectionAssemblyCategory>(), random.Next(1), random.Next(1, 2)),
-                new AssessmentSectionCategoriesOutput(random.NextEnumValue<AssessmentSectionAssemblyCategory>(), random.Next(1), random.Next(1, 2)),
-                new AssessmentSectionCategoriesOutput(random.NextEnumValue<AssessmentSectionAssemblyCategory>(), random.Next(1), random.Next(1, 2)),
-                new AssessmentSectionCategoriesOutput(random.NextEnumValue<AssessmentSectionAssemblyCategory>(), random.Next(1), random.Next(1, 2))
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2)))
             });
         }
     }

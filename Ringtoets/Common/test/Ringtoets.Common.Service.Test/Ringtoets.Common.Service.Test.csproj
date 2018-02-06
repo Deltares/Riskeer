@@ -27,8 +27,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyTool\AssemblyCategoryConverterTest.cs" />
-    <Compile Include="AssemblyTool\AssemblyCategoryInputConverterTest.cs" />
     <Compile Include="AssemblyTool\AssemblyToolCategoriesCalculationServiceTest.cs" />
     <Compile Include="ClearResultsTest.cs" />
     <Compile Include="HydraRingInputParserTest.cs" />

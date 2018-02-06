@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using AssemblyTool.Kernel.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
@@ -43,7 +43,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// </summary>
         public AssemblyCategoriesKernelStub LastCreatedAssemblyCategoriesKernel { get; }
 
-        public IAssemblyCategoriesKernel CreateAssemblyCategoriesKernel()
+        public ICategoriesCalculator CreateAssemblyCategoriesKernel()
         {
             return LastCreatedAssemblyCategoriesKernel;
         }

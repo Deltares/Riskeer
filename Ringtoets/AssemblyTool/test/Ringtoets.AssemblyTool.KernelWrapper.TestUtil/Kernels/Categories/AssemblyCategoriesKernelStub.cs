@@ -21,7 +21,9 @@
 
 using System;
 using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.CategoriesOutput;
+using AssemblyTool.Kernel.Categories;
+using AssemblyTool.Kernel.Categories.CalculatorInput;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
@@ -29,10 +31,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
     /// <summary>
     /// Assembly categories kernel stub for testing purposes.
     /// </summary>
-    public class AssemblyCategoriesKernelStub : IAssemblyCategoriesKernel
+    public class AssemblyCategoriesKernelStub : ICategoriesCalculator
     {
         /// <summary>
-        /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
+        /// Gets a value indicating whether <see cref="CalculateAssessmentSectionCategories"/> was called or not.
         /// </summary>
         public bool Calculated { get; private set; }
 
@@ -54,21 +56,37 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         /// <summary>
         /// Gets or sets the assessment section categories output.
         /// </summary>
-        public CalculationOutput<AssessmentSectionCategoriesOutput[]> AssessmentSectionCategoriesOutput { get; set; }
+        public CalculationOutput<AssessmentSectionCategory[]> AssessmentSectionCategoriesOutput { get; set; }
 
-        public CalculationOutput<AssessmentSectionCategoriesOutput[]> Calculate(double signalingNorm, double lowerBoundaryNorm)
+        public CalculationOutput<AssessmentSectionCategory[]> CalculateAssessmentSectionCategories(CalculateAssessmentSectionCategoriesInput input)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new AssemblyCategoriesKernelWrapperException("Message", new Exception());
             }
 
-            LowerBoundaryNorm = lowerBoundaryNorm;
-            SignalingNorm = signalingNorm;
+
+            SignalingNorm = input.SignalingStandard;
+            LowerBoundaryNorm = input.LowerBoundaryStandard;
 
             Calculated = true;
 
             return AssessmentSectionCategoriesOutput;
+        }
+
+        public CalculationOutput<FailureMechanismCategory[]> CalculateFailureMechanismCategories(CalculateFailureMechanismCategoriesInput input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CalculationOutput<FailureMechanismSectionCategory[]> CalculateFailureMechanismSectionCategories(CalculateFailureMechanismSectionCategoriesInput input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CalculationOutput<FailureMechanismSectionCategory[]> CalculateGeotechnicFailureMechanismSectionCategories(CalculateFailureMechanismSectionCategoriesInput input)
+        {
+            throw new NotImplementedException();
         }
     }
 }

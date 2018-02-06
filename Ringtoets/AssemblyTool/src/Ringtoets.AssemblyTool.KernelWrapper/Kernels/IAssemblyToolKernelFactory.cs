@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
+using AssemblyTool.Kernel.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
 {
@@ -31,7 +31,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
         /// <summary>
         /// Creates an assembly categories kernel.
         /// </summary>
-        /// <returns>A new <see cref="IAssemblyCategoriesKernel"/>.</returns>
-        IAssemblyCategoriesKernel CreateAssemblyCategoriesKernel();
+        /// <returns>A new <see cref="ICategoriesCalculator"/>.</returns>
+        ICategoriesCalculator CreateAssemblyCategoriesKernel();
+
+        // TODO expose kernel interface
     }
 }

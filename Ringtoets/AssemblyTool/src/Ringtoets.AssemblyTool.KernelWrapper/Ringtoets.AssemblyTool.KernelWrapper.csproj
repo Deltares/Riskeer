@@ -21,9 +21,8 @@
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorException.cs" />
     <Compile Include="Calculators\Categories\IAssemblyCategoriesCalculator.cs" />
     <Compile Include="Calculators\IAssemblyToolCalculatorFactory.cs" />
-    <Compile Include="Creators\AssemblyCategoryResultCreator.cs" />
+    <Compile Include="Creators\AssessmentSectionAssemblyCategoryCreator.cs" />
     <Compile Include="Kernels\AssemblyToolKernelWrapperFactory.cs" />
-    <Compile Include="Kernels\Categories\AssemblyCategoriesKernelWrapper.cs" />
     <Compile Include="Kernels\Categories\AssemblyCategoriesKernelWrapperException.cs" />
     <Compile Include="Kernels\Categories\IAssemblyCategoriesKernel.cs" />
     <Compile Include="Kernels\IAssemblyToolKernelFactory.cs" />

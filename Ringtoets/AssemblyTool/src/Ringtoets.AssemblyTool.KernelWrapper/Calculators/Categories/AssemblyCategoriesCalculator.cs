@@ -22,12 +22,14 @@
 using System;
 using System.Collections.Generic;
 using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.CategoriesOutput;
-using Ringtoets.AssemblyTool.Data.Input;
-using Ringtoets.AssemblyTool.Data.Output;
+using AssemblyTool.Kernel.Categories;
+using AssemblyTool.Kernel.Categories.CalculatorInput;
+using AssemblyTool.Kernel.Data;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
+using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 {
@@ -52,20 +54,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             this.factory = factory;
         }
 
-        public IEnumerable<AssessmentSectionAssemblyCategoryResult> CalculateAssessmentSectionCategories(
-            AssemblyCategoriesCalculatorInput input)
+        public IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(double signalingNorm, double lowerBoundaryNorm)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
             try
             {
-                IAssemblyCategoriesKernel kernel = factory.CreateAssemblyCategoriesKernel();
-                CalculationOutput<AssessmentSectionCategoriesOutput[]> output = kernel.Calculate(input.SignalingNorm, input.LowerBoundaryNorm);
+                var kernelInput = new CalculateAssessmentSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerBoundaryNorm));
+                ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
+                CalculationOutput<AssessmentSectionCategory[]> output = kernel.CalculateAssessmentSectionCategories(kernelInput);
 
-                return AssemblyCategoryResultCreator.CreateAssessmentSectionAssemblyCategoryResult(output);
+                return AssessmentSectionAssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
             }
             catch (AssemblyCategoriesKernelWrapperException e)
             {

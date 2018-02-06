@@ -25,12 +25,11 @@ using System.Linq;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data.Input;
-using Ringtoets.AssemblyTool.Data.Output;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Service.AssemblyTool;
@@ -40,17 +39,6 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
     [TestFixture]
     public class AssemblyToolCategoriesCalculationServiceTest
     {
-        [Test]
-        public void CalculateAssessmentSectionAssemblyCategories_InputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("input", exception.ParamName);
-        }
-
         [Test]
         public void CalculateAssessmentSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
         {
@@ -66,12 +54,11 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input);
+                AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input.SignalingNorm, input.LowerBoundaryNorm);
 
                 // Assert
-                AssemblyCategoriesCalculatorInput actualInput = calculator.Input;
-                Assert.AreEqual(signalingNorm, actualInput.SignalingNorm);
-                Assert.AreEqual(lowerBoundaryNorm, actualInput.LowerBoundaryNorm);
+                Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
+                Assert.AreEqual(lowerBoundaryNorm, calculator.LowerBoundaryNorm);
             }
         }
 
@@ -90,15 +77,15 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input).ToArray();
+                AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input.SignalingNorm, input.LowerBoundaryNorm).ToArray();
 
                 // Assert
-                AssessmentSectionAssemblyCategoryResult[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
+                AssessmentSectionAssemblyCategory[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
 
                 Assert.AreEqual(calculatorOutput.Length, output.Length);
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
-                CollectionAssert.AreEqual(calculatorOutput.Select(co => GetAssessmentSectionAssemblyCategoryType(co.Category)), output.Select(o => o.Group));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.Group), output.Select(o => o.Group));
             }
         }
 
@@ -116,7 +103,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
 
                 // Call
                 IEnumerable<AssessmentSectionAssemblyCategory> output = null;
-                Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input);
+                Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input.SignalingNorm, input.LowerBoundaryNorm);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(test, tuples =>
@@ -130,60 +117,6 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                     Assert.IsInstanceOf<AssemblyCategoriesCalculatorException>(tuple1.Item3);
                 });
                 CollectionAssert.IsEmpty(output);
-            }
-        }
-
-        [Test]
-        public void CalculateAssessmentSectionAssemblyCategories_ErrorInConversion_LogErrorAndReturnEmptyOutput()
-        {
-            // Setup
-            var input = new AssemblyCategoryInput(0, 0);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
-                calculator.AssessmentSectionCategoriesOutput = new[]
-                {
-                    new AssessmentSectionAssemblyCategoryResult(0, 1, (AssessmentSectionAssemblyCategoryResultType) 99)
-                };
-
-                // Call
-                IEnumerable<AssessmentSectionAssemblyCategory> output = null;
-                Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input);
-
-                // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(test, tuples =>
-                {
-                    Tuple<string, Level, Exception>[] messages = tuples as Tuple<string, Level, Exception>[] ?? tuples.ToArray();
-                    Assert.AreEqual(1, messages.Length);
-
-                    Tuple<string, Level, Exception> tuple1 = messages[0];
-                    Assert.AreEqual("Er is een onverwachte fout opgetreden bij het bepalen van categoriegrenzen.", tuple1.Item1);
-                    Assert.AreEqual(Level.Error, tuple1.Item2);
-                    Assert.IsInstanceOf<AssemblyCategoryConversionException>(tuple1.Item3);
-                });
-                CollectionAssert.IsEmpty(output);
-            }
-        }
-
-        private static AssessmentSectionAssemblyCategoryGroup GetAssessmentSectionAssemblyCategoryType(
-            AssessmentSectionAssemblyCategoryResultType categoryType)
-        {
-            switch (categoryType)
-            {
-                case AssessmentSectionAssemblyCategoryResultType.APlus:
-                    return AssessmentSectionAssemblyCategoryGroup.APlus;
-                case AssessmentSectionAssemblyCategoryResultType.A:
-                    return AssessmentSectionAssemblyCategoryGroup.A;
-                case AssessmentSectionAssemblyCategoryResultType.B:
-                    return AssessmentSectionAssemblyCategoryGroup.B;
-                case AssessmentSectionAssemblyCategoryResultType.C:
-                    return AssessmentSectionAssemblyCategoryGroup.C;
-                case AssessmentSectionAssemblyCategoryResultType.D:
-                    return AssessmentSectionAssemblyCategoryGroup.D;
-                default:
-                    throw new NotSupportedException();
             }
         }
     }
