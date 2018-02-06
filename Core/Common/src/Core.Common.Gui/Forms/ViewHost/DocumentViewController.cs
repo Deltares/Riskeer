@@ -42,6 +42,8 @@ namespace Core.Common.Gui.Forms.ViewHost
         private readonly ViewInfo[] viewInfos;
         private readonly IWin32Window dialogParent;
 
+        private readonly IDictionary<object, IView> openedViewLookup = new Dictionary<object, IView>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentViewController"/> class.
         /// </summary>
@@ -53,6 +55,8 @@ namespace Core.Common.Gui.Forms.ViewHost
             this.viewHost = viewHost;
             this.viewInfos = viewInfos.ToArray();
             this.dialogParent = dialogParent;
+
+            viewHost.ViewClosed += ViewHostOnViewClosed;
         }
 
         public IDictionary<Type, Type> DefaultViewTypes { get; } = new Dictionary<Type, Type>();
@@ -120,6 +124,11 @@ namespace Core.Common.Gui.Forms.ViewHost
             return viewInfos.Where(vi => data.GetType().Implements(vi.DataType) && vi.AdditionalDataCheck(data));
         }
 
+        private void ViewHostOnViewClosed(object sender, ViewChangeEventArgs viewChangeEventArgs)
+        {
+            openedViewLookup.Remove(openedViewLookup.First(l => ReferenceEquals(l.Value, viewChangeEventArgs.View)).Key);
+        }
+
         private bool ShouldRemoveViewForData(IView view, object data)
         {
             if (IsViewData(view, data))
@@ -151,7 +160,8 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void CreateViewFromViewInfo(object data, ViewInfo viewInfo)
         {
-            IView view = GetOpenedView(data, viewInfo);
+            IView view;
+            openedViewLookup.TryGetValue(data, out view);
 
             if (view != null)
             {
@@ -159,21 +169,12 @@ namespace Core.Common.Gui.Forms.ViewHost
                 return;
             }
 
-            IView newView = CreateViewForData(data, viewInfo);
+            view = CreateViewForData(data, viewInfo);
 
-            viewHost.AddDocumentView(newView);
-            viewHost.SetImage(newView, viewInfo.Image);
-        }
+            openedViewLookup.Add(data, view);
 
-        private IView GetOpenedView(object data, ViewInfo viewInfo)
-        {
-            object viewData = viewInfo.DataType == viewInfo.ViewDataType
-                           ? data
-                           : viewInfo.GetViewData(data);
-
-            return viewHost.DocumentViews
-                           .Where(view => viewData.Equals(view.Data))
-                           .FirstOrDefault(v => v.GetType() == viewInfo.ViewType);
+            viewHost.AddDocumentView(view);
+            viewHost.SetImage(view, viewInfo.Image);
         }
 
         private static IView CreateViewForData(object data, ViewInfo viewInfo)
