@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -50,7 +52,13 @@ namespace Ringtoets.DuneErosion.Data.Test
         public void AddSection_WithSection_AddedDuneErosionFailureMechanismSectionResult()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SectionResults.Attach(observer);
 
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -61,6 +69,42 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<DuneErosionFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+
+            failureMechanism.SectionResults.Attach(observer);
+
+            // Precondition
+            Assert.AreEqual(2, failureMechanism.Sections.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count);
+
+            // Call
+            failureMechanism.ClearAllSections();
+
+            // Assert
+            Assert.AreEqual(0, failureMechanism.Sections.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count);
+            mocks.ReplayAll();
         }
     }
 }
