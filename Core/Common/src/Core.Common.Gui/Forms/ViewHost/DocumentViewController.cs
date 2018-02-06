@@ -151,11 +151,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void CreateViewFromViewInfo(object data, ViewInfo viewInfo)
         {
-            object viewData = viewInfo.GetViewData(data);
-            IView view = (viewInfo.DataType == viewInfo.ViewDataType
-                              ? GetOpenViewsFor(viewHost.DocumentViews, data)
-                              : GetOpenViewsFor(viewHost.DocumentViews, data).Concat(GetOpenViewsFor(viewHost.DocumentViews, viewData)))
-                .FirstOrDefault(v => v.GetType() == viewInfo.ViewType);
+            IView view = GetOpenedView(data, viewInfo);
 
             if (view != null)
             {
@@ -167,6 +163,17 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             viewHost.AddDocumentView(newView);
             viewHost.SetImage(newView, viewInfo.Image);
+        }
+
+        private IView GetOpenedView(object data, ViewInfo viewInfo)
+        {
+            object viewData = viewInfo.DataType == viewInfo.ViewDataType
+                           ? data
+                           : viewInfo.GetViewData(data);
+
+            return viewHost.DocumentViews
+                           .Where(view => viewData.Equals(view.Data))
+                           .FirstOrDefault(v => v.GetType() == viewInfo.ViewType);
         }
 
         private static IView CreateViewForData(object data, ViewInfo viewInfo)
@@ -215,11 +222,6 @@ namespace Core.Common.Gui.Forms.ViewHost
 
                 return selectedViewInfo;
             }
-        }
-
-        private IEnumerable<IView> GetOpenViewsFor(IEnumerable<IView> viewsToCheck, object data)
-        {
-            return viewsToCheck.Where(view => IsViewData(view, data));
         }
 
         private bool IsViewData(IView view, object data)
