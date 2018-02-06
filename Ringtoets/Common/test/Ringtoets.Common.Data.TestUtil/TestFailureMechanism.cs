@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -29,7 +30,7 @@ namespace Ringtoets.Common.Data.TestUtil
     {
         private const string defaultName = "Test failure mechanism";
         private const string defaultCode = "TFM";
-        private readonly List<FailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<FailureMechanismSectionResult> sectionResults;
 
         public TestFailureMechanism()
             : this(defaultName, defaultCode) {}
@@ -43,13 +44,13 @@ namespace Ringtoets.Common.Data.TestUtil
         private TestFailureMechanism(string name, string code, IEnumerable<ICalculation> calculations)
             : base(name, code)
         {
-            sectionResults = new List<FailureMechanismSectionResult>();
+            sectionResults = new ObservableList<FailureMechanismSectionResult>();
             Calculations = calculations;
         }
 
         public override IEnumerable<ICalculation> Calculations { get; }
 
-        public IEnumerable<FailureMechanismSectionResult> SectionResults
+        public ObservableList<FailureMechanismSectionResult> SectionResults
         {
             get
             {

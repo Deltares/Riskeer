@@ -19,19 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using Core.Common.Base;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
     /// This interface describes methods for obtaining <see cref="FailureMechanismSectionResult"/> objects.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface IHasSectionResults<out T> where T : FailureMechanismSectionResult
+    /// <typeparam name="T">The type of the section results in <see cref="SectionResults"/>.</typeparam>
+    public interface IHasSectionResults<T> where T : FailureMechanismSectionResult
     {
         /// <summary>
-        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
+        /// Gets an <see cref="ObservableList{T}"/> of <see cref="FailureMechanismSectionResult"/>.
         /// </summary>
-        IEnumerable<T> SectionResults { get; }
+        ObservableList<T> SectionResults { get; }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.MacroStabilityInwards.Data.Properties;
@@ -33,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>
     {
-        private readonly List<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsFailureMechanism"/> class.
@@ -49,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            sectionResults = new List<MacroStabilityInwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -78,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> SectionResults
+        public ObservableList<MacroStabilityInwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

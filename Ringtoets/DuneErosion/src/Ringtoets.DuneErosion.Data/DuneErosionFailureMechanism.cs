@@ -33,7 +33,7 @@ namespace Ringtoets.DuneErosion.Data
     /// </summary>
     public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResult>
     {
-        private readonly List<DuneErosionFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<DuneErosionFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.
@@ -41,7 +41,7 @@ namespace Ringtoets.DuneErosion.Data
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
         {
-            sectionResults = new List<DuneErosionFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocations = new ObservableList<DuneLocation>();
         }
@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Data
         /// </summary>
         public ObservableList<DuneLocation> DuneLocations { get; }
 
-        public IEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
+        public ObservableList<DuneErosionFailureMechanismSectionResult> SectionResults
         {
             get
             {

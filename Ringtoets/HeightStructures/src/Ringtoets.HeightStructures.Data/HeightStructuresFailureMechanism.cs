@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -36,7 +37,7 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
     {
-        private readonly List<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults;
+        private readonly ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
@@ -44,7 +45,7 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code)
         {
-            sectionResults = new List<StructuresFailureMechanismSectionResult<HeightStructuresInput>>();
+            sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>();
             CalculationsGroup = new CalculationGroup
             {
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
@@ -82,7 +83,7 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public CalculationGroup CalculationsGroup { get; }
 
-        public IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> SectionResults
+        public ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>> SectionResults
         {
             get
             {

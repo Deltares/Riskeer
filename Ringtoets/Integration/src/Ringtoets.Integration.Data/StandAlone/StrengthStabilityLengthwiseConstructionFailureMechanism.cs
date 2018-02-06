@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Properties;
@@ -33,7 +34,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
     {
-        private readonly List<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> class.
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public StrengthStabilityLengthwiseConstructionFailureMechanism()
             : base(Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code)
         {
-            sectionResults = new List<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -52,7 +53,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> SectionResults
+        public ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> SectionResults
         {
             get
             {

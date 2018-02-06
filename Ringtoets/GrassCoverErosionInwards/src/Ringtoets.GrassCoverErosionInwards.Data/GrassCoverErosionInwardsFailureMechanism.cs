@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -34,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
-        private readonly List<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
@@ -47,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            sectionResults = new List<GrassCoverErosionInwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>();
             DikeProfiles = new DikeProfileCollection();
         }
 
@@ -71,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults
+        public ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

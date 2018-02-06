@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase,
                                                              IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
-        private readonly List<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> class.
@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public GrassCoverErosionOutwardsFailureMechanism()
             : base(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionOutwardsFailureMechanism_Code)
         {
-            sectionResults = new List<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults
+        public ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

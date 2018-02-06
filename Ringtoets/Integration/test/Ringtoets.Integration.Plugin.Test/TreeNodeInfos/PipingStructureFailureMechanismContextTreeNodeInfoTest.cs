@@ -413,7 +413,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.StrictMultiMock<IHasSectionResults<T>>(typeof(IFailureMechanism));
             failureMechanism.Expect(fm => ((IFailureMechanism) fm).IsRelevant).Return(true);
-            failureMechanism.Expect(fm => fm.SectionResults).Return(new List<T>()).Repeat.Any();
+            failureMechanism.Expect(fm => fm.SectionResults).Return(new ObservableList<T>()).Repeat.Any();
             failureMechanism.Expect(fm => ((IFailureMechanism) fm).InputComments).Return(new Comment());
             failureMechanism.Expect(fm => ((IFailureMechanism) fm).OutputComments).Return(new Comment());
             var failureMechanismContext = mocks.Stub<PipingStructureFailureMechanismContext>(failureMechanism, assessmentSection);

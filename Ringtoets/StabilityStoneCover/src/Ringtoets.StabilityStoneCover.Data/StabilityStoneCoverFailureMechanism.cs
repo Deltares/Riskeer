@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -35,7 +36,7 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// </summary>
     public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResult>
     {
-        private readonly List<StabilityStoneCoverFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<StabilityStoneCoverFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanism"/> class.
@@ -43,7 +44,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         public StabilityStoneCoverFailureMechanism()
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
         {
-            sectionResults = new List<StabilityStoneCoverFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName
@@ -75,7 +76,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
+        public ObservableList<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
         {
             get
             {

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Properties;
@@ -33,7 +34,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class TechnicalInnovationFailureMechanism : FailureMechanismBase, IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>
     {
-        private readonly List<TechnicalInnovationFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<TechnicalInnovationFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TechnicalInnovationFailureMechanism"/> class.
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public TechnicalInnovationFailureMechanism()
             : base(Resources.TechnicalInnovationFailureMechanismFailureMechanism_DisplayName, Resources.TechnicalInnovationFailureMechanismFailureMechanism_Code)
         {
-            sectionResults = new List<TechnicalInnovationFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<TechnicalInnovationFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -52,7 +53,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public IEnumerable<TechnicalInnovationFailureMechanismSectionResult> SectionResults
+        public ObservableList<TechnicalInnovationFailureMechanismSectionResult> SectionResults
         {
             get
             {

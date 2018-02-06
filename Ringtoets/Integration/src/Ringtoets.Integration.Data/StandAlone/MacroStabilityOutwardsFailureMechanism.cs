@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Properties;
@@ -34,7 +35,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class MacroStabilityOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>
     {
-        private readonly List<MacroStabilityOutwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityOutwardsFailureMechanism"/> class.
@@ -42,7 +43,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public MacroStabilityOutwardsFailureMechanism()
             : base(Resources.MacroStabilityOutwardsFailureMechanism_DisplayName, Resources.MacroStabilityOutwardsFailureMechanism_Code)
         {
-            sectionResults = new List<MacroStabilityOutwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>();
             MacroStabilityOutwardsProbabilityAssessmentInput = new MacroStabilityOutwardsProbabilityAssessmentInput();
         }
 
@@ -60,7 +61,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         /// </summary>
         public MacroStabilityOutwardsProbabilityAssessmentInput MacroStabilityOutwardsProbabilityAssessmentInput { get; }
 
-        public IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> SectionResults
+        public ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

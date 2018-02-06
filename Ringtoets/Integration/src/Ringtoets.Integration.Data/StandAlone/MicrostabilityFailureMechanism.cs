@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Properties;
@@ -33,7 +34,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class MicrostabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<MicrostabilityFailureMechanismSectionResult>
     {
-        private readonly List<MicrostabilityFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<MicrostabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MicrostabilityFailureMechanism"/> class.
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public MicrostabilityFailureMechanism()
             : base(Resources.MicrostabilityFailureMechanism_DisplayName, Resources.MicrostabilityFailureMechanism_Code)
         {
-            sectionResults = new List<MicrostabilityFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<MicrostabilityFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -52,7 +53,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public IEnumerable<MicrostabilityFailureMechanismSectionResult> SectionResults
+        public ObservableList<MicrostabilityFailureMechanismSectionResult> SectionResults
         {
             get
             {

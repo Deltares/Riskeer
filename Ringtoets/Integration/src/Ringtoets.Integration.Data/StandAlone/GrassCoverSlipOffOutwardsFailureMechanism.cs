@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Properties;
@@ -33,7 +34,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class GrassCoverSlipOffOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>
     {
-        private readonly List<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> class.
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public GrassCoverSlipOffOutwardsFailureMechanism()
             : base(Resources.GrassCoverSlipOffOutwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutwardsFailureMechanism_Code)
         {
-            sectionResults = new List<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -52,7 +53,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> SectionResults
+        public ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

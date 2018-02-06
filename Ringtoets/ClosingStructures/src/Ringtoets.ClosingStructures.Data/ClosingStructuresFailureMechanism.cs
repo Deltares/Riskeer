@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -37,7 +38,7 @@ namespace Ringtoets.ClosingStructures.Data
     /// </summary>
     public class ClosingStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
     {
-        private readonly List<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults;
+        private readonly ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
@@ -51,7 +52,7 @@ namespace Ringtoets.ClosingStructures.Data
             };
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            sectionResults = new List<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>();
+            sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -80,7 +81,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> SectionResults
+        public ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> SectionResults
         {
             get
             {

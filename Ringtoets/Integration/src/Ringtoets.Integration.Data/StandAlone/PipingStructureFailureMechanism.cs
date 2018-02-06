@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
                                                                                                new RoundedDouble(numberOfDecimalPlacesN, 20));
 
-        private readonly List<PipingStructureFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<PipingStructureFailureMechanismSectionResult> sectionResults;
         private RoundedDouble n;
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public PipingStructureFailureMechanism()
             : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code)
         {
-            sectionResults = new List<PipingStructureFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<PipingStructureFailureMechanismSectionResult>();
             n = new RoundedDouble(numberOfDecimalPlacesN, 1.0);
         }
 
@@ -81,7 +82,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public IEnumerable<PipingStructureFailureMechanismSectionResult> SectionResults
+        public ObservableList<PipingStructureFailureMechanismSectionResult> SectionResults
         {
             get
             {

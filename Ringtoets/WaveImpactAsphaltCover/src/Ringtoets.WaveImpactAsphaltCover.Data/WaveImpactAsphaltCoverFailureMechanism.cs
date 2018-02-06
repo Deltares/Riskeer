@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -36,7 +37,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
-        private readonly List<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
@@ -44,7 +45,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public WaveImpactAsphaltCoverFailureMechanism()
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
         {
-            sectionResults = new List<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName
@@ -82,7 +83,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// </summary>
         public CalculationGroup WaveConditionsCalculationGroup { get; }
 
-        public IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
+        public ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
         {
             get
             {

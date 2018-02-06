@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Properties;
@@ -33,7 +34,7 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class WaterPressureAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>
     {
-        private readonly List<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaterPressureAsphaltCoverFailureMechanism"/> class.
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         public WaterPressureAsphaltCoverFailureMechanism()
             : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code)
         {
-            sectionResults = new List<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -52,7 +53,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> SectionResults
+        public ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult> SectionResults
         {
             get
             {

@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -37,7 +38,7 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
     {
-        private readonly List<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults;
+        private readonly ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
@@ -51,7 +52,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             };
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
-            sectionResults = new List<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>();
+            sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -80,7 +81,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> SectionResults
+        public ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> SectionResults
         {
             get
             {

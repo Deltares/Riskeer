@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data.SoilProfile;
@@ -33,7 +34,7 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResult>
     {
-        private readonly List<PipingFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<PipingFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
@@ -50,7 +51,7 @@ namespace Ringtoets.Piping.Data
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            sectionResults = new List<PipingFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<PipingFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -84,7 +85,7 @@ namespace Ringtoets.Piping.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public IEnumerable<PipingFailureMechanismSectionResult> SectionResults
+        public ObservableList<PipingFailureMechanismSectionResult> SectionResults
         {
             get
             {
