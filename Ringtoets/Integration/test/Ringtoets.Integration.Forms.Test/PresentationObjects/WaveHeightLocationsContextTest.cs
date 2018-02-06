@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -129,6 +131,66 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
             Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
+        }
+
+        [TestFixture]
+        private class WaveHeightLocationsContextEqualsTest
+            : EqualsTestFixture<WaveHeightLocationsContext, DerivedWaveHeightLocationsContext>
+        {
+            private static readonly MockRepository mocks = new MockRepository();
+            private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
+            private static readonly ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
+            private static readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => null;
+            private static readonly string categoryBoundaryName = "Test name";
+
+            [SetUp]
+            public void SetUp()
+            {
+                mocks.ReplayAll();
+            }
+
+            [TearDown]
+            public void TearDown()
+            {
+                mocks.VerifyAll();
+            }
+
+            protected override WaveHeightLocationsContext CreateObject()
+            {
+                return new WaveHeightLocationsContext(hydraulicBoundaryLocations,
+                                                      assessmentSection,
+                                                      getCalculationFunc,
+                                                      categoryBoundaryName);
+            }
+
+            protected override DerivedWaveHeightLocationsContext CreateDerivedObject()
+            {
+                return new DerivedWaveHeightLocationsContext(hydraulicBoundaryLocations,
+                                                             assessmentSection,
+                                                             getCalculationFunc,
+                                                             categoryBoundaryName);
+            }
+
+            private static IEnumerable<TestCaseData> GetUnequalTestCases()
+            {
+                yield return new TestCaseData(new WaveHeightLocationsContext(hydraulicBoundaryLocations,
+                                                                             assessmentSection,
+                                                                             getCalculationFunc,
+                                                                             "Other"))
+                    .SetName("CategoryBoundaryName");
+            }
+        }
+
+        private class DerivedWaveHeightLocationsContext : WaveHeightLocationsContext
+        {
+            public DerivedWaveHeightLocationsContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
+                                                     IAssessmentSection assessmentSection,
+                                                     Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
+                                                     string categoryBoundaryName)
+                : base(wrappedData,
+                       assessmentSection,
+                       getCalculationFunc,
+                       categoryBoundaryName) {}
         }
     }
 }

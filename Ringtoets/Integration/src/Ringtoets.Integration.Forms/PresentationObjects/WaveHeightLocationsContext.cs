@@ -85,5 +85,22 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// Gets the name of the category boundary.
         /// </summary>
         public string CategoryBoundaryName { get; }
+
+        public override bool Equals(WrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>> other)
+        {
+            return base.Equals(other)
+                   && other is WaveHeightLocationsContext
+                   && CategoryBoundaryName.Equals(((WaveHeightLocationsContext) other).CategoryBoundaryName);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as WaveHeightLocationsContext);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ CategoryBoundaryName.GetHashCode();
+        }
     }
 }
