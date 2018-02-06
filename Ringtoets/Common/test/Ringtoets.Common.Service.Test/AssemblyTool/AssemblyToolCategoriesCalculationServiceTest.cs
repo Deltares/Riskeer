@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 Assert.AreEqual(calculatorOutput.Length, output.Length);
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
-                CollectionAssert.AreEqual(calculatorOutput.Select(co => GetAssessmentSectionAssemblyCategoryType(co.Category)), output.Select(o => o.Type));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => GetAssessmentSectionAssemblyCategoryType(co.Category)), output.Select(o => o.Group));
             }
         }
 
@@ -167,21 +167,21 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             }
         }
 
-        private static AssessmentSectionAssemblyCategoryType GetAssessmentSectionAssemblyCategoryType(
+        private static AssessmentSectionAssemblyCategoryGroup GetAssessmentSectionAssemblyCategoryType(
             AssessmentSectionAssemblyCategoryResultType categoryType)
         {
             switch (categoryType)
             {
                 case AssessmentSectionAssemblyCategoryResultType.APlus:
-                    return AssessmentSectionAssemblyCategoryType.APlus;
+                    return AssessmentSectionAssemblyCategoryGroup.APlus;
                 case AssessmentSectionAssemblyCategoryResultType.A:
-                    return AssessmentSectionAssemblyCategoryType.A;
+                    return AssessmentSectionAssemblyCategoryGroup.A;
                 case AssessmentSectionAssemblyCategoryResultType.B:
-                    return AssessmentSectionAssemblyCategoryType.B;
+                    return AssessmentSectionAssemblyCategoryGroup.B;
                 case AssessmentSectionAssemblyCategoryResultType.C:
-                    return AssessmentSectionAssemblyCategoryType.C;
+                    return AssessmentSectionAssemblyCategoryGroup.C;
                 case AssessmentSectionAssemblyCategoryResultType.D:
-                    return AssessmentSectionAssemblyCategoryType.D;
+                    return AssessmentSectionAssemblyCategoryGroup.D;
                 default:
                     throw new NotSupportedException();
             }

@@ -102,14 +102,14 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
         }
 
         [Test]
-        [TestCase(AssessmentSectionAssemblyCategoryResultType.APlus, AssessmentSectionAssemblyCategoryType.APlus)]
-        [TestCase(AssessmentSectionAssemblyCategoryResultType.A, AssessmentSectionAssemblyCategoryType.A)]
-        [TestCase(AssessmentSectionAssemblyCategoryResultType.B, AssessmentSectionAssemblyCategoryType.B)]
-        [TestCase(AssessmentSectionAssemblyCategoryResultType.C, AssessmentSectionAssemblyCategoryType.C)]
-        [TestCase(AssessmentSectionAssemblyCategoryResultType.D, AssessmentSectionAssemblyCategoryType.D)]
-        public void ConvertToAssessmentSectionAssemblyCategories_CategoryWithValidType_ExpectedAssessmentSectionAssemblyCategoryType(
+        [TestCase(AssessmentSectionAssemblyCategoryResultType.APlus, AssessmentSectionAssemblyCategoryGroup.APlus)]
+        [TestCase(AssessmentSectionAssemblyCategoryResultType.A, AssessmentSectionAssemblyCategoryGroup.A)]
+        [TestCase(AssessmentSectionAssemblyCategoryResultType.B, AssessmentSectionAssemblyCategoryGroup.B)]
+        [TestCase(AssessmentSectionAssemblyCategoryResultType.C, AssessmentSectionAssemblyCategoryGroup.C)]
+        [TestCase(AssessmentSectionAssemblyCategoryResultType.D, AssessmentSectionAssemblyCategoryGroup.D)]
+        public void ConvertToAssessmentSectionAssemblyCategories_CategoryWithValidType_ExpectedAssessmentSectionAssemblyCategoryGroup(
             AssessmentSectionAssemblyCategoryResultType resultType,
-            AssessmentSectionAssemblyCategoryType expectedType)
+            AssessmentSectionAssemblyCategoryGroup expectedGroup)
         {
             // Setup
             var result = new[]
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             Assert.AreEqual(1, categories.Count());
             AssessmentSectionAssemblyCategory category = categories.First();
 
-            Assert.AreEqual(expectedType, category.Type);
+            Assert.AreEqual(expectedGroup, category.Group);
         }
     }
 }

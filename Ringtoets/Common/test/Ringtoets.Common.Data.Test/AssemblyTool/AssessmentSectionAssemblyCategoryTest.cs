@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         {
             // Setup
             var random = new Random(39);
-            var categoryType = random.NextEnumValue<AssessmentSectionAssemblyCategoryType>();
+            var categoryType = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
 
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
             Assert.IsInstanceOf<AssemblyCategory>(category);
             Assert.AreEqual(lowerBoundary, category.LowerBoundary);
             Assert.AreEqual(upperBoundary, category.UpperBoundary);
-            Assert.AreEqual(categoryType, category.Type);
+            Assert.AreEqual(categoryType, category.Group);
         }
     }
 }

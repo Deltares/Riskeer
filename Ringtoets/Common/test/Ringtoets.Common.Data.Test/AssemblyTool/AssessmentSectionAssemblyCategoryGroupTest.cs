@@ -27,28 +27,28 @@ using Ringtoets.Common.Data.AssemblyTool;
 namespace Ringtoets.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoryTypeTest : EnumValuesTestFixture<AssessmentSectionAssemblyCategoryType, int>
+    public class AssessmentSectionAssemblyCategoryGroupTest : EnumValuesTestFixture<AssessmentSectionAssemblyCategoryGroup, int>
     {
-        protected override IDictionary<AssessmentSectionAssemblyCategoryType, int> ExpectedValueForEnumValues
+        protected override IDictionary<AssessmentSectionAssemblyCategoryGroup, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<AssessmentSectionAssemblyCategoryType, int>
+                return new Dictionary<AssessmentSectionAssemblyCategoryGroup, int>
                 {
                     {
-                        AssessmentSectionAssemblyCategoryType.APlus, 1
+                        AssessmentSectionAssemblyCategoryGroup.APlus, 1
                     },
                     {
-                        AssessmentSectionAssemblyCategoryType.A, 2
+                        AssessmentSectionAssemblyCategoryGroup.A, 2
                     },
                     {
-                        AssessmentSectionAssemblyCategoryType.B, 3
+                        AssessmentSectionAssemblyCategoryGroup.B, 3
                     },
                     {
-                        AssessmentSectionAssemblyCategoryType.C, 4
+                        AssessmentSectionAssemblyCategoryGroup.C, 4
                     },
                     {
-                        AssessmentSectionAssemblyCategoryType.D, 5
+                        AssessmentSectionAssemblyCategoryGroup.D, 5
                     }
                 };
             }

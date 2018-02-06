@@ -24,7 +24,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
     /// <summary>
     /// Enum defining the assembly categories for an assessment section.
     /// </summary>
-    public enum AssessmentSectionAssemblyCategoryType
+    public enum AssessmentSectionAssemblyCategoryGroup
     {
         APlus = 1,
         A = 2,

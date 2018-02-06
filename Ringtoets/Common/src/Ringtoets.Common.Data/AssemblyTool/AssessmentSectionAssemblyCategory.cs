@@ -31,16 +31,16 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// </summary>
         /// <param name="lowerBoundary">The lower boundary of the category.</param>
         /// <param name="upperBoundary">The upper boundary of the category.</param>
-        /// <param name="type">The type of the category.</param>
-        public AssessmentSectionAssemblyCategory(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyCategoryType type)
+        /// <param name="group">The group of the category.</param>
+        public AssessmentSectionAssemblyCategory(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyCategoryGroup group)
             : base(lowerBoundary, upperBoundary)
         {
-            Type = type;
+            Group = group;
         }
 
         /// <summary>
-        /// Gets the type of the assembly category.
+        /// Gets the group of the assembly category.
         /// </summary>
-        public AssessmentSectionAssemblyCategoryType Type { get; }
+        public AssessmentSectionAssemblyCategoryGroup Group { get; }
     }
 }

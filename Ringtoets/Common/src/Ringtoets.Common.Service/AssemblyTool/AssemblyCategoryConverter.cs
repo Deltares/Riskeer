@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Service.AssemblyTool
             try
             {
                 return new AssessmentSectionAssemblyCategory(result.LowerBoundary, result.UpperBoundary,
-                                                             ConvertAssessmentSectionAssemblyCategoryType(result.Category));
+                                                             ConvertToAssessmentSectionAssemblyCategoryGroup(result.Category));
             }
             catch (Exception e) when (e is InvalidEnumArgumentException || e is NotSupportedException)
             {
@@ -82,15 +82,15 @@ namespace Ringtoets.Common.Service.AssemblyTool
 
         /// <summary>
         /// Converts <see cref="AssessmentSectionAssemblyCategoryResultType"/> into
-        /// <see cref="AssessmentSectionAssemblyCategoryType"/>.
+        /// <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
         /// </summary>
         /// <param name="categoryType">The category type to convert.</param>
-        /// <returns>The converted category type.</returns>
+        /// <returns>The converted category group.</returns>
         /// /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionAssemblyCategoryResultType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionAssemblyCategoryResultType"/>
         /// is a valid value, but unsupported.</exception>
-        private static AssessmentSectionAssemblyCategoryType ConvertAssessmentSectionAssemblyCategoryType(
+        private static AssessmentSectionAssemblyCategoryGroup ConvertToAssessmentSectionAssemblyCategoryGroup(
             AssessmentSectionAssemblyCategoryResultType categoryType)
         {
             if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyCategoryResultType), categoryType))
@@ -103,15 +103,15 @@ namespace Ringtoets.Common.Service.AssemblyTool
             switch (categoryType)
             {
                 case AssessmentSectionAssemblyCategoryResultType.APlus:
-                    return AssessmentSectionAssemblyCategoryType.APlus;
+                    return AssessmentSectionAssemblyCategoryGroup.APlus;
                 case AssessmentSectionAssemblyCategoryResultType.A:
-                    return AssessmentSectionAssemblyCategoryType.A;
+                    return AssessmentSectionAssemblyCategoryGroup.A;
                 case AssessmentSectionAssemblyCategoryResultType.B:
-                    return AssessmentSectionAssemblyCategoryType.B;
+                    return AssessmentSectionAssemblyCategoryGroup.B;
                 case AssessmentSectionAssemblyCategoryResultType.C:
-                    return AssessmentSectionAssemblyCategoryType.C;
+                    return AssessmentSectionAssemblyCategoryGroup.C;
                 case AssessmentSectionAssemblyCategoryResultType.D:
-                    return AssessmentSectionAssemblyCategoryType.D;
+                    return AssessmentSectionAssemblyCategoryGroup.D;
                 default:
                     throw new NotSupportedException();
             }
