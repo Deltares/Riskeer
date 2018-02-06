@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
@@ -55,6 +56,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
             // Assert
             Assert.IsInstanceOf<AssemblyCategoriesCalculatorStub>(calculator);
             Assert.AreSame(factory.LastCreatedAssemblyCategoriesCalculator, calculator);
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssessmentAssemblyCalculator_Always_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var factory = new TestAssemblyToolCalculatorFactory();
+
+            // Call
+            TestDelegate test = () => factory.CreateFailureMechanismSectionAssessmentAssemblyCalculator(null);
+            
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(test);
+            Assert.AreEqual($"Use the { nameof(TestAssemblyToolKernelFactory)}", exception.Message);
         }
     }
 }

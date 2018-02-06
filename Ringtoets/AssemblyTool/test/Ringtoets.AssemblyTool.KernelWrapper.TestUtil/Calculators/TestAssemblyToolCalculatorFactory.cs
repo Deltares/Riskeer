@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
 {
@@ -47,6 +50,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
         public IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactory factory)
         {
             return LastCreatedAssemblyCategoriesCalculator;
+        }
+
+        [Obsolete("Stub the kernel instead of the calculator.", false)]
+        public IFailureMechanismSectionAssessmentAssemblyCalculator CreateFailureMechanismSectionAssessmentAssemblyCalculator(IAssemblyToolKernelFactory factory)
+        {
+            throw new InvalidOperationException($"Use the {nameof(TestAssemblyToolKernelFactory)}");
         }
     }
 }

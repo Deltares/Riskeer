@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
 {
@@ -30,11 +33,28 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
+            mocks.ReplayAll();
+
             // Call
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator();
+            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(kernelFactory);
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionAssessmentAssemblyCalculator>(calculator);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FactoryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new FailureMechanismSectionAssessmentAssemblyCalculator(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("factory", exception.ParamName);
         }
     }
 }

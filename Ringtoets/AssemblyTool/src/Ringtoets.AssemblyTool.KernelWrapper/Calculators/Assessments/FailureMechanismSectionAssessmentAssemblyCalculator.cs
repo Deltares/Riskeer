@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -29,6 +31,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
     /// </summary>
     public class FailureMechanismSectionAssessmentAssemblyCalculator : IFailureMechanismSectionAssessmentAssemblyCalculator
     {
+        private IAssemblyToolKernelFactory factory;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssessmentAssemblyCalculator"/>.
+        /// </summary>
+        /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public FailureMechanismSectionAssessmentAssemblyCalculator(IAssemblyToolKernelFactory factory)
+        {
+            if (factory == null)
+            {
+                throw new ArgumentNullException(nameof(factory));
+            }
+            this.factory = factory;
+        }
+
         public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
             throw new System.NotImplementedException();

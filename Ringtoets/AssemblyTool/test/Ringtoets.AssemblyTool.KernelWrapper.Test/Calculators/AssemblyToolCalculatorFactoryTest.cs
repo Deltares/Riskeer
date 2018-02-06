@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -83,6 +84,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
 
                 // Assert
                 Assert.IsInstanceOf<AssemblyCategoriesCalculator>(calculator);
+            }
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssessmentAssemblyCalculator_WithKernelWrapperFactory_ReturnsFailureMechanismSectionAssessmentAssemblyCalculator()
+        {
+            // Setup
+            IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                // Call
+                IFailureMechanismSectionAssessmentAssemblyCalculator calculator = factory.CreateFailureMechanismSectionAssessmentAssemblyCalculator(
+                    AssemblyToolKernelWrapperFactory.Instance);
+
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismSectionAssessmentAssemblyCalculator>(calculator);
             }
         }
     }

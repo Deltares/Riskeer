@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 
@@ -52,6 +53,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
         public IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactory factory)
         {
             return new AssemblyCategoriesCalculator(factory);
+        }
+
+        public IFailureMechanismSectionAssessmentAssemblyCalculator CreateFailureMechanismSectionAssessmentAssemblyCalculator(IAssemblyToolKernelFactory factory)
+        {
+            return new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
         }
     }
 }
