@@ -35,8 +35,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
-        private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
         /// </summary>
@@ -48,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            sectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>();
+            SectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>();
             DikeProfiles = new DikeProfileCollection();
         }
 
@@ -72,25 +70,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults { get; }
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
 
-            sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
+            SectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
+            SectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
-            sectionResults.Clear();
+            SectionResults.Clear();
+            SectionResults.NotifyObservers();
         }
     }
 }

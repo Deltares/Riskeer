@@ -38,8 +38,6 @@ namespace Ringtoets.ClosingStructures.Data
     /// </summary>
     public class ClosingStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
     {
-        private readonly ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
         /// </summary>
@@ -52,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Data
             };
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>();
+            SectionResults = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -81,27 +79,21 @@ namespace Ringtoets.ClosingStructures.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> SectionResults { get; }
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
 
-            sectionResults.Add(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section));
-            sectionResults.NotifyObservers();
+            SectionResults.Add(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section));
+            SectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
-            sectionResults.Clear();
-            sectionResults.NotifyObservers();
+            SectionResults.Clear();
+            SectionResults.NotifyObservers();
         }
     }
 }

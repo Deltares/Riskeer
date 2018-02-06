@@ -67,7 +67,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             }));
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count);
             Assert.IsInstanceOf<DuneErosionFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
             mocks.VerifyAll();
         }

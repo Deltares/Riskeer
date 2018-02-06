@@ -61,7 +61,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AddSection_WithSection_AddedGrassCoverErosionInwardsFailureMechanismSectionResult()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.SectionResults.Attach(observer);
 
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -70,14 +76,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             }));
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count);
             Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -89,16 +101,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 new Point2D(2, 1)
             }));
 
+            failureMechanism.SectionResults.Attach(observer);
+
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
-            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count);
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
-            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count);
+            mocks.VerifyAll();
         }
 
         [Test]
