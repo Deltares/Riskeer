@@ -21,7 +21,6 @@
 
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;

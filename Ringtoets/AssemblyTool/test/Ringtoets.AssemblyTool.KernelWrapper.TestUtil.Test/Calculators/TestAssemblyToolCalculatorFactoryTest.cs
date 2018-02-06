@@ -19,13 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
 {
@@ -41,6 +41,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
             // Assert
             Assert.IsInstanceOf<IAssemblyToolCalculatorFactory>(factory);
             Assert.IsNotNull(factory.LastCreatedAssemblyCategoriesCalculator);
+            Assert.IsNotNull(factory.LastCreatedFailureMechanismSectionAssessmentAssemblyCalculator);
         }
 
         [Test]
@@ -58,17 +59,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssessmentAssemblyCalculator_Always_ThrowsInvalidOperationException()
+        public void CreateFailureMechanismSectionAssessmentAssemblyCalculator_Always_ReturnStub()
         {
             // Setup
             var factory = new TestAssemblyToolCalculatorFactory();
 
             // Call
-            TestDelegate test = () => factory.CreateFailureMechanismSectionAssessmentAssemblyCalculator(null);
-            
+            IFailureMechanismSectionAssessmentAssemblyCalculator calculator = factory.CreateFailureMechanismSectionAssessmentAssemblyCalculator(null);
+
             // Assert
-            var exception = Assert.Throws<InvalidOperationException>(test);
-            Assert.AreEqual($"Use the { nameof(TestAssemblyToolKernelFactory)}", exception.Message);
+            Assert.IsInstanceOf<FailureMechanismSectionAssessmentAssemblyCalculatorStub>(calculator);
+            Assert.AreSame(factory.LastCreatedFailureMechanismSectionAssessmentAssemblyCalculator, calculator);
         }
     }
 }
