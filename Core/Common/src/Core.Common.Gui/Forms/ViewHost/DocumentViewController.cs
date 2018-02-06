@@ -126,11 +126,13 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void ViewHostOnViewClosed(object sender, ViewChangeEventArgs viewChangeEventArgs)
         {
-            KeyValuePair<object, IView> openViewItem = openedViewLookup.FirstOrDefault(l => ReferenceEquals(l.Value, viewChangeEventArgs.View));
+            object data = openedViewLookup.Where(kv => ReferenceEquals(kv.Value, viewChangeEventArgs.View))
+                                          .Select(kv => kv.Key)
+                                          .FirstOrDefault();
 
-            if (!openViewItem.Equals(default(KeyValuePair<object, IView>)))
+            if (data != null)
             {
-                openedViewLookup.Remove(openViewItem.Key);
+                openedViewLookup.Remove(data);
             }
         }
 
