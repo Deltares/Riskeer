@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -513,6 +514,21 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     subCalculationWithSurfaceLineAndStochasticSoilModel
                 }
             });
+
+            var section1 = new FailureMechanismSection("1",
+                                                       new[]
+                                                       {
+                                                           new Point2D(-1, -1),
+                                                           new Point2D(5, 5)
+                                                       });
+            var section2 = new FailureMechanismSection("2",
+                                                       new[]
+                                                       {
+                                                           new Point2D(5, 5),
+                                                           new Point2D(15, 15)
+                                                       });
+            failureMechanism.AddSection(section1);
+            failureMechanism.AddSection(section2);
         }
 
         /// <summary>

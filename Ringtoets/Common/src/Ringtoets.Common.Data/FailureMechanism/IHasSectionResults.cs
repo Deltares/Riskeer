@@ -26,7 +26,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// <summary>
     /// This interface describes methods for obtaining <see cref="FailureMechanismSectionResult"/> objects.
     /// </summary>
-    /// <typeparam name="T">The type of the section results in <see cref="SectionResults"/>.</typeparam>
+    /// <typeparam name="T">The type of the section results.</typeparam>
     public interface IHasSectionResults<T> where T : FailureMechanismSectionResult
     {
         /// <summary>

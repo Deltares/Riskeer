@@ -44,6 +44,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             PipingTestDataGeneratorHelper.AssertHasSurfaceLines(failureMechanism);
             PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(failureMechanism);
             PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(failureMechanism);
+            PipingTestDataGeneratorHelper.AssertHasFailureMechanismSections(failureMechanism);
         }
 
         [Test]
@@ -61,6 +62,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             PipingTestDataGeneratorHelper.AssertHasSurfaceLines(failureMechanism);
             PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(failureMechanism);
             PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(failureMechanism);
+            PipingTestDataGeneratorHelper.AssertHasFailureMechanismSections(failureMechanism);
 
             AssertCalculationsHasSameHydraulicBoundaryLocation(failureMechanism.CalculationsGroup, hydraulicBoundaryLocation);
 

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -71,12 +72,25 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         }
 
         /// <summary>
-        /// Asserts sthat the <paramref name="failureMechanism"/> contains <see cref="MacroStabilityInwardsSurfaceLine"/>.
+        /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="MacroStabilityInwardsSurfaceLine"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
         public static void AssertHasSurfaceLines(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             CollectionAssert.IsNotEmpty(failureMechanism.SurfaceLines);
+        }
+
+        /// <summary>
+        /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="FailureMechanismSection"/> and
+        /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to assert.</param>
+        public static void AssertHasFailureMechanismSections(MacroStabilityInwardsFailureMechanism failureMechanism)
+        {
+            IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
+            int sectionsCount = sections.Count();
+            Assert.AreEqual(2, sectionsCount);
+            Assert.AreEqual(sectionsCount, failureMechanism.SectionResults.Count);
         }
 
         private static void AssertCalculationGroupWithOutput(IEnumerable<MacroStabilityInwardsCalculation> children)

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
@@ -77,6 +78,19 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static void AssertHasSurfaceLines(PipingFailureMechanism failureMechanism)
         {
             CollectionAssert.IsNotEmpty(failureMechanism.SurfaceLines);
+        }
+
+        /// <summary>
+        /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="FailureMechanismSection"/> and
+        /// <see cref="PipingFailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to assert.</param>
+        public static void AssertHasFailureMechanismSections(PipingFailureMechanism failureMechanism)
+        {
+            IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
+            int sectionsCount = sections.Count();
+            Assert.AreEqual(2, sectionsCount);
+            Assert.AreEqual(sectionsCount, failureMechanism.SectionResults.Count);
         }
 
         private static void AssertPipingCalculationGroupWithOutput(IEnumerable<PipingCalculation> children)

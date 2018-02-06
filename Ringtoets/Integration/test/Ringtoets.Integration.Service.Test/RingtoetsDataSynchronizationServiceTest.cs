@@ -490,6 +490,27 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
+        public void ClearReferenceLine_UnsupportedFailureMechanism_ThrowsNotSupportedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.GetFailureMechanisms()).Return(new[]
+            {
+                new TestFailureMechanism()
+            });
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => RingtoetsDataSynchronizationService.ClearReferenceLine(assessmentSection);
+
+            // Assert
+            string message = Assert.Throws<NotSupportedException>(call).Message;
+            Assert.AreEqual("Cannot clear results of unsupported failure mechanism.", message);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void ClearReferenceLine_FullyConfiguredAssessmentSection_AllReferenceLineDependentDataCleared()
         {
             // Setup

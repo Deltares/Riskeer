@@ -44,6 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             MacroStabilityInwardsTestDataGeneratorHelper.AssertHasSurfaceLines(failureMechanism);
             MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(failureMechanism);
             MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(failureMechanism);
+            MacroStabilityInwardsTestDataGeneratorHelper.AssertHasFailureMechanismSections(failureMechanism);
         }
 
         [Test]
@@ -61,6 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             MacroStabilityInwardsTestDataGeneratorHelper.AssertHasSurfaceLines(failureMechanism);
             MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(failureMechanism);
             MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(failureMechanism);
+            MacroStabilityInwardsTestDataGeneratorHelper.AssertHasFailureMechanismSections(failureMechanism);
 
             AssertCalculationsHasSameHydraulicBoundaryLocation(failureMechanism.CalculationsGroup, hydraulicBoundaryLocation);
 

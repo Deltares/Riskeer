@@ -118,6 +118,14 @@ namespace Ringtoets.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.DuneErosion, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffInwards);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards);
+            SetFullyConfiguredFailureMechanism(assessmentSection.MacroStabilityOutwards);
+            SetFullyConfiguredFailureMechanism(assessmentSection.Microstability);
+            SetFullyConfiguredFailureMechanism(assessmentSection.PipingStructure);
+            SetFullyConfiguredFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction);
+            SetFullyConfiguredFailureMechanism(assessmentSection.TechnicalInnovation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.WaterPressureAsphaltCover);
 
             return assessmentSection;
         }
@@ -409,20 +417,7 @@ namespace Ringtoets.Integration.TestUtil
                 }
             });
 
-            var section1 = new FailureMechanismSection("1",
-                                                       new[]
-                                                       {
-                                                           new Point2D(-1, -1),
-                                                           new Point2D(5, 5)
-                                                       });
-            var section2 = new FailureMechanismSection("2",
-                                                       new[]
-                                                       {
-                                                           new Point2D(5, 5),
-                                                           new Point2D(15, 15)
-                                                       });
-            failureMechanism.AddSection(section1);
-            failureMechanism.AddSection(section2);
+            AddFailureMechanismSections(failureMechanism);
 
             failureMechanism.SectionResults.ElementAt(0).Calculation = calculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation;
             failureMechanism.SectionResults.ElementAt(1).Calculation = subCalculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation;
@@ -464,6 +459,8 @@ namespace Ringtoets.Integration.TestUtil
                 profile2
             }, "path");
 
+            AddFailureMechanismSections(failureMechanism);
+
             SetConfiguredStructuresCalculations<HeightStructuresInput, HeightStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
         }
 
@@ -502,6 +499,9 @@ namespace Ringtoets.Integration.TestUtil
                 profile1,
                 profile2
             }, "some/path/to/foreshoreprofiles");
+
+            AddFailureMechanismSections(failureMechanism);
+
             SetConfiguredStructuresCalculations<ClosingStructuresInput, ClosingStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
         }
 
@@ -540,6 +540,9 @@ namespace Ringtoets.Integration.TestUtil
                 profile1,
                 profile2
             }, "some/path/to/foreshoreprofiles");
+
+            AddFailureMechanismSections(failureMechanism);
+
             SetConfiguredStructuresCalculations<StabilityPointStructuresInput, StabilityPointStructure>(failureMechanism, hydraulicBoundaryLocation, profile1, profile2);
         }
 
@@ -760,6 +763,8 @@ namespace Ringtoets.Integration.TestUtil
                     subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
                 }
             });
+
+            AddFailureMechanismSections(failureMechanism);
         }
 
         private static void SetFullyConfiguredFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
@@ -882,6 +887,8 @@ namespace Ringtoets.Integration.TestUtil
                     subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
                 }
             });
+
+            AddFailureMechanismSections(failureMechanism);
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
@@ -1026,6 +1033,8 @@ namespace Ringtoets.Integration.TestUtil
                     subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
                 }
             });
+
+            AddFailureMechanismSections(failureMechanism);
         }
 
         private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism,
@@ -1066,6 +1075,31 @@ namespace Ringtoets.Integration.TestUtil
 
             failureMechanism.DuneLocations.Add(duneLocation);
             failureMechanism.DuneLocations.Add(duneLocationWithOutput);
+
+            AddFailureMechanismSections(failureMechanism);
+        }
+
+        private static void SetFullyConfiguredFailureMechanism(IFailureMechanism failureMechanism)
+        {
+            AddFailureMechanismSections(failureMechanism);
+        }
+
+        private static void AddFailureMechanismSections(IFailureMechanism failureMechanism)
+        {
+            var section1 = new FailureMechanismSection("1",
+                                                       new[]
+                                                       {
+                                                           new Point2D(-1, -1),
+                                                           new Point2D(5, 5)
+                                                       });
+            var section2 = new FailureMechanismSection("2",
+                                                       new[]
+                                                       {
+                                                           new Point2D(5, 5),
+                                                           new Point2D(15, 15)
+                                                       });
+            failureMechanism.AddSection(section1);
+            failureMechanism.AddSection(section2);
         }
     }
 }

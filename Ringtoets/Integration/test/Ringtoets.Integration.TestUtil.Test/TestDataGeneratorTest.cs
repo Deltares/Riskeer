@@ -34,6 +34,8 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.Piping.Data;
@@ -179,6 +181,7 @@ namespace Ringtoets.Integration.TestUtil.Test
                 Assert.AreEqual(hasOutput, location.WaveHeightCalculation1.HasOutput);
             }
         }
+
         private static void AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(IAssessmentSection assessmentSection)
         {
             var containsClosingStructuresFailureMechanism = false;
@@ -191,6 +194,14 @@ namespace Ringtoets.Integration.TestUtil.Test
             var containsWaveImpactAsphaltCoverFailureMechanism = false;
             var containsDuneErosionFailureMechanism = false;
             var containsMacroStabilityInwardsFailureMechanism = false;
+            var containsGrassCoverSlipOffInwardsFailureMechanism = false;
+            var containsGrassCoverSlipOffOutwardsFailureMechanism = false;
+            var containsMacroStabilityOutwardsFailureMechanism = false;
+            var containsMicrostabilityFailureMechanism = false;
+            var containsPipingStructuresFailureMechanism = false;
+            var containsStrengthStabilityLengthwiseConstructionFailureMechanism = false;
+            var containsTechnicalInnovationFailureMechanism = false;
+            var containsWaterPressureAsphaltCoverFailureMechanism = false;
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -204,9 +215,18 @@ namespace Ringtoets.Integration.TestUtil.Test
                 var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
                 var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
+                var grassCoverSlipOffInwardsFailureMechanism = failureMechanism as GrassCoverSlipOffInwardsFailureMechanism;
+                var grassCoverSlipOffOutwardsFailureMechanism = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
+                var macroStabilityOutwardsFailureMechanism = failureMechanism as MacroStabilityOutwardsFailureMechanism;
+                var microstabilityFailureMechanism = failureMechanism as MicrostabilityFailureMechanism;
+                var pipingStructureFailureMechanism = failureMechanism as PipingStructureFailureMechanism;
+                var strengthStabilityLengthwiseConstructionFailureMechanism = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
+                var technicalInnovationFailureMechanism = failureMechanism as TechnicalInnovationFailureMechanism;
+                var waterPressureAsphaltCoverFailureMechanism = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
 
                 if (closingStructuresFailureMechanism != null)
                 {
+                    AssertHasFailureMechanismSections<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(closingStructuresFailureMechanism);
                     AssertHasForeshoreProfiles(closingStructuresFailureMechanism);
                     AssertClosingStructureFailureMechanismCalculationConfigurationsWithOutputs(closingStructuresFailureMechanism);
                     AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(closingStructuresFailureMechanism);
@@ -215,6 +235,7 @@ namespace Ringtoets.Integration.TestUtil.Test
 
                 if (grassCoverErosionInwardsFailureMechanism != null)
                 {
+                    AssertHasFailureMechanismSections<GrassCoverErosionInwardsFailureMechanismSectionResult>(grassCoverErosionInwardsFailureMechanism);
                     AssertHasDikeProfiles(grassCoverErosionInwardsFailureMechanism);
                     AssertGrassCoverErosionInwardsFailureMechanismCalculationConfigurationsWithOutputs(grassCoverErosionInwardsFailureMechanism);
                     AssertGrassCoverErosionInwardsFailureMechanismCalculationConfigurationsWithoutOutputs(grassCoverErosionInwardsFailureMechanism);
@@ -223,6 +244,7 @@ namespace Ringtoets.Integration.TestUtil.Test
 
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
+                    AssertHasFailureMechanismSections<GrassCoverErosionOutwardsFailureMechanismSectionResult>(grassCoverErosionOutwardsFailureMechanism);
                     AssertHasForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism);
                     AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithOutputs(grassCoverErosionOutwardsFailureMechanism);
                     AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithoutOutputs(grassCoverErosionOutwardsFailureMechanism);
@@ -231,6 +253,7 @@ namespace Ringtoets.Integration.TestUtil.Test
 
                 if (heightStructuresFailureMechanism != null)
                 {
+                    AssertHasFailureMechanismSections<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(heightStructuresFailureMechanism);
                     AssertHasForeshoreProfiles(heightStructuresFailureMechanism);
                     AssertHeightStructuresFailureMechanismCalculationConfigurationsWithOutputs(heightStructuresFailureMechanism);
                     AssertHeightStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(heightStructuresFailureMechanism);
@@ -248,6 +271,8 @@ namespace Ringtoets.Integration.TestUtil.Test
 
                 if (stabilityPointStructuresFailureMechanism != null)
                 {
+                    AssertHasFailureMechanismSections<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(
+                        stabilityPointStructuresFailureMechanism);
                     AssertHasForeshoreProfiles(stabilityPointStructuresFailureMechanism);
                     AssertStabilityPointStructuresFailureMechanismCalculationConfigurationsWithOutputs(stabilityPointStructuresFailureMechanism);
                     AssertStabilityPointStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(stabilityPointStructuresFailureMechanism);
@@ -256,6 +281,7 @@ namespace Ringtoets.Integration.TestUtil.Test
 
                 if (stabilityStoneCoverFailureMechanism != null)
                 {
+                    AssertHasFailureMechanismSections<StabilityStoneCoverFailureMechanismSectionResult>(stabilityStoneCoverFailureMechanism);
                     AssertHasForeshoreProfiles(stabilityStoneCoverFailureMechanism);
                     AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithOutputs(stabilityStoneCoverFailureMechanism);
                     AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithoutOutputs(stabilityStoneCoverFailureMechanism);
@@ -264,6 +290,7 @@ namespace Ringtoets.Integration.TestUtil.Test
 
                 if (waveImpactAsphaltCoverFailureMechanism != null)
                 {
+                    AssertHasFailureMechanismSections<WaveImpactAsphaltCoverFailureMechanismSectionResult>(waveImpactAsphaltCoverFailureMechanism);
                     AssertHasForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism);
                     AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithOutputs(waveImpactAsphaltCoverFailureMechanism);
                     AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithoutOutputs(waveImpactAsphaltCoverFailureMechanism);
@@ -272,6 +299,7 @@ namespace Ringtoets.Integration.TestUtil.Test
 
                 if (duneErosionFailureMechanism != null)
                 {
+                    AssertHasFailureMechanismSections<DuneErosionFailureMechanismSectionResult>(duneErosionFailureMechanism);
                     containsDuneErosionFailureMechanism = true;
                 }
 
@@ -281,7 +309,56 @@ namespace Ringtoets.Integration.TestUtil.Test
                     MacroStabilityInwardsTestDataGeneratorHelper.AssertHasSurfaceLines(macroStabilityInwardsFailureMechanism);
                     MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithOutputs(macroStabilityInwardsFailureMechanism);
                     MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(macroStabilityInwardsFailureMechanism);
+                    MacroStabilityInwardsTestDataGeneratorHelper.AssertHasFailureMechanismSections(macroStabilityInwardsFailureMechanism);
                     containsMacroStabilityInwardsFailureMechanism = true;
+                }
+
+                if (grassCoverSlipOffInwardsFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(grassCoverSlipOffInwardsFailureMechanism);
+                    containsGrassCoverSlipOffInwardsFailureMechanism = true;
+                }
+
+                if (grassCoverSlipOffOutwardsFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(grassCoverSlipOffOutwardsFailureMechanism);
+                    containsGrassCoverSlipOffOutwardsFailureMechanism = true;
+                }
+
+                if (macroStabilityOutwardsFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<MacroStabilityOutwardsFailureMechanismSectionResult>(macroStabilityOutwardsFailureMechanism);
+                    containsMacroStabilityOutwardsFailureMechanism = true;
+                }
+
+                if (microstabilityFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<MicrostabilityFailureMechanismSectionResult>(microstabilityFailureMechanism);
+                    containsMicrostabilityFailureMechanism = true;
+                }
+
+                if (pipingStructureFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<PipingStructureFailureMechanismSectionResult>(pipingStructureFailureMechanism);
+                    containsPipingStructuresFailureMechanism = true;
+                }
+
+                if (strengthStabilityLengthwiseConstructionFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(strengthStabilityLengthwiseConstructionFailureMechanism);
+                    containsStrengthStabilityLengthwiseConstructionFailureMechanism = true;
+                }
+
+                if (technicalInnovationFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<TechnicalInnovationFailureMechanismSectionResult>(technicalInnovationFailureMechanism);
+                    containsTechnicalInnovationFailureMechanism = true;
+                }
+
+                if (waterPressureAsphaltCoverFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<WaterPressureAsphaltCoverFailureMechanismSectionResult>(waterPressureAsphaltCoverFailureMechanism);
+                    containsWaterPressureAsphaltCoverFailureMechanism = true;
                 }
             }
 
@@ -295,6 +372,14 @@ namespace Ringtoets.Integration.TestUtil.Test
             Assert.IsTrue(containsWaveImpactAsphaltCoverFailureMechanism);
             Assert.IsTrue(containsDuneErosionFailureMechanism);
             Assert.IsTrue(containsMacroStabilityInwardsFailureMechanism);
+            Assert.IsTrue(containsGrassCoverSlipOffOutwardsFailureMechanism);
+            Assert.IsTrue(containsGrassCoverSlipOffInwardsFailureMechanism);
+            Assert.IsTrue(containsMacroStabilityOutwardsFailureMechanism);
+            Assert.IsTrue(containsMicrostabilityFailureMechanism);
+            Assert.IsTrue(containsPipingStructuresFailureMechanism);
+            Assert.IsTrue(containsStrengthStabilityLengthwiseConstructionFailureMechanism);
+            Assert.IsTrue(containsTechnicalInnovationFailureMechanism);
+            Assert.IsTrue(containsWaterPressureAsphaltCoverFailureMechanism);
         }
 
         private static void AssertFailureMechanismsHaveAllCalculationConfigurationsWithoutCalculationOutputs(IAssessmentSection assessmentSection)
@@ -309,12 +394,20 @@ namespace Ringtoets.Integration.TestUtil.Test
             var containsWaveImpactAsphaltCoverFailureMechanism = false;
             var containsDuneErosionFailureMechanism = false;
             var containsMacroStabilityInwardsFailureMechanism = false;
+            var containsGrassCoverSlipOffInwardsFailureMechanism = false;
+            var containsGrassCoverSlipOffOutwardsFailureMechanism = false;
+            var containsMacroStabilityOutwardsFailureMechanism = false;
+            var containsMicrostabilityFailureMechanism = false;
+            var containsPipingStructuresFailureMechanism = false;
+            var containsStrengthStabilityLengthwiseConstructionFailureMechanism = false;
+            var containsTechnicalInnovationFailureMechanism = false;
+            var containsWaterPressureAsphaltCoverFailureMechanism = false;
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
                 var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
-                var coverErosionOutwards = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
                 var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
                 var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
@@ -322,6 +415,14 @@ namespace Ringtoets.Integration.TestUtil.Test
                 var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
                 var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
+                var grassCoverSlipOffInwardsFailureMechanism = failureMechanism as GrassCoverSlipOffInwardsFailureMechanism;
+                var grassCoverSlipOffOutwardsFailureMechanism = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
+                var macroStabilityOutwardsFailureMechanism = failureMechanism as MacroStabilityOutwardsFailureMechanism;
+                var microstabilityFailureMechanism = failureMechanism as MicrostabilityFailureMechanism;
+                var pipingStructureFailureMechanism = failureMechanism as PipingStructureFailureMechanism;
+                var strengthStabilityLengthwiseConstructionFailureMechanism = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
+                var technicalInnovationFailureMechanism = failureMechanism as TechnicalInnovationFailureMechanism;
+                var waterPressureAsphaltCoverFailureMechanism = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
 
                 if (closingStructuresFailureMechanism != null)
                 {
@@ -337,10 +438,10 @@ namespace Ringtoets.Integration.TestUtil.Test
                     containsGrassCoverErosionInwardsFailureMechanism = true;
                 }
 
-                if (coverErosionOutwards != null)
+                if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
-                    AssertHasForeshoreProfiles(coverErosionOutwards);
-                    AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithoutOutputs(coverErosionOutwards);
+                    AssertHasForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism);
+                    AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithoutOutputs(grassCoverErosionOutwardsFailureMechanism);
                     containsGrassCoverErosionOutwardsFailureMechanism = true;
                 }
 
@@ -356,6 +457,7 @@ namespace Ringtoets.Integration.TestUtil.Test
                     PipingTestDataGeneratorHelper.AssertHasStochasticSoilModels(pipingFailureMechanism);
                     PipingTestDataGeneratorHelper.AssertHasSurfaceLines(pipingFailureMechanism);
                     PipingTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(pipingFailureMechanism);
+                    PipingTestDataGeneratorHelper.AssertHasFailureMechanismSections(pipingFailureMechanism);
                     containsPipingFailureMechanism = true;
                 }
 
@@ -390,7 +492,56 @@ namespace Ringtoets.Integration.TestUtil.Test
                     MacroStabilityInwardsTestDataGeneratorHelper.AssertHasStochasticSoilModels(macroStabilityInwardsFailureMechanism);
                     MacroStabilityInwardsTestDataGeneratorHelper.AssertHasSurfaceLines(macroStabilityInwardsFailureMechanism);
                     MacroStabilityInwardsTestDataGeneratorHelper.AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(macroStabilityInwardsFailureMechanism);
+                    MacroStabilityInwardsTestDataGeneratorHelper.AssertHasFailureMechanismSections(macroStabilityInwardsFailureMechanism);
                     containsMacroStabilityInwardsFailureMechanism = true;
+                }
+
+                if (grassCoverSlipOffInwardsFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(grassCoverSlipOffInwardsFailureMechanism);
+                    containsGrassCoverSlipOffInwardsFailureMechanism = true;
+                }
+
+                if (grassCoverSlipOffOutwardsFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(grassCoverSlipOffOutwardsFailureMechanism);
+                    containsGrassCoverSlipOffOutwardsFailureMechanism = true;
+                }
+
+                if (macroStabilityOutwardsFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<MacroStabilityOutwardsFailureMechanismSectionResult>(macroStabilityOutwardsFailureMechanism);
+                    containsMacroStabilityOutwardsFailureMechanism = true;
+                }
+
+                if (microstabilityFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<MicrostabilityFailureMechanismSectionResult>(microstabilityFailureMechanism);
+                    containsMicrostabilityFailureMechanism = true;
+                }
+
+                if (pipingStructureFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<PipingStructureFailureMechanismSectionResult>(pipingStructureFailureMechanism);
+                    containsPipingStructuresFailureMechanism = true;
+                }
+
+                if (strengthStabilityLengthwiseConstructionFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(strengthStabilityLengthwiseConstructionFailureMechanism);
+                    containsStrengthStabilityLengthwiseConstructionFailureMechanism = true;
+                }
+
+                if (technicalInnovationFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<TechnicalInnovationFailureMechanismSectionResult>(technicalInnovationFailureMechanism);
+                    containsTechnicalInnovationFailureMechanism = true;
+                }
+
+                if (waterPressureAsphaltCoverFailureMechanism != null)
+                {
+                    AssertHasFailureMechanismSections<WaterPressureAsphaltCoverFailureMechanismSectionResult>(waterPressureAsphaltCoverFailureMechanism);
+                    containsWaterPressureAsphaltCoverFailureMechanism = true;
                 }
             }
 
@@ -404,6 +555,27 @@ namespace Ringtoets.Integration.TestUtil.Test
             Assert.IsTrue(containsDuneErosionFailureMechanism);
             Assert.IsTrue(containsGrassCoverErosionInwardsFailureMechanism);
             Assert.IsTrue(containsMacroStabilityInwardsFailureMechanism);
+            Assert.IsTrue(containsGrassCoverSlipOffOutwardsFailureMechanism);
+            Assert.IsTrue(containsGrassCoverSlipOffInwardsFailureMechanism);
+            Assert.IsTrue(containsMacroStabilityOutwardsFailureMechanism);
+            Assert.IsTrue(containsMicrostabilityFailureMechanism);
+            Assert.IsTrue(containsPipingStructuresFailureMechanism);
+            Assert.IsTrue(containsStrengthStabilityLengthwiseConstructionFailureMechanism);
+            Assert.IsTrue(containsTechnicalInnovationFailureMechanism);
+            Assert.IsTrue(containsWaterPressureAsphaltCoverFailureMechanism);
+        }
+
+        private static void AssertHasFailureMechanismSections<T>(IFailureMechanism failureMechanism)
+            where T : FailureMechanismSectionResult
+        {
+            IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
+            Assert.AreEqual(2, sections.Count());
+
+            var failureMechanismHasSectionResults = failureMechanism as IHasSectionResults<T>;
+            if (failureMechanismHasSectionResults != null)
+            {
+                Assert.AreEqual(sections.Count(), failureMechanismHasSectionResults.SectionResults.Count);
+            }
         }
 
         #region Grass Cover Erosion Inwards
@@ -418,6 +590,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertHasDikeProfiles(failureMechanism);
             AssertGrassCoverErosionInwardsFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
             AssertGrassCoverErosionInwardsFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+            AssertHasFailureMechanismSections<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism);
         }
 
         private static void AssertGrassCoverErosionInwardsFailureMechanismCalculationConfigurationsWithOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
@@ -478,6 +651,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertHasForeshoreProfiles(failureMechanism);
             AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
             AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+            AssertHasFailureMechanismSections<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism);
         }
 
         private static void AssertStabilityStoneCoverFailureMechanismCalculationConfigurationsWithOutputs(
@@ -541,6 +715,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertHasForeshoreProfiles(failureMechanism);
             AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
             AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+            AssertHasFailureMechanismSections<WaveImpactAsphaltCoverFailureMechanismSectionResult>(failureMechanism);
         }
 
         private static void AssertWaveImpactAsphaltCoverFailureMechanismCalculationConfigurationsWithOutputs(
@@ -607,6 +782,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertHasForeshoreProfiles(failureMechanism);
             AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
             AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+            AssertHasFailureMechanismSections<GrassCoverErosionOutwardsFailureMechanismSectionResult>(failureMechanism);
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
@@ -683,6 +859,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertHasForeshoreProfiles(failureMechanism);
             AssertClosingStructureFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
             AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+            AssertHasFailureMechanismSections<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(failureMechanism);
         }
 
         private static void AssertClosingStructureFailureMechanismCalculationConfigurationsWithOutputs(ClosingStructuresFailureMechanism failureMechanism)
@@ -726,6 +903,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertHasForeshoreProfiles(failureMechanism);
             AssertStabilityPointStructuresFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
             AssertStabilityPointStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+            AssertHasFailureMechanismSections<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(failureMechanism);
         }
 
         private static void AssertStabilityPointStructuresFailureMechanismCalculationConfigurationsWithOutputs(StabilityPointStructuresFailureMechanism failureMechanism)
@@ -769,6 +947,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertHasForeshoreProfiles(failureMechanism);
             AssertHeightStructuresFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
             AssertHeightStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+            AssertHasFailureMechanismSections<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(failureMechanism);
         }
 
         private static void AssertHeightStructuresFailureMechanismCalculationConfigurationsWithOutputs(HeightStructuresFailureMechanism failureMechanism)

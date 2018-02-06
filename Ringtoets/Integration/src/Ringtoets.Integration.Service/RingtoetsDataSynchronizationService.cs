@@ -41,6 +41,8 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Service;
 using Ringtoets.Piping.Data;
@@ -92,34 +94,42 @@ namespace Ringtoets.Integration.Service
                 {
                     changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(pipingFailureMechanism));
                 }
+
                 if (grassCoverErosionInwardsFailureMechanism != null)
                 {
                     changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionInwardsFailureMechanism));
                 }
+
                 if (stabilityStoneCoverFailureMechanism != null)
                 {
                     changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(stabilityStoneCoverFailureMechanism));
                 }
+
                 if (waveImpactAsphaltCoverFailureMechanism != null)
                 {
                     changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(waveImpactAsphaltCoverFailureMechanism));
                 }
+
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
                     changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
                 }
+
                 if (heightStructuresFailureMechanism != null)
                 {
                     changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(heightStructuresFailureMechanism));
                 }
+
                 if (closingStructuresFailureMechanism != null)
                 {
                     changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(closingStructuresFailureMechanism));
                 }
+
                 if (stabilityPointStructuresFailureMechanism != null)
                 {
                     changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(stabilityPointStructuresFailureMechanism));
                 }
+
                 if (macroStabilityInwardsFailureMechanism != null)
                 {
                     changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(macroStabilityInwardsFailureMechanism));
@@ -176,34 +186,42 @@ namespace Ringtoets.Integration.Service
                 {
                     changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(pipingFailureMechanism));
                 }
+
                 if (grassCoverErosionInwardsFailureMechanism != null)
                 {
                     changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(grassCoverErosionInwardsFailureMechanism));
                 }
+
                 if (stabilityStoneCoverFailureMechanism != null)
                 {
                     changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(stabilityStoneCoverFailureMechanism));
                 }
+
                 if (waveImpactAsphaltCoverFailureMechanism != null)
                 {
                     changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(waveImpactAsphaltCoverFailureMechanism));
                 }
+
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
                     changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(grassCoverErosionOutwardsFailureMechanism));
                 }
+
                 if (heightStructuresFailureMechanism != null)
                 {
                     changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(heightStructuresFailureMechanism));
                 }
+
                 if (closingStructuresFailureMechanism != null)
                 {
                     changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(closingStructuresFailureMechanism));
                 }
+
                 if (stabilityPointStructuresFailureMechanism != null)
                 {
                     changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(stabilityPointStructuresFailureMechanism));
                 }
+
                 if (macroStabilityInwardsFailureMechanism != null)
                 {
                     changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutput(macroStabilityInwardsFailureMechanism));
@@ -357,6 +375,7 @@ namespace Ringtoets.Integration.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (profile == null)
             {
                 throw new ArgumentNullException(nameof(profile));
@@ -388,6 +407,7 @@ namespace Ringtoets.Integration.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (profile == null)
             {
                 throw new ArgumentNullException(nameof(profile));
@@ -419,6 +439,7 @@ namespace Ringtoets.Integration.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (profile == null)
             {
                 throw new ArgumentNullException(nameof(profile));
@@ -450,6 +471,7 @@ namespace Ringtoets.Integration.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (profile == null)
             {
                 throw new ArgumentNullException(nameof(profile));
@@ -484,6 +506,7 @@ namespace Ringtoets.Integration.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (profile == null)
             {
                 throw new ArgumentNullException(nameof(profile));
@@ -518,6 +541,7 @@ namespace Ringtoets.Integration.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (profile == null)
             {
                 throw new ArgumentNullException(nameof(profile));
@@ -552,6 +576,7 @@ namespace Ringtoets.Integration.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (profile == null)
             {
                 throw new ArgumentNullException(nameof(profile));
@@ -562,8 +587,8 @@ namespace Ringtoets.Integration.Service
                                                                                  .Cast<GrassCoverErosionInwardsCalculation>()
                                                                                  .ToArray();
             GrassCoverErosionInwardsCalculation[] calculationWithRemovedDikeProfile = calculations
-                .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, profile))
-                .ToArray();
+                                                                                      .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, profile))
+                                                                                      .ToArray();
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationWithRemovedDikeProfile)
             {
                 foreach (IObservable calculationWithRemovedOutput in RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation))
@@ -606,6 +631,7 @@ namespace Ringtoets.Integration.Service
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+
             if (foreshoreProfiles == null)
             {
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
@@ -683,14 +709,70 @@ namespace Ringtoets.Integration.Service
             {
                 return StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism);
             }
-            return ClearReferenceLineDependentData(failureMechanism);
+
+            var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
+            if (duneErosionFailureMechanism != null)
+            {
+                return ClearReferenceLineDependentData<DuneErosionFailureMechanismSectionResult>(duneErosionFailureMechanism);
+            }
+
+            var grassCoverSlipOffInwardsFailureMechanism = failureMechanism as GrassCoverSlipOffInwardsFailureMechanism;
+            if (grassCoverSlipOffInwardsFailureMechanism != null)
+            {
+                return ClearReferenceLineDependentData<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(grassCoverSlipOffInwardsFailureMechanism);
+            }
+
+            var grassCoverSlipOffOutwardsFailureMechanism = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
+            if (grassCoverSlipOffOutwardsFailureMechanism != null)
+            {
+                return ClearReferenceLineDependentData<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(grassCoverSlipOffOutwardsFailureMechanism);
+            }
+
+            var macroStabilityOutwardsFailureMechanism = failureMechanism as MacroStabilityOutwardsFailureMechanism;
+            if (macroStabilityOutwardsFailureMechanism != null)
+            {
+                return ClearReferenceLineDependentData<MacroStabilityOutwardsFailureMechanismSectionResult>(macroStabilityOutwardsFailureMechanism);
+            }
+
+            var microstabilityFailureMechanism = failureMechanism as MicrostabilityFailureMechanism;
+            if (microstabilityFailureMechanism != null)
+            {
+                return ClearReferenceLineDependentData<MicrostabilityFailureMechanismSectionResult>(microstabilityFailureMechanism);
+            }
+
+            var pipingStructureFailureMechanism = failureMechanism as PipingStructureFailureMechanism;
+            if (pipingStructureFailureMechanism != null)
+            {
+                return ClearReferenceLineDependentData<PipingStructureFailureMechanismSectionResult>(pipingStructureFailureMechanism);
+            }
+
+            var strengthStabilityLengthwiseConstructionFailureMechanism = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
+            if (strengthStabilityLengthwiseConstructionFailureMechanism != null)
+            {
+                return ClearReferenceLineDependentData<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(strengthStabilityLengthwiseConstructionFailureMechanism);
+            }
+
+            var technicalInnovationFailureMechanism = failureMechanism as TechnicalInnovationFailureMechanism;
+            if (technicalInnovationFailureMechanism != null)
+            {
+                return ClearReferenceLineDependentData<TechnicalInnovationFailureMechanismSectionResult>(technicalInnovationFailureMechanism);
+            }
+
+            var waterPressureAsphaltCoverFailureMechanism = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
+            if (waterPressureAsphaltCoverFailureMechanism != null)
+            {
+                return ClearReferenceLineDependentData<WaterPressureAsphaltCoverFailureMechanismSectionResult>(waterPressureAsphaltCoverFailureMechanism);
+            }
+
+            throw new NotSupportedException("Cannot clear results of unsupported failure mechanism.");
         }
 
-        private static ClearResults ClearReferenceLineDependentData(IFailureMechanism failureMechanism)
+        private static ClearResults ClearReferenceLineDependentData<TSectionResult>(IFailureMechanism failureMechanism)
+            where TSectionResult : FailureMechanismSectionResult
         {
             var removedObjects = new List<object>();
             removedObjects.AddRange(failureMechanism.Sections);
-            var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
+            var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<TSectionResult>;
             if (failureMechanismWithSectionResults != null)
             {
                 removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
@@ -717,6 +799,7 @@ namespace Ringtoets.Integration.Service
                 input.Item2.ForeshoreProfile = null;
                 changedObservables.Add(input.Item2);
             }
+
             return changedObservables;
         }
     }
