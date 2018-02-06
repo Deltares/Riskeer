@@ -22,6 +22,7 @@
   <ItemGroup>
     <Compile Include="AssemblyCategoryResultAssert.cs" />
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryTest.cs" />
+    <Compile Include="Calculators\Assessments\FailureMechanismSectionAssessmentAssemblyCalculatorTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorTest.cs" />
     <Compile Include="Creators\AssemblyCategoryResultCreatorTest.cs" />

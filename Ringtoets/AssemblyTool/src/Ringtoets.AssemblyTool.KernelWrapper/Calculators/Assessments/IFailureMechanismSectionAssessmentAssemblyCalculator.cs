@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
 {
     /// <summary>
-    /// Interface representing an failure mechanism section assembly assessment calculator.
+    /// Interface representing a failure mechanism section assembly assessment calculator.
     /// </summary>
     /// <remarks>
     /// This interface is introduced for being able to test the conversion of:
