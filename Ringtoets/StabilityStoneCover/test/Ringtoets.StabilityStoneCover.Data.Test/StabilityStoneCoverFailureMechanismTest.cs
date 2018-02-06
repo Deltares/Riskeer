@@ -70,7 +70,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void CleanAllSections_WithSection_RemoveSectionResults()
+        public void ClearAllSections_WithSection_RemoveSectionResults()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();

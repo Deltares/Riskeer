@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -53,10 +54,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void AddSection_WithSection_AddedGrassCoverErosionOutwardsFailureMechanismSectionResult()
+        public void AddSection_WithSection_AddedGrassCoverErosionOutwardsFailureMechanismSectionResultAndNotifiesObserver()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.SectionResults.Attach(observer);
 
             // Call
             failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
@@ -65,26 +72,45 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             }));
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count);
             Assert.IsInstanceOf<GrassCoverErosionOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void CleanAllSections_WithSection_RemoveSectionResults()
+        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsClearedAndNotifiesObserver()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
             {
                 new Point2D(2, 1)
             }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+
+            failureMechanism.SectionResults.Attach(observer);
+
+            // Precondition
+            Assert.AreEqual(2, failureMechanism.Sections.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count);
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            Assert.AreEqual(0, failureMechanism.Sections.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count);
+            mocks.ReplayAll();
         }
 
         [Test]

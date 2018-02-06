@@ -38,15 +38,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase,
                                                              IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
-        private readonly ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism()
             : base(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionOutwardsFailureMechanism_Code)
         {
-            sectionResults = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
+            SectionResults = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
@@ -84,24 +82,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults { get; }
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-            sectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
+            SectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
+            SectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
-            sectionResults.Clear();
+            SectionResults.Clear();
+            SectionResults.NotifyObservers();
         }
     }
 }

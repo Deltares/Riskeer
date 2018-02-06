@@ -49,7 +49,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void AddSection_WithSection_AddedDuneErosionFailureMechanismSectionResult()
+        public void AddSection_WithSection_AddedGrassCoverErosionOutwardsFailureMechanismSectionResultAndNotifiesObserver()
         {
             // Setup
             var mocks = new MockRepository();
@@ -61,19 +61,20 @@ namespace Ringtoets.DuneErosion.Data.Test
             failureMechanism.SectionResults.Attach(observer);
 
             // Call
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
             {
                 new Point2D(2, 1)
             }));
 
             // Assert
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count);
             Assert.IsInstanceOf<DuneErosionFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
             mocks.VerifyAll();
         }
 
         [Test]
-        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
+        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsClearedAndNotifiesObserver()
         {
             // Setup
             var mocks = new MockRepository();
