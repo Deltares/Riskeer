@@ -34,15 +34,13 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>
     {
-        private readonly ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverSlipOffInwardsFailureMechanism()
             : base(Resources.GrassCoverSlipOffInwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffInwardsFailureMechanism_Code)
         {
-            sectionResults = new ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
+            SectionResults = new ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -53,25 +51,20 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResult> SectionResults { get; }
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-
-            sectionResults.Add(new GrassCoverSlipOffInwardsFailureMechanismSectionResult(section));
+            SectionResults.Add(new GrassCoverSlipOffInwardsFailureMechanismSectionResult(section));
+            SectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
-            sectionResults.Clear();
+            SectionResults.Clear();
+            SectionResults.NotifyObservers();
         }
     }
 }
