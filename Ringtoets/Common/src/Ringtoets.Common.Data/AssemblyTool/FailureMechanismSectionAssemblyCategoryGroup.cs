@@ -26,13 +26,13 @@ namespace Ringtoets.Common.Data.AssemblyTool
     /// </summary>
     public enum FailureMechanismSectionAssemblyCategoryGroup
     {
-        Iv = 1,
-        IIv = 2,
-        IIIv = 3,
-        IVv = 4,
-        Vv = 5,
-        VIv = 6,
-        VIIv = 7,
-        None = 8
+        None = 1,
+        Iv = 2,
+        IIv = 3,
+        IIIv = 4,
+        IVv = 5,
+        Vv = 6,
+        VIv = 7,
+        VIIv = 8
     }
 }

@@ -36,28 +36,28 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 return new Dictionary<FailureMechanismSectionAssemblyCategoryGroup, int>
                 {
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.Iv, 1
+                        FailureMechanismSectionAssemblyCategoryGroup.None, 1
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.IIv, 2
+                        FailureMechanismSectionAssemblyCategoryGroup.Iv, 2
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.IIIv, 3
+                        FailureMechanismSectionAssemblyCategoryGroup.IIv, 3
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.IVv, 4
+                        FailureMechanismSectionAssemblyCategoryGroup.IIIv, 4
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.Vv, 5
+                        FailureMechanismSectionAssemblyCategoryGroup.IVv, 5
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.VIv, 6
+                        FailureMechanismSectionAssemblyCategoryGroup.Vv, 6
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.VIIv, 7
+                        FailureMechanismSectionAssemblyCategoryGroup.VIv, 7
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.None, 8
+                        FailureMechanismSectionAssemblyCategoryGroup.VIIv, 8
                     }
                 };
             }
