@@ -23,15 +23,15 @@ namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
     /// This enum defines the possible statuses for a simple assessment 
-    /// for each failure mechanism section of type A.
+    /// for a failure mechanism section in case there is only a relevance check.
     /// </summary>
-    public enum SimpleAssessmentResultTypeA
+    public enum SimpleAssessmentResultValidityOnlyType
     {
         /// <summary>
         /// No option has been selected for this failure
         /// mechanism section.
         /// </summary>
-        NotSelected = 1,
+        None = 1,
 
         /// <summary>
         /// The failure mechanism section is not applicable.
@@ -39,14 +39,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         NotApplicable = 2,
 
         /// <summary>
-        /// The probability of failure for the failure mechanism
-        /// section is negligible.
+        /// The failure mechanism section is applicable.
         /// </summary>
-        ProbabilityNegligible = 3,
-        
-        /// <summary>
-        /// The failure mechanism section needs further assessment.
-        /// </summary>
-        AssessFurther = 4
+        Applicable = 3
     }
 }

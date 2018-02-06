@@ -27,25 +27,25 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class SimpleAssessmentResultTypeATest : EnumValuesTestFixture<SimpleAssessmentResultTypeA, byte>
+    public class SimpleAssessmentResultTypeTest : EnumValuesTestFixture<SimpleAssessmentResultType, byte>
     {
-        protected override IDictionary<SimpleAssessmentResultTypeA, byte> ExpectedValueForEnumValues
+        protected override IDictionary<SimpleAssessmentResultType, byte> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<SimpleAssessmentResultTypeA, byte>
+                return new Dictionary<SimpleAssessmentResultType, byte>
                 {
                     {
-                        SimpleAssessmentResultTypeA.NotSelected, 1
+                        SimpleAssessmentResultType.None, 1
                     },
                     {
-                        SimpleAssessmentResultTypeA.NotApplicable, 2
+                        SimpleAssessmentResultType.NotApplicable, 2
                     },
                     {
-                        SimpleAssessmentResultTypeA.ProbabilityNegligible, 3
+                        SimpleAssessmentResultType.ProbabilityNegligible, 3
                     },
                     {
-                        SimpleAssessmentResultTypeA.AssessFurther, 4
+                        SimpleAssessmentResultType.AssessFurther, 4
                     }
                 };
             }
