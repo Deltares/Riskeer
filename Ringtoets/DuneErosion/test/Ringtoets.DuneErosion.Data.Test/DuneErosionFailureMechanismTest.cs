@@ -49,7 +49,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void AddSection_WithSection_AddedGrassCoverErosionOutwardsFailureMechanismSectionResultAndNotifiesObserver()
+        public void AddSection_WithSection_AddedSectionResultAndNotifiesObserver()
         {
             // Setup
             var mocks = new MockRepository();

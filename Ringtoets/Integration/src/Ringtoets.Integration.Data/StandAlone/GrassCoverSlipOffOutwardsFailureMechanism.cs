@@ -34,15 +34,13 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// </summary>
     public class GrassCoverSlipOffOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>
     {
-        private readonly ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverSlipOffOutwardsFailureMechanism()
             : base(Resources.GrassCoverSlipOffOutwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutwardsFailureMechanism_Code)
         {
-            sectionResults = new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
+            SectionResults = new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -53,25 +51,20 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> SectionResults { get; }
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-
-            sectionResults.Add(new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section));
+            SectionResults.Add(new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section));
+            SectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
-            sectionResults.Clear();
+            SectionResults.Clear();
+            SectionResults.NotifyObservers();
         }
     }
 }
