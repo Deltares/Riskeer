@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ParameteredConstructor_ExpectedValues(bool withParent)
+        public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
             var mocks = new MockRepository();
@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
 
-            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+            CalculationGroup parent = hasParent ? new CalculationGroup() : null;
 
             var failureMechanism = new PipingFailureMechanism();
 
@@ -76,34 +76,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
-        [Test]
-        public void Equals_ToNull_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-            var parent = new CalculationGroup();
-            var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingCalculationGroupContext(calculationGroup,
-                                                            parent,
-                                                            new PipingSurfaceLine[0],
-                                                            new PipingStochasticSoilModel[0],
-                                                            failureMechanism,
-                                                            assessmentSection);
-
-            // Call
-            bool isEqual = context.Equals(null);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-
-            mocks.VerifyAll();
-        }
-
-        [TestFixture]
+        [TestFixture(true)]
+        [TestFixture(false)]
         private class PipingCalculationGroupContextEqualsTest
             : EqualsTestFixture<PipingCalculationGroupContext, DerivedPipingCalculationGroupContext>
         {
@@ -113,8 +87,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             private static readonly IEnumerable<PipingSurfaceLine> surfaceLines = new PipingSurfaceLine[0];
             private static readonly IEnumerable<PipingStochasticSoilModel> stochasticSoilModels = new PipingStochasticSoilModel[0];
             private static readonly PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
-            private static readonly CalculationGroup parent = new CalculationGroup();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
+
+            private static CalculationGroup parent;
 
             [SetUp]
             public void SetUp()
@@ -126,6 +101,11 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             public void TearDown()
             {
                 mocks.VerifyAll();
+            }
+
+            public PipingCalculationGroupContextEqualsTest(bool hasParent)
+            {
+                parent = hasParent ? new CalculationGroup() : null;
             }
 
             protected override PipingCalculationGroupContext CreateObject()

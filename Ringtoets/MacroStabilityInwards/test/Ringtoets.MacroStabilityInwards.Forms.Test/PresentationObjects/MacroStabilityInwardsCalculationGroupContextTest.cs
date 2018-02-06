@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ParameteredConstructor_ExpectedValues(bool withParent)
+        public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
             var mocks = new MockRepository();
@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
             };
 
-            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+            CalculationGroup parent = hasParent ? new CalculationGroup() : null;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -81,7 +81,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
-        [TestFixture]
+        [TestFixture(true)]
+        [TestFixture(false)]
         private class MacroStabilityInwardsCalculationGroupContextEqualsTest
             : EqualsTestFixture<MacroStabilityInwardsCalculationGroupContext, DerivedMacroStabilityInwardsCalculationGroupContext>
         {
@@ -91,8 +92,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             private static readonly IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines = new MacroStabilityInwardsSurfaceLine[0];
             private static readonly IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels = new MacroStabilityInwardsStochasticSoilModel[0];
             private static readonly MacroStabilityInwardsFailureMechanism failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            private static readonly CalculationGroup parent = new CalculationGroup();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
+
+            private static CalculationGroup parent;
 
             [SetUp]
             public void SetUp()
@@ -104,6 +106,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             public void TearDown()
             {
                 mocks.VerifyAll();
+            }
+
+            public MacroStabilityInwardsCalculationGroupContextEqualsTest(bool hasParent)
+            {
+                parent = hasParent ? new CalculationGroup() : null;
             }
 
             protected override MacroStabilityInwardsCalculationGroupContext CreateObject()
