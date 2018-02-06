@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryConfig.cs" />
+    <Compile Include="Calculators\Assessments\FailureMechanismSectionAssessmentAssemblyCalculatorStub.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorStub.cs" />
     <Compile Include="Calculators\TestAssemblyToolCalculatorFactory.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactoryConfig.cs" />
