@@ -20,7 +20,7 @@
     <Compile Include="AssemblyTool\AssemblyCategoryInput.cs" />
     <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategory.cs" />
     <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategoryGroup.cs" />
-    <Compile Include="AssemblyTool\FailureMechanismSectionAssemblyAssessment.cs" />
+    <Compile Include="AssemblyTool\FailureMechanismSectionAssessment.cs" />
     <Compile Include="AssemblyTool\FailureMechanismSectionAssemblyCategoryGroup.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionComposition.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionExtensions.cs" />

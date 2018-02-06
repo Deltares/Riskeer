@@ -22,28 +22,28 @@
 namespace Ringtoets.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Assembly assessment for failure mechanism section.
+    /// Assessment for failure mechanism section.
     /// </summary>
-    public class FailureMechanismSectionAssemblyAssessment
+    public class FailureMechanismSectionAssessment
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyAssessment"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssessment"/>.
         /// </summary>
         /// <param name="probability">The probability of the assembly assessment.</param>
         /// <param name="group">The group of the assembly assessment.</param>
-        public FailureMechanismSectionAssemblyAssessment(double probability, FailureMechanismSectionAssemblyCategoryGroup group)
+        public FailureMechanismSectionAssessment(double probability, FailureMechanismSectionAssemblyCategoryGroup group)
         {
             Probability = probability;
             Group = group;
         }
 
         /// <summary>
-        /// Gets the probability of the assembly assessment.
+        /// Gets the probability of the assessment.
         /// </summary>
         public double Probability { get; }
 
         /// <summary>
-        /// Gets the group of the assembly assessment.
+        /// Gets the group of the assessment.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup Group { get; }
     }
