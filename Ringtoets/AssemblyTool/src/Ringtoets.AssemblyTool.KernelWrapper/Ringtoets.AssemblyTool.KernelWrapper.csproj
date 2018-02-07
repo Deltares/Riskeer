@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\Assessments\FailureMechanismSectionAssessmentAssemblyCalculator.cs" />
+    <Compile Include="Calculators\Assessments\FailureMechanismSectionAssessmentAssemblyCalculatorException.cs" />
     <Compile Include="Calculators\Assessments\IFailureMechanismSectionAssessmentAssemblyCalculator.cs" />
     <Compile Include="Calculators\AssemblyToolCalculatorFactory.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculator.cs" />
