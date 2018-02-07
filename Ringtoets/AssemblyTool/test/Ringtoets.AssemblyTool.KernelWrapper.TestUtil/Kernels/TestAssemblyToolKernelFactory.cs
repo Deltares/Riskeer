@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using AssemblyTool.Kernel.Assembly;
 using AssemblyTool.Kernel.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assessments;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
@@ -36,16 +38,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
         public TestAssemblyToolKernelFactory()
         {
             LastCreatedAssemblyCategoriesKernel = new AssemblyCategoriesKernelStub();
+            LastCreatedFailureMechanismSectionAssessmentAssemblyKernel = new FailureMechanismSectionAssessmentAssemblyKernelStub();
         }
 
         /// <summary>
-        /// The last created assembly categories kernel.
+        /// Gets the last created assembly categories kernel.
         /// </summary>
         public AssemblyCategoriesKernelStub LastCreatedAssemblyCategoriesKernel { get; }
+
+        /// <summary>
+        /// Gets the last created failure mechanism section assessment assembly kernel.
+        /// </summary>
+        public FailureMechanismSectionAssessmentAssemblyKernelStub LastCreatedFailureMechanismSectionAssessmentAssemblyKernel { get; }
 
         public ICategoriesCalculator CreateAssemblyCategoriesKernel()
         {
             return LastCreatedAssemblyCategoriesKernel;
+        }
+
+        public IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyKernel()
+        {
+            return LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
         }
     }
 }

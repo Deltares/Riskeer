@@ -21,6 +21,7 @@
     <Compile Include="Calculators\Assessments\FailureMechanismSectionAssessmentAssemblyCalculatorStubTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorStubTest.cs" />
     <Compile Include="Calculators\TestAssemblyToolCalculatorFactoryTest.cs" />
+    <Compile Include="Kernels\Assessments\FailureMechanismSectionAssessmentAssemblyKernelStubTest.cs" />
     <Compile Include="Kernels\Categories\AssemblyCategoriesKernelStubTest.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactoryConfigTest.cs" />
     <Compile Include="Kernels\TestAssemblyToolKernelFactoryTest.cs" />

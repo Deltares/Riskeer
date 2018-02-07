@@ -20,6 +20,7 @@
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorStub.cs" />
     <Compile Include="Calculators\TestAssemblyToolCalculatorFactory.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactoryConfig.cs" />
+    <Compile Include="Kernels\Assessments\FailureMechanismSectionAssessmentAssemblyKernelStub.cs" />
     <Compile Include="Kernels\Categories\AssemblyCategoriesKernelStub.cs" />
     <Compile Include="Kernels\TestAssemblyToolKernelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

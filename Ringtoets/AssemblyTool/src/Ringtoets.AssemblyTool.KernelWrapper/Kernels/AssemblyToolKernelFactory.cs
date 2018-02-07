@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using AssemblyTool.Kernel.Assembly;
 using AssemblyTool.Kernel.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
@@ -47,6 +48,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
         public ICategoriesCalculator CreateAssemblyCategoriesKernel()
         {
             return new CategoriesCalculator();
+        }
+
+        public IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyKernel()
+        {
+            return new FailureMechanismSectionAssemblyCalculator();
         }
     }
 }
