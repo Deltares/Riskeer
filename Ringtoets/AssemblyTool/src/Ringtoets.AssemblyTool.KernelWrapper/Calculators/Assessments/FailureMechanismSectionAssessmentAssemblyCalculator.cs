@@ -20,6 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using AssemblyTool.Kernel;
+using AssemblyTool.Kernel.Assembly;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
+using AssemblyTool.Kernel.Data.CalculationResults;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -31,7 +36,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
     /// </summary>
     public class FailureMechanismSectionAssessmentAssemblyCalculator : IFailureMechanismSectionAssessmentAssemblyCalculator
     {
-        private IAssemblyToolKernelFactory factory;
+        private readonly IAssemblyToolKernelFactory factory;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionAssessmentAssemblyCalculator"/>.
@@ -44,17 +49,89 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
             {
                 throw new ArgumentNullException(nameof(factory));
             }
+
             this.factory = factory;
         }
 
         public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
-            throw new System.NotImplementedException();
+            IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+            CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
+                ConvertSimpleAssessmentResultType(input));
+
+            return ConvertFailureMechanismSectionAssemblyCategoryResult(output.Result);
         }
 
         public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        private static FailureMechanismSectionAssessment ConvertFailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionAssemblyCategoryResult result)
+        {
+            FailureMechanismSectionAssemblyCategoryGroup group;
+            FailureMechanismSectionCategoryGroup originalGroup = result.CategoryGroup;
+
+            if (!Enum.IsDefined(typeof(FailureMechanismSectionCategoryGroup), originalGroup))
+            {
+                throw new InvalidEnumArgumentException(nameof(originalGroup),
+                                                       (int) originalGroup,
+                                                       typeof(FailureMechanismSectionCategoryGroup));
+            }
+
+            switch (originalGroup)
+            {
+                case FailureMechanismSectionCategoryGroup.Iv:
+                    group = FailureMechanismSectionAssemblyCategoryGroup.Iv;
+                    break;
+                case FailureMechanismSectionCategoryGroup.IIv:
+                    group = FailureMechanismSectionAssemblyCategoryGroup.IIv;
+                    break;
+                case FailureMechanismSectionCategoryGroup.IIIv:
+                    group = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
+                    break;
+                case FailureMechanismSectionCategoryGroup.IVv:
+                    group = FailureMechanismSectionAssemblyCategoryGroup.IVv;
+                    break;
+                case FailureMechanismSectionCategoryGroup.Vv:
+                    group = FailureMechanismSectionAssemblyCategoryGroup.Vv;
+                    break;
+                case FailureMechanismSectionCategoryGroup.VIv:
+                    group = FailureMechanismSectionAssemblyCategoryGroup.VIv;
+                    break;
+                case FailureMechanismSectionCategoryGroup.VIIv:
+                    group = FailureMechanismSectionAssemblyCategoryGroup.VIIv;
+                    break;
+                case FailureMechanismSectionCategoryGroup.None:
+                    group = FailureMechanismSectionAssemblyCategoryGroup.None;
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return new FailureMechanismSectionAssessment(result.EstimatedProbabilityOfFailure.Value, group);
+        }
+
+        private static SimpleCalculationResult ConvertSimpleAssessmentResultType(SimpleAssessmentResultType resultType)
+        {
+            if (!Enum.IsDefined(typeof(SimpleAssessmentResultType), resultType))
+            {
+                throw new InvalidEnumArgumentException(nameof(resultType),
+                                                       (int) resultType,
+                                                       typeof(SimpleAssessmentResultType));
+            }
+
+            switch (resultType)
+            {
+                case SimpleAssessmentResultType.NotApplicable:
+                    return SimpleCalculationResult.NVT;
+                case SimpleAssessmentResultType.ProbabilityNegligible:
+                    return SimpleCalculationResult.FV;
+                case SimpleAssessmentResultType.AssessFurther:
+                    return SimpleCalculationResult.VB;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }
