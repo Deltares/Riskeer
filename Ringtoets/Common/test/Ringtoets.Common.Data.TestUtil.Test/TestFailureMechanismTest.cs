@@ -22,8 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -79,35 +81,63 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void AddSection_WithNullSection_ThrowsArgumentNullException()
+        public void AddSection_WithSection_AddedSectionResultAndNotifiesObserver()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism();
+            failureMechanism.SectionResults.Attach(observer);
 
             // Call
-            TestDelegate test = () => failureMechanism.AddSection(null);
+            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+            {
+                new Point2D(2, 1)
+            }));
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsInstanceOf<TestFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void AddSection_WithSection_AddsSectionAsResult()
+        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsClearedAndNotifiesObserver()
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism();
-            var section = new FailureMechanismSection("name", new[]
+
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
             {
-                new Point2D(0, 0)
-            });
+                new Point2D(2, 1)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+
+            failureMechanism.SectionResults.Attach(observer);
+
+            // Precondition
+            Assert.AreEqual(2, failureMechanism.Sections.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
-            failureMechanism.AddSection(section);
+            failureMechanism.ClearAllSections();
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.AreSame(section, failureMechanism.SectionResults.ElementAt(0).Section);
+            Assert.AreEqual(0, failureMechanism.Sections.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+            mocks.VerifyAll();
         }
     }
 }
