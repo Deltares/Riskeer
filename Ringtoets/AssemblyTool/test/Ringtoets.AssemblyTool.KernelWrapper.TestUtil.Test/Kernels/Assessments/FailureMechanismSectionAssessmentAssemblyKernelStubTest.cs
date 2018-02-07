@@ -45,6 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assessments
             Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculator>(kernel);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsInput);
+            Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsValidityOnlyInput);
         }
 
         [Test]
@@ -118,16 +119,73 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assessments
         }
 
         [Test]
-        public void SimpleAssessmentDirectFailureMechanismsValidityOnly_Always_ThrowNotImplementedException()
+        public void SimpleAssessmentDirectFailureMechanismsValidityOnly_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = random.NextEnumValue<SimpleCalculationResultValidityOnly>();
+
+            var kernel = new FailureMechanismSectionAssessmentAssemblyKernelStub();
+
+            // Call
+            kernel.SimpleAssessmentDirectFailureMechanisms(input);
+
+            // Assert
+            Assert.AreEqual(input, kernel.SimpleAssessmentFailureMechanismsValidityOnlyInput);
+        }
+
+        [Test]
+        public void SimpleAssessmentDirectFailureMechanismsValidityOnly_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
         {
             // Setup
             var kernel = new FailureMechanismSectionAssessmentAssemblyKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            kernel.SimpleAssessmentDirectFailureMechanisms((SimpleCalculationResultValidityOnly) 0);
+
+            // Assert
+            Assert.IsTrue(kernel.Calculated);
+        }
+
+        [Test]
+        public void SimpleAssessmentDirectFailureMechanismsValidityOnly_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        {
+            // Setup
+            var kernel = new FailureMechanismSectionAssessmentAssemblyKernelStub
+            {
+                FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.IIIv, Probability.NaN))
+            };
+
+            // Call
+            CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> result = kernel.SimpleAssessmentDirectFailureMechanisms((SimpleCalculationResultValidityOnly) 0);
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionAssemblyCategoryResult, result);
+        }
+
+        [Test]
+        public void SimpleAssessmentDirectFailureMechanismsValidityOnly_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var kernel = new FailureMechanismSectionAssessmentAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
 
             // Call
             TestDelegate test = () => kernel.SimpleAssessmentDirectFailureMechanisms((SimpleCalculationResultValidityOnly) 0);
 
             // Assert
-            Assert.Throws<NotImplementedException>(test);
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryResult);
         }
 
         [Test]

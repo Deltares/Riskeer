@@ -39,6 +39,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assessments
         public SimpleCalculationResult? SimpleAssessmentFailureMechanismsInput { get; private set; }
 
         /// <summary>
+        /// Gets the input used in <see cref="SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResultValidityOnly)"/>.
+        /// </summary>
+        public SimpleCalculationResultValidityOnly? SimpleAssessmentFailureMechanismsValidityOnlyInput { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating whether a calculation was called or not.
         /// </summary>
         public bool Calculated { get; private set; }
@@ -72,7 +77,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assessments
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResultValidityOnly result)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            SimpleAssessmentFailureMechanismsValidityOnlyInput = result;
+            Calculated = true;
+            return FailureMechanismSectionAssemblyCategoryResult;
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationResult result)
