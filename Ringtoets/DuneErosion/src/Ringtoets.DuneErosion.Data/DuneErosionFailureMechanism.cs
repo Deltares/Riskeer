@@ -33,13 +33,15 @@ namespace Ringtoets.DuneErosion.Data
     /// </summary>
     public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResult>
     {
+        private readonly ObservableList<DuneErosionFailureMechanismSectionResult> sectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.
         /// </summary>
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
         {
-            SectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocations = new ObservableList<DuneLocation>();
         }
@@ -62,21 +64,27 @@ namespace Ringtoets.DuneErosion.Data
         /// </summary>
         public ObservableList<DuneLocation> DuneLocations { get; }
 
-        public ObservableList<DuneErosionFailureMechanismSectionResult> SectionResults { get; }
+        public IObservableEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
 
-            SectionResults.Add(new DuneErosionFailureMechanismSectionResult(section));
-            SectionResults.NotifyObservers();
+            sectionResults.Add(new DuneErosionFailureMechanismSectionResult(section));
+            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
-            SectionResults.Clear();
-            SectionResults.NotifyObservers();
+            sectionResults.Clear();
+            sectionResults.NotifyObservers();
         }
     }
 }

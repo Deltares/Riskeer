@@ -38,13 +38,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase,
                                                              IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
+        private readonly ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism()
             : base(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionOutwardsFailureMechanism_Code)
         {
-            SectionResults = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
@@ -82,20 +84,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults { get; }
+        public IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults => sectionResults;
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-            SectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
-            SectionResults.NotifyObservers();
+            sectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
+            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
-            SectionResults.Clear();
-            SectionResults.NotifyObservers();
+            sectionResults.Clear();
+            sectionResults.NotifyObservers();
         }
     }
 }

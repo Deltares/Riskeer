@@ -574,7 +574,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             var failureMechanismHasSectionResults = failureMechanism as IHasSectionResults<T>;
             if (failureMechanismHasSectionResults != null)
             {
-                Assert.AreEqual(sections.Count(), failureMechanismHasSectionResults.SectionResults.Count);
+                Assert.AreEqual(sections.Count(), failureMechanismHasSectionResults.SectionResults.Count());
             }
         }
 

@@ -38,6 +38,7 @@
     <Compile Include="Geometry\Segment2DCollectionExtensions.cs" />
     <Compile Include="Geometry\Segment2DExtensions.cs" />
     <Compile Include="Geometry\Segment2DIntersectSegment2DResult.cs" />
+    <Compile Include="IObservableEnumerable.cs" />
     <Compile Include="IO\CriticalFileReadException.cs" />
     <Compile Include="IO\FileImporterBase.cs" />
     <Compile Include="IO\OnProgressChanged.cs" />

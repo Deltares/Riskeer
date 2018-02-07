@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public ObservableList<TechnicalInnovationFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> SectionResults
         {
             get
             {

@@ -38,7 +38,7 @@ namespace Core.Common.Base.Test
 
             // Assert
             Assert.IsInstanceOf<List<object>>(observableList);
-            Assert.IsInstanceOf<IObservable>(observableList);
+            Assert.IsInstanceOf<IObservableEnumerable<object>>(observableList);
             CollectionAssert.IsEmpty(observableList.Observers);
         }
 

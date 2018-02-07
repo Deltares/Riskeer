@@ -27,11 +27,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// This interface describes methods for obtaining <see cref="FailureMechanismSectionResult"/> objects.
     /// </summary>
     /// <typeparam name="T">The type of the section results.</typeparam>
-    public interface IHasSectionResults<T> where T : FailureMechanismSectionResult
+    public interface IHasSectionResults<out T> where T : FailureMechanismSectionResult
     {
         /// <summary>
         /// Gets an <see cref="ObservableList{T}"/> of <see cref="FailureMechanismSectionResult"/>.
         /// </summary>
-        ObservableList<T> SectionResults { get; }
+        IObservableEnumerable<T> SectionResults { get; }
     }
 }

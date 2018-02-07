@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public ObservableList<PipingFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<PipingFailureMechanismSectionResult> SectionResults
         {
             get
             {

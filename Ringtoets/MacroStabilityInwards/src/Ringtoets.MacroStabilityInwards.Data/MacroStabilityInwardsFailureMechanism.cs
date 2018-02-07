@@ -32,7 +32,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// Model for performing macro stability inwards calculations.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>
+    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
+                                                         ICalculatableFailureMechanism,
+                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>
     {
         private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
 
@@ -79,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public ObservableList<MacroStabilityInwardsFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {

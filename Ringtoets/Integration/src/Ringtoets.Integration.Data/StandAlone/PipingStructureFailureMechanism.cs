@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public ObservableList<PipingStructureFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<PipingStructureFailureMechanismSectionResult> SectionResults
         {
             get
             {

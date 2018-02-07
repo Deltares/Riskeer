@@ -33,7 +33,8 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// macro stability outwards failure mechanism.
     /// </summary>
-    public class MacroStabilityOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>
+    public class MacroStabilityOutwardsFailureMechanism : FailureMechanismBase,
+                                                          IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>
     {
         private readonly ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult> sectionResults;
 
@@ -61,7 +62,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         /// </summary>
         public MacroStabilityOutwardsProbabilityAssessmentInput MacroStabilityOutwardsProbabilityAssessmentInput { get; }
 
-        public ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> SectionResults
         {
             get
             {
@@ -72,7 +73,6 @@ namespace Ringtoets.Integration.Data.StandAlone
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-
             sectionResults.Add(new MacroStabilityOutwardsFailureMechanismSectionResult(section));
         }
 

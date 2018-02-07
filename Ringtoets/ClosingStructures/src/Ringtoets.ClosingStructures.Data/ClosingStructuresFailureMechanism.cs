@@ -36,8 +36,12 @@ namespace Ringtoets.ClosingStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Closing Structures failure mechanism.
     /// </summary>
-    public class ClosingStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+    public class ClosingStructuresFailureMechanism : FailureMechanismBase,
+                                                     ICalculatableFailureMechanism,
+                                                     IHasSectionResults<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
     {
+        private readonly ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
         /// </summary>
@@ -50,7 +54,7 @@ namespace Ringtoets.ClosingStructures.Data
             };
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            SectionResults = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>();
+            sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -79,21 +83,27 @@ namespace Ringtoets.ClosingStructures.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> SectionResults { get; }
+        public IObservableEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
 
-            SectionResults.Add(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section));
-            SectionResults.NotifyObservers();
+            sectionResults.Add(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section));
+            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
-            SectionResults.Clear();
-            SectionResults.NotifyObservers();
+            sectionResults.Clear();
+            sectionResults.NotifyObservers();
         }
     }
 }

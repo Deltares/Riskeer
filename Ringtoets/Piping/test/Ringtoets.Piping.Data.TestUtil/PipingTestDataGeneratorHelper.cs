@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
             int sectionsCount = sections.Count();
             Assert.AreEqual(2, sectionsCount);
-            Assert.AreEqual(sectionsCount, failureMechanism.SectionResults.Count);
+            Assert.AreEqual(sectionsCount, failureMechanism.SectionResults.Count());
         }
 
         private static void AssertPipingCalculationGroupWithOutput(IEnumerable<PipingCalculation> children)

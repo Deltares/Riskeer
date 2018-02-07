@@ -83,7 +83,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// </summary>
         public CalculationGroup WaveConditionsCalculationGroup { get; }
 
-        public ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
         {
             get
             {

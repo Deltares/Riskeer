@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         {
             // Setup
             var mocks = new MockRepository();
-            var observer = mocks.Stub<IObserver>();
+            var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count);
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
             mocks.VerifyAll();
         }
@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         {
             // Setup
             var mocks = new MockRepository();
-            var observer = mocks.Stub<IObserver>();
+            var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
@@ -95,14 +95,14 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
-            Assert.AreEqual(2, failureMechanism.SectionResults.Count);
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
-            Assert.AreEqual(0, failureMechanism.SectionResults.Count);
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
             mocks.ReplayAll();
         }
     }

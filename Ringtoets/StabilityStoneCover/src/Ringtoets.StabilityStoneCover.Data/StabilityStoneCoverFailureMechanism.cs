@@ -76,7 +76,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public ObservableList<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
         {
             get
             {

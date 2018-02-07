@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public ObservableList<MicrostabilityFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<MicrostabilityFailureMechanismSectionResult> SectionResults
         {
             get
             {
@@ -64,7 +64,6 @@ namespace Ringtoets.Integration.Data.StandAlone
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-
             sectionResults.Add(new MicrostabilityFailureMechanismSectionResult(section));
         }
 

@@ -33,8 +33,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Model for performing grass cover erosion inwards calculations.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase,
+                                                            ICalculatableFailureMechanism,
+                                                            IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
+        private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
         /// </summary>
@@ -46,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            SectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>();
             DikeProfiles = new DikeProfileCollection();
         }
 
@@ -70,21 +74,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults { get; }
+        public IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
 
-            SectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
-            SectionResults.NotifyObservers();
+            sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
+            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
-            SectionResults.Clear();
-            SectionResults.NotifyObservers();
+            sectionResults.Clear();
+            sectionResults.NotifyObservers();
         }
     }
 }

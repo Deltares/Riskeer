@@ -855,7 +855,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData<FailureMechanismResultView<TResult>, TResult>,
+                CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
@@ -975,9 +975,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region FailureMechanismResults ViewInfo
 
-        private static bool CloseFailureMechanismResultViewForData<TView, TSectionResult>(TView view, object dataToCloseFor)
-            where TView : IView
-            where TSectionResult : FailureMechanismSectionResult
+        private static bool CloseFailureMechanismResultViewForData<T>(T view, object dataToCloseFor) where T : IView
         {
             object viewData = view.Data;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
@@ -988,7 +986,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 return assessmentSection
                        .GetFailureMechanisms()
-                       .OfType<IHasSectionResults<TSectionResult>>()
+                       .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
                        .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
             }
 
@@ -997,7 +995,7 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<TSectionResult>;
+            var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
 
             return failureMechanism != null &&
                    failureMechanismWithSectionResults != null &&

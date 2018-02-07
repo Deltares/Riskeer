@@ -32,7 +32,8 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Strength and Stability of Lengthwise Constructions failure mechanism.
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
+    public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase,
+                                                                           IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
     {
         private readonly ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults;
 
@@ -53,7 +54,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> SectionResults
         {
             get
             {

@@ -36,7 +36,9 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase,
+                                                            ICalculatableFailureMechanism,
+                                                            IHasSectionResults<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
     {
         private readonly ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults;
 
@@ -81,7 +83,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> SectionResults
+        public IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> SectionResults
         {
             get
             {

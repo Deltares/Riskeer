@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Data.TestUtil
 
         public override IEnumerable<ICalculation> Calculations { get; }
 
-        public ObservableList<FailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<FailureMechanismSectionResult> SectionResults
         {
             get
             {

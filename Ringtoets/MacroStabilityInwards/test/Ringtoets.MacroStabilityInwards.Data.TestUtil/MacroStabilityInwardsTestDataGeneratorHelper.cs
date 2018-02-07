@@ -90,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
             int sectionsCount = sections.Count();
             Assert.AreEqual(2, sectionsCount);
-            Assert.AreEqual(sectionsCount, failureMechanism.SectionResults.Count);
+            Assert.AreEqual(sectionsCount, failureMechanism.SectionResults.Count());
         }
 
         private static void AssertCalculationGroupWithOutput(IEnumerable<MacroStabilityInwardsCalculation> children)

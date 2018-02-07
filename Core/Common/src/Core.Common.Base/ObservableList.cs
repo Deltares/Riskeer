@@ -29,7 +29,7 @@ namespace Core.Common.Base
     /// Class that extends the <see cref="List{T}"/> class with an implementation of <see cref="IObservable"/>.
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
-    public class ObservableList<T> : List<T>, IObservable
+    public class ObservableList<T> : List<T>, IObservableEnumerable<T>
     {
         /// <summary>
         /// The observers that are attached.
