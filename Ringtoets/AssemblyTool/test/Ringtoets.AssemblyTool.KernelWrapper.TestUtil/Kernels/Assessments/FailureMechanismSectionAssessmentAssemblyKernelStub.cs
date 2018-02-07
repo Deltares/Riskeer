@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.Assembly;
 using AssemblyTool.Kernel.Assembly.CalculatorInput;
@@ -32,79 +33,106 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assessments
     /// </summary>
     public class FailureMechanismSectionAssessmentAssemblyKernelStub : IFailureMechanismSectionAssemblyCalculator
     {
+        /// <summary>
+        /// Gets the input used in <see cref="SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResult)"/>.
+        /// </summary>
+        public SimpleCalculationResult? SimpleAssessmentFailureMechanismsInput { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether a calculation was called or not.
+        /// </summary>
+        public bool Calculated { get; private set; }
+
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing a calculation.
+        /// </summary>
+        public bool ThrowExceptionOnCalculate { private get; set; }
+
+        /// <summary>
+        /// Gets or sets the failure mechanism section assembly category result.
+        /// </summary>
+        public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> FailureMechanismSectionAssemblyCategoryResult { get; set; }
+
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResult result)
         {
-            throw new System.NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            SimpleAssessmentFailureMechanismsInput = result;
+            Calculated = true;
+            return FailureMechanismSectionAssemblyCategoryResult;
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> SimpleAssessmentIndirectFailureMechanisms(SimpleCalculationResult result)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResultValidityOnly result)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationResult result)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentIndirectFailureMechanisms(DetailedCalculationResult result)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbability input)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentDirectFailureMechanisms(DetailedCategoryBoundariesCalculationResult calculationResults)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbabilityWithLengthEffect input)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationResult result)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> TailorMadeAssessmentIndirectFailureMechanisms(TailorMadeCalculationResult result)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationInputFromProbability input)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCategoryCalculationResult result)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor input)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup resultSimpleAssessment, FailureMechanismSectionCategoryGroup resultDetailedAssessment, FailureMechanismSectionCategoryGroup resultTailorMadeAssessment)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult resultSimpleAssessment, FailureMechanismSectionAssemblyCategoryResult resultDetailedAssessment, FailureMechanismSectionAssemblyCategoryResult resultTailorMadeAssessment)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

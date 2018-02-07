@@ -20,8 +20,13 @@
 // All rights reserved.
 
 using System;
+using AssemblyTool.Kernel;
+using AssemblyTool.Kernel.Assembly;
 using AssemblyTool.Kernel.Assembly.CalculatorInput;
+using AssemblyTool.Kernel.Data;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
 using AssemblyTool.Kernel.Data.CalculationResults;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assessments;
 
@@ -31,16 +36,85 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assessments
     public class FailureMechanismSectionAssessmentAssemblyKernelStubTest
     {
         [Test]
-        public void SimpleAssessmentDirectFailureMechanisms_Always_ThrowNotImplementedException()
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var kernel = new FailureMechanismSectionAssessmentAssemblyKernelStub();
+
+            // Assert
+            Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculator>(kernel);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsInput);
+        }
+
+        [Test]
+        public void SimpleAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = random.NextEnumValue<SimpleCalculationResult>();
+
+            var kernel = new FailureMechanismSectionAssessmentAssemblyKernelStub();
+
+            // Call
+            kernel.SimpleAssessmentDirectFailureMechanisms(input);
+
+            // Assert
+            Assert.AreEqual(input, kernel.SimpleAssessmentFailureMechanismsInput);
+        }
+
+        [Test]
+        public void SimpleAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
         {
             // Setup
             var kernel = new FailureMechanismSectionAssessmentAssemblyKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            kernel.SimpleAssessmentDirectFailureMechanisms((SimpleCalculationResult) 0);
+
+            // Assert
+            Assert.IsTrue(kernel.Calculated);
+        }
+
+        [Test]
+        public void SimpleAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        {
+            // Setup
+            var kernel = new FailureMechanismSectionAssessmentAssemblyKernelStub
+            {
+                FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.IIIv, Probability.NaN))
+            };
+
+            // Call
+            CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> result = kernel.SimpleAssessmentDirectFailureMechanisms((SimpleCalculationResult) 0);
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionAssemblyCategoryResult, result);
+        }
+
+        [Test]
+        public void SimpleAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var kernel = new FailureMechanismSectionAssessmentAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
 
             // Call
             TestDelegate test = () => kernel.SimpleAssessmentDirectFailureMechanisms((SimpleCalculationResult) 0);
 
             // Assert
-            Assert.Throws<NotImplementedException>(test);
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryResult);
         }
 
         [Test]
