@@ -41,6 +41,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
         /// </summary>
         /// <param name="input">The <see cref="SimpleAssessmentResultType"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssessment"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssessmentAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultType input);
 
         /// <summary>

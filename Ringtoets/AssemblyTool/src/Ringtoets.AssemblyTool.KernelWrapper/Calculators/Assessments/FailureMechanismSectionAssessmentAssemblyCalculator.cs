@@ -56,11 +56,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
 
         public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
-            IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-            CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
-                FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult(input));
+            try
+            {
+                IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult(input));
 
-            return FailureMechanismSectionAssessmentCreator.Create(output.Result);
+                return FailureMechanismSectionAssessmentCreator.Create(output.Result);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssessmentAssemblyCalculatorException(e.Message, e);
+            }
         }
 
         public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
