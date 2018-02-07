@@ -94,14 +94,15 @@ namespace Ringtoets.StabilityPointStructures.Data
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-
             sectionResults.Add(new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section));
+            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
+            sectionResults.NotifyObservers();
         }
     }
 }
