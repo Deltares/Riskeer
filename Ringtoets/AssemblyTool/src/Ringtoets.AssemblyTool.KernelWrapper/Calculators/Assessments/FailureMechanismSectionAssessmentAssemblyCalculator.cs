@@ -58,7 +58,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
         {
             IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
             CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
-                ConvertSimpleAssessmentResultType(input));
+                FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult(input));
 
             return FailureMechanismSectionAssessmentCreator.Create(output.Result);
         }
@@ -66,28 +66,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
         public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
         {
             throw new NotImplementedException();
-        }
-
-        private static SimpleCalculationResult ConvertSimpleAssessmentResultType(SimpleAssessmentResultType resultType)
-        {
-            if (!Enum.IsDefined(typeof(SimpleAssessmentResultType), resultType))
-            {
-                throw new InvalidEnumArgumentException(nameof(resultType),
-                                                       (int) resultType,
-                                                       typeof(SimpleAssessmentResultType));
-            }
-
-            switch (resultType)
-            {
-                case SimpleAssessmentResultType.NotApplicable:
-                    return SimpleCalculationResult.NVT;
-                case SimpleAssessmentResultType.ProbabilityNegligible:
-                    return SimpleCalculationResult.FV;
-                case SimpleAssessmentResultType.AssessFurther:
-                    return SimpleCalculationResult.VB;
-                default:
-                    throw new NotSupportedException();
-            }
         }
     }
 }
