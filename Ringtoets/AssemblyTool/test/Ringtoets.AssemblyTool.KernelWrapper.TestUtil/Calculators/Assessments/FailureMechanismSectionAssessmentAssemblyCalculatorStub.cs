@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -45,8 +46,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
         /// </summary>
         public SimpleAssessmentResultValidityOnlyType SimpleAssessmentValidityOnlyInput { get; private set; }
 
+        /// <summary>
+        /// Indicator whether an exception must be thrown when performing a calculation.
+        /// </summary>
+        public bool ThrowExceptionOnCalculate { private get; set; }
+
         public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssessmentAssemblyCalculatorException("Message", new Exception());
+            }
+
             SimpleAssessmentInput = input;
 
             return SimpleAssessmentAssemblyOutput ??
@@ -55,6 +66,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
 
         public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
         {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssessmentAssemblyCalculatorException("Message", new Exception());
+            }
+
             SimpleAssessmentValidityOnlyInput = input;
 
             return SimpleAssessmentAssemblyOutput ??

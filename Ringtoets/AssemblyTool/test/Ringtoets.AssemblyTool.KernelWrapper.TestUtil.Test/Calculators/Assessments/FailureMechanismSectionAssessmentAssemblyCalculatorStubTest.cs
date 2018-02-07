@@ -42,7 +42,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         }
 
         [Test]
-        public void AssembleSimpleAssessment_OutputNotSet_ReturnOutput()
+        public void AssembleSimpleAssessment_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
@@ -56,7 +56,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         }
 
         [Test]
-        public void AssembleSimpleAssessment_OutputSet_ReturnOutput()
+        public void AssembleSimpleAssessment_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
@@ -72,7 +72,39 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         }
 
         [Test]
-        public void AssembleSimpleAssessmentValidityOnly_OutputNotSet_ReturnOutput()
+        public void AssembleSimpleAssessment_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            const SimpleAssessmentResultType input = SimpleAssessmentResultType.None;
+            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleSimpleAssessment(input);
+
+            // Assert
+            Assert.AreEqual(input, calculator.SimpleAssessmentInput);
+        }
+
+        [Test]
+        public void AssembleSimpleAssessment_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        {
+            // Setup
+            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultType) 0);
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
@@ -86,7 +118,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         }
 
         [Test]
-        public void AssembleSimpleAssessmentValidityOnly_OutputSet_ReturnOutput()
+        public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
@@ -102,21 +134,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         }
 
         [Test]
-        public void AssembleSimpleAssessment_Always_SetsInput()
-        {
-            // Setup
-            const SimpleAssessmentResultType input = SimpleAssessmentResultType.None;
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
-
-            // Call
-            calculator.AssembleSimpleAssessment(input);
-
-            // Assert
-            Assert.AreEqual(input, calculator.SimpleAssessmentInput);
-        }
-
-        [Test]
-        public void AssembleSimpleAssessmentValidityOnly_Always_SetsInput()
+        public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateFalse_SetsInput()
         {
             // Setup
             const SimpleAssessmentResultValidityOnlyType input = SimpleAssessmentResultValidityOnlyType.None;
@@ -127,6 +145,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
 
             // Assert
             Assert.AreEqual(input, calculator.SimpleAssessmentValidityOnlyInput);
+        }
+
+        [Test]
+        public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        {
+            // Setup
+            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultValidityOnlyType) 0);
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
         }
     }
 }
