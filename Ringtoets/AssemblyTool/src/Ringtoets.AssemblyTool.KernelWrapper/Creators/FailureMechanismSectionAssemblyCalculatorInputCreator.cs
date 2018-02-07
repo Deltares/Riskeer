@@ -62,5 +62,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     throw new NotSupportedException();
             }
         }
+
+        /// <summary>
+        /// Creates <see cref="SimpleCalculationResultValidityOnly"/> based on the given <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="SimpleAssessmentResultValidityOnlyType"/> to create the result for.</param>
+        /// <returns>The created <see cref="SimpleCalculationResultValidityOnly"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SimpleAssessmentResultValidityOnlyType"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="SimpleAssessmentResultValidityOnlyType"/>
+        /// is a valid value, but unsupported.</exception>
+        public static SimpleCalculationResultValidityOnly CreateSimplecalclCalculationResultValidityOnly(SimpleAssessmentResultValidityOnlyType input)
+        {
+            if (!Enum.IsDefined(typeof(SimpleAssessmentResultValidityOnlyType), input))
+            {
+                throw new InvalidEnumArgumentException(nameof(input),
+                                                       (int) input,
+                                                       typeof(SimpleAssessmentResultValidityOnlyType));
+            }
+
+            switch (input)
+            {
+                case SimpleAssessmentResultValidityOnlyType.NotApplicable:
+                    return SimpleCalculationResultValidityOnly.NVT;
+                case SimpleAssessmentResultValidityOnlyType.Applicable:
+                    return SimpleCalculationResultValidityOnly.WVT;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
     }
 }

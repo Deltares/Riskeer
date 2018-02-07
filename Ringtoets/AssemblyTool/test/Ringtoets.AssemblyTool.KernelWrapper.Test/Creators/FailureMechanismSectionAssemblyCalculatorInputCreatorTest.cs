@@ -66,5 +66,39 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Assert
             Assert.AreEqual(expectedResult, result);
         }
+
+        [Test]
+        public void CreateSimplecalclCalculationResultValidityOnly_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimplecalclCalculationResultValidityOnly((SimpleAssessmentResultValidityOnlyType) 99);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultValidityOnlyType'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void CreateSimplecalclCalculationResultValidityOnly_WithResultTypeNone_ThrowNotSupportedException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimplecalclCalculationResultValidityOnly(SimpleAssessmentResultValidityOnlyType.None);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(test);
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, SimpleCalculationResultValidityOnly.NVT)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, SimpleCalculationResultValidityOnly.WVT)]
+        public void CreateSimplecalclCalculationResultValidityOnly_ValidData_ReturnSimpleCalculationResultValidityOnly(SimpleAssessmentResultValidityOnlyType originalResult,
+                                                                                                                       SimpleCalculationResultValidityOnly expectedResult)
+        {
+            // Call
+            SimpleCalculationResultValidityOnly result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimplecalclCalculationResultValidityOnly(originalResult);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
     }
 }
