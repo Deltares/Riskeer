@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
@@ -55,7 +55,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         {
             if (ThrowExceptionOnCalculate)
             {
-                throw new AssemblyCategoriesCalculatorException("Message", new AssemblyCategoriesKernelWrapperException());
+                throw new AssemblyCategoriesCalculatorException("Message", new Exception());
             }
 
             SignalingNorm = signalingNorm;

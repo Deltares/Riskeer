@@ -28,7 +28,6 @@ using AssemblyTool.Kernel.Data;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
@@ -64,7 +63,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 
                 return AssessmentSectionAssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
             }
-            catch (AssemblyCategoriesKernelWrapperException e)
+            catch (Exception e)
             {
                 throw new AssemblyCategoriesCalculatorException(e.Message, e);
             }

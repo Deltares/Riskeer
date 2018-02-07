@@ -19,14 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
+using AssemblyTool.Kernel.Categories;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels.Categories
+namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
 {
-    [TestFixture]
-    public class AssemblyCategoriesKernelWrapperExceptionTest
-        : CustomExceptionDesignGuidelinesTestFixture<AssemblyCategoriesKernelWrapperException, Exception> {}
+    /// <summary>
+    /// Factory that creates the assembly tool kernels.
+    /// </summary>
+    public class AssemblyToolKernelFactory : IAssemblyToolKernelFactory
+    {
+        private static IAssemblyToolKernelFactory instance;
+
+        private AssemblyToolKernelFactory() {}
+
+        public static IAssemblyToolKernelFactory Instance
+        {
+            get
+            {
+                return instance ?? (instance = new AssemblyToolKernelFactory());
+            }
+            set
+            {
+                instance = value;
+            }
+        }
+
+        public ICategoriesCalculator CreateAssemblyCategoriesKernel()
+        {
+            return new CategoriesCalculator();
+        }
+    }
 }

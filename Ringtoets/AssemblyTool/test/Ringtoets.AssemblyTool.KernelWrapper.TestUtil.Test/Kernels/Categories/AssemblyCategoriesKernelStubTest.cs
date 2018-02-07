@@ -26,7 +26,6 @@ using AssemblyTool.Kernel.Categories.CalculatorInput;
 using AssemblyTool.Kernel.Data;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
@@ -97,7 +96,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsAssemblyCategoriesKernelWrapperException()
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsException()
         {
             // Setup
             var kernelStub = new AssemblyCategoriesKernelStub
@@ -112,7 +111,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             TestDelegate test = () => kernelStub.CalculateAssessmentSectionCategories(new CalculateAssessmentSectionCategoriesInput(new Probability(0), new Probability(0)));
 
             // Assert
-            var exception = Assert.Throws<AssemblyCategoriesKernelWrapperException>(test);
+            var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernelStub.Calculated);

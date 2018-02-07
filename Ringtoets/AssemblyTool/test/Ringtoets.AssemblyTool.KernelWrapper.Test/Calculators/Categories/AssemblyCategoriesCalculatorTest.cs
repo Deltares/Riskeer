@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 using Ringtoets.Common.Data.AssemblyTool;
@@ -76,7 +75,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelWrapperFactory.Instance;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.AssessmentSectionCategoriesOutput = CreateKernelOutput();
 
@@ -102,7 +101,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelWrapperFactory.Instance;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.AssessmentSectionCategoriesOutput = output;
 
@@ -117,7 +116,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_KernelThrowsAssemblyCategoriesKernelWrapperException_ThrowAssemblyCategoriesCalculatorException()
+        public void CalculateAssessmentSectionCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
         {
             // Setup
             var random = new Random(11);
@@ -126,7 +125,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelWrapperFactory.Instance;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
@@ -137,7 +136,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsInstanceOf<AssemblyCategoriesKernelWrapperException>(exception.InnerException);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
         }

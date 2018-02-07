@@ -41,13 +41,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
         }
 
         [Test]
-        public void Constructor_SetsTestFactoryForAssemblyToolKernelWrapperFactory()
+        public void Constructor_SetsTestFactoryForAssemblyToolKernelFactory()
         {
             // Call
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Assert
-                Assert.IsInstanceOf<TestAssemblyToolKernelFactory>(AssemblyToolKernelWrapperFactory.Instance);
+                Assert.IsInstanceOf<TestAssemblyToolKernelFactory>(AssemblyToolKernelFactory.Instance);
             }
         }
 
@@ -55,13 +55,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
         public void Dispose_Always_ResetsFactoryToPreviousValue()
         {
             // Setup
-            IAssemblyToolKernelFactory expectedFactory = AssemblyToolKernelWrapperFactory.Instance;
+            IAssemblyToolKernelFactory expectedFactory = AssemblyToolKernelFactory.Instance;
 
             // Call
             using (new AssemblyToolKernelFactoryConfig()) {}
 
             // Assert
-            Assert.AreSame(expectedFactory, AssemblyToolKernelWrapperFactory.Instance);
+            Assert.AreSame(expectedFactory, AssemblyToolKernelFactory.Instance);
         }
     }
 }

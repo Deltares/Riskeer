@@ -24,7 +24,6 @@ using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.Categories;
 using AssemblyTool.Kernel.Categories.CalculatorInput;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
-using Ringtoets.AssemblyTool.KernelWrapper.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 {
@@ -62,7 +61,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         {
             if (ThrowExceptionOnCalculate)
             {
-                throw new AssemblyCategoriesKernelWrapperException("Message", new Exception());
+                throw new Exception("Message", new Exception());
             }
 
 

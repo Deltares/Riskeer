@@ -71,7 +71,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateAssemblyCategoriesCalculator_WithKernelWrapperFactory_ReturnsAssemblyCategoriesCalculator()
+        public void CreateAssemblyCategoriesCalculator_WithKernelFactory_ReturnsAssemblyCategoriesCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -80,7 +80,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
             {
                 // Call
                 IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(
-                    AssemblyToolKernelWrapperFactory.Instance);
+                    AssemblyToolKernelFactory.Instance);
 
                 // Assert
                 Assert.IsInstanceOf<AssemblyCategoriesCalculator>(calculator);
@@ -88,7 +88,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssessmentAssemblyCalculator_WithKernelWrapperFactory_ReturnsFailureMechanismSectionAssessmentAssemblyCalculator()
+        public void CreateFailureMechanismSectionAssessmentAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismSectionAssessmentAssemblyCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -97,7 +97,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
             {
                 // Call
                 IFailureMechanismSectionAssessmentAssemblyCalculator calculator = factory.CreateFailureMechanismSectionAssessmentAssemblyCalculator(
-                    AssemblyToolKernelWrapperFactory.Instance);
+                    AssemblyToolKernelFactory.Instance);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionAssessmentAssemblyCalculator>(calculator);

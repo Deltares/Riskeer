@@ -26,8 +26,7 @@
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorTest.cs" />
     <Compile Include="Creators\AssessmentSectionAssemblyCategoryCreatorTest.cs" />
-    <Compile Include="Kernels\AssemblyToolKernelWrapperFactoryTest.cs" />
-    <Compile Include="Kernels\Categories\AssemblyCategoriesKernelWrapperExceptionTest.cs" />
+    <Compile Include="Kernels\AssemblyToolKernelFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

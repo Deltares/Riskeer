@@ -27,27 +27,27 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
 {
     [TestFixture]
-    public class AssemblyToolKernelWrapperFactoryTest
+    public class AssemblyToolKernelFactoryTest
     {
         [Test]
         public void Instance_Always_ReturnsAnInstance()
         {
             // Call
-            IAssemblyToolKernelFactory factory = AssemblyToolKernelWrapperFactory.Instance;
+            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
 
             // Assert
-            Assert.IsInstanceOf<AssemblyToolKernelWrapperFactory>(factory);
+            Assert.IsInstanceOf<AssemblyToolKernelFactory>(factory);
         }
 
         [Test]
         public void Instance_WhenSetToNull_ReturnsNewInstance()
         {
             // Setup
-            IAssemblyToolKernelFactory firstFactory = AssemblyToolKernelWrapperFactory.Instance;
-            AssemblyToolKernelWrapperFactory.Instance = null;
+            IAssemblyToolKernelFactory firstFactory = AssemblyToolKernelFactory.Instance;
+            AssemblyToolKernelFactory.Instance = null;
 
             // Call
-            IAssemblyToolKernelFactory secondFactory = AssemblyToolKernelWrapperFactory.Instance;
+            IAssemblyToolKernelFactory secondFactory = AssemblyToolKernelFactory.Instance;
 
             // Assert
             Assert.AreNotSame(firstFactory, secondFactory);
@@ -58,10 +58,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
         {
             // Setup
             var firstFactory = new TestAssemblyToolKernelFactory();
-            AssemblyToolKernelWrapperFactory.Instance = firstFactory;
+            AssemblyToolKernelFactory.Instance = firstFactory;
 
             // Call
-            IAssemblyToolKernelFactory secondFactory = AssemblyToolKernelWrapperFactory.Instance;
+            IAssemblyToolKernelFactory secondFactory = AssemblyToolKernelFactory.Instance;
 
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
@@ -71,7 +71,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateAssemblyCategoriesKernel_Always_ReturnsKernelCategoriesCalculator()
         {
             // Setup
-            IAssemblyToolKernelFactory factory = AssemblyToolKernelWrapperFactory.Instance;
+            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
 
             // Call
             ICategoriesCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();

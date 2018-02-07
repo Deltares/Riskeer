@@ -26,15 +26,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestAssemblyToolKernelFactory"/> 
-    /// for <see cref="AssemblyToolKernelWrapperFactory.Instance"/> while testing. 
-    /// Disposing an instance of this class will revert the <see cref="AssemblyToolKernelWrapperFactory.Instance"/>.
+    /// for <see cref="AssemblyToolKernelFactory.Instance"/> while testing. 
+    /// Disposing an instance of this class will revert the <see cref="AssemblyToolKernelFactory.Instance"/>.
     /// </summary>
     /// <example>
     /// The following is an example for how to use this class:
     /// <code>
     /// using(new AssemblyToolKernelFactoryConfig())
     /// {
-    ///     var testFactory = (TestAssemblyToolKernelFactory) AssemblyToolKernelWrapperFactory.Instance;
+    ///     var testFactory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
     /// 
     ///     // Perform tests with testFactory
     /// }
@@ -47,21 +47,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyToolKernelFactoryConfig"/>.
         /// Sets a <see cref="TestAssemblyToolKernelFactory"/> to 
-        /// <see cref="AssemblyToolKernelWrapperFactory.Instance"/>
+        /// <see cref="AssemblyToolKernelFactory.Instance"/>
         /// </summary>
         public AssemblyToolKernelFactoryConfig()
         {
-            previousFactory = AssemblyToolKernelWrapperFactory.Instance;
-            AssemblyToolKernelWrapperFactory.Instance = new TestAssemblyToolKernelFactory();
+            previousFactory = AssemblyToolKernelFactory.Instance;
+            AssemblyToolKernelFactory.Instance = new TestAssemblyToolKernelFactory();
         }
 
         /// <summary>
-        /// Reverts the <see cref="AssemblyToolKernelWrapperFactory.Instance"/> to the value
+        /// Reverts the <see cref="AssemblyToolKernelFactory.Instance"/> to the value
         /// it had at time of construction of the <see cref="AssemblyToolKernelFactoryConfig"/>.
         /// </summary>
         public void Dispose()
         {
-            AssemblyToolKernelWrapperFactory.Instance = previousFactory;
+            AssemblyToolKernelFactory.Instance = previousFactory;
         }
     }
 }

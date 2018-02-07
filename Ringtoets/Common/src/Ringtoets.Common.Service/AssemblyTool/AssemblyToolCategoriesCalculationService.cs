@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Service.AssemblyTool
         public static IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerBoundaryNorm)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
-                AssemblyToolKernelWrapperFactory.Instance);
+                AssemblyToolKernelFactory.Instance);
 
             try
             {
