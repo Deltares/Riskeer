@@ -105,7 +105,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
     }
 }

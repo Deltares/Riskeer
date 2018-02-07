@@ -97,12 +97,14 @@ namespace Ringtoets.Piping.Data
         {
             base.AddSection(section);
             sectionResults.Add(new PipingFailureMechanismSectionResult(section));
+            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
+            sectionResults.NotifyObservers();
         }
     }
 }
