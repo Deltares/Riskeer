@@ -117,5 +117,44 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             Assert.IsFalse(kernelStub.Calculated);
             Assert.IsNull(kernelStub.AssessmentSectionCategoriesOutput);
         }
+
+        [Test]
+        public void CalculateFailureMechanismCategories_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoriesKernelStub();
+
+            // Call
+            TestDelegate test = () => kernelStub.CalculateFailureMechanismCategories(null);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(test);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoriesKernelStub();
+
+            // Call
+            TestDelegate test = () => kernelStub.CalculateFailureMechanismSectionCategories(null);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(test);
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoriesKernelStub();
+
+            // Call
+            TestDelegate test = () => kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(null);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(test);
+        }
     }
 }
