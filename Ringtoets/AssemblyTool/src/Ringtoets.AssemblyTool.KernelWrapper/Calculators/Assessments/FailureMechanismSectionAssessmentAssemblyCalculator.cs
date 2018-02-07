@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.Assembly;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
-using AssemblyTool.Kernel.Data.CalculationResults;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
@@ -79,7 +77,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimplecalclCalculationResultValidityOnly(input));
 
                 return FailureMechanismSectionAssessmentCreator.Create(output.Result);
-
             }
             catch (Exception e)
             {
