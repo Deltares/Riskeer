@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
-            using (var view = new TechnicalInnovationResultView())
+            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new TechnicalInnovationResultView())
+            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -177,7 +177,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new TechnicalInnovationResultView())
+            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -205,7 +205,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new TechnicalInnovationResultView())
+            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -224,7 +224,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
 
-            using (var view = new TechnicalInnovationResultView())
+            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -242,7 +242,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
 
-            using (var view = new TechnicalInnovationResultView())
+            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -264,7 +264,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new TechnicalInnovationResultView())
+            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -283,12 +283,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.Expect(fm => fm.WrappedData).Return(new TechnicalInnovationFailureMechanism());
-
             mocks.ReplayAll();
 
-            using (var view = new TechnicalInnovationResultView())
+            var failureMechanism = new TechnicalInnovationFailureMechanism();
+
+            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults))
             {
-                var failureMechanism = new TechnicalInnovationFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call

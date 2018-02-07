@@ -85,7 +85,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -145,7 +145,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -173,7 +173,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -201,7 +201,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -220,7 +220,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -238,7 +238,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -261,7 +261,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -283,9 +283,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                                                                                             assessmentSection);
             mocks.ReplayAll();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults))
             {
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call

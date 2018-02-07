@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
-            using (var view = new MicrostabilityResultView())
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MicrostabilityResultView())
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -177,7 +177,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MicrostabilityResultView())
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -205,7 +205,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MicrostabilityResultView())
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -224,7 +224,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (var view = new MicrostabilityResultView())
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -242,7 +242,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (var view = new MicrostabilityResultView())
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -264,7 +264,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MicrostabilityResultView())
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -283,12 +283,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             failureMechanismContext.Expect(fm => fm.WrappedData).Return(new MicrostabilityFailureMechanism());
-
             mocks.ReplayAll();
 
-            using (var view = new MicrostabilityResultView())
+            var failureMechanism = new MicrostabilityFailureMechanism();
+
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults))
             {
-                var failureMechanism = new MicrostabilityFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call

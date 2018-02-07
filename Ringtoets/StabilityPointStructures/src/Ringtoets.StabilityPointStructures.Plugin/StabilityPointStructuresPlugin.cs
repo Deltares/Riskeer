@@ -109,7 +109,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
-                CreateInstance = context => new StabilityPointStructuresFailureMechanismResultView(context.AssessmentSection)
+                CreateInstance = context => new StabilityPointStructuresFailureMechanismResultView(
+                    context.AssessmentSection,
+                    ((StabilityPointStructuresFailureMechanism) context.FailureMechanism).SectionResults)
             };
 
             yield return new ViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>
@@ -286,14 +288,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<StabilityPointStructuresFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<StabilityPointStructuresFailureMechanism>()
+                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -523,9 +527,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             bool isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
 
             StructuresCalculation<StabilityPointStructuresInput>[] calculations = group
-                .GetCalculations()
-                .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
-                .ToArray();
+                                                                                  .GetCalculations()
+                                                                                  .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                  .ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -592,9 +596,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
 
             StructuresCalculation<StabilityPointStructuresInput>[] calculationsToUpdate = calculations
-                .Where(calc => calc.InputParameters.Structure != null
-                               && !calc.InputParameters.IsStructureInputSynchronized)
-                .ToArray();
+                                                                                          .Where(calc => calc.InputParameters.Structure != null
+                                                                                                         && !calc.InputParameters.IsStructureInputSynchronized)
+                                                                                          .ToArray();
 
             if (!calculationsToUpdate.Any())
             {
@@ -672,6 +676,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 };
                 calculations.Add(calculation);
             }
+
             StructuresHelper.UpdateCalculationToSectionResultAssignments(
                 failureMechanism.SectionResults,
                 failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());

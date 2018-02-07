@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
@@ -35,7 +37,12 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// <summary>
         /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionResultView"/>.
         /// </summary>
-        public StrengthStabilityLengthwiseConstructionResultView()
+        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
+        /// is <c>null</c>.</exception>
+        public StrengthStabilityLengthwiseConstructionResultView(
+            IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults)
+            : base(failureMechanismSectionResults)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
         }

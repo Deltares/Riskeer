@@ -87,7 +87,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            using (var view = new StabilityStoneCoverResultView())
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -148,7 +148,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView())
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -176,7 +176,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView())
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -204,7 +204,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView())
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -223,7 +223,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultView())
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -241,7 +241,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultView())
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -264,7 +264,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView())
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -286,9 +286,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
                                                                                          assessmentSection);
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView())
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
             {
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call

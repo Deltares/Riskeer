@@ -87,7 +87,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            using (var view = new DuneErosionFailureMechanismResultView())
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -148,7 +148,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new DuneErosionFailureMechanismResultView())
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -176,7 +176,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new DuneErosionFailureMechanismResultView())
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -205,7 +205,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new DuneErosionFailureMechanismResultView())
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -224,7 +224,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneErosionFailureMechanismResultView())
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -242,7 +242,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneErosionFailureMechanismResultView())
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -264,7 +264,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new DuneErosionFailureMechanismResultView())
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -285,10 +285,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
+            var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneErosionFailureMechanismResultView())
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults))
             {
-                var failureMechanism = new DuneErosionFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call

@@ -93,7 +93,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection))
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -125,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection)
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })
@@ -156,7 +156,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection)
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })
@@ -186,7 +186,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection)
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })
@@ -210,7 +210,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection)
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })
@@ -233,7 +233,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection)
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })
@@ -257,7 +257,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection)
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })
@@ -280,7 +280,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection)
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })

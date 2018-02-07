@@ -217,7 +217,9 @@ namespace Ringtoets.Piping.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
-                CreateInstance = context => new PipingFailureMechanismResultView(context.AssessmentSection)
+                CreateInstance = context => new PipingFailureMechanismResultView(
+                    context.AssessmentSection,
+                    ((PipingFailureMechanism) context.FailureMechanism).SectionResults)
             };
 
             yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>

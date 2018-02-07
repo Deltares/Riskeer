@@ -42,15 +42,26 @@ namespace Ringtoets.Common.Forms.Views
         private readonly List<Observer> failureMechanismSectionResultObservers;
         private readonly Observer failureMechanismObserver;
 
-        private IEnumerable<T> failureMechanismSectionResult;
+        private IObservableEnumerable<T> failureMechanismSectionResults;
         private IFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{T}"/>.
         /// </summary>
-        protected FailureMechanismResultView()
+        /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="T"/> to
+        /// show in the view.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
+        /// is <c>null</c>.</exception>
+        protected FailureMechanismResultView(IObservableEnumerable<T> failureMechanismSectionResults)
         {
+            if (failureMechanismSectionResults == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResults));
+            }
+
             InitializeComponent();
+
+            this.failureMechanismSectionResults = failureMechanismSectionResults;
 
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
             failureMechanismSectionResultObservers = new List<Observer>();
@@ -80,13 +91,13 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return failureMechanismSectionResult;
+                return failureMechanismSectionResults;
             }
             set
             {
-                FailureMechanismSectionResult = value as IEnumerable<T>;
+                FailureMechanismSectionResult = value as IObservableEnumerable<T>;
 
-                if (failureMechanismSectionResult != null)
+                if (failureMechanismSectionResults != null)
                 {
                     UpdateDataGridViewDataSource();
                 }
@@ -124,6 +135,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -147,7 +159,7 @@ namespace Ringtoets.Common.Forms.Views
             UpdateFailureMechanismSectionResultsObservers();
             DataGridViewControl.EndEdit();
             DataGridViewControl.SetDataSource(
-                failureMechanismSectionResult
+                failureMechanismSectionResults
                     .Select(CreateFailureMechanismSectionResultRow)
                     .Where(sr => sr != null)
                     .ToList()
@@ -188,11 +200,11 @@ namespace Ringtoets.Common.Forms.Views
                 nameof(EnumDisplayWrapper<AssessmentLayerOneState>.DisplayName));
         }
 
-        private IEnumerable<T> FailureMechanismSectionResult
+        private IObservableEnumerable<T> FailureMechanismSectionResult
         {
             set
             {
-                failureMechanismSectionResult = value;
+                failureMechanismSectionResults = value;
 
                 UpdateFailureMechanismSectionResultsObservers();
             }
@@ -201,7 +213,7 @@ namespace Ringtoets.Common.Forms.Views
         private void UpdateFailureMechanismSectionResultsObservers()
         {
             ClearSectionResultObservers();
-            if (failureMechanismSectionResult != null)
+            if (failureMechanismSectionResults != null)
             {
                 AddSectionResultObservers();
             }
@@ -209,7 +221,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void AddSectionResultObservers()
         {
-            foreach (T sectionResult in failureMechanismSectionResult)
+            foreach (T sectionResult in failureMechanismSectionResults)
             {
                 failureMechanismSectionResultObservers.Add(new Observer(DataGridViewControl.RefreshDataGridView)
                 {
@@ -224,6 +236,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 observer.Dispose();
             }
+
             failureMechanismSectionResultObservers.Clear();
         }
     }

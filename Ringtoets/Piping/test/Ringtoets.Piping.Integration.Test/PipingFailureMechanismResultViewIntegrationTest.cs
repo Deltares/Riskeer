@@ -51,7 +51,9 @@ namespace Ringtoets.Piping.Integration.Test
                 // Show the view
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-                var failureMechanismResultView = new PipingFailureMechanismResultView(assessmentSection);
+                var failureMechanismResultView = new PipingFailureMechanismResultView(
+                    assessmentSection,
+                    assessmentSection.Piping.SectionResults);
                 form.Controls.Add(failureMechanismResultView);
                 form.Show();
 

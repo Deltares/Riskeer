@@ -50,7 +50,9 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 // Show the view
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-                var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection);
+                var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(
+                    assessmentSection,
+                    assessmentSection.MacroStabilityInwards.SectionResults);
                 form.Controls.Add(failureMechanismResultView);
                 form.Show();
 

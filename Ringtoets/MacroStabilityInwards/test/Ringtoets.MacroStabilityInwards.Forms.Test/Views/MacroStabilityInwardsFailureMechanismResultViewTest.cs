@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
@@ -33,6 +34,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
@@ -68,13 +70,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanismSectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>();
+
             // Call
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection))
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanismSectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
-                Assert.IsNull(view.Data);
+                Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult>>(view);
+                Assert.AreSame(failureMechanismSectionResults, view.Data);
             }
 
             mocks.VerifyAll();
@@ -84,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            using (ShowFailureMechanismResultsView())
+            using (ShowFailureMechanismResultsView(new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>()))
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -120,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 var section = new FailureMechanismSection("test", points);
                 var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-                var testData = new List<MacroStabilityInwardsFailureMechanismSectionResult>
+                var testData = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -569,16 +572,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            MacroStabilityInwardsFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
+            MacroStabilityInwardsFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 
             return failureMechanismResultView;
         }
 
-        private MacroStabilityInwardsFailureMechanismResultView ShowFailureMechanismResultsView()
+        private MacroStabilityInwardsFailureMechanismResultView ShowFailureMechanismResultsView(
+            IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
         {
-            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
+            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(new ObservableTestAssessmentSectionStub(), sectionResults);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

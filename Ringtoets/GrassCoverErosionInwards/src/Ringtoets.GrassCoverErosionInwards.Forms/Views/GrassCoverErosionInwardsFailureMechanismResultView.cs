@@ -47,10 +47,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismResultView(IAssessmentSection assessmentSection)
+        /// <param name="assessmentSection">The assessment section the failure mechanism section results belongs to.</param>
+        /// <param name="failureMechanismSectionResults">The collection failure mechanism section results.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsFailureMechanismResultView(
+            IAssessmentSection assessmentSection,
+            IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
+            : base(failureMechanismSectionResults)
         {
             if (assessmentSection == null)
             {

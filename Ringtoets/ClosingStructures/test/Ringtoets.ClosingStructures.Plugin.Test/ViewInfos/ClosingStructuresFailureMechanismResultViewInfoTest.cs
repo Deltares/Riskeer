@@ -122,9 +122,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection))
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults))
             {
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
@@ -151,7 +152,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection)
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })
@@ -180,7 +181,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection)
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })
@@ -204,7 +205,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection)
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             })
@@ -226,9 +227,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection))
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults))
             {
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
@@ -251,7 +253,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection))
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -273,7 +275,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection))
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 

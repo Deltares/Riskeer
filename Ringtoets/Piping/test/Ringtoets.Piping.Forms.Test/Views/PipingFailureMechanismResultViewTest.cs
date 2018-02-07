@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
@@ -34,6 +35,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -65,7 +67,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingFailureMechanismResultView(null);
+            TestDelegate call = () => new PipingFailureMechanismResultView(null,
+                                                                           new ObservableList<PipingFailureMechanismSectionResult>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -80,13 +83,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanismSectionResults = new ObservableList<PipingFailureMechanismSectionResult>();
+
             // Call
-            using (var view = new PipingFailureMechanismResultView(assessmentSection))
+            using (var view = new PipingFailureMechanismResultView(assessmentSection, failureMechanismSectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
-                Assert.IsNull(view.Data);
+                Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanismSectionResult>>(view);
+                Assert.AreSame(failureMechanismSectionResults, view.Data);
             }
 
             mocks.VerifyAll();
@@ -96,7 +100,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            using (ShowFailureMechanismResultsView())
+            using (ShowFailureMechanismResultsView(new ObservableList<PipingFailureMechanismSectionResult>()))
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -132,7 +136,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var section = new FailureMechanismSection("test", points);
                 var sectionResult = new PipingFailureMechanismSectionResult(section);
-                var testData = new List<PipingFailureMechanismSectionResult>
+                var testData = new ObservableList<PipingFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -579,16 +583,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            PipingFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
+            PipingFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 
             return failureMechanismResultView;
         }
 
-        private PipingFailureMechanismResultView ShowFailureMechanismResultsView()
+        private PipingFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<PipingFailureMechanismSectionResult> sectionResults)
         {
-            var failureMechanismResultView = new PipingFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
+            var failureMechanismResultView = new PipingFailureMechanismResultView(new ObservableTestAssessmentSectionStub(), sectionResults);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
@@ -38,7 +39,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismResultView"/>.
         /// </summary>
-        public DuneErosionFailureMechanismResultView()
+        public DuneErosionFailureMechanismResultView(IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults)
+            : base(failureMechanismSectionResults)
         {
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }

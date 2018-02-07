@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
@@ -38,7 +39,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismResultView"/>.
         /// </summary>
-        public WaveImpactAsphaltCoverFailureMechanismResultView()
+        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
+        /// is <c>null</c>.</exception>
+        public WaveImpactAsphaltCoverFailureMechanismResultView(
+            IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults)
+            : base(failureMechanismSectionResults)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
         }

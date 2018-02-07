@@ -50,9 +50,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismResultView(IAssessmentSection assessmentSection)
+        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public StabilityPointStructuresFailureMechanismResultView(
+            IAssessmentSection assessmentSection,
+            IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> failureMechanismSectionResults)
+            : base(failureMechanismSectionResults)
         {
             if (assessmentSection == null)
             {

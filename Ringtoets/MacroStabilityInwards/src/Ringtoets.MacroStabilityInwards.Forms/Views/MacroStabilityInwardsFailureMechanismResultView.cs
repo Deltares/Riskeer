@@ -48,9 +48,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismResultView(IAssessmentSection assessmentSection)
+        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsFailureMechanismResultView(
+            IAssessmentSection assessmentSection,
+            IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
+            : base(failureMechanismSectionResults)
         {
             if (assessmentSection == null)
             {
@@ -185,11 +188,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
                 return;
             }
+
             if (double.IsNaN(resultRow.AssessmentLayerTwoA))
             {
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
                 return;
             }
+
             currentDataGridViewCell.ErrorText = string.Empty;
         }
 

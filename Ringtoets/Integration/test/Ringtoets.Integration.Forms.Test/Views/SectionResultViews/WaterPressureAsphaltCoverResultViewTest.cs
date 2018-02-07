@@ -21,13 +21,14 @@
 
 using System;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 
@@ -41,12 +42,28 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int assessmentLayerThreeIndex = 2;
 
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var failureMechanismSectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
+
+            // Call
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanismSectionResults))
+            {
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult>>(view);
+                Assert.AreSame(failureMechanismSectionResults, view.Data);
+            }
+        }
+
+        [Test]
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
             {
-                using (var view = new WaterPressureAsphaltCoverResultView())
+                using (var view = new WaterPressureAsphaltCoverResultView(
+                    new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>()))
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -101,21 +118,22 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
+            var sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>
+            {
+                result1,
+                result2,
+                result3
+            };
 
             using (var form = new Form())
             {
-                using (var view = new WaterPressureAsphaltCoverResultView())
+                using (var view = new WaterPressureAsphaltCoverResultView(sectionResults))
                 {
                     form.Controls.Add(view);
                     form.Show();
 
                     // When
-                    view.Data = new[]
-                    {
-                        result1,
-                        result2,
-                        result3
-                    };
+                    view.Data = sectionResults;
 
                     // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -166,17 +184,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
+            var sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>
+            {
+                result
+            };
+
             using (var form = new Form())
             {
-                using (var view = new WaterPressureAsphaltCoverResultView())
+                using (var view = new WaterPressureAsphaltCoverResultView(sectionResults))
                 {
                     form.Controls.Add(view);
                     form.Show();
 
-                    view.Data = new[]
-                    {
-                        result
-                    };
+                    view.Data = sectionResults;
 
                     // When
                     result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
@@ -191,43 +211,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     Assert.AreEqual(3, cells.Count);
 
                     DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
-        {
-            // Given
-            var section1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var result1 = new TestFailureMechanismSectionResult(section1);
-            var result2 = new TestFailureMechanismSectionResult(section2);
-
-            using (var form = new Form())
-            {
-                using (var view = new WaterPressureAsphaltCoverResultView())
-                {
-                    form.Controls.Add(view);
-                    form.Show();
-
-                    // When
-                    view.Data = new[]
-                    {
-                        result1,
-                        result2
-                    };
-
-                    // Then
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                    DataGridViewRowCollection rows = dataGridView.Rows;
-                    Assert.AreEqual(0, rows.Count);
                 }
             }
         }

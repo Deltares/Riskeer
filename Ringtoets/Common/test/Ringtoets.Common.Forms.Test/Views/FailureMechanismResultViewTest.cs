@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
@@ -51,13 +52,16 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
+            // Setup
+            var failureMechanismSectionResults = new ObservableList<FailureMechanismSectionResult>();
+
             // Call
-            using (var view = new TestFailureMechanismResultView())
+            using (var view = new TestFailureMechanismResultView(failureMechanismSectionResults))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
-                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanismSectionResults, view.Data);
             }
         }
 
@@ -69,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             const int assessmentLayerOneIndex = 1;
 
             // Call
-            using (ShowFailureMechanismResultsView())
+            using (ShowFailureMechanismResultsView(new ObservableList<FailureMechanismSectionResult>()))
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -118,16 +122,16 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            TestFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
+            TestFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 
             return failureMechanismResultView;
         }
 
-        private TestFailureMechanismResultView ShowFailureMechanismResultsView()
+        private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
         {
-            var failureMechanismResultView = new TestFailureMechanismResultView();
+            var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
@@ -137,6 +141,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
     public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult>
     {
+        public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults) : base(failureMechanismSectionResults) {}
+
         protected override object CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
             return new TestRow(sectionResult);

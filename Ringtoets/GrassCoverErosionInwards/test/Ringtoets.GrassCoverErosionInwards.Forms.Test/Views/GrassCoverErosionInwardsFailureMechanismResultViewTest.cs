@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -70,13 +71,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanismSectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>();
+
             // Call
-            using (var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection))
+            using (var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanismSectionResults))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>>(view);
-                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanismSectionResults, view.Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -84,7 +88,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismResultView(null);
+            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismResultView(null,
+                                                                                             new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -95,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenFormWithGrassCoverErosionInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Call
-            using (ShowFailureMechanismResultsView())
+            using (ShowFailureMechanismResultsView(new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>()))
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -126,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
-                var testData = new List<GrassCoverErosionInwardsFailureMechanismSectionResult>
+                var testData = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -319,7 +324,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     AssessmentLayerOne = assessmentLayerOneState
                 };
-                view.Data = new[]
+                view.Data = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -355,7 +360,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     AssessmentLayerOne = assessmentLayerOneState
                 };
 
-                view.Data = new[]
+                view.Data = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -395,7 +400,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     AssessmentLayerOne = assessmentLayerOneState
                 };
 
-                view.Data = new[]
+                view.Data = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -434,7 +439,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     Calculation = calculation
                 };
 
-                view.Data = new[]
+                view.Data = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -460,7 +465,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             using (GrassCoverErosionInwardsFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                view.Data = new[]
+                view.Data = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -508,7 +513,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     AssessmentLayerOne = assessmentLayerOneState
                 };
 
-                view.Data = new[]
+                view.Data = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -596,16 +601,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            GrassCoverErosionInwardsFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
+            GrassCoverErosionInwardsFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 
             return failureMechanismResultView;
         }
 
-        private GrassCoverErosionInwardsFailureMechanismResultView ShowFailureMechanismResultsView()
+        private GrassCoverErosionInwardsFailureMechanismResultView ShowFailureMechanismResultsView(
+            IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
         {
-            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
+            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView(new ObservableTestAssessmentSectionStub(), sectionResults);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

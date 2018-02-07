@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -69,13 +70,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanismSectionResults = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>();
+
             // Call
-            using (var view = new HeightStructuresFailureMechanismResultView(assessmentSection))
+            using (var view = new HeightStructuresFailureMechanismResultView(assessmentSection, failureMechanismSectionResults))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<HeightStructuresInput>>>(view);
-                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanismSectionResults, view.Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -83,7 +87,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenFormWithHeightStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Call
-            using (ShowFailureMechanismResultsView())
+            using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>()))
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -120,7 +124,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 var section = new FailureMechanismSection("test", points);
                 var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
-                var testData = new List<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
+                var testData = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
                 {
                     sectionResult
                 };
@@ -311,7 +315,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 {
                     AssessmentLayerOne = assessmentLayerOneState
                 };
-                view.Data = new[]
+                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
                 {
                     sectionResult
                 };
@@ -346,7 +350,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     AssessmentLayerOne = assessmentLayerOneState
                 };
 
-                view.Data = new[]
+                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
                 {
                     sectionResult
                 };
@@ -384,7 +388,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     AssessmentLayerOne = assessmentLayerOneState
                 };
 
-                view.Data = new[]
+                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
                 {
                     sectionResult
                 };
@@ -422,7 +426,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     AssessmentLayerOne = assessmentLayerOneState
                 };
 
-                view.Data = new[]
+                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
                 {
                     sectionResult
                 };
@@ -448,7 +452,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         {
             using (HeightStructuresFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                view.Data = new[]
+                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
                 {
                     sectionResult
                 };
@@ -492,7 +496,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     AssessmentLayerOne = assessmentLayerOneState
                 };
 
-                view.Data = new[]
+                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
                 {
                     sectionResult
                 };
@@ -575,16 +579,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            HeightStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView();
+            HeightStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
             failureMechanismResultView.Data = failureMechanism.SectionResults;
             failureMechanismResultView.FailureMechanism = failureMechanism;
 
             return failureMechanismResultView;
         }
 
-        private HeightStructuresFailureMechanismResultView ShowFailureMechanismResultsView()
+        private HeightStructuresFailureMechanismResultView ShowFailureMechanismResultsView(
+            IObservableEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults)
         {
-            var failureMechanismResultView = new HeightStructuresFailureMechanismResultView(new ObservableTestAssessmentSectionStub());
+            var failureMechanismResultView = new HeightStructuresFailureMechanismResultView(new ObservableTestAssessmentSectionStub(), sectionResults);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

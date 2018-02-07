@@ -111,7 +111,9 @@ namespace Ringtoets.ClosingStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
-                CreateInstance = context => new ClosingStructuresFailureMechanismResultView(context.AssessmentSection)
+                CreateInstance = context => new ClosingStructuresFailureMechanismResultView(
+                    context.AssessmentSection,
+                    ((ClosingStructuresFailureMechanism) context.FailureMechanism).SectionResults)
             };
 
             yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
@@ -309,14 +311,16 @@ namespace Ringtoets.ClosingStructures.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<ClosingStructuresFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<ClosingStructuresFailureMechanism>()
+                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -512,8 +516,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             bool isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
             StructuresCalculation<ClosingStructuresInput>[] calculations = group
-                .GetCalculations()
-                .OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();
+                                                                           .GetCalculations()
+                                                                           .OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -580,9 +584,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
 
             StructuresCalculation<ClosingStructuresInput>[] calculationsToUpdate = calculations
-                .Where(calc => calc.InputParameters.Structure != null
-                               && !calc.InputParameters.IsStructureInputSynchronized)
-                .ToArray();
+                                                                                   .Where(calc => calc.InputParameters.Structure != null
+                                                                                                  && !calc.InputParameters.IsStructureInputSynchronized)
+                                                                                   .ToArray();
 
             if (!calculationsToUpdate.Any())
             {
@@ -659,6 +663,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 };
                 calculations.Add(calculation);
             }
+
             StructuresHelper.UpdateCalculationToSectionResultAssignments(
                 failureMechanism.SectionResults,
                 failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());

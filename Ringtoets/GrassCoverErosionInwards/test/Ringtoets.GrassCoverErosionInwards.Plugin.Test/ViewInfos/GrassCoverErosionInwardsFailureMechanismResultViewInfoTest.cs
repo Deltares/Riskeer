@@ -119,7 +119,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -174,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -197,7 +197,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -220,7 +220,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -244,7 +244,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -266,7 +266,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };

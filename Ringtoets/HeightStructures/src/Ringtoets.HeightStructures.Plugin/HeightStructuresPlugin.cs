@@ -183,7 +183,9 @@ namespace Ringtoets.HeightStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
-                CreateInstance = context => new HeightStructuresFailureMechanismResultView(context.AssessmentSection)
+                CreateInstance = context => new HeightStructuresFailureMechanismResultView(
+                    context.AssessmentSection,
+                    ((HeightStructuresFailureMechanism) context.FailureMechanism).SectionResults)
             };
         }
 
@@ -337,14 +339,16 @@ namespace Ringtoets.HeightStructures.Plugin
             if (assessmentSection != null)
             {
                 return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<HeightStructuresFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .GetFailureMechanisms()
+                       .OfType<HeightStructuresFailureMechanism>()
+                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
+
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
@@ -523,9 +527,9 @@ namespace Ringtoets.HeightStructures.Plugin
             bool isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
 
             StructuresCalculation<HeightStructuresInput>[] calculations = group
-                .GetCalculations()
-                .OfType<StructuresCalculation<HeightStructuresInput>>()
-                .ToArray();
+                                                                          .GetCalculations()
+                                                                          .OfType<StructuresCalculation<HeightStructuresInput>>()
+                                                                          .ToArray();
 
             builder.AddImportItem()
                    .AddExportItem()
@@ -592,9 +596,9 @@ namespace Ringtoets.HeightStructures.Plugin
             string toolTipMessage = RingtoetsCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
 
             StructuresCalculation<HeightStructuresInput>[] calculationsToUpdate = calculations
-                .Where(calc => calc.InputParameters.Structure != null
-                               && !calc.InputParameters.IsStructureInputSynchronized)
-                .ToArray();
+                                                                                  .Where(calc => calc.InputParameters.Structure != null
+                                                                                                 && !calc.InputParameters.IsStructureInputSynchronized)
+                                                                                  .ToArray();
 
             if (!calculationsToUpdate.Any())
             {
@@ -672,6 +676,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 };
                 calculations.Add(calculation);
             }
+
             StructuresHelper.UpdateCalculationToSectionResultAssignments(
                 failureMechanism.SectionResults,
                 failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
