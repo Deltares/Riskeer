@@ -88,13 +88,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultType.NotApplicable, SimpleCalculationResult.NVT)]
-        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, SimpleCalculationResult.FV)]
-        [TestCase(SimpleAssessmentResultType.AssessFurther, SimpleCalculationResult.VB)]
-        public void AssembleSimpleAssessment_WithValidInput_InputCorrectlySetToKernel(SimpleAssessmentResultType assessmentResult,
-                                                                                      SimpleCalculationResult expectedKernelInput)
+        public void AssembleSimpleAssessment_WithValidInput_InputCorrectlySetToKernel()
         {
             // Setup
+            const SimpleAssessmentResultType assessmentResult = SimpleAssessmentResultType.AssessFurther;
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -108,7 +105,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
                 calculator.AssembleSimpleAssessment(assessmentResult);
 
                 // Assert
-                Assert.AreEqual(expectedKernelInput, kernel.SimpleAssessmentFailureMechanismsInput);
+                Assert.AreEqual(SimpleCalculationResult.VB, kernel.SimpleAssessmentFailureMechanismsInput);
             }
         }
 
@@ -171,6 +168,116 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.AssessFurther);
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleSimpleAssessmentValidityOnly_WithInvalidEnumInput_ThrowFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        {
+            // Setup
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
+
+                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultValidityOnlyType) 99);
+
+                // Assert
+                const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultValidityOnlyType'.";
+                var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+                StringAssert.StartsWith(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void AssembleSimpleAssessmentvalidityOnly_WithValidInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            const SimpleAssessmentResultValidityOnlyType assessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable;
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.Iv, Probability.NaN));
+
+                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleSimpleAssessment(assessmentResult);
+
+                // Assert
+                Assert.AreEqual(SimpleCalculationResultValidityOnly.WVT, kernel.SimpleAssessmentFailureMechanismsValidityOnlyInput);
+            }
+        }
+
+        [Test]
+        public void AssembleSimpleAssessmentValidityOnly_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.Iv, Probability.NaN));
+
+                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+
+                // Call
+                FailureMechanismSectionAssessment assessment = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.NotApplicable);
+
+                // Assert
+                AssertCalculatorOutput(kernel.FailureMechanismSectionAssemblyCategoryResult, assessment);
+            }
+        }
+
+        [Test]
+        public void AssembleSimpleAssessmentValidityOnly_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        {
+            // Setup
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult((FailureMechanismSectionCategoryGroup)99, Probability.NaN));
+
+                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.Applicable);
+
+                // Assert
+                const string expectedMessage = "The value of argument 'originalGroup' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
+                var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+                StringAssert.StartsWith(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void ValidityOnlyAssembleSimpleAssessment_KernelThrowsException_ThrowFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        {
+            // Setup
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                kernel.ThrowExceptionOnCalculate = true;
+
+                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.Applicable);
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
