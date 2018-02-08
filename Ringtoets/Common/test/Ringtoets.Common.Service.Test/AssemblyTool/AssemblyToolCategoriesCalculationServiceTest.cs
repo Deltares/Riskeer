@@ -29,9 +29,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Service.AssemblyTool;
 
 namespace Ringtoets.Common.Service.Test.AssemblyTool
@@ -46,7 +44,6 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             var random = new Random(11);
             double signalingNorm = random.NextDouble();
             double lowerBoundaryNorm = random.NextDouble();
-            var input = new AssemblyCategoryInput(signalingNorm, lowerBoundaryNorm);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -54,7 +51,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input.SignalingNorm, input.LowerBoundaryNorm);
+                AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerBoundaryNorm);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
@@ -69,7 +66,6 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             var random = new Random(11);
             double signalingNorm = random.NextDouble();
             double lowerBoundaryNorm = random.NextDouble();
-            var input = new AssemblyCategoryInput(signalingNorm, lowerBoundaryNorm);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -77,7 +73,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input.SignalingNorm, input.LowerBoundaryNorm).ToArray();
+                AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerBoundaryNorm).ToArray();
 
                 // Assert
                 AssessmentSectionAssemblyCategory[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
@@ -93,8 +89,6 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
         public void CalculateAssessmentSectionAssemblyCategories_CalculatorThrowsException_LogErrorAndReturnEmptyOutput()
         {
             // Setup
-            var input = new AssemblyCategoryInput(0, 0);
-
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -103,7 +97,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
 
                 // Call
                 IEnumerable<AssessmentSectionAssemblyCategory> output = null;
-                Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(input.SignalingNorm, input.LowerBoundaryNorm);
+                Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(0, 0);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(test, tuples =>

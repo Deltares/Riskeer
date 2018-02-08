@@ -17,7 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyTool\AssemblyCategory.cs" />
-    <Compile Include="AssemblyTool\AssemblyCategoryInput.cs" />
     <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategory.cs" />
     <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategoryGroup.cs" />
     <Compile Include="AssemblyTool\FailureMechanismSectionAssembly.cs" />
