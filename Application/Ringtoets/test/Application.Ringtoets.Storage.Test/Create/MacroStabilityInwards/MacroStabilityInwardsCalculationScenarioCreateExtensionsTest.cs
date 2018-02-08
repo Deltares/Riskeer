@@ -171,9 +171,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_MacroStabilityInwardsCalculationScenarioWithNumericAndBooleanPropertiesSet_ReturnsMacroStabilityInwardsCalculationEntity(bool useAssessmentLevelManualInput)
+        public void Create_MacroStabilityInwardsCalculationScenarioWithNumericAndBooleanPropertiesSet_ReturnsMacroStabilityInwardsCalculationEntity()
         {
             // Setup
             var random = new Random(21);
@@ -183,7 +181,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
                 Contribution = random.NextRoundedDouble(),
                 InputParameters =
                 {
-                    UseAssessmentLevelManualInput = useAssessmentLevelManualInput,
+                    UseAssessmentLevelManualInput = random.NextBoolean(),
                     AssessmentLevel = random.NextRoundedDouble(),
                     SlipPlaneMinimumDepth = random.NextRoundedDouble(),
                     SlipPlaneMinimumLength = random.NextRoundedDouble(),

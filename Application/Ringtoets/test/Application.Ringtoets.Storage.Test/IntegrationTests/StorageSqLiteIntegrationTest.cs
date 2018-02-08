@@ -1990,19 +1990,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
             Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
 
-            HydraulicBoundaryLocationCalculation expectedDesignWaterLevelCalculation = expectedBoundaryLocation.DesignWaterLevelCalculation1;
-            HydraulicBoundaryLocationCalculation actualDesignWaterLevelCalculation = actualBoundaryLocation.DesignWaterLevelCalculation1;
-            Assert.AreEqual(expectedDesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated,
-                            actualDesignWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationOutput(expectedDesignWaterLevelCalculation.Output,
-                                                  actualDesignWaterLevelCalculation.Output);
+            AssertHydraulicBoundaryLocationCalculation(expectedBoundaryLocation.DesignWaterLevelCalculation1, actualBoundaryLocation.DesignWaterLevelCalculation1);
+            AssertHydraulicBoundaryLocationCalculation(expectedBoundaryLocation.DesignWaterLevelCalculation2, actualBoundaryLocation.DesignWaterLevelCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(expectedBoundaryLocation.DesignWaterLevelCalculation3, actualBoundaryLocation.DesignWaterLevelCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(expectedBoundaryLocation.DesignWaterLevelCalculation4, actualBoundaryLocation.DesignWaterLevelCalculation4);
+            AssertHydraulicBoundaryLocationCalculation(expectedBoundaryLocation.WaveHeightCalculation1, actualBoundaryLocation.WaveHeightCalculation1);
+            AssertHydraulicBoundaryLocationCalculation(expectedBoundaryLocation.WaveHeightCalculation2, actualBoundaryLocation.WaveHeightCalculation2);
+            AssertHydraulicBoundaryLocationCalculation(expectedBoundaryLocation.WaveHeightCalculation3, actualBoundaryLocation.WaveHeightCalculation3);
+            AssertHydraulicBoundaryLocationCalculation(expectedBoundaryLocation.WaveHeightCalculation4, actualBoundaryLocation.WaveHeightCalculation4);
+        }
 
-            HydraulicBoundaryLocationCalculation expectedWaveHeightCalculation = expectedBoundaryLocation.WaveHeightCalculation1;
-            HydraulicBoundaryLocationCalculation actualWaveHeightCalculation = actualBoundaryLocation.WaveHeightCalculation1;
-            Assert.AreEqual(expectedWaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated,
-                            actualWaveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationOutput(expectedWaveHeightCalculation.Output,
-                                                  actualWaveHeightCalculation.Output);
+        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation expected, HydraulicBoundaryLocationCalculation actual)
+        {
+            Assert.AreEqual(expected.InputParameters.ShouldIllustrationPointsBeCalculated, actual.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationOutput(expected.Output, actual.Output);
         }
 
         private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationOutput expectedOutput,
