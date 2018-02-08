@@ -53,16 +53,13 @@ namespace Ringtoets.Piping.Integration.Test
 
                 var failureMechanismResultView = new PipingFailureMechanismResultView(
                     assessmentSection,
+                    assessmentSection.Piping, 
                     assessmentSection.Piping.SectionResults);
                 form.Controls.Add(failureMechanismResultView);
                 form.Show();
 
                 // Obtain the data grid view
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Set all necessary data to the view
-                failureMechanismResultView.Data = assessmentSection.Piping.SectionResults;
-                failureMechanismResultView.FailureMechanism = assessmentSection.Piping;
 
                 // Import failure mechanism sections and ensure the data grid view is updated
                 DataImportHelper.ImportReferenceLine(assessmentSection);

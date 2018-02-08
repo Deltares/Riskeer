@@ -43,15 +43,18 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly IAssessmentSection assessmentSection;
+        private readonly Observer failureMechanismObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
         /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public PipingFailureMechanismResultView(
             IAssessmentSection assessmentSection,
+            PipingFailureMechanism failureMechanism,
             IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults)
             : base(failureMechanismSectionResults)
         {
@@ -60,7 +63,18 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             this.assessmentSection = assessmentSection;
+
+            FailureMechanism = failureMechanism;
+            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
+            {
+                Observable = failureMechanism
+            };
 
             DataGridViewControl.CellFormatting += ShowAssessmentLayerTwoAErrors;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
@@ -79,22 +93,19 @@ namespace Ringtoets.Piping.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
+
+            CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
+            calculationInputObserver.Observable = observableGroup;
+            calculationOutputObserver.Observable = observableGroup;
+            calculationGroupObserver.Observable = observableGroup;
+
+            UpdateDataGridViewDataSource();
         }
 
-        public override IFailureMechanism FailureMechanism
-        {
-            set
-            {
-                base.FailureMechanism = value;
-
-                var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
-                CalculationGroup observableGroup = calculatableFailureMechanism?.CalculationsGroup;
-
-                calculationInputObserver.Observable = observableGroup;
-                calculationOutputObserver.Observable = observableGroup;
-                calculationGroupObserver.Observable = observableGroup;
-            }
-        }
+        /// <summary>
+        /// Gets the piping failure mechanism.
+        /// </summary>
+        public PipingFailureMechanism FailureMechanism { get; }
 
         protected override void Dispose(bool disposing)
         {
@@ -104,19 +115,15 @@ namespace Ringtoets.Piping.Forms.Views
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
+            failureMechanismObserver.Dispose();
 
             base.Dispose(disposing);
         }
 
         protected override object CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
-            if (FailureMechanism == null)
-            {
-                return null;
-            }
-
             return new PipingFailureMechanismSectionResultRow(sectionResult, FailureMechanism.Calculations.Cast<PipingCalculationScenario>(),
-                                                              (PipingFailureMechanism) FailureMechanism, assessmentSection);
+                                                              FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()

@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsNull(view.Data);
             }
         }
 
@@ -85,48 +85,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
             }
-        }
-
-        [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmpty()
-        {
-            // Setup
-            var testData = new object();
-            using (TestFailureMechanismResultView view = ShowFullyConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                view.Data = testData;
-
-                // Assert
-                Assert.IsNull(view.Data);
-
-                Assert.AreEqual(0, dataGridView.RowCount);
-            }
-        }
-
-        private TestFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
-        {
-            var failureMechanism = new TestFailureMechanism();
-
-            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
-
-            TestFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
-            failureMechanismResultView.Data = failureMechanism.SectionResults;
-            failureMechanismResultView.FailureMechanism = failureMechanism;
-
-            return failureMechanismResultView;
         }
 
         private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)

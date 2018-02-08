@@ -95,7 +95,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var view = new PipingFailureMechanismResultView(assessmentSection, new ObservableList<PipingFailureMechanismSectionResult>()))
+            using (var view = new PipingFailureMechanismResultView(assessmentSection, 
+                                                                   new PipingFailureMechanism(), 
+                                                                   new ObservableList<PipingFailureMechanismSectionResult>()))
             {
                 // Call
                 string viewName = info.GetViewName(view, null);
@@ -127,10 +129,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
-            {
-                Data = failureMechanism.SectionResults
-            })
+            using (var view = new PipingFailureMechanismResultView(assessmentSection, 
+                                                                   new PipingFailureMechanism(),
+                                                                   failureMechanism.SectionResults))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -157,10 +158,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
-            {
-                Data = failureMechanism.SectionResults
-            })
+            using (var view = new PipingFailureMechanismResultView(assessmentSection, 
+                                                                   new PipingFailureMechanism(),
+                                                                   failureMechanism.SectionResults))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -186,10 +186,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new PipingFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
-            {
-                Data = failureMechanism.SectionResults
-            })
+            using (var view = new PipingFailureMechanismResultView(assessmentSection, 
+                                                                   failureMechanism,
+                                                                   failureMechanism.SectionResults))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -210,10 +209,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
-            {
-                Data = failureMechanism.SectionResults
-            })
+            using (var view = new PipingFailureMechanismResultView(assessmentSection, 
+                                                                   failureMechanism,
+                                                                   failureMechanism.SectionResults))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -233,10 +231,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            using (var view = new PipingFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
-            {
-                Data = failureMechanism.SectionResults
-            })
+            using (var view = new PipingFailureMechanismResultView(assessmentSection, 
+                                                                   new PipingFailureMechanism(),
+                                                                   failureMechanism.SectionResults))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new PipingFailureMechanism());
@@ -257,10 +254,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-            using (var view = new PipingFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
-            {
-                Data = failureMechanism.SectionResults
-            })
+            using (var view = new PipingFailureMechanismResultView(assessmentSection, 
+                                                                   failureMechanism,
+                                                                   failureMechanism.SectionResults))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -280,10 +276,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            using (var view = new PipingFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
-            {
-                Data = failureMechanism.SectionResults
-            })
+            using (var view = new PipingFailureMechanismResultView(assessmentSection, 
+                                                                   new PipingFailureMechanism(),
+                                                                   failureMechanism.SectionResults))
             {
                 var failureMechanismContext = new PipingFailureMechanismContext(
                     new PipingFailureMechanism(),
@@ -296,28 +291,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 Assert.IsFalse(closeForData);
             }
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            var view = mocks.StrictMock<PipingFailureMechanismResultView>();
-            view.Expect(v => v.FailureMechanism = failureMechanism);
-            mocks.ReplayAll();
-
-            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults,
-                                                                                                                   failureMechanism,
-                                                                                                                   assessmentSection);
-
-            // Call
-            info.AfterCreate(view, context);
-
-            // Assert
             mocks.VerifyAll();
         }
 

@@ -216,9 +216,9 @@ namespace Ringtoets.Piping.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new PipingFailureMechanismResultView(
                     context.AssessmentSection,
+                    (PipingFailureMechanism) context.FailureMechanism,
                     context.WrappedData)
             };
 
@@ -421,7 +421,7 @@ namespace Ringtoets.Piping.Plugin
                 return assessmentSection
                        .GetFailureMechanisms()
                        .OfType<PipingFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
             if (failureMechanismContext != null)
@@ -429,7 +429,7 @@ namespace Ringtoets.Piping.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion

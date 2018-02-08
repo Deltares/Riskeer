@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -39,11 +38,8 @@ namespace Ringtoets.Common.Forms.Views
     public abstract partial class FailureMechanismResultView<T> : UserControl, IView where T : FailureMechanismSectionResult
     {
         protected const int AssessmentLayerOneColumnIndex = 1;
-        private readonly List<Observer> failureMechanismSectionResultObservers;
-        private readonly Observer failureMechanismObserver;
-
-        private IObservableEnumerable<T> failureMechanismSectionResults;
-        private IFailureMechanism failureMechanism;
+        private readonly Observer failureMechanismSectionResultObserver;
+        private readonly IObservableEnumerable<T> failureMechanismSectionResults;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{T}"/>.
@@ -62,51 +58,18 @@ namespace Ringtoets.Common.Forms.Views
             InitializeComponent();
 
             this.failureMechanismSectionResults = failureMechanismSectionResults;
-
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
-            failureMechanismSectionResultObservers = new List<Observer>();
+            failureMechanismSectionResultObserver = new Observer(UpdateDataGridViewDataSource)
+            {
+                Observable = failureMechanismSectionResults
+            };
         }
 
         /// <summary>
         /// Sets the failure mechanism.
         /// </summary>
-        public virtual IFailureMechanism FailureMechanism
-        {
-            protected get
-            {
-                return failureMechanism;
-            }
-            set
-            {
-                failureMechanism = value;
-                failureMechanismObserver.Observable = failureMechanism;
-                if (failureMechanism != null)
-                {
-                    UpdateDataGridViewDataSource();
-                }
-            }
-        }
+        public virtual IFailureMechanism FailureMechanism { protected get; set; }
 
-        public object Data
-        {
-            get
-            {
-                return failureMechanismSectionResults;
-            }
-            set
-            {
-                FailureMechanismSectionResult = value as IObservableEnumerable<T>;
-
-                if (failureMechanismSectionResults != null)
-                {
-                    UpdateDataGridViewDataSource();
-                }
-                else
-                {
-                    DataGridViewControl.SetDataSource(null);
-                }
-            }
-        }
+        public object Data { get; set; }
 
         protected DataGridViewControl DataGridViewControl { get; private set; }
 
@@ -127,9 +90,7 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            FailureMechanism = null;
-            FailureMechanismSectionResult = null;
-            failureMechanismObserver?.Dispose();
+            failureMechanismSectionResultObserver?.Dispose();
 
             if (disposing)
             {
@@ -156,7 +117,6 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected void UpdateDataGridViewDataSource()
         {
-            UpdateFailureMechanismSectionResultsObservers();
             DataGridViewControl.EndEdit();
             DataGridViewControl.SetDataSource(
                 failureMechanismSectionResults
@@ -198,46 +158,6 @@ namespace Ringtoets.Common.Forms.Views
                 oneStateDataSource,
                 nameof(EnumDisplayWrapper<AssessmentLayerOneState>.Value),
                 nameof(EnumDisplayWrapper<AssessmentLayerOneState>.DisplayName));
-        }
-
-        private IObservableEnumerable<T> FailureMechanismSectionResult
-        {
-            set
-            {
-                failureMechanismSectionResults = value;
-
-                UpdateFailureMechanismSectionResultsObservers();
-            }
-        }
-
-        private void UpdateFailureMechanismSectionResultsObservers()
-        {
-            ClearSectionResultObservers();
-            if (failureMechanismSectionResults != null)
-            {
-                AddSectionResultObservers();
-            }
-        }
-
-        private void AddSectionResultObservers()
-        {
-            foreach (T sectionResult in failureMechanismSectionResults)
-            {
-                failureMechanismSectionResultObservers.Add(new Observer(DataGridViewControl.RefreshDataGridView)
-                {
-                    Observable = sectionResult
-                });
-            }
-        }
-
-        private void ClearSectionResultObservers()
-        {
-            foreach (Observer observer in failureMechanismSectionResultObservers)
-            {
-                observer.Dispose();
-            }
-
-            failureMechanismSectionResultObservers.Clear();
         }
     }
 }
