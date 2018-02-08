@@ -193,8 +193,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
 
             IObservable[] array = results.ChangedObjects.ToArray();
-            Assert.AreEqual(3, array.Length);
+            Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
+            CollectionAssert.Contains(array, failureMechanism.SectionResults);
             CollectionAssert.Contains(array, failureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
 

@@ -297,8 +297,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
 
             IObservable[] array = results.ChangedObjects.ToArray();
-            Assert.AreEqual(4, array.Length);
+            Assert.AreEqual(5, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
+            CollectionAssert.Contains(array, failureMechanism.SectionResults);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(array, failureMechanism.HeightStructures);

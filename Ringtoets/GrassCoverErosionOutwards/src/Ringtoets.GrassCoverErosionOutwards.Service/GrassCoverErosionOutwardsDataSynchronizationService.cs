@@ -135,6 +135,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
             failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
+            changedObjects.Add(failureMechanism.SectionResults);
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Clear();
             changedObjects.Add(failureMechanism.WaveConditionsCalculationGroup);

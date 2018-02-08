@@ -199,8 +199,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Util.Test
             CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
 
             IObservable[] array = result.ChangedObjects.ToArray();
-            Assert.AreEqual(3, array.Length);
+            Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
+            CollectionAssert.Contains(array, failureMechanism.SectionResults);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
 

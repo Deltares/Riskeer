@@ -107,6 +107,7 @@ namespace Ringtoets.HeightStructures.Service
 
             failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
+            changedObjects.Add(failureMechanism.SectionResults);
 
             failureMechanism.CalculationsGroup.Children.Clear();
             changedObjects.Add(failureMechanism.CalculationsGroup);

@@ -125,7 +125,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            var observables = new List<IObservable>();
+            var changedObjects = new List<IObservable>();
             object[] removedObjects = failureMechanism.Sections
                                                       .OfType<object>()
                                                       .Concat(failureMechanism.SectionResults)
@@ -134,15 +134,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                       .ToArray();
 
             failureMechanism.ClearAllSections();
-            observables.Add(failureMechanism);
+            changedObjects.Add(failureMechanism);
+            changedObjects.Add(failureMechanism.SectionResults);
 
             failureMechanism.CalculationsGroup.Children.Clear();
-            observables.Add(failureMechanism.CalculationsGroup);
+            changedObjects.Add(failureMechanism.CalculationsGroup);
 
             failureMechanism.DikeProfiles.Clear();
-            observables.Add(failureMechanism.DikeProfiles);
+            changedObjects.Add(failureMechanism.DikeProfiles);
 
-            return new ClearResults(observables, removedObjects);
+            return new ClearResults(changedObjects, removedObjects);
         }
 
         /// <summary>
