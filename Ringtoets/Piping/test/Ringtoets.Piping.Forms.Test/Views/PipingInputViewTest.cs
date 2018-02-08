@@ -610,7 +610,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
-                mocks.VerifyAll(); // no update observer expected
+                mocks.VerifyAll(); // No update observer expected
             }
         }
 

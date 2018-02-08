@@ -144,13 +144,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             {
                 new ExportableWaveConditions("blocksName", new WaveConditionsInput
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-                    {
-                        DesignWaterLevelCalculation1 =
-                        {
-                            Output = new TestHydraulicBoundaryLocationOutput(12.34567)
-                        }
-                    },
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
                     LowerBoundaryRevetment = (RoundedDouble) 5.68,
                     UpperBoundaryRevetment = (RoundedDouble) 7.214,
                     StepSize = WaveConditionsInputStepSize.Half,
@@ -160,13 +154,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
                 }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks),
                 new ExportableWaveConditions("columnsName", new WaveConditionsInput
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
-                    {
-                        DesignWaterLevelCalculation1 =
-                        {
-                            Output = new TestHydraulicBoundaryLocationOutput(28.36844)
-                        }
-                    },
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
                     LowerBoundaryRevetment = (RoundedDouble) 1.384,
                     UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
                     StepSize = WaveConditionsInputStepSize.One,

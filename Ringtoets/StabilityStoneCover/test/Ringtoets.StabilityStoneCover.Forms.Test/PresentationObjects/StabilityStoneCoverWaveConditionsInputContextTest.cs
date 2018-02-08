@@ -43,9 +43,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
                 new TestForeshoreProfile()
             };
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             // Call
             var context = new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
@@ -60,7 +58,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(foreshoreProfiles, context.ForeshoreProfiles);
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
-            mocks.VerifyAll();
         }
 
         [Test]

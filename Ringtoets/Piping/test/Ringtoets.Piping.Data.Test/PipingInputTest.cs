@@ -284,8 +284,8 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine = surfaceLine;
 
             // Assert
-            Assert.AreEqual(2, input.EntryPointL, input.EntryPointL.GetAccuracy());
-            Assert.AreEqual(3, input.ExitPointL, input.ExitPointL.GetAccuracy());
+            Assert.AreEqual(1, input.EntryPointL, input.EntryPointL.GetAccuracy());
+            Assert.AreEqual(2, input.ExitPointL, input.ExitPointL.GetAccuracy());
         }
 
         [Test]

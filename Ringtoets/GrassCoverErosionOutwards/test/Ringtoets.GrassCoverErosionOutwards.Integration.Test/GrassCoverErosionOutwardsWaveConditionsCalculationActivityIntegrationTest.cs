@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -603,6 +604,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             return new AssessmentSection(AssessmentSectionComposition.Dike)
             {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = NormType.LowerLimit
+                },
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,

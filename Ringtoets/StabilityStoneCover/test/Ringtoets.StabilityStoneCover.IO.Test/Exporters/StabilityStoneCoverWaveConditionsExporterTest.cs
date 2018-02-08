@@ -143,13 +143,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test.Exporters
                         Name = "aCalculation",
                         InputParameters =
                         {
-                            HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
-                            {
-                                DesignWaterLevelCalculation1 =
-                                {
-                                    Output = new TestHydraulicBoundaryLocationOutput(28.36844)
-                                }
-                            },
+                            HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
                             ForeshoreProfile = new TestForeshoreProfile("foreshoreA"),
                             LowerBoundaryRevetment = (RoundedDouble) 1.384,
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,

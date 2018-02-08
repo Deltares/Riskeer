@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -74,9 +76,12 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
         public void Constructor_WithAllParameters_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var waveConditionsInput = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var profiles = new ForeshoreProfile[0];
             var locations = new HydraulicBoundaryLocation[0];
 
@@ -94,6 +99,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(profiles, context.ForeshoreProfiles);
             Assert.AreSame(locations, context.HydraulicBoundaryLocations);
+            mocks.VerifyAll();
         }
     }
 }
