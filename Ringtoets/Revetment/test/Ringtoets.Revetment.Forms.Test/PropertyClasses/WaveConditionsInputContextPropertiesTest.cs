@@ -32,6 +32,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -68,12 +69,14 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         private const int revetmentTypePropertyIndex = 14;
 
         private MockRepository mockRepository;
+        private IAssessmentSection assessmentSection;
         private IObservablePropertyChangeHandler handler;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
+            assessmentSection = mockRepository.Stub<IAssessmentSection>();
             handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
         }
@@ -644,7 +647,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             };
 
             var calculation = new TestWaveConditionsCalculation();
-            var inputContext = new TestWaveConditionsInputContext(input, calculation, new ObservableTestAssessmentSectionStub(), new ForeshoreProfile[0], locations);
+            var inputContext = new TestWaveConditionsInputContext(input, calculation, assessmentSection, new ForeshoreProfile[0], locations);
 
             var otherProfile = new TestForeshoreProfile(new Point2D(0, 190));
             var customHandler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
@@ -691,7 +694,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreSame(locations, availableForeshoreProfiles);
         }
 
-        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(Action<TestWaveConditionsInputContextProperties> setProperty)
+        private void SetPropertyAndVerifyNotificationsAndOutputForCalculation(Action<TestWaveConditionsInputContextProperties> setProperty)
         {
             // Setup
             var mocks = new MockRepository();
@@ -705,7 +708,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var context = new TestWaveConditionsInputContext(input,
                                                              calculation,
-                                                             new ObservableTestAssessmentSectionStub(),
+                                                             assessmentSection,
                                                              new ForeshoreProfile[0],
                                                              new HydraulicBoundaryLocation[0]);
 

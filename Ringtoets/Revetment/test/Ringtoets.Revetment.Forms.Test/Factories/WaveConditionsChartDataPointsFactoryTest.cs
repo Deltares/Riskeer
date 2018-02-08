@@ -921,7 +921,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var normativeAssessmentLevel = (RoundedDouble) 6.01;
+            var normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
             var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry),

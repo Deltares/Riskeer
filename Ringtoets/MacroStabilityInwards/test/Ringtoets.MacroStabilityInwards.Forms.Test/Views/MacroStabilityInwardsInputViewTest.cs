@@ -442,7 +442,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_OtherCalculationUpdated_ChartTitleNotUpdated()
+        public void UpdateObserver_PreviousCalculationUpdated_ChartTitleNotUpdated()
         {
             // Setup
             using (var view = new MacroStabilityInwardsInputView())
@@ -460,12 +460,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
-                var calculation2 = new MacroStabilityInwardsCalculationScenario
+                view.Data = new MacroStabilityInwardsCalculationScenario
                 {
                     Name = initialName
                 };
-
-                view.Data = calculation2;
 
                 calculation.Name = updatedName;
 
@@ -704,7 +702,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_OtherCalculationUpdated_ChartDataNotUpdated()
+        public void UpdateObserver_PreviousCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
             var mocks = new MockRepository();
@@ -713,7 +711,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             using (var view = new MacroStabilityInwardsInputView())
             {
-                var calculation1 = new MacroStabilityInwardsCalculationScenario
+                var calculation = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
@@ -721,9 +719,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     }
                 };
 
-                view.Data = calculation1;
-                ChartDataCollection dataBeforeUpdate = view.Chart.Data;
+                view.Data = calculation;
 
+                ChartDataCollection dataBeforeUpdate = view.Chart.Data;
                 foreach (ChartData chartData in dataBeforeUpdate.Collection)
                 {
                     chartData.Attach(observer);
@@ -731,16 +729,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 view.Data = new MacroStabilityInwardsCalculationScenario();
 
-                MacroStabilityInwardsSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
-
-                calculation1.InputParameters.SurfaceLine = surfaceLine2;
+                calculation.InputParameters.SurfaceLine = GetSecondSurfaceLineWithGeometry();
 
                 // Call
-                calculation1.InputParameters.NotifyObservers();
+                calculation.InputParameters.NotifyObservers();
 
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
-                mocks.VerifyAll(); // no update observer expected
+                mocks.VerifyAll(); // No update observer expected
             }
         }
 

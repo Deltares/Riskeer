@@ -284,7 +284,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_OtherCalculationNameUpdated_ChartTitleNotUpdated()
+        public void UpdateObserver_PreviousCalculationNameUpdated_ChartTitleNotUpdated()
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
@@ -292,24 +292,25 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation1 = new TestWaveConditionsCalculation
-                {
-                    Name = initialName
-                };
-                var calculation2 = new TestWaveConditionsCalculation
+                var calculation = new TestWaveConditionsCalculation
                 {
                     Name = initialName
                 };
 
-                view.Data = calculation1;
+                view.Data = calculation;
 
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
-                calculation2.Name = updatedName;
+                view.Data = new TestWaveConditionsCalculation
+                {
+                    Name = initialName
+                };
+
+                calculation.Name = updatedName;
 
                 // Call
-                calculation1.NotifyObservers();
+                calculation.NotifyObservers();
 
                 // Assert
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
@@ -422,39 +423,37 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_OtherCalculationUpdated_ChartDataNotUpdated()
+        public void UpdateObserver_PreviousCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var calculation1 = new TestWaveConditionsCalculation();
+            var calculation = new TestWaveConditionsCalculation();
+
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
             {
-                Data = calculation1
+                Data = calculation
             })
             {
                 ((ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex)).Attach(observer);
 
-                var calculation2 = new TestWaveConditionsCalculation();
-                ForeshoreProfile profile2 = new TestForeshoreProfile(new[]
+                view.Data = new TestWaveConditionsCalculation();
+
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(3, 3),
                     new Point2D(8, 8)
                 });
 
-                calculation2.InputParameters.ForeshoreProfile = profile2;
-
                 // Call
-                calculation2.InputParameters.NotifyObservers();
+                calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(calculation1, view.Data);
+                mocks.VerifyAll(); // No update observer expected
             }
-
-            mocks.VerifyAll(); // no update observer expected
         }
 
         [Test]

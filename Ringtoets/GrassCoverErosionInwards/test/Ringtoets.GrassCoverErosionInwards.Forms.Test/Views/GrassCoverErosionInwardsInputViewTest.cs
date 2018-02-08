@@ -240,7 +240,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_OtherCalculationNameUpdated_ChartTitleNotUpdated()
+        public void UpdateObserver_PreviousCalculationNameUpdated_ChartTitleNotUpdated()
         {
             // Setup
             using (var view = new GrassCoverErosionInwardsInputView())
@@ -248,24 +248,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation1 = new GrassCoverErosionInwardsCalculation
-                {
-                    Name = initialName
-                };
-                var calculation2 = new GrassCoverErosionInwardsCalculation
+                var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Name = initialName
                 };
 
-                view.Data = calculation1;
+                view.Data = calculation;
 
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
-                calculation2.Name = updatedName;
+                view.Data = new GrassCoverErosionInwardsCalculation
+                {
+                    Name = initialName
+                };
+
+                calculation.Name = updatedName;
 
                 // Call
-                calculation1.NotifyObservers();
+                calculation.NotifyObservers();
 
                 // Assert
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
@@ -322,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_OtherGrassCoverErosionInwardsCalculationUpdated_ChartDataNotUpdated()
+        public void UpdateObserver_PreviousGrassCoverErosionInwardsCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
             var mocks = new MockRepository();
@@ -331,24 +332,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             using (var view = new GrassCoverErosionInwardsInputView())
             {
-                DikeProfile dikeProfile = GetDikeProfileWithGeometry();
-                var calculation1 = new GrassCoverErosionInwardsCalculation
+                var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
                     {
-                        DikeProfile = dikeProfile
+                        DikeProfile = GetDikeProfileWithGeometry()
                     }
                 };
 
-                var calculation2 = new GrassCoverErosionInwardsCalculation
-                {
-                    InputParameters =
-                    {
-                        DikeProfile = dikeProfile
-                    }
-                };
-
-                view.Data = calculation1;
+                view.Data = calculation;
 
                 var dikeProfileChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(dikeProfileIndex);
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreshoreIndex);
@@ -358,16 +350,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 foreshoreChartData.Attach(observer);
                 dikeHeightChartData.Attach(observer);
 
-                DikeProfile dikeProfile2 = GetSecondDikeProfileWithGeometry();
+                view.Data = new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeProfile = GetDikeProfileWithGeometry()
+                    }
+                };
 
-                calculation2.InputParameters.DikeProfile = dikeProfile2;
+                calculation.InputParameters.DikeProfile = GetSecondDikeProfileWithGeometry();
 
                 // Call
-                calculation2.InputParameters.NotifyObservers();
+                calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(calculation1, view.Data);
-                mocks.VerifyAll(); // no update observer expected
+                mocks.VerifyAll(); // No update observer expected
             }
         }
 

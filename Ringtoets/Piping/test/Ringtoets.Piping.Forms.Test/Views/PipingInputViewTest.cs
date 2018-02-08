@@ -313,7 +313,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_OtherCalculationUpdated_ChartTitleNotUpdated()
+        public void UpdateObserver_PreviousCalculationUpdated_ChartTitleNotUpdated()
         {
             // Setup
             using (var view = new PipingInputView())
@@ -331,12 +331,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
-                var calculation2 = new PipingCalculationScenario(new GeneralPipingInput())
+                view.Data = new PipingCalculationScenario(new GeneralPipingInput())
                 {
                     Name = initialName
                 };
-
-                view.Data = calculation2;
 
                 calculation.Name = updatedName;
 
@@ -578,7 +576,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_OtherCalculationUpdated_ChartDataNotUpdated()
+        public void UpdateObserver_PreviousCalculationUpdated_ChartDataNotUpdated()
         {
             // Setup
             var mocks = new MockRepository();
@@ -587,33 +585,28 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             using (var view = new PipingInputView())
             {
-                PipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                var calculation1 = new PipingCalculationScenario(new GeneralPipingInput())
+                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
                     {
-                        SurfaceLine = surfaceLine
+                        SurfaceLine = GetSurfaceLineWithGeometry()
                     }
                 };
 
-                var calculation2 = new PipingCalculationScenario(new GeneralPipingInput());
+                view.Data = calculation;
 
-                view.Data = calculation1;
                 ChartDataCollection dataBeforeUpdate = view.Chart.Data;
-
                 foreach (ChartData chartData in dataBeforeUpdate.Collection)
                 {
                     chartData.Attach(observer);
                 }
 
-                view.Data = calculation2;
+                view.Data = new PipingCalculationScenario(new GeneralPipingInput());
 
-                PipingSurfaceLine surfaceLine2 = GetSecondSurfaceLineWithGeometry();
-
-                calculation1.InputParameters.SurfaceLine = surfaceLine2;
+                calculation.InputParameters.SurfaceLine = GetSecondSurfaceLineWithGeometry();
 
                 // Call
-                calculation1.InputParameters.NotifyObservers();
+                calculation.InputParameters.NotifyObservers();
 
                 // Assert
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
