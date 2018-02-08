@@ -27,12 +27,13 @@ namespace Ringtoets.Common.Data.AssemblyTool
     public enum FailureMechanismSectionAssemblyCategoryGroup
     {
         None = 1,
-        Iv = 2,
-        IIv = 3,
-        IIIv = 4,
-        IVv = 5,
-        Vv = 6,
-        VIv = 7,
-        VIIv = 8
+        NotApplicable = 2,
+        Iv = 3,
+        IIv = 4,
+        IIIv = 5,
+        IVv = 6,
+        Vv = 7,
+        VIv = 8,
+        VIIv = 9
     }
 }

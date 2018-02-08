@@ -39,25 +39,28 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                         FailureMechanismSectionAssemblyCategoryGroup.None, 1
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.Iv, 2
+                        FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, 2
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.IIv, 3
+                        FailureMechanismSectionAssemblyCategoryGroup.Iv, 3
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.IIIv, 4
+                        FailureMechanismSectionAssemblyCategoryGroup.IIv, 4
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.IVv, 5
+                        FailureMechanismSectionAssemblyCategoryGroup.IIIv, 5
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.Vv, 6
+                        FailureMechanismSectionAssemblyCategoryGroup.IVv, 6
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.VIv, 7
+                        FailureMechanismSectionAssemblyCategoryGroup.Vv, 7
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.VIIv, 8
+                        FailureMechanismSectionAssemblyCategoryGroup.VIv, 8
+                    },
+                    {
+                        FailureMechanismSectionAssemblyCategoryGroup.VIIv, 9
                     }
                 };
             }

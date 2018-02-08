@@ -84,6 +84,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 case FailureMechanismSectionCategoryGroup.None:
                     group = FailureMechanismSectionAssemblyCategoryGroup.None;
                     break;
+                case FailureMechanismSectionCategoryGroup.NotApplicable:
+                    group = FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
+                    break;
                 default:
                     throw new NotSupportedException();
             }
