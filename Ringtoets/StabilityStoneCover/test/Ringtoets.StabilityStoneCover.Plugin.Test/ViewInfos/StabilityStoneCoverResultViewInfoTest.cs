@@ -88,7 +88,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -149,7 +149,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -177,7 +177,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -205,7 +205,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -224,7 +224,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -242,7 +242,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -265,7 +265,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -289,7 +289,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -300,25 +300,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
                 Assert.IsFalse(closeForData);
                 mocks.VerifyAll();
             }
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            var view = mocks.StrictMock<StabilityStoneCoverResultView>();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-
-            view.Expect(v => v.FailureMechanism = failureMechanism);
-
-            mocks.ReplayAll();
-
-            // Call
-            info.AfterCreate(view, context);
-
-            // Assert
-            mocks.VerifyAll();
         }
 
         [Test]

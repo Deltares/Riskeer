@@ -22,7 +22,6 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -43,17 +42,30 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new StabilityStoneCoverResultView(null,
+                                                                        new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanismSectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            using (var view = new StabilityStoneCoverResultView(failureMechanismSectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 
@@ -61,8 +73,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
             // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var form = new Form())
-            using (var view = new StabilityStoneCoverResultView(new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>()))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 form.Controls.Add(view);
 
@@ -88,9 +101,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenDataSourceWithStabilityStoneCoverFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void StabilityStoneCoverFailureMechanismResultView_WithStabilityStoneCoverFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -109,19 +122,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new StabilityStoneCoverFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new StabilityStoneCoverFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>
             {
@@ -130,16 +143,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 result3
             };
 
+            // Call
             using (var form = new Form())
-            using (var view = new StabilityStoneCoverResultView(sectionResults))
+            using (var view = new StabilityStoneCoverResultView(new StabilityStoneCoverFailureMechanism(), sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
 
-                // When
-                view.Data = sectionResults;
-
-                // Then
+                // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -193,7 +204,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             {
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>
             {
@@ -201,29 +212,25 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             };
 
             using (var form = new Form())
+            using (var view = new StabilityStoneCoverResultView(new StabilityStoneCoverFailureMechanism(), sectionResults))
             {
-                using (var view = new StabilityStoneCoverResultView(sectionResults))
-                {
-                    form.Controls.Add(view);
-                    form.Show();
+                form.Controls.Add(view);
+                form.Show();
 
-                    view.Data = sectionResults;
+                // When
+                result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                result.NotifyObservers();
 
-                    // When
-                    result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
-                    result.NotifyObservers();
+                // Then
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(1, rows.Count);
 
-                    // Then
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                    DataGridViewRowCollection rows = dataGridView.Rows;
-                    Assert.AreEqual(1, rows.Count);
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual(4, cells.Count);
 
-                    DataGridViewCellCollection cells = rows[0].Cells;
-                    Assert.AreEqual(4, cells.Count);
-
-                    DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                    DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-                }
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
     }

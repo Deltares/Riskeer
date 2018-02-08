@@ -31,7 +31,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
@@ -93,8 +92,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
-                CreateInstance = context => new StabilityStoneCoverResultView(context.WrappedData)
+                CreateInstance = context => new StabilityStoneCoverResultView(
+                    (StabilityStoneCoverFailureMechanism) context.FailureMechanism,
+                    context.WrappedData)
             };
         }
 
@@ -215,7 +215,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(StabilityStoneCoverResultView view, object dataToCloseFor)
         {
-            object viewData = view.Data;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
             var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<StabilityStoneCoverFailureMechanism>;
@@ -225,7 +224,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 return assessmentSection
                        .GetFailureMechanisms()
                        .OfType<StabilityStoneCoverFailureMechanism>()
-                       .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
+                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
             if (failureMechanismContext != null)
@@ -233,7 +232,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion
