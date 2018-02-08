@@ -90,14 +90,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         {
             base.AddSection(section);
             sectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
-            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults.NotifyObservers();
         }
     }
 }

@@ -54,16 +54,10 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void AddSection_WithSection_AddedSectionResultAndNotifiesObserver()
+        public void AddSection_WithSection_AddedSectionResult()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.SectionResults.Attach(observer);
 
             // Call
             failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
@@ -75,18 +69,12 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsClearedAndNotifiesObserver()
+        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -98,8 +86,6 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                 new Point2D(2, 1)
             }));
 
-            failureMechanism.SectionResults.Attach(observer);
-
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
@@ -110,7 +96,6 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
-            mocks.VerifyAll();
         }
 
         [Test]

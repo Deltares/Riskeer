@@ -77,14 +77,12 @@ namespace Ringtoets.DuneErosion.Data
             base.AddSection(section);
 
             sectionResults.Add(new DuneErosionFailureMechanismSectionResult(section));
-            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults.NotifyObservers();
         }
     }
 }

@@ -65,14 +65,12 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
             sectionResults.Add(new TechnicalInnovationFailureMechanismSectionResult(section));
-            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults.NotifyObservers();
         }
     }
 }

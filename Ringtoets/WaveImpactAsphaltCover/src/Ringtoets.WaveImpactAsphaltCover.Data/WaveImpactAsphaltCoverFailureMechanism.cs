@@ -95,14 +95,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         {
             base.AddSection(section);
             sectionResults.Add(new WaveImpactAsphaltCoverFailureMechanismSectionResult(section));
-            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults.NotifyObservers();
         }
     }
 }

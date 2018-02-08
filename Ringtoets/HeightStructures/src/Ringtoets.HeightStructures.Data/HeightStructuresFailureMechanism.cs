@@ -97,14 +97,12 @@ namespace Ringtoets.HeightStructures.Data
         {
             base.AddSection(section);
             sectionResults.Add(new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section));
-            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults.NotifyObservers();
         }
     }
 }

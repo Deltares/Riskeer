@@ -62,14 +62,12 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             base.AddSection(section);
             sectionResults.Add(new TestFailureMechanismSectionResult(section));
-            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults.NotifyObservers();
         }
     }
 }

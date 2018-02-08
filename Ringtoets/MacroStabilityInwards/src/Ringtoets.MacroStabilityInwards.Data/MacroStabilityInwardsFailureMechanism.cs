@@ -93,14 +93,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
         {
             base.AddSection(section);
             sectionResults.Add(new MacroStabilityInwardsFailureMechanismSectionResult(section));
-            sectionResults.NotifyObservers();
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults.NotifyObservers();
         }
     }
 }
