@@ -53,7 +53,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
+            var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context, (RoundedDouble) 1.1, handler);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>>(properties);

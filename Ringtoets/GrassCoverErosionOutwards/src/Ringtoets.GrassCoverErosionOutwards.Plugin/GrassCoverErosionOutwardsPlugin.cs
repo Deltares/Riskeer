@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
                     context,
-                    () => GetAssessmentLevel(context.Calculation),
+                    GetAssessmentLevel(context.Calculation),
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
 

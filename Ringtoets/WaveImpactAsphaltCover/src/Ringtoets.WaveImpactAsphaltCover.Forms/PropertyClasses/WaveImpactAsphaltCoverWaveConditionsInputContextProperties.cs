@@ -39,13 +39,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         /// </summary>
         /// <param name="context">The <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/> for which 
         /// the properties are shown.</param>
-        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="context"/> or
+        /// <paramref name="propertyChangeHandler"/> is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverWaveConditionsInputContextProperties(WaveImpactAsphaltCoverWaveConditionsInputContext context,
-                                                                          Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                                          RoundedDouble normativeAssessmentLevel,
                                                                           IObservablePropertyChangeHandler propertyChangeHandler)
-            : base(context, getNormativeAssessmentLevelFunc(), propertyChangeHandler) {}
+            : base(context, normativeAssessmentLevel, propertyChangeHandler) {}
 
         public override string RevetmentType
         {
