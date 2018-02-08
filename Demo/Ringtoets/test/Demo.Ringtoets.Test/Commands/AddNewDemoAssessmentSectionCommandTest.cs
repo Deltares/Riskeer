@@ -199,7 +199,7 @@ namespace Demo.Ringtoets.Test.Commands
         {
             RoundedDouble designWaterLevel = hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.Result;
 
-            Assert.AreEqual((RoundedDouble) expectedValue, designWaterLevel, designWaterLevel.GetAccuracy());
+            Assert.AreEqual(expectedValue, designWaterLevel, designWaterLevel.GetAccuracy());
         }
 
         private static void AssertWaveHeightsForGrassCoverErosionOutwards(ObservableList<HydraulicBoundaryLocation> locations)
@@ -228,7 +228,7 @@ namespace Demo.Ringtoets.Test.Commands
         {
             RoundedDouble waveHeight = hydraulicBoundaryLocation.WaveHeightCalculation1.Output.Result;
 
-            Assert.AreEqual((RoundedDouble) expectedValue, waveHeight, waveHeight.GetAccuracy());
+            Assert.AreEqual(expectedValue, waveHeight, waveHeight.GetAccuracy());
         }
 
         private static void AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(WaveConditionsInput inputParameters)
@@ -632,7 +632,7 @@ namespace Demo.Ringtoets.Test.Commands
         {
             RoundedDouble designWaterLevel = hydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output.Result;
 
-            Assert.AreEqual((RoundedDouble) expectedValue, designWaterLevel, designWaterLevel.GetAccuracy());
+            Assert.AreEqual(expectedValue, designWaterLevel, designWaterLevel.GetAccuracy());
         }
 
         private static void AssertWaveHeightsForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)
@@ -661,7 +661,7 @@ namespace Demo.Ringtoets.Test.Commands
         {
             RoundedDouble waveHeight = hydraulicBoundaryLocation.WaveHeightCalculation3.Output.Result;
 
-            Assert.AreEqual((RoundedDouble) expectedValue, waveHeight, waveHeight.GetAccuracy());
+            Assert.AreEqual(expectedValue, waveHeight, waveHeight.GetAccuracy());
         }
 
         #endregion
