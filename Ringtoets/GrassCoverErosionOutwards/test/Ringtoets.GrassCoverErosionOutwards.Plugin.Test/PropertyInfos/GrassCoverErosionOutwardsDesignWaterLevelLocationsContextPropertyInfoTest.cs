@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsHydraulicBoundaryDatabaseAsData()
+        public void CreateInstance_WithContext_SetsHydraulicBoundaryDatabaseAsData()
         {
             // Setup
             var mockRepository = new MockRepository();

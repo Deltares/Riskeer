@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsFailureMechanismAsData()
+        public void CreateInstance_WithContext_SetsFailureMechanismAsData()
         {
             // Setup
             var mocks = new MockRepository();

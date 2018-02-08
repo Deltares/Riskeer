@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithInputContextAsData()
+        public void CreateInstance_WithContext_NewPropertiesWithInputContextAsData()
         {
             // Setup
             var mocks = new MockRepository();

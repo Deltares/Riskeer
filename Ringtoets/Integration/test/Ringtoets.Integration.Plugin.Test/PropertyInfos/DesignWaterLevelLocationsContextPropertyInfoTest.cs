@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsHydraulicBoundaryLocationsAsData()
+        public void CreateInstance_WithContext_SetsHydraulicBoundaryLocationsAsData()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();

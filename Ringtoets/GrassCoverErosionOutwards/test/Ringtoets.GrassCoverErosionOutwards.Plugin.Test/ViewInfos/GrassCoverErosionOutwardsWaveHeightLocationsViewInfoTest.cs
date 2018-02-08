@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsExpectedProperties()
+        public void CreateInstance_WithContext_SetsExpectedProperties()
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-                var data = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
+                var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
                     new ObservableList<HydraulicBoundaryLocation>(),
                     assessmentSection,
                     grassCoverErosionOutwardsFailureMechanism);
@@ -114,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 plugin.Activate();
 
                 // Call
-                var view = info.CreateInstance(data) as GrassCoverErosionOutwardsWaveHeightLocationsView;
+                var view = info.CreateInstance(context) as GrassCoverErosionOutwardsWaveHeightLocationsView;
 
                 // Assert
                 Assert.AreSame(assessmentSection, view.AssessmentSection);

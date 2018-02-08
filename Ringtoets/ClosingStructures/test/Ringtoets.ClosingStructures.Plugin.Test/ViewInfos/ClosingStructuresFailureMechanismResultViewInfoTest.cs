@@ -313,7 +313,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_Always_ReturnsView()
+        public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();

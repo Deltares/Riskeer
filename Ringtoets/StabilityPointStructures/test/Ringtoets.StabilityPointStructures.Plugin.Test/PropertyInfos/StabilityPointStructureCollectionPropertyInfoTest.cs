@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithContextAsData()
+        public void CreateInstance_WithContext_NewPropertiesWithContextAsData()
         {
             // Setup
             var mocks = new MockRepository();

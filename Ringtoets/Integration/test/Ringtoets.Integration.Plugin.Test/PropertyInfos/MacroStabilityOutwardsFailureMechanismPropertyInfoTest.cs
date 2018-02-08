@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithFailureMechanismAsData()
+        public void CreateInstance_WithContext_NewPropertiesWithFailureMechanismAsData()
         {
             // Setup
             var mocks = new MockRepository();

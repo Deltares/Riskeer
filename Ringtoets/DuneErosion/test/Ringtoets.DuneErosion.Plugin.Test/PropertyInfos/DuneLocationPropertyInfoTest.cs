@@ -48,7 +48,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsDuneLocationAsData()
+        public void CreateInstance_WithDuneLocation_SetsDuneLocationAsData()
         {
             // Setup
             var duneLocation = new DuneLocation(1, "", new Point2D(0, 0), new DuneLocation.ConstructionProperties());

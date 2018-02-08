@@ -50,7 +50,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsDuneLocationsAsData()
+        public void CreateInstance_WithContext_SetsDuneLocationsAsData()
         {
             // Setup
             var mockRepository = new MockRepository();

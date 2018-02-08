@@ -54,7 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
 
         [TestCase(NormType.Signaling)]
         [TestCase(NormType.LowerLimit)]
-        public void CreateInstance_Always_ExpectedProperties(NormType normType)
+        public void CreateInstance_WithContext_ExpectedProperties(NormType normType)
         {
             // Setup
             const double designWaterLevelSignaling = 1.1;

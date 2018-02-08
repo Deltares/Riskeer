@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsFailureMechanismContributionAsData()
+        public void CreateInstance_WithContext_SetsFailureMechanismContributionAsData()
         {
             // Setup
             var mocks = new MockRepository();

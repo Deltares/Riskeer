@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetExpectedProperties()
+        public void CreateInstance_WithContext_SetExpectedProperties()
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();

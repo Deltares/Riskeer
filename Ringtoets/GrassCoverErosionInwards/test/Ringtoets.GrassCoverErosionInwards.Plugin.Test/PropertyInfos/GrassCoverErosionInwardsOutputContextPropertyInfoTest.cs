@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithData()
+        public void CreateInstance_WithContext_NewPropertiesWithData()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();

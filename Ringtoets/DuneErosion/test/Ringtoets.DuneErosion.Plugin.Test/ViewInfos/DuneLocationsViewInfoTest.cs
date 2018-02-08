@@ -172,7 +172,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_Always_SetsExpectedProperties()
+        public void CreateInstance_WithContext_SetsExpectedProperties()
         {
             // Setup
             var mocks = new MockRepository();
@@ -183,7 +183,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var data = new DuneLocationsContext(
+            var context = new DuneLocationsContext(
                 new ObservableList<DuneLocation>(),
                 failureMechanism,
                 assessmentSection);
@@ -192,7 +192,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             plugin.Activate();
 
             // Call
-            using (var view = info.CreateInstance(data) as DuneLocationsView)
+            using (var view = info.CreateInstance(context) as DuneLocationsView)
             {
                 // Assert
                 Assert.AreSame(assessmentSection, view.AssessmentSection);

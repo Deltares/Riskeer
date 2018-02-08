@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithData()
+        public void CreateInstance_WithContext_NewPropertiesWithData()
         {
             var overtoppingRateOutput = new TestOvertoppingRateOutput(10);
             var calculation = new GrassCoverErosionInwardsCalculation

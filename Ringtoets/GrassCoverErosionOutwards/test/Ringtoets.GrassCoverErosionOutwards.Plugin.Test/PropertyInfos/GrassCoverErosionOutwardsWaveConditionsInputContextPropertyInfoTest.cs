@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_ExpectedProperties()
+        public void CreateInstance_WithContext_ExpectedProperties()
         {
             // Setup
             const double assessmentLevel = 1.1;

@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_Always_NewPropertiesWithInputAsData()
+        public void CreateInstance_WithStochasticSoilModel_NewPropertiesWithInputAsData()
         {
             // Setup
             PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
