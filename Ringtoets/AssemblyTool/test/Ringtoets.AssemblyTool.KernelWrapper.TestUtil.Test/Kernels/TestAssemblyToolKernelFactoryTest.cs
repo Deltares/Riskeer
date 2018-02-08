@@ -56,7 +56,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyKernel_Always_ReturnLastCreatedFailureMechanismSectionAssessmentAssemblyKernel()
+        public void CreateFailureMechanismSectionAssemblyKernel_Always_ReturnLastCreatedFailureMechanismSectionAssemblyKernel()
         {
             // Setup
             var factory = new TestAssemblyToolKernelFactory();

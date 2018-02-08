@@ -27,6 +27,6 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
 {
     [TestFixture]
-    public class FailureMechanismSectionAssessmentAssemblyCalculatorExceptionTest
-        : CustomExceptionDesignGuidelinesTestFixture<FailureMechanismSectionAssessmentAssemblyCalculatorException, Exception> {}
+    public class FailureMechanismSectionAssemblyCalculatorExceptionTest
+        : CustomExceptionDesignGuidelinesTestFixture<FailureMechanismSectionAssemblyCalculatorException, Exception> {}
 }

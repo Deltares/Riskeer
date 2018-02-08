@@ -67,7 +67,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
         }
 
         [Test]
-        public void AssembleSimpleAssessment_WithInvalidEnumInput_ThrowFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        public void AssembleSimpleAssessment_WithInvalidEnumInput_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
@@ -81,7 +81,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
 
                 // Assert
                 const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultType'.";
-                var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
                 StringAssert.StartsWith(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
             }
@@ -131,7 +131,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
         }
 
         [Test]
-        public void AssembleSimpleAssessment_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        public void AssembleSimpleAssessment_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
@@ -148,14 +148,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
 
                 // Assert
                 const string expectedMessage = "The value of argument 'originalGroup' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
-                var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
                 StringAssert.StartsWith(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
             }
         }
 
         [Test]
-        public void AssembleSimpleAssessment_KernelThrowsException_ThrowFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        public void AssembleSimpleAssessment_KernelThrowsException_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
@@ -170,14 +170,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.AssessFurther);
 
                 // Assert
-                var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
         }
 
         [Test]
-        public void AssembleSimpleAssessmentValidityOnly_WithInvalidEnumInput_ThrowFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        public void AssembleSimpleAssessmentValidityOnly_WithInvalidEnumInput_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
@@ -191,7 +191,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
 
                 // Assert
                 const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultValidityOnlyType'.";
-                var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
                 StringAssert.StartsWith(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
             }
@@ -241,7 +241,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
         }
 
         [Test]
-        public void AssembleSimpleAssessmentValidityOnly_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        public void AssembleSimpleAssessmentValidityOnly_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
@@ -258,14 +258,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
 
                 // Assert
                 const string expectedMessage = "The value of argument 'originalGroup' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
-                var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
                 StringAssert.StartsWith(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
             }
         }
 
         [Test]
-        public void ValidityOnlyAssembleSimpleAssessment_KernelThrowsException_ThrowFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        public void ValidityOnlyAssembleSimpleAssessment_KernelThrowsException_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
@@ -280,7 +280,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.Applicable);
 
                 // Assert
-                var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }

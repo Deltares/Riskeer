@@ -86,7 +86,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         }
 
         [Test]
-        public void AssembleSimpleAssessment_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        public void AssembleSimpleAssessment_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub
@@ -98,7 +98,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
             TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultType) 0);
 
             // Assert
-            var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
         }
@@ -148,7 +148,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         }
 
         [Test]
-        public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssessmentAssemblyCalculatorException()
+        public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub
@@ -160,7 +160,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
             TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultValidityOnlyType) 0);
 
             // Assert
-            var exception = Assert.Throws<FailureMechanismSectionAssessmentAssemblyCalculatorException>(test);
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
         }

@@ -59,7 +59,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssessmentAssemblyCalculator_Always_ReturnStub()
+        public void CreateFailureMechanismSectionAssemblyCalculator_Always_ReturnStub()
         {
             // Setup
             var factory = new TestAssemblyToolCalculatorFactory();

@@ -25,35 +25,35 @@ using System.Runtime.Serialization;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
 {
     /// <summary>
-    /// The exception that is thrown when an error occurs while performing a failure mechanism section assessment assembly.
+    /// The exception that is thrown when an error occurs while performing a failure mechanism section assembly.
     /// </summary>
     [Serializable]
-    public class FailureMechanismSectionAssessmentAssemblyCalculatorException : Exception
+    public class FailureMechanismSectionAssemblyCalculatorException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismSectionAssessmentAssemblyCalculatorException"/> class.
+        /// Initializes a new instance of the <see cref="FailureMechanismSectionAssemblyCalculatorException"/> class.
         /// </summary>
-        public FailureMechanismSectionAssessmentAssemblyCalculatorException() {}
+        public FailureMechanismSectionAssemblyCalculatorException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismSectionAssessmentAssemblyCalculatorException"/> class
+        /// Initializes a new instance of the <see cref="FailureMechanismSectionAssemblyCalculatorException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public FailureMechanismSectionAssessmentAssemblyCalculatorException(string message) : base(message) {}
+        public FailureMechanismSectionAssemblyCalculatorException(string message) : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismSectionAssessmentAssemblyCalculatorException"/> class
+        /// Initializes a new instance of the <see cref="FailureMechanismSectionAssemblyCalculatorException"/> class
         /// with a specified error message and a reference to the inner exception that is
         /// the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public FailureMechanismSectionAssessmentAssemblyCalculatorException(string message, Exception inner) : base(message, inner) {}
+        public FailureMechanismSectionAssemblyCalculatorException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="FailureMechanismSectionAssessmentAssemblyCalculatorException"/> with
+        /// Initializes a new instance of <see cref="FailureMechanismSectionAssemblyCalculatorException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>
@@ -63,6 +63,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected FailureMechanismSectionAssessmentAssemblyCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected FailureMechanismSectionAssemblyCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

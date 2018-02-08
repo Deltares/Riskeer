@@ -55,7 +55,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
         {
             if (ThrowExceptionOnCalculate)
             {
-                throw new FailureMechanismSectionAssessmentAssemblyCalculatorException("Message", new Exception());
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
             SimpleAssessmentInput = input;
@@ -68,7 +68,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
         {
             if (ThrowExceptionOnCalculate)
             {
-                throw new FailureMechanismSectionAssessmentAssemblyCalculatorException("Message", new Exception());
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
             SimpleAssessmentValidityOnlyInput = input;

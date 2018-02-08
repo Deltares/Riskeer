@@ -64,7 +64,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
             }
             catch (Exception e)
             {
-                throw new FailureMechanismSectionAssessmentAssemblyCalculatorException(e.Message, e);
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
             }
         }
 
@@ -80,7 +80,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
             }
             catch (Exception e)
             {
-                throw new FailureMechanismSectionAssessmentAssemblyCalculatorException(e.Message, e);
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
             }
         }
     }

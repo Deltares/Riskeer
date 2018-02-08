@@ -88,7 +88,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssessmentAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismSectionAssessmentAssemblyCalculator()
+        public void CreateFailureMechanismSectionAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismSectionAssemblyCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
