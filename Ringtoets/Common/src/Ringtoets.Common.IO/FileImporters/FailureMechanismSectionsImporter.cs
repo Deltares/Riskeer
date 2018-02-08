@@ -100,6 +100,13 @@ namespace Ringtoets.Common.IO.FileImporters
             return true;
         }
 
+        protected override void DoPostImportUpdates()
+        {
+            base.DoPostImportUpdates();
+            var failureMechanismWithSectionResults = ImportTarget as IHasSectionResults<FailureMechanismSectionResult>;
+            failureMechanismWithSectionResults?.SectionResults.NotifyObservers();
+        }
+
         protected override void LogImportCanceledMessage()
         {
             Log.Info(Resources.FailureMechanismSectionsImporter_Import_canceled_No_data_changed);
