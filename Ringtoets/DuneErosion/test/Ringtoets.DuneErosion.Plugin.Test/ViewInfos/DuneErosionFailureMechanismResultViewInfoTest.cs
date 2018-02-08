@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -317,6 +318,22 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_Always_ReturnsView()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
+                failureMechanism.SectionResults,
+                failureMechanism);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<DuneErosionFailureMechanismResultView>(view);
         }
     }
 }

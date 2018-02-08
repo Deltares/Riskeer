@@ -201,7 +201,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismResultView(
                     context.AssessmentSection,
-                    ((GrassCoverErosionInwardsFailureMechanism) context.FailureMechanism).SectionResults)
+                    context.WrappedData)
             };
 
             yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>

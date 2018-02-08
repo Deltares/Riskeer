@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -124,10 +125,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                           new Point2D(0, 0)
                                                       });
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(section);
-            var sectionResultContext = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(new[]
-            {
-                sectionResult
-            }, failureMechanism);
+            var sectionResultContext = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
+                new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>
+                {
+                    sectionResult
+                }, failureMechanism);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
@@ -145,6 +147,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(sectionResultContext, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies are called in TearDown()
         }

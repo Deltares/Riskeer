@@ -92,7 +92,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultView(context.WrappedData)
             };
         }
 

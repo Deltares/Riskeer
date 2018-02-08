@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -37,8 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
-                                                                                                    new MacroStabilityInwardsFailureMechanism(), null);
+            TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(
+                new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>(), new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,11 +52,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults = Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>();
+            IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults =
+                new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult> (sectionResults, failureMechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(
+                sectionResults, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>>(context);

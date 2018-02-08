@@ -23,12 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
@@ -318,6 +321,22 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_Always_ReturnsView()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
+                failureMechanism.SectionResults,
+                failureMechanism);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<StabilityStoneCoverResultView>(view);
         }
     }
 }

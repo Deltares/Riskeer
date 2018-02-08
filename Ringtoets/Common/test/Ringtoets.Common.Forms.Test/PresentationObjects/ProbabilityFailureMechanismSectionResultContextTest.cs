@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -38,8 +37,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResult>(Enumerable.Empty<FailureMechanismSectionResult>(),
-                                                                                                                         new TestFailureMechanism(), null);
+            TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResult>(
+                new ObservableList<FailureMechanismSectionResult>(), new TestFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            IEnumerable<FailureMechanismSectionResult> sectionResults = Enumerable.Empty<FailureMechanismSectionResult>();
+            IObservableEnumerable<FailureMechanismSectionResult> sectionResults = new ObservableList<FailureMechanismSectionResult>();
             var failureMechanism = new TestFailureMechanism();
 
             // Call

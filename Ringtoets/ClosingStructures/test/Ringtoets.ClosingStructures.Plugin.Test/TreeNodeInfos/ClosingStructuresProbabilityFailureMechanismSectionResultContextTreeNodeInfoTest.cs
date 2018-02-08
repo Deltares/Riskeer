@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -115,10 +116,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-                var sectionResultContext = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(new[]
-                {
-                    sectionResult
-                }, failureMechanism, assessmentSection);
+                var sectionResultContext = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(
+                    new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+                    {
+                        sectionResult
+                    }, failureMechanism, assessmentSection);
 
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(sectionResultContext, treeViewControl)).Return(menuBuilder);

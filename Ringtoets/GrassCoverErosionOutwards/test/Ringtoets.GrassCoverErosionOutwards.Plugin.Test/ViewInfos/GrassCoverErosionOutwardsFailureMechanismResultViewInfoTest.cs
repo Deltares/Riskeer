@@ -31,27 +31,26 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using Ringtoets.Piping.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ViewInfos
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class MacroStabilityOutwardsResultViewInfoTest
+    public class GrassCoverErosionOutwardsResultViewInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private GrassCoverErosionOutwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityOutwardsResultView));
+            plugin = new GrassCoverErosionOutwardsPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionOutwardsFailureMechanismResultView));
         }
 
         [TearDown]
@@ -64,16 +63,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -86,17 +85,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var view = mocks.StrictMock<MacroStabilityOutwardsResultView>();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
+            {
+                // Call
+                string viewName = info.GetViewName(view, failureMechanism.SectionResults);
 
-            mocks.ReplayAll();
-
-            // Call
-            string viewName = info.GetViewName(view, failureMechanism.SectionResults);
-
-            // Assert
-            Assert.AreEqual("Resultaat", viewName);
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreEqual("Resultaat", viewName);
+            }
         }
 
         [Test]
@@ -106,7 +103,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Type viewType = info.ViewType;
 
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityOutwardsResultView), viewType);
+            Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismResultView), viewType);
         }
 
         [Test]
@@ -116,7 +113,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Type dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>), dataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>), dataType);
         }
 
         [Test]
@@ -126,7 +123,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Type viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>), viewDataType);
+            Assert.AreEqual(typeof(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -147,9 +144,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -168,7 +165,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
@@ -178,7 +175,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -197,17 +194,17 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new PipingFailureMechanism(),
+                new GrassCoverErosionOutwardsFailureMechanism(),
                 failureMechanism
             });
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -225,9 +222,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -243,14 +240,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
                 // Call
-                bool closeForData = info.CloseForData(view, new MacroStabilityOutwardsFailureMechanism());
+                bool closeForData = info.CloseForData(view, new GrassCoverErosionOutwardsFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -261,13 +258,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
+                                                                                               assessmentSection);
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -285,13 +283,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new MacroStabilityOutwardsFailureMechanism());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                               assessmentSection);
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -309,9 +308,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var view = mocks.StrictMock<MacroStabilityOutwardsResultView>();
-            var context = new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var view = mocks.StrictMock<GrassCoverErosionOutwardsFailureMechanismResultView>();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
             view.Expect(v => v.FailureMechanism = failureMechanism);
 
@@ -328,8 +327,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_Always_ReturnsView()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
                 failureMechanism);
 
@@ -337,7 +336,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityOutwardsResultView>(view);
+            Assert.IsInstanceOf<GrassCoverErosionOutwardsFailureMechanismResultView>(view);
         }
     }
 }

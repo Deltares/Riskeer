@@ -436,28 +436,43 @@ namespace Ringtoets.Integration.Plugin
 
             yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult,
-                GrassCoverSlipOffInwardsResultView>();
+                GrassCoverSlipOffInwardsResultView>(
+                context => new GrassCoverSlipOffInwardsResultView(context.WrappedData));
+
             yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
-                GrassCoverSlipOffOutwardsResultView>();
+                GrassCoverSlipOffOutwardsResultView>(
+                context => new GrassCoverSlipOffOutwardsResultView(context.WrappedData));
+
             yield return CreateFailureMechanismResultViewInfo<
                 MicrostabilityFailureMechanismSectionResult,
-                MicrostabilityResultView>();
+                MicrostabilityResultView>(
+                context => new MicrostabilityResultView(context.WrappedData));
+
             yield return CreateFailureMechanismResultViewInfo<
                 PipingStructureFailureMechanismSectionResult,
-                PipingStructureResultView>();
+                PipingStructureResultView>(
+                context => new PipingStructureResultView(context.WrappedData));
+
             yield return CreateFailureMechanismResultViewInfo<
                 TechnicalInnovationFailureMechanismSectionResult,
-                TechnicalInnovationResultView>();
+                TechnicalInnovationResultView>(
+                context => new TechnicalInnovationResultView(context.WrappedData));
+
             yield return CreateFailureMechanismResultViewInfo<
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
-                StrengthStabilityLengthwiseConstructionResultView>();
+                StrengthStabilityLengthwiseConstructionResultView>(
+                context => new StrengthStabilityLengthwiseConstructionResultView(context.WrappedData));
+
             yield return CreateFailureMechanismResultViewInfo<
                 WaterPressureAsphaltCoverFailureMechanismSectionResult,
-                WaterPressureAsphaltCoverResultView>();
+                WaterPressureAsphaltCoverResultView>(
+                context => new WaterPressureAsphaltCoverResultView(context.WrappedData));
+
             yield return CreateFailureMechanismResultViewInfo<
                 MacroStabilityOutwardsFailureMechanismSectionResult,
-                MacroStabilityOutwardsResultView>();
+                MacroStabilityOutwardsResultView>(
+                context => new MacroStabilityOutwardsResultView(context.WrappedData));
 
             yield return new ViewInfo<Comment, CommentView>
             {
@@ -844,7 +859,8 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<TResult, TView>()
+        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<TResult, TView>(
+            Func<FailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
             where TResult : FailureMechanismSectionResult
             where TView : FailureMechanismResultView<TResult>
         {
@@ -857,7 +873,8 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = createInstanceFunc
             };
         }
 

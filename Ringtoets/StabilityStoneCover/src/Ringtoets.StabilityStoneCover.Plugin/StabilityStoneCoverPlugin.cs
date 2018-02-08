@@ -31,6 +31,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
@@ -92,7 +93,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = context => new StabilityStoneCoverResultView(context.WrappedData)
             };
         }
 

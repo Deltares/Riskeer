@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -124,7 +125,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(
-                Enumerable.Empty<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(), failureMechanism, assessmentSection);
+                new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(), failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -138,6 +139,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(context, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies are called in TearDown()
         }

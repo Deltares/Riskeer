@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var failureMechanismSectionResults = new[]
+            var failureMechanismSectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 CreateFailureMechanismSectionResult()
             };
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanismSectionResults, failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<IEnumerable<FailureMechanismSectionResult>>>(context);
+            Assert.IsInstanceOf<WrappedObjectContextBase<IObservableEnumerable<FailureMechanismSectionResult>>>(context);
             Assert.AreSame(failureMechanismSectionResults, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             mocks.VerifyAll();
@@ -64,10 +64,11 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             FailureMechanismSectionResult sectionResult = CreateFailureMechanismSectionResult();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(new[]
-            {
-                sectionResult
-            }, null);
+            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(
+                new ObservableList<FailureMechanismSectionResult>
+                {
+                    sectionResult
+                }, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

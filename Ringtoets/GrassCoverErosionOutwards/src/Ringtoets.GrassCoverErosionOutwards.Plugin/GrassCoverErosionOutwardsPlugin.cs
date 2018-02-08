@@ -143,7 +143,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismResultView(context.WrappedData)
             };
 
             yield return new ViewInfo<
@@ -328,6 +329,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             }
 
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
+        }
+
+        private static RoundedDouble GetAssessmentLevel(ICalculation<WaveConditionsInput> calculation)
+        {
+            return calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
         }
 
         #region ViewInfos
@@ -960,10 +966,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
-
-        private static RoundedDouble GetAssessmentLevel(ICalculation<WaveConditionsInput> calculation)
-        {
-            return calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
-        }
     }
 }

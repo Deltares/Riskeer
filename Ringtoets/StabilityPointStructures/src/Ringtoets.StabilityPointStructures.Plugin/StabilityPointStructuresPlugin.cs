@@ -111,7 +111,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new StabilityPointStructuresFailureMechanismResultView(
                     context.AssessmentSection,
-                    ((StabilityPointStructuresFailureMechanism) context.FailureMechanism).SectionResults)
+                    context.WrappedData)
             };
 
             yield return new ViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>

@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -84,7 +85,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var sectionResults = new[]
+            var sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
             {
                 new StructuresFailureMechanismSectionResult<HeightStructuresInput>(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             };

@@ -110,7 +110,8 @@ namespace Ringtoets.DuneErosion.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
+                CreateInstance = context => new DuneErosionFailureMechanismResultView(context.WrappedData)
             };
 
             yield return new ViewInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismView>

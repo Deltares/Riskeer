@@ -185,7 +185,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new HeightStructuresFailureMechanismResultView(
                     context.AssessmentSection,
-                    ((HeightStructuresFailureMechanism) context.FailureMechanism).SectionResults)
+                    context.WrappedData)
             };
         }
 

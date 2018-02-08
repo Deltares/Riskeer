@@ -113,7 +113,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new ClosingStructuresFailureMechanismResultView(
                     context.AssessmentSection,
-                    ((ClosingStructuresFailureMechanism) context.FailureMechanism).SectionResults)
+                    context.WrappedData)
             };
 
             yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>

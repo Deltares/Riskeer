@@ -224,7 +224,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(
                     context.AssessmentSection,
-                    ((MacroStabilityInwardsFailureMechanism) context.FailureMechanism).SectionResults)
+                    context.WrappedData)
             };
 
             yield return new ViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>
