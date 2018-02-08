@@ -55,9 +55,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
             return new AssemblyCategoriesCalculator(factory);
         }
 
-        public IFailureMechanismSectionAssessmentAssemblyCalculator CreateFailureMechanismSectionAssessmentAssemblyCalculator(IAssemblyToolKernelFactory factory)
+        public IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactory factory)
         {
-            return new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+            return new FailureMechanismSectionAssemblyCalculator(factory);
         }
     }
 }

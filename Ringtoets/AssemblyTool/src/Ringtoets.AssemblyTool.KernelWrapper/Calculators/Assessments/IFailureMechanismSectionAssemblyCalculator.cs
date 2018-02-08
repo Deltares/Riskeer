@@ -25,16 +25,16 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
 {
     /// <summary>
-    /// Interface representing a failure mechanism section assembly assessment calculator.
+    /// Interface representing a failure mechanism section assembly calculator.
     /// </summary>
     /// <remarks>
     /// This interface is introduced for being able to test the conversion of:
     /// <list type="bullet">
-    /// <item>Ringtoets failure mechanism section assembly assessment input into kernel input;</item>
-    /// <item>kernel output into Ringtoets failure mechanism section assembly assessment output.</item>
+    /// <item>Ringtoets failure mechanism section assembly input into kernel input;</item>
+    /// <item>kernel output into Ringtoets failure mechanism section assembly output.</item>
     /// </list>
     /// </remarks>
-    public interface IFailureMechanismSectionAssessmentAssemblyCalculator
+    public interface IFailureMechanismSectionAssemblyCalculator
     {
         /// <summary>
         /// Assembles the simple assessment for the given <paramref name="input"/>.
@@ -50,6 +50,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
         /// </summary>
         /// <param name="input">The <see cref="SimpleAssessmentResultValidityOnlyType"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssessmentAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input);
     }
 }

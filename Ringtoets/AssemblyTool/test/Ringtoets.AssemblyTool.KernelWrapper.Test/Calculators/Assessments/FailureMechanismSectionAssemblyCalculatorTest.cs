@@ -37,7 +37,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
 {
     [TestFixture]
-    public class FailureMechanismSectionAssessmentAssemblyCalculatorTest
+    public class FailureMechanismSectionAssemblyCalculatorTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -48,10 +48,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             mocks.ReplayAll();
 
             // Call
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(kernelFactory);
+            var calculator = new FailureMechanismSectionAssemblyCalculator(kernelFactory);
 
             // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionAssessmentAssemblyCalculator>(calculator);
+            Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculator>(calculator);
             mocks.VerifyAll();
         }
 
@@ -59,7 +59,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
         public void Constructor_FactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSectionAssessmentAssemblyCalculator(null);
+            TestDelegate call = () => new FailureMechanismSectionAssemblyCalculator(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,7 +74,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultType) 99);
@@ -95,11 +95,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
                     new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.Iv, Probability.NaN));
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 calculator.AssembleSimpleAssessment(assessmentResult);
@@ -116,11 +116,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
                     new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.Iv, Probability.NaN));
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.AssessFurther);
@@ -137,11 +137,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
                     new FailureMechanismSectionAssemblyCategoryResult((FailureMechanismSectionCategoryGroup) 99, Probability.NaN));
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.AssessFurther);
@@ -161,10 +161,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.AssessFurther);
@@ -184,7 +184,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             {
                 var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultValidityOnlyType) 99);
@@ -205,11 +205,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
-                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
                     new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.Iv, Probability.NaN));
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 calculator.AssembleSimpleAssessment(assessmentResult);
@@ -226,11 +226,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
-                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
                     new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.Iv, Probability.NaN));
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.NotApplicable);
@@ -247,11 +247,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
-                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
                     new FailureMechanismSectionAssemblyCategoryResult((FailureMechanismSectionCategoryGroup)99, Probability.NaN));
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.Applicable);
@@ -271,10 +271,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
-                FailureMechanismSectionAssessmentAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.Applicable);

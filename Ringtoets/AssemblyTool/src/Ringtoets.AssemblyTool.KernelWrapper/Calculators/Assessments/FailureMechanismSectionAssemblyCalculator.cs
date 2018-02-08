@@ -31,18 +31,18 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
 {
     /// <summary>
-    /// Class representing a failure mechanism section assembly assessment calculator.
+    /// Class representing a failure mechanism section assembly calculator.
     /// </summary>
-    public class FailureMechanismSectionAssessmentAssemblyCalculator : IFailureMechanismSectionAssessmentAssemblyCalculator
+    public class FailureMechanismSectionAssemblyCalculator : IFailureMechanismSectionAssemblyCalculator
     {
         private readonly IAssemblyToolKernelFactory factory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionAssessmentAssemblyCalculator"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyCalculator"/>.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionAssessmentAssemblyCalculator(IAssemblyToolKernelFactory factory)
+        public FailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactory factory)
         {
             if (factory == null)
             {
@@ -56,7 +56,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
         {
             try
             {
-                IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                global::AssemblyTool.Kernel.Assembly.IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult(input));
 
@@ -72,7 +72,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
         {
             try
             {
-                IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                global::AssemblyTool.Kernel.Assembly.IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimplecalclCalculationResultValidityOnly(input));
 

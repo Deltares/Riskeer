@@ -28,16 +28,16 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessments
 {
     [TestFixture]
-    public class FailureMechanismSectionAssessmentAssemblyCalculatorStubTest
+    public class FailureMechanismSectionAssemblyCalculatorStubTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionAssessmentAssemblyCalculator>(calculator);
+            Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculator>(calculator);
             Assert.IsNull(calculator.SimpleAssessmentAssemblyOutput);
         }
 
@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         public void AssembleSimpleAssessment_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
         {
             // Setup
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
             FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.None);
@@ -59,7 +59,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         public void AssembleSimpleAssessment_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
         {
             // Setup
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
             {
                 SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0.4, FailureMechanismSectionAssemblyCategoryGroup.None)
             };
@@ -76,7 +76,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         {
             // Setup
             const SimpleAssessmentResultType input = SimpleAssessmentResultType.None;
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
             calculator.AssembleSimpleAssessment(input);
@@ -89,7 +89,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         public void AssembleSimpleAssessment_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssessmentAssemblyCalculatorException()
         {
             // Setup
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
             {
                 ThrowExceptionOnCalculate = true
             };
@@ -107,7 +107,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
         {
             // Setup
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
             FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.None);
@@ -121,7 +121,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
         {
             // Setup
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
             {
                 SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0.4, FailureMechanismSectionAssemblyCategoryGroup.None)
             };
@@ -138,7 +138,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         {
             // Setup
             const SimpleAssessmentResultValidityOnlyType input = SimpleAssessmentResultValidityOnlyType.None;
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
             calculator.AssembleSimpleAssessment(input);
@@ -151,7 +151,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
         public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssessmentAssemblyCalculatorException()
         {
             // Setup
-            var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
             {
                 ThrowExceptionOnCalculate = true
             };

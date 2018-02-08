@@ -39,7 +39,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
             // Assert
             Assert.IsInstanceOf<IAssemblyToolKernelFactory>(factory);
             Assert.IsNotNull(factory.LastCreatedAssemblyCategoriesKernel);
-            Assert.IsNotNull(factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel);
+            Assert.IsNotNull(factory.LastCreatedFailureMechanismSectionAssemblyKernel);
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
             IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
             // Assert
-            Assert.AreSame(factory.LastCreatedFailureMechanismSectionAssessmentAssemblyKernel, kernel);
+            Assert.AreSame(factory.LastCreatedFailureMechanismSectionAssemblyKernel, kernel);
         }
     }
 }

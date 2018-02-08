@@ -16,11 +16,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryConfig.cs" />
-    <Compile Include="Calculators\Assessments\FailureMechanismSectionAssessmentAssemblyCalculatorStub.cs" />
+    <Compile Include="Calculators\Assessments\FailureMechanismSectionAssemblyCalculatorStub.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorStub.cs" />
     <Compile Include="Calculators\TestAssemblyToolCalculatorFactory.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactoryConfig.cs" />
-    <Compile Include="Kernels\Assessments\FailureMechanismSectionAssessmentAssemblyKernelStub.cs" />
+    <Compile Include="Kernels\Assessments\FailureMechanismSectionAssemblyKernelStub.cs" />
     <Compile Include="Kernels\Categories\AssemblyCategoriesKernelStub.cs" />
     <Compile Include="Kernels\TestAssemblyToolKernelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

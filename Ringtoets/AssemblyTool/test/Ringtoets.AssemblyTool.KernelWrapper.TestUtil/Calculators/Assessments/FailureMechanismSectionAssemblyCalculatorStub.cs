@@ -27,9 +27,9 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
 {
     /// <summary>
-    /// Failure mechanism section assembly assessment calculator stub for testing purposes.
+    /// Failure mechanism section assembly calculator stub for testing purposes.
     /// </summary>
-    public class FailureMechanismSectionAssessmentAssemblyCalculatorStub : IFailureMechanismSectionAssessmentAssemblyCalculator
+    public class FailureMechanismSectionAssemblyCalculatorStub : IFailureMechanismSectionAssemblyCalculator
     {
         /// <summary>
         /// Gets or sets the output of the calculation.

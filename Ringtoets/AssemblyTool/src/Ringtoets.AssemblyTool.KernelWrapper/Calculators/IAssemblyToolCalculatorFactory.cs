@@ -40,11 +40,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
         IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactory factory);
 
         /// <summary>
-        /// Creates a failure mechanism section assessment assembly calculator.
+        /// Creates a failure mechanism section assembly calculator.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
-        /// <returns>The failure mechanism section assessment assembly calculator.</returns>
+        /// <returns>The failure mechanism section assembly calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        IFailureMechanismSectionAssessmentAssemblyCalculator CreateFailureMechanismSectionAssessmentAssemblyCalculator(IAssemblyToolKernelFactory factory);
+        IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactory factory);
     }
 }

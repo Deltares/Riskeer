@@ -29,9 +29,9 @@ using AssemblyTool.Kernel.Data.CalculationResults;
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assessments
 {
     /// <summary>
-    /// Failure mechanism section assessment assembly kernel stub for testing purposes.
+    /// Failure mechanism section assembly kernel stub for testing purposes.
     /// </summary>
-    public class FailureMechanismSectionAssessmentAssemblyKernelStub : IFailureMechanismSectionAssemblyCalculator
+    public class FailureMechanismSectionAssemblyKernelStub : IFailureMechanismSectionAssemblyCalculator
     {
         /// <summary>
         /// Gets the input used in <see cref="SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResult)"/>.
