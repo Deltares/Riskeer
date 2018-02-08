@@ -39,12 +39,25 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismResultView"/>.
         /// </summary>
+        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
         /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailureMechanismResultView(
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
             IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> failureMechanismSectionResults) : base(failureMechanismSectionResults)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            FailureMechanism = failureMechanism;
             DataGridViewControl.CellFormatting += OnCellFormatting;
+
+            UpdateDataGridViewDataSource();
         }
+
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
         {

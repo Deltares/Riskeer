@@ -22,7 +22,6 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -46,25 +45,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanismSectionResults = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanismSectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithGrassCoverErosionOutwardsFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
             // Given
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
             using (var form = new Form())
             {
-                using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(
-                    new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>()))
+                using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
                 {
                     form.Controls.Add(view);
 
@@ -91,9 +92,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GrassCoverErosionOutwardsFailureMechanismResultView_WithFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -112,19 +113,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>
             {
@@ -133,52 +134,49 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 result3
             };
 
+            // Call
             using (var form = new Form())
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                      sectionResults))
             {
-                using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(sectionResults))
-                {
-                    form.Controls.Add(view);
-                    form.Show();
+                form.Controls.Add(view);
+                form.Show();
 
-                    // When
-                    view.Data = sectionResults;
+                // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                    // Then
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(3, rows.Count);
 
-                    DataGridViewRowCollection rows = dataGridView.Rows;
-                    Assert.AreEqual(3, rows.Count);
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                    DataGridViewCellCollection cells = rows[0].Cells;
-                    Assert.AreEqual(4, cells.Count);
-                    Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                    Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
-                    DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                    DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                cells = rows[1].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                    cells = rows[1].Cells;
-                    Assert.AreEqual(4, cells.Count);
-                    Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                    Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
-                    DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
-                    DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                cells = rows[2].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                    cells = rows[2].Cells;
-                    Assert.AreEqual(4, cells.Count);
-                    Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                    Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                    DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
-                    DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
-                }
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
@@ -197,7 +195,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>
             {
@@ -206,12 +204,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (var form = new Form())
             {
-                using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(sectionResults))
+                using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                          sectionResults))
                 {
                     form.Controls.Add(view);
                     form.Show();
-
-                    view.Data = sectionResults;
 
                     // When
                     result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;

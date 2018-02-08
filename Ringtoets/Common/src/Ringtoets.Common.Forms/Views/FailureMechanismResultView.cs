@@ -40,6 +40,7 @@ namespace Ringtoets.Common.Forms.Views
         protected const int AssessmentLayerOneColumnIndex = 1;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly IObservableEnumerable<T> failureMechanismSectionResults;
+        private readonly RecursiveObserver<IObservableEnumerable<T>, T> failureMechanismSectionResultsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{T}"/>.
@@ -59,6 +60,13 @@ namespace Ringtoets.Common.Forms.Views
 
             this.failureMechanismSectionResults = failureMechanismSectionResults;
             failureMechanismSectionResultObserver = new Observer(UpdateDataGridViewDataSource)
+            {
+                Observable = failureMechanismSectionResults
+            };
+
+            failureMechanismSectionResultsObserver = new RecursiveObserver<IObservableEnumerable<T>, T>(
+                DataGridViewControl.RefreshDataGridView,
+                sr => sr)
             {
                 Observable = failureMechanismSectionResults
             };
@@ -91,6 +99,7 @@ namespace Ringtoets.Common.Forms.Views
         protected override void Dispose(bool disposing)
         {
             failureMechanismSectionResultObserver?.Dispose();
+            failureMechanismSectionResultsObserver?.Dispose();
 
             if (disposing)
             {

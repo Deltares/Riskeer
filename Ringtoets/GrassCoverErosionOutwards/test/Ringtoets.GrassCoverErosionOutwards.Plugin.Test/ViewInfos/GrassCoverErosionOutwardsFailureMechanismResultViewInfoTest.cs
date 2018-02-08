@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -146,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -204,7 +204,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -224,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -242,7 +242,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -265,7 +265,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -290,7 +290,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -301,25 +301,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 Assert.IsFalse(closeForData);
             }
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            var view = mocks.StrictMock<GrassCoverErosionOutwardsFailureMechanismResultView>();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-
-            view.Expect(v => v.FailureMechanism = failureMechanism);
-
-            mocks.ReplayAll();
-
-            // Call
-            info.AfterCreate(view, context);
-
-            // Assert
             mocks.VerifyAll();
         }
 

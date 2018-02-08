@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Setup
-            var failureMechanismSectionResults = new ObservableList<FailureMechanismSectionResult>();
+            var failureMechanismSectionResults = new ObservableList<TestFailureMechanismSectionResult>();
 
             // Call
             using (var view = new TestFailureMechanismResultView(failureMechanismSectionResults))
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             const int assessmentLayerOneIndex = 1;
 
             // Call
-            using (ShowFailureMechanismResultsView(new ObservableList<FailureMechanismSectionResult>()))
+            using (ShowFailureMechanismResultsView(new ObservableList<TestFailureMechanismSectionResult>()))
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -87,7 +87,65 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
-        private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
+        [Test]
+        public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdated_ThenObserverNotified()
+        {
+            // Given
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.RowCount);
+
+                // When
+                sectionResults.Add(new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
+                {
+                    new Point2D(0, 0)
+                })));
+                sectionResults.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, dataGridView.RowCount);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultUpdated_ThenObserverNotified()
+        {
+            // Given
+            var sectionResult = new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
+            {
+                new Point2D(0, 0)
+            }))
+            {
+                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict
+            };
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                // Precondition
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
+
+                // When
+                sectionResult.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                sectionResult.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
+            }
+        }
+
+        private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<TestFailureMechanismSectionResult> sectionResults)
         {
             var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults);
             testForm.Controls.Add(failureMechanismResultView);
@@ -97,23 +155,38 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
     }
 
-    public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult>
+    public class TestFailureMechanismResultView : FailureMechanismResultView<TestFailureMechanismSectionResult>
     {
-        public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults) : base(failureMechanismSectionResults) {}
+        public TestFailureMechanismResultView(IObservableEnumerable<TestFailureMechanismSectionResult> failureMechanismSectionResults) : base(failureMechanismSectionResults)
+        {
+            DataGridViewControl.CellFormatting += OnCellFormatting;
+            AddDataGridColumns();
+            UpdateDataGridViewDataSource();
+        }
 
-        protected override object CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult)
         {
             return new TestRow(sectionResult);
         }
+
+        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnIndex < AssessmentLayerOneColumnIndex)
+            {
+                if (HasPassedLevelOne(eventArgs.RowIndex))
+                {
+                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+            }
+        }
     }
 
-    public class TestRow
+    public class TestRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResult>
     {
-        public TestRow(FailureMechanismSectionResult sectionResult)
-        {
-            Name = sectionResult.Section.Name;
-        }
-
-        public string Name { get; }
+        public TestRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
     }
 }
