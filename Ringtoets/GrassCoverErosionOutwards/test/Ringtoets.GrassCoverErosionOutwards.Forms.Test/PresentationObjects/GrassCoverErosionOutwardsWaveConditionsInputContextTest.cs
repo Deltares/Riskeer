@@ -23,7 +23,6 @@ using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.Revetment.Data;
@@ -44,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -71,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var calculation = new TestWaveConditionsCalculation();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call

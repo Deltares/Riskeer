@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Service
         /// Initializes a new instance of the <see cref="PipingCalculationActivity"/> class.
         /// </summary>
         /// <param name="calculation">The piping data used for the calculation.</param>
-        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public PipingCalculationActivity(PipingCalculation calculation,
                                          RoundedDouble normativeAssessmentLevel)

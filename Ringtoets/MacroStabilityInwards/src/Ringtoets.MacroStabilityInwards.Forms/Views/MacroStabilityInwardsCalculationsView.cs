@@ -390,7 +390,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(MacroStabilityInwardsCalculation macroStabilityInwardsCalculation)
         {
-            return GetSelectableHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations,
+            return GetSelectableHydraulicBoundaryLocations(assessmentSection?.HydraulicBoundaryDatabase.Locations,
                                                            macroStabilityInwardsCalculation.InputParameters.SurfaceLine);
         }
 

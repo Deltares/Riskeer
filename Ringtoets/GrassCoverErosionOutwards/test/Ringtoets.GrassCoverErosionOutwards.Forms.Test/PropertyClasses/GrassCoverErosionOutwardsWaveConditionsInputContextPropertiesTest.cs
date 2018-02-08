@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -40,12 +40,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     {
         private MockRepository mockRepository;
         private IObservablePropertyChangeHandler handler;
+        private IAssessmentSection assessmentSection;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
             handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -55,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 new WaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
-                new ObservableTestAssessmentSectionStub(),
+                assessmentSection,
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
@@ -74,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 new WaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
-                new ObservableTestAssessmentSectionStub(),
+                assessmentSection,
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call

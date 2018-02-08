@@ -764,7 +764,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                                                                                              pipingFailureMechanism,
                                                                                                              pipingFailureMechanism.CalculationsGroup))
             {
-                // Precondition
                 var button = new ButtonTester("buttonGenerateScenarios", testForm);
 
                 DialogBoxHandler = (name, wnd) =>

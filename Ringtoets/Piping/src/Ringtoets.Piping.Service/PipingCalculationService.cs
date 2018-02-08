@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> for which to validate the values.</param>
-        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static bool Validate(PipingCalculation calculation, RoundedDouble normativeAssessmentLevel)
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> to base the input for the calculation upon.</param>
-        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
         public static void Calculate(PipingCalculation calculation, RoundedDouble normativeAssessmentLevel)

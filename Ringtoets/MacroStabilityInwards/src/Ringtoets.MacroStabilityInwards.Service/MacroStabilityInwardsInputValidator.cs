@@ -45,7 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// </summary>
         /// <param name="inputParameters">The <see cref="MacroStabilityInwardsInput"/> for which to validate the values.</param>
         /// <returns>Validation errors, if any.</returns>
-        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case no manual assessment level is provided.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="inputParameters"/> is <c>null</c>.</exception>
         public static IEnumerable<string> Validate(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {

@@ -23,11 +23,11 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
@@ -42,7 +42,10 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
         {
             // Setup
             var waveConditionsInput = new WaveConditionsInput();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
 
             // Call
             TestDelegate call = () => new TestWaveConditionsInputContext(waveConditionsInput,
@@ -52,6 +55,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("calculation", paramName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -77,7 +81,10 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
             // Setup
             var waveConditionsInput = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
 
             // Call
             var context = new TestWaveConditionsInputContext(waveConditionsInput,
@@ -89,6 +96,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
+            mocks.VerifyAll();
         }
 
         private class TestWaveConditionsInputContext : WaveConditionsInputContext

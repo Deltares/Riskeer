@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             };
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -70,7 +70,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call

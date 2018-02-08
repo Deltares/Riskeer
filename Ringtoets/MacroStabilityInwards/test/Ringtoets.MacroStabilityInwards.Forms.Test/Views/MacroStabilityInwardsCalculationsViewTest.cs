@@ -676,7 +676,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                                                                                           macroStabilityInwardsFailureMechanism,
                                                                                                                                                           macroStabilityInwardsFailureMechanism.CalculationsGroup))
             {
-                // Precondition
                 var button = new ButtonTester("buttonGenerateScenarios", testForm);
 
                 DialogBoxHandler = (name, wnd) =>
