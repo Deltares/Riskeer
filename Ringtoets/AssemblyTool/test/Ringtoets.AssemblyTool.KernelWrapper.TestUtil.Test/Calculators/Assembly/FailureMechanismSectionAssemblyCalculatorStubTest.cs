@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessments
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembly
 {
     [TestFixture]
     public class FailureMechanismSectionAssemblyCalculatorStubTest

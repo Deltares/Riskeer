@@ -22,7 +22,7 @@
 using AssemblyTool.Kernel.Assembly;
 using AssemblyTool.Kernel.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assessments;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels

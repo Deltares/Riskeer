@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 {
     /// <summary>
     /// Failure mechanism section assembly calculator stub for testing purposes.

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 

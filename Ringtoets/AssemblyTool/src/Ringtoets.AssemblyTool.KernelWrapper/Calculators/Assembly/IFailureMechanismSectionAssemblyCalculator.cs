@@ -22,7 +22,7 @@
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
+namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
     /// Interface representing a failure mechanism section assembly calculator.

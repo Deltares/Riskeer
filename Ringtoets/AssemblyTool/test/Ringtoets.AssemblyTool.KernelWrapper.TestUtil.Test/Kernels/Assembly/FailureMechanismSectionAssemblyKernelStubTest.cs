@@ -28,9 +28,9 @@ using AssemblyTool.Kernel.Data.AssemblyCategories;
 using AssemblyTool.Kernel.Data.CalculationResults;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assessments;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assessments
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
 {
     [TestFixture]
     public class FailureMechanismSectionAssemblyKernelStubTest

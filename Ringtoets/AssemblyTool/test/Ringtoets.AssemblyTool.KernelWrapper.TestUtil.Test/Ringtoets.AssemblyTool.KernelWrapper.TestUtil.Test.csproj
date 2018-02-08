@@ -18,10 +18,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryConfigTest.cs" />
-    <Compile Include="Calculators\Assessments\FailureMechanismSectionAssemblyCalculatorStubTest.cs" />
+    <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorStubTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorStubTest.cs" />
     <Compile Include="Calculators\TestAssemblyToolCalculatorFactoryTest.cs" />
-    <Compile Include="Kernels\Assessments\FailureMechanismSectionAssemblyKernelStubTest.cs" />
+    <Compile Include="Kernels\Assembly\FailureMechanismSectionAssemblyKernelStubTest.cs" />
     <Compile Include="Kernels\Categories\AssemblyCategoriesKernelStubTest.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactoryConfigTest.cs" />
     <Compile Include="Kernels\TestAssemblyToolKernelFactoryTest.cs" />

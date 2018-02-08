@@ -22,9 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
+namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
     [TestFixture]
     public class FailureMechanismSectionAssemblyCalculatorExceptionTest

@@ -26,7 +26,7 @@ using AssemblyTool.Kernel.Assembly.CalculatorInput;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
 using AssemblyTool.Kernel.Data.CalculationResults;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assessments
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
     /// Failure mechanism section assembly kernel stub for testing purposes.

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators

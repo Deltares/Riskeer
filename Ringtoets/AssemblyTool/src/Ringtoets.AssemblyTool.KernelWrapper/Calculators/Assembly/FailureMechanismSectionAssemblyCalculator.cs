@@ -21,14 +21,14 @@
 
 using System;
 using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.Assembly;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
+using IFailureMechanismSectionAssemblyCalculatorKernel = AssemblyTool.Kernel.Assembly.IFailureMechanismSectionAssemblyCalculator;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
+namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
     /// Class representing a failure mechanism section assembly calculator.
@@ -56,7 +56,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
         {
             try
             {
-                global::AssemblyTool.Kernel.Assembly.IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult(input));
 
@@ -72,7 +72,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
         {
             try
             {
-                global::AssemblyTool.Kernel.Assembly.IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimplecalclCalculationResultValidityOnly(input));
 
