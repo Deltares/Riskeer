@@ -52,6 +52,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 
             switch (input)
             {
+                case SimpleAssessmentResultType.None:
+                    return SimpleCalculationResult.None;
                 case SimpleAssessmentResultType.NotApplicable:
                     return SimpleCalculationResult.NVT;
                 case SimpleAssessmentResultType.ProbabilityNegligible:
@@ -83,6 +85,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 
             switch (input)
             {
+                case SimpleAssessmentResultValidityOnlyType.None:
+                    return SimpleCalculationResultValidityOnly.None;
                 case SimpleAssessmentResultValidityOnlyType.NotApplicable:
                     return SimpleCalculationResultValidityOnly.NVT;
                 case SimpleAssessmentResultValidityOnlyType.Applicable:

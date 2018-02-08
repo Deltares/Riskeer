@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using AssemblyTool.Kernel.Data.CalculationResults;
 using Core.Common.TestUtil;
@@ -44,16 +43,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateSimpleCalculationResult_WithResultTypeNone_ThrowNotSupportedException()
-        {
-            // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult(SimpleAssessmentResultType.None);
-
-            // Assert
-            Assert.Throws<NotSupportedException>(test);
-        }
-
-        [Test]
+        [TestCase(SimpleAssessmentResultType.None, SimpleCalculationResult.None)]
         [TestCase(SimpleAssessmentResultType.NotApplicable, SimpleCalculationResult.NVT)]
         [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, SimpleCalculationResult.FV)]
         [TestCase(SimpleAssessmentResultType.AssessFurther, SimpleCalculationResult.VB)]
@@ -79,16 +69,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateSimplecalclCalculationResultValidityOnly_WithResultTypeNone_ThrowNotSupportedException()
-        {
-            // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimplecalclCalculationResultValidityOnly(SimpleAssessmentResultValidityOnlyType.None);
-
-            // Assert
-            Assert.Throws<NotSupportedException>(test);
-        }
-
-        [Test]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None, SimpleCalculationResultValidityOnly.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, SimpleCalculationResultValidityOnly.NVT)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, SimpleCalculationResultValidityOnly.WVT)]
         public void CreateSimplecalclCalculationResultValidityOnly_ValidData_ReturnSimpleCalculationResultValidityOnly(SimpleAssessmentResultValidityOnlyType originalResult,
