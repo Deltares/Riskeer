@@ -31,13 +31,13 @@ using Ringtoets.Common.Data.AssemblyTool;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class FailureMechanismSectionAssessmentCreatorTest
+    public class FailureMechanismSectionAssemblyCreatorTest
     {
         [Test]
         public void Create_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionAssessmentCreator.Create(null);
+            TestDelegate call = () => FailureMechanismSectionAssemblyCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var result = new FailureMechanismSectionAssemblyCategoryResult((FailureMechanismSectionCategoryGroup) 99, Probability.NaN);
 
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssessmentCreator.Create(result);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCreator.Create(result);
 
             // Assert
             const string expectedMessage = "The value of argument 'originalGroup' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
@@ -67,8 +67,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionCategoryGroup.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
         [TestCase(FailureMechanismSectionCategoryGroup.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
         [TestCase(FailureMechanismSectionCategoryGroup.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
-        public void Create_ValidResult_ReturnFailureMechanismSectionAssessment(FailureMechanismSectionCategoryGroup originalGroup,
-                                                                               FailureMechanismSectionAssemblyCategoryGroup expectedGroup)
+        public void Create_ValidResult_ReturnFailureMechanismSectionAssembly(FailureMechanismSectionCategoryGroup originalGroup,
+                                                                             FailureMechanismSectionAssemblyCategoryGroup expectedGroup)
         {
             // Setup
             var random = new Random(39);
@@ -77,11 +77,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var result = new FailureMechanismSectionAssemblyCategoryResult(originalGroup, new Probability(probability));
 
             // Call
-            FailureMechanismSectionAssessment assessment = FailureMechanismSectionAssessmentCreator.Create(result);
+            FailureMechanismSectionAssembly assembly = FailureMechanismSectionAssemblyCreator.Create(result);
 
             // Assert
-            Assert.AreEqual(expectedGroup, assessment.Group);
-            Assert.AreEqual(probability, assessment.Probability);
+            Assert.AreEqual(expectedGroup, assembly.Group);
+            Assert.AreEqual(probability, assembly.Probability);
         }
     }
 }

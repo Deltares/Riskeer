@@ -48,11 +48,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
             var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
 
             // Call
-            FailureMechanismSectionAssessment assessment = calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.None);
+            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.None);
 
             // Assert
-            Assert.AreEqual(0, assessment.Probability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, assessment.Group);
+            Assert.AreEqual(0, assembly.Probability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, assembly.Group);
         }
 
         [Test]
@@ -61,14 +61,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
             // Setup
             var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
             {
-                SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssessment(0.4, FailureMechanismSectionAssemblyCategoryGroup.None)
+                SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0.4, FailureMechanismSectionAssemblyCategoryGroup.None)
             };
 
             // Call
-            FailureMechanismSectionAssessment assessment = calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.None);
+            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.None);
 
             // Assert
-            Assert.AreSame(calculator.SimpleAssessmentAssemblyOutput, assessment);
+            Assert.AreSame(calculator.SimpleAssessmentAssemblyOutput, assembly);
         }
 
         [Test]
@@ -110,11 +110,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
             var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub();
 
             // Call
-            FailureMechanismSectionAssessment assessment = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.None);
+            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.None);
 
             // Assert
-            Assert.AreEqual(1, assessment.Probability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assessment.Group);
+            Assert.AreEqual(1, assembly.Probability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
         }
 
         [Test]
@@ -123,14 +123,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assessm
             // Setup
             var calculator = new FailureMechanismSectionAssessmentAssemblyCalculatorStub
             {
-                SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssessment(0.4, FailureMechanismSectionAssemblyCategoryGroup.None)
+                SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0.4, FailureMechanismSectionAssemblyCategoryGroup.None)
             };
 
             // Call
-            FailureMechanismSectionAssessment assessment = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.None);
+            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.None);
 
             // Assert
-            Assert.AreSame(calculator.SimpleAssessmentAssemblyOutput, assessment);
+            Assert.AreSame(calculator.SimpleAssessmentAssemblyOutput, assembly);
         }
 
         [Test]

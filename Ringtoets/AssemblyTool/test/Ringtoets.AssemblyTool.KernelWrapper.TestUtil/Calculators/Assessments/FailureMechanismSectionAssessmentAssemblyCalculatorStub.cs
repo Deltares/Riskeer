@@ -34,7 +34,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
         /// <summary>
         /// Gets or sets the output of the calculation.
         /// </summary>
-        public FailureMechanismSectionAssessment SimpleAssessmentAssemblyOutput { get; set; }
+        public FailureMechanismSectionAssembly SimpleAssessmentAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets the input of the calculation.
@@ -51,7 +51,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultType input)
+        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -61,10 +61,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
             SimpleAssessmentInput = input;
 
             return SimpleAssessmentAssemblyOutput ??
-                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssessment(0, FailureMechanismSectionAssemblyCategoryGroup.Iv));
+                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.Iv));
         }
 
-        public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
+        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -74,7 +74,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assessments
             SimpleAssessmentValidityOnlyInput = input;
 
             return SimpleAssessmentAssemblyOutput ??
-                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssessment(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
+                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
         }
     }
 }

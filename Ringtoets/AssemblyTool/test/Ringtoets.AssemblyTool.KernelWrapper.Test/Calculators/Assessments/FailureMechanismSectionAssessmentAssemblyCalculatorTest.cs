@@ -123,10 +123,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
                 var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismSectionAssessment assessment = calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.AssessFurther);
+                FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.AssessFurther);
 
                 // Assert
-                AssertCalculatorOutput(kernel.FailureMechanismSectionAssemblyCategoryResult, assessment);
+                AssertCalculatorOutput(kernel.FailureMechanismSectionAssemblyCategoryResult, assembly);
             }
         }
 
@@ -233,10 +233,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
                 var calculator = new FailureMechanismSectionAssessmentAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismSectionAssessment assessment = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.NotApplicable);
+                FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.NotApplicable);
 
                 // Assert
-                AssertCalculatorOutput(kernel.FailureMechanismSectionAssemblyCategoryResult, assessment);
+                AssertCalculatorOutput(kernel.FailureMechanismSectionAssemblyCategoryResult, assembly);
             }
         }
 
@@ -286,7 +286,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assessments
             }
         }
 
-        private static void AssertCalculatorOutput(CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> original, FailureMechanismSectionAssessment actual)
+        private static void AssertCalculatorOutput(CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> original, FailureMechanismSectionAssembly actual)
         {
             Assert.AreEqual(GetGroup(original.Result.CategoryGroup), actual.Group);
             Assert.AreEqual(original.Result.EstimatedProbabilityOfFailure, actual.Probability);

@@ -52,7 +52,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
             this.factory = factory;
         }
 
-        public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultType input)
+        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
                 CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult(input));
 
-                return FailureMechanismSectionAssessmentCreator.Create(output.Result);
+                return FailureMechanismSectionAssemblyCreator.Create(output.Result);
             }
             catch (Exception e)
             {
@@ -68,7 +68,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
             }
         }
 
-        public FailureMechanismSectionAssessment AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
+        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assessments
                 CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimplecalclCalculationResultValidityOnly(input));
 
-                return FailureMechanismSectionAssessmentCreator.Create(output.Result);
+                return FailureMechanismSectionAssemblyCreator.Create(output.Result);
             }
             catch (Exception e)
             {

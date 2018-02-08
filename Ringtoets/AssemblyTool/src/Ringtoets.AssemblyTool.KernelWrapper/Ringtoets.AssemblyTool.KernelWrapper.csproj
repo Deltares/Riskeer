@@ -24,7 +24,7 @@
     <Compile Include="Calculators\IAssemblyToolCalculatorFactory.cs" />
     <Compile Include="Creators\AssessmentSectionAssemblyCategoryCreator.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCalculatorInputCreator.cs" />
-    <Compile Include="Creators\FailureMechanismSectionAssessmentCreator.cs" />
+    <Compile Include="Creators\FailureMechanismSectionAssemblyCreator.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactory.cs" />
     <Compile Include="Kernels\IAssemblyToolKernelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

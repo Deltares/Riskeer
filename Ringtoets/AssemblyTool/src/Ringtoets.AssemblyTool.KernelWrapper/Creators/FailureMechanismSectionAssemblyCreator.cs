@@ -27,21 +27,21 @@ using Ringtoets.Common.Data.AssemblyTool;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="FailureMechanismSectionAssessment"/> instances.
+    /// Creates <see cref="FailureMechanismSectionAssembly"/> instances.
     /// </summary>
-    public static class FailureMechanismSectionAssessmentCreator
+    public static class FailureMechanismSectionAssemblyCreator
     {
         /// <summary>
-        /// Creates <see cref="FailureMechanismSectionAssessment"/> from the given <see cref="FailureMechanismSectionAssemblyCategoryResult"/>.
+        /// Creates <see cref="FailureMechanismSectionAssembly"/> from the given <see cref="FailureMechanismSectionAssemblyCategoryResult"/>.
         /// </summary>
-        /// <param name="result">The result to create the assessment from.</param>
-        /// <returns>The created assessment.</returns>
+        /// <param name="result">The result to create the assembly from.</param>
+        /// <returns>The created assembly.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionCategoryGroup"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssessment Create(FailureMechanismSectionAssemblyCategoryResult result)
+        public static FailureMechanismSectionAssembly Create(FailureMechanismSectionAssemblyCategoryResult result)
         {
             if (result == null)
             {
@@ -88,7 +88,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     throw new NotSupportedException();
             }
 
-            return new FailureMechanismSectionAssessment(result.EstimatedProbabilityOfFailure.Value, group);
+            return new FailureMechanismSectionAssembly(result.EstimatedProbabilityOfFailure.Value, group);
         }
     }
 }

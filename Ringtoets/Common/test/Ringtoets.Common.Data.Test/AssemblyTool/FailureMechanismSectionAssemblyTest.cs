@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.AssemblyTool;
 namespace Ringtoets.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
-    public class FailureMechanismSectionAssessmentTest
+    public class FailureMechanismSectionAssemblyTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -38,11 +38,11 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
             var group = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
-            var assessment = new FailureMechanismSectionAssessment(probability, group);
+            var assembly = new FailureMechanismSectionAssembly(probability, group);
 
             // Assert
-            Assert.AreEqual(probability, assessment.Probability);
-            Assert.AreEqual(group, assessment.Group);
+            Assert.AreEqual(probability, assembly.Probability);
+            Assert.AreEqual(group, assembly.Group);
         }
     }
 }
