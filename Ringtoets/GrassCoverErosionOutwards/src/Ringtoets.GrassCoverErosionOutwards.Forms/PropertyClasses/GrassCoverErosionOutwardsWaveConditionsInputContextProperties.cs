@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         public GrassCoverErosionOutwardsWaveConditionsInputContextProperties(GrassCoverErosionOutwardsWaveConditionsInputContext context,
                                                                              Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                                              IObservablePropertyChangeHandler propertyChangeHandler)
-            : base(context, getNormativeAssessmentLevelFunc, propertyChangeHandler) {}
+            : base(context, getNormativeAssessmentLevelFunc(), propertyChangeHandler) {}
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description))]

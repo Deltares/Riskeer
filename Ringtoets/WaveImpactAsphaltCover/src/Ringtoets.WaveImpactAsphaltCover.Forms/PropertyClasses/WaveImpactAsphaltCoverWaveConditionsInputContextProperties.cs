@@ -45,7 +45,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         public WaveImpactAsphaltCoverWaveConditionsInputContextProperties(WaveImpactAsphaltCoverWaveConditionsInputContext context,
                                                                           Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                                           IObservablePropertyChangeHandler propertyChangeHandler)
-            : base(context, getNormativeAssessmentLevelFunc, propertyChangeHandler) {}
+            : base(context, getNormativeAssessmentLevelFunc(), propertyChangeHandler) {}
 
         public override string RevetmentType
         {

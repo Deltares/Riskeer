@@ -45,7 +45,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         public StabilityStoneCoverWaveConditionsInputContextProperties(StabilityStoneCoverWaveConditionsInputContext context,
                                                                        Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                                        IObservablePropertyChangeHandler propertyChangeHandler)
-            : base(context, getNormativeAssessmentLevelFunc, propertyChangeHandler) {}
+            : base(context, getNormativeAssessmentLevelFunc(), propertyChangeHandler) {}
 
         public override string RevetmentType
         {
