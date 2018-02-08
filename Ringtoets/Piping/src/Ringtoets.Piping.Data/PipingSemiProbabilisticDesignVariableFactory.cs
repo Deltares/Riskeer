@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Data
         #region General parameters
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer"/>.
+        /// Creates the design variable for the volumic weight of the saturated coverage layer.
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
         {
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.GetThicknessCoverageLayer"/>.
+        /// Creates the design variable for the total thickness of the coverage layers at the exit point.
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetThicknessCoverageLayer(PipingInput parameters)
         {
@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.GetEffectiveThicknessCoverageLayer"/>.
+        /// Creates the design variable for the effective thickness of the coverage layers at the exit point.
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetEffectiveThicknessCoverageLayer(PipingInput parameters)
         {
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingInput.PhreaticLevelExit"/>.
+        /// Creates the design variable for the phreatic level at the exit point.
         /// </summary>
         public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingInput parameters)
         {
@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="PipingInput.DampingFactorExit"/>.
+        /// Creates the design variable for the damping factor at the exit point.
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetDampingFactorExit(PipingInput parameters)
         {
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Data
         #region Piping parameters
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.GetSeepageLength"/>.
+        /// Creates the design variable for the horizontal distance between entry and exit point.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetSeepageLength(PipingInput parameters)
         {
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.GetDiameterD70"/>.
+        /// Creates the design variable for the sieve size through which 70% of the grains of the top part of the aquifer pass.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDiameter70(PipingInput parameters)
         {
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.GetDarcyPermeability"/>.
+        /// Creates the design variable for the Darcy-speed with which water flows through the aquifer layer.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDarcyPermeability(PipingInput parameters)
         {
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="DerivedPipingInput.GetThicknessAquiferLayer"/>.
+        /// Creates the design variable for the total thickness of the aquifer layers at the exit point.
         /// </summary>
         public static DesignVariable<LogNormalDistribution> GetThicknessAquiferLayer(PipingInput parameters)
         {

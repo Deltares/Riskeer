@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
     public static class MacroStabilityInwardsSemiProbabilisticDesignVariableFactory
     {
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.AbovePhreaticLevel"/>.
+        /// Creates the design variable for the volumic weight of the layer above the phreatic level.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetAbovePhreaticLevel(MacroStabilityInwardsSoilLayerData data)
         {
@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.BelowPhreaticLevel"/>.
+        /// Creates the design variable for the volumic weight of the layer below the phreatic level.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetBelowPhreaticLevel(MacroStabilityInwardsSoilLayerData data)
         {
@@ -51,7 +51,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.Cohesion"/>.
+        /// Creates the design variable for the cohesion.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetCohesion(MacroStabilityInwardsSoilLayerData data)
         {
@@ -62,7 +62,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.FrictionAngle"/>.
+        /// Creates the design variable for the friction angle.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetFrictionAngle(MacroStabilityInwardsSoilLayerData data)
         {
@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.ShearStrengthRatio"/>.
+        /// Creates the design variable for the shear strength ratio.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetShearStrengthRatio(MacroStabilityInwardsSoilLayerData data)
         {
@@ -84,7 +84,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.StrengthIncreaseExponent"/>.
+        /// Creates the design variable for the strength increase component.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetStrengthIncreaseExponent(MacroStabilityInwardsSoilLayerData data)
         {
@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="MacroStabilityInwardsSoilLayerData.Pop"/>.
+        /// Creates the design variable for the POP.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetPop(MacroStabilityInwardsSoilLayerData data)
         {
@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         }
 
         /// <summary>
-        /// Creates the design variable for <see cref="IMacroStabilityInwardsPreconsolidationStress"/>.
+        /// Creates the design variable for a preconsolidation stress definition.
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetPreconsolidationStress(IMacroStabilityInwardsPreconsolidationStress preconsolidationStressUnderSurfaceLine)
         {
