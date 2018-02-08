@@ -141,6 +141,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             }
         }
 
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(0, 0, 0, 0);
+
+                // Assert
+                Assert.Throws<NotImplementedException>(test);
+            }
+        }
+
         private static CalculationOutput<AssessmentSectionCategory[]> CreateKernelOutput()
         {
             var random = new Random(11);

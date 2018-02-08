@@ -28,13 +28,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
     /// <summary>
     /// Interface representing an assembly categories calculator.
     /// </summary>
-    /// <remarks>
-    /// This interface is introduced for being able to test the conversion of:
-    /// <list type="bullet">
-    /// <item>Ringtoets assembly categories input into calculator input;</item>
-    /// <item>calculator output into Ringtoets assembly categories output.</item>
-    /// </list>
-    /// </remarks>
     public interface IAssemblyCategoriesCalculator
     {
         /// <summary>
@@ -43,10 +36,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <param name="signalingNorm">The signaling norm to calculate with.</param>
         /// <param name="lowerBoundaryNorm">The lower boundary norm to calculate with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
-        /// <see cref="AssessmentSectionAssemblyCategory"/>.</returns>        
+        /// <see cref="AssessmentSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// when performing the calculation.</exception>
         IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(
             double signalingNorm, double lowerBoundaryNorm);
+
+        /// <summary>
+        /// Performs the calculation for getting the failure mechanism section categories.
+        /// </summary>
+        /// <param name="signalingNorm">The signaling norm to calculate with.</param>
+        /// <param name="lowerBoundaryNorm">The lower boundary norm to calculate with.</param>
+        /// <param name="probabilityDistributionFactor">The probability distribution factor to calculate with.</param>
+        /// <param name="n">The n to calculate with.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
+        /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
+        /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
+        /// when performing the calculation.</exception>
+        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(
+            double signalingNorm, double lowerBoundaryNorm, double probabilityDistributionFactor, double n);
     }
 }

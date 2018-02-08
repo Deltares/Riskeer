@@ -41,6 +41,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             // Assert
             Assert.IsInstanceOf<IAssemblyCategoriesCalculator>(calculator);
             Assert.IsNull(calculator.AssessmentSectionCategoriesOutput);
+            Assert.IsNull(calculator.FailureMechanismSectionCategoriesOutput);
         }
 
         [Test]
@@ -120,6 +121,94 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
 
             // Call
             TestDelegate test = () => calculator.CalculateAssessmentSectionCategories(0, 0);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_OutputNotSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateFailureMechanismSectionCategories(0, 0, 0, 0).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, result.Length);
+            CollectionAssert.AreEqual(new[]
+            {
+                1,
+                2.01,
+                3.01
+            }, result.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                2,
+                3,
+                4
+            }, result.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                FailureMechanismSectionAssemblyCategoryGroup.Iv,
+                FailureMechanismSectionAssemblyCategoryGroup.IIv,
+                FailureMechanismSectionAssemblyCategoryGroup.IIIv
+            }, result.Select(r => r.Group));
+        }
+
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_OutputSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
+        {
+            // Setup
+            var output = new FailureMechanismSectionAssemblyCategory[0];
+            var calculator = new AssemblyCategoriesCalculatorStub
+            {
+                FailureMechanismSectionCategoriesOutput = output
+            };
+
+            // Call
+            IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateFailureMechanismSectionCategories(0 ,0, 0, 0);
+
+            // Assert
+            Assert.AreSame(output, result);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            double signalingNorm = random.NextDouble();
+            double lowerBoundaryNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.NextDouble();
+
+            var calculator = new AssemblyCategoriesCalculatorStub();
+
+            // Call
+            calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerBoundaryNorm, probabilityDistributionFactor, n);
+
+            // Assert
+            Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
+            Assert.AreEqual(lowerBoundaryNorm, calculator.LowerBoundaryNorm);
+            Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
+            Assert.AreEqual(n, calculator.N);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsAssemblyCategoriesCalculatorException()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(0, 0, 0, 0);
 
             // Assert
             var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);

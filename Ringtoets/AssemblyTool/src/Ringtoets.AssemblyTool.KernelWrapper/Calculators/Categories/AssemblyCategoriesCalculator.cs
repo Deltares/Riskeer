@@ -57,9 +57,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         {
             try
             {
-                var kernelInput = new CalculateAssessmentSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerBoundaryNorm));
+                var input = new CalculateAssessmentSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerBoundaryNorm));
                 ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
-                CalculationOutput<AssessmentSectionCategory[]> output = kernel.CalculateAssessmentSectionCategories(kernelInput);
+                CalculationOutput<AssessmentSectionCategory[]> output = kernel.CalculateAssessmentSectionCategories(input);
 
                 return AssessmentSectionAssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
             }
@@ -67,6 +67,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             {
                 throw new AssemblyCategoriesCalculatorException(e.Message, e);
             }
+        }
+
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(double signalingNorm, double lowerBoundaryNorm,
+                                                                                                               double probabilityDistributionFactor, double n)
+        {
+            throw new NotImplementedException();
         }
     }
 }
