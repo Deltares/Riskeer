@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -150,7 +150,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -178,7 +178,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -225,7 +225,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -243,7 +243,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -265,7 +265,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -288,7 +288,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 view.Data = failureMechanism.SectionResults;
 
@@ -299,25 +299,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 Assert.IsFalse(closeForData);
                 mocks.VerifyAll();
             }
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            var view = mocks.StrictMock<GrassCoverSlipOffInwardsResultView>();
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-
-            view.Expect(v => v.FailureMechanism = failureMechanism);
-
-            mocks.ReplayAll();
-
-            // Call
-            info.AfterCreate(view, context);
-
-            // Assert
-            mocks.VerifyAll();
         }
 
         [Test]

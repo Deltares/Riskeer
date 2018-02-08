@@ -437,7 +437,9 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult,
                 GrassCoverSlipOffInwardsResultView>(
-                context => new GrassCoverSlipOffInwardsResultView(context.WrappedData));
+                context => new GrassCoverSlipOffInwardsResultView(
+                    (GrassCoverSlipOffInwardsFailureMechanism) context.FailureMechanism,
+                    context.WrappedData));
 
             yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
