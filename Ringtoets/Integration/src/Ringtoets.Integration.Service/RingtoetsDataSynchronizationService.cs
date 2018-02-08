@@ -714,19 +714,21 @@ namespace Ringtoets.Integration.Service
         private static ClearResults ClearReferenceLineDependentData(IFailureMechanism failureMechanism)
         {
             var removedObjects = new List<object>();
+            var changedObjects = new List<IObservable>();
+
             removedObjects.AddRange(failureMechanism.Sections);
+            changedObjects.Add(failureMechanism);
+
             var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
             if (failureMechanismWithSectionResults != null)
             {
                 removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
+                changedObjects.Add(failureMechanismWithSectionResults.SectionResults);
             }
 
             failureMechanism.ClearAllSections();
 
-            return new ClearResults(new[]
-            {
-                failureMechanism
-            }, removedObjects);
+            return new ClearResults(changedObjects, removedObjects);
         }
 
         private static IEnumerable<IObservable> OnWaveConditionsInputForeshoreProfileRemoved(ForeshoreProfile profile, Tuple<ICalculation, WaveConditionsInput>[] calculationInputs)
