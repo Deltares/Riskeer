@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
@@ -45,7 +46,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             // Assert
             Assert.AreEqual(new Point2D(1.18, 2.27), roughnessPoint.Point);
             Assert.AreEqual(2, roughnessPoint.Roughness.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(2, roughness), roughnessPoint.Roughness);
+            Assert.AreEqual(roughness, roughnessPoint.Roughness, roughnessPoint.Roughness.GetAccuracy());
         }
 
         [Test]

@@ -1684,7 +1684,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 gridTester.FireEvent("Leave", EventArgs.Empty);
 
                 // Assert
-                Assert.AreEqual(new RoundedDouble(2, Convert.ToDouble(newValue)), new RoundedDouble(2, Convert.ToDouble(dataGridViewCell.FormattedValue)));
+                Assert.AreEqual(Convert.ToDouble(newValue), Convert.ToDouble(dataGridViewCell.FormattedValue));
             }
         }
 

@@ -187,7 +187,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.ExitPointL.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, exitPointValue), input.ExitPointL);
+            Assert.AreEqual(exitPointValue, input.ExitPointL, input.ExitPointL.GetAccuracy());
         }
 
         [Test]
@@ -261,7 +261,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.EntryPointL.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, entryPointValue), input.EntryPointL);
+            Assert.AreEqual(entryPointValue, input.EntryPointL, input.EntryPointL.GetAccuracy());
         }
 
         [Test]
@@ -284,8 +284,8 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine = surfaceLine;
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, 1), input.EntryPointL);
-            Assert.AreEqual(new RoundedDouble(2, 2), input.ExitPointL);
+            Assert.AreEqual(2, input.EntryPointL, input.EntryPointL.GetAccuracy());
+            Assert.AreEqual(3, input.ExitPointL, input.ExitPointL.GetAccuracy());
         }
 
         [Test]
@@ -315,8 +315,8 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine = surfaceLine;
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
-            Assert.AreEqual(new RoundedDouble(3, 3), input.ExitPointL);
+            Assert.AreEqual(2, input.EntryPointL, input.EntryPointL.GetAccuracy());
+            Assert.AreEqual(3, input.ExitPointL, input.ExitPointL.GetAccuracy());
         }
 
         [Test]
@@ -346,8 +346,8 @@ namespace Ringtoets.Piping.Data.Test
             input.SurfaceLine = surfaceLine;
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
-            Assert.AreEqual(new RoundedDouble(2, 3), input.ExitPointL);
+            Assert.AreEqual(2, input.EntryPointL, input.EntryPointL.GetAccuracy());
+            Assert.AreEqual(3, input.ExitPointL, input.ExitPointL.GetAccuracy());
         }
 
         [Test]
@@ -395,8 +395,8 @@ namespace Ringtoets.Piping.Data.Test
             input.SynchronizeEntryAndExitPointInput();
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
-            Assert.AreEqual(new RoundedDouble(3, 3), input.ExitPointL);
+            Assert.AreEqual(2, input.EntryPointL, input.EntryPointL.GetAccuracy());
+            Assert.AreEqual(3, input.ExitPointL, input.ExitPointL.GetAccuracy());
         }
 
         [Test]
@@ -426,8 +426,8 @@ namespace Ringtoets.Piping.Data.Test
             input.SynchronizeEntryAndExitPointInput();
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, 2), input.EntryPointL);
-            Assert.AreEqual(new RoundedDouble(2, 3), input.ExitPointL);
+            Assert.AreEqual(2, input.EntryPointL, input.EntryPointL.GetAccuracy());
+            Assert.AreEqual(3, input.ExitPointL, input.ExitPointL.GetAccuracy());
         }
 
         [Test]
@@ -599,7 +599,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlaces, assessmentLevel), input.AssessmentLevel);
+            Assert.AreEqual(assessmentLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
         }
 
         [Test]

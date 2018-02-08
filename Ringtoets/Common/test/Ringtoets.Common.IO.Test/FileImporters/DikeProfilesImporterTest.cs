@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.TestUtil;
@@ -328,7 +328,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.AreEqual("profiel004", dikeProfile4.Id);
             Assert.AreEqual("Valide naam", dikeProfile4.Name);
             Assert.AreEqual(-17.93475471, dikeProfile4.X0);
-            Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile4.Orientation);
+            Assert.AreEqual(330.0, dikeProfile4.Orientation, dikeProfile4.Orientation.GetAccuracy());
             Assert.IsFalse(dikeProfile4.HasBreakWater);
 
             DikeProfile dikeProfile5 = dikeProfiles[4];
@@ -336,9 +336,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.AreEqual("profiel005", dikeProfile5.Id);
             Assert.AreEqual("Heeeeeeeeeeeeeeeeeeeeeeeele laaaaaaaaaaaaaaaaaaaange naaaaaaaaaaam", dikeProfile5.Name);
             Assert.AreEqual(15.56165507, dikeProfile5.X0);
-            Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile5.Orientation);
+            Assert.AreEqual(330.0, dikeProfile5.Orientation, dikeProfile5.Orientation.GetAccuracy());
             Assert.IsTrue(dikeProfile5.HasBreakWater);
-            Assert.AreEqual(new RoundedDouble(2, 6.0), dikeProfile5.DikeHeight);
+            Assert.AreEqual(6.0, dikeProfile5.DikeHeight, dikeProfile5.DikeHeight.GetAccuracy());
         }
 
         [Test]

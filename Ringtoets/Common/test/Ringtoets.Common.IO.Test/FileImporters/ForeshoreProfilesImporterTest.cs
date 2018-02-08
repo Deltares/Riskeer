@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -33,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
@@ -369,7 +369,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                         Assert.AreEqual("profiel004", foreshoreProfile4.Id);
                         Assert.AreEqual("Valide naam", foreshoreProfile4.Name);
                         Assert.AreEqual(-17.93475471, foreshoreProfile4.X0);
-                        Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile4.Orientation);
+                        Assert.AreEqual(330.0, foreshoreProfile4.Orientation, foreshoreProfile4.Orientation.GetAccuracy());
                         Assert.IsFalse(foreshoreProfile4.HasBreakWater);
 
                         ForeshoreProfile foreshoreProfile5 = readForeshoreProfilesArray[4];
@@ -377,7 +377,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                         Assert.AreEqual("profiel005", foreshoreProfile5.Id);
                         Assert.AreEqual("Heeeeeeeeeeeeeeeeeeeeeeeele laaaaaaaaaaaaaaaaaaaange naaaaaaaaaaam", foreshoreProfile5.Name);
                         Assert.AreEqual(15.56165507, foreshoreProfile5.X0);
-                        Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile5.Orientation);
+                        Assert.AreEqual(330.0, foreshoreProfile5.Orientation, foreshoreProfile5.Orientation.GetAccuracy());
                         Assert.IsTrue(foreshoreProfile5.HasBreakWater);
                     });
 

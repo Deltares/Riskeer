@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(numberOfDecimalPlaces, value), distribution.Mean);
+            Assert.AreEqual(value, distribution.Mean, distribution.Mean.GetAccuracy());
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(numberOfDecimalPlaces, standardDeviation), distribution.StandardDeviation);
+            Assert.AreEqual(standardDeviation, distribution.StandardDeviation, distribution.StandardDeviation.GetAccuracy());
         }
 
         [Test]

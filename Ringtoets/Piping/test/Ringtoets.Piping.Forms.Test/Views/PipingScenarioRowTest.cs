@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             row.Contribution = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution * 100);
+            Assert.AreEqual(newValue, calculation.Contribution * 100, calculation.Contribution.GetAccuracy());
             mocks.VerifyAll();
         }
 
