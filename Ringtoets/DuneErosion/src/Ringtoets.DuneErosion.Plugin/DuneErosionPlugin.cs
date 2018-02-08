@@ -110,8 +110,8 @@ namespace Ringtoets.DuneErosion.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
-                CreateInstance = context => new DuneErosionFailureMechanismResultView(context.WrappedData)
+                CreateInstance = context => new DuneErosionFailureMechanismResultView((DuneErosionFailureMechanism) context.FailureMechanism, 
+                                                                                      context.WrappedData)
             };
 
             yield return new ViewInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismView>
@@ -316,7 +316,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 return assessmentSection
                        .GetFailureMechanisms()
                        .OfType<DuneErosionFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
             if (failureMechanismContext != null)
@@ -324,7 +324,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion

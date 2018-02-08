@@ -39,11 +39,24 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismResultView"/>.
         /// </summary>
-        public DuneErosionFailureMechanismResultView(IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults)
+        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
+        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
+        public DuneErosionFailureMechanismResultView(DuneErosionFailureMechanism failureMechanism,
+                                                     IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults)
             : base(failureMechanismSectionResults)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            FailureMechanism = failureMechanism;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
+
+            UpdateDataGridViewDataSource();
         }
+
+        public DuneErosionFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
         {

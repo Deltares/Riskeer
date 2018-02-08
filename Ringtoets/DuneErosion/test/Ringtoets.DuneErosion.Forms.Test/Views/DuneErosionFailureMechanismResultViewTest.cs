@@ -46,14 +46,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanismSectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            using (var view = new DuneErosionFailureMechanismResultView(failureMechanismSectionResults))
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanismSectionResult>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsNull(view.Data);
             }
         }
 
@@ -61,8 +61,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void GivenFormWithDuneErosionFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
             // Given
+            var failureMechanism = new DuneErosionFailureMechanism();
+
             using (var form = new Form())
-            using (var view = new DuneErosionFailureMechanismResultView(new ObservableList<DuneErosionFailureMechanismSectionResult>()))
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 form.Controls.Add(view);
 
@@ -88,9 +90,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithDuneErosionFailureMechanismResultView_WhenDataSourceWithDuneErosionFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void DuneErosionFailureMechanismResultView_WithDuneErosionFailureMechanismSectionResult_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -109,20 +111,21 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new DuneErosionFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new DuneErosionFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
+
             var sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>
             {
                 result1,
@@ -130,16 +133,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 result3
             };
 
+            // Call
             using (var form = new Form())
-            using (var view = new DuneErosionFailureMechanismResultView(sectionResults))
+            using (var view = new DuneErosionFailureMechanismResultView(new DuneErosionFailureMechanism(), sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
 
-                // When
-                view.Data = sectionResults;
-
-                // Then
+                // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
