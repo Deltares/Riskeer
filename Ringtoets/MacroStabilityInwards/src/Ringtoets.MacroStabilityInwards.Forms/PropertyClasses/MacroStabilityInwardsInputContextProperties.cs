@@ -69,28 +69,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int settingsCategoryIndex = 3;
         private const int totalCategoryCount = 3;
 
-        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+        private readonly RoundedDouble normativeAssessmentLevel;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputContextProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties for.</param>
-        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or
+        /// <paramref name="propertyChangeHandler"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsInputContextProperties(MacroStabilityInwardsInputContext data,
-                                                           Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                           RoundedDouble normativeAssessmentLevel,
                                                            IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
-            }
-
-            if (getNormativeAssessmentLevelFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
 
             if (propertyChangeHandler == null)
@@ -100,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
             Data = data;
 
-            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+            this.normativeAssessmentLevel = normativeAssessmentLevel;
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
@@ -201,7 +197,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             {
                 return data.WrappedData.UseAssessmentLevelManualInput
                            ? data.WrappedData.AssessmentLevel
-                           : getNormativeAssessmentLevelFunc();
+                           : normativeAssessmentLevel;
             }
             set
             {
