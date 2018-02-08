@@ -23,6 +23,7 @@
     <Compile Include="AssemblyTool\AssemblyCategoryTest.cs" />
     <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategoryTest.cs" />
     <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategoryGroupTest.cs" />
+    <Compile Include="AssemblyTool\FailureMechanismSectionAssemblyCategoryTest.cs" />
     <Compile Include="AssemblyTool\FailureMechanismSectionAssemblyTest.cs" />
     <Compile Include="AssemblyTool\FailureMechanismSectionAssemblyCategoryGroupTest.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionCompositionTest.cs" />
