@@ -92,8 +92,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
-                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultView(context.WrappedData)
+                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultView(
+                    (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism,
+                    context.WrappedData)
             };
         }
 
@@ -216,7 +217,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(WaveImpactAsphaltCoverFailureMechanismResultView view, object dataToCloseFor)
         {
-            object viewData = view.Data;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
             var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>;
@@ -226,7 +226,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 return assessmentSection
                        .GetFailureMechanisms()
                        .OfType<WaveImpactAsphaltCoverFailureMechanism>()
-                       .Any(fm => ReferenceEquals(viewData, fm.SectionResults));
+                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
             if (failureMechanismContext != null)
@@ -234,7 +234,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion

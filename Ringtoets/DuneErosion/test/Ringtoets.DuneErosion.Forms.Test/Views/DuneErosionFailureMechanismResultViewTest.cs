@@ -22,7 +22,6 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -41,6 +40,18 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         private const int assessmentLayerOneIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DuneErosionFailureMechanismResultView(null,
+                                                                                new ObservableList<DuneErosionFailureMechanismSectionResult>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
