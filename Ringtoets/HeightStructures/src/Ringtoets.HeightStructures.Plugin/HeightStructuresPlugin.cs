@@ -182,9 +182,9 @@ namespace Ringtoets.HeightStructures.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new HeightStructuresFailureMechanismResultView(
                     context.AssessmentSection,
+                    (HeightStructuresFailureMechanism) context.FailureMechanism,
                     context.WrappedData)
             };
         }
@@ -341,7 +341,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 return assessmentSection
                        .GetFailureMechanisms()
                        .OfType<HeightStructuresFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
             if (failureMechanismContext != null)
@@ -349,7 +349,7 @@ namespace Ringtoets.HeightStructures.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion

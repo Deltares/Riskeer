@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
@@ -49,10 +48,12 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
         /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public HeightStructuresFailureMechanismResultView(
             IAssessmentSection assessmentSection,
+            HeightStructuresFailureMechanism failureMechanism,
             IObservableEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> failureMechanismSectionResults)
             : base(failureMechanismSectionResults)
         {
@@ -61,7 +62,14 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             this.assessmentSection = assessmentSection;
+            FailureMechanism = failureMechanism;
+
             DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 
@@ -79,22 +87,20 @@ namespace Ringtoets.HeightStructures.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
+
+            CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
+
+            calculationInputObserver.Observable = observableGroup;
+            calculationOutputObserver.Observable = observableGroup;
+            calculationGroupObserver.Observable = observableGroup;
+
+            UpdateDataGridViewDataSource();
         }
 
-        public override IFailureMechanism FailureMechanism
-        {
-            set
-            {
-                base.FailureMechanism = value;
-
-                var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
-                CalculationGroup observableGroup = calculatableFailureMechanism?.CalculationsGroup;
-
-                calculationInputObserver.Observable = observableGroup;
-                calculationOutputObserver.Observable = observableGroup;
-                calculationGroupObserver.Observable = observableGroup;
-            }
-        }
+        /// <summary>
+        /// Gets the height structures failure mechanism
+        /// </summary>
+        public HeightStructuresFailureMechanism FailureMechanism { get; }
 
         protected override void Dispose(bool disposing)
         {
@@ -115,7 +121,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 return null;
             }
 
-            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult, (HeightStructuresFailureMechanism) FailureMechanism, assessmentSection);
+            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult, FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()
