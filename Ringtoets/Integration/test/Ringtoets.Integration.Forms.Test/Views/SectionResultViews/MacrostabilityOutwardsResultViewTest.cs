@@ -22,7 +22,6 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -30,6 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 
@@ -47,14 +47,16 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanismSectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>();
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             // Call
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanismSectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityOutwardsFailureMechanism,
+                    MacroStabilityOutwardsFailureMechanismSectionResult>>(view);
+                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 
@@ -63,7 +65,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>()))
+            using (var view = new MacroStabilityOutwardsResultView(new MacroStabilityOutwardsFailureMechanism(),
+                                                                   new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -87,9 +90,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void FailureMechanismResultView_FailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -107,20 +110,20 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result1 = new MacroStabilityOutwardsFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerTwoA = random.NextRoundedDouble(),
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new MacroStabilityOutwardsFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerTwoA = random.NextRoundedDouble(),
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new MacroStabilityOutwardsFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerTwoA = random.NextRoundedDouble(),
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
             {
@@ -129,16 +132,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 result3
             };
 
+            // Call
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(new MacroStabilityOutwardsFailureMechanism(), sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
 
-                // When
-                view.Data = sectionResults;
-
-                // Then
+                // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(3, rows.Count);
@@ -192,8 +193,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             }))
             {
                 AssessmentLayerOne = assessmentLayerOneState,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerTwoA = random.NextRoundedDouble(),
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
             {
@@ -201,12 +202,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(new MacroStabilityOutwardsFailureMechanism(), sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
-
-                view.Data = sectionResults;
 
                 // When
                 result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;

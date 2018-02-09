@@ -19,10 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -32,18 +32,20 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
     /// </summary>
-    public class TechnicalInnovationResultView : FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult>
+    public class TechnicalInnovationResultView
+        : FailureMechanismResultView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="TechnicalInnovationResultView"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
-        /// is <c>null</c>.</exception>
-        public TechnicalInnovationResultView(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+        /// <inheritdoc />
+        public TechnicalInnovationResultView(
+            TechnicalInnovationFailureMechanism failureMechanism,
+            IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
+            UpdateDataGridViewDataSource();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult)

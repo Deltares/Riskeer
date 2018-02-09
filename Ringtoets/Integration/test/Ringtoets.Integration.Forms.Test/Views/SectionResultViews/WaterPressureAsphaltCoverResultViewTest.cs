@@ -22,13 +22,13 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 
@@ -45,14 +45,16 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanismSectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             // Call
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanismSectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsInstanceOf<FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism,
+                    WaterPressureAsphaltCoverFailureMechanismSectionResult>>(view);
+                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 
@@ -63,6 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             using (var form = new Form())
             {
                 using (var view = new WaterPressureAsphaltCoverResultView(
+                    new WaterPressureAsphaltCoverFailureMechanism(),
                     new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>()))
                 {
                     form.Controls.Add(view);
@@ -86,9 +89,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void FailureMechanismResultView_WithFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -106,17 +109,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result1 = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>
             {
@@ -125,45 +128,43 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 result3
             };
 
+            // Call
             using (var form = new Form())
+
+            using (var view = new WaterPressureAsphaltCoverResultView(new WaterPressureAsphaltCoverFailureMechanism(),
+                                                                      sectionResults))
             {
-                using (var view = new WaterPressureAsphaltCoverResultView(sectionResults))
-                {
-                    form.Controls.Add(view);
-                    form.Show();
+                form.Controls.Add(view);
+                form.Show();
 
-                    // When
-                    view.Data = sectionResults;
+                // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(3, rows.Count);
 
-                    // Then
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                    DataGridViewRowCollection rows = dataGridView.Rows;
-                    Assert.AreEqual(3, rows.Count);
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                    DataGridViewCellCollection cells = rows[0].Cells;
-                    Assert.AreEqual(3, cells.Count);
-                    Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
-                    DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                cells = rows[1].Cells;
+                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                    cells = rows[1].Cells;
-                    Assert.AreEqual(3, cells.Count);
-                    Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
-                    DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                cells = rows[2].Cells;
+                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                    cells = rows[2].Cells;
-                    Assert.AreEqual(3, cells.Count);
-                    Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                    Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                    DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
-                }
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
@@ -182,7 +183,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>
             {
@@ -190,28 +191,26 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
+
+            using (var view = new WaterPressureAsphaltCoverResultView(new WaterPressureAsphaltCoverFailureMechanism(),
+                                                                      sectionResults))
             {
-                using (var view = new WaterPressureAsphaltCoverResultView(sectionResults))
-                {
-                    form.Controls.Add(view);
-                    form.Show();
+                form.Controls.Add(view);
+                form.Show();
 
-                    view.Data = sectionResults;
+                // When
+                result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                result.NotifyObservers();
 
-                    // When
-                    result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
-                    result.NotifyObservers();
+                // Then
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(1, rows.Count);
 
-                    // Then
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                    DataGridViewRowCollection rows = dataGridView.Rows;
-                    Assert.AreEqual(1, rows.Count);
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual(3, cells.Count);
 
-                    DataGridViewCellCollection cells = rows[0].Cells;
-                    Assert.AreEqual(3, cells.Count);
-
-                    DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-                }
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
     }

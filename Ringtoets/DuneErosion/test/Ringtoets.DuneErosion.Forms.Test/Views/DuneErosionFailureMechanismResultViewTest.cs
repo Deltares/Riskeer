@@ -42,18 +42,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new DuneErosionFailureMechanismResultView(null,
-                                                                                new ObservableList<DuneErosionFailureMechanismSectionResult>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -63,8 +51,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 

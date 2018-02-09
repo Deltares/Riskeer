@@ -35,7 +35,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// <summary>
     /// The view for the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanismResultView : FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult>
+    public class MacroStabilityInwardsFailureMechanismResultView
+        : FailureMechanismResultView<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismSectionResult>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private const double tolerance = 1e-6;
@@ -49,26 +50,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc />
         public MacroStabilityInwardsFailureMechanismResultView(
             IAssessmentSection assessmentSection,
             MacroStabilityInwardsFailureMechanism failureMechanism,
             IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            FailureMechanism = failureMechanism;
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
             {
                 Observable = failureMechanism
@@ -102,11 +95,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             UpdateDataGridViewDataSource();
         }
-
-        /// <summary>
-        /// Gets the macro stability inwards failure mechanism.
-        /// </summary>
-        public MacroStabilityInwardsFailureMechanism FailureMechanism { get; }
 
         protected override void Dispose(bool disposing)
         {

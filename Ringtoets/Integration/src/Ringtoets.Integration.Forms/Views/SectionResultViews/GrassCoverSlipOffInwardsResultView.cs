@@ -36,31 +36,21 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class GrassCoverSlipOffInwardsResultView : FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanismSectionResult>
+    public class GrassCoverSlipOffInwardsResultView : FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism,
+        GrassCoverSlipOffInwardsFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsResultView"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc />
         public GrassCoverSlipOffInwardsResultView(
             GrassCoverSlipOffInwardsFailureMechanism failureMechanism,
             IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            FailureMechanism = failureMechanism;
             DataGridViewControl.CellFormatting += OnCellFormatting;
-
             UpdateDataGridViewDataSource();
         }
-
-        public GrassCoverSlipOffInwardsFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult)
         {

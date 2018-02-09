@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -35,19 +36,20 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class GrassCoverSlipOffOutwardsResultView : FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>
+    public class GrassCoverSlipOffOutwardsResultView
+        : FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffOutwardsResultView"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
-        /// is <c>null</c>.</exception>
+        /// <inheritdoc />
         public GrassCoverSlipOffOutwardsResultView(
+            GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
             IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
+            UpdateDataGridViewDataSource();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult)

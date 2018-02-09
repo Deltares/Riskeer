@@ -19,10 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -32,19 +32,20 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
-    public class WaterPressureAsphaltCoverResultView : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult>
+    public class WaterPressureAsphaltCoverResultView
+        : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaterPressureAsphaltCoverResultView"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
-        /// is <c>null</c>.</exception>
+        /// <inheritdoc />
         public WaterPressureAsphaltCoverResultView(
+            WaterPressureAsphaltCoverFailureMechanism failureMechanism,
             IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
+            UpdateDataGridViewDataSource();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)

@@ -34,33 +34,19 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResult"/>.
     /// </summary>
-    public class DuneErosionFailureMechanismResultView : FailureMechanismResultView<DuneErosionFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanismResultView : FailureMechanismResultView<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc/>
         public DuneErosionFailureMechanismResultView(DuneErosionFailureMechanism failureMechanism,
                                                      IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            FailureMechanism = failureMechanism;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-
             UpdateDataGridViewDataSource();
         }
-
-        /// <summary>
-        /// Gets the dune erosion failure mechanism.
-        /// </summary>
-        public DuneErosionFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
         {

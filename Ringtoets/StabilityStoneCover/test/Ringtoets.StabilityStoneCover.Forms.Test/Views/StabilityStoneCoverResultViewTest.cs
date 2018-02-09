@@ -42,18 +42,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new StabilityStoneCoverResultView(null,
-                                                                        new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -63,7 +51,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<StabilityStoneCoverFailureMechanism,
+                    StabilityStoneCoverFailureMechanismSectionResult>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

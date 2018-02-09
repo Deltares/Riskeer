@@ -79,25 +79,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new PipingFailureMechanismResultView(assessmentSection,
-                                                                           null,
-                                                                           new ObservableList<PipingFailureMechanismSectionResult>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -113,9 +94,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                                                    pipingFailureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanism, PipingFailureMechanismSectionResult>>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreSame(view.FailureMechanism, pipingFailureMechanism);
+                Assert.AreSame(pipingFailureMechanism, view.FailureMechanism);
             }
 
             mocks.VerifyAll();

@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
@@ -38,7 +37,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// The view for a collection of <see cref="StructuresFailureMechanismSectionResult{T}"/>
     /// for stability point structures.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+    public class StabilityPointStructuresFailureMechanismResultView
+        : FailureMechanismResultView<StabilityPointStructuresFailureMechanism,
+            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -50,12 +51,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc />
         public StabilityPointStructuresFailureMechanismResultView(
             IAssessmentSection assessmentSection,
+            StabilityPointStructuresFailureMechanism failureMechanism,
             IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             if (assessmentSection == null)
             {
@@ -80,21 +81,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
-        }
 
-        public override IFailureMechanism FailureMechanism
-        {
-            set
-            {
-                base.FailureMechanism = value;
+            CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
 
-                var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
-                CalculationGroup observableGroup = calculatableFailureMechanism?.CalculationsGroup;
+            calculationInputObserver.Observable = observableGroup;
+            calculationOutputObserver.Observable = observableGroup;
+            calculationGroupObserver.Observable = observableGroup;
 
-                calculationInputObserver.Observable = observableGroup;
-                calculationOutputObserver.Observable = observableGroup;
-                calculationGroupObserver.Observable = observableGroup;
-            }
+            UpdateDataGridViewDataSource();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult)
@@ -105,7 +99,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             }
 
             return new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult,
-                                                                                (StabilityPointStructuresFailureMechanism) FailureMechanism,
+                                                                                FailureMechanism,
                                                                                 assessmentSection);
         }
 

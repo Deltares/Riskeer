@@ -36,7 +36,8 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// <summary>
     /// The view for the <see cref="StructuresFailureMechanismSectionResult{T}"/>.
     /// </summary>
-    public class HeightStructuresFailureMechanismResultView : FailureMechanismResultView<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
+    public class HeightStructuresFailureMechanismResultView
+        : FailureMechanismResultView<HeightStructuresFailureMechanism, StructuresFailureMechanismSectionResult<HeightStructuresInput>>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -48,27 +49,19 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc />
         public HeightStructuresFailureMechanismResultView(
             IAssessmentSection assessmentSection,
             HeightStructuresFailureMechanism failureMechanism,
             IObservableEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             this.assessmentSection = assessmentSection;
-            FailureMechanism = failureMechanism;
 
             DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
@@ -96,11 +89,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             UpdateDataGridViewDataSource();
         }
-
-        /// <summary>
-        /// Gets the height structures failure mechanism
-        /// </summary>
-        public HeightStructuresFailureMechanism FailureMechanism { get; }
 
         protected override void Dispose(bool disposing)
         {

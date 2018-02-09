@@ -34,23 +34,32 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// The view for the <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
-    /// <typeparam name="T">The type of results which are presented by the <see cref="FailureMechanismResultView{T}"/>.</typeparam>
-    public abstract partial class FailureMechanismResultView<T> : UserControl, IView where T : FailureMechanismSectionResult
+    /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
+    /// <typeparam name="TSectionResult">The type of results which are presented by the 
+    /// <see cref="FailureMechanismResultView{TFailureMechanism, TSectionResult}"/>.</typeparam>
+    public abstract partial class FailureMechanismResultView<TFailureMechanism, TSectionResult> : UserControl, IView
+        where TSectionResult : FailureMechanismSectionResult
+        where TFailureMechanism : FailureMechanismBase
     {
         protected const int AssessmentLayerOneColumnIndex = 1;
         private readonly Observer failureMechanismSectionResultObserver;
-        private readonly IObservableEnumerable<T> failureMechanismSectionResults;
-        private readonly RecursiveObserver<IObservableEnumerable<T>, T> failureMechanismSectionResultsObserver;
+        private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
+        private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismResultView{T}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultView{TFailureMechanism, TSectionResult}"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="T"/> to
+        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
+        /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="TSectionResult"/> to
         /// show in the view.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
-        /// is <c>null</c>.</exception>
-        protected FailureMechanismResultView(IObservableEnumerable<T> failureMechanismSectionResults)
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        protected FailureMechanismResultView(TFailureMechanism failureMechanism, IObservableEnumerable<TSectionResult> failureMechanismSectionResults)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             if (failureMechanismSectionResults == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionResults));
@@ -58,13 +67,14 @@ namespace Ringtoets.Common.Forms.Views
 
             InitializeComponent();
 
+            FailureMechanism = failureMechanism;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
             failureMechanismSectionResultObserver = new Observer(UpdateDataGridViewDataSource)
             {
                 Observable = failureMechanismSectionResults
             };
 
-            failureMechanismSectionResultsObserver = new RecursiveObserver<IObservableEnumerable<T>, T>(
+            failureMechanismSectionResultsObserver = new RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult>(
                 DataGridViewControl.RefreshDataGridView,
                 sr => sr)
             {
@@ -73,9 +83,9 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Sets the failure mechanism.
+        /// Gets the failure mechanism.
         /// </summary>
-        public virtual IFailureMechanism FailureMechanism { protected get; set; }
+        public TFailureMechanism FailureMechanism { get; }
 
         public object Data { get; set; }
 
@@ -89,12 +99,12 @@ namespace Ringtoets.Common.Forms.Views
 
         /// <summary>
         /// Creates a display object for <paramref name="sectionResult"/> which is added to the
-        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{T}"/>.
+        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{TFailureMechanism, TSectionResult}"/>.
         /// </summary>
-        /// <param name="sectionResult">The <typeparamref name="T"/> for which to create a
+        /// <param name="sectionResult">The <typeparamref name="TSectionResult"/> for which to create a
         /// display object.</param>
         /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
-        protected abstract object CreateFailureMechanismSectionResultRow(T sectionResult);
+        protected abstract object CreateFailureMechanismSectionResultRow(TSectionResult sectionResult);
 
         protected override void Dispose(bool disposing)
         {
@@ -151,7 +161,7 @@ namespace Ringtoets.Common.Forms.Views
         protected virtual void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
-                nameof(FailureMechanismSectionResultRow<T>.Name),
+                nameof(FailureMechanismSectionResultRow<TSectionResult>.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
 
@@ -162,7 +172,7 @@ namespace Ringtoets.Common.Forms.Views
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(FailureMechanismSectionResultRow<T>.AssessmentLayerOne),
+                nameof(FailureMechanismSectionResultRow<TSectionResult>.AssessmentLayerOne),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
                 oneStateDataSource,
                 nameof(EnumDisplayWrapper<AssessmentLayerOneState>.Value),

@@ -36,7 +36,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="StructuresFailureMechanismSectionResult{T}"/> for closing structures.
     /// </summary>
-    public class ClosingStructuresFailureMechanismResultView : FailureMechanismResultView<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+    public class ClosingStructuresFailureMechanismResultView : FailureMechanismResultView<ClosingStructuresFailureMechanism, StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -48,27 +48,19 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc />
         public ClosingStructuresFailureMechanismResultView(
             IAssessmentSection assessmentSection,
             ClosingStructuresFailureMechanism failureMechanism,
             IObservableEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             this.assessmentSection = assessmentSection;
-            FailureMechanism = failureMechanism;
             DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
             DataGridViewControl.CellFormatting += OnCellFormatting;
 
@@ -95,18 +87,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        /// <summary>
-        /// Gets the closing structures failure mechanism.
-        /// </summary>
-        public ClosingStructuresFailureMechanism FailureMechanism { get; }
-
         protected override object CreateFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult)
         {
-            if (FailureMechanism == null)
-            {
-                return null;
-            }
-
             return new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, FailureMechanism, assessmentSection);
         }
 

@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -35,18 +36,20 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="MicrostabilityFailureMechanismSectionResult"/>.
     /// </summary>
-    public class MicrostabilityResultView : FailureMechanismResultView<MicrostabilityFailureMechanismSectionResult>
+    public class MicrostabilityResultView
+        : FailureMechanismResultView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MicrostabilityResultView"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
-        /// is <c>null</c>.</exception>
-        public MicrostabilityResultView(IObservableEnumerable<MicrostabilityFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+        /// <inheritdoc />
+        public MicrostabilityResultView(
+            MicrostabilityFailureMechanism failureMechanism,
+            IObservableEnumerable<MicrostabilityFailureMechanismSectionResult> failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
+            UpdateDataGridViewDataSource();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult)

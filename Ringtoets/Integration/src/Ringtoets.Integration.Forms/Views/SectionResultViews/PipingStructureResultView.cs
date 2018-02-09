@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -35,18 +36,20 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResult"/>.
     /// </summary>
-    public class PipingStructureResultView : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult>
+    public class PipingStructureResultView
+        : FailureMechanismResultView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingStructureResultView"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
-        /// is <c>null</c>.</exception>
-        public PipingStructureResultView(IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+        /// <inheritdoc />
+        public PipingStructureResultView(
+            PipingStructureFailureMechanism failureMechanism,
+            IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
+            UpdateDataGridViewDataSource();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResult sectionResult)

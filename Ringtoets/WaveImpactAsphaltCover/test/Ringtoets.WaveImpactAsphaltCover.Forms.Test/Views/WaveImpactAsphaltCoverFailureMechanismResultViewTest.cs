@@ -42,18 +42,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new WaveImpactAsphaltCoverFailureMechanismResultView(null,
-                                                                                           new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -63,8 +51,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism,
+                    WaveImpactAsphaltCoverFailureMechanismSectionResult>>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 

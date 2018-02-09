@@ -35,7 +35,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// <summary>
     /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionInwardsFailureMechanismResultView
+        : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -47,26 +48,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism section results belongs to.</param>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc />
         public GrassCoverErosionInwardsFailureMechanismResultView(
             IAssessmentSection assessmentSection,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            FailureMechanism = failureMechanism;
 
             this.assessmentSection = assessmentSection;
 
@@ -95,11 +87,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             UpdateDataGridViewDataSource();
         }
-
-        /// <summary>
-        /// Gets the grass cover erosion inwards failure mechanism.
-        /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; }
 
         protected override void Dispose(bool disposing)
         {

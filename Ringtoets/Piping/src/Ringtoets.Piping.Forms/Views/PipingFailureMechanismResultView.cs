@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// <summary>
     /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.
     /// </summary>
-    public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult>
+    public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanism, PipingFailureMechanismSectionResult>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private const double tolerance = 1e-6;
@@ -49,28 +49,20 @@ namespace Ringtoets.Piping.Forms.Views
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc />
         public PipingFailureMechanismResultView(
             IAssessmentSection assessmentSection,
             PipingFailureMechanism failureMechanism,
             IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             this.assessmentSection = assessmentSection;
 
-            FailureMechanism = failureMechanism;
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
             {
                 Observable = failureMechanism
@@ -101,11 +93,6 @@ namespace Ringtoets.Piping.Forms.Views
 
             UpdateDataGridViewDataSource();
         }
-
-        /// <summary>
-        /// Gets the piping failure mechanism.
-        /// </summary>
-        public PipingFailureMechanism FailureMechanism { get; }
 
         protected override void Dispose(bool disposing)
         {

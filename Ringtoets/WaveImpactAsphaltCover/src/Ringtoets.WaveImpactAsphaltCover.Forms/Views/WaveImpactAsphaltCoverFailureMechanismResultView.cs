@@ -34,34 +34,27 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismResultView : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanismResultView
+        : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc />
         public WaveImpactAsphaltCoverFailureMechanismResultView(
             WaveImpactAsphaltCoverFailureMechanism failureMechanism,
             IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            FailureMechanism = failureMechanism;
             DataGridViewControl.CellFormatting += OnCellFormatting;
 
             UpdateDataGridViewDataSource();
         }
-
-        /// <summary>
-        /// Gets the wave impact asphalt cover failure mechanism.
-        /// </summary>
-        public WaveImpactAsphaltCoverFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
         {

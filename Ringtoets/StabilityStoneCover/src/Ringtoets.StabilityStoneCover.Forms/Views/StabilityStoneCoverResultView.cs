@@ -34,34 +34,26 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
     /// </summary>
-    public class StabilityStoneCoverResultView : FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult>
+    public class StabilityStoneCoverResultView
+        : FailureMechanismResultView<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverResultView"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
-        /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <inheritdoc />
         public StabilityStoneCoverResultView(
             StabilityStoneCoverFailureMechanism failureMechanism,
             IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanismSectionResults)
+            : base(failureMechanism, failureMechanismSectionResults)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            FailureMechanism = failureMechanism;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-
             UpdateDataGridViewDataSource();
         }
-
-        /// <summary>
-        /// Gets the stability stone cover failure mechanism.
-        /// </summary>
-        public StabilityStoneCoverFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
         {

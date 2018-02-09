@@ -151,8 +151,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
-                view.Data = failureMechanism.SectionResults;
-
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
@@ -179,8 +177,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
-                view.Data = failureMechanism.SectionResults;
-
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
@@ -208,8 +204,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
-                view.Data = failureMechanism.SectionResults;
-
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
@@ -227,8 +221,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
-                view.Data = failureMechanism.SectionResults;
-
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
 
@@ -245,8 +237,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
-                view.Data = failureMechanism.SectionResults;
-
                 // Call
                 bool closeForData = info.CloseForData(view, new DuneErosionFailureMechanism());
 
@@ -267,8 +257,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
-                view.Data = failureMechanism.SectionResults;
-
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
 
@@ -290,8 +278,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
-                view.Data = failureMechanism.SectionResults;
-
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
 

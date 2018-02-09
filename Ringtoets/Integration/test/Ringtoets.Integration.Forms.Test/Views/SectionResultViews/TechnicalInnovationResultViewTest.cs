@@ -22,13 +22,13 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 
@@ -45,14 +45,16 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanismSectionResults = new ObservableList<TechnicalInnovationFailureMechanismSectionResult>();
+            var failureMechanism = new TechnicalInnovationFailureMechanism();
 
             // Call
-            using (var view = new TechnicalInnovationResultView(failureMechanismSectionResults))
+            using (var view = new TechnicalInnovationResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsInstanceOf<FailureMechanismResultView<TechnicalInnovationFailureMechanism,
+                    TechnicalInnovationFailureMechanismSectionResult>>(view);
+                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 
@@ -61,7 +63,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
-            using (var view = new TechnicalInnovationResultView(new ObservableList<TechnicalInnovationFailureMechanismSectionResult>()))
+            using (var view = new TechnicalInnovationResultView(new TechnicalInnovationFailureMechanism(),
+                                                                new ObservableList<TechnicalInnovationFailureMechanismSectionResult>()))
             {
                 form.Controls.Add(view);
 
@@ -85,9 +88,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void FailureMechanismResultView_WithFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -105,17 +108,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result1 = new TechnicalInnovationFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new TechnicalInnovationFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new TechnicalInnovationFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<TechnicalInnovationFailureMechanismSectionResult>
             {
@@ -124,16 +127,15 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 result3
             };
 
+            // Call
             using (var form = new Form())
-            using (var view = new TechnicalInnovationResultView(sectionResults))
+            using (var view = new TechnicalInnovationResultView(new TechnicalInnovationFailureMechanism(),
+                                                                sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
 
-                // When
-                view.Data = sectionResults;
-
-                // Then
+                // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -180,7 +182,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result = new TechnicalInnovationFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<TechnicalInnovationFailureMechanismSectionResult>
             {
@@ -188,12 +190,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new TechnicalInnovationResultView(sectionResults))
+            using (var view = new TechnicalInnovationResultView(new TechnicalInnovationFailureMechanism(),
+                                                                sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
-
-                view.Data = sectionResults;
 
                 // When
                 result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;

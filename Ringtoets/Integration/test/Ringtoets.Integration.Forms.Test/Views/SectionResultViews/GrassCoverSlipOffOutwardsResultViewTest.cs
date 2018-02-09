@@ -29,6 +29,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 
@@ -46,14 +47,16 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanismSectionResults = new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanismSectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism,
+                    GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(view);
+                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 
@@ -62,7 +65,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
-            using (var view = new GrassCoverSlipOffOutwardsResultView(new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>()))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(
+                new GrassCoverSlipOffOutwardsFailureMechanism(),
+                new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>()))
             {
                 form.Controls.Add(view);
 
@@ -88,9 +93,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void FailureMechanismResultView_WithFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -129,16 +134,16 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 result3
             };
 
+            // Call
             using (var form = new Form())
-            using (var view = new GrassCoverSlipOffOutwardsResultView(sectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(
+                new GrassCoverSlipOffOutwardsFailureMechanism(),
+                sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
 
-                // When
-                view.Data = sectionResults;
-
-                // Then
+                // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -200,12 +205,12 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new GrassCoverSlipOffOutwardsResultView(sectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(
+                new GrassCoverSlipOffOutwardsFailureMechanism(),
+                sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
-
-                view.Data = sectionResults;
 
                 // When
                 result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;

@@ -72,72 +72,43 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanismSectionResults = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection, failureMechanismSectionResults))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsInstanceOf<FailureMechanismResultView<StabilityPointStructuresFailureMechanism,
+                    StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>>(view);
+                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
-            {
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
-                var testData = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
-                {
-                    sectionResult
-                };
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            // Call
+            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(
+                null,
+                failureMechanism,
+                failureMechanism.SectionResults);
 
-                // Precondition
-                Assert.AreEqual(2, dataGridView.RowCount);
-
-                // Call
-                view.Data = testData;
-
-                // Assert
-                Assert.AreSame(testData, view.Data);
-
-                Assert.AreEqual(testData.Count, dataGridView.RowCount);
-                Assert.AreEqual(sectionResult.Section.Name, dataGridView.Rows[0].Cells[0].Value);
-            }
-        }
-
-        [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmpty()
-        {
-            // Setup
-            var testData = new object();
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                view.Data = testData;
-
-                // Assert
-                Assert.IsNull(view.Data);
-
-                Assert.AreEqual(0, dataGridView.RowCount);
-            }
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void GivenFailureMechanismResultsView_WhenAllDataSet_ThenDataGridViewCorrectlyInitialized()
         {
             // Given
-            using (CreateConfiguredFailureMechanismResultsView())
+            using (CreateConfiguredFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -170,7 +141,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
+            using (CreateConfiguredFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -267,16 +238,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
 
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
-            {
-                // When
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+            // When
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {
                     result1,
                     result2,
                     result3
-                };
-
+                }))
+            {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -335,13 +305,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
-            {
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {
                     result
-                };
-
+                }))
+            {
                 // When
                 result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
                 result.NotifyObservers();
@@ -365,18 +334,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
-                {
-                    AssessmentLayerOne = assessmentLayerOneState
-                };
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                AssessmentLayerOne = assessmentLayerOneState
+            };
+
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {
                     sectionResult
-                };
-
+                }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -398,21 +366,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
-                {
-                    Calculation = calculation,
-                    AssessmentLayerOne = assessmentLayerOneState
-                };
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>(),
+                AssessmentLayerOne = assessmentLayerOneState
+            };
 
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {
                     sectionResult
-                };
-
+                }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -433,24 +398,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
                     Output = new TestStructuresOutput(double.NaN)
-                };
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
-                {
-                    Calculation = calculation,
-                    AssessmentLayerOne = assessmentLayerOneState
-                };
+                },
+                AssessmentLayerOne = assessmentLayerOneState
+            };
 
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {
                     sectionResult
-                };
-
+                }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -469,23 +431,20 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError()
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
                     Output = new TestStructuresOutput(0.56789)
-                };
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
-                {
-                    Calculation = calculation
-                };
+                }
+            };
 
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {
                     sectionResult
-                };
-
+                }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -505,13 +464,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult, string expectedValue)
         {
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
-            {
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {
                     sectionResult
-                };
-
+                }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -533,29 +491,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                var successfulCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
                     Output = new TestStructuresOutput(0.56789)
-                };
+                },
+                AssessmentLayerOne = assessmentLayerOneState
+            };
 
-                var failedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                };
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
-                {
-                    Calculation = successfulCalculation,
-                    AssessmentLayerOne = assessmentLayerOneState
-                };
-
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {
                     sectionResult
-                };
-
+                }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -567,7 +517,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 // When
-                sectionResult.Calculation = failedCalculation;
+                sectionResult.Calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new TestStructuresOutput(double.NaN)
+                };
                 formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
@@ -582,7 +535,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
+            using (CreateConfiguredFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -603,7 +556,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(double newValue)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
+            using (CreateConfiguredFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -625,7 +578,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(double newValue)
         {
             // Setup
-            using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            using (CreateConfiguredFailureMechanismResultsView(failureMechanism))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -634,11 +589,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-
-                var dataObject = view.Data as List<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>;
-                Assert.IsNotNull(dataObject);
-                StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> row = dataObject.First();
-                Assert.AreEqual(newValue, row.AssessmentLayerThree);
+                Assert.AreEqual(newValue, failureMechanism.SectionResults.First().AssessmentLayerThree);
             }
         }
 
@@ -684,10 +635,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             return section;
         }
 
-        private StabilityPointStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()
+        private StabilityPointStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView(
+            StabilityPointStructuresFailureMechanism failureMechanism)
         {
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
             failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
@@ -701,8 +651,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }));
 
             StabilityPointStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
-            failureMechanismResultView.Data = failureMechanism.SectionResults;
-            failureMechanismResultView.FailureMechanism = failureMechanism;
 
             return failureMechanismResultView;
         }
@@ -711,6 +659,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults)
         {
             var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultView(new ObservableTestAssessmentSectionStub(),
+                                                                                                    new StabilityPointStructuresFailureMechanism(),
                                                                                                     sectionResults);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

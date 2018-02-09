@@ -22,13 +22,13 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 
@@ -45,14 +45,16 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanismSectionResults = new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
 
             // Call
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanismSectionResults))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsInstanceOf<FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanism,
+                    StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>>(view);
+                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 
@@ -62,6 +64,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Given
             using (var form = new Form())
             using (var view = new StrengthStabilityLengthwiseConstructionResultView(
+                new StrengthStabilityLengthwiseConstructionFailureMechanism(),
                 new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>()))
             {
                 form.Controls.Add(view);
@@ -84,9 +87,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void FailureMechanismResultView_WithFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -104,17 +107,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result1 = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
             {
@@ -123,16 +126,15 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 result3
             };
 
+            // Call
             using (var form = new Form())
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(sectionResults))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultView(new StrengthStabilityLengthwiseConstructionFailureMechanism(),
+                                                                                    sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
 
-                // When
-                view.Data = sectionResults;
-
-                // Then
+                // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(3, rows.Count);
@@ -178,7 +180,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
-                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
+                AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
             {
@@ -186,12 +188,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(sectionResults))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultView(new StrengthStabilityLengthwiseConstructionFailureMechanism(),
+                                                                                    sectionResults))
             {
                 form.Controls.Add(view);
                 form.Show();
-
-                view.Data = sectionResults;
 
                 // When
                 result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;

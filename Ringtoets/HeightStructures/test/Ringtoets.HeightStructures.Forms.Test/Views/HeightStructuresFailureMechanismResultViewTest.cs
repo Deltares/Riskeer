@@ -77,7 +77,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (var view = new HeightStructuresFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<HeightStructuresInput>>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<HeightStructuresFailureMechanism,
+                    StructuresFailureMechanismSectionResult<HeightStructuresInput>>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
@@ -100,26 +101,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new HeightStructuresFailureMechanismResultView(
-                assessmentSection,
-                null,
-                new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
