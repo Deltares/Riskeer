@@ -39,9 +39,15 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
+            SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.None;
             AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
+
+        /// <summary>
+        /// Gets or sets the state of the simple assessment per failure mechanism section.
+        /// </summary>
+        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentInput { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which

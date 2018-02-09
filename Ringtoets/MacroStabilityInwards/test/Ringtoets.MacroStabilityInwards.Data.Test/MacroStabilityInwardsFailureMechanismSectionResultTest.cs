@@ -36,10 +36,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
@@ -49,8 +45,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
+            Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentInput);
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
-            mocks.VerifyAll();
         }
 
         [Test]

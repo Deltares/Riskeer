@@ -40,6 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentInput);
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
             Assert.IsNaN(result.AssessmentLayerThree);
         }

@@ -41,6 +41,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
+            Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, result.SimpleAssessmentInput);
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
             Assert.IsNaN(result.AssessmentLayerThree);
         }

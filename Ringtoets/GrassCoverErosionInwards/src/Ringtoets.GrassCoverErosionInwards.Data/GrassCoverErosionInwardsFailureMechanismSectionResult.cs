@@ -40,6 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
+            SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.None;
             assessmentLayerThreeValue = double.NaN;
         }
 
@@ -48,6 +49,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// to be representative for the whole section.
         /// </summary>
         public GrassCoverErosionInwardsCalculation Calculation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the state of the simple assessment per failure mechanism section.
+        /// </summary>
+        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentInput { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
