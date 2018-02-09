@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
+using System;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -63,6 +63,19 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
             }
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestFailureMechanismResultView(
+                null,
+                new ObservableList<FailureMechanismSectionResult>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -115,33 +128,30 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultUpdated_ThenObserverNotified()
         {
             // Given
-            var sectionResult = new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
+            var sectionResult1 = new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
             {
                 new Point2D(0, 0)
             }))
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict
             };
-            var sectionResults = new ObservableList<FailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
-                sectionResult
+                sectionResult1
             };
 
             using (ShowFailureMechanismResultsView(sectionResults))
             {
-                // Precondition
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
+                var cellFormattingEventFired = false;
+                dataGridView.CellFormatting += (sender, args) => cellFormattingEventFired = true;
 
                 // When
-                sectionResult.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
-                sectionResult.NotifyObservers();
+                sectionResult1.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                sectionResult1.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
+                Assert.IsTrue(cellFormattingEventFired);
             }
         }
 
@@ -160,28 +170,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         public TestFailureMechanismResultView(TestFailureMechanism failureMechanism, IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults)
             : base(failureMechanism, failureMechanismSectionResults)
         {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
             UpdateDataGridViewDataSource();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
             return new TestRow(sectionResult);
-        }
-
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex < AssessmentLayerOneColumnIndex)
-            {
-                if (HasPassedLevelOne(eventArgs.RowIndex))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
         }
     }
 
