@@ -19,6 +19,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GrassCoverErosionOutwardsAssemblyServiceTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsDataSynchronizationServiceTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationActivityTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationServiceTest.cs" />
@@ -40,6 +41,14 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Ringtoets.AssemblyTool.KernelWrapper.TestUtil.csproj">
+      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
