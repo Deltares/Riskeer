@@ -57,6 +57,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
+        /// <summary>
+        /// Gets the grass cover erosion outwards failure mechanism.
+        /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)

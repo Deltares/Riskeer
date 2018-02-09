@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
@@ -49,10 +48,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
         /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public ClosingStructuresFailureMechanismResultView(
             IAssessmentSection assessmentSection,
+            ClosingStructuresFailureMechanism failureMechanism,
             IObservableEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> failureMechanismSectionResults)
             : base(failureMechanismSectionResults)
         {
@@ -61,7 +62,13 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             this.assessmentSection = assessmentSection;
+            FailureMechanism = failureMechanism;
             DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
             DataGridViewControl.CellFormatting += OnCellFormatting;
 
@@ -79,22 +86,19 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
+
+            CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
+            calculationInputObserver.Observable = observableGroup;
+            calculationOutputObserver.Observable = observableGroup;
+            calculationGroupObserver.Observable = observableGroup;
+
+            UpdateDataGridViewDataSource();
         }
 
-        public override IFailureMechanism FailureMechanism
-        {
-            set
-            {
-                base.FailureMechanism = value;
-
-                var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
-                CalculationGroup observableGroup = calculatableFailureMechanism?.CalculationsGroup;
-
-                calculationInputObserver.Observable = observableGroup;
-                calculationOutputObserver.Observable = observableGroup;
-                calculationGroupObserver.Observable = observableGroup;
-            }
-        }
+        /// <summary>
+        /// Gets the closing structures failure mechanism.
+        /// </summary>
+        public ClosingStructuresFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult)
         {
@@ -103,7 +107,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 return null;
             }
 
-            return new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, (ClosingStructuresFailureMechanism) FailureMechanism, assessmentSection);
+            return new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, FailureMechanism, assessmentSection);
         }
 
         protected override void Dispose(bool disposing)

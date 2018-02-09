@@ -58,6 +58,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
+        /// <summary>
+        /// Gets the stability stone cover failure mechanism.
+        /// </summary>
         public StabilityStoneCoverFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)

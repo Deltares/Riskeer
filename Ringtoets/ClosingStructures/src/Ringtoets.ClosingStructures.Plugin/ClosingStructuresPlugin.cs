@@ -110,9 +110,9 @@ namespace Ringtoets.ClosingStructures.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new ClosingStructuresFailureMechanismResultView(
                     context.AssessmentSection,
+                    (ClosingStructuresFailureMechanism) context.FailureMechanism,
                     context.WrappedData)
             };
 
@@ -313,7 +313,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 return assessmentSection
                        .GetFailureMechanisms()
                        .OfType<ClosingStructuresFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
             if (failureMechanismContext != null)

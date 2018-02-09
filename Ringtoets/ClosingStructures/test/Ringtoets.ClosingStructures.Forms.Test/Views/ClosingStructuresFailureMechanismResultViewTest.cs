@@ -71,14 +71,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanismSectionResults = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection, failureMechanismSectionResults))
+            using (var view = new ClosingStructuresFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>>(view);
-                Assert.AreSame(failureMechanismSectionResults, view.Data);
+                Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
 
             mocks.VerifyAll();
@@ -87,10 +88,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
             // Call
             TestDelegate call = () => new ClosingStructuresFailureMechanismResultView(
                 null,
-                new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>());
+                failureMechanism,
+                failureMechanism.SectionResults);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -98,58 +103,30 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
-            {
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
-                var testData = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
-                {
-                    sectionResult
-                };
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            // Call
+            TestDelegate call = () => new ClosingStructuresFailureMechanismResultView(
+                assessmentSection,
+                null,
+                new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>());
 
-                // Precondition
-                Assert.AreEqual(2, dataGridView.RowCount);
-
-                // Call
-                view.Data = testData;
-
-                // Assert
-                Assert.AreSame(testData, view.Data);
-
-                Assert.AreEqual(testData.Count, dataGridView.RowCount);
-                Assert.AreEqual(sectionResult.Section.Name, dataGridView.Rows[0].Cells[0].Value);
-            }
-        }
-
-        [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmpty()
-        {
-            // Setup
-            var testData = new object();
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                view.Data = testData;
-
-                // Assert
-                Assert.IsNull(view.Data);
-
-                Assert.AreEqual(0, dataGridView.RowCount);
-            }
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismResultsView_WhenAllDataSet_ThenDataGridViewCorrectlyInitialized()
         {
             // Given
-            using (CreateConfiguredFailureMechanismResultsView())
+            using (CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -182,7 +159,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
+            using (CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -247,7 +224,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithClosingStructuresFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void FailureMechanismResultView_WithClosingStructuresFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -280,17 +257,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
 
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
             {
-                // When
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
-                {
-                    result1,
-                    result2,
-                    result3
-                };
-
-                // Then
+                result1,
+                result2,
+                result3
+            }))
+            {
+                // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(3, rows.Count);
@@ -348,13 +322,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
-            {
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
-                {
-                    result
-                };
 
+            using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+            {
+                result
+            }))
+            {
                 // When
                 result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
                 result.NotifyObservers();
@@ -378,18 +351,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
-                {
-                    AssessmentLayerOne = assessmentLayerOneState
-                };
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+                AssessmentLayerOne = assessmentLayerOneState
+            };
+
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
                 {
                     sectionResult
-                };
-
+                }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -411,21 +383,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                var calculation = new StructuresCalculation<ClosingStructuresInput>();
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
-                {
-                    Calculation = calculation,
-                    AssessmentLayerOne = assessmentLayerOneState
-                };
+                Calculation = new StructuresCalculation<ClosingStructuresInput>(),
+                AssessmentLayerOne = assessmentLayerOneState
+            };
 
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
-                {
-                    sectionResult
-                };
-
+            using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+            {
+                sectionResult
+            }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -446,24 +414,21 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                var calculation = new StructuresCalculation<ClosingStructuresInput>
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Output = new TestStructuresOutput(double.NaN)
-                };
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
-                {
-                    Calculation = calculation,
-                    AssessmentLayerOne = assessmentLayerOneState
-                };
+                },
+                AssessmentLayerOne = assessmentLayerOneState
+            };
 
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
                 {
                     sectionResult
-                };
-
+                }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -484,24 +449,20 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                var calculation = new StructuresCalculation<ClosingStructuresInput>
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Output = new TestStructuresOutput(0.56789)
-                };
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
-                {
-                    Calculation = calculation,
-                    AssessmentLayerOne = assessmentLayerOneState
-                };
+                },
+                AssessmentLayerOne = assessmentLayerOneState
+            };
 
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
-                {
-                    sectionResult
-                };
-
+            using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+            {
+                sectionResult
+            }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -521,13 +482,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult, string expectedValue)
         {
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
             {
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
-                {
-                    sectionResult
-                };
-
+                sectionResult
+            }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -549,29 +508,20 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(CreateSimpleFailureMechanismSection())
             {
-                var successfulCalculation = new StructuresCalculation<ClosingStructuresInput>
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Output = new TestStructuresOutput(0.56789)
-                };
-
-                var failedCalculation = new StructuresCalculation<ClosingStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                };
-                FailureMechanismSection section = CreateSimpleFailureMechanismSection();
-                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
-                {
-                    Calculation = successfulCalculation,
-                    AssessmentLayerOne = assessmentLayerOneState
-                };
-
-                view.Data = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+                },
+                AssessmentLayerOne = assessmentLayerOneState
+            };
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
                 {
                     sectionResult
-                };
-
+                }))
+            {
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
@@ -583,7 +533,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 // When
-                sectionResult.Calculation = failedCalculation;
+                sectionResult.Calculation = new StructuresCalculation<ClosingStructuresInput>
+                {
+                    Output = new TestStructuresOutput(double.NaN)
+                };
                 formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Then
@@ -598,7 +551,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
+            using (CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -619,7 +572,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(double newValue)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
+            using (CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -641,7 +594,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(double newValue)
         {
             // Setup
-            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            using (CreateConfiguredFailureMechanismResultsView(failureMechanism))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -650,11 +604,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-
-                var dataObject = view.Data as ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>;
-                Assert.IsNotNull(dataObject);
-                StructuresFailureMechanismSectionResult<ClosingStructuresInput> row = dataObject.First();
-                Assert.AreEqual(newValue, row.AssessmentLayerThree);
+                Assert.AreEqual(newValue, failureMechanism.SectionResults.First().AssessmentLayerThree);
             }
         }
 
@@ -700,10 +650,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             return section;
         }
 
-        private ClosingStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()
+        private ClosingStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView(ClosingStructuresFailureMechanism failureMechanism)
         {
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
             failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
@@ -717,8 +665,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }));
 
             ClosingStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
-            failureMechanismResultView.Data = failureMechanism.SectionResults;
-            failureMechanismResultView.FailureMechanism = failureMechanism;
 
             return failureMechanismResultView;
         }
@@ -727,6 +673,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             IObservableEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults)
         {
             var failureMechanismResultView = new ClosingStructuresFailureMechanismResultView(new ObservableTestAssessmentSectionStub(),
+                                                                                             new ClosingStructuresFailureMechanism(),
                                                                                              sectionResults);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

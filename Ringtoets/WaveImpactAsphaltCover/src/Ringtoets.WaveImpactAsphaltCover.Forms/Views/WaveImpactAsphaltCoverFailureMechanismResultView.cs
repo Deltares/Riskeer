@@ -58,6 +58,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
+        /// <summary>
+        /// Gets the wave impact asphalt cover failure mechanism.
+        /// </summary>
         public WaveImpactAsphaltCoverFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)

@@ -41,6 +41,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
         /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public DuneErosionFailureMechanismResultView(DuneErosionFailureMechanism failureMechanism,
                                                      IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults)
             : base(failureMechanismSectionResults)
@@ -56,6 +57,9 @@ namespace Ringtoets.DuneErosion.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
+        /// <summary>
+        /// Gets the dune erosion failure mechanism.
+        /// </summary>
         public DuneErosionFailureMechanism FailureMechanism { get; }
 
         protected override object CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
