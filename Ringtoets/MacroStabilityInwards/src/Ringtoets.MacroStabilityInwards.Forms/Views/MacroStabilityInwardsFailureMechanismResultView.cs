@@ -42,16 +42,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+        private readonly Observer failureMechanismObserver;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
         /// <param name="failureMechanismSectionResults">The collection of failure mechanism section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismResultView(
             IAssessmentSection assessmentSection,
+            MacroStabilityInwardsFailureMechanism failureMechanism,
             IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
             : base(failureMechanismSectionResults)
         {
@@ -59,6 +62,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            FailureMechanism = failureMechanism;
+            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
+            {
+                Observable = failureMechanism
+            };
 
             this.assessmentSection = assessmentSection;
 
@@ -79,22 +93,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
+
+            CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
+
+            calculationInputObserver.Observable = observableGroup;
+            calculationOutputObserver.Observable = observableGroup;
+            calculationGroupObserver.Observable = observableGroup;
+
+            UpdateDataGridViewDataSource();
         }
 
-        public override IFailureMechanism FailureMechanism
-        {
-            set
-            {
-                base.FailureMechanism = value;
-
-                var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
-                CalculationGroup observableGroup = calculatableFailureMechanism?.CalculationsGroup;
-
-                calculationInputObserver.Observable = observableGroup;
-                calculationOutputObserver.Observable = observableGroup;
-                calculationGroupObserver.Observable = observableGroup;
-            }
-        }
+        /// <summary>
+        /// Gets the macro stability inwards failure mechanism.
+        /// </summary>
+        public MacroStabilityInwardsFailureMechanism FailureMechanism { get; }
 
         protected override void Dispose(bool disposing)
         {
@@ -104,20 +116,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
+            failureMechanismObserver.Dispose();
 
             base.Dispose(disposing);
         }
 
         protected override object CreateFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
         {
-            if (FailureMechanism == null)
-            {
-                return null;
-            }
-
             return new MacroStabilityInwardsFailureMechanismSectionResultRow(sectionResult,
                                                                              FailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>(),
-                                                                             (MacroStabilityInwardsFailureMechanism) FailureMechanism, assessmentSection);
+                                                                             FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()

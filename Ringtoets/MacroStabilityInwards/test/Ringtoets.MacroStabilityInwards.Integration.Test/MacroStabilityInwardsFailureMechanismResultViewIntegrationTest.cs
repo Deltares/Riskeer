@@ -52,16 +52,13 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
 
                 var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(
                     assessmentSection,
+                    assessmentSection.MacroStabilityInwards,
                     assessmentSection.MacroStabilityInwards.SectionResults);
                 form.Controls.Add(failureMechanismResultView);
                 form.Show();
 
                 // Obtain the data grid view
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Set all necessary data to the view
-                failureMechanismResultView.Data = assessmentSection.MacroStabilityInwards.SectionResults;
-                failureMechanismResultView.FailureMechanism = assessmentSection.MacroStabilityInwards;
 
                 // Import failure mechanism sections and ensure the data grid view is updated
                 DataImportHelper.ImportReferenceLine(assessmentSection);

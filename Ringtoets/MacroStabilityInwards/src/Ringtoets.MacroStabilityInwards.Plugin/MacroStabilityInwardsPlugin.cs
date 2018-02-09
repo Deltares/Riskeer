@@ -221,9 +221,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(
                     context.AssessmentSection,
+                    (MacroStabilityInwardsFailureMechanism) context.FailureMechanism,
                     context.WrappedData)
             };
 
@@ -432,7 +432,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 return assessmentSection
                        .GetFailureMechanisms()
                        .OfType<MacroStabilityInwardsFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
             if (failureMechanismContext != null)
@@ -440,7 +440,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion
