@@ -86,10 +86,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         [Test]
         public void GivenFormWithHeightStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
-            // Call
+            // Given
             using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>()))
             {
-                // Assert
+                // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);

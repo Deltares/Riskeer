@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -48,10 +47,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism section results belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
         /// <param name="failureMechanismSectionResults">The collection failure mechanism section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismResultView(
             IAssessmentSection assessmentSection,
+            GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
             : base(failureMechanismSectionResults)
         {
@@ -59,6 +60,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            FailureMechanism = failureMechanism;
 
             this.assessmentSection = assessmentSection;
 
@@ -79,22 +87,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
                 c => c.Children);
+
+            CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
+            calculationInputObserver.Observable = observableGroup;
+            calculationOutputObserver.Observable = observableGroup;
+            calculationGroupObserver.Observable = observableGroup;
+
+            UpdateDataGridViewDataSource();
         }
 
-        public override IFailureMechanism FailureMechanism
-        {
-            set
-            {
-                base.FailureMechanism = value;
-
-                var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
-                CalculationGroup observableGroup = calculatableFailureMechanism?.CalculationsGroup;
-
-                calculationInputObserver.Observable = observableGroup;
-                calculationOutputObserver.Observable = observableGroup;
-                calculationGroupObserver.Observable = observableGroup;
-            }
-        }
+        /// <summary>
+        /// Gets the grass cover erosion inwards failure mechanism.
+        /// </summary>
+        public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; }
 
         protected override void Dispose(bool disposing)
         {
@@ -115,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 return null;
             }
 
-            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, (GrassCoverErosionInwardsFailureMechanism) FailureMechanism,
+            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, FailureMechanism,
                                                                                 assessmentSection);
         }
 

@@ -120,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -198,7 +198,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -221,7 +221,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -245,7 +245,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -267,7 +267,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism.SectionResults)
+            var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults)
             {
                 Data = failureMechanism.SectionResults
             };
@@ -284,31 +284,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            var view = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanismResultView>();
-            view.Expect(v => v.FailureMechanism = failureMechanism);
-            mocks.ReplayAll();
-
-            var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
-                failureMechanism.SectionResults,
-                failureMechanism,
-                assessmentSection);
-
-            // Call
-            info.AfterCreate(view, context);
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateInstance_WithContext_ReturnsView()
+        public void CreateInstance_Always_ReturnsView()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
