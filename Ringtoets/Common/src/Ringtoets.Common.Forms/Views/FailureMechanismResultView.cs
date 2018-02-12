@@ -127,8 +127,8 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns><c>false</c> if the simple assessment has passed, <c>true</c> otherwise.</returns>
         protected bool HasPassedSimpleAssessment(int rowIndex)
         {
-            return (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
-                   == SimpleAssessmentResultType.ProbabilityNegligible;
+            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
+                   == AssessmentLayerOneState.Sufficient;
         }
 
         /// <summary>

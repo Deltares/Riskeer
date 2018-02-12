@@ -23,8 +23,10 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
@@ -112,6 +114,19 @@ namespace Ringtoets.HeightStructures.Forms.Views
         protected override void AddDataGridColumns()
         {
             base.AddDataGridColumns();
+
+            EnumDisplayWrapper<AssessmentLayerOneState>[] layerOneDataSource =
+                Enum.GetValues(typeof(AssessmentLayerOneState))
+                    .OfType<AssessmentLayerOneState>()
+                    .Select(sa => new EnumDisplayWrapper<AssessmentLayerOneState>(sa))
+                    .ToArray();
+
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerOne),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                layerOneDataSource,
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA),

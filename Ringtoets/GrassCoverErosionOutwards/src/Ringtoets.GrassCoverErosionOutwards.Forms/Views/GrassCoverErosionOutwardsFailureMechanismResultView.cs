@@ -67,6 +67,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         {
             base.AddDataGridColumns();
 
+            EnumDisplayWrapper<AssessmentLayerOneState>[] layerOneDataSource =
+                Enum.GetValues(typeof(AssessmentLayerOneState))
+                    .OfType<AssessmentLayerOneState>()
+                    .Select(sa => new EnumDisplayWrapper<AssessmentLayerOneState>(sa))
+                    .ToArray();
+
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.AssessmentLayerOne),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                layerOneDataSource,
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+
             EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
                 Enum.GetValues(typeof(AssessmentLayerTwoAResult))
                     .OfType<AssessmentLayerTwoAResult>()
