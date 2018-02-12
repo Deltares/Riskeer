@@ -14,6 +14,7 @@
     <Compile Include="AssemblyServices\GrassCoverSlipOffInwardsAssemblyService.cs" />
     <Compile Include="AssemblyServices\GrassCoverSlipOffOutwardsAssemblyService.cs" />
     <Compile Include="AssemblyServices\MacroStabilityOutwardsAssemblyService.cs" />
+    <Compile Include="AssemblyServices\MicrostabilityAssemblyService.cs" />
     <Compile Include="MessageProviders\DesignWaterLevelCalculationMessageProvider.cs" />
     <Compile Include="MessageProviders\WaveHeightCalculationMessageProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
