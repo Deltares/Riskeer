@@ -23,7 +23,6 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.HeightStructures.Data.Test
@@ -46,23 +45,6 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentInput);
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
             Assert.AreSame(section, sectionResult.Section);
-        }
-
-        [Test]
-        public void Calculation_SetNewValue_GetNewlySetValue()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            var result = new HeightStructuresFailureMechanismSectionResult(section);
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-
-            // Call
-            result.Calculation = calculation;
-
-            // Assert
-            Assert.AreSame(calculation, result.Calculation);
         }
 
         [Test]
