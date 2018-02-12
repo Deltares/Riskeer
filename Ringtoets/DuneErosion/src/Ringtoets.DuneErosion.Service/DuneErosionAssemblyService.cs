@@ -28,7 +28,7 @@ using Ringtoets.DuneErosion.Data;
 namespace Ringtoets.DuneErosion.Service
 {
     /// <summary>
-    /// Assembly service for assembling the assembly tool results for dune erosion.
+    /// Service for assembling the assembly tool results for dune erosion.
     /// </summary>
     public static class DuneErosionAssemblyService
     {

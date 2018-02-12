@@ -28,7 +28,7 @@ using Ringtoets.StabilityStoneCover.Data;
 namespace Ringtoets.StabilityStoneCover.Service
 {
     /// <summary>
-    /// Assembly service for assembling the assembly tool results for stability stone cover.
+    /// Service for assembling the assembly tool results for stability stone cover.
     /// </summary>
     public static class StabilityStoneCoverAssemblyService
     {

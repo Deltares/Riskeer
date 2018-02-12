@@ -28,7 +28,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 namespace Ringtoets.MacroStabilityInwards.Service
 {
     /// <summary>
-    /// Assembly service for assembling the assembly tool results for macro stability inwards.
+    /// Service for assembling the assembly tool results for macro stability inwards.
     /// </summary>
     public static class MacroStabilityInwardsAssemblyService
     {

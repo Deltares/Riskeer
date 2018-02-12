@@ -33,7 +33,7 @@ using Ringtoets.DuneErosion.Data;
 namespace Ringtoets.DuneErosion.Service.Test
 {
     [TestFixture]
-    public class DuneErosionAssemblyCalculationServiceTest
+    public class DuneErosionAssemblyServiceTest
     {
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()

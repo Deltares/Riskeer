@@ -19,7 +19,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DuneErosionAssemblyCalculationServiceTest.cs" />
+    <Compile Include="DuneErosionAssemblyServiceTest.cs" />
     <Compile Include="DuneErosionBoundaryCalculationActivityTest.cs" />
     <Compile Include="DuneErosionBoundaryCalculationServiceTest.cs" />
     <Compile Include="DuneErosionDataSynchronizationServiceTest.cs" />

@@ -28,7 +28,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 namespace Ringtoets.WaveImpactAsphaltCover.Service
 {
     /// <summary>
-    /// Assembly service for assembling the assembly tool results for wave impact asphalt cover.
+    /// Service for assembling the assembly tool results for wave impact asphalt cover.
     /// </summary>
     public static class WaveImpactAsphaltCoverAssemblyService
     {

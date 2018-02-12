@@ -28,7 +28,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Ringtoets.Integration.Service.AssemblyServices
 {
     /// <summary>
-    /// Service for assembling the assembly tool results for wave impact asphalt cover.
+    /// Service for assembling the assembly tool results for micro stability.
     /// </summary>
     public static class MicrostabilityAssemblyService
     {

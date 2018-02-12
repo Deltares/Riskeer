@@ -28,7 +28,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Service
 {
     /// <summary>
-    /// Assembly service for assembling the assembly tool results for piping.
+    /// Service for assembling the assembly tool results for piping.
     /// </summary>
     public static class PipingAssemblyService
     {

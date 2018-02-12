@@ -28,7 +28,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
     /// <summary>
-    /// Assembly service for assembling the assembly tool results for grass cover erosion inwards.
+    /// Service for assembling the assembly tool results for grass cover erosion inwards.
     /// </summary>
     public static class GrassCoverErosionInwardsAssemblyService
     {
