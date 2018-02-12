@@ -87,7 +87,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             if (eventArgs.ColumnIndex > 1)
             {
-                if (HasPassedLevelOne(eventArgs.RowIndex))
+                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }

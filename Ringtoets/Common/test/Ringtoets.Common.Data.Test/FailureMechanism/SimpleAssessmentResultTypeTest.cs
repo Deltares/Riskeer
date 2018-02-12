@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class SimpleAssessmentResultTypeTest : EnumValuesTestFixture<SimpleAssessmentResultType, byte>
+    public class SimpleAssessmentResultTypeTest : EnumWithDisplayNameTestFixture<SimpleAssessmentResultType>
     {
         protected override IDictionary<SimpleAssessmentResultType, byte> ExpectedValueForEnumValues
         {
@@ -46,6 +46,28 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                     },
                     {
                         SimpleAssessmentResultType.AssessFurther, 4
+                    }
+                };
+            }
+        }
+
+        protected override IDictionary<SimpleAssessmentResultType, string> ExpectedDisplayNameForEnumValues
+        {
+            get
+            {
+                return new Dictionary<SimpleAssessmentResultType, string>
+                {
+                    {
+                        SimpleAssessmentResultType.None, "<selecteer>"
+                    },
+                    {
+                        SimpleAssessmentResultType.NotApplicable, "NVT"
+                    },
+                    {
+                        SimpleAssessmentResultType.ProbabilityNegligible, "FV"
+                    },
+                    {
+                        SimpleAssessmentResultType.AssessFurther, "VB"
                     }
                 };
             }

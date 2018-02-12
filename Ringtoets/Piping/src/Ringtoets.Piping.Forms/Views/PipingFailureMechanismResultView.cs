@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -94,6 +95,18 @@ namespace Ringtoets.Piping.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
+        /// <summary>
+        /// Finds out whether the assessment section which is represented by the row at index 
+        /// <paramref name="rowIndex"/> has passed the simple assessment.
+        /// </summary>
+        /// <param name="rowIndex">The index of the row which has a section attached.</param>
+        /// <returns><c>false</c> if the simple assessment has passed, <c>true</c> otherwise.</returns>
+        private bool HasPassedSimpleAssessment(int rowIndex)
+        {
+            return (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
+                   == SimpleAssessmentResultType.ProbabilityNegligible;
+        }
+
         protected override void Dispose(bool disposing)
         {
             DataGridViewControl.CellFormatting -= ShowAssessmentLayerTwoAErrors;
@@ -117,6 +130,19 @@ namespace Ringtoets.Piping.Forms.Views
         {
             base.AddDataGridColumns();
 
+            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentResultType))
+                    .OfType<SimpleAssessmentResultType>()
+                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
+                    .ToArray();
+
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentInput),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                simpleAssessmentDataSource,
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
@@ -132,7 +158,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
-                if (HasPassedLevelOne(eventArgs.RowIndex))
+                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
@@ -154,7 +180,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             var resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
             PipingFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
-            if (rowObject.AssessmentLayerOne == AssessmentLayerOneState.Sufficient)
+            if (rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.ProbabilityNegligible)
             {
                 currentDataGridViewCell.ErrorText = string.Empty;
                 return;

@@ -411,4 +411,19 @@
   <data name="ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor 'a' moet in het bereik {0} liggen.</value>
   </data>
+  <data name="SimpleAssessmentResultType_AssessFurther" xml:space="preserve">
+    <value>VB</value>
+  </data>
+  <data name="SimpleAssessmentResultType_None" xml:space="preserve">
+    <value>&lt;selecteer&gt;</value>
+  </data>
+  <data name="SimpleAssessmentResultType_NotApplicable" xml:space="preserve">
+    <value>NVT</value>
+  </data>
+  <data name="SimpleAssessmentResultType_ProbabilityNegligible" xml:space="preserve">
+    <value>FV</value>
+  </data>
+  <data name="SimpleAssessmentResultValidityOnlyType_Applicable" xml:space="preserve">
+    <value>WVT</value>
+  </data>
 </root>

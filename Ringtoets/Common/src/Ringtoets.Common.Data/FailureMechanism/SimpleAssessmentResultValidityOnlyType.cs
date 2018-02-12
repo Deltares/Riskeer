@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.Properties;
+
 namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
@@ -31,16 +34,19 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// No option has been selected for this failure
         /// mechanism section.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_None))]
         None = 1,
 
         /// <summary>
         /// The failure mechanism section is not applicable.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_NotApplicable))]
         NotApplicable = 2,
 
         /// <summary>
         /// The failure mechanism section is applicable.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultValidityOnlyType_Applicable))]
         Applicable = 3
     }
 }

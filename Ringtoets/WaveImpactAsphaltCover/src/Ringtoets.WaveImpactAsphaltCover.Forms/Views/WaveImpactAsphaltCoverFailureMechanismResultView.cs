@@ -87,7 +87,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         {
             if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
-                if (HasPassedLevelOne(eventArgs.RowIndex))
+                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }

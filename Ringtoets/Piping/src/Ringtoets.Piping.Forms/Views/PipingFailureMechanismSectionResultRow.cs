@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
@@ -75,6 +76,22 @@ namespace Ringtoets.Piping.Forms.Views
             this.calculations = calculations;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing whether the section passed the simple assessment.
+        /// </summary>
+        public SimpleAssessmentResultType SimpleAssessmentInput
+        {
+            get
+            {
+                return SectionResult.SimpleAssessmentInput;
+            }
+            set
+            {
+                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.NotifyObservers();
+            }
         }
 
         /// <summary>

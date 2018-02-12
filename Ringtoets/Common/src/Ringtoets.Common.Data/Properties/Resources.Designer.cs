@@ -855,6 +855,51 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VB.
+        /// </summary>
+        public static string SimpleAssessmentResultType_AssessFurther {
+            get {
+                return ResourceManager.GetString("SimpleAssessmentResultType_AssessFurther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;selecteer&gt;.
+        /// </summary>
+        public static string SimpleAssessmentResultType_None {
+            get {
+                return ResourceManager.GetString("SimpleAssessmentResultType_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NVT.
+        /// </summary>
+        public static string SimpleAssessmentResultType_NotApplicable {
+            get {
+                return ResourceManager.GetString("SimpleAssessmentResultType_NotApplicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FV.
+        /// </summary>
+        public static string SimpleAssessmentResultType_ProbabilityNegligible {
+            get {
+                return ResourceManager.GetString("SimpleAssessmentResultType_ProbabilityNegligible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WVT.
+        /// </summary>
+        public static string SimpleAssessmentResultValidityOnlyType_Applicable {
+            get {
+                return ResourceManager.GetString("SimpleAssessmentResultValidityOnlyType_Applicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Onbekend.
         /// </summary>
         public static string SoilLayerDataHelper_GetValidName_Unknown {

@@ -121,14 +121,14 @@ namespace Ringtoets.Common.Forms.Views
 
         /// <summary>
         /// Finds out whether the assessment section which is represented by the row at index 
-        /// <paramref name="rowIndex"/> has passed the level 1 assessment.
+        /// <paramref name="rowIndex"/> has passed the simple assessment.
         /// </summary>
         /// <param name="rowIndex">The index of the row which has a section attached.</param>
-        /// <returns><c>false</c> if assessment level 1 has passed, <c>true</c> otherwise.</returns>
-        protected bool HasPassedLevelOne(int rowIndex)
+        /// <returns><c>false</c> if the simple assessment has passed, <c>true</c> otherwise.</returns>
+        protected bool HasPassedSimpleAssessment(int rowIndex)
         {
-            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
-                   == AssessmentLayerOneState.Sufficient;
+            return (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
+                   == SimpleAssessmentResultType.ProbabilityNegligible;
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Adds the columns section name and the assessment layer one in the view.
+        /// Adds the column for the section name in the view.
         /// </summary>
         protected virtual void AddDataGridColumns()
         {
@@ -164,19 +164,6 @@ namespace Ringtoets.Common.Forms.Views
                 nameof(FailureMechanismSectionResultRow<TSectionResult>.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
-
-            EnumDisplayWrapper<AssessmentLayerOneState>[] oneStateDataSource =
-                Enum.GetValues(typeof(AssessmentLayerOneState))
-                    .OfType<AssessmentLayerOneState>()
-                    .Select(el => new EnumDisplayWrapper<AssessmentLayerOneState>(el))
-                    .ToArray();
-
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(FailureMechanismSectionResultRow<TSectionResult>.AssessmentLayerOne),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                oneStateDataSource,
-                nameof(EnumDisplayWrapper<AssessmentLayerOneState>.Value),
-                nameof(EnumDisplayWrapper<AssessmentLayerOneState>.DisplayName));
         }
     }
 }

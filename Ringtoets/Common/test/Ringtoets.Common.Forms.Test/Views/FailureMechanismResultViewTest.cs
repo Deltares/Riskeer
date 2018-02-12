@@ -20,14 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -128,7 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultUpdated_ThenObserverNotified()
         {
             // Given
-            var sectionResult1 = new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
+            var sectionResult = new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
             {
                 new Point2D(0, 0)
             }))
@@ -137,7 +140,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             };
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
-                sectionResult1
+                sectionResult
             };
 
             using (ShowFailureMechanismResultsView(sectionResults))
@@ -147,8 +150,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 dataGridView.CellFormatting += (sender, args) => cellFormattingEventFired = true;
 
                 // When
-                sectionResult1.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
-                sectionResult1.NotifyObservers();
+                sectionResult.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                sectionResult.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(cellFormattingEventFired);
@@ -176,6 +179,24 @@ namespace Ringtoets.Common.Forms.Test.Views
         protected override object CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
             return new TestRow(sectionResult);
+        }
+
+        protected override void AddDataGridColumns()
+        {
+            base.AddDataGridColumns();
+
+            EnumDisplayWrapper<SimpleAssessmentResultType>[] oneStateDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentResultType))
+                    .OfType<SimpleAssessmentResultType>()
+                    .Select(el => new EnumDisplayWrapper<SimpleAssessmentResultType>(el))
+                    .ToArray();
+
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(FailureMechanismSectionResultRow<FailureMechanismSectionResult>.AssessmentLayerOne),
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                oneStateDataSource,
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
         }
     }
 

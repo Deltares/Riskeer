@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
     public class PipingFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
+        private const int simpleAssessmentIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
         private Form testForm;
@@ -116,11 +116,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
                 Assert.IsTrue(dataGridView.Columns[assessmentLayerTwoAIndex].ReadOnly);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -147,25 +147,26 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             PipingFailureMechanism pipingFailureMechanism = GetFullyConfiguredFailureMechanism();
@@ -175,7 +176,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[0].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Assert
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -186,11 +187,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCell cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
                 DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
 
-                Assert.AreEqual(assessmentLayerOneState, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(simpleAssessmentType, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
 
-                if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
+                if (simpleAssessmentType == SimpleAssessmentResultType.ProbabilityNegligible)
                 {
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
@@ -273,10 +274,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultView_TotalContributionNotHundred_ShowsErrorTooltip(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;
@@ -292,7 +294,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
-                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -306,10 +308,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;
@@ -324,7 +327,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
-                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -337,9 +340,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;
@@ -354,7 +358,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
-                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -367,9 +371,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;
@@ -385,7 +390,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
-                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -398,9 +403,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void FailureMechanismResultView_NoCalculationScenarios_ShowsErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void FailureMechanismResultView_NoCalculationScenarios_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;
@@ -411,7 +417,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
-                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -424,10 +430,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultView_NoCalculationScenariosRelevant_ShowsErrorTooltip(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;
@@ -442,7 +449,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
-                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -455,7 +462,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_AssessmentLayerOneStateSufficientAndAssessmentLayerTwoANaN_DoesNotShowError()
+        public void FailureMechanismResultView_SimpleAssessmentProbabilityNegligibleAndAssessmentLayerTwoANaN_DoesNotShowError()
         {
             // Setup
             const int rowIndex = 0;
@@ -473,7 +480,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
                 // Call
-                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = AssessmentLayerOneState.Sufficient;
+                dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = SimpleAssessmentResultType.ProbabilityNegligible;
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
