@@ -39,8 +39,14 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
+            SimpleAssessmentInput = SimpleAssessmentResultType.None;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
+
+        /// <summary>
+        /// Gets or sets the state of the simple assessment per failure mechanism section.
+        /// </summary>
+        public SimpleAssessmentResultType SimpleAssessmentInput { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
