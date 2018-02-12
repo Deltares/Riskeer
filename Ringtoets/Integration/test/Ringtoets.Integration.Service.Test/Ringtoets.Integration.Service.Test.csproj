@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyServices\GrassCoverSlipOffInwardsAssemblyServiceTest.cs" />
+    <Compile Include="AssemblyServices\GrassCoverSlipOffOutwardsAssemblyServiceTest.cs" />
     <Compile Include="MessageProviders\DesignWaterLevelCalculationMessageProviderTest.cs" />
     <Compile Include="MessageProviders\WaveHeightCalculationMessageProviderTest.cs" />
     <Compile Include="RingtoetsDataSynchronizationServiceTest.cs" />
