@@ -17,6 +17,7 @@
     <Compile Include="AssemblyServices\MicrostabilityAssemblyService.cs" />
     <Compile Include="AssemblyServices\PipingStructureAssemblyService.cs" />
     <Compile Include="AssemblyServices\StrengthStabilityLengthwiseConstructionAssemblyService.cs" />
+    <Compile Include="AssemblyServices\TechnicalInnovationAssemblyService.cs" />
     <Compile Include="MessageProviders\DesignWaterLevelCalculationMessageProvider.cs" />
     <Compile Include="MessageProviders\WaveHeightCalculationMessageProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
