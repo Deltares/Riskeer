@@ -14,6 +14,7 @@
     <Compile Include="ClosingStructure.cs" />
     <Compile Include="ClosingStructuresFailureMechanism.cs" />
     <Compile Include="ClosingStructuresFailureMechanismSection2aAssessmentResultExtensions.cs" />
+    <Compile Include="ClosingStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="ClosingStructuresInput.cs" />
     <Compile Include="ClosingStructureInflowModelType.cs" />
     <Compile Include="ClosingStructuresProbabilityAssessmentOutputFactory.cs" />
