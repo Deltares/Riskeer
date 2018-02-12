@@ -102,12 +102,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
-            if (FailureMechanism == null)
-            {
-                return null;
-            }
-
-            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, FailureMechanism,
+            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, 
+                                                                                FailureMechanism,
                                                                                 assessmentSection);
         }
 

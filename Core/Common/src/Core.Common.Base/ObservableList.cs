@@ -26,7 +26,7 @@ using System.Linq;
 namespace Core.Common.Base
 {
     /// <summary>
-    /// Class that extends the <see cref="List{T}"/> class with an implementation of <see cref="IObservable"/>.
+    /// Class that extends the <see cref="List{T}"/> class with an implementation of <see cref="IObservableEnumerable{T}"/>.
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     public class ObservableList<T> : List<T>, IObservableEnumerable<T>

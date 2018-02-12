@@ -205,9 +205,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithFailureMechanismResultView_WhenDataSourceWithFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void FailureMechanismResultView_WithFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -238,7 +238,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
 
-            // When
+            // Call
             using (ShowFailureMechanismResultsView(
                 new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {
@@ -247,7 +247,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                     result3
                 }))
             {
-                // Then
+                // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(3, rows.Count);
@@ -464,6 +464,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult, string expectedValue)
         {
+            // Given
             using (ShowFailureMechanismResultsView(
                 new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
                 {

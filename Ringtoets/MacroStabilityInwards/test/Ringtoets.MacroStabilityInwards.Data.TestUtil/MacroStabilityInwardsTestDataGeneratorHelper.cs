@@ -39,6 +39,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// for the parent and nested calculations with output.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="failureMechanism"/>
+        /// doesn't have all expected calculation configurations.</exception>
         public static void AssertHasAllPossibleCalculationConfigurationsWithOutputs(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.CalculationsGroup.Children;
@@ -53,6 +55,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// for the parent and nested calculations without output.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="failureMechanism"/>
+        /// doesn't have all expected calculation configurations.</exception>
         public static void AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.CalculationsGroup.Children;
@@ -66,6 +70,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="MacroStabilityInwardsStochasticSoilModel"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="failureMechanism"/>
+        /// doesn't have stochastic soil models.</exception>
         public static void AssertHasStochasticSoilModels(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             CollectionAssert.IsNotEmpty(failureMechanism.StochasticSoilModels);
@@ -75,6 +81,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="MacroStabilityInwardsSurfaceLine"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="failureMechanism"/>
+        /// doesn't have anysurface lines.</exception>
         public static void AssertHasSurfaceLines(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             CollectionAssert.IsNotEmpty(failureMechanism.SurfaceLines);
@@ -85,6 +93,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="failureMechanism"/>
+        /// doesn't have the expected amount of sections.</exception>
         public static void AssertHasFailureMechanismSections(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;

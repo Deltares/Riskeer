@@ -93,11 +93,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         protected override object CreateFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult)
         {
-            if (FailureMechanism == null)
-            {
-                return null;
-            }
-
             return new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult,
                                                                                 FailureMechanism,
                                                                                 assessmentSection);

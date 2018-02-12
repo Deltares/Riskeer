@@ -405,6 +405,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult, string expectedValue)
         {
+            // Given
             using (ShowFailureMechanismResultsView(
                 new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
                 {

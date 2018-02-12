@@ -206,7 +206,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         [Test]
         public void FailureMechanismResultView_WithClosingStructuresFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
-            // Given
+            // Setup
             var section1 = new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0, 0)
@@ -237,6 +237,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
 
+            // Call
             using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
             {
                 result1,
@@ -462,6 +463,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult, string expectedValue)
         {
+            // Given
             using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
             {
                 sectionResult

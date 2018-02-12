@@ -46,11 +46,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults)
             : base(failureMechanism, failureMechanismSectionResults)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
             UpdateDataGridViewDataSource();
         }

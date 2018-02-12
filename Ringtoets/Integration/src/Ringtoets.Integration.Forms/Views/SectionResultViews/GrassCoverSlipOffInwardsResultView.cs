@@ -36,8 +36,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class GrassCoverSlipOffInwardsResultView : FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism,
-        GrassCoverSlipOffInwardsFailureMechanismSectionResult>
+    public class GrassCoverSlipOffInwardsResultView
+        : FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsResultView"/>.

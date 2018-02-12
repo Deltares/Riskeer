@@ -409,6 +409,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, string expectedValue)
         {
+            // Given
             using (ShowFailureMechanismResultsView(
                 new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
                 {

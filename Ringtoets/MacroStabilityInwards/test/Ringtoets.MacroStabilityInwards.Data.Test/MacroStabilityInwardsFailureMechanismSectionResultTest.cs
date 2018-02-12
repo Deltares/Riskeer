@@ -22,8 +22,6 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -36,7 +34,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call

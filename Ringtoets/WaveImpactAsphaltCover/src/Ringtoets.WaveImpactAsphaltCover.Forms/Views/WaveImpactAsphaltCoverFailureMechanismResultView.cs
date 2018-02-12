@@ -46,13 +46,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults)
             : base(failureMechanism, failureMechanismSectionResults)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             DataGridViewControl.CellFormatting += OnCellFormatting;
-
             UpdateDataGridViewDataSource();
         }
 

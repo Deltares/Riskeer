@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 {
                     form.Controls.Add(view);
 
-                    // Call
+                    // When
                     form.Show();
 
                     // Then

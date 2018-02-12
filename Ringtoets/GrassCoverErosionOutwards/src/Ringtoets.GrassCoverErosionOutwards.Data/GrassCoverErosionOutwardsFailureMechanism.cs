@@ -84,7 +84,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults => sectionResults;
+        public IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
 
         public override void AddSection(FailureMechanismSection section)
         {

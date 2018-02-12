@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -120,7 +118,6 @@ namespace Ringtoets.Piping.Data.Test
         public void AddSection_WithSection_AddedSectionResult()
         {
             // Setup
-
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
