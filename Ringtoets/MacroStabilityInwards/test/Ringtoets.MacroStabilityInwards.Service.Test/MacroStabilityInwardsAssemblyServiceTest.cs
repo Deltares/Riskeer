@@ -85,14 +85,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                var random = new Random(21);
-                var calculatorOutput = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.SimpleAssessmentAssemblyOutput = calculatorOutput;
-
                 // Call
                 MacroStabilityInwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
+                FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, sectionResult.SimpleAssemblyResult);
             }
         }
