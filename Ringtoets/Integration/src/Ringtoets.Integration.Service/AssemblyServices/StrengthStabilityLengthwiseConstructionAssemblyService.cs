@@ -28,9 +28,9 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Ringtoets.Integration.Service.AssemblyServices
 {
     /// <summary>
-    /// Service for assembling the assembly tool results for piping structure.
+    /// Service for assembling the assembly tool results for strength stability lengthwise construction.
     /// </summary>
-    public static class PipingStructureAssemblyService
+    public static class StrengthStabilityLengthwiseConstructionAssemblyService
     {
         /// <summary>
         /// Assembles the simple assessment results.
@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Service.AssemblyServices
         /// simple assembly results for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/> 
         /// is <c>null</c>.</exception>
-        public static void AssembleSimpleAssessment(PipingStructureFailureMechanismSectionResult failureMechanismSectionResult)
+        public static void AssembleSimpleAssessment(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {

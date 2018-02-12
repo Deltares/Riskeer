@@ -24,6 +24,7 @@
     <Compile Include="AssemblyServices\MacroStabilityOutwardsAssemblyServiceTest.cs" />
     <Compile Include="AssemblyServices\MicrostabilityAssemblyServiceTest.cs" />
     <Compile Include="AssemblyServices\PipingStructureAssemblyServiceTest.cs" />
+    <Compile Include="AssemblyServices\StrengthStabilityLengthwiseConstructionAssemblyServiceTest.cs" />
     <Compile Include="MessageProviders\DesignWaterLevelCalculationMessageProviderTest.cs" />
     <Compile Include="MessageProviders\WaveHeightCalculationMessageProviderTest.cs" />
     <Compile Include="RingtoetsDataSynchronizationServiceTest.cs" />
