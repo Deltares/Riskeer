@@ -22,6 +22,7 @@
     <Compile Include="StabilityPointStructure.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanism.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismSection2aAssessmentResultExtensions.cs" />
+    <Compile Include="StabilityPointStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="StabilityPointStructuresInput.cs" />
     <Compile Include="StabilityPointStructureInflowModelType.cs" />
     <Compile Include="StabilityPointStructuresProbabilityAssessmentOutputFactory.cs" />
