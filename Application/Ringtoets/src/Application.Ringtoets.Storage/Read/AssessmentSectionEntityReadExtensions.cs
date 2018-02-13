@@ -193,8 +193,8 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadMacroStabilityOutwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            FailureMechanismEntity macrostabilityOutwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.MacroStabilityOutwards);
-            macrostabilityOutwardsFailureMechanismEntity?.ReadAsMacroStabilityOutwardsFailureMechanism(assessmentSection.MacroStabilityOutwards, collector);
+            FailureMechanismEntity macroStabilityOutwardsFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.MacroStabilityOutwards);
+            macroStabilityOutwardsFailureMechanismEntity?.ReadAsMacroStabilityOutwardsFailureMechanism(assessmentSection.MacroStabilityOutwards, collector);
         }
 
         private static void ReadWaveImpactAsphaltCoverFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)

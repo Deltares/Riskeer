@@ -31,7 +31,7 @@ using Application.Ringtoets.Storage.Read.HeightStructures;
 using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Application.Ringtoets.Storage.Read.MacroStabilityOutwards;
 using Application.Ringtoets.Storage.Read.Piping;
-using Application.Ringtoets.Storage.Read.PipingStructures;
+using Application.Ringtoets.Storage.Read.PipingStructure;
 using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;

@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Data.Test
             const string grassCoverErosionOutwardsName = "Dijken en dammen - Grasbekleding erosie buitentalud";
             const string heightStructuresName = "Kunstwerken - Hoogte kunstwerk";
             const string closingStructuresName = "Kunstwerken - Betrouwbaarheid sluiting kunstwerk";
-            const string pipingStructuresName = "Kunstwerken - Piping bij kunstwerk";
+            const string pipingStructureName = "Kunstwerken - Piping bij kunstwerk";
             const string stabilityPointStructuresName = "Kunstwerken - Sterkte en stabiliteit puntconstructies";
             const string duneErosionName = "Duinwaterkering - Duinafslag";
             const string otherName = "Overig";
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Data.Test
             const string grassCoverErosionOutwardsCode = "GEBU";
             const string heightStructuresCode = "HTKW";
             const string closingStructuresCode = "BSKW";
-            const string pipingStructuresCode = "PKW";
+            const string pipingStructureCode = "PKW";
             const string stabilityPointStructuresCode = "STKWp";
             const string duneErosionCode = "DA";
             const string otherCode = "-";
@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Data.Test
                 grassCoverErosionOutwardsName,
                 heightStructuresName,
                 closingStructuresName,
-                pipingStructuresName,
+                pipingStructureName,
                 stabilityPointStructuresName,
                 duneErosionName,
                 otherName
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Data.Test
                 grassCoverErosionOutwardsCode,
                 heightStructuresCode,
                 closingStructuresCode,
-                pipingStructuresCode,
+                pipingStructureCode,
                 stabilityPointStructuresCode,
                 duneErosionCode,
                 otherCode

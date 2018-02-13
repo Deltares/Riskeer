@@ -215,7 +215,7 @@
     <Compile Include="Read\Piping\PipingCalculationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\PipingStructures\PipingStructureSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\PipingStructure\PipingStructureSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingSoilLayerEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingSoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StochasticSoilModelEntityReadExtensionsTest.cs" />
