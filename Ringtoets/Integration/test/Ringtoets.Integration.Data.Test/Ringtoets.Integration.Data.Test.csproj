@@ -21,7 +21,7 @@
     <Compile Include="AssessmentSectionTest.cs" />
     <Compile Include="RingtoetsProjectFactoryTest.cs" />
     <Compile Include="RingtoetsProjectTest.cs" />
-    <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsAssemblyServiceTest.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsFailureMechanismSectionResultAssemblyFactoryTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffOutwardsAssemblyServiceTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\MacroStabilityOutwardsAssemblyServiceTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\MicrostabilityAssemblyServiceTest.cs" />

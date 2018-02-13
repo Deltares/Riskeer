@@ -14,7 +14,7 @@
     <Compile Include="AssessmentSection.cs" />
     <Compile Include="RingtoetsProjectFactory.cs" />
     <Compile Include="RingtoetsProject.cs" />
-    <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsAssemblyService.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsFailureMechanismSectionResultAssemblyFactory.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffOutwardsAssemblyService.cs" />
     <Compile Include="StandAlone\AssemblyFactories\MacroStabilityOutwardsAssemblyService.cs" />
     <Compile Include="StandAlone\AssemblyFactories\MicrostabilityAssemblyService.cs" />
