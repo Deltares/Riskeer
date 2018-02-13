@@ -44,6 +44,22 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         public MicrostabilitySectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
+        /// Gets or sets the value representing the simple assessment result.
+        /// </summary>
+        public SimpleAssessmentResultType SimpleAssessmentInput
+        {
+            get
+            {
+                return SectionResult.SimpleAssessmentInput;
+            }
+            set
+            {
+                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
         /// Gets the assessment layer two a of the <see cref="MicrostabilityFailureMechanismSectionResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA

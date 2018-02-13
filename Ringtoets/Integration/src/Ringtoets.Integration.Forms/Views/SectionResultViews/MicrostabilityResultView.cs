@@ -67,16 +67,16 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         {
             base.AddDataGridColumns();
 
-            EnumDisplayWrapper<AssessmentLayerOneState>[] layerOneDataSource =
-                Enum.GetValues(typeof(AssessmentLayerOneState))
-                    .OfType<AssessmentLayerOneState>()
-                    .Select(sa => new EnumDisplayWrapper<AssessmentLayerOneState>(sa))
+            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentResultType))
+                    .OfType<SimpleAssessmentResultType>()
+                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(MicrostabilitySectionResultRow.AssessmentLayerOne),
+                nameof(MicrostabilitySectionResultRow.SimpleAssessmentInput),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                layerOneDataSource,
+                simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
@@ -95,6 +95,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MicrostabilitySectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        private bool HasPassedSimpleAssessment(int rowIndex)
+        {
+            var simpleAssessmentType = (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;
+            return simpleAssessmentType == SimpleAssessmentResultType.NotApplicable ||
+                   simpleAssessmentType == SimpleAssessmentResultType.ProbabilityNegligible;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
