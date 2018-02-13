@@ -42,6 +42,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <returns>An <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>
         /// with information taken from the <paramref name="output"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="output"/> contains <c>null</c> items.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionCategoryGroup"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionCategoryGroup"/>
@@ -52,6 +53,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
+            }
+
+            if (output.Result.Contains(null))
+            {
+                throw new ArgumentException(@"Output result cannot contain null items", nameof(output));
             }
 
             return output.Result.Select(

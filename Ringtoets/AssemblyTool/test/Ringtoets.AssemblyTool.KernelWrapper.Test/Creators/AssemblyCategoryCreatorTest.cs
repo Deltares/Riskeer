@@ -49,6 +49,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
+        public void CreateAssessmentSectionAssemblyCategories_OutputContainsNull_ThrowsArgumentException()
+        {
+            // Setup
+            var random = new Random(11);
+            var output = new CalculationOutput<AssessmentSectionCategory[]>(new[]
+            {
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
+                null,
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2)))
+            });
+
+            // Call
+            TestDelegate call = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
+
+            // Assert
+            const string expectedMessage = "Output result cannot contain null items";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call,expectedMessage);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
+        [Test]
         public void CreateAssessmentSectionAssemblyCategories_WithOutput_ReturnAssessmentSectionAssemblyCategoryResult()
         {
             // Setup

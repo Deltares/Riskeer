@@ -34,7 +34,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly SimpleAssessmentAssemblyOutput { get; set; }
+        public FailureMechanismSectionAssembly SimpleAssessmentAssemblyOutput { get; private set; }
 
         /// <summary>
         /// Gets the input of the calculation.
@@ -60,8 +60,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             SimpleAssessmentInput = input;
 
-            return SimpleAssessmentAssemblyOutput ??
-                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.Iv));
+            return SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.Iv);
         }
 
         public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)

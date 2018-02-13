@@ -38,6 +38,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculator>(calculator);
+            Assert.AreEqual((SimpleAssessmentResultType) 0,
+                            calculator.SimpleAssessmentInput);
+            Assert.AreEqual((SimpleAssessmentResultValidityOnlyType) 0,
+                            calculator.SimpleAssessmentValidityOnlyInput);
             Assert.IsNull(calculator.SimpleAssessmentAssemblyOutput);
         }
 
@@ -53,22 +57,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Assert
             Assert.AreEqual(0, assembly.Probability);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, assembly.Group);
-        }
-
-        [Test]
-        public void AssembleSimpleAssessment_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
-        {
-            // Setup
-            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
-            {
-                SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0.4, FailureMechanismSectionAssemblyCategoryGroup.None)
-            };
-
-            // Call
-            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.None);
-
-            // Assert
-            Assert.AreSame(calculator.SimpleAssessmentAssemblyOutput, assembly);
         }
 
         [Test]
@@ -115,22 +103,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Assert
             Assert.AreEqual(1, assembly.Probability);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
-        }
-
-        [Test]
-        public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
-        {
-            // Setup
-            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
-            {
-                SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0.4, FailureMechanismSectionAssemblyCategoryGroup.None)
-            };
-
-            // Call
-            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.None);
-
-            // Assert
-            Assert.AreSame(calculator.SimpleAssessmentAssemblyOutput, assembly);
         }
 
         [Test]

@@ -41,6 +41,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
 
             // Assert
             Assert.IsInstanceOf<ICategoriesCalculator>(kernelStub);
+            Assert.AreEqual(0, kernelStub.LowerBoundaryNorm);
+            Assert.AreEqual(0, kernelStub.SignalingNorm);
             Assert.IsFalse(kernelStub.Calculated);
         }
 
@@ -73,7 +75,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             Assert.IsFalse(kernelStub.Calculated);
 
             // Call
-            kernelStub.CalculateAssessmentSectionCategories(new CalculateAssessmentSectionCategoriesInput(new Probability(0), new Probability(0)));
+            kernelStub.CalculateAssessmentSectionCategories(new CalculateAssessmentSectionCategoriesInput(
+                                                                new Probability(0), new Probability(0)));
 
             // Assert
             Assert.IsTrue(kernelStub.Calculated);
@@ -210,7 +213,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             // Assert
             Assert.Throws<NotImplementedException>(test);
         }
-        
+
         [Test]
         public void CalculateGeotechnicFailureMechanismSectionCategories_Always_ThrowsNotImplementedException()
         {
