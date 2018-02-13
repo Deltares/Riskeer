@@ -45,8 +45,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         /// <inheritdoc />
         public WaterPressureAsphaltCoverResultView(
-            WaterPressureAsphaltCoverFailureMechanism failureMechanism,
-            IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults)
+            IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
+            WaterPressureAsphaltCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;

@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             // Call
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
@@ -64,9 +64,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Given
             using (var form = new Form())
             {
-                using (var view = new WaterPressureAsphaltCoverResultView(
-                    new WaterPressureAsphaltCoverFailureMechanism(),
-                    new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>()))
+                using (var view = new WaterPressureAsphaltCoverResultView(new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>(),
+                                                                          new WaterPressureAsphaltCoverFailureMechanism()))
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -131,8 +130,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Call
             using (var form = new Form())
 
-            using (var view = new WaterPressureAsphaltCoverResultView(new WaterPressureAsphaltCoverFailureMechanism(),
-                                                                      sectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(sectionResults, new WaterPressureAsphaltCoverFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -192,8 +190,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             using (var form = new Form())
 
-            using (var view = new WaterPressureAsphaltCoverResultView(new WaterPressureAsphaltCoverFailureMechanism(),
-                                                                      sectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(sectionResults, new WaterPressureAsphaltCoverFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();

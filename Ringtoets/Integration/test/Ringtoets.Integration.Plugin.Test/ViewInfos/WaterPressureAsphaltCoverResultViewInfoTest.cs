@@ -73,7 +73,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                           failureMechanism);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -87,7 +88,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -147,7 +148,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -174,7 +175,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -201,7 +202,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -219,7 +220,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -235,7 +236,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new WaterPressureAsphaltCoverFailureMechanism());
@@ -255,7 +256,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -277,7 +278,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
