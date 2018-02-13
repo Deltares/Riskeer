@@ -28,7 +28,7 @@
     <Compile Include="StandAlone\AssemblyFactories\PipingStructureFailureMechanismSectionResultAssemblyFactoryTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultAssemblyFactoryTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\TechnicalInnovationFailureMechanismSectionResultAssemblyFactoryTest.cs" />
-    <Compile Include="StandAlone\AssemblyFactories\WaterPressureAsphaltCoverAssemblyServiceTest.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactoryTest.cs" />
     <Compile Include="StandAlone\Input\MacroStabilityOutwardsProbabilityAssessmentInputTest.cs" />
     <Compile Include="StandAlone\MacroStabilityOutwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanismTest.cs" />
