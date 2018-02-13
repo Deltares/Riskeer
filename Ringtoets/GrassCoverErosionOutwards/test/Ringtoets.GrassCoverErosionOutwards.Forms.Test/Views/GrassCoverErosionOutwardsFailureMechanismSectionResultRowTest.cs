@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -47,11 +49,38 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>>(row);
+            Assert.AreEqual(result.SimpleAssessmentInput, row.SimpleAssessmentInput);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsFailureMechanismSectionResultRow, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.AssessmentLayerThree));
+        }
+
+        [Test]
+        public void SimpleAssessmentInput_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+
+            // Call
+            row.SimpleAssessmentInput = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.SimpleAssessmentInput);
+            mocks.VerifyAll();
         }
 
         [Test]
