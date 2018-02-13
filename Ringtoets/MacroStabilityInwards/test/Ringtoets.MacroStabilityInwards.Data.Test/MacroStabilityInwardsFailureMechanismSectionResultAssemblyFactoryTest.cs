@@ -23,23 +23,24 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Ringtoets.MacroStabilityInwards.Service.Test
+namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsAssemblyServiceTest
+    public class MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsAssemblyService.AssembleSimpleAssessment(null);
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultsAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                MacroStabilityInwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
+                MacroStabilityInwardsFailureMechanismSectionResultsAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentInput, calculator.SimpleAssessmentInput);
@@ -71,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_AssemblyRan_SetsOutput()
+        public void AssembleSimpleAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -86,16 +87,16 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                MacroStabilityInwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
+                FailureMechanismSectionAssembly actualOutput = MacroStabilityInwardsFailureMechanismSectionResultsAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
-                Assert.AreSame(calculatorOutput, sectionResult.SimpleAssemblyResult);
+                Assert.AreSame(calculatorOutput, actualOutput);
             }
         }
 
         [Test]
-        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_DoesNothing()
+        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyFactoryException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -108,11 +109,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => MacroStabilityInwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultsAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                Assert.DoesNotThrow(call);
-                Assert.IsNull(sectionResult.SimpleAssemblyResult);
+                var exception = Assert.Throws<AssemblyFactoryException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
     }
