@@ -111,7 +111,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 IEnumerable<AssessmentSectionAssemblyCategory> result = calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
 
                 // Assert
-                AssessmentSectionAssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(output, result);
+                AssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(output, result);
             }
         }
 

@@ -32,7 +32,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test
     /// <summary>
     /// Class for asserting categories result.
     /// </summary>
-    public static class AssessmentSectionAssemblyCategoryAssert
+    public static class AssemblyCategoryAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.

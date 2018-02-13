@@ -20,7 +20,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssessmentSectionAssemblyCategoryAssert.cs" />
+    <Compile Include="AssemblyCategoryAssert.cs" />
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorTest.cs" />

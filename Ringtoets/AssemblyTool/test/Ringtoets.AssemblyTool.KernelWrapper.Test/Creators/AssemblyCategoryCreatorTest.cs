@@ -65,7 +65,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
 
             // Assert
-            AssessmentSectionAssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(output, result);
+            AssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(output, result);
         }
 
         [Test]
