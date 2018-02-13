@@ -97,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_DoesNothing()
+        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyFactoryException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();

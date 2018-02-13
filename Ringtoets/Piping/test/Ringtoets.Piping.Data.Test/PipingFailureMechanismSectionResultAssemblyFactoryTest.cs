@@ -87,7 +87,8 @@ namespace Ringtoets.Piping.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                var actualOutput = PipingFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                FailureMechanismSectionAssembly actualOutput =
+                    PipingFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;

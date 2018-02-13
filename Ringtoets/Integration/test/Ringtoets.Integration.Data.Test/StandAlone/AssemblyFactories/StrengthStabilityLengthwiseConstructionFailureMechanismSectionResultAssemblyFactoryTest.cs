@@ -42,7 +42,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(null);
+            TestDelegate call = () =>
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -89,7 +90,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                var actualOutput =
+                FailureMechanismSectionAssembly actualOutput =
                     StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert

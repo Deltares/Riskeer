@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Exceptions;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Factory for assembling the assembly tool results for macro stability inwards failur emechanism section results.
+    /// Factory for assembling the assembly tool results for macro stability inwards failure mechanism section results.
     /// </summary>
     public static class MacroStabilityInwardsFailureMechanismSectionResultsAssemblyFactory
     {

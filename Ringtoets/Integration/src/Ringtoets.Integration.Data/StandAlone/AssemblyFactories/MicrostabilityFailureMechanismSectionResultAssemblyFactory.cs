@@ -30,7 +30,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 {
     /// <summary>
-    /// Factory for assembling the assembly tool results for micro stability failure mechanism section results.
+    /// Factory for assembling the assembly tool results for microstability failure mechanism section results.
     /// </summary>
     public static class MicrostabilityFailureMechanismSectionResultAssemblyFactory
     {
