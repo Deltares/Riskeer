@@ -437,7 +437,9 @@ namespace Ringtoets.Integration.Plugin
                 GrassCoverSlipOffInwardsFailureMechanism,
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult,
                 GrassCoverSlipOffInwardsResultView>(
-                context => new GrassCoverSlipOffInwardsResultView(context.WrappedData, (GrassCoverSlipOffInwardsFailureMechanism) context.FailureMechanism));
+                context => new GrassCoverSlipOffInwardsResultView(
+                    context.WrappedData,
+                    (GrassCoverSlipOffInwardsFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffOutwardsFailureMechanism,
@@ -459,9 +461,7 @@ namespace Ringtoets.Integration.Plugin
                 PipingStructureFailureMechanism,
                 PipingStructureFailureMechanismSectionResult,
                 PipingStructureResultView>(
-                context => new PipingStructureResultView(
-                    (PipingStructureFailureMechanism) context.FailureMechanism,
-                    context.WrappedData));
+                context => new PipingStructureResultView(context.WrappedData, (PipingStructureFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 TechnicalInnovationFailureMechanism,

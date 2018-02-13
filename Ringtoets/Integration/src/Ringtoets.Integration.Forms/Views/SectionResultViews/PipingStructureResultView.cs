@@ -43,9 +43,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// Creates a new instance of <see cref="PipingStructureResultView"/>.
         /// </summary>
         /// <inheritdoc />
-        public PipingStructureResultView(
-            PipingStructureFailureMechanism failureMechanism,
-            IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults)
+        public PipingStructureResultView(IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults,
+                                         PipingStructureFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;

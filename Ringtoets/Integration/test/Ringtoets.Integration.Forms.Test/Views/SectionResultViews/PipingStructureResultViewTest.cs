@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new PipingStructureFailureMechanism();
 
             // Call
-            using (var view = new PipingStructureResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new PipingStructureResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<PipingStructureFailureMechanismSectionResult,
@@ -64,8 +64,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
-            using (var view = new PipingStructureResultView(new PipingStructureFailureMechanism(),
-                                                            new ObservableList<PipingStructureFailureMechanismSectionResult>()))
+            using (var view = new PipingStructureResultView(new ObservableList<PipingStructureFailureMechanismSectionResult>(),
+                                                            new PipingStructureFailureMechanism()))
             {
                 form.Controls.Add(view);
 
@@ -135,8 +135,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new PipingStructureResultView(new PipingStructureFailureMechanism(),
-                                                            sectionResults))
+            using (var view = new PipingStructureResultView(sectionResults, new PipingStructureFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -203,8 +202,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new PipingStructureResultView(new PipingStructureFailureMechanism(),
-                                                            sectionResults))
+            using (var view = new PipingStructureResultView(sectionResults, new PipingStructureFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
