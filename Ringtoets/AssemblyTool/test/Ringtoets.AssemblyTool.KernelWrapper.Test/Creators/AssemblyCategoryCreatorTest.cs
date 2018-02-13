@@ -110,5 +110,84 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             Assert.AreEqual(expectedCategoryGroup, categoryResult.Group);
         }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssemblyCategories_OutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("output", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssemblyCategories_WithOutput_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        {
+            // Setup
+            var random = new Random(11);
+
+            var output = new CalculationOutput<FailureMechanismSectionCategory[]>(new[]
+            {
+                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
+                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
+                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
+                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2)))
+            });
+
+            // Call
+            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
+
+            // Assert
+            AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithInvalidFailureMechanismSectionAssemblyCategory_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var output = new CalculationOutput<FailureMechanismSectionCategory[]>(new[]
+            {
+                new FailureMechanismSectionCategory((FailureMechanismSectionCategoryGroup) 99, new Probability(0), new Probability(0))
+            });
+
+            // Call
+            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
+
+            // Assert
+            const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, exceptionMessage);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionCategoryGroup.Iv, FailureMechanismSectionAssemblyCategoryGroup.Iv)]
+        [TestCase(FailureMechanismSectionCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
+        [TestCase(FailureMechanismSectionCategoryGroup.IIIv, FailureMechanismSectionAssemblyCategoryGroup.IIIv)]
+        [TestCase(FailureMechanismSectionCategoryGroup.IVv, FailureMechanismSectionAssemblyCategoryGroup.IVv)]
+        [TestCase(FailureMechanismSectionCategoryGroup.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
+        [TestCase(FailureMechanismSectionCategoryGroup.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
+        [TestCase(FailureMechanismSectionCategoryGroup.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
+        [TestCase(FailureMechanismSectionCategoryGroup.NotApplicable, FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
+        [TestCase(FailureMechanismSectionCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithValidFailureMechanismSectionAssemblyCategory_ExpectedFailureMechanismSectionAssemblyCategoryResultType(
+            FailureMechanismSectionCategoryGroup categoryGroup,
+            FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup)
+        {
+            // Setup
+            var output = new CalculationOutput<FailureMechanismSectionCategory[]>(new[]
+            {
+                new FailureMechanismSectionCategory(categoryGroup, new Probability(0), new Probability(0))
+            });
+
+            // Call
+            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
+
+            // Assert
+            Assert.AreEqual(1, result.Count());
+            FailureMechanismSectionAssemblyCategory categoryResult = result.First();
+
+            Assert.AreEqual(expectedCategoryGroup, categoryResult.Group);
+        }
     }
 }
