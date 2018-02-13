@@ -16,6 +16,7 @@
     <Compile Include="HeightStructuresFailureMechanism.cs" />
     <Compile Include="HeightStructuresFailureMechanismSection2aAssessmentResultExtensions.cs" />
     <Compile Include="HeightStructuresFailureMechanismSectionResult.cs" />
+    <Compile Include="HeightStructuresFailureMechanismSectionResultAssemblyFactory.cs" />
     <Compile Include="HeightStructuresInput.cs" />
     <Compile Include="HeightStructuresProbabilityAssessmentOutputFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -29,6 +30,11 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358b6da2-a1df-477f-b6ac-c30204265cb0}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
