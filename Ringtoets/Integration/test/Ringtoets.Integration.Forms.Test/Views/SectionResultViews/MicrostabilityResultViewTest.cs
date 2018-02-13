@@ -52,8 +52,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new MicrostabilityResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<MicrostabilityFailureMechanism,
-                    MicrostabilityFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<MicrostabilityFailureMechanismSectionResult,
+                    MicrostabilityFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

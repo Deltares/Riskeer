@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
     public class MacroStabilityOutwardsResultView
-        : FailureMechanismResultView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>
+        : FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult, MacroStabilityOutwardsFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityOutwardsResultView"/>.
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public MacroStabilityOutwardsResultView(
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
             UpdateDataGridViewDataSource();

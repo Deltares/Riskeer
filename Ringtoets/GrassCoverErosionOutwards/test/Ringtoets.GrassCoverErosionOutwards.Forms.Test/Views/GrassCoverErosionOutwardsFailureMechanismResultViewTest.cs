@@ -51,8 +51,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism,
-                    GrassCoverErosionOutwardsFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult,
+                    GrassCoverErosionOutwardsFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

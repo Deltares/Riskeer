@@ -168,10 +168,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
     }
 
-    public class TestFailureMechanismResultView : FailureMechanismResultView<TestFailureMechanism, FailureMechanismSectionResult>
+    public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, TestFailureMechanism>
     {
         public TestFailureMechanismResultView(TestFailureMechanism failureMechanism, IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             UpdateDataGridViewDataSource();
         }

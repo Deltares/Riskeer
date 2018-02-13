@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 
@@ -36,10 +35,10 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
     /// <typeparam name="TSectionResult">The type of results which are presented by the 
-    /// <see cref="FailureMechanismResultView{TFailureMechanism, TSectionResult}"/>.</typeparam>
-    public abstract partial class FailureMechanismResultView<TFailureMechanism, TSectionResult> : UserControl, IView
+    /// <see cref="FailureMechanismResultView{TSectionResult, TFailureMechanism}"/>.</typeparam>
+    public abstract partial class FailureMechanismResultView<TSectionResult, TFailureMechanism> : UserControl, IView
+        where TFailureMechanism : IFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
-        where TFailureMechanism : FailureMechanismBase
     {
         protected const int AssessmentLayerOneColumnIndex = 1;
         private readonly Observer failureMechanismSectionResultObserver;
@@ -47,13 +46,13 @@ namespace Ringtoets.Common.Forms.Views
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismResultView{TFailureMechanism, TSectionResult}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult, TFailureMechanism}"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
         /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="TSectionResult"/> to
         /// show in the view.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected FailureMechanismResultView(TFailureMechanism failureMechanism, IObservableEnumerable<TSectionResult> failureMechanismSectionResults)
+        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected FailureMechanismResultView(IObservableEnumerable<TSectionResult> failureMechanismSectionResults, TFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -108,8 +107,8 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismSectionResultObserver?.Dispose();
-            failureMechanismSectionResultsObserver?.Dispose();
+            failureMechanismSectionResultObserver.Dispose();
+            failureMechanismSectionResultsObserver.Dispose();
 
             if (disposing)
             {

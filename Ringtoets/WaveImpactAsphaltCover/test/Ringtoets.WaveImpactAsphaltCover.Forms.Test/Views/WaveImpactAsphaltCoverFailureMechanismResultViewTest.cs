@@ -51,8 +51,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism,
-                    WaveImpactAsphaltCoverFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult,
+                    WaveImpactAsphaltCoverFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

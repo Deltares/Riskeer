@@ -40,8 +40,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// for stability point structures.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismResultView
-        : FailureMechanismResultView<StabilityPointStructuresFailureMechanism,
-            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+        : FailureMechanismResultView<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>,
+            StabilityPointStructuresFailureMechanism>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -58,7 +58,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             IAssessmentSection assessmentSection,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
             {

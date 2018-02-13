@@ -52,8 +52,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism,
-                    GrassCoverSlipOffInwardsFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanismSectionResult,
+                    GrassCoverSlipOffInwardsFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

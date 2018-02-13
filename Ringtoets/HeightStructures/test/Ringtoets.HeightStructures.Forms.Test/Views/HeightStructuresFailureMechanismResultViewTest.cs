@@ -77,8 +77,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (var view = new HeightStructuresFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<HeightStructuresFailureMechanism,
-                    StructuresFailureMechanismSectionResult<HeightStructuresInput>>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<HeightStructuresInput>,
+                    HeightStructuresFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

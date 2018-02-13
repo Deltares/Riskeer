@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismResultView
-        : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult>
+        : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult, GrassCoverErosionInwardsFailureMechanism>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             IAssessmentSection assessmentSection,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
             {

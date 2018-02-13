@@ -51,8 +51,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism,
-                    WaterPressureAsphaltCoverFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
+                    WaterPressureAsphaltCoverFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

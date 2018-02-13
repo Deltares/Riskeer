@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResult"/>.
     /// </summary>
     public class PipingStructureResultView
-        : FailureMechanismResultView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>
+        : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult, PipingStructureFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingStructureResultView"/>.
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public PipingStructureResultView(
             PipingStructureFailureMechanism failureMechanism,
             IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
             UpdateDataGridViewDataSource();

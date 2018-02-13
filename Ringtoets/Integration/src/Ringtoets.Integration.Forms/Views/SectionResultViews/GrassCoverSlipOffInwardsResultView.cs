@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
     /// </summary>
     public class GrassCoverSlipOffInwardsResultView
-        : FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResult>
+        : FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanismSectionResult, GrassCoverSlipOffInwardsFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsResultView"/>.
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public GrassCoverSlipOffInwardsResultView(
             GrassCoverSlipOffInwardsFailureMechanism failureMechanism,
             IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
             UpdateDataGridViewDataSource();

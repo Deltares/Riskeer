@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="MicrostabilityFailureMechanismSectionResult"/>.
     /// </summary>
     public class MicrostabilityResultView
-        : FailureMechanismResultView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>
+        : FailureMechanismResultView<MicrostabilityFailureMechanismSectionResult, MicrostabilityFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MicrostabilityResultView"/>.
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public MicrostabilityResultView(
             MicrostabilityFailureMechanism failureMechanism,
             IObservableEnumerable<MicrostabilityFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
             UpdateDataGridViewDataSource();

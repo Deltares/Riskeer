@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
     /// </summary>
     public class TechnicalInnovationResultView
-        : FailureMechanismResultView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>
+        : FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult, TechnicalInnovationFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="TechnicalInnovationResultView"/>.
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public TechnicalInnovationResultView(
             TechnicalInnovationFailureMechanism failureMechanism,
             IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
             UpdateDataGridViewDataSource();

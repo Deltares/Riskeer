@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// <summary>
     /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.
     /// </summary>
-    public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanism, PipingFailureMechanismSectionResult>
+    public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult, PipingFailureMechanism>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private const double tolerance = 1e-6;
@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Views
             IAssessmentSection assessmentSection,
             PipingFailureMechanism failureMechanism,
             IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
             {

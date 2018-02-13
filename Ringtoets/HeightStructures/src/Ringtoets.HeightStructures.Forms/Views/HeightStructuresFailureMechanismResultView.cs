@@ -39,7 +39,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// The view for the <see cref="StructuresFailureMechanismSectionResult{T}"/>.
     /// </summary>
     public class HeightStructuresFailureMechanismResultView
-        : FailureMechanismResultView<HeightStructuresFailureMechanism, StructuresFailureMechanismSectionResult<HeightStructuresInput>>
+        : FailureMechanismResultView<StructuresFailureMechanismSectionResult<HeightStructuresInput>, HeightStructuresFailureMechanism>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -56,7 +56,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             IAssessmentSection assessmentSection,
             HeightStructuresFailureMechanism failureMechanism,
             IObservableEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
             {

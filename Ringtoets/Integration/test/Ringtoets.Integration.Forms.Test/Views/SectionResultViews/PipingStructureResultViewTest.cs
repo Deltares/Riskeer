@@ -52,8 +52,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new PipingStructureResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<PipingStructureFailureMechanism,
-                    PipingStructureFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<PipingStructureFailureMechanismSectionResult,
+                    PipingStructureFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

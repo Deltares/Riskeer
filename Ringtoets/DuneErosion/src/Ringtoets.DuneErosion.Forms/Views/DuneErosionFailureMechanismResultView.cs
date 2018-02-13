@@ -34,7 +34,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResult"/>.
     /// </summary>
-    public class DuneErosionFailureMechanismResultView : FailureMechanismResultView<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanismResultView : FailureMechanismResultView<DuneErosionFailureMechanismSectionResult, DuneErosionFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismResultView"/>.
@@ -42,7 +42,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <inheritdoc/>
         public DuneErosionFailureMechanismResultView(DuneErosionFailureMechanism failureMechanism,
                                                      IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
             UpdateDataGridViewDataSource();

@@ -51,7 +51,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanismSectionResult, DuneErosionFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

@@ -886,7 +886,7 @@ namespace Ringtoets.Integration.Plugin
             TFailureMechanism, TResult, TView>(
             Func<FailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
             where TResult : FailureMechanismSectionResult
-            where TView : FailureMechanismResultView<TFailureMechanism, TResult>
+            where TView : FailureMechanismResultView<TResult, TFailureMechanism>
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
         {
             return new ViewInfo<
@@ -1017,7 +1017,7 @@ namespace Ringtoets.Integration.Plugin
         #region FailureMechanismResults ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView>(TView view, object dataToCloseFor)
-            where TView : FailureMechanismResultView<TFailureMechanism, TResult>
+            where TView : FailureMechanismResultView<TResult, TFailureMechanism>
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
             where TResult : FailureMechanismSectionResult
         {

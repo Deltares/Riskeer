@@ -21,7 +21,7 @@
 
 namespace Ringtoets.Common.Forms.Views
 {
-    partial class FailureMechanismResultView<TFailureMechanism, TSectionResult>
+    partial class FailureMechanismResultView<TSectionResult, TFailureMechanism>
     {
         /// <summary> 
         /// Required designer variable.

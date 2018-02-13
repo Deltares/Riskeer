@@ -39,7 +39,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     /// The view for a collection of <see cref="StructuresFailureMechanismSectionResult{T}"/> for closing structures.
     /// </summary>
     public class ClosingStructuresFailureMechanismResultView 
-        : FailureMechanismResultView<ClosingStructuresFailureMechanism, StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+        : FailureMechanismResultView<StructuresFailureMechanismSectionResult<ClosingStructuresInput>, ClosingStructuresFailureMechanism>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -56,7 +56,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             IAssessmentSection assessmentSection,
             ClosingStructuresFailureMechanism failureMechanism,
             IObservableEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
             {

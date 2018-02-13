@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// The view for a collection of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismResultView
-        : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResult>
+        : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult, GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismResultView"/>.
@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         public GrassCoverErosionOutwardsFailureMechanismResultView(
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
             IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
 

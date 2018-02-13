@@ -35,7 +35,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
     /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismResultView
-        : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>
+        : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult, WaveImpactAsphaltCoverFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismResultView"/>.
@@ -44,7 +44,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         public WaveImpactAsphaltCoverFailureMechanismResultView(
             WaveImpactAsphaltCoverFailureMechanism failureMechanism,
             IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
             UpdateDataGridViewDataSource();

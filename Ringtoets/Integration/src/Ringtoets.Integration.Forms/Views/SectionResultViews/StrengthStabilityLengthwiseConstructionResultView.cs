@@ -37,8 +37,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionResultView
-        : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanism,
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
+        : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
+            StrengthStabilityLengthwiseConstructionFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionResultView"/>.
@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public StrengthStabilityLengthwiseConstructionResultView(
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
             IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
             UpdateDataGridViewDataSource();

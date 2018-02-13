@@ -51,8 +51,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new TechnicalInnovationResultView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<TechnicalInnovationFailureMechanism,
-                    TechnicalInnovationFailureMechanismSectionResult>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult,
+                    TechnicalInnovationFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

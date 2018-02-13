@@ -37,7 +37,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
     public class WaterPressureAsphaltCoverResultView
-        : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>
+        : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
+            WaterPressureAsphaltCoverFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaterPressureAsphaltCoverResultView"/>.
@@ -46,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public WaterPressureAsphaltCoverResultView(
             WaterPressureAsphaltCoverFailureMechanism failureMechanism,
             IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults)
-            : base(failureMechanism, failureMechanismSectionResults)
+            : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
             UpdateDataGridViewDataSource();
