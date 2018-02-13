@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
 
             // Call
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
@@ -64,8 +64,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Given
             using (var form = new Form())
             using (var view = new StrengthStabilityLengthwiseConstructionResultView(
-                new StrengthStabilityLengthwiseConstructionFailureMechanism(),
-                new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>()))
+                new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(),
+                new StrengthStabilityLengthwiseConstructionFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -128,8 +128,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(new StrengthStabilityLengthwiseConstructionFailureMechanism(),
-                                                                                    sectionResults))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultView(sectionResults,
+                                                                                    new StrengthStabilityLengthwiseConstructionFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -188,8 +188,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(new StrengthStabilityLengthwiseConstructionFailureMechanism(),
-                                                                                    sectionResults))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultView(sectionResults,
+                                                                                    new StrengthStabilityLengthwiseConstructionFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();

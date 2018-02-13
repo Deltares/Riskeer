@@ -45,8 +45,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         /// <inheritdoc />
         public StrengthStabilityLengthwiseConstructionResultView(
-            StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
-            IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults)
+            IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults,
+            StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
