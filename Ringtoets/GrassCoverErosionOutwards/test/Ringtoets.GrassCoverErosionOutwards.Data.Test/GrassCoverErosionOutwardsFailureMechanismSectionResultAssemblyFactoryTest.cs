@@ -23,23 +23,24 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
+namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsAssemblyServiceTest
+    public class GrassCoverErosionOutwardsFailureMechanismSectionAssemblyFactoryTest
     {
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsAssemblyService.AssembleSimpleAssessment(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
+                GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentInput, calculator.SimpleAssessmentInput);
@@ -71,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_AssemblyRan_SetsOutput()
+        public void AssembleSimpleAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -86,11 +87,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
+                FailureMechanismSectionAssembly actualOutput =
+                    GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
-                Assert.AreSame(calculatorOutput, sectionResult.SimpleAssemblyResult);
+                Assert.AreSame(calculatorOutput, actualOutput);
             }
         }
 
@@ -108,11 +110,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                Assert.DoesNotThrow(call);
-                Assert.IsNull(sectionResult.SimpleAssemblyResult);
+                var exception = Assert.Throws<AssemblyFactoryException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
     }
