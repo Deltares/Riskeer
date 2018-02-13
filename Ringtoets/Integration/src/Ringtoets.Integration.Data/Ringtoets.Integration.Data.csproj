@@ -19,7 +19,7 @@
     <Compile Include="StandAlone\AssemblyFactories\MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.cs" />
     <Compile Include="StandAlone\AssemblyFactories\MicrostabilityFailureMechanismSectionResultAssemblyFactory.cs" />
     <Compile Include="StandAlone\AssemblyFactories\PipingStructureFailureMechanismSectionResultAssemblyFactory.cs" />
-    <Compile Include="StandAlone\AssemblyFactories\StrengthStabilityLengthwiseConstructionAssemblyService.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultAssemblyFactory.cs" />
     <Compile Include="StandAlone\AssemblyFactories\TechnicalInnovationAssemblyService.cs" />
     <Compile Include="StandAlone\AssemblyFactories\WaterPressureAsphaltCoverAssemblyService.cs" />
     <Compile Include="StandAlone\Input\MacroStabilityOutwardsProbabilityAssessmentInput.cs" />
