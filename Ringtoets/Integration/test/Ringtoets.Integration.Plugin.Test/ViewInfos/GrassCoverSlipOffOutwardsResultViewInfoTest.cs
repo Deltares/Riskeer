@@ -73,7 +73,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
+                failureMechanism.SectionResults, 
+                failureMechanism);
             mocks.ReplayAll();
 
             // Call
@@ -89,7 +91,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -150,7 +152,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -176,7 +178,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -202,7 +204,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -219,7 +221,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -235,7 +237,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new GrassCoverSlipOffOutwardsFailureMechanism());
@@ -255,7 +257,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -276,7 +278,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);

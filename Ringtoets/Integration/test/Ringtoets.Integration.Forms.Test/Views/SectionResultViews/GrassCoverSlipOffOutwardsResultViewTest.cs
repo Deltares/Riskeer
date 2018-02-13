@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
@@ -64,9 +64,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
-            using (var view = new GrassCoverSlipOffOutwardsResultView(
-                new GrassCoverSlipOffOutwardsFailureMechanism(),
-                new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>()))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(),
+                                                                      new GrassCoverSlipOffOutwardsFailureMechanism()))
             {
                 form.Controls.Add(view);
 
@@ -135,9 +134,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new GrassCoverSlipOffOutwardsResultView(
-                new GrassCoverSlipOffOutwardsFailureMechanism(),
-                sectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(sectionResults, new GrassCoverSlipOffOutwardsFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -204,9 +201,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new GrassCoverSlipOffOutwardsResultView(
-                new GrassCoverSlipOffOutwardsFailureMechanism(),
-                sectionResults))
+            using (var view = new GrassCoverSlipOffOutwardsResultView(sectionResults, new GrassCoverSlipOffOutwardsFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
