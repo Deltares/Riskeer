@@ -48,6 +48,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         public double SignalingNorm { get; private set; }
 
         /// <summary>
+        /// Gets the probability distribution factor.
+        /// </summary>
+        public double ProbabilityDistributionFactor { get; private set; }
+
+        /// <summary>
+        /// Gets the n.
+        /// </summary>
+        public double N { get; private set; }
+
+        /// <summary>
         /// Indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
@@ -57,13 +67,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         /// </summary>
         public CalculationOutput<AssessmentSectionCategory[]> AssessmentSectionCategoriesOutput { get; set; }
 
+        /// <summary>
+        /// Gets or sets the failure mechanism section categories output.
+        /// </summary>
+        public CalculationOutput<FailureMechanismSectionCategory[]> FailureMechanismSectionCategoriesOutput { get; set; }
+
         public CalculationOutput<AssessmentSectionCategory[]> CalculateAssessmentSectionCategories(CalculateAssessmentSectionCategoriesInput input)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
-
 
             SignalingNorm = input.SignalingStandard;
             LowerBoundaryNorm = input.LowerBoundaryStandard;
@@ -80,7 +94,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public CalculationOutput<FailureMechanismSectionCategory[]> CalculateFailureMechanismSectionCategories(CalculateFailureMechanismSectionCategoriesInput input)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            SignalingNorm = input.SignalingStandard;
+            LowerBoundaryNorm = input.LowerBoundaryStandard;
+            ProbabilityDistributionFactor = input.ProbabilityDistributionFactor;
+            N = input.NValue;
+
+            Calculated = true;
+
+            return FailureMechanismSectionCategoriesOutput;
         }
 
         public CalculationOutput<FailureMechanismSectionCategory[]> CalculateGeotechnicFailureMechanismSectionCategories(CalculateFailureMechanismSectionCategoriesInput input)

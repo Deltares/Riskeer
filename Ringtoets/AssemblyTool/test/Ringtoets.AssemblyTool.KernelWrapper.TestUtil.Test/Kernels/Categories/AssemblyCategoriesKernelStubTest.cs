@@ -119,6 +119,86 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(11);
+            var lowerBoundaryNorm = new Probability(random.NextDouble());
+            var signalingNorm = new Probability(random.NextDouble());
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.Next(1, 5);
+
+            var kernelStub = new AssemblyCategoriesKernelStub();
+            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerBoundaryNorm, probabilityDistributionFactor, n);
+
+            // Call
+            kernelStub.CalculateFailureMechanismSectionCategories(input);
+
+            // Assert
+            Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
+            Assert.AreEqual(lowerBoundaryNorm, kernelStub.LowerBoundaryNorm);
+            Assert.AreEqual(probabilityDistributionFactor, kernelStub.ProbabilityDistributionFactor);
+            Assert.AreEqual(n, kernelStub.N);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoriesKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernelStub.Calculated);
+
+            // Call
+            kernelStub.CalculateFailureMechanismSectionCategories(new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
+
+            // Assert
+            Assert.IsTrue(kernelStub.Calculated);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoriesKernelStub
+            {
+                FailureMechanismSectionCategoriesOutput = new CalculationOutput<FailureMechanismSectionCategory[]>(new FailureMechanismSectionCategory[0])
+            };
+
+            // Call
+            CalculationOutput<FailureMechanismSectionCategory[]> output = kernelStub.CalculateFailureMechanismSectionCategories(
+                new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
+
+            // Assert
+            Assert.AreSame(kernelStub.FailureMechanismSectionCategoriesOutput, output);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoriesKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernelStub.Calculated);
+
+            // Call
+            TestDelegate test = () => kernelStub.CalculateFailureMechanismSectionCategories(
+                new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernelStub.Calculated);
+            Assert.IsNull(kernelStub.FailureMechanismSectionCategoriesOutput);
+        }
+
+        [Test]
         public void CalculateFailureMechanismCategories_Always_ThrowsNotImplementedException()
         {
             // Setup
@@ -130,20 +210,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             // Assert
             Assert.Throws<NotImplementedException>(test);
         }
-
-        [Test]
-        public void CalculateFailureMechanismSectionCategories_Always_ThrowsNotImplementedException()
-        {
-            // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub();
-
-            // Call
-            TestDelegate test = () => kernelStub.CalculateFailureMechanismSectionCategories(null);
-
-            // Assert
-            Assert.Throws<NotImplementedException>(test);
-        }
-
+        
         [Test]
         public void CalculateGeotechnicFailureMechanismSectionCategories_Always_ThrowsNotImplementedException()
         {
