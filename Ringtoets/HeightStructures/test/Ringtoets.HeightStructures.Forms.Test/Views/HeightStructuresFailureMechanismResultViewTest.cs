@@ -74,7 +74,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            using (var view = new HeightStructuresFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults))
+            using (var view = new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<HeightStructuresInput>,
@@ -93,10 +93,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new HeightStructuresFailureMechanismResultView(
-                null,
-                failureMechanism,
-                failureMechanism.SectionResults);
+            TestDelegate call = () => new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -534,9 +531,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private HeightStructuresFailureMechanismResultView ShowFailureMechanismResultsView(
             IObservableEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults)
         {
-            var failureMechanismResultView = new HeightStructuresFailureMechanismResultView(new ObservableTestAssessmentSectionStub(),
+            var failureMechanismResultView = new HeightStructuresFailureMechanismResultView(sectionResults,
                                                                                             new HeightStructuresFailureMechanism(),
-                                                                                            sectionResults);
+                                                                                            new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

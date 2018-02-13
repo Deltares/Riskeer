@@ -37,7 +37,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// </summary>
         /// <param name="stabilityPointStructures">The wrapped <see cref="StructureCollection{T}"/> 
         /// containing <see cref="StabilityPointStructure"/>.</param>
-        /// <param name="failureMechanism"></param>
+        /// <param name="failureMechanism">The stability point structures failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section which the <paramref name="stabilityPointStructures"/> 
         /// belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c>.</exception>

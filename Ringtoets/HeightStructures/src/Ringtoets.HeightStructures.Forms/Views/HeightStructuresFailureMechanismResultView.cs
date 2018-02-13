@@ -53,9 +53,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
         /// <inheritdoc />
         public HeightStructuresFailureMechanismResultView(
-            IAssessmentSection assessmentSection,
+            IObservableEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> failureMechanismSectionResults,
             HeightStructuresFailureMechanism failureMechanism,
-            IObservableEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> failureMechanismSectionResults)
+            IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)

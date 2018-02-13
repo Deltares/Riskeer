@@ -49,8 +49,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults"></param>
-        /// <param name="failureMechanism"></param>
         /// <param name="assessmentSection">The assessment section the failure mechanism section results belongs to.</param>
         /// <inheritdoc />
         public GrassCoverErosionInwardsFailureMechanismResultView(

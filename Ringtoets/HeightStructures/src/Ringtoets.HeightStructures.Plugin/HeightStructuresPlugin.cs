@@ -183,9 +183,9 @@ namespace Ringtoets.HeightStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new HeightStructuresFailureMechanismResultView(
-                    context.AssessmentSection,
+                    context.WrappedData,
                     (HeightStructuresFailureMechanism) context.FailureMechanism,
-                    context.WrappedData)
+                    context.AssessmentSection)
             };
         }
 
