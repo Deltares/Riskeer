@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
@@ -55,10 +54,5 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
         public FailureMechanismSection Section { get; }
-
-        /// <summary>
-        /// Gets or sets the simple assembly result.
-        /// </summary>
-        public FailureMechanismSectionAssembly SimpleAssemblyResult { get; set; }
     }
 }
