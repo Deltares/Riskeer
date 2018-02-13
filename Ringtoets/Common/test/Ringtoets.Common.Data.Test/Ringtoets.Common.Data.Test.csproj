@@ -45,6 +45,7 @@
     <Compile Include="DikeProfiles\ForeshoreProfileCollectionTest.cs" />
     <Compile Include="DikeProfiles\ForeshoreProfileTest.cs" />
     <Compile Include="Exceptions\AssemblyCategoryConversionExceptionTest.cs" />
+    <Compile Include="Exceptions\AssemblyFactoryExceptionTest.cs" />
     <Compile Include="Exceptions\IllustrationPointConversionExceptionTest.cs" />
     <Compile Include="Exceptions\MechanismSurfaceLineExceptionTest.cs" />
     <Compile Include="FailureMechanism\SimpleAssessmentResultValidityOnlyTypeTest.cs" />
