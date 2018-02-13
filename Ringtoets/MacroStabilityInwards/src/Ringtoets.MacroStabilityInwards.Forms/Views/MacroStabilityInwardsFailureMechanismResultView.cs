@@ -54,9 +54,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
         /// <inheritdoc />
         public MacroStabilityInwardsFailureMechanismResultView(
-            IAssessmentSection assessmentSection,
+            IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             MacroStabilityInwardsFailureMechanism failureMechanism,
-            IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
+            IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)

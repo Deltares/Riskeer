@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult,
@@ -92,10 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismResultView(
-                null,
-                failureMechanism,
-                failureMechanism.SectionResults);
+            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -544,9 +541,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsFailureMechanism failureMechanism,
             IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
         {
-            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(new ObservableTestAssessmentSectionStub(),
-                                                                                                 failureMechanism,
-                                                                                                 sectionResults);
+            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(sectionResults, failureMechanism, new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

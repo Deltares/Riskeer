@@ -222,9 +222,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(
-                    context.AssessmentSection,
-                    (MacroStabilityInwardsFailureMechanism) context.FailureMechanism,
-                    context.WrappedData)
+                    context.WrappedData,
+                    (MacroStabilityInwardsFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
 
             yield return new ViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>
