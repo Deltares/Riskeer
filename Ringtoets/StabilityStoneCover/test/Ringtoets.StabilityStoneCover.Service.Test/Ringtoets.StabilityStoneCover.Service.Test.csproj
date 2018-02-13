@@ -21,7 +21,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StabilityStoneCoverDataSynchronizationServiceTest.cs" />
-    <Compile Include="StabilityStoneCoverAssemblyServiceTest.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationActivityTest.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationServiceTest.cs" />
   </ItemGroup>
@@ -39,14 +38,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
-      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
-      <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Ringtoets.AssemblyTool.KernelWrapper.TestUtil.csproj">
-      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Ringtoets.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
