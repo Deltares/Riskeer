@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanismSectionResult,
@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Given
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
             using (var form = new Form())
-            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 form.Controls.Add(view);
 
@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new GrassCoverSlipOffInwardsResultView(new GrassCoverSlipOffInwardsFailureMechanism(), sectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(sectionResults, new GrassCoverSlipOffInwardsFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -200,7 +200,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new GrassCoverSlipOffInwardsResultView(new GrassCoverSlipOffInwardsFailureMechanism(), sectionResults))
+            using (var view = new GrassCoverSlipOffInwardsResultView(sectionResults, new GrassCoverSlipOffInwardsFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();

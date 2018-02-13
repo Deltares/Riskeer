@@ -44,8 +44,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         /// <inheritdoc />
         public GrassCoverSlipOffInwardsResultView(
-            GrassCoverSlipOffInwardsFailureMechanism failureMechanism,
-            IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
+            IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+            GrassCoverSlipOffInwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
