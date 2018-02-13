@@ -75,7 +75,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>,
@@ -94,10 +94,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(
-                null,
-                failureMechanism,
-                failureMechanism.SectionResults);
+            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+                                                                                             failureMechanism,
+                                                                                             null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -659,9 +658,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         private StabilityPointStructuresFailureMechanismResultView ShowFailureMechanismResultsView(
             IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults)
         {
-            var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultView(new ObservableTestAssessmentSectionStub(),
+            var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultView(sectionResults,
                                                                                                     new StabilityPointStructuresFailureMechanism(),
-                                                                                                    sectionResults);
+                                                                                                    new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

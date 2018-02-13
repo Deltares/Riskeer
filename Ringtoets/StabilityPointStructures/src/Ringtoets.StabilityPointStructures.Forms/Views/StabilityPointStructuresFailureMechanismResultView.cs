@@ -55,9 +55,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
         /// <inheritdoc />
         public StabilityPointStructuresFailureMechanismResultView(
-            IAssessmentSection assessmentSection,
+            IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> failureMechanismSectionResults,
             StabilityPointStructuresFailureMechanism failureMechanism,
-            IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> failureMechanismSectionResults)
+            IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)

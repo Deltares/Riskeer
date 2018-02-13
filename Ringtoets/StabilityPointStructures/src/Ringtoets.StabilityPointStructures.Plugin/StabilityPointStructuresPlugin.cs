@@ -109,9 +109,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new StabilityPointStructuresFailureMechanismResultView(
-                    context.AssessmentSection,
-                    (StabilityPointStructuresFailureMechanism) context.FailureMechanism,
-                    context.WrappedData)
+                    context.WrappedData,
+                    (StabilityPointStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
 
             yield return new ViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>
