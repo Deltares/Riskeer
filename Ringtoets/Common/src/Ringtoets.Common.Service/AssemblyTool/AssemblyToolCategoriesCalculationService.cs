@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Service.AssemblyTool
             {
                 return calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
             }
-            catch (Exception e) when (e is AssemblyCategoriesCalculatorException || e is AssemblyCategoryConversionException)
+            catch (AssemblyCategoriesCalculatorException e)
             {
                 CalculationServiceHelper.LogExceptionAsError(Resources.AssemblyToolCategoriesCalculationService_CalculateAssessmentSectionAssemblyCategories_Error_in_assembly_categories_calculation, e);
                 return new AssessmentSectionAssemblyCategory[0];

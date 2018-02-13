@@ -45,7 +45,6 @@
     <Compile Include="DikeProfiles\IHasForeshoreProfile.cs" />
     <Compile Include="DikeProfiles\IUseBreakWater.cs" />
     <Compile Include="DikeProfiles\IUseForeshore.cs" />
-    <Compile Include="Exceptions\AssemblyCategoryConversionException.cs" />
     <Compile Include="Exceptions\AssemblyFactoryException.cs" />
     <Compile Include="Exceptions\IllustrationPointConversionException.cs" />
     <Compile Include="Exceptions\MechanismSurfaceLineException.cs" />
