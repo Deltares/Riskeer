@@ -41,6 +41,22 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        
+        /// <summary>
+        /// Gets or sets the value representing the simple assessment result.
+        /// </summary>
+        public SimpleAssessmentResultType SimpleAssessmentInput
+        {
+            get
+            {
+                return SectionResult.SimpleAssessmentInput;
+            }
+            set
+            {
+                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.NotifyObservers();
+            }
+        }
 
         /// <summary>
         /// Gets the assessment layer two a of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
