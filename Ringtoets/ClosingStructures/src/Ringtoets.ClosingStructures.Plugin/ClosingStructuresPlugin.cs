@@ -111,9 +111,8 @@ namespace Ringtoets.ClosingStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new ClosingStructuresFailureMechanismResultView(
-                    context.AssessmentSection,
-                    (ClosingStructuresFailureMechanism) context.FailureMechanism,
-                    context.WrappedData)
+                    context.WrappedData,
+                    (ClosingStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
 
             yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
