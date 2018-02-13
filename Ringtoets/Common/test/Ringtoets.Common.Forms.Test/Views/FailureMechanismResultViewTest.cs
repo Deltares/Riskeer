@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            using (var view = new TestFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new TestFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -72,9 +72,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestFailureMechanismResultView(
-                null,
-                new ObservableList<FailureMechanismSectionResult>());
+            TestDelegate call = () => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -160,7 +158,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
         {
-            var failureMechanismResultView = new TestFailureMechanismResultView(new TestFailureMechanism(), sectionResults);
+            var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults, new TestFailureMechanism());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
@@ -170,7 +168,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
     public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, TestFailureMechanism>
     {
-        public TestFailureMechanismResultView(TestFailureMechanism failureMechanism, IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults)
+        public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             UpdateDataGridViewDataSource();

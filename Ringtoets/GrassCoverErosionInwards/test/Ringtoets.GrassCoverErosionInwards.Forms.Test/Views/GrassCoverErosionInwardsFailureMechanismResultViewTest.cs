@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverErosionInwardsFailureMechanismResultView(assessmentSection, failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult,
@@ -93,9 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismResultView(null,
-                                                                                             failureMechanism,
-                                                                                             failureMechanism.SectionResults);
+            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
@@ -549,9 +547,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         private GrassCoverErosionInwardsFailureMechanismResultView ShowFailureMechanismResultsView(
             IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
         {
-            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView(new ObservableTestAssessmentSectionStub(),
+            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView(sectionResults,
                                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                    sectionResults);
+                                                                                                    new ObservableTestAssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

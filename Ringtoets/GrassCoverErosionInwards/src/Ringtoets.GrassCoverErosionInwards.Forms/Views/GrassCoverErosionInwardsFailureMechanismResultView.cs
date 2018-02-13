@@ -49,12 +49,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
+        /// <param name="failureMechanismSectionResults"></param>
+        /// <param name="failureMechanism"></param>
         /// <param name="assessmentSection">The assessment section the failure mechanism section results belongs to.</param>
         /// <inheritdoc />
         public GrassCoverErosionInwardsFailureMechanismResultView(
-            IAssessmentSection assessmentSection,
+            IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
-            IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults)
+            IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
@@ -104,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
-            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, 
+            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult,
                                                                                 FailureMechanism,
                                                                                 assessmentSection);
         }
