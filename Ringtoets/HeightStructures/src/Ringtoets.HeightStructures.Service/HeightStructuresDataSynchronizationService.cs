@@ -80,6 +80,7 @@ namespace Ringtoets.HeightStructures.Service
                 affectedItems.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation)
                                                                                 .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
+
             return affectedItems;
         }
 
@@ -131,6 +132,7 @@ namespace Ringtoets.HeightStructures.Service
                     input
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
     }

@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -128,6 +129,35 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void SimpleAssessmentInput_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            row.SimpleAssessmentInput = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.SimpleAssessmentInput);
+
+            mocks.VerifyAll();
         }
 
         [Test]

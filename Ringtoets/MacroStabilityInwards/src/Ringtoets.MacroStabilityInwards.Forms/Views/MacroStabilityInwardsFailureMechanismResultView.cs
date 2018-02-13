@@ -114,23 +114,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             return new MacroStabilityInwardsFailureMechanismSectionResultRow(sectionResult,
                                                                              FailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>(),
-                                                                             FailureMechanism, assessmentSection);
+                                                                             FailureMechanism,
+                                                                             assessmentSection);
         }
 
         protected override void AddDataGridColumns()
         {
             base.AddDataGridColumns();
 
-            EnumDisplayWrapper<AssessmentLayerOneState>[] layerOneDataSource =
-                Enum.GetValues(typeof(AssessmentLayerOneState))
-                    .OfType<AssessmentLayerOneState>()
-                    .Select(sa => new EnumDisplayWrapper<AssessmentLayerOneState>(sa))
+            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentResultType))
+                    .OfType<SimpleAssessmentResultType>()
+                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerOne),
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssessmentInput),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                layerOneDataSource,
+                simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
@@ -141,6 +142,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        /// <summary>
+        /// Finds out whether the assessment section which is represented by the row at index 
+        /// <paramref name="rowIndex"/> has passed the simple assessment.
+        /// </summary>
+        /// <param name="rowIndex">The index of the row which has a section attached.</param>
+        /// <returns><c>false</c> if the simple assessment has passed, <c>true</c> otherwise.</returns>
+        private bool HasPassedSimpleAssessment(int rowIndex)
+        {
+            var simpleAssessmentType = (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;
+            return simpleAssessmentType == SimpleAssessmentResultType.ProbabilityNegligible
+                   || simpleAssessmentType == SimpleAssessmentResultType.NotApplicable;
         }
 
         #region Event handling
@@ -171,7 +185,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             var resultRow = (MacroStabilityInwardsFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
             MacroStabilityInwardsFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
-            if (rowObject.AssessmentLayerOne == AssessmentLayerOneState.Sufficient)
+            if (rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.ProbabilityNegligible ||
+                rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.NotApplicable)
             {
                 currentDataGridViewCell.ErrorText = string.Empty;
                 return;
