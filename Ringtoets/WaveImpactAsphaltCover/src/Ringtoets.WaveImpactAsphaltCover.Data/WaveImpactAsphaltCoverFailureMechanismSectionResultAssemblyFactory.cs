@@ -23,23 +23,28 @@ using System;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.Exceptions;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Service
+namespace Ringtoets.WaveImpactAsphaltCover.Data
 {
     /// <summary>
-    /// Service for assembling the assembly tool results for wave impact asphalt cover.
+    /// Factory for assembling the assembly tool results for wave impact asphalt cover failure mechanism section results.
     /// </summary>
-    public static class WaveImpactAsphaltCoverAssemblyService
+    public static class WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory
     {
         /// <summary>
         /// Assembles the simple assessment results.
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to assemble the 
         /// simple assembly results for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/> 
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        public static void AssembleSimpleAssessment(WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+        /// <exception cref="AssemblyFactoryException">Thrown when <see cref="FailureMechanismSectionAssembly"/>
+        /// cannot be assembled.</exception>
+        public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
+            WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -51,10 +56,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
             try
             {
-                failureMechanismSectionResult.SimpleAssemblyResult =
-                    calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentInput);
+                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentInput);
             }
-            catch (FailureMechanismSectionAssemblyCalculatorException) {}
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyFactoryException(e.Message, e);
+            }
         }
     }
 }
