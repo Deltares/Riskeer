@@ -161,7 +161,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateFailureMechanismCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
         {
             // Setup
             var kernelStub = new AssemblyCategoriesKernelStub
