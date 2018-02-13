@@ -23,7 +23,7 @@
     <Compile Include="RingtoetsProjectTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsFailureMechanismSectionResultAssemblyFactoryTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffOutwardsFailureMechanismSectionResultAssemblyFactoryTest.cs" />
-    <Compile Include="StandAlone\AssemblyFactories\MacroStabilityOutwardsAssemblyServiceTest.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactoryTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\MicrostabilityAssemblyServiceTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\PipingStructureAssemblyServiceTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\StrengthStabilityLengthwiseConstructionAssemblyServiceTest.cs" />
