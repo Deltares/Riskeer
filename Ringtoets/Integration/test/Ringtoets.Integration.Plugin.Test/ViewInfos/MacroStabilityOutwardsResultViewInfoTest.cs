@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -176,7 +176,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -203,7 +203,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -221,7 +221,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -237,7 +237,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new MacroStabilityOutwardsFailureMechanism());
@@ -257,7 +257,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -279,7 +279,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);

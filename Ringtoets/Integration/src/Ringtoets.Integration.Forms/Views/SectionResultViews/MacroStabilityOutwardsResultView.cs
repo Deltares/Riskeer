@@ -43,9 +43,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// Creates a new instance of <see cref="MacroStabilityOutwardsResultView"/>.
         /// </summary>
         /// <inheritdoc />
-        public MacroStabilityOutwardsResultView(
-            MacroStabilityOutwardsFailureMechanism failureMechanism,
-            IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> failureMechanismSectionResults)
+        public MacroStabilityOutwardsResultView(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> failureMechanismSectionResults, 
+                                                MacroStabilityOutwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;

@@ -494,8 +494,8 @@ namespace Ringtoets.Integration.Plugin
                 MacroStabilityOutwardsFailureMechanismSectionResult,
                 MacroStabilityOutwardsResultView>(
                 context => new MacroStabilityOutwardsResultView(
-                    (MacroStabilityOutwardsFailureMechanism) context.FailureMechanism,
-                    context.WrappedData));
+                    context.WrappedData,
+                    (MacroStabilityOutwardsFailureMechanism) context.FailureMechanism));
 
             yield return new ViewInfo<Comment, CommentView>
             {

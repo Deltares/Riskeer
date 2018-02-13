@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             // Call
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
@@ -65,8 +65,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(new MacroStabilityOutwardsFailureMechanism(),
-                                                                   new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>()))
+            using (var view = new MacroStabilityOutwardsResultView(new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>(), 
+                                                                   new MacroStabilityOutwardsFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(new MacroStabilityOutwardsFailureMechanism(), sectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -202,7 +202,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(new MacroStabilityOutwardsFailureMechanism(), sectionResults))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
