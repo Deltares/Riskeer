@@ -29,9 +29,9 @@ using Ringtoets.Common.Data.Exceptions;
 namespace Ringtoets.DuneErosion.Data
 {
     /// <summary>
-    /// Factory for assembling the assembly tool results for dune erosion failure mechanism sections.
+    /// Factory for assembling the assembly tool results for dune erosion failure mechanism section results.
     /// </summary>
-    public static class DuneErosionFailureMechanismSectionAssemblyFactory
+    public static class DuneErosionFailureMechanismSectionResultAssemblyFactory
     {
         /// <summary>
         /// Assembles the simple assessment results based on <paramref name="failureMechanismSectionResult"/>.

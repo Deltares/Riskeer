@@ -15,7 +15,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DuneErosionFailureMechanismSectionAssemblyFactoryTest.cs" />
+    <Compile Include="DuneErosionFailureMechanismSectionResultAssemblyFactoryTest.cs" />
     <Compile Include="DuneErosionFailureMechanismExtensionsTest.cs" />
     <Compile Include="DuneErosionFailureMechanismSectionResultTest.cs" />
     <Compile Include="DuneErosionFailureMechanismTest.cs" />

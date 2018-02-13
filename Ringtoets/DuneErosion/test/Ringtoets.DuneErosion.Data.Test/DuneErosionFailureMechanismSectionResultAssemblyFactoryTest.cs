@@ -34,13 +34,13 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.DuneErosion.Data.Test
 {
     [TestFixture]
-    public class DuneErosionFailureMechanismSectionAssemblyFactoryTest
+    public class DuneErosionFailureMechanismSectionResultAssemblyFactoryTest
     {
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(null);
+            TestDelegate call = () => DuneErosionFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                DuneErosionFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentInput, calculator.SimpleAssessmentValidityOnlyInput);
@@ -84,7 +84,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly simpleAssessment = DuneErosionFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                FailureMechanismSectionAssembly simpleAssessment = DuneErosionFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
@@ -106,7 +106,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => DuneErosionFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyFactoryException>(call);
