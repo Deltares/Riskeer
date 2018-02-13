@@ -103,8 +103,9 @@ namespace Ringtoets.Piping.Forms.Views
         /// <returns><c>false</c> if the simple assessment has passed, <c>true</c> otherwise.</returns>
         private bool HasPassedSimpleAssessment(int rowIndex)
         {
-            return (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
-                   == SimpleAssessmentResultType.ProbabilityNegligible;
+            var simpleAssessmentType = (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;
+            return simpleAssessmentType == SimpleAssessmentResultType.ProbabilityNegligible
+                   || simpleAssessmentType == SimpleAssessmentResultType.NotApplicable;
         }
 
         protected override void Dispose(bool disposing)
@@ -180,7 +181,8 @@ namespace Ringtoets.Piping.Forms.Views
 
             var resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
             PipingFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
-            if (rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.ProbabilityNegligible)
+            if (rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.ProbabilityNegligible
+                || rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.NotApplicable)
             {
                 currentDataGridViewCell.ErrorText = string.Empty;
                 return;

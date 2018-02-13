@@ -191,7 +191,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
 
-                if (simpleAssessmentType == SimpleAssessmentResultType.ProbabilityNegligible)
+                if (simpleAssessmentType == SimpleAssessmentResultType.ProbabilityNegligible
+                    || simpleAssessmentType == SimpleAssessmentResultType.NotApplicable)
                 {
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
@@ -275,7 +276,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultView_TotalContributionNotHundred_ShowsErrorTooltip(
             SimpleAssessmentResultType simpleAssessmentType)
@@ -309,7 +309,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         [SetCulture("nl-NL")]
         [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip(
             SimpleAssessmentResultType simpleAssessmentType)
@@ -341,7 +340,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
@@ -372,7 +370,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
@@ -404,7 +401,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultView_NoCalculationScenarios_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
@@ -431,7 +427,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void FailureMechanismResultView_NoCalculationScenariosRelevant_ShowsErrorTooltip(
             SimpleAssessmentResultType simpleAssessmentType)
