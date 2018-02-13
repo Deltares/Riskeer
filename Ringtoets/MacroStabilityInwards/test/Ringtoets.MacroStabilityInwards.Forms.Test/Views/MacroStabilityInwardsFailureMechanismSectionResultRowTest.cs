@@ -59,6 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResult>>(row);
+            Assert.AreEqual(row.SimpleAssessmentInput, result.SimpleAssessmentInput);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                                                           failureMechanism, assessmentSection),
                             row.AssessmentLayerTwoA);

@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value representing whether the section passed the simple assessment.
+        /// Gets or sets the value representing the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentInput
         {
