@@ -44,6 +44,22 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
+        /// Gets or sets the value representing the simple assessment result.
+        /// </summary>
+        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentInput
+        {
+            get
+            {
+                return SectionResult.SimpleAssessmentInput;
+            }
+            set
+            {
+                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
         /// Gets the assessment layer two a of the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA

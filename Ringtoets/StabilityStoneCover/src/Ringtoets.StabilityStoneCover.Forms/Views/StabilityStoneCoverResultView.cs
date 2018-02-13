@@ -65,18 +65,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             base.AddDataGridColumns();
 
-            EnumDisplayWrapper<AssessmentLayerOneState>[] layerOneDataSource =
-                Enum.GetValues(typeof(AssessmentLayerOneState))
-                    .OfType<AssessmentLayerOneState>()
-                    .Select(sa => new EnumDisplayWrapper<AssessmentLayerOneState>(sa))
+            EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[] simpleAssessmentDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentResultValidityOnlyType))
+                    .OfType<SimpleAssessmentResultValidityOnlyType>()
+                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>(sa))
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerOne),
+                nameof(StabilityStoneCoverSectionResultRow.SimpleAssessmentInput),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                layerOneDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+                simpleAssessmentDataSource,
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
 
             EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
                 Enum.GetValues(typeof(AssessmentLayerTwoAResult))
@@ -93,6 +93,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        private bool HasPassedSimpleAssessment(int rowIndex)
+        {
+            var simpleAssessmentType = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;
+            return simpleAssessmentType == SimpleAssessmentResultValidityOnlyType.NotApplicable;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
