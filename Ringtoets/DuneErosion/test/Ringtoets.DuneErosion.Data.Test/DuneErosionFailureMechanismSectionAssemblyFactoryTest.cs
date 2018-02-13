@@ -23,23 +23,24 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.DuneErosion.Data;
 
-namespace Ringtoets.DuneErosion.Service.Test
+namespace Ringtoets.DuneErosion.Data.Test
 {
     [TestFixture]
-    public class DuneErosionAssemblyServiceTest
+    public class DuneErosionFailureMechanismSectionAssemblyFactoryTest
     {
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionAssemblyService.AssembleSimpleAssessment(null);
+            TestDelegate call = () => DuneErosionFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,7 +64,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionAssemblyService.AssembleSimpleAssessment(sectionResult);
+                DuneErosionFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentInput, calculator.SimpleAssessmentValidityOnlyInput);
@@ -71,7 +72,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_AssemblyRan_SetsOutput()
+        public void AssembleSimpleAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -79,23 +80,20 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                // Pre-condition
-                Assert.IsNull(sectionResult.SimpleAssemblyResult);
-
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionAssemblyService.AssembleSimpleAssessment(sectionResult);
+                FailureMechanismSectionAssembly simpleAssessment = DuneErosionFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
-                Assert.AreSame(calculatorOutput, sectionResult.SimpleAssemblyResult);
+                Assert.AreSame(calculatorOutput, simpleAssessment);
             }
         }
 
         [Test]
-        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_DoesNothing()
+        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyFactoryException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -108,11 +106,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionAssemblyService.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => DuneErosionFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                Assert.DoesNotThrow(call);
-                Assert.IsNull(sectionResult.SimpleAssemblyResult);
+                var exception = Assert.Throws<AssemblyFactoryException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
     }
