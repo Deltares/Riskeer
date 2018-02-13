@@ -453,9 +453,7 @@ namespace Ringtoets.Integration.Plugin
                 MicrostabilityFailureMechanism,
                 MicrostabilityFailureMechanismSectionResult,
                 MicrostabilityResultView>(
-                context => new MicrostabilityResultView(
-                    (MicrostabilityFailureMechanism) context.FailureMechanism,
-                    context.WrappedData));
+                context => new MicrostabilityResultView(context.WrappedData, (MicrostabilityFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 PipingStructureFailureMechanism,
@@ -477,7 +475,9 @@ namespace Ringtoets.Integration.Plugin
                 StrengthStabilityLengthwiseConstructionFailureMechanism,
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
                 StrengthStabilityLengthwiseConstructionResultView>(
-                context => new StrengthStabilityLengthwiseConstructionResultView(context.WrappedData, (StrengthStabilityLengthwiseConstructionFailureMechanism) context.FailureMechanism));
+                context => new StrengthStabilityLengthwiseConstructionResultView(
+                    context.WrappedData,
+                    (StrengthStabilityLengthwiseConstructionFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 WaterPressureAsphaltCoverFailureMechanism,

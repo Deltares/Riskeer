@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             // Call
-            using (var view = new MicrostabilityResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<MicrostabilityFailureMechanismSectionResult,
@@ -64,8 +64,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
-            using (var view = new MicrostabilityResultView(new MicrostabilityFailureMechanism(),
-                                                           new ObservableList<MicrostabilityFailureMechanismSectionResult>()))
+            using (var view = new MicrostabilityResultView(new ObservableList<MicrostabilityFailureMechanismSectionResult>(),
+                                                           new MicrostabilityFailureMechanism()))
             {
                 form.Controls.Add(view);
 
@@ -135,7 +135,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new MicrostabilityResultView(new MicrostabilityFailureMechanism(), sectionResults))
+            using (var view = new MicrostabilityResultView(sectionResults, new MicrostabilityFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -202,7 +202,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new MicrostabilityResultView(new MicrostabilityFailureMechanism(), sectionResults))
+            using (var view = new MicrostabilityResultView(sectionResults, new MicrostabilityFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
