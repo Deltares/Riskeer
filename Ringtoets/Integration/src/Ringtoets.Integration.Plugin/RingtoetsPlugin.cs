@@ -470,8 +470,8 @@ namespace Ringtoets.Integration.Plugin
                 TechnicalInnovationFailureMechanismSectionResult,
                 TechnicalInnovationResultView>(
                 context => new TechnicalInnovationResultView(
-                    (TechnicalInnovationFailureMechanism) context.FailureMechanism,
-                    context.WrappedData));
+                    context.WrappedData,
+                    (TechnicalInnovationFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 StrengthStabilityLengthwiseConstructionFailureMechanism,

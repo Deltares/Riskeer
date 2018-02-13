@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new TechnicalInnovationFailureMechanism();
 
             // Call
-            using (var view = new TechnicalInnovationResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult,
@@ -63,8 +63,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
-            using (var view = new TechnicalInnovationResultView(new TechnicalInnovationFailureMechanism(),
-                                                                new ObservableList<TechnicalInnovationFailureMechanismSectionResult>()))
+            using (var view = new TechnicalInnovationResultView(new ObservableList<TechnicalInnovationFailureMechanismSectionResult>(),
+                                                                new TechnicalInnovationFailureMechanism()))
             {
                 form.Controls.Add(view);
 
@@ -129,8 +129,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new TechnicalInnovationResultView(new TechnicalInnovationFailureMechanism(),
-                                                                sectionResults))
+            using (var view = new TechnicalInnovationResultView(sectionResults, new TechnicalInnovationFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -190,8 +189,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new TechnicalInnovationResultView(new TechnicalInnovationFailureMechanism(),
-                                                                sectionResults))
+            using (var view = new TechnicalInnovationResultView(sectionResults, new TechnicalInnovationFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();

@@ -43,9 +43,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// Creates a new instance of <see cref="TechnicalInnovationResultView"/>.
         /// </summary>
         /// <inheritdoc />
-        public TechnicalInnovationResultView(
-            TechnicalInnovationFailureMechanism failureMechanism,
-            IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults)
+        public TechnicalInnovationResultView(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults, 
+                                             TechnicalInnovationFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
