@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
     public class GrassCoverErosionOutwardsFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
+        private const int simpleAssessmentIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
 
@@ -78,11 +78,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                     Assert.AreEqual(4, dataGridView.ColumnCount);
 
-                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
                     Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                     Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                    Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                    Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
                     Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                     Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -162,7 +162,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.SimpleAssessmentInput, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.SimpleAssessmentInput, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result2.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -182,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.SimpleAssessmentInput, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 cells = rows[3].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 4", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result4.SimpleAssessmentInput, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result4.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result4.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result4.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 

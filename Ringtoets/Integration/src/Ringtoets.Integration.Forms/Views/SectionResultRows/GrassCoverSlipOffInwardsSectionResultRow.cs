@@ -43,6 +43,22 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         public GrassCoverSlipOffInwardsSectionResultRow(GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
+        /// Gets or sets the value representing the simple assessment result.
+        /// </summary>
+        public SimpleAssessmentResultType SimpleAssessmentResult
+        {
+            get
+            {
+                return SectionResult.SimpleAssessmentInput;
+            }
+            set
+            {
+                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
         /// Gets the assessment layer two a of the <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA

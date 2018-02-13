@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     public class WaterPressureAsphaltCoverResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
+        private const int simpleAssessmentIndex = 1;
         private const int assessmentLayerThreeIndex = 2;
 
         [Test]
@@ -75,10 +75,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                     Assert.AreEqual(3, dataGridView.ColumnCount);
 
-                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
                     Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                    Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                    Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
                     Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
                     Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(3, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.SimpleAssessmentInput, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
@@ -161,7 +161,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 cells = rows[1].Cells;
                 Assert.AreEqual(3, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.SimpleAssessmentInput, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result2.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
@@ -169,7 +169,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 cells = rows[2].Cells;
                 Assert.AreEqual(3, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.SimpleAssessmentInput, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
@@ -177,7 +177,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 cells = rows[3].Cells;
                 Assert.AreEqual(3, cells.Count);
                 Assert.AreEqual("Section 4", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result4.SimpleAssessmentInput, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result4.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result4.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
