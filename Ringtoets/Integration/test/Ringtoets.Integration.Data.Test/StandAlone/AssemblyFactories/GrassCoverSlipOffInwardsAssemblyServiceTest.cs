@@ -28,19 +28,19 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Service.AssemblyServices;
 
-namespace Ringtoets.Integration.Service.Test.AssemblyServices
+namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 {
     [TestFixture]
-    public class WaterPressureAsphaltCoverAssemblyServiceTest
+    public class GrassCoverSlipOffInwardsAssemblyServiceTest
     {
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaterPressureAsphaltCoverAssemblyService.AssembleSimpleAssessment(null);
+            TestDelegate call = () => GrassCoverSlipOffInwardsAssemblyService.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,18 +53,18 @@ namespace Ringtoets.Integration.Service.Test.AssemblyServices
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(failureMechanismSection)
             {
                 SimpleAssessmentInput = random.NextEnumValue<SimpleAssessmentResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaterPressureAsphaltCoverAssemblyService.AssembleSimpleAssessment(sectionResult);
+                GrassCoverSlipOffInwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentInput, calculator.SimpleAssessmentInput);
@@ -76,18 +76,18 @@ namespace Ringtoets.Integration.Service.Test.AssemblyServices
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Pre-condition
                 Assert.IsNull(sectionResult.SimpleAssemblyResult);
 
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaterPressureAsphaltCoverAssemblyService.AssembleSimpleAssessment(sectionResult);
+                GrassCoverSlipOffInwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
@@ -100,16 +100,16 @@ namespace Ringtoets.Integration.Service.Test.AssemblyServices
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => WaterPressureAsphaltCoverAssemblyService.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => GrassCoverSlipOffInwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.DoesNotThrow(call);

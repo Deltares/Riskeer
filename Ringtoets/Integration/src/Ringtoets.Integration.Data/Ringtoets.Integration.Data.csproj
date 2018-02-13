@@ -14,6 +14,14 @@
     <Compile Include="AssessmentSection.cs" />
     <Compile Include="RingtoetsProjectFactory.cs" />
     <Compile Include="RingtoetsProject.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsAssemblyService.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffOutwardsAssemblyService.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\MacroStabilityOutwardsAssemblyService.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\MicrostabilityAssemblyService.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\PipingStructureAssemblyService.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\StrengthStabilityLengthwiseConstructionAssemblyService.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\TechnicalInnovationAssemblyService.cs" />
+    <Compile Include="StandAlone\AssemblyFactories\WaterPressureAsphaltCoverAssemblyService.cs" />
     <Compile Include="StandAlone\Input\MacroStabilityOutwardsProbabilityAssessmentInput.cs" />
     <Compile Include="StandAlone\MacroStabilityOutwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\MicrostabilityFailureMechanism.cs" />
@@ -43,6 +51,10 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358b6da2-a1df-477f-b6ac-c30204265cb0}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>

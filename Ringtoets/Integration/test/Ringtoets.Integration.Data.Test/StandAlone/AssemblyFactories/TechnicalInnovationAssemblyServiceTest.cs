@@ -28,10 +28,10 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Service.AssemblyServices;
 
-namespace Ringtoets.Integration.Service.Test.AssemblyServices
+namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 {
     [TestFixture]
     public class TechnicalInnovationAssemblyServiceTest

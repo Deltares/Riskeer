@@ -25,12 +25,12 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Service.AssemblyServices
+namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 {
     /// <summary>
-    /// Service for assembling the assembly tool results for grass cover slip off outwards.
+    /// Service for assembling the assembly tool results for piping structure.
     /// </summary>
-    public static class GrassCoverSlipOffOutwardsAssemblyService
+    public static class PipingStructureAssemblyService
     {
         /// <summary>
         /// Assembles the simple assessment results.
@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Service.AssemblyServices
         /// simple assembly results for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/> 
         /// is <c>null</c>.</exception>
-        public static void AssembleSimpleAssessment(GrassCoverSlipOffOutwardsFailureMechanismSectionResult failureMechanismSectionResult)
+        public static void AssembleSimpleAssessment(PipingStructureFailureMechanismSectionResult failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -49,13 +49,12 @@ namespace Ringtoets.Integration.Service.AssemblyServices
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismSectionAssemblyCalculator calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
-
             try
             {
                 failureMechanismSectionResult.SimpleAssemblyResult =
                     calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentInput);
             }
-            catch (FailureMechanismSectionAssemblyCalculatorException) {}
+            catch (FailureMechanismSectionAssemblyCalculatorException) { }
         }
     }
 }

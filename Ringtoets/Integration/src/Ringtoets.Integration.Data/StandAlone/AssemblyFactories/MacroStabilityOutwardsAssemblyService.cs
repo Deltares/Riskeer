@@ -25,7 +25,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Service.AssemblyServices
+namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 {
     /// <summary>
     /// Service for assembling the assembly tool results for macro stability outwards.

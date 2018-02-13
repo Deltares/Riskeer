@@ -28,19 +28,19 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Service.AssemblyServices;
 
-namespace Ringtoets.Integration.Service.Test.AssemblyServices
+namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 {
     [TestFixture]
-    public class GrassCoverSlipOffOutwardsAssemblyServiceTest
+    public class MicrostabilityAssemblyServiceTest
     {
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverSlipOffOutwardsAssemblyService.AssembleSimpleAssessment(null);
+            TestDelegate call = () => MicrostabilityAssemblyService.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Service.Test.AssemblyServices
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(failureMechanismSection)
             {
                 SimpleAssessmentInput = random.NextEnumValue<SimpleAssessmentResultType>()
             };
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Service.Test.AssemblyServices
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffOutwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
+                MicrostabilityAssemblyService.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentInput, calculator.SimpleAssessmentInput);
@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Service.Test.AssemblyServices
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Service.Test.AssemblyServices
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffOutwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
+                MicrostabilityAssemblyService.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Service.Test.AssemblyServices
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -109,7 +109,7 @@ namespace Ringtoets.Integration.Service.Test.AssemblyServices
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverSlipOffOutwardsAssemblyService.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => MicrostabilityAssemblyService.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.DoesNotThrow(call);
