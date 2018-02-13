@@ -25,8 +25,8 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This enum defines the possible statuses for a simple assessment 
-    /// for a failure mechanism section in case there is only a relevance check.
+    /// This enum defines the possible result types for a simple assessment 
+    /// on a failure mechanism section in case there is only a relevance check.
     /// </summary>
     public enum SimpleAssessmentResultValidityOnlyType
     {
