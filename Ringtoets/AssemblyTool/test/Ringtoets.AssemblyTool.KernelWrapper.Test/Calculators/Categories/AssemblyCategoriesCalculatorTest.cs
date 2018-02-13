@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 using Ringtoets.Common.Data.AssemblyTool;

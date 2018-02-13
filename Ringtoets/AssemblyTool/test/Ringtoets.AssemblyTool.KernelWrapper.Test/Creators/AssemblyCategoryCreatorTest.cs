@@ -29,6 +29,7 @@ using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
 using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators

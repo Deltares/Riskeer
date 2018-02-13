@@ -27,7 +27,7 @@ using AssemblyTool.Kernel.Data.AssemblyCategories;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssemblyTool;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test
+namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
     /// Class for asserting categories result.
