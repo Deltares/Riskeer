@@ -93,8 +93,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultView(
-                    (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism,
-                    context.WrappedData)
+                    context.WrappedData,
+                    (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism)
             };
         }
 

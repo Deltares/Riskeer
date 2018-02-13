@@ -48,7 +48,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult,
@@ -65,9 +65,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             using (var form = new Form())
             {
-                using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(
-                    failureMechanism,
-                    failureMechanism.SectionResults))
+                using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -136,8 +134,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
             // Call
             using (var form = new Form())
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                   sectionResults))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(sectionResults, new WaveImpactAsphaltCoverFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -203,8 +200,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             };
 
             using (var form = new Form())
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                   sectionResults))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(sectionResults, new WaveImpactAsphaltCoverFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();

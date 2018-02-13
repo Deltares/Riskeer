@@ -42,8 +42,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// </summary>
         /// <inheritdoc />
         public WaveImpactAsphaltCoverFailureMechanismResultView(
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-            IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults)
+            IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
