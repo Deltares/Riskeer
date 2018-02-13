@@ -88,12 +88,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
-        /// <summary>
-        /// Finds out whether the assessment section which is represented by the row at index 
-        /// <paramref name="rowIndex"/> has passed the simple assessment.
-        /// </summary>
-        /// <param name="rowIndex">The index of the row which has a section attached.</param>
-        /// <returns><c>false</c> if the simple assessment has passed, <c>true</c> otherwise.</returns>
         private bool HasPassedSimpleAssessment(int rowIndex)
         {
             var simpleAssessmentType = (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;

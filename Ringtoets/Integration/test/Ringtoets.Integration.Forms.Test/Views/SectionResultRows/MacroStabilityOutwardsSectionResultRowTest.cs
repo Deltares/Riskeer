@@ -84,7 +84,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentInput);
-
             mocks.VerifyAll();
         }
 

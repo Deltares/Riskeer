@@ -156,7 +156,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentInput);
-
             mocks.VerifyAll();
         }
 
