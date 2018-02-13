@@ -144,8 +144,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismResultView(
-                    (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism,
-                    context.WrappedData)
+                    context.WrappedData,
+                    (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism)
             };
 
             yield return new ViewInfo<

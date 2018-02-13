@@ -72,7 +72,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(
+                failureMechanism.SectionResults,
+                failureMechanism);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -86,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -146,7 +148,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -173,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -200,7 +202,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -218,7 +220,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -234,7 +236,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new GrassCoverErosionOutwardsFailureMechanism());
@@ -255,7 +257,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -278,7 +280,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);

@@ -42,8 +42,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// </summary>
         /// <inheritdoc />
         public GrassCoverErosionOutwardsFailureMechanismResultView(
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> failureMechanismSectionResults)
+            IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += OnCellFormatting;
