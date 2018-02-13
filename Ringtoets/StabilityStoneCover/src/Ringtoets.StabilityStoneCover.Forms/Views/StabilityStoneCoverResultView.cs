@@ -41,9 +41,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// Creates a new instance of <see cref="StabilityStoneCoverResultView"/>.
         /// </summary>
         /// <inheritdoc />
-        public StabilityStoneCoverResultView(
-            StabilityStoneCoverFailureMechanism failureMechanism,
-            IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults)
+        public StabilityStoneCoverResultView(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults,
+                                             StabilityStoneCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;

@@ -93,8 +93,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new StabilityStoneCoverResultView(
-                    (StabilityStoneCoverFailureMechanism) context.FailureMechanism,
-                    context.WrappedData)
+                    context.WrappedData,
+                    (StabilityStoneCoverFailureMechanism) context.FailureMechanism)
             };
         }
 

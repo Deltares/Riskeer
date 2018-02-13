@@ -72,7 +72,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                     failureMechanism);
             mocks.ReplayAll();
 
             // Call
@@ -88,7 +89,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 string viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -149,7 +150,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -175,7 +176,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -201,7 +202,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -218,7 +219,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -234,7 +235,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new StabilityStoneCoverFailureMechanism());
@@ -255,7 +256,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -277,7 +278,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);

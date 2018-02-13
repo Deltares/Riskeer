@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult,
@@ -64,7 +64,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var form = new Form())
-            using (var view = new StabilityStoneCoverResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 form.Controls.Add(view);
 
@@ -134,7 +134,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             // Call
             using (var form = new Form())
-            using (var view = new StabilityStoneCoverResultView(new StabilityStoneCoverFailureMechanism(), sectionResults))
+            using (var view = new StabilityStoneCoverResultView(sectionResults, new StabilityStoneCoverFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -201,7 +201,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             };
 
             using (var form = new Form())
-            using (var view = new StabilityStoneCoverResultView(new StabilityStoneCoverFailureMechanism(), sectionResults))
+            using (var view = new StabilityStoneCoverResultView(sectionResults, new StabilityStoneCoverFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
