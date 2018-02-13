@@ -40,8 +40,9 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismResultView"/>.
         /// </summary>
         /// <inheritdoc/>
-        public DuneErosionFailureMechanismResultView(DuneErosionFailureMechanism failureMechanism,
-                                                     IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults)
+        public DuneErosionFailureMechanismResultView(
+            IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults,
+            DuneErosionFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;

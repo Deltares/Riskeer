@@ -48,7 +48,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanismSectionResult, DuneErosionFailureMechanism>>(view);
@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var form = new Form())
-            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism, failureMechanism.SectionResults))
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 form.Controls.Add(view);
 
@@ -135,7 +135,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Call
             using (var form = new Form())
-            using (var view = new DuneErosionFailureMechanismResultView(new DuneErosionFailureMechanism(), sectionResults))
+            using (var view = new DuneErosionFailureMechanismResultView(sectionResults, new DuneErosionFailureMechanism()))
             {
                 form.Controls.Add(view);
                 form.Show();
