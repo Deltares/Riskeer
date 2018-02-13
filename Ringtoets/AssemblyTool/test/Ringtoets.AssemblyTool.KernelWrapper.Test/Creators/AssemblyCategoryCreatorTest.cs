@@ -34,13 +34,13 @@ using Ringtoets.Common.Data.AssemblyTool;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoryCreatorTest
+    public class AssemblyCategoryCreatorTest
     {
         [Test]
         public void CreateAssessmentSectionAssemblyCategories_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssessmentSectionAssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(null);
+            TestDelegate call = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -62,7 +62,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = AssessmentSectionAssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
+            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
 
             // Assert
             AssessmentSectionAssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(output, result);
@@ -78,7 +78,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            TestDelegate test = () => AssessmentSectionAssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
+            TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'AssessmentSectionCategoryGroup'.";
@@ -102,7 +102,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = AssessmentSectionAssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
+            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
 
             // Assert
             Assert.AreEqual(1, result.Count());

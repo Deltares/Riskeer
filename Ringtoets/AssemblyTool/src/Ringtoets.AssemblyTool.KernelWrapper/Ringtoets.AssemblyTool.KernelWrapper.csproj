@@ -22,7 +22,7 @@
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorException.cs" />
     <Compile Include="Calculators\Categories\IAssemblyCategoriesCalculator.cs" />
     <Compile Include="Calculators\IAssemblyToolCalculatorFactory.cs" />
-    <Compile Include="Creators\AssessmentSectionAssemblyCategoryCreator.cs" />
+    <Compile Include="Creators\AssemblyCategoryCreator.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCalculatorInputCreator.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCreator.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactory.cs" />

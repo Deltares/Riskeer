@@ -30,9 +30,9 @@ using Ringtoets.Common.Data.AssemblyTool;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="AssessmentSectionAssemblyCategory"/> instances.
+    /// Creates <see cref="AssemblyCategory"/> instances.
     /// </summary>
-    internal static class AssessmentSectionAssemblyCategoryCreator
+    internal static class AssemblyCategoryCreator
     {
         /// <summary>
         /// Creates an <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>

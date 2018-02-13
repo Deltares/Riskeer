@@ -61,7 +61,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
                 ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 CalculationOutput<AssessmentSectionCategory[]> output = kernel.CalculateAssessmentSectionCategories(input);
 
-                return AssessmentSectionAssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
+                return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
             }
             catch (Exception e)
             {
