@@ -838,7 +838,7 @@
   <data name="MetaData_Couple_distance" xml:space="preserve">
     <value>Koppelingsafstand</value>
   </data>
-  <data name="MetaData_Length" xml:space="preserve">
+  <data name="MetaData_Length_Rounded" xml:space="preserve">
     <value>Lengte*</value>
   </data>
   <data name="DistributionType_TruncatedNormal" xml:space="preserve">
@@ -1259,7 +1259,7 @@ Pf = {1}</value>
   <data name="FailureMechanismSection_Length_Description" xml:space="preserve">
     <value>De totale lengte van het vak in meters (afgerond).</value>
   </data>
-  <data name="FailureMechanismSection_Length_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismSection_Length_Rounded_DisplayName" xml:space="preserve">
     <value>Lengte* [m]</value>
   </data>
   <data name="FailureMechanismSection_Name_Description" xml:space="preserve">
@@ -1274,7 +1274,7 @@ Pf = {1}</value>
   <data name="FailureMechanismSection_StartPoint_DisplayName" xml:space="preserve">
     <value>Beginpunt</value>
   </data>
-  <data name="FailureMechanismSectionProbabilityAssessment_N_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName" xml:space="preserve">
     <value>N* [-]</value>
   </data>
   <data name="MetaData_DesignWaterLevelCalculation1" xml:space="preserve">
@@ -1319,7 +1319,7 @@ Pf = {1}</value>
   <data name="FailureMechanism_N_Rounded_DisplayName" xml:space="preserve">
     <value>N* [-]</value>
   </data>
-  <data name="ReferenceLine_Length_DisplayName" xml:space="preserve">
+  <data name="ReferenceLine_Length_Rounded_DisplayName" xml:space="preserve">
     <value>Lengte* [m]</value>
   </data>
   <data name="ReferenceLine_Length_Description" xml:space="preserve">

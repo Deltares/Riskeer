@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Forms.Factories
                 MapFeature feature = CreateSingleLineMapFeature(referenceLine.Points);
                 feature.MetaData[Resources.MetaData_ID] = id;
                 feature.MetaData[Resources.MetaData_Name] = name;
-                feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, referenceLine.Length);
+                feature.MetaData[Resources.MetaData_Length_Rounded] = new RoundedDouble(2, referenceLine.Length);
 
                 return new[]
                 {
@@ -392,7 +392,7 @@ namespace Ringtoets.Common.Forms.Factories
             });
 
             feature.MetaData[Resources.MetaData_Name] = section.Name;
-            feature.MetaData[Resources.MetaData_Length] = new RoundedDouble(2, section.Length);
+            feature.MetaData[Resources.MetaData_Length_Rounded] = new RoundedDouble(2, section.Length);
 
             return feature;
         }

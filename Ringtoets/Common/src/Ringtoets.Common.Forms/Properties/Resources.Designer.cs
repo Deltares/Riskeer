@@ -1492,9 +1492,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Lengte* [m].
         /// </summary>
-        public static string FailureMechanismSection_Length_DisplayName {
+        public static string FailureMechanismSection_Length_Rounded_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismSection_Length_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSection_Length_Rounded_DisplayName", resourceCulture);
             }
         }
         
@@ -1546,9 +1546,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to N* [-].
         /// </summary>
-        public static string FailureMechanismSectionProbabilityAssessment_N_DisplayName {
+        public static string FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismSectionProbabilityAssessment_N_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName", resourceCulture);
             }
         }
         
@@ -2212,9 +2212,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Lengte*.
         /// </summary>
-        public static string MetaData_Length {
+        public static string MetaData_Length_Rounded {
             get {
-                return ResourceManager.GetString("MetaData_Length", resourceCulture);
+                return ResourceManager.GetString("MetaData_Length_Rounded", resourceCulture);
             }
         }
         
@@ -2504,9 +2504,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Lengte* [m].
         /// </summary>
-        public static string ReferenceLine_Length_DisplayName {
+        public static string ReferenceLine_Length_Rounded_DisplayName {
             get {
-                return ResourceManager.GetString("ReferenceLine_Length_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ReferenceLine_Length_Rounded_DisplayName", resourceCulture);
             }
         }
         

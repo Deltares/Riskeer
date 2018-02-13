@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionProbabilityAssessment_N_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionProbabilityAssessment_N_Description))]
         public RoundedDouble N
         {

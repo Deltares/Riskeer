@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Views
                              Resources.FailureMechanismSection_Name_DisplayName,
                              true);
             AddTextBoxColumn(nameof(FailureMechanismSection.Length),
-                             Resources.FailureMechanismSection_Length_DisplayName,
+                             Resources.FailureMechanismSection_Length_Rounded_DisplayName,
                              true);
         }
     }
