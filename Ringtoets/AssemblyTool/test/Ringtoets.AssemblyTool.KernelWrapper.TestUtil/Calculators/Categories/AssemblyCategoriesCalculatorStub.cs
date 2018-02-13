@@ -37,9 +37,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public double SignalingNorm { get; private set; }
 
         /// <summary>
-        /// Gets the lower boundary norm that is used in the calculation.
+        /// Gets the lower limit norm that is used in the calculation.
         /// </summary>
-        public double LowerBoundaryNorm { get; private set; }
+        public double LowerLimitNorm { get; private set; }
 
         /// <summary>
         /// Gets the probability distribution factor that is used in the calculation.
@@ -66,7 +66,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        public IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(double signalingNorm, double lowerBoundaryNorm)
+        public IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(double signalingNorm, double lowerLimitNorm)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -74,7 +74,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             }
 
             SignalingNorm = signalingNorm;
-            LowerBoundaryNorm = lowerBoundaryNorm;
+            LowerLimitNorm = lowerLimitNorm;
 
             return AssessmentSectionCategoriesOutput
                    ?? (AssessmentSectionCategoriesOutput = new[]
@@ -85,7 +85,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
                    });
         }
 
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(double signalingNorm, double lowerBoundaryNorm,
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(double signalingNorm, double lowerLimitNorm,
                                                                                                                double probabilityDistributionFactor, double n)
         {
             if (ThrowExceptionOnCalculate)
@@ -94,7 +94,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             }
 
             SignalingNorm = signalingNorm;
-            LowerBoundaryNorm = lowerBoundaryNorm;
+            LowerLimitNorm = lowerLimitNorm;
             ProbabilityDistributionFactor = probabilityDistributionFactor;
             N = n;
 

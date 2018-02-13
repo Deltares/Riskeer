@@ -50,14 +50,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             {
                 throw new ArgumentNullException(nameof(factory));
             }
+
             this.factory = factory;
         }
 
-        public IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(double signalingNorm, double lowerBoundaryNorm)
+        public IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(double signalingNorm, double lowerLimitNorm)
         {
             try
             {
-                var input = new CalculateAssessmentSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerBoundaryNorm));
+                var input = new CalculateAssessmentSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerLimitNorm));
                 ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 CalculationOutput<AssessmentSectionCategory[]> output = kernel.CalculateAssessmentSectionCategories(input);
 
@@ -69,12 +70,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             }
         }
 
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(double signalingNorm, double lowerBoundaryNorm,
-                                                                                                               double probabilityDistributionFactor, double n)
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(double signalingNorm,
+                                                                                                               double lowerLimitNorm,
+                                                                                                               double probabilityDistributionFactor,
+                                                                                                               double n)
         {
             try
             {
-                var input = new CalculateFailureMechanismSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerBoundaryNorm),
+                var input = new CalculateFailureMechanismSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerLimitNorm),
                                                                                 probabilityDistributionFactor, n);
                 ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 CalculationOutput<FailureMechanismSectionCategory[]> output = kernel.CalculateFailureMechanismSectionCategories(input);

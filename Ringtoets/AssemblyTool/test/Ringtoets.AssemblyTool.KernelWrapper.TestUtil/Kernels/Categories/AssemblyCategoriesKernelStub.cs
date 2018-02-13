@@ -38,9 +38,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         public bool Calculated { get; private set; }
 
         /// <summary>
-        /// Gets the lower boundary norm.
+        /// Gets the lower limit norm.
         /// </summary>
-        public double LowerBoundaryNorm { get; private set; }
+        public double LowerLimitNorm { get; private set; }
 
         /// <summary>
         /// Gets the upper boundary norm.
@@ -80,7 +80,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
             }
 
             SignalingNorm = input.SignalingStandard;
-            LowerBoundaryNorm = input.LowerBoundaryStandard;
+            LowerLimitNorm = input.LowerBoundaryStandard;
 
             Calculated = true;
 
@@ -100,7 +100,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
             }
 
             SignalingNorm = input.SignalingStandard;
-            LowerBoundaryNorm = input.LowerBoundaryStandard;
+            LowerLimitNorm = input.LowerBoundaryStandard;
             ProbabilityDistributionFactor = input.ProbabilityDistributionFactor;
             N = input.NValue;
 

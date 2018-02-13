@@ -98,16 +98,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             // Setup
             var random = new Random(39);
             double signalingNorm = random.NextDouble();
-            double lowerBoundaryNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
 
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
+            calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
 
             // Assert
             Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
-            Assert.AreEqual(lowerBoundaryNorm, calculator.LowerBoundaryNorm);
+            Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
         }
 
         [Test]
@@ -182,18 +182,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             // Setup
             var random = new Random(39);
             double signalingNorm = random.NextDouble();
-            double lowerBoundaryNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
             double probabilityDistributionFactor = random.NextDouble();
             double n = random.NextDouble();
 
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerBoundaryNorm, probabilityDistributionFactor, n);
+            calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
 
             // Assert
             Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
-            Assert.AreEqual(lowerBoundaryNorm, calculator.LowerBoundaryNorm);
+            Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
             Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
             Assert.AreEqual(n, calculator.N);
         }

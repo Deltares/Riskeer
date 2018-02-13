@@ -41,7 +41,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
 
             // Assert
             Assert.IsInstanceOf<ICategoriesCalculator>(kernelStub);
-            Assert.AreEqual(0, kernelStub.LowerBoundaryNorm);
+            Assert.AreEqual(0, kernelStub.LowerLimitNorm);
             Assert.AreEqual(0, kernelStub.SignalingNorm);
             Assert.IsFalse(kernelStub.Calculated);
         }
@@ -51,18 +51,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         {
             // Setup
             var random = new Random(11);
-            var lowerBoundaryNorm = new Probability(random.NextDouble());
+            var lowerLimitNorm = new Probability(random.NextDouble());
             var signalingNorm = new Probability(random.NextDouble());
 
             var kernelStub = new AssemblyCategoriesKernelStub();
-            var input = new CalculateAssessmentSectionCategoriesInput(signalingNorm, lowerBoundaryNorm);
+            var input = new CalculateAssessmentSectionCategoriesInput(signalingNorm, lowerLimitNorm);
 
             // Call
             kernelStub.CalculateAssessmentSectionCategories(input);
 
             // Assert
             Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
-            Assert.AreEqual(lowerBoundaryNorm, kernelStub.LowerBoundaryNorm);
+            Assert.AreEqual(lowerLimitNorm, kernelStub.LowerLimitNorm);
         }
 
         [Test]
@@ -126,20 +126,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         {
             // Setup
             var random = new Random(11);
-            var lowerBoundaryNorm = new Probability(random.NextDouble());
+            var lowerLimitNorm = new Probability(random.NextDouble());
             var signalingNorm = new Probability(random.NextDouble());
             double probabilityDistributionFactor = random.NextDouble();
             double n = random.Next(1, 5);
 
             var kernelStub = new AssemblyCategoriesKernelStub();
-            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerBoundaryNorm, probabilityDistributionFactor, n);
+            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
 
             // Call
             kernelStub.CalculateFailureMechanismSectionCategories(input);
 
             // Assert
             Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
-            Assert.AreEqual(lowerBoundaryNorm, kernelStub.LowerBoundaryNorm);
+            Assert.AreEqual(lowerLimitNorm, kernelStub.LowerLimitNorm);
             Assert.AreEqual(probabilityDistributionFactor, kernelStub.ProbabilityDistributionFactor);
             Assert.AreEqual(n, kernelStub.N);
         }

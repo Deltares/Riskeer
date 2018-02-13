@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             // Setup
             var random = new Random(11);
             double signalingNorm = random.NextDouble();
-            double lowerBoundaryNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -51,11 +51,11 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerBoundaryNorm);
+                AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
-                Assert.AreEqual(lowerBoundaryNorm, calculator.LowerBoundaryNorm);
+                Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
             // Setup
             var random = new Random(11);
             double signalingNorm = random.NextDouble();
-            double lowerBoundaryNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Service.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerBoundaryNorm).ToArray();
+                AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm).ToArray();
 
                 // Assert
                 AssessmentSectionAssemblyCategory[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();

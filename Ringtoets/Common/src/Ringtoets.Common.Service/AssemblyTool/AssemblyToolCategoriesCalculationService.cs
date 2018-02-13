@@ -39,16 +39,16 @@ namespace Ringtoets.Common.Service.AssemblyTool
         /// Calculates the assessment section assembly categories.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
-        /// <param name="lowerBoundaryNorm">The lower boundary norm to use in the calculation.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyCategory"/>.</returns>
-        public static IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerBoundaryNorm)
+        public static IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerLimitNorm)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try
             {
-                return calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerBoundaryNorm);
+                return calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
