@@ -14,6 +14,7 @@
     <Compile Include="DerivedPipingInput.cs" />
     <Compile Include="DerivedPipingOutputFactory.cs" />
     <Compile Include="GeneralPipingInput.cs" />
+    <Compile Include="PipingFailureMechanismSectionResultAssemblyFactory.cs" />
     <Compile Include="PipingCalculation.cs" />
     <Compile Include="PipingCalculationScenario.cs" />
     <Compile Include="PipingCalculationScenarioExtensions.cs" />
@@ -48,6 +49,11 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358b6da2-a1df-477f-b6ac-c30204265cb0}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
