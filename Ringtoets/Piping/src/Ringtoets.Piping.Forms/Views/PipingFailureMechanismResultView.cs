@@ -51,10 +51,9 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
         /// <inheritdoc />
-        public PipingFailureMechanismResultView(
-            IAssessmentSection assessmentSection,
-            PipingFailureMechanism failureMechanism,
-            IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults)
+        public PipingFailureMechanismResultView(IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults,
+                                                PipingFailureMechanism failureMechanism,
+                                                IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
