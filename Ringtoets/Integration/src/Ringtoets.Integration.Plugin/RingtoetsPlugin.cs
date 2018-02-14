@@ -425,7 +425,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.Map
             };
 
-            yield return new ViewInfo<FailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
+            yield return new ViewInfo<IFailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
@@ -994,7 +994,7 @@ namespace Ringtoets.Integration.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;
 
-            var viewFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) view.Data;
+            var viewFailureMechanismContext = (IFailureMechanismContext<IFailureMechanism>) view.Data;
             IFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
 
             return assessmentSection != null

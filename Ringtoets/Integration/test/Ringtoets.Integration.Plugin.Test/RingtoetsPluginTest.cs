@@ -390,7 +390,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismContext<IFailureMechanism>),
+                    typeof(IFailureMechanismContext<IFailureMechanism>),
                     typeof(FailureMechanismView<IFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(

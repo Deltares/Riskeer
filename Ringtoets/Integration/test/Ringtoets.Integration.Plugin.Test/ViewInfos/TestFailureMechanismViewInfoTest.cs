@@ -58,8 +58,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), info.DataType);
-            Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), info.ViewDataType);
+            Assert.AreEqual(typeof(IFailureMechanismContext<IFailureMechanism>), info.DataType);
+            Assert.AreEqual(typeof(IFailureMechanismContext<IFailureMechanism>), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new FailureMechanismView<IFailureMechanism>())
             {
@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new FailureMechanismView<IFailureMechanism>
             {
@@ -105,6 +105,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -115,7 +116,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new FailureMechanismView<IFailureMechanism>
             {
@@ -139,7 +140,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var otherTestFailureMechanism = new TestFailureMechanism();
 
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new FailureMechanismView<IFailureMechanism>
             {
@@ -161,7 +162,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new FailureMechanismView<IFailureMechanism>
             {
@@ -190,7 +191,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -198,6 +199,19 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(isRelevant, result);
             mocks.VerifyAll();
+        }
+
+        private class TestFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        {
+            public TestFailureMechanismContext(IFailureMechanism wrappedData, IAssessmentSection parent)
+            {
+                WrappedData = wrappedData;
+                Parent = parent;
+            }
+
+            public IFailureMechanism WrappedData { get; }
+
+            public IAssessmentSection Parent { get; }
         }
     }
 }
