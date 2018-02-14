@@ -30,6 +30,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Properties;
+using Ringtoets.ClosingStructures.Util;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
@@ -182,8 +183,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         protected override void AfterSettingStructure()
         {
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                data.FailureMechanism.SectionResults,
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
+                data.FailureMechanism.SectionResults2,
                 data.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
         }
 

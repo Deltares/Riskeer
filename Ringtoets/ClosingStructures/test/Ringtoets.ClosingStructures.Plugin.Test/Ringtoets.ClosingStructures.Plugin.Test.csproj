@@ -138,6 +138,10 @@
       <Project>{7DA0AB85-828D-4B1D-B532-58B89E39BEF5}</Project>
       <Name>Ringtoets.ClosingStructures.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Util\Ringtoets.ClosingStructures.Util.csproj">
+      <Project>{673B4A0B-96B1-4E98-BB49-E3C7BCB5F179}</Project>
+      <Name>Ringtoets.ClosingStructures.Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
       <Project>{F5B43C29-6169-4E9A-859E-09090330B94E}</Project>
       <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>

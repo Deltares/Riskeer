@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.IO.Configurations.Helpers;
+using Ringtoets.ClosingStructures.Util;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -95,8 +96,8 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
         protected override void DoPostImportUpdates()
         {
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults,
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
+                failureMechanism.SectionResults2,
                 failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
 
             base.DoPostImportUpdates();

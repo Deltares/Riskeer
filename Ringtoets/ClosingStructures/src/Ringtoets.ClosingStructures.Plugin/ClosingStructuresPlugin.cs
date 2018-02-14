@@ -39,6 +39,7 @@ using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.ClosingStructures.Plugin.FileImporters;
 using Ringtoets.ClosingStructures.Service;
+using Ringtoets.ClosingStructures.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -663,8 +664,8 @@ namespace Ringtoets.ClosingStructures.Plugin
                 calculations.Add(calculation);
             }
 
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults,
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
+                failureMechanism.SectionResults2,
                 failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
         }
 
@@ -699,8 +700,8 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
 
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                context.FailureMechanism.SectionResults,
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
+                context.FailureMechanism.SectionResults2,
                 context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>().ToArray());
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
@@ -789,8 +790,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                    context.FailureMechanism.SectionResults,
+                ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
+                    context.FailureMechanism.SectionResults2,
                     context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }

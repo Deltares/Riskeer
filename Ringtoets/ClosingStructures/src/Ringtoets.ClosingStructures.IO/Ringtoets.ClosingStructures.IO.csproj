@@ -69,6 +69,11 @@
       <Name>Ringtoets.ClosingStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.ClosingStructures.Util\Ringtoets.ClosingStructures.Util.csproj">
+      <Project>{673b4a0b-96b1-4e98-bb49-e3c7bcb5f179}</Project>
+      <Name>Ringtoets.ClosingStructures.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
