@@ -67,7 +67,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// when performing the calculation.</exception>
-        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeoTechnicFailureMechanismSectionCategories(
+        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(
             double signalingNorm, double lowerLimitNorm, double probabilityDistributionFactor, double n);
     }
 }
