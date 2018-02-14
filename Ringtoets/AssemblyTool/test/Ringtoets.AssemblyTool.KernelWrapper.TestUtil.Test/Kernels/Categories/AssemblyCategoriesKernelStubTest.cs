@@ -206,20 +206,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         {
             // Setup
             var random = new Random(11);
-            var lowerBoundaryNorm = new Probability(random.NextDouble());
+            var lowerLimitNorm = new Probability(random.NextDouble());
             var signalingNorm = new Probability(random.NextDouble());
             double probabilityDistributionFactor = random.NextDouble();
             double n = random.Next(1, 5);
 
             var kernelStub = new AssemblyCategoriesKernelStub();
-            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerBoundaryNorm, probabilityDistributionFactor, n);
+            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
 
             // Call
             kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(input);
 
             // Assert
             Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
-            Assert.AreEqual(lowerBoundaryNorm, kernelStub.LowerBoundaryNorm);
+            Assert.AreEqual(lowerLimitNorm, kernelStub.LowerLimitNorm);
             Assert.AreEqual(probabilityDistributionFactor, kernelStub.ProbabilityDistributionFactor);
             Assert.AreEqual(n, kernelStub.N);
         }

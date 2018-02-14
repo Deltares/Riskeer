@@ -117,7 +117,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
             }
 
             SignalingNorm = input.SignalingStandard;
-            LowerBoundaryNorm = input.LowerBoundaryStandard;
+            LowerLimitNorm = input.LowerBoundaryStandard;
             ProbabilityDistributionFactor = input.ProbabilityDistributionFactor;
             N = input.NValue;
 
