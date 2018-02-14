@@ -72,6 +72,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
                 NotRelevantComments =
                 {
                     Body = "Really not relevant"
+                },
+                GeneralInput =
+                {
+                    N = new Random().NextRoundedDouble(1, 20)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -86,6 +90,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+
+            Assert.AreEqual(1, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Count);
+            GrassCoverErosionOutwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.First();
+            Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
         }
 
         [Test]

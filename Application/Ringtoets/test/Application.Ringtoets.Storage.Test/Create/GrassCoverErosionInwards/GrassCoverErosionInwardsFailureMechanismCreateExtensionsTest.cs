@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -73,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 },
                 GeneralInput =
                 {
-                    N = (RoundedDouble) 12.0
+                    N = new Random().NextRoundedDouble(1, 20)
                 }
             };
             var registry = new PersistenceRegistry();

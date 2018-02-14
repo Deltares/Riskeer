@@ -76,11 +76,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 },
                 PipingProbabilityAssessmentInput =
                 {
-                    A = 0.9876
+                    A = random.NextDouble()
                 },
                 GeneralInput =
                 {
-                    WaterVolumetricWeight = (RoundedDouble) 4.29
+                    WaterVolumetricWeight = random.NextRoundedDouble(0, 20)
                 }
             };
             var registry = new PersistenceRegistry();

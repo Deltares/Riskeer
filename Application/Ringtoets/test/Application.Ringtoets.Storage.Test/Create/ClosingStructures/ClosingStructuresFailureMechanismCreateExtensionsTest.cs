@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
                 },
                 GeneralInput =
                 {
-                    N2A = 5
+                    N2A = new Random().Next(0, 40)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -91,8 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
 
-            ClosingStructuresFailureMechanismMetaEntity metaEntity =
-                entity.ClosingStructuresFailureMechanismMetaEntities.Single();
+            ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
             Assert.IsNull(metaEntity.ForeshoreProfileCollectionSourcePath);
             Assert.IsNull(metaEntity.ClosingStructureCollectionSourcePath);

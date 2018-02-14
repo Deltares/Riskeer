@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
                 },
                 GeneralWaveImpactAsphaltCoverInput =
                 {
-                    DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
+                    DeltaL = new Random(39).NextRoundedDouble(0.1, 2000.0)
                 }
             };
             var registry = new PersistenceRegistry();

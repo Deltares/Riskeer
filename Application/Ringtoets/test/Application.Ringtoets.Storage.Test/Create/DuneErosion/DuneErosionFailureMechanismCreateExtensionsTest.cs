@@ -53,10 +53,10 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet()
         {
             // Setup
-            bool isRelevant = new Random(21).NextBoolean();
+            var random = new Random(21);
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                IsRelevant = isRelevant,
+                IsRelevant = random.NextBoolean(),
                 InputComments =
                 {
                     Body = "Some input text"
@@ -68,8 +68,13 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
                 NotRelevantComments =
                 {
                     Body = "Really not relevant"
+                },
+                GeneralInput =
+                {
+                    N = random.NextRoundedDouble(1, 20)
                 }
             };
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -78,7 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.DuneErosion, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.IsRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
