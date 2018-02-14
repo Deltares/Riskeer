@@ -95,7 +95,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
                                                                                                                          double probabilityDistributionFactor,
                                                                                                                          double n)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var input = new CalculateFailureMechanismSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerLimitNorm),
+                                                                                probabilityDistributionFactor, n);
+                ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
+                CalculationOutput<FailureMechanismSectionCategory[]> output = kernel.CalculateGeotechnicFailureMechanismSectionCategories(input);
+
+                return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
+            }
+            catch (Exception e)
+            {
+                throw new AssemblyCategoriesCalculatorException(e.Message, e);
+            }
         }
     }
 }

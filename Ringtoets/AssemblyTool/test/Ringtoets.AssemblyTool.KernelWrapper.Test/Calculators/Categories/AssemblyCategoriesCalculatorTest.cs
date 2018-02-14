@@ -228,6 +228,92 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             }
         }
 
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_WithInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerLimitNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.Next(1, 5);
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.FailureMechanismSectionCategoriesOutput = CreateFailureMechanismSectionCategoryKernelOutput();
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
+
+                // Assert
+                Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
+                Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
+                Assert.AreEqual(probabilityDistributionFactor, kernel.ProbabilityDistributionFactor);
+                Assert.AreEqual(n, kernel.N);
+            }
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerLimitNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.Next(1, 5);
+            CalculationOutput<FailureMechanismSectionCategory[]> output = CreateFailureMechanismSectionCategoryKernelOutput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.FailureMechanismSectionCategoriesOutput = output;
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm,
+                                                                                                                                              probabilityDistributionFactor, n);
+
+                // Assert
+                AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);
+            }
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerLimitNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.NextDouble();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.ThrowExceptionOnCalculate = true;
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm,
+                                                                                                          probabilityDistributionFactor, n);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
+
         private static CalculationOutput<AssessmentSectionCategory[]> CreateAssessmentSectionCategoryKernelOutput()
         {
             var random = new Random(11);
