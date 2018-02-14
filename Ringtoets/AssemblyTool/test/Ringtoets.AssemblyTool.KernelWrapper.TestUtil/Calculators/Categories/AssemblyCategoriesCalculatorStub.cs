@@ -52,14 +52,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public double N { get; private set; }
 
         /// <summary>
-        /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyCategory"/> calculation.
+        /// Gets the output of the <see cref="AssessmentSectionAssemblyCategory"/> calculation.
         /// </summary>
-        public IEnumerable<AssessmentSectionAssemblyCategory> AssessmentSectionCategoriesOutput { get; set; }
+        public IEnumerable<AssessmentSectionAssemblyCategory> AssessmentSectionCategoriesOutput { get; private set; }
 
         /// <summary>
-        /// Gets or sets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.
+        /// Gets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> FailureMechanismSectionCategoriesOutput { get; set; }
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> FailureMechanismSectionCategoriesOutput { get; private set; }
 
         /// <summary>
         /// Indicator whether an exception must be thrown when performing the calculation.

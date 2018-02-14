@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_OutputNotSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_ReturnsCategories()
         {
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub();
@@ -73,23 +73,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                 AssessmentSectionAssemblyCategoryGroup.B,
                 AssessmentSectionAssemblyCategoryGroup.C
             }, result.Select(r => r.Group));
-        }
-
-        [Test]
-        public void CalculateAssessmentSectionCategories_OutputSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
-        {
-            // Setup
-            var output = new AssessmentSectionAssemblyCategory[0];
-            var calculator = new AssemblyCategoriesCalculatorStub
-            {
-                AssessmentSectionCategoriesOutput = output
-            };
-
-            // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = calculator.CalculateAssessmentSectionCategories(0 ,0);
-
-            // Assert
-            Assert.AreSame(output, result);
         }
 
         [Test]
@@ -129,7 +112,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionCategories_OutputNotSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnsCategories()
         {
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub();
@@ -157,23 +140,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                 FailureMechanismSectionAssemblyCategoryGroup.IIv,
                 FailureMechanismSectionAssemblyCategoryGroup.IIIv
             }, result.Select(r => r.Group));
-        }
-
-        [Test]
-        public void CalculateFailureMechanismSectionCategories_OutputSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
-        {
-            // Setup
-            var output = new FailureMechanismSectionAssemblyCategory[0];
-            var calculator = new AssemblyCategoriesCalculatorStub
-            {
-                FailureMechanismSectionCategoriesOutput = output
-            };
-
-            // Call
-            IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateFailureMechanismSectionCategories(0 ,0, 0, 0);
-
-            // Assert
-            Assert.AreSame(output, result);
         }
 
         [Test]
@@ -217,7 +183,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         }
 
         [Test]
-        public void CalculateGeoTechnicFailureMechanismSectionCategories_OutputNotSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
+        public void CalculateGeoTechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnsCategories()
         {
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub();
@@ -245,23 +211,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                 FailureMechanismSectionAssemblyCategoryGroup.IIv,
                 FailureMechanismSectionAssemblyCategoryGroup.IIIv
             }, result.Select(r => r.Group));
-        }
-
-        [Test]
-        public void CalculateGeoTechnicFailureMechanismSectionCategories_OutputSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
-        {
-            // Setup
-            var output = new FailureMechanismSectionAssemblyCategory[0];
-            var calculator = new AssemblyCategoriesCalculatorStub
-            {
-                FailureMechanismSectionCategoriesOutput = output
-            };
-
-            // Call
-            IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeoTechnicFailureMechanismSectionCategories(0 ,0, 0, 0);
-
-            // Assert
-            Assert.AreSame(output, result);
         }
 
         [Test]
