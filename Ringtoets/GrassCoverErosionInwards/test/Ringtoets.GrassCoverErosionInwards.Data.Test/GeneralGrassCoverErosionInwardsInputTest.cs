@@ -98,6 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             generalGrassCoverErosionInwardsInput.N = (RoundedDouble) value;
 
             // Assert
+            Assert.AreEqual(2, generalGrassCoverErosionInwardsInput.N.NumberOfDecimalPlaces);
             Assert.AreEqual(value, generalGrassCoverErosionInwardsInput.N, generalGrassCoverErosionInwardsInput.N.GetAccuracy());
         }
 

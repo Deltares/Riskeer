@@ -104,8 +104,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Dijken en dammen - Grasbekleding erosie kruin en binnentalud", properties.Name);
             Assert.AreEqual("GEKB", properties.Code);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
-            Assert.AreEqual(2.0, properties.N, properties.N.GetAccuracy());
+
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
+
+            Assert.AreEqual(generalInput.N, properties.N, properties.N.GetAccuracy());
 
             Assert.AreEqual(generalInput.FbFactor.Mean, properties.FbFactor.Mean);
             Assert.AreEqual(generalInput.FbFactor.StandardDeviation, properties.FbFactor.StandardDeviation);

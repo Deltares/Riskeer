@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.A, properties.A);
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.B, properties.B);
             Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.C, properties.C);
-            Assert.AreEqual(2.0, properties.N, properties.N.GetAccuracy());
+            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N, properties.N.GetAccuracy());
         }
 
         [Test]

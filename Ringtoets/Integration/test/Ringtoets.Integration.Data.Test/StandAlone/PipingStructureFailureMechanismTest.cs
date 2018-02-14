@@ -111,6 +111,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             pipingStructureFailureMechanism.N = (RoundedDouble) value;
 
             // Assert
+            Assert.AreEqual(2, pipingStructureFailureMechanism.N.NumberOfDecimalPlaces);
             Assert.AreEqual(value, pipingStructureFailureMechanism.N, pipingStructureFailureMechanism.N.GetAccuracy());
         }
 

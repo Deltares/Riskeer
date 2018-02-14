@@ -105,6 +105,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             generalStabilityPointStructuresInput.N = (RoundedDouble) value;
 
             // Assert
+            Assert.AreEqual(2, generalStabilityPointStructuresInput.N.NumberOfDecimalPlaces);
             Assert.AreEqual(value, generalStabilityPointStructuresInput.N, generalStabilityPointStructuresInput.N.GetAccuracy());
         }
 

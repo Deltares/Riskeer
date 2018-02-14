@@ -79,6 +79,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             generalHeightStructuresInput.N = (RoundedDouble) value;
 
             // Assert
+            Assert.AreEqual(2, generalHeightStructuresInput.N.NumberOfDecimalPlaces);
             Assert.AreEqual(value, generalHeightStructuresInput.N, generalHeightStructuresInput.N.GetAccuracy());
         }
 

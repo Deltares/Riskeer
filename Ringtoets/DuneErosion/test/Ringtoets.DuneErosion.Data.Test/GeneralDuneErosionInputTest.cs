@@ -76,6 +76,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             generalInput.N = (RoundedDouble) value;
 
             // Assert
+            Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
             Assert.AreEqual(value, generalInput.N, generalInput.N.GetAccuracy());
         }
     }

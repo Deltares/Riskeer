@@ -53,13 +53,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         public void N_SetValidValue_UpdatesValue(double value)
         {
             // Setup
-            var generalGrassCoverErosionInwardsInput = new GeneralGrassCoverErosionOutwardsInput();
+            var generalGrassCoverErosionOutwardsInput = new GeneralGrassCoverErosionOutwardsInput();
 
             // Call
-            generalGrassCoverErosionInwardsInput.N = (RoundedDouble) value;
+            generalGrassCoverErosionOutwardsInput.N = (RoundedDouble) value;
 
             // Assert
-            Assert.AreEqual(value, generalGrassCoverErosionInwardsInput.N, generalGrassCoverErosionInwardsInput.N.GetAccuracy());
+            Assert.AreEqual(2, generalGrassCoverErosionOutwardsInput.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(value, generalGrassCoverErosionOutwardsInput.N, generalGrassCoverErosionOutwardsInput.N.GetAccuracy());
         }
 
         [Test]
@@ -71,10 +72,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         public void N_SetValueOutsideValidRange_ThrowArgumentOutOfRangeException(double value)
         {
             // Setup
-            var generalGrassCoverErosionInwardsInput = new GeneralGrassCoverErosionOutwardsInput();
+            var generalGrassCoverErosionOutwardsInput = new GeneralGrassCoverErosionOutwardsInput();
 
             // Call
-            TestDelegate test = () => generalGrassCoverErosionInwardsInput.N = (RoundedDouble) value;
+            TestDelegate test = () => generalGrassCoverErosionOutwardsInput.N = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";

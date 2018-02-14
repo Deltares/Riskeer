@@ -114,7 +114,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string nParameterCategory = "Lengte-effect parameters";
+            const string lengthEffectParameterCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -139,7 +139,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            nParameterCategory,
+                                                                            lengthEffectParameterCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
             mocks.VerifyAll();
