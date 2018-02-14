@@ -55,6 +55,7 @@
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
       <Project>{358b6da2-a1df-477f-b6ac-c30204265cb0}</Project>
       <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
