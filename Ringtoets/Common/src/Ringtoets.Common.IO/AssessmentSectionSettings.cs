@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.IO
@@ -30,17 +29,17 @@ namespace Ringtoets.Common.IO
     /// </summary>
     public class AssessmentSectionSettings
     {
-        private AssessmentSectionSettings(string id, double n, bool isDune)
+        private AssessmentSectionSettings(string id, int n, bool isDune)
         {
             AssessmentSectionId = id;
-            N = new RoundedDouble(2, n);
+            N = n;
             IsDune = isDune;
         }
 
         /// <summary>
         /// Gets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
-        public RoundedDouble N { get; }
+        public int N { get; }
 
         /// <summary>
         /// Gets a value indicating whether this instance is a dune assessment section or not.
@@ -58,7 +57,7 @@ namespace Ringtoets.Common.IO
         /// <param name="id">The identifier of the assessment section.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>A fully configured <see cref="AssessmentSectionSettings"/>.</returns>
-        public static AssessmentSectionSettings CreateDikeAssessmentSectionSettings(string id, double n)
+        public static AssessmentSectionSettings CreateDikeAssessmentSectionSettings(string id, int n)
         {
             return new AssessmentSectionSettings(id, n, false);
         }

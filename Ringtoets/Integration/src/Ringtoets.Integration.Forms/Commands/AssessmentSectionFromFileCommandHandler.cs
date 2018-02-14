@@ -134,11 +134,12 @@ namespace Ringtoets.Integration.Forms.Commands
 
         #region Set AssessmentSection to Project
 
-        private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, RoundedDouble n)
+        private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
         {
-            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = n;
-            assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = n;
-            assessmentSection.HeightStructures.GeneralInput.N = n;
+            var roundedN = (RoundedDouble) n;
+            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = roundedN;
+            assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = roundedN;
+            assessmentSection.HeightStructures.GeneralInput.N = roundedN;
         }
 
         private void SetAssessmentSectionToProject(RingtoetsProject ringtoetsProject, AssessmentSection assessmentSection)
@@ -193,7 +194,7 @@ namespace Ringtoets.Integration.Forms.Commands
         /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
         /// </list>
         /// </exception>
-        private static AssessmentSection CreateDikeAssessmentSection(double lowerLimitNorm, double signalingNorm, RoundedDouble n)
+        private static AssessmentSection CreateDikeAssessmentSection(double lowerLimitNorm, double signalingNorm, int n)
         {
             AssessmentSection assessmentSection = CreateDikeAssessmentSection(lowerLimitNorm, signalingNorm);
             SetFailureMechanismsValueN(assessmentSection, n);
@@ -215,7 +216,7 @@ namespace Ringtoets.Integration.Forms.Commands
         /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
         /// </list>
         /// </exception>
-        private static AssessmentSection CreateDuneAssessmentSection(double lowerLimitNorm, double signalingNorm, RoundedDouble n)
+        private static AssessmentSection CreateDuneAssessmentSection(double lowerLimitNorm, double signalingNorm, int n)
         {
             var duneAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune,
                                                               lowerLimitNorm,
