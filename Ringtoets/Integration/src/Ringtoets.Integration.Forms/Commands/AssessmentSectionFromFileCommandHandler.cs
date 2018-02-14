@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Forms.Commands
         /// </summary>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
         /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
-        /// <param name="n">The 'length effect' parameter.</param>
+        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.Forms.Commands
         /// </summary>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
         /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
-        /// <param name="n">The 'length effect' parameter.</param>
+        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">

@@ -59,7 +59,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         public GeneralWaveConditionsInput GeneralColumnsWaveConditionsInput { get; }
 
         /// <summary>
-        /// Gets or sets the general input parameter N used in wave conditions calculations.
+        /// Gets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of <see cref="N"/>
         /// is not in the range [1, 20].</exception>

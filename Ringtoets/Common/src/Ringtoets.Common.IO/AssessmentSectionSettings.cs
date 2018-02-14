@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO
         }
 
         /// <summary>
-        /// The 'length effect' parameter.
+        /// Gets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
         public RoundedDouble N { get; }
 
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.IO
         /// Creates the settings for a dike assessment section.
         /// </summary>
         /// <param name="id">The identifier of the assessment section.</param>
-        /// <param name="n">The 'length effect' parameter.</param>
+        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>A fully configured <see cref="AssessmentSectionSettings"/>.</returns>
         public static AssessmentSectionSettings CreateDikeAssessmentSectionSettings(string id, double n)
         {

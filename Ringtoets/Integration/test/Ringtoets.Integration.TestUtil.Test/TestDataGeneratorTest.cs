@@ -209,8 +209,8 @@ namespace Ringtoets.Integration.TestUtil.Test
                 if (closingStructuresFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(closingStructuresFailureMechanism);
-                    AssertClosingStructureFailureMechanismCalculationConfigurationsWithOutputs(closingStructuresFailureMechanism);
-                    AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(closingStructuresFailureMechanism);
+                    AssertClosingStructuresFailureMechanismCalculationConfigurationsWithOutputs(closingStructuresFailureMechanism);
+                    AssertClosingStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(closingStructuresFailureMechanism);
                     containsClosingStructuresFailureMechanism = true;
                 }
 
@@ -329,7 +329,7 @@ namespace Ringtoets.Integration.TestUtil.Test
                 if (closingStructuresFailureMechanism != null)
                 {
                     AssertHasForeshoreProfiles(closingStructuresFailureMechanism);
-                    AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(closingStructuresFailureMechanism);
+                    AssertClosingStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(closingStructuresFailureMechanism);
                     containsClosingStructuresFailureMechanism = true;
                 }
 
@@ -702,12 +702,12 @@ namespace Ringtoets.Integration.TestUtil.Test
 
             // Assert
             AssertHasForeshoreProfiles(failureMechanism);
-            AssertClosingStructureFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
-            AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
+            AssertClosingStructuresFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
+            AssertClosingStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
             AssertHasFailureMechanismSections(failureMechanism);
         }
 
-        private static void AssertClosingStructureFailureMechanismCalculationConfigurationsWithOutputs(ClosingStructuresFailureMechanism failureMechanism)
+        private static void AssertClosingStructuresFailureMechanismCalculationConfigurationsWithOutputs(ClosingStructuresFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationsRoot = failureMechanism.CalculationsGroup.Children;
             AssertStructuresCalculationGroupConfigurationWithOutputs<ClosingStructure, ClosingStructuresInput>(
@@ -718,7 +718,7 @@ namespace Ringtoets.Integration.TestUtil.Test
                 nestedCalculations.Children.OfType<StructuresCalculation<ClosingStructuresInput>>());
         }
 
-        private static void AssertClosingStructureFailureMechanismCalculationConfigurationsWithoutOutputs(ClosingStructuresFailureMechanism failureMechanism)
+        private static void AssertClosingStructuresFailureMechanismCalculationConfigurationsWithoutOutputs(ClosingStructuresFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationsRoot = failureMechanism.CalculationsGroup.Children;
             AssertStructuresCalculationGroupConfigurationWithoutOutputs<ClosingStructure, ClosingStructuresInput>(

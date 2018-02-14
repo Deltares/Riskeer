@@ -63,6 +63,11 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
+        /// <summary>
+        /// Gets the 'N' parameter used to factor in the 'length effect'.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of <see cref="N"/>
+        /// is not in the range [1, 20].</exception>
         public RoundedDouble N
         {
             get

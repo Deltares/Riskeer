@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.TestUtil.Probability
         /// when determining the maximum tolerated probability of failure.</param>
         /// <param name="b">The default value for the parameter 'b' to be used to factor in the 'length effect'
         /// when determining the maximum tolerated probability of failure.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="a"/> is not in the range [0, 1].</exception>"/>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="a"/> is not in the range [0, 1].</exception>
         public TestProbabilityAssessmentInput(double a, double b) : base(a, b) {}
     }
 }
