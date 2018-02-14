@@ -24,9 +24,8 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.Common.Service.Properties;
 
-namespace Ringtoets.Common.Service.AssemblyTool
+namespace Ringtoets.Common.Data.AssemblyTool
 {
     /// <summary>
     /// Calculation service for calculating the assembly tool categories.
@@ -50,7 +49,7 @@ namespace Ringtoets.Common.Service.AssemblyTool
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(Resources.AssemblyToolCategoriesCalculationService_CalculateAssessmentSectionAssemblyCategories_Error_in_assembly_categories_calculation, e);
+//                CalculationServiceHelper.LogExceptionAsError(Resources.AssemblyToolCategoriesCalculationService_CalculateAssessmentSectionAssemblyCategories_Error_in_assembly_categories_calculation, e);
                 return new AssessmentSectionAssemblyCategory[0];
             }
         }

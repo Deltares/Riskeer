@@ -15,7 +15,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyTool\AssemblyToolCategoriesCalculationService.cs" />
     <Compile Include="CalculationServiceHelper.cs" />
     <Compile Include="ClearResults.cs" />
     <Compile Include="HydraRingInputParser.cs" />
