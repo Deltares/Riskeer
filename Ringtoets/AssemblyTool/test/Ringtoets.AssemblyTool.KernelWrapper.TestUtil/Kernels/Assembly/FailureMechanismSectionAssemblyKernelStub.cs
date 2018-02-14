@@ -44,6 +44,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public SimpleCalculationResultValidityOnly? SimpleAssessmentFailureMechanismsValidityOnlyInput { get; private set; }
 
         /// <summary>
+        /// Gets the input used in <see cref="DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbability)"/>.
+        /// </summary>
+        public DetailedCalculationInputFromProbability DetailedAssessmentFailureMechanismFromProbabilityInput { get; private set; }
+
+        /// <summary>
+        /// Gets the input used in <see cref="DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbabilityWithLengthEffect)"/>.
+        /// </summary>
+        public DetailedCalculationInputFromProbability DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating whether a calculation was called or not.
         /// </summary>
         public bool Calculated { get; private set; }
@@ -99,7 +109,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbability input)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            DetailedAssessmentFailureMechanismFromProbabilityInput = input;
+            Calculated = true;
+            return FailureMechanismSectionAssemblyCategoryResult;
+
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentDirectFailureMechanisms(DetailedCategoryBoundariesCalculationResult calculationResults)
@@ -109,7 +127,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbabilityWithLengthEffect input)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput = input;
+            Calculated = true;
+            return FailureMechanismSectionAssemblyCategoryResult;
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationResult result)

@@ -48,6 +48,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsValidityOnlyInput);
         }
 
+        #region Simple Assessment
+
         [Test]
         public void SimpleAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
         {
@@ -201,6 +203,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.Throws<NotImplementedException>(test);
         }
 
+        #endregion
+
+        #region Detailed Assessment
+
         [Test]
         public void DetailedAssessmentDirectFailureMechanisms_Always_ThrowNotImplementedException()
         {
@@ -228,16 +234,88 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void DetailedAssessmentDirectFailureMechanismsWithProbability_Always_ThrowNotImplementedException()
+        public void DetailedAssessmentDirectFailureMechanismsWithProbability_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
+            var random = new Random(39);
+            var input = new DetailedCalculationInputFromProbability(
+                new Probability(random.NextDouble()),
+                new[]
+                {
+                    new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
+                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
+                });
+
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
             // Call
-            TestDelegate test = () => kernel.DetailedAssessmentDirectFailureMechanisms((DetailedCalculationInputFromProbability) null);
+            kernel.DetailedAssessmentDirectFailureMechanisms(input);
 
             // Assert
-            Assert.Throws<NotImplementedException>(test);
+            Assert.AreSame(input, kernel.DetailedAssessmentFailureMechanismFromProbabilityInput);
+            Assert.IsTrue(kernel.Calculated);
+        }
+
+        [Test]
+        public void DetailedAssessmentDirectFailureMechanismsWithProbability_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = new DetailedCalculationInputFromProbability(
+                new Probability(random.NextDouble()),
+                new[]
+                {
+                    new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
+                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
+                });
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.IIIv, Probability.NaN))
+            };
+
+            // Call
+            CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> result = kernel.DetailedAssessmentDirectFailureMechanisms(input);
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionAssemblyCategoryResult, result);
+        }
+
+        [Test]
+        public void DetailedAssessmentDirectFailureMechanismsWithProbability_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = new DetailedCalculationInputFromProbability(
+                new Probability(random.NextDouble()),
+                new[]
+                {
+                    new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
+                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
+                });
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.DetailedAssessmentDirectFailureMechanisms(input);
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.DetailedAssessmentFailureMechanismFromProbabilityInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryResult);
         }
 
         [Test]
@@ -254,17 +332,96 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void DetailedAssessmentDirectFailureMechanismsWithLengthEffect_Always_ThrowNotImplementedException()
+        public void DetailedAssessmentDirectFailureMechanismsWithLengthEffect_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
+            var random = new Random(39);
+            var input = new DetailedCalculationInputFromProbabilityWithLengthEffect(
+                new Probability(random.NextDouble()),
+                new[]
+                {
+                    new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
+                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
+                },
+                random.NextRoundedDouble(1.0, 40.0));
+
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
             // Call
-            TestDelegate test = () => kernel.DetailedAssessmentDirectFailureMechanisms((DetailedCalculationInputFromProbabilityWithLengthEffect) null);
+            kernel.DetailedAssessmentDirectFailureMechanisms(input);
 
             // Assert
-            Assert.Throws<NotImplementedException>(test);
+            Assert.AreSame(input, kernel.DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput);
+            Assert.IsTrue(kernel.Calculated);
         }
+
+        [Test]
+        public void DetailedAssessmentDirectFailureMechanismsWithLengthEffect_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = new DetailedCalculationInputFromProbabilityWithLengthEffect(
+                new Probability(random.NextDouble()),
+                new[]
+                {
+                    new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
+                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
+                },
+                random.NextRoundedDouble(1.0, 40.0));
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.IIIv, Probability.NaN))
+            };
+
+            // Call
+            CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> result = kernel.DetailedAssessmentDirectFailureMechanisms(input);
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionAssemblyCategoryResult, result);
+        }
+
+        [Test]
+        public void DetailedAssessmentDirectFailureMechanismsWithLengthEffect_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = new DetailedCalculationInputFromProbabilityWithLengthEffect(
+                new Probability(random.NextDouble()),
+                new[]
+                {
+                    new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
+                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
+                },
+                random.NextRoundedDouble(1.0, 40.0));
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.DetailedAssessmentDirectFailureMechanisms(input);
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryResult);
+        }
+
+        #endregion
+
+        #region Tailor Made Assessment
 
         [Test]
         public void TailorMadeAssessmentDirectFailureMechanisms_Always_ThrowNotImplementedException()
@@ -331,6 +488,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.Throws<NotImplementedException>(test);
         }
 
+        #endregion
+
+        #region Combined Assessment
+
         [Test]
         public void CombinedAssessmentFromFailureMechanismSectionResults_Always_ThrowNotImplementedException()
         {
@@ -356,5 +517,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             // Assert
             Assert.Throws<NotImplementedException>(test);
         }
+
+        #endregion
     }
 }
