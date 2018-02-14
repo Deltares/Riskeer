@@ -32,8 +32,4 @@
       <Name>Ringtoets.AssemblyTool.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Input\" />
-    <Folder Include="Output\" />
-  </ItemGroup>
 </Project>

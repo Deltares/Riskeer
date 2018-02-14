@@ -18,8 +18,4 @@
       <Link>Copying.licenseheader</Link>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Input\" />
-    <Folder Include="Output\" />
-  </ItemGroup>
 </Project>
