@@ -141,8 +141,7 @@ namespace Application.Ringtoets.Storage.Read
             metaEntity.ReadProbabilityAssessmentInput(failureMechanism.PipingProbabilityAssessmentInput);
             metaEntity.ReadGeneralPipingInput(failureMechanism.GeneralInput);
 
-            string stochasticSoilModelCollectionSourcePath =
-                metaEntity.StochasticSoilModelCollectionSourcePath;
+            string stochasticSoilModelCollectionSourcePath = metaEntity.StochasticSoilModelCollectionSourcePath;
             if (stochasticSoilModelCollectionSourcePath != null)
             {
                 failureMechanism.StochasticSoilModels.AddRange(entity.StochasticSoilModelEntities
@@ -440,8 +439,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadClosingStructuresMechanismSectionResults(failureMechanism, collector);
 
-            ClosingStructuresFailureMechanismMetaEntity metaEntity =
-                entity.ClosingStructuresFailureMechanismMetaEntities.Single();
+            ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.Single();
 
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles,
                                          metaEntity.ForeshoreProfileCollectionSourcePath,
@@ -649,12 +647,11 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadWaveImpactAsphaltCoverMechanismSectionResults(failureMechanism, collector);
 
-            WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity =
-                entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
+            WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
 
             ReadWaveImpactAsphaltCoverRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
-            failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL = (RoundedDouble) entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().DeltaL;
+            entity.ReadGeneralInput(failureMechanism.GeneralWaveImpactAsphaltCoverInput);
         }
 
         private static void ReadWaveImpactAsphaltCoverMechanismSectionResults(this FailureMechanismEntity entity,
@@ -679,6 +676,12 @@ namespace Application.Ringtoets.Storage.Read
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
             }
+        }
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralWaveImpactAsphaltCoverInput generalInput)
+        {
+            GeneralWaveImpactAsphaltCoverInput generalWaveImpactAsphaltCoverInput = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.First().Read();
+            generalInput.DeltaL = generalWaveImpactAsphaltCoverInput.DeltaL;
         }
 
         #endregion

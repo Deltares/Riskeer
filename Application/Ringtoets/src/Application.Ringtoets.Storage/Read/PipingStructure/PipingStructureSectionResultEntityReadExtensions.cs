@@ -28,20 +28,21 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Application.Ringtoets.Storage.Read.PipingStructure
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="PipingStructureFailureMechanismSectionResult"/> based on the
-    /// <see cref="PipingStructureSectionResultEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="PipingStructureFailureMechanismSectionResult"/>
+    /// based on the <see cref="PipingStructureSectionResultEntity"/>.
     /// </summary>
     internal static class PipingStructureSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="PipingStructureSectionResultEntity"/> and use the information to update a 
-        /// <see cref="PipingStructureFailureMechanismSectionResult"/>.
+        /// Read the <see cref="PipingStructureSectionResultEntity"/> and use the information to update the
+        /// <paramref name="sectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingStructureSectionResultEntity"/> to create <see cref="PipingStructureFailureMechanismSectionResult"/> for.</param>
-        /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="PipingStructureFailureMechanismSectionResult"/>.</returns>
+        /// <param name="entity">The <see cref="PipingStructureSectionResultEntity"/> to use to update the
+        /// <paramref name="sectionResult"/>.</param>
+        /// <param name="sectionResult">The <see cref="PipingStructureFailureMechanismSectionResult"/> to be updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        internal static void Read(this PipingStructureSectionResultEntity entity, PipingStructureFailureMechanismSectionResult sectionResult)
+        internal static void Read(this PipingStructureSectionResultEntity entity,
+                                  PipingStructureFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {
