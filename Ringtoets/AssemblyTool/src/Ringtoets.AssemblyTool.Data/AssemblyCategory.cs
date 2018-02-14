@@ -19,30 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Ringtoets.Common.Data.AssemblyTool;
-
-namespace Ringtoets.Common.Data.Test.AssemblyTool
+namespace Ringtoets.AssemblyTool.Data
 {
-    [TestFixture]
-    public class FailureMechanismSectionAssemblyTest
+    /// <summary>
+    /// Assembly category base.
+    /// </summary>
+    public abstract class AssemblyCategory
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        /// <summary>
+        /// Creates a new instance of <see cref="AssemblyCategory"/>.
+        /// </summary>
+        /// <param name="lowerBoundary">The lower boundary of the category.</param>
+        /// <param name="upperBoundary">The upper boundary of the category.</param>
+        protected AssemblyCategory(double lowerBoundary, double upperBoundary)
         {
-            // Setup
-            var random = new Random(39);
-            double probability = random.NextDouble();
-            var group = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-
-            // Call
-            var assembly = new FailureMechanismSectionAssembly(probability, group);
-
-            // Assert
-            Assert.AreEqual(probability, assembly.Probability);
-            Assert.AreEqual(group, assembly.Group);
+            LowerBoundary = lowerBoundary;
+            UpperBoundary = upperBoundary;
         }
+
+        /// <summary>
+        /// Gets the lower boundary of the assembly category.
+        /// </summary>
+        public double LowerBoundary { get; }
+
+        /// <summary>
+        /// Gets the upper boundary of the assembly category.
+        /// </summary>
+        public double UpperBoundary { get; }
     }
 }

@@ -19,21 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.AssemblyTool
+namespace Ringtoets.AssemblyTool.Data
 {
     /// <summary>
-    /// Enum defining the assembly categories for a failure mechanism section.
+    /// Enum defining the assembly categories for an assessment section.
     /// </summary>
-    public enum FailureMechanismSectionAssemblyCategoryGroup
+    public enum AssessmentSectionAssemblyCategoryGroup
     {
-        None = 1,
-        NotApplicable = 2,
-        Iv = 3,
-        IIv = 4,
-        IIIv = 5,
-        IVv = 6,
-        Vv = 7,
-        VIv = 8,
-        VIIv = 9
+        APlus = 1,
+        A = 2,
+        B = 3,
+        C = 4,
+        D = 5
     }
 }

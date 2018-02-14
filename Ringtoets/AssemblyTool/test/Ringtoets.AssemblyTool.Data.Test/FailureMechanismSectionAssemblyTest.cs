@@ -20,34 +20,28 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssemblyTool;
 
-namespace Ringtoets.Common.Data.Test.AssemblyTool
+namespace Ringtoets.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class AssemblyCategoryTest
+    public class FailureMechanismSectionAssemblyTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
-            var random = new Random(11);
-
-            double lowerBoundary = random.NextDouble();
-            double upperBoundary = random.NextDouble();
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            var group = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
-            var category = new SimpleCategory(lowerBoundary, upperBoundary);
+            var assembly = new FailureMechanismSectionAssembly(probability, group);
 
             // Assert
-            Assert.AreEqual(lowerBoundary, category.LowerBoundary);
-            Assert.AreEqual(upperBoundary, category.UpperBoundary);
-        }
-
-        private class SimpleCategory : AssemblyCategory
-        {
-            public SimpleCategory(double lowerBoundary, double upperBoundary) 
-                : base(lowerBoundary, upperBoundary) {}
+            Assert.AreEqual(probability, assembly.Probability);
+            Assert.AreEqual(group, assembly.Group);
         }
     }
 }

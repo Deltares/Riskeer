@@ -25,7 +25,7 @@ using System.Linq;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
 {

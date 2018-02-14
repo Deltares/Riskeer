@@ -22,24 +22,23 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssemblyTool;
 
-namespace Ringtoets.Common.Data.Test.AssemblyTool
+namespace Ringtoets.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyCategoryTest
+    public class AssessmentSectionAssemblyCategoryTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(39);
-            var categoryType = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var categoryType = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
 
             // Call
-            var category = new FailureMechanismSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryType);
+            var category = new AssessmentSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryType);
 
             // Assert
             Assert.IsInstanceOf<AssemblyCategory>(category);

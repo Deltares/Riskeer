@@ -25,11 +25,11 @@ using System.Linq;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
-using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Service.AssemblyTool;
 
 namespace Ringtoets.Common.Service.Test.AssemblyTool

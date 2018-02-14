@@ -11,6 +11,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyCategory.cs" />
+    <Compile Include="AssessmentSectionAssemblyCategory.cs" />
+    <Compile Include="AssessmentSectionAssemblyCategoryGroup.cs" />
+    <Compile Include="FailureMechanismSectionAssembly.cs" />
+    <Compile Include="FailureMechanismSectionAssemblyCategory.cs" />
+    <Compile Include="FailureMechanismSectionAssemblyCategoryGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

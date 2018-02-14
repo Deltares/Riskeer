@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.Linq;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
-using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {
