@@ -41,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <returns>The calculated assessment layer 2A; or <see cref="double.NaN"/> when there is no
         /// calculation assigned to the section result or the calculation is not performed.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetAssessmentLayerTwoA(this StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult,
+        public static double GetAssessmentLayerTwoA(this ClosingStructuresFailureMechanismSectionResult sectionResult,
                                                     ClosingStructuresFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
         {

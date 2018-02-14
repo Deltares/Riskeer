@@ -25,7 +25,6 @@ using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.ClosingStructures.Data.Test
@@ -62,7 +61,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(null, assessmentSection);
@@ -78,7 +77,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(), null);
@@ -97,7 +96,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(),
@@ -117,7 +116,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new TestClosingStructuresCalculation()
             };
@@ -142,7 +141,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new TestClosingStructuresCalculation
                 {

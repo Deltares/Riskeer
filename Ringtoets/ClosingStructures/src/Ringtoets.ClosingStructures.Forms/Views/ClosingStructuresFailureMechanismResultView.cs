@@ -36,10 +36,10 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="StructuresFailureMechanismSectionResult{T}"/> for closing structures.
+    /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/> for closing structures.
     /// </summary>
     public class ClosingStructuresFailureMechanismResultView
-        : FailureMechanismResultView<StructuresFailureMechanismSectionResult<ClosingStructuresInput>, ClosingStructuresFailureMechanism>
+        : FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult, ClosingStructuresFailureMechanism>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -53,7 +53,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
         /// <inheritdoc />
         public ClosingStructuresFailureMechanismResultView(
-            IObservableEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> failureMechanismSectionResults,
+            IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
             ClosingStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -90,7 +90,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
         {
             return new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, FailureMechanism, assessmentSection);
         }

@@ -130,8 +130,8 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>),
-                    typeof(IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>),
+                    typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>),
+                    typeof(IEnumerable<ClosingStructuresFailureMechanismSectionResult>),
                     typeof(ClosingStructuresFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(

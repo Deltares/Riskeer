@@ -30,9 +30,9 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="StructuresFailureMechanismSectionResult{T}"/> for closing structures
+    /// This class represents a row of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
     /// </summary>
-    public class ClosingStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+    public class ClosingStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>
     {
         private readonly ClosingStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -40,12 +40,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="StructuresFailureMechanismSectionResult{T}"/> to wrap
+        /// <param name="sectionResult">The <see cref="ClosingStructuresFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClosingStructuresFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult,
+        public ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult,
                                                                  ClosingStructuresFailureMechanism failureMechanism,
                                                                  IAssessmentSection assessmentSection) 
             : base(sectionResult)
@@ -96,7 +96,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         /// <summary>
         /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
-        /// <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+        /// <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <returns><c>null</c> if the wrapped section result does not have a calculation
         /// set. Otherwise the calculation of the wrapped section result is returned.</returns>

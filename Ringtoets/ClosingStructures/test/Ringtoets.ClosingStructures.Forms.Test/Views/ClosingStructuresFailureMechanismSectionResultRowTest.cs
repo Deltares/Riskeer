@@ -47,7 +47,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
@@ -55,7 +55,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>>(row);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(failureMechanism, assessmentSection), row.AssessmentLayerTwoA);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
@@ -75,7 +75,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result, null, assessmentSection);
@@ -91,7 +91,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result, new ClosingStructuresFailureMechanism(), null);
@@ -112,7 +112,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(sectionResult.Calculation);
@@ -146,7 +146,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = calculation
             };
@@ -178,7 +178,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             };
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = calculation
             };
@@ -204,7 +204,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(result.Calculation);
@@ -231,7 +231,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section)
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = expectedCalculation
             };
@@ -259,7 +259,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var random = new Random(21);
             double assessmentLayerThree = random.NextDouble();
 
-            var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var row = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
