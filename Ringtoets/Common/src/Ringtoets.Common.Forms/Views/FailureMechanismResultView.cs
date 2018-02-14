@@ -119,18 +119,6 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Finds out whether the assessment section which is represented by the row at index 
-        /// <paramref name="rowIndex"/> has passed the simple assessment.
-        /// </summary>
-        /// <param name="rowIndex">The index of the row which has a section attached.</param>
-        /// <returns><c>false</c> if the simple assessment has passed, <c>true</c> otherwise.</returns>
-        protected bool HasPassedSimpleAssessment(int rowIndex)
-        {
-            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
-                   == AssessmentLayerOneState.Sufficient;
-        }
-
-        /// <summary>
         /// Updates the data source of the data grid view with the current known failure mechanism section results.
         /// </summary>
         protected void UpdateDataGridViewDataSource()

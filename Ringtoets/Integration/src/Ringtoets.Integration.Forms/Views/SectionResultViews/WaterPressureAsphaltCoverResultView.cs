@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssessmentInput),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));

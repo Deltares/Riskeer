@@ -121,7 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));

@@ -119,7 +119,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 layerOneDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
@@ -130,6 +130,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        private bool HasPassedSimpleAssessment(int rowIndex)
+        {
+            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
+                   == AssessmentLayerOneState.Sufficient;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentInput),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));

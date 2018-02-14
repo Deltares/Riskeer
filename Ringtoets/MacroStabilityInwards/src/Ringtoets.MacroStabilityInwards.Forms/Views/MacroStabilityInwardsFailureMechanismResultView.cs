@@ -131,7 +131,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssessmentInput),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));

@@ -124,7 +124,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 layerOneDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
@@ -135,6 +135,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        private bool HasPassedSimpleAssessment(int rowIndex)
+        {
+            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
+                   == AssessmentLayerOneState.Sufficient;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

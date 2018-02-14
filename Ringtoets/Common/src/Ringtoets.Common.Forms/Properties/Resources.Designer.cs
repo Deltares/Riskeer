@@ -1436,15 +1436,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eenvoudige toets.
-        /// </summary>
-        public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toets op maat.
         /// </summary>
         public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three {
@@ -1468,6 +1459,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanismResultView_InitializeDataGridView_Section_name {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_InitializeDataGridView_Section_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eenvoudige toets.
+        /// </summary>
+        public static string FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader", resourceCulture);
             }
         }
         

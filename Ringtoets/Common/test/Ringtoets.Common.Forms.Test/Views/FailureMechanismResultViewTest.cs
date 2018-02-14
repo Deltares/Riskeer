@@ -191,7 +191,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(FailureMechanismSectionResultRow<FailureMechanismSectionResult>.AssessmentLayerOne),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                Resources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 oneStateDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
