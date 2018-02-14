@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {

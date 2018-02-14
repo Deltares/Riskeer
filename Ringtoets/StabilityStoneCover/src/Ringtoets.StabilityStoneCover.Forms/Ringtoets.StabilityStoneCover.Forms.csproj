@@ -88,6 +88,11 @@
       <Name>Ringtoets.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>

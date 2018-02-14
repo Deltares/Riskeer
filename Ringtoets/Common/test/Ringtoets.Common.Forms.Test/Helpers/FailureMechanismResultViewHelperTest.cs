@@ -19,15 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections;
-using System.Windows.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Common.Forms.Test.Helpers
 {

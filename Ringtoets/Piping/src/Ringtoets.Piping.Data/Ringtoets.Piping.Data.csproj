@@ -66,6 +66,11 @@
       <Name>Ringtoets.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.InputParameterCalculation\Ringtoets.Piping.InputParameterCalculation.csproj">
       <Project>{97F6406A-6338-4863-92A6-0D5C00A5F7C9}</Project>
       <Name>Ringtoets.Piping.InputParameterCalculation</Name>

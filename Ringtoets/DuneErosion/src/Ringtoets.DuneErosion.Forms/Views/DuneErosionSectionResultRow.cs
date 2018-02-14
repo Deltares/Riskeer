@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 
 namespace Ringtoets.DuneErosion.Forms.Views

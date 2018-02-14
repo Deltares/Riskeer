@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 

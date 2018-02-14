@@ -24,6 +24,7 @@ using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults

@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Primitives.Properties;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Ringtoets.Common.Primitives
 {
     /// <summary>
     /// This enum defines the possible result types for a simple assessment 
-    /// on a failure mechanism section in case there is only a relevance check.
+    /// on a failure mechanism section.
     /// </summary>
-    public enum SimpleAssessmentResultValidityOnlyType
+    public enum SimpleAssessmentResultType
     {
         /// <summary>
         /// No option has been selected for this failure
@@ -44,9 +44,16 @@ namespace Ringtoets.Common.Data.FailureMechanism
         NotApplicable = 2,
 
         /// <summary>
-        /// The failure mechanism section is applicable.
+        /// The probability of failure for the failure mechanism
+        /// section is negligible.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultValidityOnlyType_Applicable))]
-        Applicable = 3
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_ProbabilityNegligible))]
+        ProbabilityNegligible = 3,
+        
+        /// <summary>
+        /// The failure mechanism section needs further assessment.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_AssessFurther))]
+        AssessFurther = 4
     }
 }

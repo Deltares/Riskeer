@@ -43,8 +43,6 @@
     <Compile Include="Exceptions\IllustrationPointConversionException.cs" />
     <Compile Include="Exceptions\MechanismSurfaceLineException.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneState.cs" />
-    <Compile Include="FailureMechanism\SimpleAssessmentResultValidityOnlyType.cs" />
-    <Compile Include="FailureMechanism\SimpleAssessmentResultType.cs" />
     <Compile Include="Helpers\SoilLayerDataHelper.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />

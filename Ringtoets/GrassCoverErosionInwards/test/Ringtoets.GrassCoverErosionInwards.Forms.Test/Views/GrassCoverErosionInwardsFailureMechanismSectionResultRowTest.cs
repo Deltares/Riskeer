@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;

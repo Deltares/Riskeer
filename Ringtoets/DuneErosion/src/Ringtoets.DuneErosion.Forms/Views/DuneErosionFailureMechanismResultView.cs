@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 

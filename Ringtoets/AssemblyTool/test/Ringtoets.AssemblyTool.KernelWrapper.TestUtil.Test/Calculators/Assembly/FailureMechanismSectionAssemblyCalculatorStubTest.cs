@@ -23,7 +23,7 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembly
 {

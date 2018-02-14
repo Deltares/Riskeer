@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {

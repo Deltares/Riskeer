@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 {

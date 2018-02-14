@@ -67,6 +67,11 @@
       <Name>Ringtoets.ClosingStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
       <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
       <Name>Ringtoets.DuneErosion.Data</Name>

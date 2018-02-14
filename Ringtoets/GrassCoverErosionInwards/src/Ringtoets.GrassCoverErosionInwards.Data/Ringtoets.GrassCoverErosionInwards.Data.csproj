@@ -64,6 +64,11 @@
       <Name>Ringtoets.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

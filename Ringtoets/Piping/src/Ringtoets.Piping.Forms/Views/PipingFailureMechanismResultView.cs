@@ -26,9 +26,9 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 

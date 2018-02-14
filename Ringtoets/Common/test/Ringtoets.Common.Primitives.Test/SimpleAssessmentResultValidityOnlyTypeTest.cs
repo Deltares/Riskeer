@@ -22,9 +22,8 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.Test.FailureMechanism
+namespace Ringtoets.Common.Primitives.Test
 {
     [TestFixture]
     public class SimpleAssessmentResultValidityOnlyTypeTest : EnumWithDisplayNameTestFixture<SimpleAssessmentResultValidityOnlyType>

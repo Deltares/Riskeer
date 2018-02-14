@@ -25,6 +25,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Common.Forms.Helpers
 {

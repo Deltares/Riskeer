@@ -22,9 +22,9 @@
 using System;
 using System.ComponentModel;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views

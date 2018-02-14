@@ -27,6 +27,7 @@ using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 

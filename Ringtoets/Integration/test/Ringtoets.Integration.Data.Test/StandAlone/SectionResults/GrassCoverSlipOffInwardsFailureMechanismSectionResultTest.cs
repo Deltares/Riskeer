@@ -23,6 +23,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
