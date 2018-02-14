@@ -347,6 +347,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
             }
 
             public TestFailureMechanism WrappedData { get; }
+
+            public IAssessmentSection Parent { get; }
         }
     }
 }

@@ -48,9 +48,6 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             Parent = parent;
         }
 
-        /// <summary>
-        /// Gets the parent of <see cref="WrappedObjectContextBase{T}.WrappedData"/>.
-        /// </summary>
         public IAssessmentSection Parent { get; }
     }
 }

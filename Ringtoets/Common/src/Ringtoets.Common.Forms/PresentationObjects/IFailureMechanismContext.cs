@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
@@ -27,12 +28,17 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// Interface for a failure mechanism context which wraps an implementation of the 
     /// <see cref="IFailureMechanism"/> interface.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of the wrapped failure mechanism.</typeparam>
     public interface IFailureMechanismContext<out T> where T : IFailureMechanism
     {
         /// <summary>
         /// Gets the wrapped <see cref="IFailureMechanism"/> in this presentation object.
         /// </summary>
         T WrappedData { get; }
+
+        /// <summary>
+        /// Gets the parent of <see cref="WrappedData"/>.
+        /// </summary>
+        IAssessmentSection Parent { get; }
     }
 }

@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
-        private FailureMechanismContext<T> data;
+        private IFailureMechanismContext<T> data;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismView{T}"/>.
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
-                data = value as FailureMechanismContext<T>;
+                data = value as IFailureMechanismContext<T>;
 
                 if (data == null)
                 {
