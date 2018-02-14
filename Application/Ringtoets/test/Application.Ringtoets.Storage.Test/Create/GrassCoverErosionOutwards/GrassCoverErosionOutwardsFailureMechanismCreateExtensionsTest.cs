@@ -25,7 +25,6 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -202,26 +201,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
             Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
             Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);
-        }
-
-        [Test]
-        public void Create_WithUpdatedN_FailureMechanismMetaUpdated()
-        {
-            // Setup
-            RoundedDouble n = new Random(21).NextRoundedDouble(1, 20);
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                GeneralInput =
-                {
-                    N = n
-                }
-            };
-
-            // Call
-            FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
-
-            // Assert
-            Assert.AreEqual(failureMechanism.GeneralInput.N, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]

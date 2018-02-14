@@ -283,11 +283,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertStabilityStoneCoverFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string validateStabilityStoneCoverFailureMechanism =
+            const string validateStabilityStoneCoverFailureMechanisms =
                 "SELECT COUNT() = 0 " +
                 "FROM [StabilityStoneCoverFailureMechanismMetaEntity] " +
                 "WHERE [N] IS NOT 4;";
-            reader.AssertReturnedDataIsValid(validateStabilityStoneCoverFailureMechanism);
+            reader.AssertReturnedDataIsValid(validateStabilityStoneCoverFailureMechanisms);
         }
 
         private static void AssertMacroStabilityOutwardsFailureMechanism(MigratedDatabaseReader reader)
@@ -314,11 +314,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertWaveImpactAsphaltCoverFailureMechanism(MigratedDatabaseReader reader)
         {
-            const string validateWaveImpactAsphaltCoverFailureMechanism =
+            const string validateWaveImpactAsphaltCoverFailureMechanisms =
                 "SELECT COUNT() = 0 " +
                 "FROM [WaveImpactAsphaltCoverFailureMechanismMetaEntity] " +
                 "WHERE [DeltaL] IS NOT 1000;";
-            reader.AssertReturnedDataIsValid(validateWaveImpactAsphaltCoverFailureMechanism);
+            reader.AssertReturnedDataIsValid(validateWaveImpactAsphaltCoverFailureMechanisms);
         }
 
         private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader, string sourceFilePath)

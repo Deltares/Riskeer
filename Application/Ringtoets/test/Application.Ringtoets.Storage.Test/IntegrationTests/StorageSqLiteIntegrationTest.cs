@@ -51,6 +51,8 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -284,16 +286,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
                 AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
-                AssertPipingFailureMechanism(expectedAssessmentSection.Piping, actualAssessmentSection.Piping);
-                AssertMacroStabilityInwardsFailureMechanism(expectedAssessmentSection.MacroStabilityInwards, actualAssessmentSection.MacroStabilityInwards);
-                AssertGrassCoverErosionInwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionInwards, actualAssessmentSection.GrassCoverErosionInwards);
-                AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
-                AssertStabilityStoneCoverFailureMechanism(expectedAssessmentSection.StabilityStoneCover, actualAssessmentSection.StabilityStoneCover);
-                AssertWaveImpactAsphaltCoverFailureMechanism(expectedAssessmentSection.WaveImpactAsphaltCover, actualAssessmentSection.WaveImpactAsphaltCover);
-                AssertHeightStructuresFailureMechanism(expectedAssessmentSection.HeightStructures, actualAssessmentSection.HeightStructures);
-                AssertClosingStructuresFailureMechanism(expectedAssessmentSection.ClosingStructures, actualAssessmentSection.ClosingStructures);
-                AssertDuneErosionFailureMechanism(expectedAssessmentSection.DuneErosion, actualAssessmentSection.DuneErosion);
-                AssertStabilityPointStructuresFailureMechanism(expectedAssessmentSection.StabilityPointStructures, actualAssessmentSection.StabilityPointStructures);
 
                 IFailureMechanism[] expectedProjectFailureMechanisms = expectedAssessmentSection.GetFailureMechanisms().ToArray();
                 IFailureMechanism[] actualProjectFailureMechanisms = actualAssessmentSection.GetFailureMechanisms().ToArray();
@@ -301,6 +293,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertFailureMechanism(expectedProjectFailureMechanisms[fmi], actualProjectFailureMechanisms[fmi]);
                 }
+
+                AssertPipingFailureMechanism(expectedAssessmentSection.Piping, actualAssessmentSection.Piping);
+                AssertMacroStabilityOutwardsFailureMechanism(expectedAssessmentSection.MacroStabilityOutwards, actualAssessmentSection.MacroStabilityOutwards);
+                AssertMacroStabilityInwardsFailureMechanism(expectedAssessmentSection.MacroStabilityInwards, actualAssessmentSection.MacroStabilityInwards);
+                AssertGrassCoverErosionInwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionInwards, actualAssessmentSection.GrassCoverErosionInwards);
+                AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
+                AssertPipingStructureFailureMechanism(expectedAssessmentSection.PipingStructure, actualAssessmentSection.PipingStructure);
+                AssertStabilityStoneCoverFailureMechanism(expectedAssessmentSection.StabilityStoneCover, actualAssessmentSection.StabilityStoneCover);
+                AssertWaveImpactAsphaltCoverFailureMechanism(expectedAssessmentSection.WaveImpactAsphaltCover, actualAssessmentSection.WaveImpactAsphaltCover);
+                AssertHeightStructuresFailureMechanism(expectedAssessmentSection.HeightStructures, actualAssessmentSection.HeightStructures);
+                AssertClosingStructuresFailureMechanism(expectedAssessmentSection.ClosingStructures, actualAssessmentSection.ClosingStructures);
+                AssertDuneErosionFailureMechanism(expectedAssessmentSection.DuneErosion, actualAssessmentSection.DuneErosion);
+                AssertStabilityPointStructuresFailureMechanism(expectedAssessmentSection.StabilityPointStructures, actualAssessmentSection.StabilityPointStructures);
 
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.Piping.SectionResults,
@@ -399,20 +404,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerTwoA, actualItem.AssessmentLayerTwoA);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
-                                     });
-        }
-
-        private static void AssertFailureMechanismSectionResults(
             IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> expectedSectionResults,
             IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> actualSectionResults)
         {
@@ -454,25 +445,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      });
         }
 
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<PipingStructureFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<PipingStructureFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults, (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerTwoA, actualItem.AssessmentLayerTwoA);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
-                                     });
-        }
-
         private static void AssertFailureMechanism(IFailureMechanism expectedFailureMechanism,
                                                    IFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.Name, actualFailureMechanism.Name);
             Assert.AreEqual(expectedFailureMechanism.Code, actualFailureMechanism.Code);
             Assert.AreEqual(expectedFailureMechanism.IsRelevant, actualFailureMechanism.IsRelevant);
+            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
+            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
+            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
             AssertFailureMechanismSections(expectedFailureMechanism.Sections, actualFailureMechanism.Sections);
         }
 
@@ -777,9 +758,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertStabilityPointStructures(expectedFailureMechanism.StabilityPointStructures, actualFailureMechanism.StabilityPointStructures);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
         private static void AssertFailureMechanismSectionResults(IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> expectedSectionResults,
@@ -918,9 +896,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertClosingStructures(expectedFailureMechanism.ClosingStructures, actualFailureMechanism.ClosingStructures);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
         private static void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> expectedSectionResults,
@@ -1033,10 +1008,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
 
             AssertDuneLocations(expectedFailureMechanism.DuneLocations, actualFailureMechanism.DuneLocations);
-
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -1102,9 +1073,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertHeightStructures(expectedFailureMechanism.HeightStructures, actualFailureMechanism.HeightStructures);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
         private static void AssertFailureMechanismSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> expectedSectionResults,
@@ -1200,9 +1168,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertPipingProbabilityAssessmentInput(expectedFailureMechanism.PipingProbabilityAssessmentInput, actualFailureMechanism.PipingProbabilityAssessmentInput);
             AssertPipingStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels, actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
 
             Assert.AreEqual(expectedFailureMechanism.SurfaceLines.SourcePath, actualFailureMechanism.SurfaceLines.SourcePath);
             AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
@@ -1358,9 +1323,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertMacroStabilityInwardsStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels,
                                                             actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
 
             Assert.AreEqual(expectedFailureMechanism.SurfaceLines.SourcePath, actualFailureMechanism.SurfaceLines.SourcePath);
             AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
@@ -1699,9 +1661,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
             AssertDikeProfiles(expectedFailureMechanism.DikeProfiles, actualFailureMechanism.DikeProfiles);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -1825,9 +1784,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertHydraulicBoundaryLocations(expectedFailureMechanism.HydraulicBoundaryLocations, actualFailureMechanism.HydraulicBoundaryLocations);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
         private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> expectedSectionResults,
@@ -1872,9 +1828,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
         private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> expectedSectionResults,
@@ -1921,11 +1874,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism expectedFailureMechanism,
                                                                          WaveImpactAsphaltCoverFailureMechanism actualFailureMechanism)
         {
+            Assert.AreEqual(expectedFailureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL, actualFailureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL);
+
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
-            AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
-            AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
         private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults,
@@ -1955,6 +1907,53 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 Assert.IsFalse(actualCalculation.HasOutput);
             }
+        }
+
+        #endregion
+
+        #region PipingStructure FailureMechanism
+
+        private static void AssertPipingStructureFailureMechanism(PipingStructureFailureMechanism expectedFailureMechanism,
+                                                                  PipingStructureFailureMechanism actualFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanism.N, actualFailureMechanism.N);
+        }
+
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<PipingStructureFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<PipingStructureFailureMechanismSectionResult> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults, (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
+                                         Assert.AreEqual(expectedItem.AssessmentLayerTwoA, actualItem.AssessmentLayerTwoA);
+                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
+                                     });
+        }
+
+        #endregion
+
+        #region MacroStabilityOutwards FailureMechanism
+
+        private static void AssertMacroStabilityOutwardsFailureMechanism(MacroStabilityOutwardsFailureMechanism expectedFailureMechanism,
+                                                                         MacroStabilityOutwardsFailureMechanism actualFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A, actualFailureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A);
+        }
+
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
+                                         Assert.AreEqual(expectedItem.AssessmentLayerTwoA, actualItem.AssessmentLayerTwoA);
+                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
+                                     });
         }
 
         #endregion
