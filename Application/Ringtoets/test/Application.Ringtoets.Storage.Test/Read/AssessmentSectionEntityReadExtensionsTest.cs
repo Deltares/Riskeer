@@ -701,7 +701,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithMacroStabilityOutwardsFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInMacroStabilityInwardsFailureMechanism()
+        public void Read_WithMacroStabilityOutwardsFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInMacroStabilityOutwardsFailureMechanism()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
@@ -715,7 +715,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.MacroStabilityOutwards,
-                CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
                 InputComments = inputComments,
                 OutputComments = outputComments,
@@ -788,6 +787,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InputComments.Body);
             Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.OutputComments.Body);
             Assert.AreEqual(originalNotRelevantText, section.GrassCoverErosionInwards.NotRelevantComments.Body);
+
             RoundedDouble actualN = section.GrassCoverErosionInwards.GeneralInput.N;
             Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
@@ -909,6 +909,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.GrassCoverErosionOutwards.InputComments.Body);
             Assert.AreEqual(outputComments, section.GrassCoverErosionOutwards.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.GrassCoverErosionOutwards.NotRelevantComments.Body);
+
             RoundedDouble actualN = section.GrassCoverErosionOutwards.GeneralInput.N;
             Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
@@ -1053,7 +1054,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.StabilityStoneCover.InputComments.Body);
             Assert.AreEqual(outputComments, section.StabilityStoneCover.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.StabilityStoneCover.NotRelevantComments.Body);
-            Assert.AreEqual(n, section.StabilityStoneCover.GeneralInput.N, section.StabilityStoneCover.GeneralInput.N.GetAccuracy());
+
+            RoundedDouble actualN = section.StabilityStoneCover.GeneralInput.N;
+            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]
@@ -1200,9 +1203,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.WaveImpactAsphaltCover.InputComments.Body);
             Assert.AreEqual(outputComments, section.WaveImpactAsphaltCover.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.WaveImpactAsphaltCover.NotRelevantComments.Body);
-            Assert.AreEqual(deltaL,
-                            section.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.DeltaL,
-                            section.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.DeltaL.GetAccuracy());
+
+            RoundedDouble actualDeltaL = section.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.DeltaL;
+            Assert.AreEqual(deltaL, actualDeltaL, actualDeltaL.GetAccuracy());
         }
 
         [Test]
@@ -1346,9 +1349,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.HeightStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.HeightStructures.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.HeightStructures.NotRelevantComments.Body);
-            Assert.AreEqual(n,
-                            section.HeightStructures.GeneralInput.N,
-                            section.HeightStructures.GeneralInput.N.GetAccuracy());
+
+            RoundedDouble actualN = section.HeightStructures.GeneralInput.N;
+            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]
@@ -1436,9 +1439,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.StabilityPointStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.StabilityPointStructures.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.StabilityPointStructures.NotRelevantComments.Body);
-            Assert.AreEqual(n,
-                            section.StabilityPointStructures.GeneralInput.N,
-                            section.StabilityPointStructures.GeneralInput.N.GetAccuracy());
+
+            RoundedDouble actualN = section.StabilityPointStructures.GeneralInput.N;
+            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]
@@ -1482,9 +1485,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(inputComments, section.DuneErosion.InputComments.Body);
             Assert.AreEqual(outputComments, section.DuneErosion.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, section.DuneErosion.NotRelevantComments.Body);
-            Assert.AreEqual(n,
-                            section.DuneErosion.GeneralInput.N,
-                            section.DuneErosion.GeneralInput.N.GetAccuracy());
+
+            RoundedDouble actualN = section.DuneErosion.GeneralInput.N;
+            Assert.AreEqual(n, actualN, actualN.GetAccuracy());
         }
 
         [Test]
@@ -1515,6 +1518,50 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.DuneErosion.Sections.Count());
+        }
+
+        [Test]
+        public void Read_WithPipingStructureFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInPipingStructureFailureMechanism()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double parameterN = random.NextDouble();
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Really not relevant";
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int) FailureMechanismType.PipingAtStructure,
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments,
+                PipingStructureFailureMechanismMetaEntities = 
+                {
+                    new PipingStructureFailureMechanismMetaEntity
+                    {
+                        N = parameterN
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(isRelevant, section.MacroStabilityOutwards.IsRelevant);
+            Assert.AreEqual(inputComments, section.MacroStabilityOutwards.InputComments.Body);
+            Assert.AreEqual(outputComments, section.MacroStabilityOutwards.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.MacroStabilityOutwards.NotRelevantComments.Body);
+
+            Assert.AreEqual(parameterN, section.PipingStructure.N);
         }
 
         [Test]

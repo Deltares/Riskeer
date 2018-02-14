@@ -604,7 +604,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityInwardsFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
+        public void ReadAsMacroStabilityInwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new FailureMechanismEntity();
@@ -974,7 +974,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsMacroStabilityOutwardsFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
+        public void ReadAsMacroStabilityOutwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new FailureMechanismEntity();
@@ -2615,7 +2615,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingStructureFailureMechanism_WithoutCollector_ThrowsArgumentNullException()
+        public void ReadAsPipingStructureFailureMechanism_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new FailureMechanismEntity();
