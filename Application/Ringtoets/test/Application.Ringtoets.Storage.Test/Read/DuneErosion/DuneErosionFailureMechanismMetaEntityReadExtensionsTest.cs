@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
     public class DuneErosionFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadDuneErosionFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
             var generalInput = new GeneralDuneErosionInput();

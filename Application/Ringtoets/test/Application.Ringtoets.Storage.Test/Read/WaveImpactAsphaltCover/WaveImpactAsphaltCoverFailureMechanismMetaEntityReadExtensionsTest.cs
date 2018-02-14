@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
     public class WaveImpactAsphaltCoverFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadWaveImpactAsphaltCoverFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => ((WaveImpactAsphaltCoverFailureMechanismMetaEntity) null).Read();

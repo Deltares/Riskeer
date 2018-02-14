@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
     public class StabilityPointStructuresFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadStabilityPointStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => ((StabilityPointStructuresFailureMechanismMetaEntity) null).Read();

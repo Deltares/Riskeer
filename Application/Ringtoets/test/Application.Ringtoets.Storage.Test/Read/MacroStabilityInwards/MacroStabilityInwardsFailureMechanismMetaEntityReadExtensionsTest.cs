@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
     public class MacroStabilityInwardsFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadMacroStabilityInwardsProbabilityAssessmentInput_EntityNull_ThrowsArgumentNullException()
+        public void ReadProbabilityAssessmentInput_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
             var input = new MacroStabilityInwardsProbabilityAssessmentInput();
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void ReadMacroStabilityInwardsProbabilityAssessmentInput_MacroStabilityInwardsProbabilityAssessmentInputNull_ThrowsArgumentNullException()
+        public void ReadProbabilityAssessmentInput_ProbabilityAssessmentInputNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new MacroStabilityInwardsFailureMechanismMetaEntity();
@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void ReadMacroStabilityInwardsProbabilityAssessmentInput_ValidParameters_SetMacroStabilityInwardsProbabilityAssessmentInputProperties()
+        public void ReadProbabilityAssessmentInput_ValidParameters_SetMacroStabilityInwardsProbabilityAssessmentInputProperties()
         {
             // Setup
             var random = new Random(31);

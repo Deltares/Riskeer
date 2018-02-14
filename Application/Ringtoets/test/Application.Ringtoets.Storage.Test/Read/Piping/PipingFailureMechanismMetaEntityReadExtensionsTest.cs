@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
     public class PipingFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadPipingProbabilityAssessmentInput_EntityNull_ThrowsArgumentNullException()
+        public void ReadProbabilityAssessmentInput_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
             var input = new PipingProbabilityAssessmentInput();
@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void ReadPipingProbabilityAssessmentInput_PipingProbabilityAssessmentInputNull_ThrowsArgumentNullException()
+        public void ReadProbabilityAssessmentInput_ProbabilityAssessmentInputNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new PipingFailureMechanismMetaEntity();
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void ReadPipingProbabilityAssessmentInput_ValidParameters_SetPipingProbabilityAssessmentInputProperties()
+        public void ReadProbabilityAssessmentInput_ValidParameters_SetPipingProbabilityAssessmentInputProperties()
         {
             // Setup
             var entity = new PipingFailureMechanismMetaEntity
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void ReadGeneralPipingInput_GeneralPipingInputInputNull_ThrowsArgumentNullException()
+        public void ReadGeneralPipingInput_GeneralPipingInputNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new PipingFailureMechanismMetaEntity();

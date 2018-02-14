@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
     public class HeightStructuresFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadHeightStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => ((HeightStructuresFailureMechanismMetaEntity) null).Read();

@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
     public class ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadClosingStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => ((ClosingStructuresFailureMechanismMetaEntity) null).Read();

@@ -557,10 +557,10 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                             .WaveConditionsCalculationGroup.GetCalculations()
                                                                                             .OfType<StabilityStoneCoverWaveConditionsCalculation>()
                                                                                             .First();
-            AssertExpectedStabilityStoneCoverWaveConditionsInputInput(calculation.InputParameters);
+            AssertExpectedStabilityStoneCoverWaveConditionsInput(calculation.InputParameters);
         }
 
-        private static void AssertExpectedStabilityStoneCoverWaveConditionsInputInput(WaveConditionsInput inputParameters)
+        private static void AssertExpectedStabilityStoneCoverWaveConditionsInput(WaveConditionsInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
         }
@@ -576,10 +576,10 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                                .WaveConditionsCalculationGroup.GetCalculations()
                                                                                                .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                                                                .First();
-            AssertExpectedWaveImpactAsphaltCoverWaveConditionsInputInput(calculation.InputParameters);
+            AssertExpectedWaveImpactAsphaltCoverWaveConditionsInput(calculation.InputParameters);
         }
 
-        private static void AssertExpectedWaveImpactAsphaltCoverWaveConditionsInputInput(WaveConditionsInput inputParameters)
+        private static void AssertExpectedWaveImpactAsphaltCoverWaveConditionsInput(WaveConditionsInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
         }

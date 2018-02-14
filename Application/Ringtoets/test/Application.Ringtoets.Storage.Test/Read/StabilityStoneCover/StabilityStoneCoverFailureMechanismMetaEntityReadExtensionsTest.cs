@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
     public class StabilityStoneCoverFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void ReadStabilityStoneCoverFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => ((StabilityStoneCoverFailureMechanismMetaEntity) null).Read();
