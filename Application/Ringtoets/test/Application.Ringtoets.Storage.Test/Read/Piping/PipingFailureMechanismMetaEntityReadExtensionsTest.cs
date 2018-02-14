@@ -63,17 +63,17 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void ReadProbabilityAssessmentInput_ValidParameters_SetPipingProbabilityAssessmentInputProperties()
         {
             // Setup
+            var inputToUpdate = new PipingProbabilityAssessmentInput();
             var entity = new PipingFailureMechanismMetaEntity
             {
                 A = new Random(31).NextDouble()
             };
-            var input = new PipingProbabilityAssessmentInput();
 
             // Call
-            entity.ReadProbabilityAssessmentInput(input);
+            entity.ReadProbabilityAssessmentInput(inputToUpdate);
 
             // Assert
-            Assert.AreEqual(entity.A, input.A);
+            Assert.AreEqual(entity.A, inputToUpdate.A);
         }
 
         [Test]
@@ -108,17 +108,17 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void ReadGeneralPipingInput_ValidParameters_SetGeneralPipingInputWithProperties()
         {
             // Setup
+            var inputToUpdate = new GeneralPipingInput();
             var entity = new PipingFailureMechanismMetaEntity
             {
                 WaterVolumetricWeight = new Random(31).NextDouble()
             };
-            var input = new GeneralPipingInput();
 
             // Call
-            entity.ReadGeneralPipingInput(input);
+            entity.ReadGeneralPipingInput(inputToUpdate);
 
             // Assert
-            Assert.AreEqual(entity.WaterVolumetricWeight, input.WaterVolumetricWeight, input.WaterVolumetricWeight.GetAccuracy());
+            Assert.AreEqual(entity.WaterVolumetricWeight, inputToUpdate.WaterVolumetricWeight, inputToUpdate.WaterVolumetricWeight.GetAccuracy());
         }
     }
 }

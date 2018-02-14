@@ -62,18 +62,17 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityOutwards
         public void ReadProbabilityAssessmentInput_ValidParameters_SetMacroStabilityOutwardsProbabilityAssessmentInputProperties()
         {
             // Setup
-            var random = new Random(31);
+            var inputToUpdate = new MacroStabilityOutwardsProbabilityAssessmentInput();
             var entity = new MacroStabilityOutwardsFailureMechanismMetaEntity
             {
-                A = random.NextDouble()
+                A = new Random(31).NextDouble()
             };
-            var input = new MacroStabilityOutwardsProbabilityAssessmentInput();
 
             // Call
-            entity.ReadProbabilityAssessmentInput(input);
+            entity.ReadProbabilityAssessmentInput(inputToUpdate);
 
             // Assert
-            Assert.AreEqual(entity.A, input.A);
+            Assert.AreEqual(entity.A, inputToUpdate.A);
         }
     }
 }

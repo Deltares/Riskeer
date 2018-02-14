@@ -64,18 +64,17 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
         public void Read_ValidInput_UpdateDuneErosionGeneralInput()
         {
             // Setup
-            var generalInput = new GeneralDuneErosionInput();
-            double nValue = new Random(31).GetFromRange(1, 20);
+            var inputToUpdate = new GeneralDuneErosionInput();
             var entity = new DuneErosionFailureMechanismMetaEntity
             {
-                N = nValue
+                N = new Random(31).GetFromRange(1, 20)
             };
 
             // Call
-            entity.Read(generalInput);
+            entity.Read(inputToUpdate);
 
             // Assert
-            Assert.AreEqual(nValue, generalInput.N, generalInput.N.GetAccuracy());
+            Assert.AreEqual(entity.N, inputToUpdate.N, inputToUpdate.N.GetAccuracy());
         }
     }
 }

@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
@@ -65,14 +64,11 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         public void Read_ValidEntity_ReturnGeneralGrassCoverErosionOutwardsInput()
         {
             // Setup
-            var random = new Random(21);
-            RoundedDouble n = random.NextRoundedDouble(1.0, 20.0);
-
+            var inputToUpdate = new GeneralGrassCoverErosionOutwardsInput();
             var entity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
             {
-                N = n
+                N = new Random(21).NextRoundedDouble(1.0, 20.0)
             };
-            var inputToUpdate = new GeneralGrassCoverErosionOutwardsInput();
 
             // Call
             entity.Read(inputToUpdate);
