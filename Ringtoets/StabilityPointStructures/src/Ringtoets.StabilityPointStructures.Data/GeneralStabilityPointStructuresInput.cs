@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.StabilityPointStructures.Data
 {
     /// <summary>
-    /// Class that holds all stability point structures calculation specific input parameters.
+    /// The general input parameters that apply to each stability point structures calculation.
     /// </summary>
     public class GeneralStabilityPointStructuresInput
     {

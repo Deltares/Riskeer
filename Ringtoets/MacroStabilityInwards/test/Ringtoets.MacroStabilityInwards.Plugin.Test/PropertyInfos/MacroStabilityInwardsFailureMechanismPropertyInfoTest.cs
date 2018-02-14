@@ -59,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_WithContext_NewPropertiesWithFailureMechanismContextAsData()
+        public void CreateInstance_WithContext_NewPropertiesWithFailureMechanismAsData()
         {
             // Setup
             var mocks = new MockRepository();

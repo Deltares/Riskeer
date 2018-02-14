@@ -26,8 +26,7 @@ using Ringtoets.Piping.Data.Properties;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Class that holds all the overarching piping calculation input parameters, e.g. the
-    /// values that apply for all calculations.
+    /// The general input parameters that apply to each piping calculation.
     /// </summary>
     public class GeneralPipingInput
     {

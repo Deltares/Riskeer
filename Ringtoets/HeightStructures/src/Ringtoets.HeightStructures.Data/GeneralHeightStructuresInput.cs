@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.HeightStructures.Data
 {
     /// <summary>
-    /// Class that holds all height structures calculation specific input parameters.
+    /// The general input parameters that apply to each height structures calculation.
     /// </summary>
     public class GeneralHeightStructuresInput
     {

@@ -26,7 +26,7 @@ using Ringtoets.WaveImpactAsphaltCover.Data.Properties;
 namespace Ringtoets.WaveImpactAsphaltCover.Data
 {
     /// <summary>
-    /// Class that holds all wave impact asphalt cover calculation specific input parameters.
+    /// The general input parameters that apply to each wave impact asphalt cover calculation.
     /// </summary>
     public class GeneralWaveImpactAsphaltCoverInput
     {

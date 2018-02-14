@@ -27,7 +27,7 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.StabilityStoneCover.Data
 {
     /// <summary>
-    /// Class that holds all the static stability stone cover wave conditions input parameters.
+    /// The general input parameters that apply to each stability stone cover wave conditions calculation.
     /// </summary>
     public class GeneralStabilityStoneCoverWaveConditionsInput
     {

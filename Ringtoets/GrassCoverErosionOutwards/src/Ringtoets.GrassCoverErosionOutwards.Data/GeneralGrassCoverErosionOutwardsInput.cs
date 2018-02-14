@@ -27,7 +27,7 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Data
 {
     /// <summary>
-    /// Class that holds all the input parameters which are equal for every grass cover erosion outwards calculation.
+    /// The general input parameters that apply to each grass cover erosion outwards calculation.
     /// </summary>
     public class GeneralGrassCoverErosionOutwardsInput
     {

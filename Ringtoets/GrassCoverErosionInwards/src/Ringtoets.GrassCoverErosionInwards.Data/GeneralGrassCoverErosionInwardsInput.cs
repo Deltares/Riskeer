@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// Class that holds all the static grass cover erosion inwards calculation input parameters.
+    /// The general input parameters that apply to each grass cover erosion inwards calculation.
     /// </summary>
     public class GeneralGrassCoverErosionInwardsInput
     {

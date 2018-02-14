@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.ClosingStructures.Data
 {
     /// <summary>
-    /// Class that holds all the static closing structures calculation input parameters.
+    /// The general input parameters that apply to each closing structures calculation.
     /// </summary>
     public class GeneralClosingStructuresInput
     {

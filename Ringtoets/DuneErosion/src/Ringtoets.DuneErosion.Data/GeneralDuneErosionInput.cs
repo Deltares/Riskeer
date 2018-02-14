@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.DuneErosion.Data
 {
     /// <summary>
-    /// Class that holds all the static dune erosion calculation input parameters.
+    /// The general input parameters that apply to each dune erosion calculation.
     /// </summary>
     public class GeneralDuneErosionInput
     {
