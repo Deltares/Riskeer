@@ -27,18 +27,19 @@ using Ringtoets.Piping.Data;
 namespace Application.Ringtoets.Storage.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="PipingProbabilityAssessmentInput"/> based on the
-    /// <see cref="PipingFailureMechanismMetaEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="PipingProbabilityAssessmentInput"/>
+    /// and a <see cref="GeneralPipingInput"/> based on the <see cref="PipingFailureMechanismMetaEntity"/>.
     /// </summary>
     internal static class PipingFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to set 
-        /// <see cref="PipingProbabilityAssessmentInput.A"/>.
+        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to update the
+        /// <paramref name="probabilityAssessmentInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain value for A from.</param>
-        /// <param name="probabilityAssessmentInput">The <see cref="PipingProbabilityAssessmentInput"/> to set the 
-        /// <see cref="PipingProbabilityAssessmentInput.A"/> for.</param>
+        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to use to update the
+        /// <paramref name="probabilityAssessmentInput"/>.</param>
+        /// <param name="probabilityAssessmentInput">The <see cref="PipingProbabilityAssessmentInput"/> to be
+        /// updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void ReadProbabilityAssessmentInput(this PipingFailureMechanismMetaEntity entity,
                                                             PipingProbabilityAssessmentInput probabilityAssessmentInput)
@@ -57,13 +58,12 @@ namespace Application.Ringtoets.Storage.Read.Piping
         }
 
         /// <summary>
-        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to set
-        /// <see cref="GeneralPipingInput.WaterVolumetricWeight"/>.
+        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to update the
+        /// <paramref name="generalPipingInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to obtain value for
-        /// WaterVolumetricWeight from.</param>
-        /// <param name="generalPipingInput">The <see cref="GeneralPipingInput"/> to set the 
-        /// <see cref="GeneralPipingInput.WaterVolumetricWeight"/> for.</param>
+        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to use to update the
+        /// <paramref name="generalPipingInput"/>.</param>
+        /// <param name="generalPipingInput">The <see cref="GeneralPipingInput"/> to be updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void ReadGeneralPipingInput(this PipingFailureMechanismMetaEntity entity,
                                                     GeneralPipingInput generalPipingInput)

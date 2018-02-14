@@ -33,13 +33,12 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
     internal static class GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="GrassCoverErosionOutwardsFailureMechanismMetaEntity"/>
-        /// and use the information to construct a <see cref="GeneralGrassCoverErosionOutwardsInput"/>.
+        /// Read the <see cref="GrassCoverErosionOutwardsFailureMechanismMetaEntity"/> and use the information
+        /// to update the <paramref name="input"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsFailureMechanismMetaEntity"/>
-        /// to create <see cref="GeneralGrassCoverErosionOutwardsInput"/> for.</param>
+        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsFailureMechanismMetaEntity"/> to use
+        /// to update the <paramref name="input"/>.</param>
         /// <param name="input">The <see cref="GeneralGrassCoverErosionOutwardsInput"/> to be updated.</param>
-        /// <returns>A new <see cref="GeneralGrassCoverErosionOutwardsInput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this GrassCoverErosionOutwardsFailureMechanismMetaEntity entity, GeneralGrassCoverErosionOutwardsInput input)
         {

@@ -33,11 +33,11 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
     internal static class StabilityStoneCoverFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="StabilityStoneCoverFailureMechanismMetaEntity"/> and use the
-        /// information to construct a <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>.
+        /// Read the <see cref="StabilityStoneCoverFailureMechanismMetaEntity"/> and use the information to
+        /// construct a <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StabilityStoneCoverFailureMechanismMetaEntity"/>
-        /// to create <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/> for.</param>
+        /// <param name="entity">The <see cref="StabilityStoneCoverFailureMechanismMetaEntity"/> to create
+        /// <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/> for.</param>
         /// <returns>A new <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static GeneralStabilityStoneCoverWaveConditionsInput Read(this StabilityStoneCoverFailureMechanismMetaEntity entity)

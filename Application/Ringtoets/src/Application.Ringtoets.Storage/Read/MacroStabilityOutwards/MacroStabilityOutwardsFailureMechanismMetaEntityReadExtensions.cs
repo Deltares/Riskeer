@@ -32,16 +32,15 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityOutwards
     internal static class MacroStabilityOutwardsFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="MacroStabilityOutwardsFailureMechanismMetaEntity"/> and use the information 
-        /// to set properties of <see cref="MacroStabilityOutwardsProbabilityAssessmentInput"/>.
+        /// Read the <see cref="MacroStabilityOutwardsFailureMechanismMetaEntity"/> and use the information to
+        /// update the <paramref name="probabilityAssessmentInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityOutwardsFailureMechanismMetaEntity"/> 
-        /// to obtain properties from.</param>
-        /// <param name="probabilityAssessmentInput">The <see cref="MacroStabilityOutwardsProbabilityAssessmentInput"/> 
-        /// to set the properties of <see cref="MacroStabilityOutwardsProbabilityAssessmentInput"/>.</param>
+        /// <param name="entity">The <see cref="MacroStabilityOutwardsFailureMechanismMetaEntity"/> to use to
+        /// update the <paramref name="probabilityAssessmentInput"/>.</param>
+        /// <param name="probabilityAssessmentInput">The <see cref="MacroStabilityOutwardsProbabilityAssessmentInput"/> to be updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void ReadProbabilityAssessmentInput(this MacroStabilityOutwardsFailureMechanismMetaEntity entity,
-                                                          MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput)
+                                                            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (entity == null)
             {

@@ -33,11 +33,11 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
     internal static class HeightStructuresFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="HeightStructuresFailureMechanismMetaEntity"/> and use the
-        /// information to construct a <see cref="GeneralHeightStructuresInput"/>.
+        /// Read the <see cref="HeightStructuresFailureMechanismMetaEntity"/> and use the information to
+        /// construct a <see cref="GeneralHeightStructuresInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HeightStructuresFailureMechanismMetaEntity"/>
-        /// to create <see cref="GeneralHeightStructuresInput"/> for.</param>
+        /// <param name="entity">The <see cref="HeightStructuresFailureMechanismMetaEntity"/> to create
+        /// <see cref="GeneralHeightStructuresInput"/> for.</param>
         /// <returns>A new <see cref="GeneralHeightStructuresInput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static GeneralHeightStructuresInput Read(this HeightStructuresFailureMechanismMetaEntity entity)

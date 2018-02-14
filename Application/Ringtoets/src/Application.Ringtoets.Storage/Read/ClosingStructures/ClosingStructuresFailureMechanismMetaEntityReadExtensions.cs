@@ -32,11 +32,11 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
     internal static class ClosingStructuresFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="ClosingStructuresFailureMechanismMetaEntity"/> and use the
-        /// information to construct a <see cref="GeneralClosingStructuresInput"/>.
+        /// Read the <see cref="ClosingStructuresFailureMechanismMetaEntity"/> and use the information to
+        /// construct a <see cref="GeneralClosingStructuresInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="ClosingStructuresFailureMechanismMetaEntity"/>
-        /// to create <see cref="GeneralClosingStructuresInput"/> for.</param>
+        /// <param name="entity">The <see cref="ClosingStructuresFailureMechanismMetaEntity"/> to create
+        /// <see cref="GeneralClosingStructuresInput"/> for.</param>
         /// <returns>A new <see cref="GeneralClosingStructuresInput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static GeneralClosingStructuresInput Read(this ClosingStructuresFailureMechanismMetaEntity entity)

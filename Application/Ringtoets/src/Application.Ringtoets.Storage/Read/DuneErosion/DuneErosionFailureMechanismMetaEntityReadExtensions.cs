@@ -33,13 +33,12 @@ namespace Application.Ringtoets.Storage.Read.DuneErosion
     internal static class DuneErosionFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="DuneErosionFailureMechanismMetaEntity"/> and use the information 
-        /// to update the <paramref name="input"/>.
+        /// Read the <see cref="DuneErosionFailureMechanismMetaEntity"/> and use the information to update
+        /// the <paramref name="input"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="DuneErosionFailureMechanismMetaEntity"/>
-        /// to use to update the <paramref name="input"/>.</param>
+        /// <param name="entity">The <see cref="DuneErosionFailureMechanismMetaEntity"/> to use to update
+        /// the <paramref name="input"/>.</param>
         /// <param name="input">The <see cref="GeneralDuneErosionInput"/> to be updated.</param>
-        /// <returns>A new <see cref="GeneralDuneErosionInput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this DuneErosionFailureMechanismMetaEntity entity, GeneralDuneErosionInput input)
         {

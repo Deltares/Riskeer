@@ -33,11 +33,11 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
     internal static class StabilityPointStructureFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="StabilityPointStructuresFailureMechanismMetaEntity"/> and use the
-        /// information to construct a <see cref="GeneralStabilityPointStructuresInput"/>.
+        /// Read the <see cref="StabilityPointStructuresFailureMechanismMetaEntity"/> and use the information
+        /// to construct a <see cref="GeneralStabilityPointStructuresInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StabilityPointStructuresFailureMechanismMetaEntity"/>
-        /// to create <see cref="GeneralStabilityPointStructuresInput"/> for.</param>
+        /// <param name="entity">The <see cref="StabilityPointStructuresFailureMechanismMetaEntity"/> to
+        /// create <see cref="GeneralStabilityPointStructuresInput"/> for.</param>
         /// <returns>A new <see cref="GeneralStabilityPointStructuresInput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static GeneralStabilityPointStructuresInput Read(this StabilityPointStructuresFailureMechanismMetaEntity entity)

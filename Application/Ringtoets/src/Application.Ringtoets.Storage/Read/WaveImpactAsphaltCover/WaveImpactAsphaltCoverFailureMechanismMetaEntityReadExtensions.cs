@@ -33,11 +33,11 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
     internal static class WaveImpactAsphaltCoverFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="WaveImpactAsphaltCoverFailureMechanismMetaEntity"/> and use the
-        /// information to construct a <see cref="GeneralWaveImpactAsphaltCoverInput"/>.
+        /// Read the <see cref="WaveImpactAsphaltCoverFailureMechanismMetaEntity"/> and use the information to
+        /// construct a <see cref="GeneralWaveImpactAsphaltCoverInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverFailureMechanismMetaEntity"/>
-        /// to create <see cref="GeneralWaveImpactAsphaltCoverInput"/> for.</param>
+        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverFailureMechanismMetaEntity"/> to create
+        /// <see cref="GeneralWaveImpactAsphaltCoverInput"/> for.</param>
         /// <returns>A new <see cref="GeneralWaveImpactAsphaltCoverInput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static GeneralWaveImpactAsphaltCoverInput Read(this WaveImpactAsphaltCoverFailureMechanismMetaEntity entity)
