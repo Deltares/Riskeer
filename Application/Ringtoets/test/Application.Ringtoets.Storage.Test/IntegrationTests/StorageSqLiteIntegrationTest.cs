@@ -321,8 +321,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     expectedAssessmentSection.WaterPressureAsphaltCover.SectionResults,
                     actualAssessmentSection.WaterPressureAsphaltCover.SectionResults);
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.ClosingStructures.SectionResults,
-                    actualAssessmentSection.ClosingStructures.SectionResults);
+                    expectedAssessmentSection.ClosingStructures.SectionResults2,
+                    actualAssessmentSection.ClosingStructures.SectionResults2);
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.MacroStabilityOutwards.SectionResults,
                     actualAssessmentSection.MacroStabilityOutwards.SectionResults);
@@ -923,8 +923,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> expectedSectionResults,
-                                                                 IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> expectedSectionResults,
+                                                                 IEnumerable<ClosingStructuresFailureMechanismSectionResult> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,

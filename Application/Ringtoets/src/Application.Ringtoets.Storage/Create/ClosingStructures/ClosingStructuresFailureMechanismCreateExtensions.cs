@@ -49,16 +49,16 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
             AddEntitiesForClosingStructures(mechanism.ClosingStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults2, registry);
 
             return entity;
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults,
+            IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (StructuresFailureMechanismSectionResult<ClosingStructuresInput> failureMechanismSectionResult in sectionResults)
+            foreach (ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
                 ClosingStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

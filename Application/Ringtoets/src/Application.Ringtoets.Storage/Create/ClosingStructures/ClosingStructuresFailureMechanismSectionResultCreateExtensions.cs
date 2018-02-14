@@ -22,29 +22,31 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.Structures;
 
 namespace Application.Ringtoets.Storage.Create.ClosingStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="StructuresFailureMechanismSectionResult{T}"/> related to creating a 
+    /// Extension methods for <see cref="ClosingStructuresFailureMechanismSectionResult"/> related to creating a 
     /// <see cref="ClosingStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class ClosingStructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="ClosingStructuresSectionResultEntity"/> based on the information of the <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+        /// Creates a <see cref="ClosingStructuresSectionResultEntity"/> 
+        /// based on the information of the <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="ClosingStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static ClosingStructuresSectionResultEntity Create(this StructuresFailureMechanismSectionResult<ClosingStructuresInput> result, PersistenceRegistry registry)
+        internal static ClosingStructuresSectionResultEntity Create(this ClosingStructuresFailureMechanismSectionResult result,
+                                                                    PersistenceRegistry registry)
         {
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             var sectionResultEntity = new ClosingStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

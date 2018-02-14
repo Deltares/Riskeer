@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Structures;
 namespace Application.Ringtoets.Storage.Read.ClosingStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StructuresFailureMechanismSectionResult{T}"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="ClosingStructuresFailureMechanismSectionResult"/> based on the
     /// <see cref="ClosingStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class ClosingStructuresSectionResultEntityReadExtensions
@@ -38,18 +38,21 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
         /// Reads the <see cref="ClosingStructuresSectionResultEntity"/> and use the information to update a 
         /// <see cref="StructuresFailureMechanismSectionResult{T}"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> to create <see cref="StructuresFailureMechanismSectionResult{T}"/> for.</param>
+        /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> 
+        /// to create <see cref="ClosingStructuresFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StructuresFailureMechanismSectionResult{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static void Read(this ClosingStructuresSectionResultEntity entity, StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult,
+        internal static void Read(this ClosingStructuresSectionResultEntity entity,
+                                  ClosingStructuresFailureMechanismSectionResult sectionResult,
                                   ReadConversionCollector collector)
         {
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
