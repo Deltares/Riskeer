@@ -55,34 +55,6 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
-            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
-        }
-
-        [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(AssessmentLayerOneState newValue)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new TestFailureMechanismSectionResult(section);
-            result.Attach(observer);
-
-            var row = new TestFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerOne = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerOne);
-
-            mocks.VerifyAll();
         }
     }
 

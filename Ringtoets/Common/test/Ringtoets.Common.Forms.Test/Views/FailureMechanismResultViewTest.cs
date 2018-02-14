@@ -20,17 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
-using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -84,7 +81,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup 
             const int nameColumnIndex = 0;
-            const int assessmentLayerOneIndex = 1;
 
             // Call
             using (ShowFailureMechanismResultsView(new ObservableList<TestFailureMechanismSectionResult>()))
@@ -92,12 +88,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(2, dataGridView.ColumnCount);
+                Assert.AreEqual(1, dataGridView.ColumnCount);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
-                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
             }
         }
 
@@ -126,7 +120,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultUpdated_ThenObserverNotified()
+        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenCellFormattingEventFired()
         {
             // Given
             var sectionResult = new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
@@ -148,7 +142,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 dataGridView.CellFormatting += (sender, args) => cellFormattingEventFired = true;
 
                 // When
-                sectionResult.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
                 sectionResult.NotifyObservers();
 
                 // Then
@@ -177,24 +170,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         protected override object CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
             return new TestRow(sectionResult);
-        }
-
-        protected override void AddDataGridColumns()
-        {
-            base.AddDataGridColumns();
-
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] oneStateDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(el => new EnumDisplayWrapper<SimpleAssessmentResultType>(el))
-                    .ToArray();
-
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(FailureMechanismSectionResultRow<FailureMechanismSectionResult>.AssessmentLayerOne),
-                Resources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
-                oneStateDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
         }
     }
 
