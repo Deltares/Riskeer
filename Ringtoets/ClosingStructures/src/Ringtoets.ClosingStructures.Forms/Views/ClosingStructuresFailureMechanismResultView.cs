@@ -127,10 +127,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader);
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
         }
 
         private bool HasPassedSimpleAssessment(int rowIndex)

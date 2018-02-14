@@ -220,13 +220,13 @@
   <data name="FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader" xml:space="preserve">
     <value>Eenvoudige toets</value>
   </data>
-  <data name="FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three" xml:space="preserve">
+  <data name="FailureMechanismResultView_TailorMadeAssessment_ColumnHeader" xml:space="preserve">
     <value>Toets op maat</value>
   </data>
-  <data name="FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a" xml:space="preserve">
+  <data name="FailureMechanismResultView_DetailedAssessment_ColumnHeader" xml:space="preserve">
     <value>Gedetailleerde toets per vak</value>
   </data>
-  <data name="FailureMechanismResultView_InitializeDataGridView_Section_name" xml:space="preserve">
+  <data name="Section_ColumnHeader" xml:space="preserve">
     <value>Vak</value>
   </data>
   <data name="EditDocumentIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">

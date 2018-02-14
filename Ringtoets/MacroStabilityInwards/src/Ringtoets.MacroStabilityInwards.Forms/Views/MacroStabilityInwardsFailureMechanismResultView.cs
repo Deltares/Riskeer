@@ -139,11 +139,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 true);
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
         }
 
         #region Event handling

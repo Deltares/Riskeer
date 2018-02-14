@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             DataGridViewControl.AddTextBoxColumn(
                 nameof(FailureMechanismSectionResultRow<TSectionResult>.Name),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                Resources.Section_ColumnHeader,
                 true);
         }
     }

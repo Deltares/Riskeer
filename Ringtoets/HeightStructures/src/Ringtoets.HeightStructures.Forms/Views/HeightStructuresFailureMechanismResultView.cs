@@ -131,11 +131,11 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 true);
             DataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
         }
 
         private bool HasPassedSimpleAssessment(int rowIndex)
