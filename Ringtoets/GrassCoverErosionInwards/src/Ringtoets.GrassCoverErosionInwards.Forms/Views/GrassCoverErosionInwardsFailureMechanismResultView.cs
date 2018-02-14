@@ -135,17 +135,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
-        private bool HasPassedSimpleAssessment(int rowIndex)
-        {
-            var simpleAssessmentType = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;
-            return simpleAssessmentType == SimpleAssessmentResultValidityOnlyType.NotApplicable;
-        }
-
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
             if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
-                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
+                var simpleAssessmentResult = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(eventArgs.RowIndex,
+                                                                                                                  AssessmentLayerOneColumnIndex).Value;
+                if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }

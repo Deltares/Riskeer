@@ -27,6 +27,7 @@ using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -94,13 +95,6 @@ namespace Ringtoets.Piping.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        private bool HasPassedSimpleAssessment(int rowIndex)
-        {
-            var simpleAssessmentType = (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;
-            return simpleAssessmentType == SimpleAssessmentResultType.ProbabilityNegligible
-                   || simpleAssessmentType == SimpleAssessmentResultType.NotApplicable;
-        }
-
         protected override void Dispose(bool disposing)
         {
             DataGridViewControl.CellFormatting -= ShowAssessmentLayerTwoAErrors;
@@ -150,9 +144,12 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
+
             if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
             {
-                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
+                var simpleAssessmentResult = (SimpleAssessmentResultType) DataGridViewControl.GetCell(eventArgs.RowIndex, 
+                                                                                                      AssessmentLayerOneColumnIndex).Value;
+                if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
