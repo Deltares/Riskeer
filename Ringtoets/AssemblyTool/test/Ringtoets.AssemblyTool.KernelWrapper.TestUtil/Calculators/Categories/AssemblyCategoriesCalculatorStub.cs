@@ -106,5 +106,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
                     new FailureMechanismSectionAssemblyCategory(3.01, 4, FailureMechanismSectionAssemblyCategoryGroup.IIIv)
                 });
         }
+
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeoTechnicFailureMechanismSectionCategories(double signalingNorm, double lowerLimitNorm,
+                                                                                                                         double probabilityDistributionFactor, double n)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssemblyCategoriesCalculatorException("Message", new Exception());
+            }
+
+            SignalingNorm = signalingNorm;
+            LowerLimitNorm = lowerLimitNorm;
+            ProbabilityDistributionFactor = probabilityDistributionFactor;
+            N = n;
+
+            return FailureMechanismSectionCategoriesOutput
+                   ?? (FailureMechanismSectionCategoriesOutput = new[]
+                   {
+                       new FailureMechanismSectionAssemblyCategory(1, 2, FailureMechanismSectionAssemblyCategoryGroup.Iv),
+                       new FailureMechanismSectionAssemblyCategory(2.01, 3, FailureMechanismSectionAssemblyCategoryGroup.IIv),
+                       new FailureMechanismSectionAssemblyCategory(3.01, 4, FailureMechanismSectionAssemblyCategoryGroup.IIIv)
+                   });
+        }
     }
 }

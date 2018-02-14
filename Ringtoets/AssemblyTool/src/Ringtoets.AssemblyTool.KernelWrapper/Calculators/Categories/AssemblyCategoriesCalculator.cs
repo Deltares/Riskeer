@@ -89,5 +89,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
                 throw new AssemblyCategoriesCalculatorException(e.Message, e);
             }
         }
+
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeoTechnicFailureMechanismSectionCategories(double signalingNorm,
+                                                                                                                         double lowerLimitNorm,
+                                                                                                                         double probabilityDistributionFactor,
+                                                                                                                         double n)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

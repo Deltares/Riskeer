@@ -215,5 +215,93 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
         }
+
+        [Test]
+        public void CalculateGeoTechnicFailureMechanismSectionCategories_OutputNotSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateGeoTechnicFailureMechanismSectionCategories(0, 0, 0, 0).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, result.Length);
+            CollectionAssert.AreEqual(new[]
+            {
+                1,
+                2.01,
+                3.01
+            }, result.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                2,
+                3,
+                4
+            }, result.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                FailureMechanismSectionAssemblyCategoryGroup.Iv,
+                FailureMechanismSectionAssemblyCategoryGroup.IIv,
+                FailureMechanismSectionAssemblyCategoryGroup.IIIv
+            }, result.Select(r => r.Group));
+        }
+
+        [Test]
+        public void CalculateGeoTechnicFailureMechanismSectionCategories_OutputSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
+        {
+            // Setup
+            var output = new FailureMechanismSectionAssemblyCategory[0];
+            var calculator = new AssemblyCategoriesCalculatorStub
+            {
+                FailureMechanismSectionCategoriesOutput = output
+            };
+
+            // Call
+            IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeoTechnicFailureMechanismSectionCategories(0 ,0, 0, 0);
+
+            // Assert
+            Assert.AreSame(output, result);
+        }
+
+        [Test]
+        public void CalculateGeoTechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.NextDouble();
+
+            var calculator = new AssemblyCategoriesCalculatorStub();
+
+            // Call
+            calculator.CalculateGeoTechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
+
+            // Assert
+            Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
+            Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
+            Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
+            Assert.AreEqual(n, calculator.N);
+        }
+
+        [Test]
+        public void CalculateGeoTechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsAssemblyCategoriesCalculatorException()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.CalculateGeoTechnicFailureMechanismSectionCategories(0, 0, 0, 0);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
     }
 }
