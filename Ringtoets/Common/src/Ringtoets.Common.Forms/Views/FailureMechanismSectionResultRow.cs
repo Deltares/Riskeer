@@ -43,6 +43,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
+
             SectionResult = sectionResult;
         }
 
@@ -54,22 +55,6 @@ namespace Ringtoets.Common.Forms.Views
             get
             {
                 return SectionResult.Section.Name;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing whether the section passed the layer 0 assessment.
-        /// </summary>
-        public AssessmentLayerOneState AssessmentLayerOne
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerOne;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerOne = value;
-                SectionResult.NotifyObservers();
             }
         }
 

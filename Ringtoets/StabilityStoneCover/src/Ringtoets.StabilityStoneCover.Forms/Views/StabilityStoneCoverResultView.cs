@@ -25,7 +25,9 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -65,18 +67,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             base.AddDataGridColumns();
 
-            EnumDisplayWrapper<AssessmentLayerOneState>[] layerOneDataSource =
-                Enum.GetValues(typeof(AssessmentLayerOneState))
-                    .OfType<AssessmentLayerOneState>()
-                    .Select(sa => new EnumDisplayWrapper<AssessmentLayerOneState>(sa))
+            EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[] simpleAssessmentDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentResultValidityOnlyType))
+                    .OfType<SimpleAssessmentResultValidityOnlyType>()
+                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>(sa))
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                layerOneDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+                nameof(StabilityStoneCoverSectionResultRow.SimpleAssessmentInput),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
+                simpleAssessmentDataSource,
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
 
             EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
                 Enum.GetValues(typeof(AssessmentLayerTwoAResult))
@@ -86,20 +88,22 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 twoAResultDataSource,
                 nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
                 nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
             if (eventArgs.ColumnIndex > 1)
             {
-                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
+                var simpleAssessmentResult = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(eventArgs.RowIndex,
+                                                                                                                  SimpleAssessmentColumnIndex).Value;
+                if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }

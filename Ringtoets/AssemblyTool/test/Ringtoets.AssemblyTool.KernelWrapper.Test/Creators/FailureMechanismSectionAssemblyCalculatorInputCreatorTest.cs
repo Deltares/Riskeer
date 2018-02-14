@@ -24,7 +24,7 @@ using AssemblyTool.Kernel.Data.CalculationResults;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {

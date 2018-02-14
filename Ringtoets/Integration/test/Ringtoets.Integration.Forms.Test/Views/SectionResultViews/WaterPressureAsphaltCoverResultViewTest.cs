@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
@@ -38,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     public class WaterPressureAsphaltCoverResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
+        private const int simpleAssessmentIndex = 1;
         private const int assessmentLayerThreeIndex = 2;
 
         [Test]
@@ -75,10 +76,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                     Assert.AreEqual(3, dataGridView.ColumnCount);
 
-                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
                     Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                    Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                    Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
                     Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
                     Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -103,28 +104,38 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             {
                 new Point2D(0, 0)
             });
+            var section4 = new FailureMechanismSection("Section 4", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             var random = new Random(21);
             var result1 = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section1)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentInput = SimpleAssessmentResultType.None,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section2)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
+                SimpleAssessmentInput = SimpleAssessmentResultType.NotApplicable,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
+                SimpleAssessmentInput = SimpleAssessmentResultType.ProbabilityNegligible,
+                AssessmentLayerThree = random.NextRoundedDouble()
+            };
+            var result4 = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section4)
+            {
+                SimpleAssessmentInput = SimpleAssessmentResultType.AssessFurther,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>
             {
                 result1,
                 result2,
-                result3
+                result3,
+                result4
             };
 
             // Call
@@ -138,39 +149,47 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(3, rows.Count);
+                Assert.AreEqual(4, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(3, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(3, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result2.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[2].Cells;
                 Assert.AreEqual(3, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+
+                cells = rows[3].Cells;
+                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual("Section 4", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result4.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result4.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(notAssessed)")]
-        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(noVerdict)")]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionDisabled(
-            AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesSimpleAssessmentAndListenersNotified_ThenRowsForSectionDisabled(
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -180,7 +199,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var random = new Random(21);
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = assessmentLayerOneState,
+                SimpleAssessmentInput = simpleAssessmentResult,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>
@@ -196,7 +215,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 form.Show();
 
                 // When
-                result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                result.SimpleAssessmentInput = SimpleAssessmentResultType.ProbabilityNegligible;
                 result.NotifyObservers();
 
                 // Then

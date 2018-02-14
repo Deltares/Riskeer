@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -56,6 +57,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>>(row);
+            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(failureMechanism, assessmentSection), row.AssessmentLayerTwoA);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
@@ -100,6 +102,35 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(AssessmentLayerOneState.NotAssessed)]
+        [TestCase(AssessmentLayerOneState.Sufficient)]
+        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(AssessmentLayerOneState newValue)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
+            result.Attach(observer);
+
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result,
+                                                                                   new StabilityPointStructuresFailureMechanism(),
+                                                                                   assessmentSection);
+
+            // Call
+            row.AssessmentLayerOne = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.AssessmentLayerOne);
+            mocks.VerifyAll();
         }
 
         [Test]

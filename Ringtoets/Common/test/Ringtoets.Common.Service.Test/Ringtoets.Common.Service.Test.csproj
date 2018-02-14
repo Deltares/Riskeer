@@ -27,7 +27,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyTool\AssemblyToolCategoriesCalculationServiceTest.cs" />
     <Compile Include="ClearResultsTest.cs" />
     <Compile Include="HydraRingInputParserTest.cs" />
     <Compile Include="CalculationServiceHelperTest.cs" />
@@ -79,6 +78,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
       <Project>{358b6da2-a1df-477f-b6ac-c30204265cb0}</Project>

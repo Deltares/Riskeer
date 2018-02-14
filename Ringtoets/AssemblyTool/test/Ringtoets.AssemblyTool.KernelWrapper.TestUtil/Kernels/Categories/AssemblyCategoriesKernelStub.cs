@@ -111,7 +111,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public CalculationOutput<FailureMechanismSectionCategory[]> CalculateGeotechnicFailureMechanismSectionCategories(CalculateFailureMechanismSectionCategoriesInput input)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            SignalingNorm = input.SignalingStandard;
+            LowerLimitNorm = input.LowerBoundaryStandard;
+            ProbabilityDistributionFactor = input.ProbabilityDistributionFactor;
+            N = input.NValue;
+
+            Calculated = true;
+
+            return FailureMechanismSectionCategoriesOutput;
         }
     }
 }

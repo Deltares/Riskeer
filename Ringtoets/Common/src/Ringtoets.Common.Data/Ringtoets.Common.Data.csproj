@@ -16,12 +16,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyTool\AssemblyCategory.cs" />
-    <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategory.cs" />
-    <Compile Include="AssemblyTool\AssessmentSectionAssemblyCategoryGroup.cs" />
-    <Compile Include="AssemblyTool\FailureMechanismSectionAssembly.cs" />
-    <Compile Include="AssemblyTool\FailureMechanismSectionAssemblyCategory.cs" />
-    <Compile Include="AssemblyTool\FailureMechanismSectionAssemblyCategoryGroup.cs" />
+    <Compile Include="AssemblyTool\AssemblyToolCategoriesFactory.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionComposition.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionExtensions.cs" />
     <Compile Include="AssessmentSection\BackgroundData.cs" />
@@ -49,8 +44,6 @@
     <Compile Include="Exceptions\IllustrationPointConversionException.cs" />
     <Compile Include="Exceptions\MechanismSurfaceLineException.cs" />
     <Compile Include="FailureMechanism\AssessmentLayerOneState.cs" />
-    <Compile Include="FailureMechanism\SimpleAssessmentResultValidityOnlyType.cs" />
-    <Compile Include="FailureMechanism\SimpleAssessmentResultType.cs" />
     <Compile Include="Helpers\SoilLayerDataHelper.cs" />
     <Compile Include="Hydraulics\CalculationConvergence.cs" />
     <Compile Include="Hydraulics\HydraulicBoundaryDatabase.cs" />
@@ -155,6 +148,16 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">
+      <Project>{358B6DA2-A1DF-477F-B6AC-C30204265CB0}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,6 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -56,6 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResult>>(row);
+            Assert.AreEqual(result.SimpleAssessmentInput, row.SimpleAssessmentResult);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(failureMechanism, assessmentSection), row.AssessmentLayerTwoA);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
@@ -94,11 +97,42 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), null);
+            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result,
+                                                                                                   new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                   null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<SimpleAssessmentResultValidityOnlyType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result,
+                                                                                   new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                   assessmentSection);
+
+            // Call
+            row.SimpleAssessmentResult = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.SimpleAssessmentInput);
+            mocks.VerifyAll();
         }
 
         [Test]

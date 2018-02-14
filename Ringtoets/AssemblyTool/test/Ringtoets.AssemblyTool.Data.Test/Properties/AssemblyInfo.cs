@@ -19,21 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.AssemblyTool
-{
-    /// <summary>
-    /// Enum defining the assembly categories for a failure mechanism section.
-    /// </summary>
-    public enum FailureMechanismSectionAssemblyCategoryGroup
-    {
-        None = 1,
-        NotApplicable = 2,
-        Iv = 3,
-        IIv = 4,
-        IIIv = 5,
-        IVv = 6,
-        Vv = 7,
-        VIv = 8,
-        VIIv = 9
-    }
-}
+using System.Reflection;
+
+[assembly: AssemblyTitle("Ringtoets.AssemblyTool.Data.Test")]
+[assembly: AssemblyProduct("Ringtoets.AssemblyTool.Data.Test")]

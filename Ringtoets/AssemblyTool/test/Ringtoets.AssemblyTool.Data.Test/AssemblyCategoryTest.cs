@@ -20,32 +20,33 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssemblyTool;
 
-namespace Ringtoets.Common.Data.Test.AssemblyTool
+namespace Ringtoets.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoryTest
+    public class AssemblyCategoryTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var random = new Random(39);
-            var categoryType = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+            var random = new Random(11);
+
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
 
             // Call
-            var category = new AssessmentSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryType);
+            var category = new SimpleCategory(lowerBoundary, upperBoundary);
 
             // Assert
-            Assert.IsInstanceOf<AssemblyCategory>(category);
             Assert.AreEqual(lowerBoundary, category.LowerBoundary);
             Assert.AreEqual(upperBoundary, category.UpperBoundary);
-            Assert.AreEqual(categoryType, category.Group);
+        }
+
+        private class SimpleCategory : AssemblyCategory
+        {
+            public SimpleCategory(double lowerBoundary, double upperBoundary) 
+                : base(lowerBoundary, upperBoundary) {}
         }
     }
 }

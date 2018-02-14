@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Views
@@ -42,6 +43,22 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// to wrap so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+
+        /// <summary>
+        /// Gets or sets the value representing the simple assessment result.
+        /// </summary>
+        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentInput
+        {
+            get
+            {
+                return SectionResult.SimpleAssessmentInput;
+            }
+            set
+            {
+                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.NotifyObservers();
+            }
+        }
 
         /// <summary>
         /// Gets the assessment layer two a of the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.

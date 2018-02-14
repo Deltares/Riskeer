@@ -26,8 +26,9 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.MacroStabilityInwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -131,40 +132,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssessmentInput),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 true);
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
-        }
-
-        /// <summary>
-        /// Finds out whether the assessment section which is represented by the row at index 
-        /// <paramref name="rowIndex"/> has passed the simple assessment.
-        /// </summary>
-        /// <param name="rowIndex">The index of the row which has a section attached.</param>
-        /// <returns><c>false</c> if the simple assessment has passed, <c>true</c> otherwise.</returns>
-        private bool HasPassedSimpleAssessment(int rowIndex)
-        {
-            var simpleAssessmentType = (SimpleAssessmentResultType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;
-            return simpleAssessmentType == SimpleAssessmentResultType.ProbabilityNegligible
-                   || simpleAssessmentType == SimpleAssessmentResultType.NotApplicable;
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
         }
 
         #region Event handling
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
+            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
+                var simpleAssessmentResult = (SimpleAssessmentResultType) DataGridViewControl.GetCell(eventArgs.RowIndex,
+                                                                                                      SimpleAssessmentColumnIndex).Value;
+                if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }

@@ -15,7 +15,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyTool\AssemblyToolCategoriesCalculationService.cs" />
     <Compile Include="CalculationServiceHelper.cs" />
     <Compile Include="ClearResults.cs" />
     <Compile Include="HydraRingInputParser.cs" />
@@ -66,6 +65,11 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.KernelWrapper\Ringtoets.AssemblyTool.KernelWrapper.csproj">

@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -123,23 +124,29 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 layerOneDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 true);
             DataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
+        }
+
+        private bool HasPassedSimpleAssessment(int rowIndex)
+        {
+            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, SimpleAssessmentColumnIndex).Value
+                   == AssessmentLayerOneState.Sufficient;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
+            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
                 if (HasPassedSimpleAssessment(eventArgs.RowIndex))
                 {

@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 
@@ -37,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
     public class GrassCoverErosionOutwardsFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
+        private const int simpleAssessmentIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
 
@@ -78,11 +79,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                     Assert.AreEqual(4, dataGridView.ColumnCount);
 
-                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
                     Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                     Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                    Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                    Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
                     Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                     Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -108,23 +109,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 new Point2D(0, 0)
             });
+            var section4 = new FailureMechanismSection("Section 4", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             var random = new Random(21);
             var result1 = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section1)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentInput = SimpleAssessmentResultType.None,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section2)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
+                SimpleAssessmentInput = SimpleAssessmentResultType.NotApplicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
+                SimpleAssessmentInput = SimpleAssessmentResultType.ProbabilityNegligible,
+                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
+                AssessmentLayerThree = random.NextRoundedDouble()
+            };
+            var result4 = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section4)
+            {
+                SimpleAssessmentInput = SimpleAssessmentResultType.AssessFurther,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
@@ -132,7 +143,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 result1,
                 result2,
-                result3
+                result3,
+                result4
             };
 
             // Call
@@ -146,34 +158,44 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(3, rows.Count);
+                Assert.AreEqual(4, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-
-                cells = rows[1].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
+                cells = rows[1].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result2.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+
+                cells = rows[3].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 4", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result4.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result4.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                Assert.AreEqual(result4.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
@@ -181,10 +203,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "ResultView_SectionPassesLevel0_RowsDisabled(notAssessed)")]
-        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "ResultView_SectionPassesLevel0_RowsDisabled(noVerdict)")]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
-            AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesSimpleAssessmentAndListenersNotified_ThenRowsForSectionBecomesDisabled(
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
             var random = new Random(21);
@@ -193,7 +215,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 new Point2D(0, 0)
             }))
             {
-                AssessmentLayerOne = assessmentLayerOneState,
+                SimpleAssessmentInput = simpleAssessmentResult,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
@@ -210,7 +232,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                     form.Show();
 
                     // When
-                    result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                    result.SimpleAssessmentInput = SimpleAssessmentResultType.ProbabilityNegligible;
                     result.NotifyObservers();
 
                     // Then

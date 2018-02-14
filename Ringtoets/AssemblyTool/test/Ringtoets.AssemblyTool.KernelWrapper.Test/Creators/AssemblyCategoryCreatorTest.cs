@@ -28,9 +28,9 @@ using AssemblyTool.Kernel.Data;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
-using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -55,9 +55,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var random = new Random(11);
             var output = new CalculationOutput<AssessmentSectionCategory[]>(new[]
             {
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1))),
                 null,
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2)))
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1)))
             });
 
             // Call
@@ -77,10 +77,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             var output = new CalculationOutput<AssessmentSectionCategory[]>(new[]
             {
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2)))
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1))),
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1))),
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1))),
+                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1)))
             });
 
             // Call
@@ -152,10 +152,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             var output = new CalculationOutput<FailureMechanismSectionCategory[]>(new[]
             {
-                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
-                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
-                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2))),
-                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.Next(1)), new Probability(random.Next(1, 2)))
+                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1))),
+                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1))),
+                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1))),
+                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.GetFromRange(0, 0.5)), new Probability(random.GetFromRange(0.5 ,1)))
             });
 
             // Call

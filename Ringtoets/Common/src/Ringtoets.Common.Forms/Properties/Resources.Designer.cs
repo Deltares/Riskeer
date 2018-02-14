@@ -1436,38 +1436,29 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gedetailleerde toets per vak.
+        /// </summary>
+        public static string FailureMechanismResultView_DetailedAssessment_ColumnHeader {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessment_ColumnHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eenvoudige toets.
         /// </summary>
-        public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one {
+        public static string FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Toets op maat.
         /// </summary>
-        public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three {
+        public static string FailureMechanismResultView_TailorMadeAssessment_ColumnHeader {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets per vak.
-        /// </summary>
-        public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vak.
-        /// </summary>
-        public static string FailureMechanismResultView_InitializeDataGridView_Section_name {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_InitializeDataGridView_Section_name", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessment_ColumnHeader", resourceCulture);
             }
         }
         
@@ -2600,6 +2591,15 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("ScenariosIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vak.
+        /// </summary>
+        public static string Section_ColumnHeader {
+            get {
+                return ResourceManager.GetString("Section_ColumnHeader", resourceCulture);
             }
         }
         

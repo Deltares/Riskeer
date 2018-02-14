@@ -20,13 +20,16 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -48,11 +51,38 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverSlipOffInwardsFailureMechanismSectionResult>>(row);
 
+            Assert.AreEqual(result.SimpleAssessmentInput, row.SimpleAssessmentResult);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<GrassCoverSlipOffInwardsSectionResultRow, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverSlipOffInwardsSectionResultRow.AssessmentLayerThree));
+        }
+
+        [Test]
+        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new GrassCoverSlipOffInwardsSectionResultRow(result);
+
+            // Call
+            row.SimpleAssessmentResult = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.SimpleAssessmentInput);
+            mocks.VerifyAll();
         }
 
         [Test]

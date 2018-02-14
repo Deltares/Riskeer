@@ -19,30 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Service.Properties;
 
-namespace Ringtoets.Common.Service.AssemblyTool
+namespace Ringtoets.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Calculation service for calculating the assembly tool categories.
+    /// Factory for calculating the assembly tool categories.
     /// </summary>
-    public static class AssemblyToolCategoriesCalculationService
+    public static class AssemblyToolCategoriesFactory
     {
         /// <summary>
-        /// Calculates the assessment section assembly categories.
+        /// Creates the assessment section assembly categories.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyCategory"/>.</returns>
-        public static IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerLimitNorm)
-        {
+        /// <exception cref="AssemblyFactoryException">Thrown when an error occurred while creating the categories.</exception>
+        public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerLimitNorm)
+        { 
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactory.Instance);
 
@@ -52,8 +51,7 @@ namespace Ringtoets.Common.Service.AssemblyTool
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(Resources.AssemblyToolCategoriesCalculationService_CalculateAssessmentSectionAssemblyCategories_Error_in_assembly_categories_calculation, e);
-                return new AssessmentSectionAssemblyCategory[0];
+                throw new AssemblyFactoryException(e.Message, e);
             }
         }
     }

@@ -19,17 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.AssemblyTool
-{
-    /// <summary>
-    /// Enum defining the assembly categories for an assessment section.
-    /// </summary>
-    public enum AssessmentSectionAssemblyCategoryGroup
-    {
-        APlus = 1,
-        A = 2,
-        B = 3,
-        C = 4,
-        D = 5
-    }
-}
+using System.Reflection;
+
+[assembly: AssemblyTitle("Ringtoets.Common.Primitives")]
+[assembly: AssemblyProduct("Ringtoets.Common.Primitives")]

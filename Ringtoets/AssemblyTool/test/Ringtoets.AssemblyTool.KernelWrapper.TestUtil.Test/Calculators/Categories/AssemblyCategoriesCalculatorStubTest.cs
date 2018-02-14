@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
-using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categories
 {
@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_OutputNotSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_ReturnsCategories()
         {
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub();
@@ -73,23 +73,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                 AssessmentSectionAssemblyCategoryGroup.B,
                 AssessmentSectionAssemblyCategoryGroup.C
             }, result.Select(r => r.Group));
-        }
-
-        [Test]
-        public void CalculateAssessmentSectionCategories_OutputSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
-        {
-            // Setup
-            var output = new AssessmentSectionAssemblyCategory[0];
-            var calculator = new AssemblyCategoriesCalculatorStub
-            {
-                AssessmentSectionCategoriesOutput = output
-            };
-
-            // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = calculator.CalculateAssessmentSectionCategories(0 ,0);
-
-            // Assert
-            Assert.AreSame(output, result);
         }
 
         [Test]
@@ -129,7 +112,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionCategories_OutputNotSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnsCategories()
         {
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub();
@@ -157,23 +140,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                 FailureMechanismSectionAssemblyCategoryGroup.IIv,
                 FailureMechanismSectionAssemblyCategoryGroup.IIIv
             }, result.Select(r => r.Group));
-        }
-
-        [Test]
-        public void CalculateFailureMechanismSectionCategories_OutputSetAndThrowExceptionOnCalculateFalse_ReturnsCategories()
-        {
-            // Setup
-            var output = new FailureMechanismSectionAssemblyCategory[0];
-            var calculator = new AssemblyCategoriesCalculatorStub
-            {
-                FailureMechanismSectionCategoriesOutput = output
-            };
-
-            // Call
-            IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateFailureMechanismSectionCategories(0 ,0, 0, 0);
-
-            // Assert
-            Assert.AreSame(output, result);
         }
 
         [Test]
@@ -209,6 +175,77 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
 
             // Call
             TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(0, 0, 0, 0);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnsCategories()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(0, 0, 0, 0).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, result.Length);
+            CollectionAssert.AreEqual(new[]
+            {
+                1,
+                2.01,
+                3.01
+            }, result.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                2,
+                3,
+                4
+            }, result.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                FailureMechanismSectionAssemblyCategoryGroup.Iv,
+                FailureMechanismSectionAssemblyCategoryGroup.IIv,
+                FailureMechanismSectionAssemblyCategoryGroup.IIIv
+            }, result.Select(r => r.Group));
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.NextDouble();
+
+            var calculator = new AssemblyCategoriesCalculatorStub();
+
+            // Call
+            calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
+
+            // Assert
+            Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
+            Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
+            Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
+            Assert.AreEqual(n, calculator.N);
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsAssemblyCategoriesCalculatorException()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(0, 0, 0, 0);
 
             // Assert
             var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);

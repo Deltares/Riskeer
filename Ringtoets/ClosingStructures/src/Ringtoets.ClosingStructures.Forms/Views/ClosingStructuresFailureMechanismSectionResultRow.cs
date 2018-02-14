@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -62,6 +63,22 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing whether the section passed the layer 1 assessment.
+        /// </summary>
+        public AssessmentLayerOneState AssessmentLayerOne
+        {
+            get
+            {
+                return SectionResult.AssessmentLayerOne;
+            }
+            set
+            {
+                SectionResult.AssessmentLayerOne = value;
+                SectionResult.NotifyObservers();
+            }
         }
 
         /// <summary>

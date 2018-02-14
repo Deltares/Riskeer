@@ -26,9 +26,9 @@ using AssemblyTool.Kernel.Categories;
 using AssemblyTool.Kernel.Categories.CalculatorInput;
 using AssemblyTool.Kernel.Data;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 {
@@ -81,6 +81,26 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
                                                                                 probabilityDistributionFactor, n);
                 ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 CalculationOutput<FailureMechanismSectionCategory[]> output = kernel.CalculateFailureMechanismSectionCategories(input);
+
+                return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
+            }
+            catch (Exception e)
+            {
+                throw new AssemblyCategoriesCalculatorException(e.Message, e);
+            }
+        }
+
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(double signalingNorm,
+                                                                                                                         double lowerLimitNorm,
+                                                                                                                         double probabilityDistributionFactor,
+                                                                                                                         double n)
+        {
+            try
+            {
+                var input = new CalculateFailureMechanismSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerLimitNorm),
+                                                                                probabilityDistributionFactor, n);
+                ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
+                CalculationOutput<FailureMechanismSectionCategory[]> output = kernel.CalculateGeotechnicFailureMechanismSectionCategories(input);
 
                 return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
             }

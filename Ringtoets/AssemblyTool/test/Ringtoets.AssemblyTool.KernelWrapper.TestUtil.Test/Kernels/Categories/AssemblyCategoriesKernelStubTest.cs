@@ -25,6 +25,7 @@ using AssemblyTool.Kernel.Categories;
 using AssemblyTool.Kernel.Categories.CalculatorInput;
 using AssemblyTool.Kernel.Data;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
@@ -129,7 +130,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             var lowerLimitNorm = new Probability(random.NextDouble());
             var signalingNorm = new Probability(random.NextDouble());
             double probabilityDistributionFactor = random.NextDouble();
-            double n = random.Next(1, 5);
+            double n = random.GetFromRange(1, 5);
 
             var kernelStub = new AssemblyCategoriesKernelStub();
             var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
@@ -161,7 +162,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateFailureMechanismCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
         {
             // Setup
             var kernelStub = new AssemblyCategoriesKernelStub
@@ -202,6 +203,86 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(11);
+            var lowerLimitNorm = new Probability(random.NextDouble());
+            var signalingNorm = new Probability(random.NextDouble());
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.GetFromRange(1, 5);
+
+            var kernelStub = new AssemblyCategoriesKernelStub();
+            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
+
+            // Call
+            kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(input);
+
+            // Assert
+            Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
+            Assert.AreEqual(lowerLimitNorm, kernelStub.LowerLimitNorm);
+            Assert.AreEqual(probabilityDistributionFactor, kernelStub.ProbabilityDistributionFactor);
+            Assert.AreEqual(n, kernelStub.N);
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoriesKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernelStub.Calculated);
+
+            // Call
+            kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
+
+            // Assert
+            Assert.IsTrue(kernelStub.Calculated);
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoriesKernelStub
+            {
+                FailureMechanismSectionCategoriesOutput = new CalculationOutput<FailureMechanismSectionCategory[]>(new FailureMechanismSectionCategory[0])
+            };
+
+            // Call
+            CalculationOutput<FailureMechanismSectionCategory[]> output = kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(
+                new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
+
+            // Assert
+            Assert.AreSame(kernelStub.FailureMechanismSectionCategoriesOutput, output);
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var kernelStub = new AssemblyCategoriesKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernelStub.Calculated);
+
+            // Call
+            TestDelegate test = () => kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(
+                new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernelStub.Calculated);
+            Assert.IsNull(kernelStub.FailureMechanismSectionCategoriesOutput);
+        }
+
+        [Test]
         public void CalculateFailureMechanismCategories_Always_ThrowsNotImplementedException()
         {
             // Setup
@@ -209,19 +290,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
 
             // Call
             TestDelegate test = () => kernelStub.CalculateFailureMechanismCategories(null);
-
-            // Assert
-            Assert.Throws<NotImplementedException>(test);
-        }
-
-        [Test]
-        public void CalculateGeotechnicFailureMechanismSectionCategories_Always_ThrowsNotImplementedException()
-        {
-            // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub();
-
-            // Call
-            TestDelegate test = () => kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(null);
 
             // Assert
             Assert.Throws<NotImplementedException>(test);

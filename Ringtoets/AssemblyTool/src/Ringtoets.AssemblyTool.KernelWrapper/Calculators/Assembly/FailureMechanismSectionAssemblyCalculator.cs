@@ -22,10 +22,10 @@
 using System;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using IFailureMechanismSectionAssemblyCalculatorKernel = AssemblyTool.Kernel.Assembly.IFailureMechanismSectionAssemblyCalculator;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly

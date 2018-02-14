@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 {
@@ -54,6 +54,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// when performing the calculation.</exception>
         IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(
+            double signalingNorm, double lowerLimitNorm, double probabilityDistributionFactor, double n);
+
+        /// <summary>
+        /// Performs the calculation for getting the failure mechanism section categories.
+        /// </summary>
+        /// <param name="signalingNorm">The signaling norm to calculate with.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
+        /// <param name="probabilityDistributionFactor">The probability distribution factor to calculate with.</param>
+        /// <param name="n">The n to calculate with.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
+        /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
+        /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
+        /// when performing the calculation.</exception>
+        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(
             double signalingNorm, double lowerLimitNorm, double probabilityDistributionFactor, double n);
     }
 }

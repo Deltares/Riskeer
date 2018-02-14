@@ -27,12 +27,12 @@ using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
-using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {
@@ -150,7 +150,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double lowerLimitNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
             double probabilityDistributionFactor = random.NextDouble();
-            double n = random.Next(1, 5);
+            double n = random.GetFromRange(1, 5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -179,7 +179,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double lowerLimitNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
             double probabilityDistributionFactor = random.NextDouble();
-            double n = random.Next(1, 5);
+            double n = random.GetFromRange(1, 5);
             CalculationOutput<FailureMechanismSectionCategory[]> output = CreateFailureMechanismSectionCategoryKernelOutput();
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -220,6 +220,92 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Call
                 TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm,
                                                                                                 probabilityDistributionFactor, n);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_WithInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerLimitNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.GetFromRange(1, 5);
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.FailureMechanismSectionCategoriesOutput = CreateFailureMechanismSectionCategoryKernelOutput();
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
+
+                // Assert
+                Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
+                Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
+                Assert.AreEqual(probabilityDistributionFactor, kernel.ProbabilityDistributionFactor);
+                Assert.AreEqual(n, kernel.N);
+            }
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerLimitNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.GetFromRange(1, 5);
+            CalculationOutput<FailureMechanismSectionCategory[]> output = CreateFailureMechanismSectionCategoryKernelOutput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.FailureMechanismSectionCategoriesOutput = output;
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm,
+                                                                                                                                              probabilityDistributionFactor, n);
+
+                // Assert
+                AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);
+            }
+        }
+
+        [Test]
+        public void CalculateGeotechnicFailureMechanismSectionCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerLimitNorm = random.NextDouble();
+            double signalingNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.NextDouble();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.ThrowExceptionOnCalculate = true;
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm,
+                                                                                                          probabilityDistributionFactor, n);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);

@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
-using Ringtoets.Common.Data.AssemblyTool;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 {
@@ -52,14 +52,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public double N { get; private set; }
 
         /// <summary>
-        /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyCategory"/> calculation.
+        /// Gets the output of the <see cref="AssessmentSectionAssemblyCategory"/> calculation.
         /// </summary>
-        public IEnumerable<AssessmentSectionAssemblyCategory> AssessmentSectionCategoriesOutput { get; set; }
+        public IEnumerable<AssessmentSectionAssemblyCategory> AssessmentSectionCategoriesOutput { get; private set; }
 
         /// <summary>
-        /// Gets or sets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.
+        /// Gets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> FailureMechanismSectionCategoriesOutput { get; set; }
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> FailureMechanismSectionCategoriesOutput { get; private set; }
 
         /// <summary>
         /// Indicator whether an exception must be thrown when performing the calculation.
@@ -105,6 +105,28 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
                     new FailureMechanismSectionAssemblyCategory(2.01, 3, FailureMechanismSectionAssemblyCategoryGroup.IIv),
                     new FailureMechanismSectionAssemblyCategory(3.01, 4, FailureMechanismSectionAssemblyCategoryGroup.IIIv)
                 });
+        }
+
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(double signalingNorm, double lowerLimitNorm,
+                                                                                                                         double probabilityDistributionFactor, double n)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssemblyCategoriesCalculatorException("Message", new Exception());
+            }
+
+            SignalingNorm = signalingNorm;
+            LowerLimitNorm = lowerLimitNorm;
+            ProbabilityDistributionFactor = probabilityDistributionFactor;
+            N = n;
+
+            return FailureMechanismSectionCategoriesOutput
+                   ?? (FailureMechanismSectionCategoriesOutput = new[]
+                   {
+                       new FailureMechanismSectionAssemblyCategory(1, 2, FailureMechanismSectionAssemblyCategoryGroup.Iv),
+                       new FailureMechanismSectionAssemblyCategory(2.01, 3, FailureMechanismSectionAssemblyCategoryGroup.IIv),
+                       new FailureMechanismSectionAssemblyCategory(3.01, 4, FailureMechanismSectionAssemblyCategoryGroup.IIIv)
+                   });
         }
     }
 }

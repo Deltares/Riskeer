@@ -19,28 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.AssemblyTool
+namespace Ringtoets.AssemblyTool.Data
 {
     /// <summary>
-    /// Assembly category for assessment section.
+    /// Enum defining the assembly categories for a failure mechanism section.
     /// </summary>
-    public class AssessmentSectionAssemblyCategory : AssemblyCategory
+    public enum FailureMechanismSectionAssemblyCategoryGroup
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategory"/>.
-        /// </summary>
-        /// <param name="lowerBoundary">The lower boundary of the category.</param>
-        /// <param name="upperBoundary">The upper boundary of the category.</param>
-        /// <param name="group">The group of the category.</param>
-        public AssessmentSectionAssemblyCategory(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyCategoryGroup group)
-            : base(lowerBoundary, upperBoundary)
-        {
-            Group = group;
-        }
-
-        /// <summary>
-        /// Gets the group of the assembly category.
-        /// </summary>
-        public AssessmentSectionAssemblyCategoryGroup Group { get; }
+        None = 1,
+        NotApplicable = 2,
+        Iv = 3,
+        IIv = 4,
+        IIIv = 5,
+        IVv = 6,
+        Vv = 7,
+        VIv = 8,
+        VIIv = 9
     }
 }

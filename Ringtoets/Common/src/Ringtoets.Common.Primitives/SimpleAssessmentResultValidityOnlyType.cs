@@ -19,32 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Common.Data.AssemblyTool
+using Core.Common.Util.Attributes;
+using Ringtoets.Common.Primitives.Properties;
+
+namespace Ringtoets.Common.Primitives
 {
     /// <summary>
-    /// Assembly for failure mechanism section.
+    /// This enum defines the possible result types for a simple assessment 
+    /// on a failure mechanism section in case there is only a relevance check.
     /// </summary>
-    public class FailureMechanismSectionAssembly
+    public enum SimpleAssessmentResultValidityOnlyType
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionAssembly"/>.
+        /// No option has been selected for this failure
+        /// mechanism section.
         /// </summary>
-        /// <param name="probability">The probability of the assembly.</param>
-        /// <param name="group">The group of the assembly.</param>
-        public FailureMechanismSectionAssembly(double probability, FailureMechanismSectionAssemblyCategoryGroup group)
-        {
-            Probability = probability;
-            Group = group;
-        }
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_None))]
+        None = 1,
 
         /// <summary>
-        /// Gets the probability of the assembly.
+        /// The failure mechanism section is not applicable.
         /// </summary>
-        public double Probability { get; }
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_NotApplicable))]
+        NotApplicable = 2,
 
         /// <summary>
-        /// Gets the group of the assembly.
+        /// The failure mechanism section is applicable.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup Group { get; }
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultValidityOnlyType_Applicable))]
+        Applicable = 3
     }
 }

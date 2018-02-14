@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Piping.Data
 {

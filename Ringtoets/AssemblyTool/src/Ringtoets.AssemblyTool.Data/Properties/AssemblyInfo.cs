@@ -19,30 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Ringtoets.Common.Data.AssemblyTool;
+using System.Reflection;
 
-namespace Ringtoets.Common.Data.Test.AssemblyTool
-{
-    [TestFixture]
-    public class FailureMechanismSectionAssemblyTest
-    {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(39);
-            double probability = random.NextDouble();
-            var group = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-
-            // Call
-            var assembly = new FailureMechanismSectionAssembly(probability, group);
-
-            // Assert
-            Assert.AreEqual(probability, assembly.Probability);
-            Assert.AreEqual(group, assembly.Group);
-        }
-    }
-}
+[assembly: AssemblyTitle("Ringtoets.AssemblyTool.Data")]
+[assembly: AssemblyProduct("Ringtoets.AssemblyTool.Data")]

@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -46,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     public class GrassCoverErosionInwardsFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
+        private const int simpleAssessmentIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
         private Form testForm;
@@ -111,11 +112,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(4, dataGridView.ColumnCount);
                 Assert.IsTrue(dataGridView.Columns[assessmentLayerTwoAIndex].ReadOnly);
 
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -139,14 +140,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
@@ -154,11 +155,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
         public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Setup
             using (ShowFullyConfiguredFailureMechanismResultsView(new GrassCoverErosionInwardsFailureMechanism()))
@@ -166,7 +167,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[0].Cells[simpleAssessmentIndex].Value = simpleAssessmentResult;
 
                 // Assert
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -176,14 +177,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 DataGridViewCell cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
                 DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
-                DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
+                DataGridViewCell dataGridViewCell = cells[simpleAssessmentIndex];
 
-                Assert.AreEqual(assessmentLayerOneState, dataGridViewCell.Value);
+                Assert.AreEqual(simpleAssessmentResult, dataGridViewCell.Value);
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
-                if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
+                if (simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable)
                 {
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
@@ -264,14 +265,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentInput = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -295,16 +296,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
         public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
                 Calculation = new GrassCoverErosionInwardsCalculation(),
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentInput = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -328,9 +329,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -343,7 +344,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 Calculation = calculation,
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentInput = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -367,9 +368,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -403,8 +404,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSectionResults))]
-        public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
+        [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
+        public void GivenSectionResultAndAssessmentSimpleAssessmentNotApplicable_ThenLayerTwoANoError(
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, string expectedValue)
         {
             // Given
@@ -429,10 +430,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "SectionResultAndSuccessfulCalculation_ChangingCalculationToFailed_LayerTwoAHasError(notAssessed)")]
-        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "SectionResultAndSuccessfulCalculation_ChangingCalculationToFailed_LayerTwoAHasError(noVerdict)")]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -443,7 +444,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 },
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentInput = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -477,23 +478,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
-        private static IEnumerable AssessmentLayerOneStateIsSufficientVariousSectionResults()
+        private static IEnumerable SimpleAssessmentResultIsSufficientVariousSectionResults()
         {
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
             const double reliability = 0.56789;
 
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient
+                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable
             }, "-").SetName("SectionWithoutCalculation");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 Calculation = new GrassCoverErosionInwardsCalculation()
             }, "-").SetName("SectionWithCalculationNoOutput");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
@@ -503,7 +504,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }, "-").SetName("SectionWithInvalidCalculationOutput");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(reliability),

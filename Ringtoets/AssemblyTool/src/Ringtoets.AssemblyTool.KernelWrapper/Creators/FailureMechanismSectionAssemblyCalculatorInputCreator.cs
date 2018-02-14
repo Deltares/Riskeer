@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using AssemblyTool.Kernel.Assembly;
 using AssemblyTool.Kernel.Data.CalculationResults;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {

@@ -19,34 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Properties;
-
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Ringtoets.AssemblyTool.Data
 {
     /// <summary>
-    /// This enum defines the possible statuses for a simple assessment 
-    /// for a failure mechanism section in case there is only a relevance check.
+    /// Assembly category base.
     /// </summary>
-    public enum SimpleAssessmentResultValidityOnlyType
+    public abstract class AssemblyCategory
     {
         /// <summary>
-        /// No option has been selected for this failure
-        /// mechanism section.
+        /// Creates a new instance of <see cref="AssemblyCategory"/>.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_None))]
-        None = 1,
+        /// <param name="lowerBoundary">The lower boundary of the category.</param>
+        /// <param name="upperBoundary">The upper boundary of the category.</param>
+        protected AssemblyCategory(double lowerBoundary, double upperBoundary)
+        {
+            LowerBoundary = lowerBoundary;
+            UpperBoundary = upperBoundary;
+        }
 
         /// <summary>
-        /// The failure mechanism section is not applicable.
+        /// Gets the lower boundary of the assembly category.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_NotApplicable))]
-        NotApplicable = 2,
+        public double LowerBoundary { get; }
 
         /// <summary>
-        /// The failure mechanism section is applicable.
+        /// Gets the upper boundary of the assembly category.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultValidityOnlyType_Applicable))]
-        Applicable = 3
+        public double UpperBoundary { get; }
     }
 }

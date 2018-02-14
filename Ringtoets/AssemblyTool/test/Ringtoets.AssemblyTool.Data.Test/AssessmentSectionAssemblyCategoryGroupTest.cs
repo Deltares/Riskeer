@@ -22,45 +22,32 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssemblyTool;
 
-namespace Ringtoets.Common.Data.Test.AssemblyTool
+namespace Ringtoets.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyCategoryGroupTest : EnumValuesTestFixture<FailureMechanismSectionAssemblyCategoryGroup, int>
+    public class AssessmentSectionAssemblyCategoryGroupTest : EnumValuesTestFixture<AssessmentSectionAssemblyCategoryGroup, int>
     {
-        protected override IDictionary<FailureMechanismSectionAssemblyCategoryGroup, int> ExpectedValueForEnumValues
+        protected override IDictionary<AssessmentSectionAssemblyCategoryGroup, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<FailureMechanismSectionAssemblyCategoryGroup, int>
+                return new Dictionary<AssessmentSectionAssemblyCategoryGroup, int>
                 {
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.None, 1
+                        AssessmentSectionAssemblyCategoryGroup.APlus, 1
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, 2
+                        AssessmentSectionAssemblyCategoryGroup.A, 2
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.Iv, 3
+                        AssessmentSectionAssemblyCategoryGroup.B, 3
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.IIv, 4
+                        AssessmentSectionAssemblyCategoryGroup.C, 4
                     },
                     {
-                        FailureMechanismSectionAssemblyCategoryGroup.IIIv, 5
-                    },
-                    {
-                        FailureMechanismSectionAssemblyCategoryGroup.IVv, 6
-                    },
-                    {
-                        FailureMechanismSectionAssemblyCategoryGroup.Vv, 7
-                    },
-                    {
-                        FailureMechanismSectionAssemblyCategoryGroup.VIv, 8
-                    },
-                    {
-                        FailureMechanismSectionAssemblyCategoryGroup.VIIv, 9
+                        AssessmentSectionAssemblyCategoryGroup.D, 5
                     }
                 };
             }

@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.Views;
 
@@ -37,7 +38,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
     public class StabilityStoneCoverResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
+        private const int simpleAssessmentIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
 
@@ -76,11 +77,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
 
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -109,19 +110,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var random = new Random(21);
             var result1 = new StabilityStoneCoverFailureMechanismSectionResult(section1)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.None,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new StabilityStoneCoverFailureMechanismSectionResult(section2)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
+                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new StabilityStoneCoverFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
+                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.Applicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
@@ -148,27 +149,27 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-
-                cells = rows[1].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
+                cells = rows[1].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result2.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
+
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -178,10 +179,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled(
-            AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesSimpleAssessmentAndListenersNotified_ThenRowsForSectionBecomesDisabled(
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -191,7 +192,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var random = new Random(21);
             var result = new StabilityStoneCoverFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = assessmentLayerOneState,
+                SimpleAssessmentInput = simpleAssessmentResult,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
@@ -207,7 +208,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 form.Show();
 
                 // When
-                result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                result.SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable;
                 result.NotifyObservers();
 
                 // Then

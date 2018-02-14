@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Primitives.Properties;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Ringtoets.Common.Primitives
 {
     /// <summary>
-    /// This enum defines the possible statuses for a simple assessment 
-    /// for a failure mechanism section.
+    /// This enum defines the possible result types for a simple assessment 
+    /// on a failure mechanism section.
     /// </summary>
     public enum SimpleAssessmentResultType
     {
