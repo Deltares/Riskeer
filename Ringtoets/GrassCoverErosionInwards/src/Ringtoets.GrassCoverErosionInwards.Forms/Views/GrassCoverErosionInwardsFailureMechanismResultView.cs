@@ -113,18 +113,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             base.AddDataGridColumns();
 
-            EnumDisplayWrapper<AssessmentLayerOneState>[] layerOneDataSource =
-                Enum.GetValues(typeof(AssessmentLayerOneState))
-                    .OfType<AssessmentLayerOneState>()
-                    .Select(sa => new EnumDisplayWrapper<AssessmentLayerOneState>(sa))
+            EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[] simpleAssessmentDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentResultValidityOnlyType))
+                    .OfType<SimpleAssessmentResultValidityOnlyType>()
+                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>(sa))
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerOne),
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
-                layerOneDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+                simpleAssessmentDataSource,
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA),
@@ -133,6 +133,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        private bool HasPassedSimpleAssessment(int rowIndex)
+        {
+            var simpleAssessmentType = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;
+            return simpleAssessmentType == SimpleAssessmentResultValidityOnlyType.NotApplicable;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
@@ -162,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
 
             FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(currentDataGridViewCell,
-                                                                               resultRow.AssessmentLayerOne,
+                                                                               resultRow.SimpleAssessmentResult,
                                                                                resultRow.AssessmentLayerTwoA,
                                                                                normativeCalculation);
         }

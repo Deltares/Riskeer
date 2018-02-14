@@ -56,6 +56,42 @@ namespace Ringtoets.Common.Forms.Helpers
                 dataGridViewCell.ErrorText = string.Empty;
                 return;
             }
+
+            SetAssessmentLayerTwoAError(dataGridViewCell, assessmentLayerTwoA, normativeCalculation);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="DataGridViewCell.ErrorText"/> when layer 2a assessment fails.
+        /// </summary>
+        /// <param name="dataGridViewCell">The current data grid view cell.</param>
+        /// <param name="simpleAssessmentResult">The value representing whether the simple assessment result.</param>
+        /// <param name="assessmentLayerTwoA">The value representing the result of the layer 2a assessment.</param>
+        /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
+        /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
+        public static void SetAssessmentLayerTwoAError(DataGridViewCell dataGridViewCell,
+                                                       SimpleAssessmentResultValidityOnlyType simpleAssessmentResult, 
+                                                       double assessmentLayerTwoA,
+                                                       ICalculation normativeCalculation)
+        {
+            if (dataGridViewCell == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewCell));
+            }
+
+            if (simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable)
+            {
+                dataGridViewCell.ErrorText = string.Empty;
+                return;
+            }
+
+            SetAssessmentLayerTwoAError(dataGridViewCell, assessmentLayerTwoA, normativeCalculation);
+        }
+
+        private static void SetAssessmentLayerTwoAError(DataGridViewCell dataGridViewCell,
+                                                        double assessmentLayerTwoA,
+                                                        ICalculation normativeCalculation)
+        {
             if (normativeCalculation == null)
             {
                 dataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set;
@@ -69,11 +105,13 @@ namespace Ringtoets.Common.Forms.Helpers
                 dataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated;
                 return;
             }
+
             if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
             {
                 dataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output;
                 return;
             }
+
             dataGridViewCell.ErrorText = string.Empty;
         }
 
@@ -84,10 +122,12 @@ namespace Ringtoets.Common.Forms.Helpers
             {
                 return CalculationScenarioStatus.NotCalculated;
             }
+
             if (double.IsNaN(assessmentLayerTwoA))
             {
                 return CalculationScenarioStatus.Failed;
             }
+
             return CalculationScenarioStatus.Done;
         }
     }

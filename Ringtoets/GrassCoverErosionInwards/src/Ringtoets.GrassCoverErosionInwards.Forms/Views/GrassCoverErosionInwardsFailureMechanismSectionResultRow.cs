@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -47,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
                                                                         GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                        IAssessmentSection assessmentSection) 
+                                                                        IAssessmentSection assessmentSection)
             : base(sectionResult)
         {
             if (failureMechanism == null)
@@ -62,6 +63,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the simple assessment result.
+        /// </summary>
+        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult
+        {
+            get
+            {
+                return SectionResult.SimpleAssessmentInput;
+            }
+            set
+            {
+                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.NotifyObservers();
+            }
         }
 
         /// <summary>
