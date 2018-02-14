@@ -150,7 +150,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double lowerLimitNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
             double probabilityDistributionFactor = random.NextDouble();
-            double n = random.Next(1, 5);
+            double n = random.GetFromRange(1, 5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -179,7 +179,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double lowerLimitNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
             double probabilityDistributionFactor = random.NextDouble();
-            double n = random.Next(1, 5);
+            double n = random.GetFromRange(1, 5);
             CalculationOutput<FailureMechanismSectionCategory[]> output = CreateFailureMechanismSectionCategoryKernelOutput();
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -236,7 +236,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double lowerLimitNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
             double probabilityDistributionFactor = random.NextDouble();
-            double n = random.Next(1, 5);
+            double n = random.GetFromRange(1, 5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -265,7 +265,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double lowerLimitNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
             double probabilityDistributionFactor = random.NextDouble();
-            double n = random.Next(1, 5);
+            double n = random.GetFromRange(1, 5);
             CalculationOutput<FailureMechanismSectionCategory[]> output = CreateFailureMechanismSectionCategoryKernelOutput();
 
             using (new AssemblyToolKernelFactoryConfig())

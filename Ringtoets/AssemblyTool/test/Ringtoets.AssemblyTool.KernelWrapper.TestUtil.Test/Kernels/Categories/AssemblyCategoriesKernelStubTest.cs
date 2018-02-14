@@ -25,6 +25,7 @@ using AssemblyTool.Kernel.Categories;
 using AssemblyTool.Kernel.Categories.CalculatorInput;
 using AssemblyTool.Kernel.Data;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
@@ -129,7 +130,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             var lowerLimitNorm = new Probability(random.NextDouble());
             var signalingNorm = new Probability(random.NextDouble());
             double probabilityDistributionFactor = random.NextDouble();
-            double n = random.Next(1, 5);
+            double n = random.GetFromRange(1, 5);
 
             var kernelStub = new AssemblyCategoriesKernelStub();
             var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
@@ -209,7 +210,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             var lowerLimitNorm = new Probability(random.NextDouble());
             var signalingNorm = new Probability(random.NextDouble());
             double probabilityDistributionFactor = random.NextDouble();
-            double n = random.Next(1, 5);
+            double n = random.GetFromRange(1, 5);
 
             var kernelStub = new AssemblyCategoriesKernelStub();
             var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
