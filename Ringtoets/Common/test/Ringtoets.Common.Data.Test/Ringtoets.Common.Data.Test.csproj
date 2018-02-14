@@ -20,7 +20,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyTool\AssemblyToolCategoriesCalculationServiceTest.cs" />
+    <Compile Include="AssemblyTool\AssemblyToolCategoriesFactoryTest.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionCompositionTest.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionExtensionsTest.cs" />
     <Compile Include="AssessmentSection\BackgroundDataTest.cs" />

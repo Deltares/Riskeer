@@ -22,11 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data.AssemblyTool;
@@ -34,7 +32,7 @@ using Ringtoets.Common.Data.AssemblyTool;
 namespace Ringtoets.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
-    public class AssemblyToolCategoriesCalculationServiceTest
+    public class AssemblyToolCategoriesFactoryTest
     {
         [Test]
         public void CalculateAssessmentSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
@@ -50,7 +48,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm);
+                AssemblyToolCategoriesFactory.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
@@ -72,7 +70,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm).ToArray();
+                AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesFactory.CalculateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm).ToArray();
 
                 // Assert
                 AssessmentSectionAssemblyCategory[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
@@ -96,7 +94,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
 
                 // Call
                 IEnumerable<AssessmentSectionAssemblyCategory> output = null;
-                Action test = () => output = AssemblyToolCategoriesCalculationService.CalculateAssessmentSectionAssemblyCategories(0, 0);
+                Action test = () => output = AssemblyToolCategoriesFactory.CalculateAssessmentSectionAssemblyCategories(0, 0);
 
                 // Assert
 //                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(test, tuples =>

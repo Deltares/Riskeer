@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
     /// <summary>
     /// Calculation service for calculating the assembly tool categories.
     /// </summary>
-    public static class AssemblyToolCategoriesCalculationService
+    public static class AssemblyToolCategoriesFactory
     {
         /// <summary>
         /// Calculates the assessment section assembly categories.
