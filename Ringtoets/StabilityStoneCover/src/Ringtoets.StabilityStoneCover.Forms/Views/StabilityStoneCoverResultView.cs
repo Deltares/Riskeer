@@ -101,7 +101,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             if (eventArgs.ColumnIndex > 1)
             {
                 var simpleAssessmentResult = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(eventArgs.RowIndex,
-                                                                                                                  AssessmentLayerOneColumnIndex).Value;
+                                                                                                                  SimpleAssessmentColumnIndex).Value;
                 if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);

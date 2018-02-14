@@ -134,13 +134,13 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         private bool HasPassedSimpleAssessment(int rowIndex)
         {
-            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value
+            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, SimpleAssessmentColumnIndex).Value
                    == AssessmentLayerOneState.Sufficient;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
+            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
                 if (HasPassedSimpleAssessment(eventArgs.RowIndex))
                 {

@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.Views
         where TFailureMechanism : IFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
     {
-        protected const int AssessmentLayerOneColumnIndex = 1;
+        protected const int SimpleAssessmentColumnIndex = 1;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;

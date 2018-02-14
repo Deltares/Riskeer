@@ -97,13 +97,13 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         private bool HasPassedSimpleAssessment(int rowIndex)
         {
-            var simpleAssessmentType = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(rowIndex, AssessmentLayerOneColumnIndex).Value;
+            var simpleAssessmentType = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(rowIndex, SimpleAssessmentColumnIndex).Value;
             return simpleAssessmentType == SimpleAssessmentResultValidityOnlyType.NotApplicable;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            if (eventArgs.ColumnIndex > AssessmentLayerOneColumnIndex)
+            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
                 if (HasPassedSimpleAssessment(eventArgs.RowIndex))
                 {
