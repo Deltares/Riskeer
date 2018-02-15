@@ -130,8 +130,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>),
-                    typeof(IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>>),
+                    typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>),
+                    typeof(IEnumerable<HeightStructuresFailureMechanismSectionResult>),
                     typeof(HeightStructuresFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(

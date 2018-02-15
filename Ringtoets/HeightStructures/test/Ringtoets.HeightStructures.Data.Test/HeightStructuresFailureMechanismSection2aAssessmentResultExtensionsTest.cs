@@ -62,7 +62,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(null, assessmentSection);
@@ -78,7 +78,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(new HeightStructuresFailureMechanism(), null);
@@ -97,7 +97,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
             double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new HeightStructuresFailureMechanism(),
@@ -117,7 +117,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new TestHeightStructuresCalculation()
             };
@@ -142,7 +142,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = new TestHeightStructuresCalculation
                 {

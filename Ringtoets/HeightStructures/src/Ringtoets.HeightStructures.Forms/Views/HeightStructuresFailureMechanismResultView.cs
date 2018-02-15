@@ -37,10 +37,10 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+    /// The view for the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
     /// </summary>
     public class HeightStructuresFailureMechanismResultView
-        : FailureMechanismResultView<StructuresFailureMechanismSectionResult<HeightStructuresInput>, HeightStructuresFailureMechanism>
+        : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult, HeightStructuresFailureMechanism>
     {
         private const int assessmentLayerTwoAIndex = 2;
         private readonly IAssessmentSection assessmentSection;
@@ -54,7 +54,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
         /// <inheritdoc />
         public HeightStructuresFailureMechanismResultView(
-            IObservableEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> failureMechanismSectionResults,
+            IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -105,7 +105,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
         {
             return new HeightStructuresFailureMechanismSectionResultRow(sectionResult,
                                                                         FailureMechanism,

@@ -31,20 +31,20 @@ using Ringtoets.HeightStructures.Data;
 namespace Ringtoets.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="StructuresFailureMechanismSectionResult{T}"/> for height structures.
+    /// This class represents a row of <see cref="HeightStructuresFailureMechanismSectionResult"/> for height structures.
     /// </summary>
-    internal class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
+    internal class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>
     {
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="StructuresFailureMechanismSectionResult{T}"/> this row contains.</param>
+        /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResult"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult,
+        public HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult,
                                                                 HeightStructuresFailureMechanism failureMechanism,
                                                                 IAssessmentSection assessmentSection)
             : base(sectionResult)

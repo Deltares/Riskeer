@@ -48,7 +48,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
@@ -56,7 +56,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var row = new HeightStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<HeightStructuresInput>>>(row);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(failureMechanism, assessmentSection), row.AssessmentLayerTwoA);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
@@ -77,7 +77,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => new HeightStructuresFailureMechanismSectionResultRow(result, null, assessmentSection);
@@ -93,7 +93,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => new HeightStructuresFailureMechanismSectionResultRow(result, new HeightStructuresFailureMechanism(), null);
@@ -117,7 +117,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
             result.Attach(observer);
 
             var row = new HeightStructuresFailureMechanismSectionResultRow(result,
@@ -143,7 +143,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(sectionResult.Calculation);
@@ -177,7 +177,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             }
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = calculation
             };
@@ -208,7 +208,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             };
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = calculation
             };
@@ -234,7 +234,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section);
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(result.Calculation);
@@ -262,7 +262,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var expectedCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section)
+            var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = expectedCalculation
             };
@@ -290,7 +290,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var random = new Random(21);
             double assessmentLayerThree = random.NextDouble();
 
-            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var row = new HeightStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
