@@ -24,7 +24,6 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 
 namespace Application.Ringtoets.Storage.Read.ClosingStructures
 {
@@ -36,13 +35,13 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
     {
         /// <summary>
         /// Reads the <see cref="ClosingStructuresSectionResultEntity"/> and use the information to update a 
-        /// <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+        /// <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> 
         /// to create <see cref="ClosingStructuresFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="StructuresFailureMechanismSectionResult{T}"/>.</returns>
+        /// <returns>A new <see cref="ClosingStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this ClosingStructuresSectionResultEntity entity,
                                   ClosingStructuresFailureMechanismSectionResult sectionResult,

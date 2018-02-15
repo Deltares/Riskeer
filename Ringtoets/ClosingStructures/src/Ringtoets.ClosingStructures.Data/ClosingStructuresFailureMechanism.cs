@@ -101,7 +101,6 @@ namespace Ringtoets.ClosingStructures.Data
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults.Clear();
         }
     }
 }
