@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(failureMechanismSection)
             {
-                SimpleAssessmentInput = random.NextEnumValue<SimpleAssessmentResultType>()
+                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                Assert.AreEqual(sectionResult.SimpleAssessmentInput, calculator.SimpleAssessmentInput);
+                Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentInput);
             }
         }
 

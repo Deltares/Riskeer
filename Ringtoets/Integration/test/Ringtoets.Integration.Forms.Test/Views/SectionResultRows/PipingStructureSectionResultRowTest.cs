@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingStructureFailureMechanismSectionResult>>(row);
-            Assert.AreEqual(result.SimpleAssessmentInput, row.SimpleAssessmentResult);
+            Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             row.SimpleAssessmentResult = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.SimpleAssessmentInput);
+            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
         }
 

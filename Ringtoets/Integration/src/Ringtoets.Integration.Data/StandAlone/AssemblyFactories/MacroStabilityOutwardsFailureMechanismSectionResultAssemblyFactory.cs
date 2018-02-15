@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             try
             {
-                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentInput);
+                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

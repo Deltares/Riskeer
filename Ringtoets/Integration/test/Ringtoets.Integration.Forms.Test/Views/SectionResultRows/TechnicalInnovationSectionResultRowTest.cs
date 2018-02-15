@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<TechnicalInnovationFailureMechanismSectionResult>>(row);
-            Assert.AreEqual(result.SimpleAssessmentInput, row.SimpleAssessmentResult);
+            Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<TechnicalInnovationSectionResultRow, NoValueRoundedDoubleConverter>(
@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             row.SimpleAssessmentResult = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.SimpleAssessmentInput);
+            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
         }
 

@@ -51,11 +51,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             get
             {
-                return SectionResult.SimpleAssessmentInput;
+                return SectionResult.SimpleAssessmentResult;
             }
             set
             {
-                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.SimpleAssessmentResult = value;
                 SectionResult.NotifyObservers();
             }
         }

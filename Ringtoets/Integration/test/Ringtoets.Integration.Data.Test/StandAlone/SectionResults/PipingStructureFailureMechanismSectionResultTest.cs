@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
-            Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentInput);
+            Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
             Assert.IsNaN(result.AssessmentLayerThree);
         }

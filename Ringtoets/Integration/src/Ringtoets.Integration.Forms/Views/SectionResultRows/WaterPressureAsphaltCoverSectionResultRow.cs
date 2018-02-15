@@ -45,15 +45,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
-        public SimpleAssessmentResultType SimpleAssessmentInput
+        public SimpleAssessmentResultType SimpleAssessmentResult
         {
             get
             {
-                return SectionResult.SimpleAssessmentInput;
+                return SectionResult.SimpleAssessmentResult;
             }
             set
             {
-                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.SimpleAssessmentResult = value;
                 SectionResult.NotifyObservers();
             }
         }
