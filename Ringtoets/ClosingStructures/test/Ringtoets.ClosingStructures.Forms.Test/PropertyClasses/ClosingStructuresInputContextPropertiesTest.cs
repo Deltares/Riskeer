@@ -705,7 +705,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             properties.Structure = newStructure;
 
             // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults2.ElementAt(0).Calculation);
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
             mockRepository.VerifyAll();
         }
 

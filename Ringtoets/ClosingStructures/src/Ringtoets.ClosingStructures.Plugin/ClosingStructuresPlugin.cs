@@ -392,7 +392,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new object[]
             {
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(
+                new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };

@@ -124,7 +124,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(1, 1)
             });
             failureMechanism.AddSection(affectedSection);
-            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToRemove = failureMechanism.SectionResults2.ElementAt(0);
+            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToRemove = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureToRemove.Calculation = calculationWithStructureToRemove;
 
             var unaffectedSection = new FailureMechanismSection(string.Empty, new[]
@@ -133,7 +133,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(2, 2)
             });
             failureMechanism.AddSection(unaffectedSection);
-            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToKeep = failureMechanism.SectionResults2.ElementAt(1);
+            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToKeep = failureMechanism.SectionResults.ElementAt(1);
             sectionWithCalculationAtStructureToKeep.Calculation = calculationWithStructureToKeepAndOutput;
 
             // Call
@@ -233,7 +233,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
-            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults2.ElementAt(0);
+            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
 
             failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
@@ -241,7 +241,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(1, 1),
                 new Point2D(2, 2)
             }));
-            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults2.ElementAt(1);
+            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults.ElementAt(1);
             sectionWithCalculationAtStructureB.Calculation = calculationWithStructureBAndOutput;
 
             // Call
@@ -273,7 +273,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
             };
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
-
 
         [Test]
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
@@ -611,10 +610,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);
-            StructuresFailureMechanismSectionResult<ClosingStructuresInput> result1 = failureMechanism.SectionResults
-                                                                                                      .First(sr => ReferenceEquals(sr.Section, section1));
-            StructuresFailureMechanismSectionResult<ClosingStructuresInput> result2 = failureMechanism.SectionResults
-                                                                                                      .First(sr => ReferenceEquals(sr.Section, section2));
+            ClosingStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
+                                                                                     .First(sr => ReferenceEquals(sr.Section, section1));
+            ClosingStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
+                                                                                     .First(sr => ReferenceEquals(sr.Section, section2));
             result1.Calculation = calculation1;
             result2.Calculation = calculation2;
 

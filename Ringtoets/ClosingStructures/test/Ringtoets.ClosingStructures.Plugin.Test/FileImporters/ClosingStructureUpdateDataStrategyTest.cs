@@ -660,7 +660,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 
             ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
-            ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults2.ToArray();
+            ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
@@ -687,7 +687,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 sectionResults[1]
             }, affectedObjects);
 
-            sectionResults = failureMechanism.SectionResults2.ToArray();
+            sectionResults = failureMechanism.SectionResults.ToArray();
             Assert.AreEqual(2, sectionResults.Length);
             Assert.IsNull(sectionResults[0].Calculation);
             Assert.AreSame(calculation, sectionResults[1].Calculation);
@@ -731,7 +731,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 
             ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
-            ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults2.ToArray();
+            ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new ClosingStructureUpdateDataStrategy(failureMechanism);
 
@@ -751,7 +751,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 sectionResults[0]
             }, affectedObjects);
 
-            sectionResults = failureMechanism.SectionResults2.ToArray();
+            sectionResults = failureMechanism.SectionResults.ToArray();
             Assert.AreEqual(1, sectionResults.Length);
             Assert.IsNull(sectionResults[0].Calculation);
         }

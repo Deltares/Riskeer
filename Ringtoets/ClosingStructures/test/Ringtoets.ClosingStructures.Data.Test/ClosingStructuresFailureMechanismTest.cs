@@ -41,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk", failureMechanism.Name);
             Assert.AreEqual("BSKW", failureMechanism.Code);
 
@@ -52,7 +52,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResults2);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.ClosingStructures);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
@@ -73,9 +73,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResults2.Count());
-            Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(failureMechanism.SectionResults.ElementAt(0));
-            Assert.IsInstanceOf<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults2.ElementAt(0));
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsInstanceOf<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
 
         [Test]
@@ -96,7 +95,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(2, failureMechanism.SectionResults2.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
@@ -104,7 +103,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(0, failureMechanism.SectionResults2.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
         }
 
         [Test]

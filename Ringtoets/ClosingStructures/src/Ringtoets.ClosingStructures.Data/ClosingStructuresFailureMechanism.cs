@@ -38,10 +38,9 @@ namespace Ringtoets.ClosingStructures.Data
     /// </summary>
     public class ClosingStructuresFailureMechanism : FailureMechanismBase,
                                                      ICalculatableFailureMechanism,
-                                                     IHasSectionResults<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+                                                     IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>
     {
-        private readonly ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> sectionResults;
-        private readonly ObservableList<ClosingStructuresFailureMechanismSectionResult> sectionResults2;
+        private readonly ObservableList<ClosingStructuresFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
@@ -55,8 +54,7 @@ namespace Ringtoets.ClosingStructures.Data
             };
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>();
-            sectionResults2 = new ObservableList<ClosingStructuresFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<ClosingStructuresFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -85,7 +83,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public IObservableEnumerable<StructuresFailureMechanismSectionResult<ClosingStructuresInput>> SectionResults
+        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> SectionResults
         {
             get
             {
@@ -93,26 +91,17 @@ namespace Ringtoets.ClosingStructures.Data
             }
         }
 
-        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> SectionResults2
-        {
-            get
-            {
-                return sectionResults2;
-            }
-        }
-
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-            sectionResults.Add(new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(section));
-            sectionResults2.Add(new ClosingStructuresFailureMechanismSectionResult(section));
+            sectionResults.Add(new ClosingStructuresFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults2.Clear();
+            sectionResults.Clear();
         }
     }
 }

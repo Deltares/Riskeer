@@ -52,7 +52,7 @@ namespace Ringtoets.ClosingStructures.Util.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.AddSection(failureMechanismSection);
 
-            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = calculationInSectionA;
 
             // Call
@@ -78,7 +78,7 @@ namespace Ringtoets.ClosingStructures.Util.Test
             };
             failureMechanism.AddSection(failureMechanismSection);
 
-            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = calculationInSectionA;
 
             // Call

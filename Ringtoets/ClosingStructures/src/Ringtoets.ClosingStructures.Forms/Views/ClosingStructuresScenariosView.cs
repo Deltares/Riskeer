@@ -120,7 +120,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             scenarioSelectionControl.EndEdit();
 
-            if (failureMechanism?.SectionResults2 == null || data?.Children == null)
+            if (failureMechanism?.SectionResults == null || data?.Children == null)
             {
                 scenarioSelectionControl.ClearDataSource();
             }
@@ -132,7 +132,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                     StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
                                                                    calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
 
-                List<ClosingStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults2.Select(sr => new ClosingStructuresScenarioRow(sr)).ToList();
+                List<ClosingStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults.Select(sr => new ClosingStructuresScenarioRow(sr)).ToList();
 
                 scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
             }

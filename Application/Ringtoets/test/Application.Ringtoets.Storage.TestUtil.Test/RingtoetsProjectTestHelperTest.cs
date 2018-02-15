@@ -407,7 +407,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsTrue(calculationWithOutputAndGeneralResult.Output.HasGeneralResult);
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationWithOutputAndGeneralResult.Output.GeneralResult);
 
-            ClosingStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults2.First();
+            ClosingStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
             Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];

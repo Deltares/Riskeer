@@ -321,8 +321,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     expectedAssessmentSection.WaterPressureAsphaltCover.SectionResults,
                     actualAssessmentSection.WaterPressureAsphaltCover.SectionResults);
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.ClosingStructures.SectionResults2,
-                    actualAssessmentSection.ClosingStructures.SectionResults2);
+                    expectedAssessmentSection.ClosingStructures.SectionResults,
+                    actualAssessmentSection.ClosingStructures.SectionResults);
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.MacroStabilityOutwards.SectionResults,
                     actualAssessmentSection.MacroStabilityOutwards.SectionResults);

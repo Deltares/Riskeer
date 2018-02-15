@@ -713,7 +713,7 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
             importer.DoPostImport();
 
             // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults2.ElementAt(0).Calculation);
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",

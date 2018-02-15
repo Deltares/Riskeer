@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
             AddEntitiesForClosingStructures(mechanism.ClosingStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResults2, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }

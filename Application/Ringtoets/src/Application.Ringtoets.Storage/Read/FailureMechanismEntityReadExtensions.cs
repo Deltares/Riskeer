@@ -460,7 +460,7 @@ namespace Application.Ringtoets.Storage.Read
             foreach (ClosingStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults2.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result, collector);
             }

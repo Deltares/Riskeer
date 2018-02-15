@@ -146,7 +146,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
 
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>) outputsFolder.Contents.ElementAt(1);
+            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);

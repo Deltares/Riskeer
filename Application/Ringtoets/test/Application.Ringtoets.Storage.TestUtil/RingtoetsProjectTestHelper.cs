@@ -142,7 +142,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddForeshoreProfiles(closingStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureClosingStructuresFailureMechanism(closingStructuresFailureMechanism, assessmentSection);
             AddSections(closingStructuresFailureMechanism);
-            SetSectionResults(closingStructuresFailureMechanism.SectionResults2,
+            SetSectionResults(closingStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<ClosingStructuresInput>) closingStructuresFailureMechanism.Calculations.First());
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;

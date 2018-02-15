@@ -37,7 +37,7 @@ namespace Ringtoets.ClosingStructures.Util
     {
         /// <summary>
         /// Updates the <see cref="ClosingStructuresFailureMechanismSectionResult.Calculation"/> for each element
-        /// of <see cref="ClosingStructuresFailureMechanism.SectionResults2"/> if required due to a change.
+        /// of <see cref="ClosingStructuresFailureMechanism.SectionResults"/> if required due to a change.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism which contains the <see cref="ClosingStructuresFailureMechanismSectionResult"/>
         /// and calculations to update with.</param>
@@ -50,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Util
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults = failureMechanism.SectionResults2;
+            IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults = failureMechanism.SectionResults;
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = failureMechanism.Calculations
                                                                                                       .Cast<StructuresCalculation<ClosingStructuresInput>>();
             return AssignUnassignCalculations.Update(sectionResults.Select(AsCalculationAssignment),
