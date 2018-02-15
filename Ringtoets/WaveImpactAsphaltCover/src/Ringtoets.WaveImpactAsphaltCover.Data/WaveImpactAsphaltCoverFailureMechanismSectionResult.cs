@@ -40,7 +40,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            SimpleAssessmentInput = SimpleAssessmentResultType.None;
+            SimpleAssessmentResult = SimpleAssessmentResultType.None;
             AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
@@ -48,7 +48,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// <summary>
         /// Gets or sets the state of the simple assessment per failure mechanism section.
         /// </summary>
-        public SimpleAssessmentResultType SimpleAssessmentInput { get; set; }
+        public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which

@@ -75,7 +75,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.SimpleAssessmentInput),
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.SimpleAssessmentResult),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
