@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(new TestFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
             RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
 
-            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(new TestFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
                 AssessmentLayerThree = assessmentLayerThreeResult
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(new TestFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerThree = RoundedDouble.NaN
             };
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         {
             // Setup
             var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var sectionResult = new StructuresFailureMechanismSectionResult<HeightStructuresInput>(new TestFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 Calculation = calculation
             };

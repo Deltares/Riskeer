@@ -23,39 +23,40 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Read.HeightStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StructuresFailureMechanismSectionResult{T}"/> 
+    /// This class defines extension methods for read operations for a <see cref="HeightStructuresFailureMechanismSectionResult"/> 
     /// based on the <see cref="HeightStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class HeightStructuresSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="HeightStructuresSectionResultEntity"/> and use the information 
-        /// to construct a <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+        /// to construct a <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> to 
-        /// create <see cref="StructuresFailureMechanismSectionResult{T}"/> for.</param>
+        /// create <see cref="HeightStructuresFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="StructuresFailureMechanismSectionResult{T}"/>.</returns>
+        /// <returns>A new <see cref="HeightStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this HeightStructuresSectionResultEntity entity,
-                                  StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult,
+                                  HeightStructuresFailureMechanismSectionResult sectionResult,
                                   ReadConversionCollector collector)
         {
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
 

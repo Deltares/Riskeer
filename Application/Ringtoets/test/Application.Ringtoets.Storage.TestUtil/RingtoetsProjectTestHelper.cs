@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddForeshoreProfiles(heightStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureHeightStructuresFailureMechanism(heightStructuresFailureMechanism, assessmentSection);
             AddSections(heightStructuresFailureMechanism);
-            SetSectionResults(heightStructuresFailureMechanism.SectionResults,
+            SetSectionResults(heightStructuresFailureMechanism.SectionResults2,
                               (StructuresCalculation<HeightStructuresInput>) heightStructuresFailureMechanism.Calculations.First());
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
@@ -878,12 +878,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults,
+        private static void SetSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
                                               StructuresCalculation<HeightStructuresInput> calculation)
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
-            foreach (StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult in sectionResults)
+            foreach (HeightStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();

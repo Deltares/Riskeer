@@ -21,32 +21,32 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.HeightStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="StructuresFailureMechanismSectionResult{T}"/> related to creating a 
+    /// Extension methods for <see cref="HeightStructuresFailureMechanismSectionResult"/> related to creating a 
     /// <see cref="HeightStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class HeightStructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HeightStructuresSectionResultEntity"/> based on the information of the
-        /// <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+        /// <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HeightStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static HeightStructuresSectionResultEntity Create(this StructuresFailureMechanismSectionResult<HeightStructuresInput> result,
+        internal static HeightStructuresSectionResultEntity Create(this HeightStructuresFailureMechanismSectionResult result,
                                                                    PersistenceRegistry registry)
         {
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             var sectionResultEntity = new HeightStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

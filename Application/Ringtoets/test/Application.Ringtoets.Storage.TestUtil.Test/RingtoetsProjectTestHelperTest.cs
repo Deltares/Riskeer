@@ -380,7 +380,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             var calculationWithoutOutput = (StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
 
-            StructuresFailureMechanismSectionResult<HeightStructuresInput> firstSectionResult = failureMechanism.SectionResults.First();
+            HeightStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults2.First();
             Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
         }
 
