@@ -102,5 +102,167 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
         }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.NextDouble();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                // Call
+                AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(signalingNorm,
+                                                                                              lowerLimitNorm,
+                                                                                              probabilityDistributionFactor,
+                                                                                              n);
+
+                // Assert
+                Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
+                Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
+                Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(n, calculator.N);
+            }
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssemblyCategories_CalculatorRan_ReturnsOutput()
+        {
+            // Setup
+            var random = new Random(11);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.NextDouble();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategory[] output = AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
+                    signalingNorm,
+                    lowerLimitNorm,
+                    probabilityDistributionFactor,
+                    n).ToArray();
+
+                // Assert
+                FailureMechanismSectionAssemblyCategory[] calculatorOutput = calculator.FailureMechanismSectionCategoriesOutput.ToArray();
+
+                Assert.AreEqual(calculatorOutput.Length, output.Length);
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.Group), output.Select(o => o.Group));
+            }
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyFactoryException()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate test = () => AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(0, 0, 0, 0);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyFactoryException>(test);
+                Assert.IsInstanceOf<AssemblyCategoriesCalculatorException>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void CreateGeotechnicFailureMechanismSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.NextDouble();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                // Call
+                AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(signalingNorm,
+                                                                                                        lowerLimitNorm,
+                                                                                                        probabilityDistributionFactor,
+                                                                                                        n);
+
+                // Assert
+                Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
+                Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
+                Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(n, calculator.N);
+            }
+        }
+
+        [Test]
+        public void CreateGeotechnicFailureMechanismSectionAssemblyCategories_CalculatorRan_ReturnsOutput()
+        {
+            // Setup
+            var random = new Random(11);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
+            double probabilityDistributionFactor = random.NextDouble();
+            double n = random.NextDouble();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategory[] output = AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(
+                    signalingNorm,
+                    lowerLimitNorm,
+                    probabilityDistributionFactor,
+                    n).ToArray();
+
+                // Assert
+                FailureMechanismSectionAssemblyCategory[] calculatorOutput = calculator.FailureMechanismSectionCategoriesOutput.ToArray();
+
+                Assert.AreEqual(calculatorOutput.Length, output.Length);
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.Group), output.Select(o => o.Group));
+            }
+        }
+
+        [Test]
+        public void CreateGeotechnicFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyFactoryException()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate test = () => AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(0, 0, 0, 0);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyFactoryException>(test);
+                Assert.IsInstanceOf<AssemblyCategoriesCalculatorException>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             double signalingNorm, double lowerLimitNorm, double probabilityDistributionFactor, double n);
 
         /// <summary>
-        /// Performs the calculation for getting the failure mechanism section categories.
+        /// Performs the calculation for getting the geotechnic failure mechanism section categories.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to calculate with.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>

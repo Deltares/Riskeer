@@ -41,13 +41,77 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyFactoryException">Thrown when an error occurred while creating the categories.</exception>
         public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerLimitNorm)
-        { 
+        {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try
             {
                 return calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
+            }
+            catch (AssemblyCategoriesCalculatorException e)
+            {
+                throw new AssemblyFactoryException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Creates the failure mechanism section assembly categories.
+        /// </summary>
+        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
+        /// <param name="probabilityDistributionFactor">The probability distribution factor to calculate with.</param>
+        /// <param name="n">The n to calculate with.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
+        /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
+        /// <exception cref="AssemblyFactoryException">Thrown when an error occurred while creating the categories.</exception>
+        public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateFailureMechanismSectionAssemblyCategories(
+            double signalingNorm,
+            double lowerLimitNorm,
+            double probabilityDistributionFactor,
+            double n)
+        {
+            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
+                AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                return calculator.CalculateFailureMechanismSectionCategories(signalingNorm,
+                                                                             lowerLimitNorm,
+                                                                             probabilityDistributionFactor,
+                                                                             n);
+            }
+            catch (AssemblyCategoriesCalculatorException e)
+            {
+                throw new AssemblyFactoryException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Creates the geotechnic failure mechanism section assembly categories.
+        /// </summary>
+        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
+        /// <param name="probabilityDistributionFactor">The probability distribution factor to calculate with.</param>
+        /// <param name="n">The n to calculate with.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
+        /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
+        /// <exception cref="AssemblyFactoryException">Thrown when an error occurred while creating the categories.</exception>
+        public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateGeotechnicFailureMechanismSectionAssemblyCategories(
+            double signalingNorm,
+            double lowerLimitNorm,
+            double probabilityDistributionFactor,
+            double n)
+        {
+            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
+                AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                return calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm,
+                                                                                       lowerLimitNorm,
+                                                                                       probabilityDistributionFactor,
+                                                                                       n);
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
