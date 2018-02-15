@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.Common.Primitives;
@@ -74,6 +75,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             return SimpleAssessmentAssemblyOutput ??
                    (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
+        }
+
+        public FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability,
+                                                                          IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
+                                                                          double n)
+        {
+            throw new NotImplementedException();
         }
     }
 }

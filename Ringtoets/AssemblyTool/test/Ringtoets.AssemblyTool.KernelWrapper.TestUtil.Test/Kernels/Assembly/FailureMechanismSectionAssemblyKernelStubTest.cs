@@ -46,6 +46,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsInput);
             Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsValidityOnlyInput);
+            Assert.IsNull(kernel.DetailedAssessmentFailureMechanismFromProbabilityInput);
+            Assert.IsNull(kernel.DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput);
         }
 
         #region Simple Assessment

@@ -51,7 +51,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Gets the input used in <see cref="DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbabilityWithLengthEffect)"/>.
         /// </summary>
-        public DetailedCalculationInputFromProbability DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput { get; private set; }
+        public DetailedCalculationInputFromProbabilityWithLengthEffect DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not.
@@ -117,7 +117,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             DetailedAssessmentFailureMechanismFromProbabilityInput = input;
             Calculated = true;
             return FailureMechanismSectionAssemblyCategoryResult;
-
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentDirectFailureMechanisms(DetailedCategoryBoundariesCalculationResult calculationResults)

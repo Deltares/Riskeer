@@ -20,9 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using AssemblyTool.Kernel.Assembly;
+using AssemblyTool.Kernel.Assembly.CalculatorInput;
+using AssemblyTool.Kernel.Data;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
 using AssemblyTool.Kernel.Data.CalculationResults;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
@@ -74,7 +80,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="SimpleAssessmentResultValidityOnlyType"/>
         /// is a valid value, but unsupported.</exception>
-        public static SimpleCalculationResultValidityOnly CreateSimplecalclCalculationResultValidityOnly(SimpleAssessmentResultValidityOnlyType input)
+        public static SimpleCalculationResultValidityOnly CreateSimpleCalculationResultValidityOnly(SimpleAssessmentResultValidityOnlyType input)
         {
             if (!Enum.IsDefined(typeof(SimpleAssessmentResultValidityOnlyType), input))
             {
@@ -91,6 +97,98 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     return SimpleCalculationResultValidityOnly.NVT;
                 case SimpleAssessmentResultValidityOnlyType.Applicable:
                     return SimpleCalculationResultValidityOnly.WVT;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Creates <see cref="DetailedCalculationInputFromProbability"/> based on the given parameters.
+        /// </summary>
+        /// <param name="probability">The calculated probability to create the input for.</param>
+        /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
+        /// create the input for.</param>
+        /// <returns>The created <see cref="DetailedCalculationInputFromProbability"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categories"/> contains
+        /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="categories"/> contains
+        /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        public static DetailedCalculationInputFromProbability CreateDetailedCalculationInputFromProbability(
+            double probability,
+            IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        {
+            return new DetailedCalculationInputFromProbability(new Probability(probability),
+                                                               categories.Select(category => new FailureMechanismSectionCategory(
+                                                                                     ConvertFailureMechanismSectionAssemblyCategoryGroup(category.Group),
+                                                                                     new Probability(category.LowerBoundary),
+                                                                                     new Probability(category.UpperBoundary))).ToArray());
+        }
+
+        /// <summary>
+        /// Creates <see cref="DetailedCalculationInputFromProbabilityWithLengthEffect"/> based on the given parameters.
+        /// </summary>
+        /// <param name="probability">The calculated probability to create the input for.</param>
+        /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
+        /// create the input for.</param>
+        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <returns>The created <see cref="DetailedCalculationInputFromProbabilityWithLengthEffect"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categories"/> contains
+        /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="categories"/> contains
+        /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        public static DetailedCalculationInputFromProbabilityWithLengthEffect CreateDetailedCalculationInputFromProbabilityWithLengthEffect(
+            double probability,
+            IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
+            double n)
+        {
+            return new DetailedCalculationInputFromProbabilityWithLengthEffect(
+                new Probability(probability),
+                categories.Select(category => new FailureMechanismSectionCategory(
+                                      ConvertFailureMechanismSectionAssemblyCategoryGroup(category.Group),
+                                      new Probability(category.LowerBoundary),
+                                      new Probability(category.UpperBoundary))).ToArray(),
+                n);
+        }
+
+        /// <summary>
+        /// Converts a <see cref="category"/> into a <see cref="FailureMechanismSectionCategoryGroup"/>.
+        /// </summary>
+        /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>
+        /// <returns>A <see cref="FailureMechanismSectionCategoryGroup"/> based on <paramref name="category"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
+        /// is a valid value, but unsupported.</exception>
+        private static FailureMechanismSectionCategoryGroup ConvertFailureMechanismSectionAssemblyCategoryGroup(
+            FailureMechanismSectionAssemblyCategoryGroup category)
+        {
+            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
+            {
+                throw new InvalidEnumArgumentException(nameof(category),
+                                                       (int) category,
+                                                       typeof(FailureMechanismSectionAssemblyCategoryGroup));
+            }
+
+            switch (category)
+            {
+                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
+                    return FailureMechanismSectionCategoryGroup.Iv;
+                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
+                    return FailureMechanismSectionCategoryGroup.IIv;
+                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
+                    return FailureMechanismSectionCategoryGroup.IIIv;
+                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
+                    return FailureMechanismSectionCategoryGroup.IVv;
+                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
+                    return FailureMechanismSectionCategoryGroup.Vv;
+                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
+                    return FailureMechanismSectionCategoryGroup.VIv;
+                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
+                    return FailureMechanismSectionCategoryGroup.VIIv;
+                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
+                    return FailureMechanismSectionCategoryGroup.NotApplicable;
+                case FailureMechanismSectionAssemblyCategoryGroup.None:
+                    return FailureMechanismSectionCategoryGroup.None;
                 default:
                     throw new NotSupportedException();
             }

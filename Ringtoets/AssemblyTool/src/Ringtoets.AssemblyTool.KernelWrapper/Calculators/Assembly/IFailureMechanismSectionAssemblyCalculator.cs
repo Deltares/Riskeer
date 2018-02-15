@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 
@@ -53,5 +54,28 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input);
+
+        /// <summary>
+        /// Assembles the detailed assessment based on the input parameters.
+        /// </summary>
+        /// <param name="probability">The calculated probability.</param>
+        /// <param name="categories">The list of categories for this failure mechanism section.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories);
+
+        /// <summary>
+        /// Assembles the detailed assessment based on the input parameters.
+        /// </summary>
+        /// <param name="probability">The calculated probability.</param>
+        /// <param name="categories">The list of categories for this failure mechanism section.</param>
+        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability,
+                                                                   IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
+                                                                   double n);
     }
 }

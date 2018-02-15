@@ -128,7 +128,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Converts a <see cref="category"/> into a <see cref="FailureMechanismSectionCategoryGroup"/>.
+        /// Converts a <see cref="category"/> into a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
         /// </summary>
         /// <param name="category">The <see cref="FailureMechanismSectionCategoryGroup"/> to convert.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
