@@ -81,6 +81,39 @@ namespace Ringtoets.ClosingStructures.Service
         }
 
         /// <summary>
+        /// Clears all structures, unassigns them from the calculations in the <paramref name="failureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> to 
+        /// clear the structures from.</param>
+        /// <returns>All objects that are affected by this operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllStructures(ClosingStructuresFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations =
+                failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>();
+            StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedStructure = calculations
+                                                                                              .Where(c => c.InputParameters.Structure != null)
+                                                                                              .ToArray();
+
+            List<IObservable> changedObservables = ClearStructureDependentData(
+                failureMechanism.SectionResults2,
+                calculationWithRemovedStructure,
+                calculations);
+
+            StructureCollection<ClosingStructure> structures = failureMechanism.ClosingStructures;
+            structures.Clear();
+            changedObservables.Add(structures);
+
+            return changedObservables;
+        }
+
+        /// <summary>
         /// Clears the output for all calculations in the <see cref="ClosingStructuresFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
