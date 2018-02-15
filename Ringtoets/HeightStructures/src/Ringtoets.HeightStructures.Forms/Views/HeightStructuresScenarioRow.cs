@@ -28,19 +28,19 @@ using Ringtoets.HeightStructures.Data;
 namespace Ringtoets.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="StructuresFailureMechanismSectionResult{T}"/>,
+    /// Container of a <see cref="HeightStructuresFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
     internal class HeightStructuresScenarioRow : IScenarioRow<StructuresCalculation<HeightStructuresInput>>
     {
-        private readonly StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult;
+        private readonly HeightStructuresFailureMechanismSectionResult sectionResult;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HeightStructuresScenarioRow"/> class.
         /// </summary>
         /// <param name="sectionResult">The section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public HeightStructuresScenarioRow(StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult)
+        public HeightStructuresScenarioRow(HeightStructuresFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {
