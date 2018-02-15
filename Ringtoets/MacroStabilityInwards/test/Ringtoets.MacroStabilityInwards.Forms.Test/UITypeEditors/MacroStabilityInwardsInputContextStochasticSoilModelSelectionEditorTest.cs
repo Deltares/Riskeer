@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                      failureMechanism,
                                                                      assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel(), handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(inputContext, GetTestNormativeAssessmentLevel, handler);
 
             var editor = new MacroStabilityInwardsInputContextStochasticSoilModelSelectionEditor();
             var someValue = new object();
@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel(), handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel, handler);
 
             var editor = new MacroStabilityInwardsInputContextStochasticSoilModelSelectionEditor();
             var someValue = new object();

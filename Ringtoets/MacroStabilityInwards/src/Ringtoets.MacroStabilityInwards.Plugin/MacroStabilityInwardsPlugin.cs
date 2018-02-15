@@ -75,7 +75,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             yield return new PropertyInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsInputContextProperties>
             {
                 CreateInstance = context => new MacroStabilityInwardsInputContextProperties(context,
-                                                                                            GetNormativeAssessmentLevel(context.AssessmentSection, context.MacroStabilityInwardsCalculation),
+                                                                                            () => GetNormativeAssessmentLevel(context.AssessmentSection, context.MacroStabilityInwardsCalculation),
                                                                                             new ObservablePropertyChangeHandler(context.MacroStabilityInwardsCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsOutputProperties>
