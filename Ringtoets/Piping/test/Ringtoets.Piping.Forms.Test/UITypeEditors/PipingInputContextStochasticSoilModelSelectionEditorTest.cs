@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                             failureMechanism,
                                                             assessmentSection);
 
-            var properties = new PipingInputContextProperties(pipingInputContext, GetTestNormativeAssessmentLevel(), handler);
+            var properties = new PipingInputContextProperties(pipingInputContext, GetTestNormativeAssessmentLevel, handler);
 
             var editor = new PipingInputContextStochasticSoilModelSelectionEditor();
             var someValue = new object();
@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var properties = new PipingInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel(), handler);
+            var properties = new PipingInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel, handler);
 
             var editor = new PipingInputContextStochasticSoilModelSelectionEditor();
             var someValue = new object();

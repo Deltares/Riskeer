@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
             {
                 CreateInstance = context => new PipingInputContextProperties(context,
-                                                                             GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
+                                                                             () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
                                                                              new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputProperties>

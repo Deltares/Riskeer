@@ -69,24 +69,28 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         private const int diameter70PropertyIndex = 17;
         private const int saturatedVolumicWeightOfCoverageLayerPropertyIndex = 18;
 
-        private readonly RoundedDouble normativeAssessmentLevel;
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContextProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties for.</param>
-        /// <param name="normativeAssessmentLevel">The normative assessment level.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="propertyChangeHandler"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingInputContextProperties(PipingInputContext data,
-                                            RoundedDouble normativeAssessmentLevel,
+                                            Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                             IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
 
             if (propertyChangeHandler == null)
@@ -96,7 +100,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
             Data = data;
 
-            this.normativeAssessmentLevel = normativeAssessmentLevel;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
@@ -173,7 +177,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             return data.WrappedData.UseAssessmentLevelManualInput
                        ? data.WrappedData.AssessmentLevel
-                       : normativeAssessmentLevel;
+                       : getNormativeAssessmentLevelFunc();
         }
 
         #region Hydraulic data
