@@ -40,6 +40,7 @@ namespace Ringtoets.HeightStructures.Data
                                                     IHasSectionResults<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
     {
         private readonly ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults;
+        private readonly ObservableList<HeightStructuresFailureMechanismSectionResult> sectionResults2;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
@@ -48,6 +49,7 @@ namespace Ringtoets.HeightStructures.Data
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code)
         {
             sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>();
+            sectionResults2 = new ObservableList<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup
             {
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
@@ -93,16 +95,26 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults2
+        {
+            get
+            {
+                return sectionResults2;
+            }
+        }
+
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
             sectionResults.Add(new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section));
+            sectionResults2.Add(new HeightStructuresFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
+            sectionResults2.Clear();
         }
     }
 }

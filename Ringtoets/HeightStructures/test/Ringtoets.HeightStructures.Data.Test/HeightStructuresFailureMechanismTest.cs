@@ -49,6 +49,8 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults2);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
@@ -71,6 +73,9 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(failureMechanism.SectionResults.ElementAt(0));
+
+            Assert.AreEqual(1, failureMechanism.SectionResults2.Count());
+            Assert.IsInstanceOf<HeightStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults2.ElementAt(0));
         }
 
         [Test]
@@ -91,6 +96,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults2.Count());
 
             // Call
             failureMechanism.ClearAllSections();
@@ -98,6 +104,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults2.Count());
         }
 
         [Test]
