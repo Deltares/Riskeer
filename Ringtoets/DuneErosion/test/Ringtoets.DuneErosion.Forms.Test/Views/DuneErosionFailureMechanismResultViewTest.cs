@@ -110,19 +110,19 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var random = new Random(21);
             var result1 = new DuneErosionFailureMechanismSectionResult(section1)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.None,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new DuneErosionFailureMechanismSectionResult(section2)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new DuneErosionFailureMechanismSectionResult(section3)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.Applicable,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
@@ -150,7 +150,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -160,7 +160,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -170,7 +170,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 

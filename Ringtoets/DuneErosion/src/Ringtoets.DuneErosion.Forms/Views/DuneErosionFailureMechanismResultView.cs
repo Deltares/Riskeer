@@ -73,7 +73,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(DuneErosionSectionResultRow.SimpleAssessmentInput),
+                nameof(DuneErosionSectionResultRow.SimpleAssessmentResult),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),

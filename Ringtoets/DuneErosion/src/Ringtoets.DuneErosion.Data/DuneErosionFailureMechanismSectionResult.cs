@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public DuneErosionFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.None;
+            SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None;
             AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
@@ -48,7 +48,7 @@ namespace Ringtoets.DuneErosion.Data
         /// <summary>
         /// Gets or sets the state of the simple assessment per failure mechanism section.
         /// </summary>
-        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentInput { get; set; }
+        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which
