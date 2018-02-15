@@ -72,11 +72,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             get
             {
-                return SectionResult.SimpleAssessmentInput;
+                return SectionResult.SimpleAssessmentResult;
             }
             set
             {
-                SectionResult.SimpleAssessmentInput = value;
+                SectionResult.SimpleAssessmentResult = value;
                 SectionResult.NotifyObservers();
             }
         }

@@ -272,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
-                SimpleAssessmentInput = simpleAssessmentResult
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -305,7 +305,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
                 Calculation = new GrassCoverErosionInwardsCalculation(),
-                SimpleAssessmentInput = simpleAssessmentResult
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -344,7 +344,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 Calculation = calculation,
-                SimpleAssessmentInput = simpleAssessmentResult
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -444,7 +444,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                                                                 new TestDikeHeightOutput(0),
                                                                 new TestOvertoppingRateOutput(0))
                 },
-                SimpleAssessmentInput = simpleAssessmentResult
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -485,16 +485,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable
             }, "-").SetName("SectionWithoutCalculation");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 Calculation = new GrassCoverErosionInwardsCalculation()
             }, "-").SetName("SectionWithCalculationNoOutput");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
@@ -504,7 +504,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }, "-").SetName("SectionWithInvalidCalculationOutput");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(reliability),
