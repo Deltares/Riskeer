@@ -110,19 +110,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var random = new Random(21);
             var result1 = new StabilityStoneCoverFailureMechanismSectionResult(section1)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.None,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new StabilityStoneCoverFailureMechanismSectionResult(section2)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new StabilityStoneCoverFailureMechanismSectionResult(section3)
             {
-                SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.Applicable,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
@@ -149,7 +149,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -159,7 +159,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -169,7 +169,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.SimpleAssessmentInput, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -192,7 +192,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var random = new Random(21);
             var result = new StabilityStoneCoverFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentInput = simpleAssessmentResult,
+                SimpleAssessmentResult = simpleAssessmentResult,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
@@ -208,7 +208,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 form.Show();
 
                 // When
-                result.SimpleAssessmentInput = SimpleAssessmentResultValidityOnlyType.NotApplicable;
+                result.SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable;
                 result.NotifyObservers();
 
                 // Then
