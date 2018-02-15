@@ -19,6 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
+using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -43,7 +47,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual((SimpleAssessmentResultValidityOnlyType) 0,
                             calculator.SimpleAssessmentValidityOnlyInput);
             Assert.IsNull(calculator.SimpleAssessmentAssemblyOutput);
+            Assert.IsNull(calculator.DetailedAssessmentWithLengthEffectInput);
+            Assert.IsNull(calculator.DetailedAssessmentInput);
+            Assert.IsNull(calculator.DetailedAssessmentAssemblyOutput);
         }
+
+        #region Simple Assessment
 
         [Test]
         public void AssembleSimpleAssessment_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
@@ -136,5 +145,172 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
         }
+
+        #endregion
+
+        #region Detailed Assessment
+
+        [Test]
+        public void AssembleDetailedAssessment_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
+                random.NextDouble(),
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
+                                                                random.NextRoundedDouble(0.6, 1.0),
+                                                                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                });
+
+            // Assert
+            Assert.AreEqual(1.0, assembly.Probability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            double lowerBoundary = random.NextRoundedDouble(0.0, 0.5);
+            double upperBoundary = random.NextRoundedDouble(0.6, 1.0);
+
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleDetailedAssessment(
+                probability,
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(lowerBoundary,
+                                                                upperBoundary,
+                                                                FailureMechanismSectionAssemblyCategoryGroup.IIv)
+                });
+
+            // Assert
+            Assert.AreEqual(probability, calculator.DetailedAssessmentInput.Probability);
+
+            FailureMechanismSectionCategory actualSectionCategory = calculator.DetailedAssessmentInput.Categories.Single();
+            Assert.AreEqual(lowerBoundary, actualSectionCategory.LowerBoundary);
+            Assert.AreEqual(upperBoundary, actualSectionCategory.UpperBoundary);
+            Assert.AreEqual(FailureMechanismSectionCategoryGroup.IIv, actualSectionCategory.CategoryGroup);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                random.NextDouble(),
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
+                                                                random.NextRoundedDouble(0.6, 1.0),
+                                                                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                });
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithLengthEffect_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
+                random.NextDouble(),
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
+                                                                random.NextRoundedDouble(0.6, 1.0),
+                                                                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                },
+                random.NextRoundedDouble(1.0, 10.0));
+
+            // Assert
+            Assert.AreEqual(0.0, assembly.Probability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithLengthEffect_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            double lowerBoundary = random.NextRoundedDouble(0.0, 0.5);
+            double upperBoundary = random.NextRoundedDouble(0.6, 1.0);
+            double n = random.NextRoundedDouble(1.0, 10.0);
+
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleDetailedAssessment(
+                probability,
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(lowerBoundary,
+                                                                upperBoundary,
+                                                                FailureMechanismSectionAssemblyCategoryGroup.IIv)
+                },
+                n);
+
+            // Assert
+            Assert.AreEqual(probability, calculator.DetailedAssessmentWithLengthEffectInput.Probability);
+            Assert.AreEqual(n, calculator.DetailedAssessmentWithLengthEffectInput.NValue);
+
+            FailureMechanismSectionCategory actualSectionCategory = calculator.DetailedAssessmentWithLengthEffectInput.Categories.Single();
+            Assert.AreEqual(lowerBoundary, actualSectionCategory.LowerBoundary);
+            Assert.AreEqual(upperBoundary, actualSectionCategory.UpperBoundary);
+            Assert.AreEqual(FailureMechanismSectionCategoryGroup.IIv, actualSectionCategory.CategoryGroup);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithLengthEffect_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                random.NextDouble(),
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
+                                                                random.NextRoundedDouble(0.6, 1.0),
+                                                                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                },
+                random.NextRoundedDouble(1.0, 10.0));
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        #endregion
     }
 }

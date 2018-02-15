@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using AssemblyTool.Kernel.Assembly.CalculatorInput;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
@@ -33,22 +35,37 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     public class FailureMechanismSectionAssemblyCalculatorStub : IFailureMechanismSectionAssemblyCalculator
     {
         /// <summary>
-        /// Gets or sets the output of the calculation.
+        /// Gets the output of the simple assessment calculation.
         /// </summary>
         public FailureMechanismSectionAssembly SimpleAssessmentAssemblyOutput { get; private set; }
 
         /// <summary>
-        /// Gets the input of the calculation.
+        /// Gets the input of the simple assessment calculation.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentInput { get; private set; }
 
         /// <summary>
-        /// Gets the input of the validity only calculation.
+        /// Gets the input of the simple assessment validity only calculation.
         /// </summary>
         public SimpleAssessmentResultValidityOnlyType SimpleAssessmentValidityOnlyInput { get; private set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing a calculation.
+        /// Gets or sets the output of the detailed assessment calculation.
+        /// </summary>
+        public FailureMechanismSectionAssembly DetailedAssessmentAssemblyOutput { get; private set; }
+
+        /// <summary>
+        /// Gets the input of the detailed assessment calculation.
+        /// </summary>
+        public DetailedCalculationInputFromProbability DetailedAssessmentInput { get; private set; }
+
+        /// <summary>
+        /// Gets the input of the detailed assessment with length effect calculation.
+        /// </summary>
+        public DetailedCalculationInputFromProbabilityWithLengthEffect DetailedAssessmentWithLengthEffectInput { get; private set; }
+
+        /// <summary>
+        /// Gets or sets an indicator whether an exception must be thrown when performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
@@ -73,20 +90,38 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             SimpleAssessmentValidityOnlyInput = input;
 
-            return SimpleAssessmentAssemblyOutput ??
-                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
+            return SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv);
         }
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            DetailedAssessmentInput = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromProbability(probability,
+                                                                                                                                          categories);
+
+            return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv);
         }
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability,
                                                                           IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
                                                                           double n)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            DetailedAssessmentWithLengthEffectInput =
+                FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromProbabilityWithLengthEffect(
+                    probability,
+                    categories,
+                    n);
+
+            return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIIv);
         }
     }
 }
