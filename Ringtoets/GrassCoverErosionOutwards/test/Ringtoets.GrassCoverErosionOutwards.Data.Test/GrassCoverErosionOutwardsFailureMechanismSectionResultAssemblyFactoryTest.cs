@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(failureMechanismSection)
             {
-                SimpleAssessmentInput = random.NextEnumValue<SimpleAssessmentResultType>()
+                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                Assert.AreEqual(sectionResult.SimpleAssessmentInput, calculator.SimpleAssessmentInput);
+                Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentInput);
             }
         }
 

@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
 
             try
             {
-                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentInput);
+                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

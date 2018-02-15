@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>>(row);
-            Assert.AreEqual(result.SimpleAssessmentInput, row.SimpleAssessmentInput);
+            Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void SimpleAssessmentInput_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
             var mocks = new MockRepository();
@@ -77,10 +77,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
 
             // Call
-            row.SimpleAssessmentInput = newValue;
+            row.SimpleAssessmentResult = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.SimpleAssessmentInput);
+            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
         }
 
