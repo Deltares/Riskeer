@@ -56,7 +56,7 @@ namespace Ringtoets.HeightStructures.Data
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
             try
             {
-                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentInput);
+                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

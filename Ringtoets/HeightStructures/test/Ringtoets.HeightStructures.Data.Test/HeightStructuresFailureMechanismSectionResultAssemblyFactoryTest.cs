@@ -56,7 +56,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(failureMechanismSection)
             {
-                SimpleAssessmentInput = random.NextEnumValue<SimpleAssessmentResultType>()
+                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                Assert.AreEqual(sectionResult.SimpleAssessmentInput, calculator.SimpleAssessmentInput);
+                Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentInput);
             }
         }
 
