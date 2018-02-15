@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
@@ -53,10 +54,7 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> ClearData()
         {
-            return RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
-                FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
-                FailureMechanism.ClosingStructures,
-                FailureMechanism.SectionResults);
+            return ClosingStructuresDataSynchronizationService.RemoveAllStructures(FailureMechanism);
         }
     }
 }

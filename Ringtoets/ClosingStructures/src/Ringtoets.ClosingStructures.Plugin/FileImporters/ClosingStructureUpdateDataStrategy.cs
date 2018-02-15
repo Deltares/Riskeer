@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Service;
+using Ringtoets.ClosingStructures.Util;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Forms;
@@ -55,11 +57,7 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(ClosingStructure removedObject)
         {
-            return RingtoetsCommonDataSynchronizationService.RemoveStructure(
-                removedObject,
-                FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
-                FailureMechanism.ClosingStructures,
-                FailureMechanism.SectionResults);
+            return ClosingStructuresDataSynchronizationService.RemoveStructure(removedObject, FailureMechanism);
         }
 
         #region Updating Data Functions
@@ -79,8 +77,8 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
             affectedObjects.AddRange(GetAffectedCalculationsWithClosingStructure(structure)
                                          .Select(affectedCalculation => affectedCalculation.InputParameters));
 
-            affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                                         FailureMechanism.SectionResults,
+            affectedObjects.AddRange(ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
+                                         FailureMechanism.SectionResults2,
                                          FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()));
 
             return affectedObjects;

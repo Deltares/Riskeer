@@ -322,7 +322,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             {
                 location
             }));
-            StructuresFailureMechanismSectionResult<ClosingStructuresInput> sectionResult = failureMechanism.SectionResults.First();
+            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
             sectionResult.Calculation = calculation;
 
             failureMechanism.ClosingStructures.AddRange(new[]
