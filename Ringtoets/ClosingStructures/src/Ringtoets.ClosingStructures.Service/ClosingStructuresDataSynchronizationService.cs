@@ -68,10 +68,8 @@ namespace Ringtoets.ClosingStructures.Service
                                                                                               .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                                                                                               .ToArray();
 
-            List<IObservable> changedObservables = ClearStructureDependentData(
-                failureMechanism.SectionResults2,
-                calculationWithRemovedStructure,
-                calculations);
+            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism,
+                                                                               calculationWithRemovedStructure);
 
             StructureCollection<ClosingStructure> structures = failureMechanism.ClosingStructures;
             structures.Remove(structure);
@@ -101,10 +99,8 @@ namespace Ringtoets.ClosingStructures.Service
                                                                                               .Where(c => c.InputParameters.Structure != null)
                                                                                               .ToArray();
 
-            List<IObservable> changedObservables = ClearStructureDependentData(
-                failureMechanism.SectionResults2,
-                calculationWithRemovedStructure,
-                calculations);
+            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism,
+                                                                               calculationWithRemovedStructure);
 
             StructureCollection<ClosingStructure> structures = failureMechanism.ClosingStructures;
             structures.Clear();
@@ -213,9 +209,8 @@ namespace Ringtoets.ClosingStructures.Service
             return Enumerable.Empty<IObservable>();
         }
 
-        private static List<IObservable> ClearStructureDependentData(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
-                                                                     IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculationWithRemovedStructure,
-                                                                     IEnumerable<StructuresCalculation<ClosingStructuresInput>> structureCalculations)
+        private static List<IObservable> ClearStructureDependentData(ClosingStructuresFailureMechanism failureMechanism,
+                                                                     IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculationWithRemovedStructure)
         {
             var changedObservables = new List<IObservable>();
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedStructure)
@@ -227,7 +222,7 @@ namespace Ringtoets.ClosingStructures.Service
             }
 
             IEnumerable<ClosingStructuresFailureMechanismSectionResult> affectedSectionResults =
-                ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(sectionResults, structureCalculations);
+                ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
             changedObservables.AddRange(affectedSectionResults);
             return changedObservables;

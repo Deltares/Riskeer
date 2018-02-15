@@ -664,9 +664,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 calculations.Add(calculation);
             }
 
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults2,
-                failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
         }
 
         private static void ValidateAll(ClosingStructuresCalculationGroupContext context)
@@ -700,9 +698,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
 
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                context.FailureMechanism.SectionResults2,
-                context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>().ToArray());
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();
@@ -790,9 +786,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                    context.FailureMechanism.SectionResults2,
-                    context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+                ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
                 calculationGroupContext.NotifyObservers();
             }
         }

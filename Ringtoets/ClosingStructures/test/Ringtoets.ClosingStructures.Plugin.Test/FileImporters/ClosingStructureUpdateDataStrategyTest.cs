@@ -658,7 +658,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 updatedMatchingPoint
             }));
 
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults2);
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
             ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults2.ToArray();
 
@@ -729,7 +729,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 new Point2D(10, 10)
             }));
 
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults2);
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
             ClosingStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults2.ToArray();
 

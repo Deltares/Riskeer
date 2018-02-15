@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Util;
@@ -36,80 +37,42 @@ namespace Ringtoets.ClosingStructures.Util
     {
         /// <summary>
         /// Updates the <see cref="ClosingStructuresFailureMechanismSectionResult.Calculation"/> for each element
-        /// of <see cref="sectionResults"/> if required due to a change.
+        /// of <see cref="ClosingStructuresFailureMechanism.SectionResults2"/> if required due to a change.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="ClosingStructuresFailureMechanismSectionResult"/>
-        /// to possibly reassign a calculation to.</param>
-        /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="StructuresCalculation{T}"/> to try 
-        /// and match with the <paramref name="sectionResults"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism which contains the <see cref="ClosingStructuresFailureMechanismSectionResult"/>
+        /// and calculations to update with.</param>
         /// <returns>All affected objects by the update.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when an element 
-        /// in <paramref name="calculations"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
-        /// <c>null</c>.</exception>
-        public static IEnumerable<ClosingStructuresFailureMechanismSectionResult> UpdateCalculationToSectionResultAssignments(
-            IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
-            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<ClosingStructuresFailureMechanismSectionResult> UpdateCalculationToSectionResultAssignments(ClosingStructuresFailureMechanism failureMechanism)
         {
-            ValidateSectionResults(sectionResults);
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
 
+            IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults = failureMechanism.SectionResults2;
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = failureMechanism.Calculations
+                                                                                                      .Cast<StructuresCalculation<ClosingStructuresInput>>();
             return AssignUnassignCalculations.Update(sectionResults.Select(AsCalculationAssignment),
                                                      AsCalculationsWithLocations(calculations))
                                              .Cast<ClosingStructuresFailureMechanismSectionResult>()
                                              .ToArray();
         }
 
-        /// <summary>
-        /// Transforms the <paramref name="calculations"/> into <see cref="CalculationWithLocation"/> and filter out the calculations
-        /// for which a <see cref="CalculationWithLocation"/> could not be made.
-        /// </summary>
-        /// <param name="calculations">The <see cref="StructuresCalculation{T}"/> collection to transform.</param>
-        /// <returns>A collection of <see cref="CalculationWithLocation"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c> or when
-        /// an element in <paramref name="calculations"/> is <c>null</c>.</exception>
         private static IEnumerable<CalculationWithLocation> AsCalculationsWithLocations(
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
-            if (calculations == null)
+            var calculationsWithLocation = new List<CalculationWithLocation>();
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculations)
             {
-                throw new ArgumentNullException(nameof(calculations));
+                if (calculation.InputParameters.Structure != null)
+                {
+                    calculationsWithLocation.Add(new CalculationWithLocation(calculation,
+                                                                             calculation.InputParameters.Structure.Location));
+                }
             }
 
-            return calculations.Select(AsCalculationWithLocation).Where(c => c != null);
-        }
-
-        /// <summary>
-        /// Validates the section results.
-        /// </summary>
-        /// <param name="sectionResults">The <see cref="ClosingStructuresFailureMechanismSectionResult"/> to validate.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sectionResults"/> contains <c>null</c> items.</exception>
-        private static void ValidateSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults)
-        {
-            if (sectionResults == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResults));
-            }
-
-            if (sectionResults.Any(sr => sr == null))
-            {
-                throw new ArgumentException(@"SectionResults contains an entry without value.", nameof(sectionResults));
-            }
-        }
-
-        private static CalculationWithLocation AsCalculationWithLocation(StructuresCalculation<ClosingStructuresInput> calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            if (calculation.InputParameters.Structure == null)
-            {
-                return null;
-            }
-
-            return new CalculationWithLocation(calculation, calculation.InputParameters.Structure.Location);
+            return calculationsWithLocation;
         }
 
         private static SectionResultWithCalculationAssignment AsCalculationAssignment(

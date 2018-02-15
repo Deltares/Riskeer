@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
@@ -36,123 +35,57 @@ namespace Ringtoets.ClosingStructures.Util.Test
     public class ClosingStructuresHelperTest
     {
         [Test]
-        public void UpdateCalculationToSectionResultAssignments_SectionResultsNull_ThrowsArgumentNullException()
+        public void UpdateCalculationToSectionResultAssignments_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                null,
-                new[]
-                {
-                    calculationInSectionB
-                });
+            TestDelegate test = () => ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("sectionResults", exception.ParamName);
-        }
-
-        [Test]
-        public void UpdateCalculationToSectionResultAssignments_SectionResultElementsNull_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate test = () => ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                new ClosingStructuresFailureMechanismSectionResult[]
-                {
-                    null,
-                    null
-                },
-                new[]
-                {
-                    calculationInSectionB
-                });
-
-            // Assert
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                test, "SectionResults contains an entry without value.");
-            Assert.AreEqual("sectionResults", exception.ParamName);
-        }
-
-        [Test]
-        public void UpdateCalculationToSectionResultAssignments_CalculationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                new[]
-                {
-                    sectionResult
-                },
-                null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculations", exception.ParamName);
-        }
-
-        [Test]
-        public void UpdateCalculationToSectionResultAssignments_CalculationsElementNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                new[]
-                {
-                    sectionResult
-                },
-                new StructuresCalculation<ClosingStructuresInput>[]
-                {
-                    null
-                });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
         public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationNoRemainingCalculations_SectionResultCalculationIsNull()
         {
             // Setup
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(
-                failureMechanismSection)
-            {
-                Calculation = calculationInSectionA
-            };
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.AddSection(failureMechanismSection);
 
-            var failureMechanismSectionResults = new[]
-            {
-                failureMechanismSectionResult
-            };
+            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            sectionResult.Calculation = calculationInSectionA;
 
             // Call
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanismSectionResults,
-                                                                                Enumerable.Empty<StructuresCalculation<ClosingStructuresInput>>());
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
             // Assert
-            Assert.IsNull(failureMechanismSectionResult.Calculation);
+            Assert.IsNull(sectionResult.Calculation);
         }
 
         [Test]
         public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationWithRemainingCalculations_SectionResultCalculationSetToRemainingCalculation()
         {
             // Setup
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(
-                failureMechanismSection)
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                Calculation = calculationInSectionA
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        calculationInSectionB
+                    }
+                }
             };
+            failureMechanism.AddSection(failureMechanismSection);
+
+            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            sectionResult.Calculation = calculationInSectionA;
 
             // Call
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                new[]
-                {
-                    failureMechanismSectionResult
-                },
-                new[]
-                {
-                    calculationInSectionB
-                });
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
             // Assert
-            Assert.AreSame(calculationInSectionB, failureMechanismSectionResult.Calculation);
+            Assert.AreSame(calculationInSectionB, sectionResult.Calculation);
         }
 
         #region Prepared data
@@ -162,9 +95,6 @@ namespace Ringtoets.ClosingStructures.Util.Test
             new Point2D(0.0, 0.0),
             new Point2D(10.0, 10.0)
         });
-
-        private static readonly ClosingStructuresFailureMechanismSectionResult sectionResult = new ClosingStructuresFailureMechanismSectionResult(
-            failureMechanismSection);
 
         private static readonly StructuresCalculation<ClosingStructuresInput> calculationInSectionA = new StructuresCalculation<ClosingStructuresInput>
         {

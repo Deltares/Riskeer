@@ -77,9 +77,7 @@ namespace Ringtoets.ClosingStructures.Plugin.FileImporters
             affectedObjects.AddRange(GetAffectedCalculationsWithClosingStructure(structure)
                                          .Select(affectedCalculation => affectedCalculation.InputParameters));
 
-            affectedObjects.AddRange(ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                                         FailureMechanism.SectionResults2,
-                                         FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()));
+            affectedObjects.AddRange(ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(FailureMechanism));
 
             return affectedObjects;
         }

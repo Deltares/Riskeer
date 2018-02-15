@@ -96,9 +96,7 @@ namespace Ringtoets.ClosingStructures.IO.Configurations
 
         protected override void DoPostImportUpdates()
         {
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults2,
-                failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
             base.DoPostImportUpdates();
         }

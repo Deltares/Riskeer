@@ -184,8 +184,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         protected override void AfterSettingStructure()
         {
             ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                data.FailureMechanism.SectionResults2,
-                data.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+                data.FailureMechanism);
         }
 
         protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
