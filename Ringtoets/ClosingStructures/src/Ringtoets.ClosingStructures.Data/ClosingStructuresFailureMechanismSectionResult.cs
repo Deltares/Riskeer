@@ -42,7 +42,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public ClosingStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            SimpleAssessmentInput = SimpleAssessmentResultType.None;
+            SimpleAssessmentResult = SimpleAssessmentResultType.None;
             assessmentLayerThree = double.NaN;
         }
 
@@ -55,7 +55,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the state of the simple assessment per failure mechanism section.
         /// </summary>
-        public SimpleAssessmentResultType SimpleAssessmentInput { get; set; }
+        public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
