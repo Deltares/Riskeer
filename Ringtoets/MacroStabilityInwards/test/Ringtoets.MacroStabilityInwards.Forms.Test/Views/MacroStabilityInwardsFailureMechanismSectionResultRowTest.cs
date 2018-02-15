@@ -60,7 +60,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResult>>(row);
-            Assert.AreEqual(row.SimpleAssessmentInput, result.SimpleAssessmentInput);
+            Assert.AreEqual(row.SimpleAssessmentResult, result.SimpleAssessmentResult);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                                                           failureMechanism, assessmentSection),
                             row.AssessmentLayerTwoA);
@@ -134,7 +134,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void SimpleAssessmentInput_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
             var mocks = new MockRepository();
@@ -154,10 +154,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                 new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             // Call
-            row.SimpleAssessmentInput = newValue;
+            row.SimpleAssessmentResult = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.SimpleAssessmentInput);
+            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
         }
 

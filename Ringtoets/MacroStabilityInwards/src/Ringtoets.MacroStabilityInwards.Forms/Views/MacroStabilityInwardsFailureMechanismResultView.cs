@@ -131,7 +131,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssessmentInput),
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
@@ -176,8 +176,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             var resultRow = (MacroStabilityInwardsFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
             MacroStabilityInwardsFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
-            if (rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.ProbabilityNegligible ||
-                rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.NotApplicable)
+            if (rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible ||
+                rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
             {
                 currentDataGridViewCell.ErrorText = string.Empty;
                 return;
