@@ -25,6 +25,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Util;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
@@ -37,6 +39,47 @@ namespace Ringtoets.ClosingStructures.Service
     /// </summary>
     public static class ClosingStructuresDataSynchronizationService
     {
+        /// <summary>
+        /// Removes the <paramref name="structure"/>, unassigns it from the calculations in
+        /// <paramref name="failureMechanism"/> and clears all dependent data, either directly or indirectly.
+        /// </summary>
+        /// <param name="structure">The structure to be removed.</param>
+        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
+        /// to clear the data from.</param>
+        /// <returns>All objects affected by the removal.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveStructure(ClosingStructure structure,
+                                                               ClosingStructuresFailureMechanism failureMechanism)
+        {
+            if (structure == null)
+            {
+                throw new ArgumentNullException(nameof(structure));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations =
+                failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>();
+
+            StructuresCalculation<ClosingStructuresInput>[] calculationWithRemovedStructure = calculations
+                                                                                              .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
+                                                                                              .ToArray();
+
+            List<IObservable> changedObservables = ClearStructureDependentData(
+                failureMechanism.SectionResults2,
+                calculationWithRemovedStructure,
+                calculations);
+
+            StructureCollection<ClosingStructure> structures = failureMechanism.ClosingStructures;
+            structures.Remove(structure);
+            changedObservables.Add(structures);
+
+            return changedObservables;
+        }
+
         /// <summary>
         /// Clears the output for all calculations in the <see cref="ClosingStructuresFailureMechanism"/>.
         /// </summary>
@@ -133,7 +176,28 @@ namespace Ringtoets.ClosingStructures.Service
                     input
                 };
             }
+
             return Enumerable.Empty<IObservable>();
+        }
+
+        private static List<IObservable> ClearStructureDependentData(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
+                                                                     IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculationWithRemovedStructure,
+                                                                     IEnumerable<StructuresCalculation<ClosingStructuresInput>> structureCalculations)
+        {
+            var changedObservables = new List<IObservable>();
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedStructure)
+            {
+                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+
+                calculation.InputParameters.ClearStructure();
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            IEnumerable<ClosingStructuresFailureMechanismSectionResult> affectedSectionResults =
+                ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(sectionResults, structureCalculations);
+
+            changedObservables.AddRange(affectedSectionResults);
+            return changedObservables;
         }
     }
 }

@@ -40,6 +40,131 @@ namespace Ringtoets.ClosingStructures.Service.Test
     public class ClosingStructuresDataSynchronizationServiceTest
     {
         [Test]
+        public void RemoveStructure_StructureNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ClosingStructuresDataSynchronizationService.RemoveStructure(
+                null,
+                new ClosingStructuresFailureMechanism());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("structure", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveStructure_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => ClosingStructuresDataSynchronizationService.RemoveStructure(
+                new TestClosingStructure(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveStructure_FullyConfiguredFailureMechanism_RemovesStructureAndClearsDependentData()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var locationStructureToRemove = new Point2D(0, 0);
+            var structureToRemove = new TestClosingStructure(locationStructureToRemove, "id1");
+
+            var locationStructureToKeep = new Point2D(2, 2);
+            var structureToKeep = new TestClosingStructure(locationStructureToKeep, "id2");
+
+            failureMechanism.ClosingStructures.AddRange(new[]
+            {
+                structureToRemove,
+                structureToKeep
+            }, "path/to/structures");
+
+            var calculationWithOutput = new TestClosingStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithStructureToRemove = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = structureToRemove
+                }
+            };
+            var calculationWithStructureToKeepAndOutput = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = structureToKeep
+                },
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithStructureToRemoveAndOutput = new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = structureToRemove
+                },
+                Output = new TestStructuresOutput()
+            };
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                calculationWithOutput,
+                calculationWithStructureToRemove,
+                calculationWithStructureToKeepAndOutput,
+                calculationWithStructureToRemoveAndOutput
+            });
+
+            var affectedSection = new FailureMechanismSection(string.Empty, new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
+            failureMechanism.AddSection(affectedSection);
+            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToRemove = failureMechanism.SectionResults2.ElementAt(0);
+            sectionWithCalculationAtStructureToRemove.Calculation = calculationWithStructureToRemove;
+
+            var unaffectedSection = new FailureMechanismSection(string.Empty, new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            });
+            failureMechanism.AddSection(unaffectedSection);
+            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToKeep = failureMechanism.SectionResults2.ElementAt(1);
+            sectionWithCalculationAtStructureToKeep.Calculation = calculationWithStructureToKeepAndOutput;
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = ClosingStructuresDataSynchronizationService.RemoveStructure(
+                structureToRemove, failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.ClosingStructures, structureToRemove);
+            Assert.IsNull(calculationWithStructureToRemove.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureToRemoveAndOutput.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureToRemoveAndOutput.Output);
+            Assert.IsNull(sectionWithCalculationAtStructureToRemove.Calculation);
+            Assert.IsNotNull(calculationWithOutput.Output);
+            Assert.IsNotNull(calculationWithStructureToKeepAndOutput.Output);
+            Assert.IsNotNull(calculationWithStructureToKeepAndOutput.InputParameters.Structure);
+            Assert.AreSame(sectionWithCalculationAtStructureToKeep.Calculation, calculationWithStructureToKeepAndOutput);
+
+            IObservable[] expectedAffectedObjects =
+            {
+                calculationWithStructureToRemove.InputParameters,
+                calculationWithStructureToRemoveAndOutput,
+                calculationWithStructureToRemoveAndOutput.InputParameters,
+                sectionWithCalculationAtStructureToRemove,
+                failureMechanism.ClosingStructures
+            };
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
