@@ -55,7 +55,6 @@ using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -144,7 +143,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,

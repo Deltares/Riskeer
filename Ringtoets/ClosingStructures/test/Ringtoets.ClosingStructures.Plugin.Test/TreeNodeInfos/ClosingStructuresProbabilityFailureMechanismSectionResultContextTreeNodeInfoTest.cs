@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
@@ -115,9 +114,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
-                var sectionResult = new StructuresFailureMechanismSectionResult<ClosingStructuresInput>(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-                var sectionResultContext = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(
-                    new ObservableList<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>
+                var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+                var sectionResultContext = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
+                    new ObservableList<ClosingStructuresFailureMechanismSectionResult>
                     {
                         sectionResult
                     }, failureMechanism, assessmentSection);
@@ -143,7 +142,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(ClosingStructuresPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>));
         }
     }
 }
