@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Forms.Views
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentInput),
+                nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentResult),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
@@ -171,8 +171,8 @@ namespace Ringtoets.Piping.Forms.Views
 
             var resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
             PipingFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
-            if (rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.ProbabilityNegligible
-                || rowObject.SimpleAssessmentInput == SimpleAssessmentResultType.NotApplicable)
+            if (rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible
+                || rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
             {
                 currentDataGridViewCell.ErrorText = string.Empty;
                 return;

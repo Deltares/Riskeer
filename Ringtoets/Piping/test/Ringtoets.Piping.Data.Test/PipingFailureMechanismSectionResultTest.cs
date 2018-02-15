@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
-            Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentInput);
+            Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
         }
 
