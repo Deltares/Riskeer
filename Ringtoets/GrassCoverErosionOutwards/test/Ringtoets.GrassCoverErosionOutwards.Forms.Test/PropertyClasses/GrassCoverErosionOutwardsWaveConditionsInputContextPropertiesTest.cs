@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel(), handler);
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel(), handler);
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
