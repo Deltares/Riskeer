@@ -69,23 +69,28 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         private const int foreshoreGeometryPropertyIndex = 13;
         private const int revetmentTypePropertyIndex = 14;
 
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{T}"/>.
         /// </summary>
         /// <param name="context">The <see cref="WaveConditionsInputContext"/> for which the properties are shown.</param>
-        /// <param name="normativeAssessmentLevel">The normative assessment level.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="context"/> or
-        /// <paramref name="propertyChangeHandler"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected WaveConditionsInputContextProperties(T context,
-                                                       RoundedDouble normativeAssessmentLevel,
+                                                       Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                        IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
+            }
+
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
 
             if (propertyChangeHandler == null)
@@ -95,7 +100,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
 
             Data = context;
 
-            AssessmentLevel = normativeAssessmentLevel;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
@@ -105,7 +110,10 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.AssessmentLevel_Description))]
         public virtual RoundedDouble AssessmentLevel
         {
-            get;
+            get
+            {
+                return getNormativeAssessmentLevelFunc();
+            }
         }
 
         [PropertyOrder(upperBoundaryDesignWaterLevelPropertyIndex)]
@@ -210,7 +218,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.GetWaterLevels(AssessmentLevel).ToArray();
+                return data.WrappedData.GetWaterLevels(getNormativeAssessmentLevelFunc()).ToArray();
             }
         }
 
