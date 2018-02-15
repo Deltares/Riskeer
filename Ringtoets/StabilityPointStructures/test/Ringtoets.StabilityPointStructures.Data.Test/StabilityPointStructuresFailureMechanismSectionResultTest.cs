@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.IsNull(sectionResult.Calculation);
-            Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, sectionResult.SimpleAssessmentInput);
+            Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, sectionResult.SimpleAssessmentResult);
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
             Assert.AreSame(section, sectionResult.Section);
         }
