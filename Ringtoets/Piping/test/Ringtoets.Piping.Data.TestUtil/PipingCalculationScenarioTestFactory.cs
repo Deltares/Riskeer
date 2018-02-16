@@ -79,6 +79,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             {
                 throw new ArgumentNullException(nameof(section));
             }
+
             var pipingSurfaceLine = new PipingSurfaceLine(string.Empty);
             Point2D p = section.Points.First();
             pipingSurfaceLine.SetGeometry(new[]
@@ -165,7 +166,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             surfaceLine.SetBottomDitchDikeSideAt(thirdCharacteristicPointLocation);
             surfaceLine.SetBottomDitchPolderSideAt(fourthCharacteristicPointLocation);
             surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
-
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
             {
                 DesignWaterLevelCalculation2 =

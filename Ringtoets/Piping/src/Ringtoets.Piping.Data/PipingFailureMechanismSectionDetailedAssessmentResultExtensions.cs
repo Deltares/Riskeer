@@ -83,24 +83,15 @@ namespace Ringtoets.Piping.Data
                 return double.NaN;
             }
 
-            IEnumerable<PipingCalculationScenario> calculationScenarios = sectionResult
-                                                                          .GetCalculationScenarios(relevantScenarios)
-                                                                          .Where(cs => cs.Status == CalculationScenarioStatus.Done);
-
-            if (calculationScenarios.Any())
+            double totalDetailedAssessment = 0;
+            foreach (PipingCalculationScenario scenario in relevantScenarios)
             {
-                double totalDetailedAssessment = 0;
-                foreach (PipingCalculationScenario scenario in calculationScenarios)
-                {
-                    DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(scenario.Output, failureMechanism, assessmentSection);
+                DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(scenario.Output, failureMechanism, assessmentSection);
 
-                    totalDetailedAssessment += derivedOutput.PipingProbability * (double) scenario.Contribution;
-                }
-
-                return totalDetailedAssessment;
+                totalDetailedAssessment += derivedOutput.PipingProbability * (double) scenario.Contribution;
             }
 
-            return double.NaN;
+            return totalDetailedAssessment;
         }
 
         /// <summary>

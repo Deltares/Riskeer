@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -47,9 +46,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual((SimpleAssessmentResultValidityOnlyType) 0,
                             calculator.SimpleAssessmentValidityOnlyInput);
             Assert.IsNull(calculator.SimpleAssessmentAssemblyOutput);
-            Assert.IsNull(calculator.DetailedAssessmentWithLengthEffectInput);
-            Assert.IsNull(calculator.DetailedAssessmentInput);
-            Assert.IsNull(calculator.DetailedAssessmentAssemblyOutput);
+            Assert.IsNull(calculator.DetailedAssessmentCategoriesInput);
+            Assert.AreEqual(0.0, calculator.DetailedAssessmentNInput);
+            Assert.AreEqual(0.0, calculator.DetailedAssessmentProbabilityInput);
         }
 
         #region Simple Assessment
@@ -178,8 +177,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double lowerBoundary = random.NextRoundedDouble(0.0, 0.5);
-            double upperBoundary = random.NextRoundedDouble(0.6, 1.0);
+            double lowerBoundary = random.NextDouble();
+            double upperBoundary = random.NextDouble();
 
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
@@ -194,12 +193,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 });
 
             // Assert
-            Assert.AreEqual(probability, calculator.DetailedAssessmentInput.Probability);
+            Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
 
-            FailureMechanismSectionCategory actualSectionCategory = calculator.DetailedAssessmentInput.Categories.Single();
+            FailureMechanismSectionAssemblyCategory actualSectionCategory = calculator.DetailedAssessmentCategoriesInput.Single();
             Assert.AreEqual(lowerBoundary, actualSectionCategory.LowerBoundary);
             Assert.AreEqual(upperBoundary, actualSectionCategory.UpperBoundary);
-            Assert.AreEqual(FailureMechanismSectionCategoryGroup.IIv, actualSectionCategory.CategoryGroup);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, actualSectionCategory.Group);
         }
 
         [Test]
@@ -275,13 +274,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 n);
 
             // Assert
-            Assert.AreEqual(probability, calculator.DetailedAssessmentWithLengthEffectInput.Probability);
-            Assert.AreEqual(n, calculator.DetailedAssessmentWithLengthEffectInput.NValue);
+            Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
+            Assert.AreEqual(n, calculator.DetailedAssessmentNInput);
 
-            FailureMechanismSectionCategory actualSectionCategory = calculator.DetailedAssessmentWithLengthEffectInput.Categories.Single();
+            FailureMechanismSectionAssemblyCategory actualSectionCategory = calculator.DetailedAssessmentCategoriesInput.Single();
             Assert.AreEqual(lowerBoundary, actualSectionCategory.LowerBoundary);
             Assert.AreEqual(upperBoundary, actualSectionCategory.UpperBoundary);
-            Assert.AreEqual(FailureMechanismSectionCategoryGroup.IIv, actualSectionCategory.CategoryGroup);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, actualSectionCategory.Group);
         }
 
         [Test]
