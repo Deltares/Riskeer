@@ -723,7 +723,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 removedStructure
             }, sourceFilePath);
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 originalMatchingPoint,
                 new Point2D(10, 10)

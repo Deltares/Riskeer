@@ -318,7 +318,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 }
             };
 
-            failureMechanism.AddSection(new FailureMechanismSection("SectionResult", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 location
             }));
