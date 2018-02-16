@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data.TestUtil;
@@ -221,6 +222,7 @@ namespace Ringtoets.Piping.Data.Test
                                                                                    random.NextRoundedDouble(0.00001, 0.05)));
             mocks.ReplayAll();
 
+            var failureMechanism = new PipingFailureMechanism();
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
@@ -238,7 +240,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
                     },
-                    new PipingFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -247,9 +249,11 @@ namespace Ringtoets.Piping.Data.Test
                                     {
                                         PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
                                     },
-                                    new PipingFailureMechanism(),
+                                    failureMechanism,
                                     assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
+                Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length), calculator.DetailedAssessmentNInput);
+                Assert.IsNotNull(calculator.DetailedAssessmentCategoriesInput);
                 mocks.VerifyAll();
             }
         }

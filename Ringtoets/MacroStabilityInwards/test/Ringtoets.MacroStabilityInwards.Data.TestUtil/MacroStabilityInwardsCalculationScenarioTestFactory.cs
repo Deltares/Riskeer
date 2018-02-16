@@ -226,6 +226,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             surfaceLine.SetDikeTopAtPolderAt(fourthCharacteristicPointLocation);
             surfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
             surfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
             {

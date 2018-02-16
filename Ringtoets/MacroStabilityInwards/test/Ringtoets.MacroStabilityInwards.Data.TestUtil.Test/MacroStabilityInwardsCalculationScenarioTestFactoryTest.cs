@@ -376,6 +376,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
             expectedSurfaceLine.SetDikeTopAtPolderAt(fourthCharacteristicPointLocation);
             expectedSurfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
             expectedSurfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
+            expectedSurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
             Assert.AreEqual(expectedSurfaceLine, inputParameters.SurfaceLine);
         }
     }

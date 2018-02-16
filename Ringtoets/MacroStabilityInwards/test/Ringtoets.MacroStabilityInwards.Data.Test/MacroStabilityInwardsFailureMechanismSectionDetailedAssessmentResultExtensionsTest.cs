@@ -66,8 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, new MacroStabilityInwardsFailureMechanism(),
-                                                                                                     assessmentSection);
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -88,7 +87,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                                     null, assessmentSection);
+                                                                                                     null,
+                                                                                                     assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -105,7 +105,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                                     new MacroStabilityInwardsFailureMechanism(), null);
+                                                                                                     new MacroStabilityInwardsFailureMechanism(),
+                                                                                                     null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -113,7 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantAndDoneScenarios()
+        public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -125,32 +126,26 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
-            const double contribution1 = 0.2;
-            const double contribution2 = 0.8;
             const double factorOfStability1 = 1.0 / 1000000.0;
             const double factorOfStability2 = 1.0 / 2000000.0;
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario1 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factorOfStability1, section);
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factorOfStability2, section);
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario3 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(0.0, section);
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario4 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
 
             macroStabilityInwardsCalculationScenario1.IsRelevant = true;
-            macroStabilityInwardsCalculationScenario1.Contribution = (RoundedDouble) contribution1;
+            macroStabilityInwardsCalculationScenario1.Contribution = (RoundedDouble) 0.2;
 
             macroStabilityInwardsCalculationScenario2.IsRelevant = true;
-            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) contribution2;
+            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) 0.8;
 
             macroStabilityInwardsCalculationScenario3.IsRelevant = false;
-
-            macroStabilityInwardsCalculationScenario4.IsRelevant = true;
 
             var calculations = new[]
             {
                 macroStabilityInwardsCalculationScenario1,
                 macroStabilityInwardsCalculationScenario2,
-                macroStabilityInwardsCalculationScenario3,
-                macroStabilityInwardsCalculationScenario4
+                macroStabilityInwardsCalculationScenario3
             };
 
             // Call
@@ -176,7 +171,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                                                  failureMechanism, assessmentSection);
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
@@ -275,6 +271,40 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsNaN(detailedAssessmentProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0.2, 0.8 - 1e5)]
+        [TestCase(0.0, 0.5)]
+        [TestCase(0.3, 0.7 + 1e-5)]
+        [TestCase(-5, -8)]
+        [TestCase(13, 2)]
+        public void GetDetailedAssessmentProbability_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            MacroStabilityInwardsCalculationScenario scenarioA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario scenarioB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            scenarioA.Contribution = (RoundedDouble) contributionA;
+            scenarioB.Contribution = (RoundedDouble) contributionB;
+
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            double detailedAssessmentProbability = result.GetDetailedAssessmentProbability(new[]
+            {
+                scenarioA,
+                scenarioB
+            }, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
