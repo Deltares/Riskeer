@@ -1527,7 +1527,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
             bool isRelevant = random.NextBoolean();
-            double parameterN = random.NextDouble();
+            double parameterN = 1 + random.NextDouble();
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
             const string notRelevantComments = "Really not relevant";
@@ -1556,12 +1556,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(isRelevant, section.MacroStabilityOutwards.IsRelevant);
-            Assert.AreEqual(inputComments, section.MacroStabilityOutwards.InputComments.Body);
-            Assert.AreEqual(outputComments, section.MacroStabilityOutwards.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.MacroStabilityOutwards.NotRelevantComments.Body);
+            Assert.AreEqual(isRelevant, section.PipingStructure.IsRelevant);
+            Assert.AreEqual(inputComments, section.PipingStructure.InputComments.Body);
+            Assert.AreEqual(outputComments, section.PipingStructure.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, section.PipingStructure.NotRelevantComments.Body);
 
-            Assert.AreEqual(parameterN, section.PipingStructure.N);
+            RoundedDouble actualN = section.PipingStructure.N;
+            Assert.AreEqual(parameterN, actualN, actualN.GetAccuracy());
         }
 
         [Test]
