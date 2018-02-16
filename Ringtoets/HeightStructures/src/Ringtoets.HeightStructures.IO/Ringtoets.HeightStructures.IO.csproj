@@ -67,6 +67,11 @@
       <Name>Ringtoets.HeightStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.HeightStructures.Util\Ringtoets.HeightStructures.Util.csproj">
+      <Project>{B60FC9A2-22B5-4E4C-986E-40766B843AB5}</Project>
+      <Name>Ringtoets.HeightStructures.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

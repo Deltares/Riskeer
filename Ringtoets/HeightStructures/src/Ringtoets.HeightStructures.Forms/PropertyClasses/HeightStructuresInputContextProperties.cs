@@ -22,15 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Util;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PropertyClasses
@@ -127,9 +126,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         protected override void AfterSettingStructure()
         {
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                data.FailureMechanism.SectionResults,
-                data.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
+            HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(data.FailureMechanism);
         }
     }
 }

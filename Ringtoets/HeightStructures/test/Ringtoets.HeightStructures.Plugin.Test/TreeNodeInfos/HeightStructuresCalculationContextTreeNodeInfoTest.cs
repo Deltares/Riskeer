@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -38,11 +37,9 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -68,21 +65,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
-
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCalculationContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -207,6 +189,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies are called in TearDown()
         }
@@ -1324,12 +1307,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(elementToBeRemoved);
 
-            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
-            {
-                new Point2D(0, 0)
-            }));
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
-            StructuresFailureMechanismSectionResult<HeightStructuresInput> result = failureMechanism.SectionResults.First();
+            HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults2.First();
             result.Calculation = elementToBeRemoved;
 
             // Call
@@ -1337,6 +1317,21 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNull(result.Calculation);
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new HeightStructuresPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCalculationContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         private static void ChangeStructure(HeightStructure structure)
