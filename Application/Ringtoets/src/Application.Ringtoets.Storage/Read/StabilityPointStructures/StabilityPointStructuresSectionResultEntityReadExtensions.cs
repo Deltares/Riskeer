@@ -23,34 +23,34 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StructuresFailureMechanismSectionResult{T}"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> based on the
     /// <see cref="StabilityPointStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class StabilityPointStructuresSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="StabilityPointStructuresSectionResultEntity"/> and use the information to update a 
-        /// <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+        /// <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StabilityPointStructuresSectionResultEntity"/> to create <see cref="StructuresFailureMechanismSectionResult{T}"/> for.</param>
+        /// <param name="entity">The <see cref="StabilityPointStructuresSectionResultEntity"/> to create <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="StructuresFailureMechanismSectionResult{T}"/>.</returns>
+        /// <returns>A new <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this StabilityPointStructuresSectionResultEntity entity,
-                                  StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult,
+                                  StabilityPointStructuresFailureMechanismSectionResult sectionResult,
                                   ReadConversionCollector collector)
         {
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));

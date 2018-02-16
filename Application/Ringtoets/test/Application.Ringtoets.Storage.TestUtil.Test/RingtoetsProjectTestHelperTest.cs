@@ -464,7 +464,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             var calculationWithoutOutput = (StructuresCalculation<StabilityPointStructuresInput>) failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
 
-            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult = failureMechanism.SectionResults.First();
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
             Assert.AreSame(calculationWithOutput, sectionResult.Calculation);
         }
 

@@ -359,8 +359,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     expectedAssessmentSection.StabilityStoneCover.SectionResults,
                     actualAssessmentSection.StabilityStoneCover.SectionResults);
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.StabilityPointStructures.SectionResults,
-                    actualAssessmentSection.StabilityPointStructures.SectionResults);
+                    expectedAssessmentSection.StabilityPointStructures.SectionResults2,
+                    actualAssessmentSection.StabilityPointStructures.SectionResults2);
             }
         }
 
@@ -760,8 +760,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> expectedSectionResults,
-                                                                 IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> expectedSectionResults,
+                                                                 IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,

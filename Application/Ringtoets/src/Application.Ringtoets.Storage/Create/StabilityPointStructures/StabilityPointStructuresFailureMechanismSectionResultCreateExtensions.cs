@@ -21,26 +21,25 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="StructuresFailureMechanismSectionResult{T}"/> related to creating a 
+    /// Extension methods for <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> related to creating a 
     /// <see cref="StabilityPointStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class StabilityPointStructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="StabilityPointStructuresSectionResultEntity"/> based on the information of the <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+        /// Creates a <see cref="StabilityPointStructuresSectionResultEntity"/> based on the information of the <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StabilityPointStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static StabilityPointStructuresSectionResultEntity Create(
-            this StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result,
+            this StabilityPointStructuresFailureMechanismSectionResult result,
             PersistenceRegistry registry)
         {
             if (registry == null)
