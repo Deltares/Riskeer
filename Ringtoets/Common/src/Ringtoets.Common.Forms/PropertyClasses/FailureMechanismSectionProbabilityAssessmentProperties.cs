@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, probabilityAssessmentInput.GetSectionSpecificN(data.Length));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(data.Length));
             }
         }
     }

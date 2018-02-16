@@ -29,15 +29,15 @@ namespace Ringtoets.Common.Data.Probability
     public static class ProbabilityAssessmentInputExtensions
     {
         /// <summary>
-        /// Calculates the section specific N based on the general probability assessment input
-        /// and the length of the section.
+        /// Calculates the N based on the general probability assessment input
+        /// and the length of the section or segment.
         /// </summary>
         /// <param name="probabilityAssessmentInput">The probability assessment input parameters.</param>
-        /// <param name="length">The length of the section in meters.</param>
-        /// <returns>The section specific N.</returns>
+        /// <param name="length">The length in meters.</param>
+        /// <returns>The 'N' parameter used to factor in the 'length effect'.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="probabilityAssessmentInput"/>
         /// is <c>null</c>.</exception>
-        public static double GetSectionSpecificN(this ProbabilityAssessmentInput probabilityAssessmentInput, double length)
+        public static double GetN(this ProbabilityAssessmentInput probabilityAssessmentInput, double length)
         {
             if (probabilityAssessmentInput == null)
             {

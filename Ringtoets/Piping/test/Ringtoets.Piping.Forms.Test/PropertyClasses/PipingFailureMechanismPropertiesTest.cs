@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.GetSectionSpecificN(
+            Assert.AreEqual(probabilityAssessmentInput.GetN(
                                 probabilityAssessmentInput.SectionLength),
                             properties.N,
                             properties.N.GetAccuracy());

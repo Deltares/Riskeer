@@ -30,10 +30,10 @@ namespace Ringtoets.Common.Data.Test.Probability
     public class ProbabilityAssessmentInputExtensionsTest
     {
         [Test]
-        public void GetSectionSpecificN_ProbabilityAssessmentInputNull_ThrowsArgumentNullException()
+        public void GetN_ProbabilityAssessmentInputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((ProbabilityAssessmentInput) null).GetSectionSpecificN(new Random(39).NextDouble());
+            TestDelegate call = () => ((ProbabilityAssessmentInput) null).GetN(new Random(39).NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -45,13 +45,13 @@ namespace Ringtoets.Common.Data.Test.Probability
         [TestCase(0.5, 750, 300, 1.2)]
         [TestCase(0.9, -200, 750, -2.375)]
         [TestCase(0.8, 0, 100, double.PositiveInfinity)]
-        public void GetSectionSpecificN_WithValues_ReturnsExpectedResult(double a, double b, double length, double expectedN)
+        public void GetN_WithValues_ReturnsExpectedResult(double a, double b, double length, double expectedN)
         {
             // Setup
             var input = new TestProbabilityAssessmentInput(a, b);
 
             // Call
-            double actualN = input.GetSectionSpecificN(length);
+            double actualN = input.GetN(length);
 
             // Assert
             Assert.AreEqual(expectedN, actualN);

@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
             get
             {
                 MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityOutwardsProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetSectionSpecificN(probabilityAssessmentInput.SectionLength));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength));
             }
         }
 

@@ -244,7 +244,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetSectionSpecificN(probabilityAssessmentInput.SectionLength));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength));
             }
         }
 
