@@ -113,10 +113,10 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets the assessment layer two a of the <see cref="PipingFailureMechanismSectionResult"/>.
+        /// Gets the detailed assessment probability a of the <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double AssessmentLayerTwoA
+        public double DetailedAssessment
         {
             get
             {
@@ -133,7 +133,7 @@ namespace Ringtoets.Piping.Forms.Views
                     return double.NaN;
                 }
 
-                return SectionResult.GetAssessmentLayerTwoA(relevantScenarios, failureMechanism, assessmentSection);
+                return SectionResult.GetDetailedAssessmentProbability(relevantScenarios, failureMechanism, assessmentSection);
             }
         }
 

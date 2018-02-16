@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
+        private const int detailedAssessmentIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
         private Form testForm;
 
@@ -114,13 +114,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
-                Assert.IsTrue(dataGridView.Columns[assessmentLayerTwoAIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[detailedAssessmentIndex].ReadOnly);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -147,14 +147,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
@@ -183,24 +183,24 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                DataGridViewCell cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                DataGridViewCell cellDetailedAssessment = cells[detailedAssessmentIndex];
                 DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
 
                 Assert.AreEqual(simpleAssessmentType, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
+                Assert.AreEqual("-", cellDetailedAssessment.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
 
                 if (simpleAssessmentType == SimpleAssessmentResultType.ProbabilityNegligible
                     || simpleAssessmentType == SimpleAssessmentResultType.NotApplicable)
                 {
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
+                    DataGridViewTestHelper.AssertCellIsDisabled(cellDetailedAssessment);
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
 
                     Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
                 }
                 else
                 {
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
+                    DataGridViewTestHelper.AssertCellIsEnabled(cellDetailedAssessment, true);
                     DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
 
                     Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
@@ -292,7 +292,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[detailedAssessmentIndex];
                 dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
@@ -309,7 +309,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [SetCulture("nl-NL")]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip(
+        public void FailureMechanismResultView_DetailedAssessmentHasValue_DoesNotShowsErrorTooltip(
             SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[detailedAssessmentIndex];
                 dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
@@ -340,7 +340,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
+        public void FailureMechanismResultView_DetailedAssessmentNull_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;
@@ -354,7 +354,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[detailedAssessmentIndex];
                 dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
+        public void FailureMechanismResultView_DetailedAssessmentNaN_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;
@@ -385,7 +385,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[detailedAssessmentIndex];
                 dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
@@ -411,7 +411,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[detailedAssessmentIndex];
                 dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
@@ -442,7 +442,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[detailedAssessmentIndex];
                 dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = simpleAssessmentType;
 
                 // Call
@@ -456,7 +456,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_SimpleAssessmentProbabilityNegligibleAndAssessmentLayerTwoANaN_DoesNotShowError()
+        public void FailureMechanismResultView_SimpleAssessmentProbabilityNegligibleAndDetailedAssessmentNaN_DoesNotShowError()
         {
             // Setup
             const int rowIndex = 0;
@@ -471,7 +471,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[detailedAssessmentIndex];
 
                 // Call
                 dataGridView.Rows[rowIndex].Cells[simpleAssessmentIndex].Value = SimpleAssessmentResultType.ProbabilityNegligible;

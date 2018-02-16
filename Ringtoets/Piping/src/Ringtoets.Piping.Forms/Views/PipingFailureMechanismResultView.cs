@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult, PipingFailureMechanism>
     {
-        private const int assessmentLayerTwoAIndex = 2;
+        private const int detailedAssessmentIndex = 2;
         private const double tolerance = 1e-6;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Forms.Views
                 Observable = failureMechanism
             };
 
-            DataGridViewControl.CellFormatting += ShowAssessmentLayerTwoAErrors;
+            DataGridViewControl.CellFormatting += ShowDetailedAssessmentErrors;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.CellFormatting -= ShowAssessmentLayerTwoAErrors;
+            DataGridViewControl.CellFormatting -= ShowDetailedAssessmentErrors;
             DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
 
             calculationInputObserver.Dispose();
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Views
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA),
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessment),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 true);
             DataGridViewControl.AddTextBoxColumn(
@@ -160,9 +160,9 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private void ShowAssessmentLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
+        private void ShowDetailedAssessmentErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex != assessmentLayerTwoAIndex)
+            if (e.ColumnIndex != detailedAssessmentIndex)
             {
                 return;
             }
@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.Forms.Views
                 return;
             }
 
-            if (double.IsNaN(resultRow.AssessmentLayerTwoA))
+            if (double.IsNaN(resultRow.DetailedAssessment))
             {
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
                 return;

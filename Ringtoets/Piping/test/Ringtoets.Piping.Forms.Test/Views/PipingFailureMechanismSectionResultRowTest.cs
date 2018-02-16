@@ -61,13 +61,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
             Assert.AreEqual(row.SimpleAssessmentResult, result.SimpleAssessmentResult);
-            Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>(),
-                                                          failureMechanism, assessmentSection),
-                            row.AssessmentLayerTwoA);
+            Assert.AreEqual(result.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
+                                                                    failureMechanism, assessmentSection),
+                            row.DetailedAssessment);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerTwoA));
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessment));
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerThree));
             mocks.VerifyAll();
@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentLayerTwoA_NoScenarios_ReturnNaN()
+        public void DetailedAssessment_NoScenarios_ReturnNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                                                  failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsNaN(row.AssessmentLayerTwoA);
+            Assert.IsNaN(row.DetailedAssessment);
             mocks.VerifyAll();
         }
 
@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(0.3, 0.7 + 1e-5)]
         [TestCase(-5, -8)]
         [TestCase(13, 2)]
-        public void AssessmentLayerTwoA_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
+        public void DetailedAssessment_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
             var mocks = new MockRepository();
@@ -212,15 +212,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, failureMechanism, assessmentSection);
 
             // Call
-            double assessmentLayerTwoA = row.AssessmentLayerTwoA;
+            double detailedAssessment = row.DetailedAssessment;
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessment);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AssessmentLayerTwoA_NoRelevantScenariosDone_ReturnNaN()
+        public void DetailedAssessment_NoRelevantScenariosDone_ReturnNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -240,15 +240,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, failureMechanism, assessmentSection);
 
             // Call
-            double assessmentLayerTwoA = row.AssessmentLayerTwoA;
+            double detailedAssessment = row.DetailedAssessment;
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessment);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AssessmentLayerTwoA_RelevantScenariosDone_ResultOfSection()
+        public void DetailedAssessment_RelevantScenariosDone_ResultOfSection()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -268,14 +268,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, failureMechanism, assessmentSection);
 
             // Call
-            double assessmentLayerTwoA = row.AssessmentLayerTwoA;
+            double detailedAssessment = row.DetailedAssessment;
 
             // Assert
-            double expected = result.GetAssessmentLayerTwoA(new[]
+            double expected = result.GetDetailedAssessmentProbability(new[]
             {
                 scenario
             }, failureMechanism, assessmentSection);
-            Assert.AreEqual(expected, assessmentLayerTwoA, 1e-6);
+            Assert.AreEqual(expected, detailedAssessment, 1e-6);
             mocks.VerifyAll();
         }
 
