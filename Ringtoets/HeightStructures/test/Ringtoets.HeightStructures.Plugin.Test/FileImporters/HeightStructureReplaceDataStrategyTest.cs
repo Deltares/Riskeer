@@ -27,7 +27,6 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
@@ -318,11 +317,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 }
             };
 
-            failureMechanism.AddSection(new FailureMechanismSection("SectionResult", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 location
             }));
-            StructuresFailureMechanismSectionResult<HeightStructuresInput> sectionResult = failureMechanism.SectionResults.First();
+            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
             sectionResult.Calculation = calculation;
 
             failureMechanism.HeightStructures.AddRange(new[]

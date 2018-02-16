@@ -27,9 +27,9 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Util;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Service;
+using Ringtoets.HeightStructures.Util;
 
 namespace Ringtoets.HeightStructures.Plugin.FileImporters
 {
@@ -55,11 +55,7 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(HeightStructure removedObject)
         {
-            return RingtoetsCommonDataSynchronizationService.RemoveStructure(
-                removedObject,
-                FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
-                FailureMechanism.HeightStructures,
-                FailureMechanism.SectionResults);
+            return HeightStructuresDataSynchronizationService.RemoveStructure(removedObject, FailureMechanism);
         }
 
         #region Updating Data Functions
@@ -79,9 +75,7 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
             affectedObjects.AddRange(GetAffectedCalculationsWithHeightStructure(structure)
                                          .Select(c => c.InputParameters));
 
-            affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                                         FailureMechanism.SectionResults,
-                                         FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()));
+            affectedObjects.AddRange(HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(FailureMechanism));
 
             return affectedObjects;
         }

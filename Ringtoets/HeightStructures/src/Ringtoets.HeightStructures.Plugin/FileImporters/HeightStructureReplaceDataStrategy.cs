@@ -21,13 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Service;
 
 namespace Ringtoets.HeightStructures.Plugin.FileImporters
 {
@@ -53,10 +51,7 @@ namespace Ringtoets.HeightStructures.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> ClearData()
         {
-            return RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
-                FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>(),
-                FailureMechanism.HeightStructures,
-                FailureMechanism.SectionResults);
+            return HeightStructuresDataSynchronizationService.RemoveAllStructures(FailureMechanism);
         }
     }
 }

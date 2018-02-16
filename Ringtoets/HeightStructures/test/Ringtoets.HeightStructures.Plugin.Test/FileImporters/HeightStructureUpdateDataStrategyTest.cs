@@ -28,14 +28,13 @@ using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.Common.Util;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Plugin.FileImporters;
+using Ringtoets.HeightStructures.Util;
 
 namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
 {
@@ -607,10 +606,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 updatedMatchingPoint
             }));
 
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults,
-                                                                         failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
-
-            StructuresFailureMechanismSectionResult<HeightStructuresInput>[] sectionResults = failureMechanism.SectionResults.ToArray();
+            HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
+            HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults2.ToArray();
 
             var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
 
@@ -637,7 +634,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 sectionResults[1]
             }, affectedObjects);
 
-            sectionResults = failureMechanism.SectionResults.ToArray();
+            sectionResults = failureMechanism.SectionResults2.ToArray();
             Assert.AreEqual(2, sectionResults.Length);
             Assert.IsNull(sectionResults[0].Calculation);
             Assert.AreSame(calculation, sectionResults[1].Calculation);
@@ -673,16 +670,14 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 removedStructure
             }, sourceFilePath);
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 originalMatchingPoint,
                 new Point2D(10, 10)
             }));
 
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults,
-                                                                         failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
-
-            StructuresFailureMechanismSectionResult<HeightStructuresInput>[] sectionResults = failureMechanism.SectionResults.ToArray();
+            HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
+            HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults2.ToArray();
 
             var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
 
@@ -702,7 +697,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 sectionResults[0]
             }, affectedObjects);
 
-            sectionResults = failureMechanism.SectionResults.ToArray();
+            sectionResults = failureMechanism.SectionResults2.ToArray();
             Assert.AreEqual(1, sectionResults.Length);
             Assert.IsNull(sectionResults[0].Calculation);
         }
