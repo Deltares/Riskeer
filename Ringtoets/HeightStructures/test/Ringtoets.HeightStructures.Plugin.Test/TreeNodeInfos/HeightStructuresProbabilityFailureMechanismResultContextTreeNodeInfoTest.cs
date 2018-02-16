@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -48,7 +47,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -124,8 +123,8 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             }
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(
-                new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(), failureMechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
+                new ObservableList<HeightStructuresFailureMechanismSectionResult>(), failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

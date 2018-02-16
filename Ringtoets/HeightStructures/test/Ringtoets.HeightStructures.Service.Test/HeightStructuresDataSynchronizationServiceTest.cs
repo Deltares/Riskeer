@@ -611,10 +611,10 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);
-            StructuresFailureMechanismSectionResult<HeightStructuresInput> result1 = failureMechanism.SectionResults
-                                                                                                     .First(sr => ReferenceEquals(sr.Section, section1));
-            StructuresFailureMechanismSectionResult<HeightStructuresInput> result2 = failureMechanism.SectionResults
-                                                                                                     .First(sr => ReferenceEquals(sr.Section, section2));
+            HeightStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults2
+                                                                                    .First(sr => ReferenceEquals(sr.Section, section1));
+            HeightStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults2
+                                                                                    .First(sr => ReferenceEquals(sr.Section, section2));
             result1.Calculation = calculation1;
             result2.Calculation = calculation2;
 
