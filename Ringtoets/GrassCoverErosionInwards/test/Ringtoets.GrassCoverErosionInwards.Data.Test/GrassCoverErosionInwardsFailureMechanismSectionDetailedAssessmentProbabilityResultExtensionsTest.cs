@@ -30,10 +30,10 @@ using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismSection2aAssessmentResultExtensionsTest
+    public class GrassCoverErosionInwardsFailureMechanismSectionDetailedAssessmentProbabilityResultExtensionsTest
     {
         [Test]
-        public void GetAssessmentLayerTwoA_SectionResultNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -41,9 +41,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(null,
-                                                                                                                                         new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                                         assessmentSection);
+            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionDetailedAssessmentProbabilityResultExtensions.GetDetailedAssessmentProbability(null,
+                                                                                                                                                                    new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                                                                                    assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_FailureMechanismNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(null, assessmentSection);
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,14 +72,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(new GrassCoverErosionInwardsFailureMechanism(), null);
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_SectionResultWithoutCalculation_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_SectionResultWithoutCalculation_ReturnsNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -98,15 +98,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_CalculationWithoutOutput_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_CalculationWithoutOutput_ReturnsNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -120,15 +120,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_CalculationWithOutput_ReturnsDerivedProbability()
+        public void GetDetailedAssessmentProbability_CalculationWithOutput_ReturnsDerivedProbability()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -147,10 +147,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(failureMechanism, assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.5, assessmentLayerTwoA);
+            Assert.AreEqual(0.5, detailedAssessmentProbability);
             mocks.VerifyAll();
         }
     }

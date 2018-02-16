@@ -59,11 +59,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.GetAssessmentLayerTwoA(failureMechanism, assessmentSection), row.AssessmentLayerTwoA);
+            Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability));
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerThree));
             mocks.VerifyAll();
@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentLayerTwoA_NoCalculationSet_ReturnNaN()
+        public void DetailedAssessmentProbability_NoCalculationSet_ReturnNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -154,17 +154,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
-            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+            double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
         [TestCase(CalculationScenarioStatus.Failed)]
         [TestCase(CalculationScenarioStatus.NotCalculated)]
-        public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
+        public void DetailedAssessmentProbability_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -190,15 +190,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
-            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+            double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
+        public void DetailedAssessmentProbability_CalculationSuccessful_ReturnDetailedAssessmentProbability()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -223,10 +223,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
-            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+            double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
             // Assert
-            Assert.AreEqual(0.17105612630848185, assessmentLayerTwoA);
+            Assert.AreEqual(0.17105612630848185, detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 

@@ -170,10 +170,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
             StructuresCalculation<StabilityPointStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 
-            FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(currentDataGridViewCell,
-                                                                               resultRow.AssessmentLayerOne,
-                                                                               resultRow.AssessmentLayerTwoA,
-                                                                               normativeCalculation);
+            FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
+                                                                              resultRow.AssessmentLayerOne,
+                                                                              resultRow.AssessmentLayerTwoA,
+                                                                              normativeCalculation);
         }
     }
 }

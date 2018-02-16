@@ -165,7 +165,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
             StructuresCalculation<ClosingStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 
-            FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(currentDataGridViewCell,
+            FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
                                                                                resultRow.AssessmentLayerOne,
                                                                                resultRow.AssessmentLayerTwoA,
                                                                                normativeCalculation);

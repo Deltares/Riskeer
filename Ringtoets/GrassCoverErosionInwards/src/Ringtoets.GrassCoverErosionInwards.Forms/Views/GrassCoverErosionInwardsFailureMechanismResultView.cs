@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     public class GrassCoverErosionInwardsFailureMechanismResultView
         : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult, GrassCoverErosionInwardsFailureMechanism>
     {
-        private const int assessmentLayerTwoAIndex = 2;
+        private const int detailedAssessmentIndex = 2;
         private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA),
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 true);
             DataGridViewControl.AddTextBoxColumn(
@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex != assessmentLayerTwoAIndex)
+            if (e.ColumnIndex != detailedAssessmentIndex)
             {
                 return;
             }
@@ -163,10 +163,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
             GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
 
-            FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(currentDataGridViewCell,
-                                                                               resultRow.SimpleAssessmentResult,
-                                                                               resultRow.AssessmentLayerTwoA,
-                                                                               normativeCalculation);
+            FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
+                                                                              resultRow.SimpleAssessmentResult,
+                                                                              resultRow.DetailedAssessmentProbability,
+                                                                              normativeCalculation);
         }
     }
 }

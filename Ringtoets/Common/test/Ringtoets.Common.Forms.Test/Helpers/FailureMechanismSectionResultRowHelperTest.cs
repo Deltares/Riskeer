@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
     public class FailureMechanismSectionResultRowHelperTest
     {
         [Test]
-        public void ShowAssessmentLayerTwoAErrors_WithAssessmentLayerOneAndDataGridViewCellNull_ThrowsArgumentNullException()
+        public void SetDetailedAssessmentError_WithAssessmentLayerOneAndDataGridViewCellNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(null,
+            TestDelegate call = () => FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(null,
                                                                                                          AssessmentLayerOneState.Sufficient,
                                                                                                          0.0,
                                                                                                          calculation);
@@ -60,14 +60,14 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCaseSource(nameof(AssessmentLayerOneStateIsNotSufficientAndCalculationNull))]
         [TestCaseSource(nameof(AssessmentLayerOneStateIsNotSufficientAndCalculationWithoutOutput))]
         [TestCaseSource(nameof(AssessmentLayerOneStateIsNotSufficientAndCalculationWithOutput))]
-        public void SetAssessmentLayerTwoAError_WithAssessmentLayerOne_SetsErrorText(DataGridViewCell dataGridViewCell,
+        public void SetDetailedAssessmentError_WithAssessmentLayerOne_SetsErrorText(DataGridViewCell dataGridViewCell,
                                                                                      AssessmentLayerOneState passedAssessmentLayerOne,
                                                                                      double assessmentLayerTwoA,
                                                                                      ICalculation normativeCalculation,
                                                                                      string expectedErrorText)
         {
             // Call
-            FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(dataGridViewCell,
+            FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(dataGridViewCell,
                                                                                passedAssessmentLayerOne,
                                                                                assessmentLayerTwoA,
                                                                                normativeCalculation);
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void ShowAssessmentLayerTwoAErrors_WithSimpleAssessmentValidityOnlyAndDataGridViewCellNull_ThrowsArgumentNullException()
+        public void SetDetailedAssessmentError_WithSimpleAssessmentValidityOnlyAndDataGridViewCellNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(null,
+            TestDelegate call = () => FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(null,
                                                                                                          SimpleAssessmentResultValidityOnlyType.NotApplicable,
                                                                                                          0.0,
                                                                                                          calculation);
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                                                                                                string expectedErrorText)
         {
             // Call
-            FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(dataGridViewCell,
+            FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(dataGridViewCell,
                                                                                simpleAssessmentResult,
                                                                                assessmentLayerTwoA,
                                                                                normativeCalculation);

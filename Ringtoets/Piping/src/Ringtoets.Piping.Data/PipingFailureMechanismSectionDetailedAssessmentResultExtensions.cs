@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Extension methods for obtaining detailed assessment results from output for an assessment of the piping failure mechanism.
+    /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of the piping failure mechanism.
     /// </summary>
     public static class PipingFailureMechanismSectionDetailedAssessmentResultExtensions
     {

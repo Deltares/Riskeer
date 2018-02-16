@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactoryTest.cs" />
-    <Compile Include="GrassCoverErosionInwardsFailureMechanismSection2aAssessmentResultExtensionsTest.cs" />
+    <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionDetailedAssessmentProbabilityResultExtensionsTest.cs" />
     <Compile Include="GrassCoverErosionInwardsProbabilityAssessmentOutputFactoryTest.cs" />
     <Compile Include="OvertoppingOutputTest.cs" />
     <Compile Include="OvertoppingRateOutputTest.cs" />

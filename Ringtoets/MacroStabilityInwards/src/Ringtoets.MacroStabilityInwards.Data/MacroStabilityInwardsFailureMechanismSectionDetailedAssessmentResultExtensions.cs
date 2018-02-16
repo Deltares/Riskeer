@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Extension methods for obtaining detailed assessment results from output for an assessment of 
+    /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of 
     /// the macro stability inwards failure mechanism.
     /// </summary>
     public static class MacroStabilityInwardsFailureMechanismSectionDetailedAssessmentResultExtensions

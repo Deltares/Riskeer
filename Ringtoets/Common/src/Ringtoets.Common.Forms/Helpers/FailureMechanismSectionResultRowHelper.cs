@@ -35,18 +35,18 @@ namespace Ringtoets.Common.Forms.Helpers
     public static class FailureMechanismSectionResultRowHelper
     {
         /// <summary>
-        /// Sets the <see cref="DataGridViewCell.ErrorText"/> when layer 2a assessment fails.
+        /// Sets the <see cref="DataGridViewCell.ErrorText"/> when the detailed assessment fails.
         /// </summary>
         /// <param name="dataGridViewCell">The current data grid view cell.</param>
-        /// <param name="passedAssessmentLayerOne">The value representing whether the section passed the layer 0 assessment.</param>
-        /// <param name="assessmentLayerTwoA">The value representing the result of the layer 2a assessment.</param>
+        /// <param name="passedAssessmentLayerOne">The value representing whether the section passed the simple assessment.</param>
+        /// <param name="assessmentLayerTwoA">The value representing the result of the detailed assessment.</param>
         /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
-        public static void SetAssessmentLayerTwoAError(DataGridViewCell dataGridViewCell,
-                                                       AssessmentLayerOneState passedAssessmentLayerOne, 
-                                                       double assessmentLayerTwoA,
-                                                       ICalculation normativeCalculation)
+        public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
+                                                      AssessmentLayerOneState passedAssessmentLayerOne,
+                                                      double assessmentLayerTwoA,
+                                                      ICalculation normativeCalculation)
         {
             if (dataGridViewCell == null)
             {
@@ -59,11 +59,11 @@ namespace Ringtoets.Common.Forms.Helpers
                 return;
             }
 
-            SetAssessmentLayerTwoAError(dataGridViewCell, assessmentLayerTwoA, normativeCalculation);
+            SetDetailedAssessmentError(dataGridViewCell, assessmentLayerTwoA, normativeCalculation);
         }
 
         /// <summary>
-        /// Sets the <see cref="DataGridViewCell.ErrorText"/> when layer 2a assessment fails.
+        /// Sets the <see cref="DataGridViewCell.ErrorText"/> when the detailed assessment fails.
         /// </summary>
         /// <param name="dataGridViewCell">The current data grid view cell.</param>
         /// <param name="simpleAssessmentResult">The value representing whether the simple assessment result.</param>
@@ -71,10 +71,10 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
-        public static void SetAssessmentLayerTwoAError(DataGridViewCell dataGridViewCell,
-                                                       SimpleAssessmentResultValidityOnlyType simpleAssessmentResult, 
-                                                       double assessmentLayerTwoA,
-                                                       ICalculation normativeCalculation)
+        public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
+                                                      SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
+                                                      double assessmentLayerTwoA,
+                                                      ICalculation normativeCalculation)
         {
             if (dataGridViewCell == null)
             {
@@ -87,12 +87,12 @@ namespace Ringtoets.Common.Forms.Helpers
                 return;
             }
 
-            SetAssessmentLayerTwoAError(dataGridViewCell, assessmentLayerTwoA, normativeCalculation);
+            SetDetailedAssessmentError(dataGridViewCell, assessmentLayerTwoA, normativeCalculation);
         }
 
-        private static void SetAssessmentLayerTwoAError(DataGridViewCell dataGridViewCell,
-                                                        double assessmentLayerTwoA,
-                                                        ICalculation normativeCalculation)
+        private static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
+                                                       double assessmentLayerTwoA,
+                                                       ICalculation normativeCalculation)
         {
             if (normativeCalculation == null)
             {

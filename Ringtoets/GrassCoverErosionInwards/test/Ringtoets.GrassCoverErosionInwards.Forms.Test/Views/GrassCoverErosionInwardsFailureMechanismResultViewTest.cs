@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
+        private const int detailedAssessmentIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
         private Form testForm;
 
@@ -110,14 +110,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
-                Assert.IsTrue(dataGridView.Columns[assessmentLayerTwoAIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[detailedAssessmentIndex].ReadOnly);
 
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -141,14 +141,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
@@ -175,25 +175,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                DataGridViewCell cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                DataGridViewCell cellDetailedAssessment = cells[detailedAssessmentIndex];
                 DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
                 DataGridViewCell dataGridViewCell = cells[simpleAssessmentIndex];
 
                 Assert.AreEqual(simpleAssessmentResult, dataGridViewCell.Value);
-                Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
+                Assert.AreEqual("-", cellDetailedAssessment.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 if (simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable)
                 {
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
+                    DataGridViewTestHelper.AssertCellIsDisabled(cellDetailedAssessment);
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
 
                     Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
                 }
                 else
                 {
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
+                    DataGridViewTestHelper.AssertCellIsEnabled(cellDetailedAssessment, true);
                     DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
 
                     Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
@@ -267,7 +267,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        public void GivenSectionResultWithoutCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -284,7 +284,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -298,7 +298,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip(
+        public void GivenSectionResultAndCalculationNotCalculated_ThenDetailedAssessmentErrorTooltip(
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
@@ -317,7 +317,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -331,7 +331,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        public void GivenSectionResultAndFailedCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var calculation = new GrassCoverErosionInwardsCalculation
@@ -356,7 +356,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -370,7 +370,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -392,7 +392,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -405,7 +405,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
-        public void GivenSectionResultAndAssessmentSimpleAssessmentNotApplicable_ThenLayerTwoANoError(
+        public void GivenSectionResultAndAssessmentSimpleAssessmentNotApplicable_ThenDetailedAssessmentNoError(
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, string expectedValue)
         {
             // Given
@@ -418,7 +418,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -432,7 +432,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
+        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenDetailedAssessmentHasError(
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
@@ -456,7 +456,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // Precondition
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.

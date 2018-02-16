@@ -170,10 +170,10 @@ namespace Ringtoets.HeightStructures.Forms.Views
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
             StructuresCalculation<HeightStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 
-            FailureMechanismSectionResultRowHelper.SetAssessmentLayerTwoAError(currentDataGridViewCell,
-                                                                               resultRow.AssessmentLayerOne,
-                                                                               resultRow.AssessmentLayerTwoA,
-                                                                               normativeCalculation);
+            FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
+                                                                              resultRow.AssessmentLayerOne,
+                                                                              resultRow.AssessmentLayerTwoA,
+                                                                              normativeCalculation);
         }
     }
 }
