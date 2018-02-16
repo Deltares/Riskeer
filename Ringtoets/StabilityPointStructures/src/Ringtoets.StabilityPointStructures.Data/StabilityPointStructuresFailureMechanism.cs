@@ -41,6 +41,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                                                             IHasSectionResults<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
     {
         private readonly ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults;
+        private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResult> sectionResults2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
@@ -55,6 +56,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
             sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>();
+            sectionResults2 = new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -81,6 +83,14 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
+        public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults2
+        {
+            get
+            {
+                return sectionResults2;
+            }
+        }
+
         public CalculationGroup CalculationsGroup { get; }
 
         public IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> SectionResults
@@ -95,12 +105,14 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             base.AddSection(section);
             sectionResults.Add(new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section));
+            sectionResults2.Add(new StabilityPointStructuresFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
+            sectionResults2.Clear();
         }
     }
 }

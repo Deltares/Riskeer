@@ -27,6 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.StabilityPointStructures.Data.Test
 {
@@ -52,6 +53,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults2);
             CollectionAssert.IsEmpty(failureMechanism.StabilityPointStructures);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
         }
@@ -63,15 +66,15 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-            {
-                new Point2D(2, 1)
-            }));
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(failureMechanism.SectionResults.ElementAt(0));
+
+            Assert.AreEqual(1, failureMechanism.SectionResults2.Count());
+            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults2.ElementAt(0));
         }
 
         [Test]
@@ -80,11 +83,11 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));
@@ -92,6 +95,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults2.Count());
 
             // Call
             failureMechanism.ClearAllSections();
@@ -99,6 +103,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults2.Count());
         }
 
         [Test]
