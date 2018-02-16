@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -120,20 +118,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                PipingCalculationScenario[] relevantScenarios = SectionResult.GetCalculationScenarios(calculations).ToArray();
-                bool relevantScenarioAvailable = relevantScenarios.Length != 0;
-
-                if (relevantScenarioAvailable && Math.Abs(SectionResult.GetTotalContribution(relevantScenarios) - 1.0) > tolerance)
-                {
-                    return double.NaN;
-                }
-
-                if (!relevantScenarioAvailable || SectionResult.GetCalculationScenarioStatus(relevantScenarios) != CalculationScenarioStatus.Done)
-                {
-                    return double.NaN;
-                }
-
-                return SectionResult.GetDetailedAssessmentProbability(relevantScenarios, failureMechanism, assessmentSection);
+                return SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
             }
         }
 

@@ -86,8 +86,8 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(), 
-                                                                                                     null, 
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
+                                                                                                     null,
                                                                                                      assessmentSection);
 
             // Assert
@@ -104,8 +104,8 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(), 
-                                                                                                     new PipingFailureMechanism(), 
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
+                                                                                                     new PipingFailureMechanism(),
                                                                                                      null);
 
             // Assert
@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantAndDoneScenarios()
+        public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -126,30 +126,23 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            const double contribution1 = 0.2;
-            const double contribution2 = 0.8;
-
             PipingCalculationScenario pipingCalculationScenario1 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
             PipingCalculationScenario pipingCalculationScenario2 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
             PipingCalculationScenario pipingCalculationScenario3 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
-            PipingCalculationScenario pipingCalculationScenario4 = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             pipingCalculationScenario1.IsRelevant = true;
-            pipingCalculationScenario1.Contribution = (RoundedDouble) contribution1;
+            pipingCalculationScenario1.Contribution = (RoundedDouble) 0.2;
 
             pipingCalculationScenario2.IsRelevant = true;
-            pipingCalculationScenario2.Contribution = (RoundedDouble) contribution2;
+            pipingCalculationScenario2.Contribution = (RoundedDouble) 0.8;
 
             pipingCalculationScenario3.IsRelevant = false;
-
-            pipingCalculationScenario4.IsRelevant = true;
 
             var calculations = new[]
             {
                 pipingCalculationScenario1,
                 pipingCalculationScenario2,
-                pipingCalculationScenario3,
-                pipingCalculationScenario4
+                pipingCalculationScenario3
             };
 
             // Call
@@ -275,6 +268,40 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call
             double detailedAssessment = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsNaN(detailedAssessment);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0.2, 0.8 - 1e5)]
+        [TestCase(0.0, 0.5)]
+        [TestCase(0.3, 0.7 + 1e-5)]
+        [TestCase(-5, -8)]
+        [TestCase(13, 2)]
+        public void GetDetailedAssessmentProbability_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            PipingCalculationScenario scenarioA = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario scenarioB = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            scenarioA.Contribution = (RoundedDouble) contributionA;
+            scenarioB.Contribution = (RoundedDouble) contributionB;
+
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            double detailedAssessment = result.GetDetailedAssessmentProbability(new[]
+            {
+                scenarioA,
+                scenarioB
+            }, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsNaN(detailedAssessment);

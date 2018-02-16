@@ -38,17 +38,17 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <param name="sectionResult">The section result to get the assessment layer 2A for.</param>
+        /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
-        /// <returns>The calculated assessment layer 2A; or <see cref="double.NaN"/> when there are no
-        /// performed calculations.</returns>
+        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there are no
+        /// performed or relevant calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this PipingFailureMechanismSectionResult sectionResult,
-                                                    IEnumerable<PipingCalculationScenario> calculations,
-                                                    PipingFailureMechanism failureMechanism,
-                                                    IAssessmentSection assessmentSection)
+                                                              IEnumerable<PipingCalculationScenario> calculations,
+                                                              PipingFailureMechanism failureMechanism,
+                                                              IAssessmentSection assessmentSection)
         {
             if (sectionResult == null)
             {
@@ -70,8 +70,21 @@ namespace Ringtoets.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            PipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculations).ToArray();
+            bool relevantScenarioAvailable = relevantScenarios.Length != 0;
+
+            if (relevantScenarioAvailable && Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
+            {
+                return double.NaN;
+            }
+
+            if (!relevantScenarioAvailable || sectionResult.GetCalculationScenarioStatus(relevantScenarios) != CalculationScenarioStatus.Done)
+            {
+                return double.NaN;
+            }
+
             IEnumerable<PipingCalculationScenario> calculationScenarios = sectionResult
-                                                                          .GetCalculationScenarios(calculations)
+                                                                          .GetCalculationScenarios(relevantScenarios)
                                                                           .Where(cs => cs.Status == CalculationScenarioStatus.Done);
 
             if (calculationScenarios.Any())
