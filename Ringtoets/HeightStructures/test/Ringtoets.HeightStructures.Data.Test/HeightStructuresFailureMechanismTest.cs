@@ -27,6 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -63,10 +64,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-            {
-                new Point2D(2, 1)
-            }));
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
@@ -80,11 +78,11 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));
