@@ -40,6 +40,239 @@ namespace Ringtoets.HeightStructures.Service.Test
     public class HeightStructuresDataSynchronizationServiceTest
     {
         [Test]
+        public void RemoveStructure_StructureNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresDataSynchronizationService.RemoveStructure(
+                null,
+                new HeightStructuresFailureMechanism());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("structure", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveStructure_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresDataSynchronizationService.RemoveStructure(
+                new TestHeightStructure(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveStructure_FullyConfiguredFailureMechanism_RemovesStructureAndClearsDependentData()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var locationStructureToRemove = new Point2D(0, 0);
+            var structureToRemove = new TestHeightStructure(locationStructureToRemove, "id1");
+
+            var locationStructureToKeep = new Point2D(2, 2);
+            var structureToKeep = new TestHeightStructure(locationStructureToKeep, "id2");
+
+            failureMechanism.HeightStructures.AddRange(new[]
+            {
+                structureToRemove,
+                structureToKeep
+            }, "path/to/structures");
+
+            var calculationWithOutput = new TestHeightStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithStructureToRemove = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = structureToRemove
+                }
+            };
+            var calculationWithStructureToKeepAndOutput = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = structureToKeep
+                },
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithStructureToRemoveAndOutput = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    Structure = structureToRemove
+                },
+                Output = new TestStructuresOutput()
+            };
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                calculationWithOutput,
+                calculationWithStructureToRemove,
+                calculationWithStructureToKeepAndOutput,
+                calculationWithStructureToRemoveAndOutput
+            });
+
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                locationStructureToRemove,
+                new Point2D(1, 1)
+            }));
+            HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToRemove = failureMechanism.SectionResults2.ElementAt(0);
+            sectionWithCalculationAtStructureToRemove.Calculation = calculationWithStructureToRemove;
+
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(1, 1),
+                locationStructureToKeep
+            }));
+            HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToKeep = failureMechanism.SectionResults2.ElementAt(1);
+            sectionWithCalculationAtStructureToKeep.Calculation = calculationWithStructureToKeepAndOutput;
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = HeightStructuresDataSynchronizationService.RemoveStructure(
+                structureToRemove, failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, structureToRemove);
+            Assert.IsNull(calculationWithStructureToRemove.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureToRemoveAndOutput.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureToRemoveAndOutput.Output);
+            Assert.IsNull(sectionWithCalculationAtStructureToRemove.Calculation);
+            Assert.IsNotNull(calculationWithOutput.Output);
+            Assert.IsNotNull(calculationWithStructureToKeepAndOutput.Output);
+            Assert.IsNotNull(calculationWithStructureToKeepAndOutput.InputParameters.Structure);
+            Assert.AreSame(sectionWithCalculationAtStructureToKeep.Calculation, calculationWithStructureToKeepAndOutput);
+
+            IObservable[] expectedAffectedObjects =
+            {
+                calculationWithStructureToRemove.InputParameters,
+                calculationWithStructureToRemoveAndOutput,
+                calculationWithStructureToRemoveAndOutput.InputParameters,
+                sectionWithCalculationAtStructureToRemove,
+                failureMechanism.HeightStructures
+            };
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
+        public void RemoveAllStructures_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => HeightStructuresDataSynchronizationService.RemoveAllStructures(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void RemoveAllStructures_FullyConfiguredFailureMechanism_RemoveAllStructuresAndClearDependentData()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var locationStructureA = new Point2D(0, 0);
+            var structureA = new TestHeightStructure(locationStructureA, "A");
+
+            var locationStructureB = new Point2D(2, 2);
+            var structureB = new TestHeightStructure(locationStructureB, "B");
+
+            failureMechanism.HeightStructures.AddRange(new[]
+            {
+                structureA,
+                structureB
+            }, "path/to/structures");
+
+            var calculationWithOutput = new StructuresCalculation<HeightStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithStructureA = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structureA
+                }
+            };
+            var calculationWithStructureBAndOutput = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structureB
+                },
+                Output = new TestStructuresOutput()
+            };
+            var calculationWithStructureAAndOutput = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = structureA
+                },
+                Output = new TestStructuresOutput()
+            };
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                calculationWithOutput,
+                calculationWithStructureA,
+                calculationWithStructureBAndOutput,
+                calculationWithStructureAAndOutput
+            });
+
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                locationStructureA,
+                new Point2D(1, 1)
+            }));
+            HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults2.ElementAt(0);
+            sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
+
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(1, 1),
+                locationStructureB
+            }));
+            HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults2.ElementAt(1);
+            sectionWithCalculationAtStructureB.Calculation = calculationWithStructureBAndOutput;
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = HeightStructuresDataSynchronizationService.RemoveAllStructures(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            CollectionAssert.DoesNotContain(failureMechanism.HeightStructures, structureA);
+            Assert.IsNull(calculationWithStructureA.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureAAndOutput.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureBAndOutput.InputParameters.Structure);
+            Assert.IsNull(calculationWithStructureAAndOutput.Output);
+            Assert.IsNull(calculationWithStructureBAndOutput.Output);
+            Assert.IsNull(sectionWithCalculationAtStructureA.Calculation);
+            Assert.IsNull(sectionWithCalculationAtStructureB.Calculation);
+            Assert.IsNotNull(calculationWithOutput.Output);
+
+            IObservable[] expectedAffectedObjects =
+            {
+                calculationWithStructureA.InputParameters,
+                calculationWithStructureAAndOutput,
+                calculationWithStructureAAndOutput.InputParameters,
+                calculationWithStructureBAndOutput,
+                calculationWithStructureBAndOutput.InputParameters,
+                sectionWithCalculationAtStructureA,
+                sectionWithCalculationAtStructureB,
+                failureMechanism.HeightStructures
+            };
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+        }
+
+        [Test]
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call

@@ -23,11 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Util;
 
 namespace Ringtoets.HeightStructures.Service
 {
@@ -36,6 +38,76 @@ namespace Ringtoets.HeightStructures.Service
     /// </summary>
     public static class HeightStructuresDataSynchronizationService
     {
+        /// <summary>
+        /// Removes the <paramref name="structure"/>, unassigns it from the calculations in
+        /// <paramref name="failureMechanism"/> and clears all dependent data, either directly or indirectly.
+        /// </summary>
+        /// <param name="structure">The structure to be removed.</param>
+        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
+        /// to clear the data from.</param>
+        /// <returns>All objects affected by the removal.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveStructure(HeightStructure structure,
+                                                               HeightStructuresFailureMechanism failureMechanism)
+        {
+            if (structure == null)
+            {
+                throw new ArgumentNullException(nameof(structure));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations =
+                failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>();
+
+            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedStructure = calculations
+                                                                                             .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
+                                                                                             .ToArray();
+
+            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism,
+                                                                               calculationWithRemovedStructure);
+
+            StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
+            structures.Remove(structure);
+            changedObservables.Add(structures);
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Clears all structures, unassigns them from the calculations in the <paramref name="failureMechanism"/>
+        /// and clears all data that depends on it, either directly or indirectly.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> to 
+        /// clear the structures from.</param>
+        /// <returns>All objects that are affected by this operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> RemoveAllStructures(HeightStructuresFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations =
+                failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>();
+            StructuresCalculation<HeightStructuresInput>[] calculationWithRemovedStructure = calculations
+                                                                                             .Where(c => c.InputParameters.Structure != null)
+                                                                                             .ToArray();
+
+            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism,
+                                                                               calculationWithRemovedStructure);
+
+            StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
+            structures.Clear();
+            changedObservables.Add(structures);
+
+            return changedObservables;
+        }
+
         /// <summary>
         /// Clears the output for all calculations in the <see cref="HeightStructuresFailureMechanism"/>.
         /// </summary>
@@ -134,6 +206,25 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             return Enumerable.Empty<IObservable>();
+        }
+
+        private static List<IObservable> ClearStructureDependentData(HeightStructuresFailureMechanism failureMechanism,
+                                                                     IEnumerable<StructuresCalculation<HeightStructuresInput>> calculationWithRemovedStructure)
+        {
+            var changedObservables = new List<IObservable>();
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedStructure)
+            {
+                changedObservables.AddRange(RingtoetsCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+
+                calculation.InputParameters.ClearStructure();
+                changedObservables.Add(calculation.InputParameters);
+            }
+
+            IEnumerable<HeightStructuresFailureMechanismSectionResult> affectedSectionResults =
+                HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
+
+            changedObservables.AddRange(affectedSectionResults);
+            return changedObservables;
         }
     }
 }
