@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClosingStructureInflowModelTypeTest.cs" />
-    <Compile Include="ClosingStructuresFailureMechanismSection2aAssessmentResultExtensionsTest.cs" />
+    <Compile Include="ClosingStructuresFailureMechanismSectionDetailedAssessmentResultExtensionsTest.cs" />
     <Compile Include="ClosingStructuresFailureMechanismSectionResultAssemblyFactoryTest.cs" />
     <Compile Include="ClosingStructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="ClosingStructuresFailureMechanismTest.cs" />

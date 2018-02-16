@@ -30,10 +30,10 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.ClosingStructures.Data.Test
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismSection2aAssessmentResultExtensionsTest
+    public class ClosingStructuresFailureMechanismSectionDetailedAssessmentResultExtensionsTest
     {
         [Test]
-        public void GetAssessmentLayerTwoA_SectionResultNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -41,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionDetailedAssessmentResultExtensions.GetDetailedAssessmentProbability(
                 null,
                 new ClosingStructuresFailureMechanism(),
                 assessmentSection);
@@ -53,7 +53,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_FailureMechanismNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -64,7 +64,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(null, assessmentSection);
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -73,14 +73,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(), null);
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -88,7 +88,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_SectionResultWithoutCalculation_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_SectionResultWithoutCalculation_ReturnsNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -99,16 +99,16 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(),
-                                                                                              assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(),
+                                                                                                                  assessmentSection);
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_CalculationWithoutOutput_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_CalculationWithoutOutput_ReturnsNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -122,16 +122,16 @@ namespace Ringtoets.ClosingStructures.Data.Test
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(),
-                                                                                              assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(),
+                                                                                                                  assessmentSection);
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_CalculationWithOutput_ReturnsDerivedProbability()
+        public void GetDetailedAssessmentProbability_CalculationWithOutput_ReturnsDerivedProbability()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -150,11 +150,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new ClosingStructuresFailureMechanism(),
-                                                                                              assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(),
+                                                                                                                  assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.32635522028792008, assessmentLayerTwoA);
+            Assert.AreEqual(0.32635522028792008, detailedAssessmentProbability);
             mocks.VerifyAll();
         }
     }

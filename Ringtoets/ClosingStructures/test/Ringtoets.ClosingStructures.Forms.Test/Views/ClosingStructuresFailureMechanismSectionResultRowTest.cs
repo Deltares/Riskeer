@@ -58,11 +58,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
-            Assert.AreEqual(result.GetAssessmentLayerTwoA(failureMechanism, assessmentSection), row.AssessmentLayerTwoA);
+            Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
             TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
             mocks.VerifyAll();
@@ -133,7 +133,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentLayerTwoA_NoCalculationSet_ReturnNaN()
+        public void DetailedAssessmentProbability_NoCalculationSet_ReturnNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -151,17 +151,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
-            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+            double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
         [TestCase(CalculationScenarioStatus.Failed)]
         [TestCase(CalculationScenarioStatus.NotCalculated)]
-        public void AssessmentLayerTwoA_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
+        public void DetailedAssessmentProbability_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -185,15 +185,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
-            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+            double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AssessmentLayerTwoA_CalculationSuccessful_ReturnAssessmentLayerTwoA()
+        public void DetailedAssessmentProbability_CalculationSuccessful_ReturnDetailedAssessmentProbability()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -217,10 +217,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call
-            double assessmentLayerTwoA = resultRow.AssessmentLayerTwoA;
+            double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
             // Assert
-            Assert.AreEqual(0.2786727127146118, assessmentLayerTwoA);
+            Assert.AreEqual(0.2786727127146118, detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
