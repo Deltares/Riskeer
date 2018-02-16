@@ -32,7 +32,6 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.IO.Configurations;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -681,11 +680,12 @@ namespace Ringtoets.ClosingStructures.IO.Test.Configurations
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            failureMechanism.AddSection(new FailureMechanismSection("name", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(10, 10)
-            }));
+            failureMechanism.AddSection(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(10, 10)
+                }));
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {

@@ -118,21 +118,19 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 calculationWithStructureToRemoveAndOutput
             });
 
-            var affectedSection = new FailureMechanismSection(string.Empty, new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
-                new Point2D(0, 0),
+                locationStructureToRemove,
                 new Point2D(1, 1)
-            });
-            failureMechanism.AddSection(affectedSection);
+            }));
             ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToRemove = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureToRemove.Calculation = calculationWithStructureToRemove;
 
-            var unaffectedSection = new FailureMechanismSection(string.Empty, new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(1, 1),
-                new Point2D(2, 2)
-            });
-            failureMechanism.AddSection(unaffectedSection);
+                locationStructureToKeep
+            }));
             ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToKeep = failureMechanism.SectionResults.ElementAt(1);
             sectionWithCalculationAtStructureToKeep.Calculation = calculationWithStructureToKeepAndOutput;
 
@@ -228,18 +226,18 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
-                new Point2D(0, 0),
+                locationStructureA,
                 new Point2D(1, 1)
             }));
             ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
 
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(1, 1),
-                new Point2D(2, 2)
+                locationStructureB
             }));
             ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults.ElementAt(1);
             sectionWithCalculationAtStructureB.Calculation = calculationWithStructureBAndOutput;
