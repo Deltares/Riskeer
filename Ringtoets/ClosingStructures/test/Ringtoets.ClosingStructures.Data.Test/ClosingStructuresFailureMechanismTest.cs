@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {
@@ -64,10 +65,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
-            {
-                new Point2D(2, 1)
-            }));
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
@@ -81,11 +79,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));
