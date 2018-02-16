@@ -113,27 +113,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets the assessment layer two a of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+        /// Gets the detailed assessment probability a of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double AssessmentLayerTwoA
+        public double DetailedAssessmentProbability
         {
             get
             {
-                MacroStabilityInwardsCalculationScenario[] relevantScenarios = SectionResult.GetCalculationScenarios(calculations).ToArray();
-                bool relevantScenarioAvailable = relevantScenarios.Length != 0;
-
-                if (relevantScenarioAvailable && Math.Abs(SectionResult.GetTotalContribution(relevantScenarios) - 1.0) > tolerance)
-                {
-                    return double.NaN;
-                }
-
-                if (!relevantScenarioAvailable || SectionResult.GetCalculationScenarioStatus(relevantScenarios) != CalculationScenarioStatus.Done)
-                {
-                    return double.NaN;
-                }
-
-                return SectionResult.GetAssessmentLayerTwoA(relevantScenarios, failureMechanism, assessmentSection);
+                return SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
             }
         }
 

@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismResultViewIntegrationTest
     {
-        private const int assessmentLayerTwoAIndex = 2;
+        private const int detailedAssessmentIndex = 2;
 
         [Test]
         public void FailureMechanismResultView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
@@ -65,9 +65,9 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 IFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 Assert.AreEqual(283, dataGridView.Rows.Count);
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Import surface lines
                 DataImportHelper.ImportMacroStabilityInwardsSurfaceLines(assessmentSection);
@@ -93,31 +93,31 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 // Add a calculation and ensure it is shown in the data grid view
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation1);
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.NotifyObservers();
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Add group and ensure the data grid view is not changed
                 var nestedCalculationGroup = new CalculationGroup();
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(nestedCalculationGroup);
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.NotifyObservers();
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Add another, nested calculation and ensure the data grid view is updated
                 nestedCalculationGroup.Children.Add(calculation2);
                 nestedCalculationGroup.NotifyObservers();
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Set the second calculation to not relevant and ensure the data grid view is updated
                 calculation2.IsRelevant = false;
                 calculation2.NotifyObservers();
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
                 calculation1.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
@@ -126,57 +126,57 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 });
                 calculation1.NotifyObservers();
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5),
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
+                Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set
                 var calculation3 = new MacroStabilityInwardsCalculationScenario();
                 nestedCalculationGroup.Children.Add(calculation3);
                 nestedCalculationGroup.NotifyObservers();
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5),
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
+                Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 calculation3.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(
                     sl => sl.Name == "PK001_0001");
                 calculation3.InputParameters.NotifyObservers();
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Change the contribution of the calculation and make sure the data grid view is updated
                 calculation3.Contribution = (RoundedDouble) 0.3;
                 calculation3.NotifyObservers();
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 calculation1.Contribution = (RoundedDouble) 0.7;
                 calculation1.NotifyObservers();
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Remove a calculation and make sure the data grid view is updated
                 nestedCalculationGroup.Children.Remove(calculation3);
                 nestedCalculationGroup.NotifyObservers();
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Set contribution again so we have a probability.
                 calculation1.Contribution = (RoundedDouble) 1.0;
                 calculation1.NotifyObservers();
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5),
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.IsEmpty(dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
+                Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Clear the output of the calculation and make sure the data grid view is updated
                 MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation1);
                 calculation1.NotifyObservers();
-                Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
-                                dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                                dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
             }
         }
     }

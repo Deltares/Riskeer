@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         : FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult,
             MacroStabilityInwardsFailureMechanism>
     {
-        private const int assessmentLayerTwoAIndex = 2;
+        private const int detailedAssessmentIndex = 2;
         private const double tolerance = 1e-6;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
-            DataGridViewControl.CellFormatting += ShowAssessmentLayerTwoAErrors;
+            DataGridViewControl.CellFormatting += ShowDetailedAssessmentErrors;
             DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -101,7 +101,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.CellFormatting -= ShowAssessmentLayerTwoAErrors;
+            DataGridViewControl.CellFormatting -= ShowDetailedAssessmentErrors;
             DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
 
             calculationInputObserver.Dispose();
@@ -138,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA),
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 true);
             DataGridViewControl.AddTextBoxColumn(
@@ -165,9 +165,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
         }
 
-        private void ShowAssessmentLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
+        private void ShowDetailedAssessmentErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex != assessmentLayerTwoAIndex)
+            if (e.ColumnIndex != detailedAssessmentIndex)
             {
                 return;
             }
@@ -205,7 +205,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 return;
             }
 
-            if (double.IsNaN(resultRow.AssessmentLayerTwoA))
+            if (double.IsNaN(resultRow.DetailedAssessmentProbability))
             {
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
                 return;
