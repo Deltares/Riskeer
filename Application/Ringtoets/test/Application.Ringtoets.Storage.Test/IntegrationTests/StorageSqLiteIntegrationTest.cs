@@ -314,8 +314,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     expectedAssessmentSection.GrassCoverErosionInwards.SectionResults,
                     actualAssessmentSection.GrassCoverErosionInwards.SectionResults);
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.HeightStructures.SectionResults2,
-                    actualAssessmentSection.HeightStructures.SectionResults2);
+                    expectedAssessmentSection.HeightStructures.SectionResults,
+                    actualAssessmentSection.HeightStructures.SectionResults);
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults,
                     actualAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);

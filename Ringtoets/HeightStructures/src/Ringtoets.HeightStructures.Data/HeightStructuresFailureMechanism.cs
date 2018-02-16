@@ -37,10 +37,9 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanism : FailureMechanismBase,
                                                     ICalculatableFailureMechanism,
-                                                    IHasSectionResults<StructuresFailureMechanismSectionResult<HeightStructuresInput>>
+                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResult>
     {
-        private readonly ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>> sectionResults;
-        private readonly ObservableList<HeightStructuresFailureMechanismSectionResult> sectionResults2;
+        private readonly ObservableList<HeightStructuresFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
@@ -48,8 +47,7 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code)
         {
-            sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<HeightStructuresInput>>();
-            sectionResults2 = new ObservableList<HeightStructuresFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup
             {
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
@@ -82,12 +80,7 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        /// <summary>
-        /// Gets the container of all calculations.
-        /// </summary>
-        public CalculationGroup CalculationsGroup { get; }
-
-        public IObservableEnumerable<StructuresFailureMechanismSectionResult<HeightStructuresInput>> SectionResults
+        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults
         {
             get
             {
@@ -95,26 +88,21 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
-        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults2
-        {
-            get
-            {
-                return sectionResults2;
-            }
-        }
+        /// <summary>
+        /// Gets the container of all calculations.
+        /// </summary>
+        public CalculationGroup CalculationsGroup { get; }
 
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-            sectionResults.Add(new StructuresFailureMechanismSectionResult<HeightStructuresInput>(section));
-            sectionResults2.Add(new HeightStructuresFailureMechanismSectionResult(section));
+            sectionResults.Add(new HeightStructuresFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults2.Clear();
         }
     }
 }

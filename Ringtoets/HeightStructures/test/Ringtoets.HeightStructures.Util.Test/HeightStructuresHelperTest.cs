@@ -53,7 +53,7 @@ namespace Ringtoets.HeightStructures.Util.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.AddSection(CreateFailureMechanismSection(location));
 
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = CreateCalculation(location);
 
             // Call
@@ -81,7 +81,7 @@ namespace Ringtoets.HeightStructures.Util.Test
             };
             failureMechanism.AddSection(CreateFailureMechanismSection(location));
 
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = CreateCalculation(location);
 
             // Call

@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddForeshoreProfiles(heightStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureHeightStructuresFailureMechanism(heightStructuresFailureMechanism, assessmentSection);
             AddSections(heightStructuresFailureMechanism);
-            SetSectionResults(heightStructuresFailureMechanism.SectionResults2,
+            SetSectionResults(heightStructuresFailureMechanism.SectionResults,
                               (StructuresCalculation<HeightStructuresInput>) heightStructuresFailureMechanism.Calculations.First());
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;

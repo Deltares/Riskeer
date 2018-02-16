@@ -74,7 +74,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            using (var view = new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
+            using (var view = new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult,
@@ -93,7 +93,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, null);
+            TestDelegate call = () => new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -259,7 +259,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, failureMechanism.SectionResults2.First().AssessmentLayerThree);
+                Assert.AreEqual(newValue, failureMechanism.SectionResults.First().AssessmentLayerThree);
             }
         }
 
@@ -523,7 +523,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            HeightStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults2);
+            HeightStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
 
             return failureMechanismResultView;
         }

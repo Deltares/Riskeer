@@ -406,7 +406,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults2, failureMechanism, assessmentSection),
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }

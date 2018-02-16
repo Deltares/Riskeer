@@ -132,7 +132,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                     StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
 
                 List<HeightStructuresScenarioRow> scenarioRows =
-                    FailureMechanism.SectionResults2.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();
+                    FailureMechanism.SectionResults.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();
 
                 scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
             }

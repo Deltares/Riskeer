@@ -33,7 +33,7 @@ namespace Ringtoets.HeightStructures.Util
     /// Class holds helper methods to match <see cref="HeightStructuresFailureMechanismSectionResult"/> objects 
     /// with <see cref="StructuresCalculation{T}"/> objects. 
     /// </summary>
-    public class HeightStructuresHelper
+    public static class HeightStructuresHelper
     {
         /// <summary>
         /// Updates the <see cref="HeightStructuresFailureMechanismSectionResult.Calculation"/> for each element
@@ -50,9 +50,9 @@ namespace Ringtoets.HeightStructures.Util
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults = failureMechanism.SectionResults2;
+            IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults = failureMechanism.SectionResults;
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = failureMechanism.Calculations
-                                                                                                      .Cast<StructuresCalculation<HeightStructuresInput>>();
+                                                                                                     .Cast<StructuresCalculation<HeightStructuresInput>>();
             return AssignUnassignCalculations.Update(sectionResults.Select(AsCalculationAssignment),
                                                      AsCalculationsWithLocations(calculations))
                                              .Cast<HeightStructuresFailureMechanismSectionResult>()
@@ -80,8 +80,8 @@ namespace Ringtoets.HeightStructures.Util
         {
             return new SectionResultWithCalculationAssignment(
                 failureMechanismSectionResult,
-                result => ((HeightStructuresFailureMechanismSectionResult)result).Calculation,
-                (result, calculation) => ((HeightStructuresFailureMechanismSectionResult)result).Calculation = (StructuresCalculation<HeightStructuresInput>)calculation);
+                result => ((HeightStructuresFailureMechanismSectionResult) result).Calculation,
+                (result, calculation) => ((HeightStructuresFailureMechanismSectionResult) result).Calculation = (StructuresCalculation<HeightStructuresInput>) calculation);
         }
     }
 }

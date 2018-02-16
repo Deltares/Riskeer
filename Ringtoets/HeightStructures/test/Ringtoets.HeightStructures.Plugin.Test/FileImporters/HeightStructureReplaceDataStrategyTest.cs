@@ -321,7 +321,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             {
                 location
             }));
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = calculation;
 
             failureMechanism.HeightStructures.AddRange(new[]
