@@ -146,10 +146,10 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            double detailedAssessment = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.028693041013187315, detailedAssessment);
+            Assert.AreEqual(0.028693041013187315, detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
@@ -167,12 +167,12 @@ namespace Ringtoets.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            double detailedAssessment = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
-                                                                                                       failureMechanism,
-                                                                                                       assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
 
             // Assert
-            Assert.IsNaN(detailedAssessment);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
@@ -199,12 +199,12 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            double detailedAssessment = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios,
-                                                                                                       failureMechanism,
-                                                                                                       assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
 
             // Assert
-            Assert.IsNaN(detailedAssessment);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
@@ -224,13 +224,13 @@ namespace Ringtoets.Piping.Data.Test
             PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             // Call
-            double detailedAssessment = failureMechanismSectionResult.GetDetailedAssessmentProbability(new[]
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new[]
             {
                 pipingCalculationScenario
             }, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsNaN(detailedAssessment);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
@@ -267,10 +267,10 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            double detailedAssessment = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsNaN(detailedAssessment);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
@@ -297,14 +297,14 @@ namespace Ringtoets.Piping.Data.Test
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            double detailedAssessment = result.GetDetailedAssessmentProbability(new[]
+            double detailedAssessmentProbability = result.GetDetailedAssessmentProbability(new[]
             {
                 scenarioA,
                 scenarioB
             }, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsNaN(detailedAssessment);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 

@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// Gets the detailed assessment probability a of the <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessment
+        public double DetailedAssessmentProbability
         {
             get
             {

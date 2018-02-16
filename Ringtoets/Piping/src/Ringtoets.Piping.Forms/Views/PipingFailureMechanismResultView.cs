@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Views
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessment),
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 true);
             DataGridViewControl.AddTextBoxColumn(
@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.Forms.Views
                 return;
             }
 
-            if (double.IsNaN(resultRow.DetailedAssessment))
+            if (double.IsNaN(resultRow.DetailedAssessmentProbability))
             {
                 currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
                 return;

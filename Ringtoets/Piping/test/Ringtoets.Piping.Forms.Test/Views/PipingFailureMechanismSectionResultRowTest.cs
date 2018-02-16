@@ -63,11 +63,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(row.SimpleAssessmentResult, result.SimpleAssessmentResult);
             Assert.AreEqual(result.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
                                                                     failureMechanism, assessmentSection),
-                            row.DetailedAssessment);
+                            row.DetailedAssessmentProbability);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessment));
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability));
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerThree));
             mocks.VerifyAll();
@@ -161,7 +161,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DetailedAssessment_RelevantScenariosDone_ResultOfSection()
+        public void DetailedAssessmentProbability_RelevantScenariosDone_ResultOfSection()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -181,14 +181,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }, failureMechanism, assessmentSection);
 
             // Call
-            double detailedAssessment = row.DetailedAssessment;
+            double detailedAssessmentProbability = row.DetailedAssessmentProbability;
 
             // Assert
             double expected = result.GetDetailedAssessmentProbability(new[]
             {
                 scenario
             }, failureMechanism, assessmentSection);
-            Assert.AreEqual(expected, detailedAssessment, 1e-6);
+            Assert.AreEqual(expected, detailedAssessmentProbability, 1e-6);
             mocks.VerifyAll();
         }
 
