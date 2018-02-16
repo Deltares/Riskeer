@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -28,6 +27,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.ClosingStructures.Util.Test
 {
@@ -49,11 +49,12 @@ namespace Ringtoets.ClosingStructures.Util.Test
         public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationNoRemainingCalculations_SectionResultCalculationIsNull()
         {
             // Setup
+            var location = new Point2D(1, 1);
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(failureMechanismSection);
+            failureMechanism.AddSection(CreateFailureMechanismSection(location));
 
             ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
-            sectionResult.Calculation = calculationInSectionA;
+            sectionResult.Calculation = CreateCalculation(location);
 
             // Call
             ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
@@ -66,52 +67,48 @@ namespace Ringtoets.ClosingStructures.Util.Test
         public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationWithRemainingCalculations_SectionResultCalculationSetToRemainingCalculation()
         {
             // Setup
+            var location = new Point2D(1, 1);
+            StructuresCalculation<ClosingStructuresInput> remainingCalculation = CreateCalculation(new Point2D(10, 10));
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 CalculationsGroup =
                 {
                     Children =
                     {
-                        calculationInSectionB
+                        remainingCalculation
                     }
                 }
             };
-            failureMechanism.AddSection(failureMechanismSection);
+            failureMechanism.AddSection(CreateFailureMechanismSection(location));
 
             ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
-            sectionResult.Calculation = calculationInSectionA;
+            sectionResult.Calculation = CreateCalculation(location);
 
             // Call
             ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
             // Assert
-            Assert.AreSame(calculationInSectionB, sectionResult.Calculation);
+            Assert.AreSame(remainingCalculation, sectionResult.Calculation);
         }
 
-        #region Prepared data
-
-        private static readonly FailureMechanismSection failureMechanismSection = new FailureMechanismSection("A", new List<Point2D>
+        private static FailureMechanismSection CreateFailureMechanismSection(Point2D endPoint)
         {
-            new Point2D(0.0, 0.0),
-            new Point2D(10.0, 10.0)
-        });
-
-        private static readonly StructuresCalculation<ClosingStructuresInput> calculationInSectionA = new StructuresCalculation<ClosingStructuresInput>
-        {
-            InputParameters =
+            return FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
-                Structure = new TestClosingStructure(new Point2D(1.1, 2.2))
-            }
-        };
+                new Point2D(0, 0),
+                endPoint
+            });
+        }
 
-        private static readonly StructuresCalculation<ClosingStructuresInput> calculationInSectionB = new StructuresCalculation<ClosingStructuresInput>
+        private static StructuresCalculation<ClosingStructuresInput> CreateCalculation(Point2D location)
         {
-            InputParameters =
+            return new StructuresCalculation<ClosingStructuresInput>
             {
-                Structure = new TestClosingStructure(new Point2D(50.0, 66.0))
-            }
-        };
-
-        #endregion
+                InputParameters =
+                {
+                    Structure = new TestClosingStructure(location)
+                }
+            };
+        }
     }
 }

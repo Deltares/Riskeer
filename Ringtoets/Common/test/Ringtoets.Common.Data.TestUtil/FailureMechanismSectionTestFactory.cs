@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -36,11 +38,33 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <returns>A valid <see cref="FailureMechanismSection"/>.</returns>
         public static FailureMechanismSection CreateFailureMechanismSection()
         {
-            return new FailureMechanismSection("test", new[]
+            return CreateFailureMechanismSection(new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 0)
             });
+        }
+
+        /// <summary>
+        /// Creates a <see cref="FailureMechanismSection"/> with defined coordinates.
+        /// </summary>
+        /// <param name="coordinates">The coordinates of the <see cref="FailureMechanismSection"/></param>
+        /// <returns>A valid <see cref="FailureMechanismSection"/> with the specified coordinates.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="coordinates"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="coordinates"/> does not have at least one geometry point.</item>
+        /// <item>One or more <paramref name="coordinates"/> elements are <c>null</c>.</item>
+        /// </list> </exception>
+        public static FailureMechanismSection CreateFailureMechanismSection(IEnumerable<Point2D> coordinates)
+        {
+            if (coordinates == null)
+            {
+                throw new ArgumentNullException(nameof(coordinates));
+            }
+
+            return new FailureMechanismSection("test", coordinates);
         }
     }
 }
