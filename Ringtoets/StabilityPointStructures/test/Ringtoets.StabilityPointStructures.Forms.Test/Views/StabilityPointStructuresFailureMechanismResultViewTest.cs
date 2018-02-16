@@ -75,10 +75,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>,
+                Assert.IsInstanceOf<FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
                     StabilityPointStructuresFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -94,7 +94,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2,
                                                                                              failureMechanism,
                                                                                              null);
 
@@ -183,7 +183,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>()))
+            using (ShowFailureMechanismResultsView(new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -221,17 +221,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             });
 
             var random = new Random(21);
-            var result1 = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section1)
+            var result1 = new StabilityPointStructuresFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result2 = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section2)
+            var result2 = new StabilityPointStructuresFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result3 = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section3)
+            var result3 = new StabilityPointStructuresFailureMechanismSectionResult(section3)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
                 AssessmentLayerThree = random.NextRoundedDouble()
@@ -239,7 +239,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             // Call
             using (ShowFailureMechanismResultsView(
-                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
                 {
                     result1,
                     result2,
@@ -299,13 +299,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 new Point2D(0, 0)
             });
             var random = new Random(21);
-            var result = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = assessmentLayerOneState,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             using (ShowFailureMechanismResultsView(
-                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
                 {
                     result
                 }))
@@ -333,13 +333,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneState
             };
 
             using (ShowFailureMechanismResultsView(
-                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
                 {
                     sectionResult
                 }))
@@ -365,14 +365,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>(),
                 AssessmentLayerOne = assessmentLayerOneState
             };
 
             using (ShowFailureMechanismResultsView(
-                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
                 {
                     sectionResult
                 }))
@@ -397,7 +397,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
@@ -407,7 +407,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             };
 
             using (ShowFailureMechanismResultsView(
-                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
                 {
                     sectionResult
                 }))
@@ -430,7 +430,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError()
         {
             // Given
-            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
@@ -439,7 +439,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             };
 
             using (ShowFailureMechanismResultsView(
-                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
                 {
                     sectionResult
                 }))
@@ -461,11 +461,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         [Test]
         [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSections))]
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
-            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult, string expectedValue)
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
         {
             // Given
             using (ShowFailureMechanismResultsView(
-                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
                 {
                     sectionResult
                 }))
@@ -491,7 +491,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(CreateSimpleFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
@@ -501,7 +501,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             };
 
             using (ShowFailureMechanismResultsView(
-                new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
                 {
                     sectionResult
                 }))
@@ -589,7 +589,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, failureMechanism.SectionResults.First().AssessmentLayerThree);
+                Assert.AreEqual(newValue, failureMechanism.SectionResults2.First().AssessmentLayerThree);
             }
         }
 
@@ -597,16 +597,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         {
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
 
-            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient
             }, "-").SetName("SectionWithoutCalculation");
-            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
             }, "-").SetName("SectionWithCalculationNoOutput");
-            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -614,7 +614,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(double.NaN)
                 }
             }, "-").SetName("SectionWithInvalidCalculationOutput");
-            yield return new TestCaseData(new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
@@ -650,13 +650,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            StabilityPointStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
+            StabilityPointStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults2);
 
             return failureMechanismResultView;
         }
 
         private StabilityPointStructuresFailureMechanismResultView ShowFailureMechanismResultsView(
-            IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults)
+            IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults)
         {
             var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultView(sectionResults,
                                                                                                     new StabilityPointStructuresFailureMechanism(),

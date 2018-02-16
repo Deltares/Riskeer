@@ -31,10 +31,10 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="StructuresFailureMechanismSectionResult{T}"/> for stability point structures
+    /// This class represents a row of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> for stability point structures
     /// </summary>
     public class StabilityPointStructuresFailureMechanismSectionResultRow
-        : FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+        : FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>
     {
         private readonly StabilityPointStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -42,12 +42,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="StructuresFailureMechanismSectionResult{T}"/> to wrap
+        /// <param name="sectionResult">The <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult,
+        public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult,
                                                                         StabilityPointStructuresFailureMechanism failureMechanism,
                                                                         IAssessmentSection assessmentSection)
             : base(sectionResult)

@@ -22,7 +22,6 @@
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.StabilityPointStructures.Data
 {
@@ -41,7 +40,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <returns>The calculated assessment layer 2A; or <see cref="double.NaN"/> when there is no
         /// calculation assigned to the section result or the calculation is not performed.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetAssessmentLayerTwoA(this StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult,
+        public static double GetAssessmentLayerTwoA(this StabilityPointStructuresFailureMechanismSectionResult sectionResult,
                                                     StabilityPointStructuresFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
         {

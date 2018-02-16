@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
@@ -56,7 +56,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultRow<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>>(row);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.GetAssessmentLayerTwoA(failureMechanism, assessmentSection), row.AssessmentLayerTwoA);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
@@ -77,7 +77,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => new StabilityPointStructuresFailureMechanismSectionResultRow(result, null, assessmentSection);
@@ -93,7 +93,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => new StabilityPointStructuresFailureMechanismSectionResultRow(
@@ -118,7 +118,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
             result.Attach(observer);
 
             var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result,
@@ -144,7 +144,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(sectionResult.Calculation);
@@ -178,7 +178,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = calculation
             };
@@ -209,7 +209,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             };
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = calculation
             };
@@ -235,7 +235,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Precondition
             Assert.IsNull(result.Calculation);
@@ -263,7 +263,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section)
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = expectedCalculation
             };
@@ -291,7 +291,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var random = new Random(21);
             double assessmentLayerThree = random.NextDouble();
 
-            var sectionResult = new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var row = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
 
             // Call

@@ -37,11 +37,11 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="StructuresFailureMechanismSectionResult{T}"/>
+    /// The view for a collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>
     /// for stability point structures.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismResultView
-        : FailureMechanismResultView<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>,
+        : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
             StabilityPointStructuresFailureMechanism>
     {
         private const int assessmentLayerTwoAIndex = 2;
@@ -56,7 +56,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
         /// <inheritdoc />
         public StabilityPointStructuresFailureMechanismResultView(
-            IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> failureMechanismSectionResults,
+            IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -94,7 +94,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
             return new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult,
                                                                                 FailureMechanism,

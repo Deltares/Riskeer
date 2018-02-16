@@ -130,8 +130,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>),
-                    typeof(IEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>),
+                    typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>),
+                    typeof(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>),
                     typeof(StabilityPointStructuresFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
