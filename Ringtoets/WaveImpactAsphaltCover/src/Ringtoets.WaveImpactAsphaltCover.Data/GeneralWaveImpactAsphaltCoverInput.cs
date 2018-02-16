@@ -70,8 +70,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public double SectionLength { get; set; }
 
         /// <summary>
-        /// Gets the 'N' length effect parameter based on the <see cref="DeltaL"/>
-        /// and <see cref="SectionLength"/>.
+        /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
         public double N
         {

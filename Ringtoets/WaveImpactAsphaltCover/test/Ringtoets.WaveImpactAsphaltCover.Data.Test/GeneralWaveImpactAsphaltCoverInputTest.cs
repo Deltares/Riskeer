@@ -74,6 +74,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             generalInput.DeltaL = (RoundedDouble) value;
 
             // Assert
+            Assert.AreEqual(2, generalInput.DeltaL.NumberOfDecimalPlaces);
             Assert.AreEqual(value, generalInput.DeltaL, generalInput.DeltaL.GetAccuracy());
         }
 

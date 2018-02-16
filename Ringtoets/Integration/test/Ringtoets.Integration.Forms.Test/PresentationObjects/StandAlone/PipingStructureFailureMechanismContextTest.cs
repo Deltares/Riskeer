@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -50,19 +49,6 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects.StandAlone
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new PipingStructureFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new PipingStructureFailureMechanismContext(failureMechanism, null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
         }
     }
 }

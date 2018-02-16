@@ -189,7 +189,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
         [TestCase(1)]
         [TestCase(12)]
         [TestCase(20)]
-        public void A_SetValidValue_SetsValueAndUpdatesObserver(double value)
+        public void N_SetValidValue_SetsValueAndUpdatesObserver(double value)
         {
             // Setup
             var mocks = new MockRepository();

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -32,37 +31,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismContextTest
     {
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new WaveImpactAsphaltCoverFailureMechanismContext(null, assessmentSection);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("parent", paramName);
-        }
-
         [Test]
         public void Constructor_ValidArguments_ExpectedValues()
         {

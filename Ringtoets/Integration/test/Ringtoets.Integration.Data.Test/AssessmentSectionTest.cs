@@ -150,6 +150,9 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(Enumerable.Repeat(1.0 / 30000.0, 12), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
             Assert.AreEqual(double.NaN, section.Piping.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, section.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, section.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, section.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
 
             Assert.AreEqual(sum, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
 

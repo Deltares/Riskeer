@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        #region Semi-probabilistic parameters
+        #region Length effect parameters
 
         [DynamicVisible]
         [PropertyOrder(21)]

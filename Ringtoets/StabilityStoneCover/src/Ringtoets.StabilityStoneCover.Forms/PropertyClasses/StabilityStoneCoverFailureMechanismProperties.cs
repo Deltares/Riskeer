@@ -41,7 +41,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public StabilityStoneCoverFailureMechanismProperties(StabilityStoneCoverFailureMechanism data)
         {
             if (data == null)

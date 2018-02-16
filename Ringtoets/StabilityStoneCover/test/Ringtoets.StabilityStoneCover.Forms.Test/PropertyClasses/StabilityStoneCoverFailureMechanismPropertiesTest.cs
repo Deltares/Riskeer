@@ -158,7 +158,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_FailureMechanismIsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism

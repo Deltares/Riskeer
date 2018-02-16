@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -50,34 +49,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsFailureMechanismContext(null, assessmentSection);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
         }
     }
 }
