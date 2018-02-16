@@ -132,7 +132,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                     StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
                                                                    calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
 
-                List<StabilityPointStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults.Select(sr => new StabilityPointStructuresScenarioRow(sr)).ToList();
+                List<StabilityPointStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults2.Select(sr => new StabilityPointStructuresScenarioRow(sr)).ToList();
 
                 scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
             }
