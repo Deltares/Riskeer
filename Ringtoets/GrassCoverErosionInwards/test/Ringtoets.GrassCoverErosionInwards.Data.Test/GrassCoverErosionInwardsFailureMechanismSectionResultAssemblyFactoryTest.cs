@@ -20,13 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -37,6 +41,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
+        #region Simple Assessment
+
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
@@ -85,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput = 
+                FailureMechanismSectionAssembly actualOutput =
                     GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
@@ -117,5 +123,180 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
+
+        #endregion
+
+        #region Detailed Assessment
+
+        [Test]
+        public void AssembleDetailedAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                null,
+                new GrassCoverErosionInwardsFailureMechanism(),
+                assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleDetailedAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                null,
+                assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleDetailedAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new GrassCoverErosionInwardsFailureMechanism(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleDetailedAssembly_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(21);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
+                                                                                   Enumerable.Empty<IFailureMechanism>(),
+                                                                                   random.Next(0, 100),
+                                                                                   random.NextRoundedDouble(0.06, 0.1),
+                                                                                   random.NextRoundedDouble(0.00001, 0.05)));
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultValidityOnlyType>()
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    sectionResult,
+                    failureMechanism,
+                    assessmentSection);
+
+                // Assert
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
+                                calculator.DetailedAssessmentProbabilityInput);
+                Assert.IsNotNull(calculator.DetailedAssessmentCategoriesInput);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssembly_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
+                                                                                   Enumerable.Empty<IFailureMechanism>(),
+                                                                                   random.Next(0, 100),
+                                                                                   random.NextRoundedDouble(0.06, 0.1),
+                                                                                   random.NextRoundedDouble(0.00001, 0.05)));
+            mocks.ReplayAll();
+
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultValidityOnlyType>()
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssembly actualOutput =
+                    GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                        sectionResult,
+                        new GrassCoverErosionInwardsFailureMechanism(),
+                        assessmentSection);
+
+                // Assert
+                FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
+                Assert.AreSame(calculatorOutput, actualOutput);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyFactoryException()
+        {
+            // Setup
+            var random = new Random(21);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
+                                                                                   Enumerable.Empty<IFailureMechanism>(),
+                                                                                   random.Next(0, 100),
+                                                                                   random.NextRoundedDouble(0.06, 0.1),
+                                                                                   random.NextRoundedDouble(0.00001, 0.05)));
+            mocks.ReplayAll();
+
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultValidityOnlyType>()
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    sectionResult,
+                    new GrassCoverErosionInwardsFailureMechanism(),
+                    assessmentSection);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyFactoryException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
     }
 }
