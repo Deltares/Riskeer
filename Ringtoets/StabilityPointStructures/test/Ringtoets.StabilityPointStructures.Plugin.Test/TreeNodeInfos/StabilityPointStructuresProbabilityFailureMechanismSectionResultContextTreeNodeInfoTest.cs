@@ -27,8 +27,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.StabilityPointStructures.Data;
@@ -38,31 +36,25 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityPointStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>));
         }
 
         [TearDown]
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -87,16 +79,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsName()
         {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var mechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(
-                mechanism.SectionResults, mechanism, assessmentSection);
-
             // Call
-            string text = info.Text(context);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Resultaat", text);
@@ -105,9 +89,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -119,6 +100,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
@@ -137,8 +119,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }

@@ -1376,7 +1376,7 @@ namespace Ringtoets.Integration.Plugin
             var closingStructures = nodeData as IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>;
             var macroStabilityInwards = nodeData as IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>;
             var macroStabilityOutwards = nodeData as IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>;
-            var stabilityPointConstruction = nodeData as IHasSectionResults<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>;
+            var stabilityPointConstruction = nodeData as IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>;
 
             var failureMechanismSectionResultContexts = new object[2];
             if (duneErosion != null)
@@ -1460,7 +1460,7 @@ namespace Ringtoets.Integration.Plugin
             if (stabilityPointConstruction != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(stabilityPointConstruction.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(stabilityPointConstruction.SectionResults, nodeData);
             }
 
             failureMechanismSectionResultContexts[1] = nodeData.OutputComments;

@@ -131,7 +131,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -412,8 +412,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return new object[]
             {
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults2, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }
