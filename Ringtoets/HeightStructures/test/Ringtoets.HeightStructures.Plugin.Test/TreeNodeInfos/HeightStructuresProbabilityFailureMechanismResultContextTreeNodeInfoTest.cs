@@ -38,14 +38,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class HeightStructuresProbabilityFailureMechanismResultContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new HeightStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>));
         }
@@ -54,15 +52,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -87,9 +81,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsFailureMechanismSectionResultDisplayName()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             string text = info.Text(null);
 
@@ -100,9 +91,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -114,6 +102,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -140,7 +129,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }
