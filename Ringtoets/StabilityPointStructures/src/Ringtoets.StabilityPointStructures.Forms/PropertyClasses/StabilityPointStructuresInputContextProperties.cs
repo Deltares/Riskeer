@@ -36,6 +36,7 @@ using Ringtoets.Common.Util;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Properties;
+using Ringtoets.StabilityPointStructures.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
@@ -177,9 +178,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         protected override void AfterSettingStructure()
         {
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                data.FailureMechanism.SectionResults,
-                data.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(data.FailureMechanism);
         }
 
         protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)

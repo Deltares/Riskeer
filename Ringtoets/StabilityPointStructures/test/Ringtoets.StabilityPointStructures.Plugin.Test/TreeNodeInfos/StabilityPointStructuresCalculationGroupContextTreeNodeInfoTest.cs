@@ -1693,15 +1693,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             parentGroup.Children.Add(group);
 
-            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
-            {
-                new Point2D(0, 0)
-            }));
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             group.Children.Add(calculation);
 
-            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result = failureMechanism.SectionResults.First();
+            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults2.First();
             result.Calculation = calculation;
 
             // Call

@@ -104,5 +104,10 @@
       <Name>Ringtoets.StabilityPointStructures.Service</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Util\Ringtoets.StabilityPointStructures.Util.csproj">
+      <Project>{c8832e89-8543-4f2b-9952-8d6c03118392}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
 </Project>

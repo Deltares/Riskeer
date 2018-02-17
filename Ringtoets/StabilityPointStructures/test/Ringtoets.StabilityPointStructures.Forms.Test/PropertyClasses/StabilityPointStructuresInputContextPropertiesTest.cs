@@ -1457,7 +1457,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(-10.0, -10.0),
                 new Point2D(10.0, 10.0)
@@ -1468,7 +1468,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             properties.Structure = newStructure;
 
             // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
+            Assert.AreSame(calculation, failureMechanism.SectionResults2.ElementAt(0).Calculation);
             mockRepository.VerifyAll();
         }
 

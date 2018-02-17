@@ -46,7 +46,6 @@ using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Util;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
@@ -55,6 +54,7 @@ using Ringtoets.StabilityPointStructures.IO;
 using Ringtoets.StabilityPointStructures.IO.Configurations;
 using Ringtoets.StabilityPointStructures.Plugin.FileImporters;
 using Ringtoets.StabilityPointStructures.Service;
+using Ringtoets.StabilityPointStructures.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -661,7 +661,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             }
         }
 
-        private static void GenerateStabilityPointStructuresCalculations(StabilityPointStructuresFailureMechanism failureMechanism, IEnumerable<StabilityPointStructure> structures, List<ICalculationBase> calculations)
+        private static void GenerateStabilityPointStructuresCalculations(StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                         IEnumerable<StabilityPointStructure> structures,
+                                                                         List<ICalculationBase> calculations)
         {
             foreach (StabilityPointStructure structure in structures)
             {
@@ -676,9 +678,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 calculations.Add(calculation);
             }
 
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults,
-                failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
         }
 
         private static void CalculationGroupContextOnNodeRemoved(StabilityPointStructuresCalculationGroupContext context, object parentNodeData)
@@ -687,9 +687,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
 
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                context.FailureMechanism.SectionResults,
-                context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray());
+            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
 
             parentGroupContext.NotifyObservers();
         }
@@ -802,9 +800,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                    context.FailureMechanism.SectionResults,
-                    context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+                StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
                 calculationGroupContext.NotifyObservers();
             }
         }

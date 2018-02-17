@@ -34,6 +34,7 @@ using Ringtoets.Common.Util;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 using Ringtoets.StabilityPointStructures.IO.Properties;
+using Ringtoets.StabilityPointStructures.Util;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.IO.Configurations
@@ -98,9 +99,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
 
         protected override void DoPostImportUpdates()
         {
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults,
-                failureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
             base.DoPostImportUpdates();
         }

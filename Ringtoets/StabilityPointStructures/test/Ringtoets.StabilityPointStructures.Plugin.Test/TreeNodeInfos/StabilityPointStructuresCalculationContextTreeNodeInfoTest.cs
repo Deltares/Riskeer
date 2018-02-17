@@ -1146,12 +1146,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(elementToBeRemoved);
 
-            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
-            {
-                new Point2D(0, 0)
-            }));
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
-            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput> result = failureMechanism.SectionResults.First();
+            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults2.First();
             result.Calculation = elementToBeRemoved;
 
             // Call

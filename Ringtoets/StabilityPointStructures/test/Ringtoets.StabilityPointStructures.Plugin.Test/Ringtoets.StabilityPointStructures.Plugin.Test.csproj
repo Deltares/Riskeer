@@ -137,6 +137,10 @@
       <Project>{E3DF5559-97D9-4038-BBE6-2E3DFB4F4C68}</Project>
       <Name>Ringtoets.StabilityPointStructures.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.StabilityPointStructures.Util\Ringtoets.StabilityPointStructures.Util.csproj">
+      <Project>{C8832E89-8543-4F2B-9952-8D6C03118392}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Data.TestUtil\Ringtoets.StabilityPointStructures.Data.TestUtil.csproj">
       <Project>{E9AC095B-8F10-41D2-9456-4A85E3BA91AD}</Project>
       <Name>Ringtoets.StabilityPointStructures.Data.TestUtil</Name>
