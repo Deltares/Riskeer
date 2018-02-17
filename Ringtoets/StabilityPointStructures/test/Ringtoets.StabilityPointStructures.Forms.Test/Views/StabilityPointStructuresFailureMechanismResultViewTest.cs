@@ -75,7 +75,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
@@ -94,7 +94,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2,
+            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults,
                                                                                              failureMechanism,
                                                                                              null);
 
@@ -589,7 +589,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, failureMechanism.SectionResults2.First().AssessmentLayerThree);
+                Assert.AreEqual(newValue, failureMechanism.SectionResults.First().AssessmentLayerThree);
             }
         }
 
@@ -650,7 +650,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            StabilityPointStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults2);
+            StabilityPointStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
 
             return failureMechanismResultView;
         }

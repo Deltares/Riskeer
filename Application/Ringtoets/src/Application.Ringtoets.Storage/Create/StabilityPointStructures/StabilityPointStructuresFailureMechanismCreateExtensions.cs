@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
             AddEntitiesForStabilityPointStructures(mechanism.StabilityPointStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResults2, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }

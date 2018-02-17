@@ -359,8 +359,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     expectedAssessmentSection.StabilityStoneCover.SectionResults,
                     actualAssessmentSection.StabilityStoneCover.SectionResults);
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.StabilityPointStructures.SectionResults2,
-                    actualAssessmentSection.StabilityPointStructures.SectionResults2);
+                    expectedAssessmentSection.StabilityPointStructures.SectionResults,
+                    actualAssessmentSection.StabilityPointStructures.SectionResults);
             }
         }
 

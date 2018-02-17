@@ -358,7 +358,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             {
                 location
             }));
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = calculation;
 
             StructureCollection<StabilityPointStructure> targetCollection = failureMechanism.StabilityPointStructures;

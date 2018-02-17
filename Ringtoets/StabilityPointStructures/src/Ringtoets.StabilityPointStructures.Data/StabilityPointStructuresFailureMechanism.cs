@@ -38,10 +38,9 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresFailureMechanism : FailureMechanismBase,
                                                             ICalculatableFailureMechanism,
-                                                            IHasSectionResults<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>
+                                                            IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>
     {
-        private readonly ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> sectionResults;
-        private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResult> sectionResults2;
+        private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
@@ -55,8 +54,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             };
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
-            sectionResults = new ObservableList<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>();
-            sectionResults2 = new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -83,17 +81,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults2
-        {
-            get
-            {
-                return sectionResults2;
-            }
-        }
-
-        public CalculationGroup CalculationsGroup { get; }
-
-        public IObservableEnumerable<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>> SectionResults
+        public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults
         {
             get
             {
@@ -101,18 +89,18 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
         }
 
+        public CalculationGroup CalculationsGroup { get; }
+
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-            sectionResults.Add(new StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>(section));
-            sectionResults2.Add(new StabilityPointStructuresFailureMechanismSectionResult(section));
+            sectionResults.Add(new StabilityPointStructuresFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
         {
             base.ClearAllSections();
             sectionResults.Clear();
-            sectionResults2.Clear();
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Ringtoets.StabilityPointStructures.Util
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults = failureMechanism.SectionResults2;
+            IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults = failureMechanism.SectionResults;
             IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations = failureMechanism.Calculations
                                                                                                       .Cast<StructuresCalculation<StabilityPointStructuresInput>>();
             return AssignUnassignCalculations.Update(sectionResults.Select(AsCalculationAssignment),

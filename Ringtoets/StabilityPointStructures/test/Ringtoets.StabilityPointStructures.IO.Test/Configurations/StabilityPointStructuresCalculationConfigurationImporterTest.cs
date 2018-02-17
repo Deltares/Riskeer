@@ -1136,14 +1136,14 @@ namespace Ringtoets.StabilityPointStructures.IO.Test.Configurations
                 failureMechanism);
 
             // Preconditions
-            Assert.AreEqual(1, failureMechanism.SectionResults2.Count());
-            Assert.IsNull(failureMechanism.SectionResults2.ElementAt(0).Calculation);
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
 
             // Call
             importer.DoPostImport();
 
             // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults2.ElementAt(0).Calculation);
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",

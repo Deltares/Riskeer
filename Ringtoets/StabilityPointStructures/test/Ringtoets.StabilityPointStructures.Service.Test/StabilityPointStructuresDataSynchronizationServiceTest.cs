@@ -107,7 +107,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 locationStructureA,
                 new Point2D(1, 1)
             }));
-            StabilityPointStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults2.ElementAt(0);
+            StabilityPointStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
 
             failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
@@ -115,7 +115,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new Point2D(1, 1),
                 locationStructureB
             }));
-            StabilityPointStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults2.ElementAt(1);
+            StabilityPointStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults.ElementAt(1);
             sectionWithCalculationAtStructureB.Calculation = calculationWithStructureBAndOutput;
 
             // Call
@@ -297,14 +297,14 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                                .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                                                                                                .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                                                                                                                .ToArray();
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults2
+            StabilityPointStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
                                                                                                                   .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                                   .ToArray();
             StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithOutput = calculationsWithStructure.Where(c => c.HasOutput)
                                                                                                                      .ToArray();
 
             int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults2
+            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
                                                                                                      .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
                                                                                                      .ToArray();
 
@@ -429,9 +429,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);
-            StabilityPointStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults2
+            StabilityPointStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
                                                                                             .First(sr => ReferenceEquals(sr.Section, section1));
-            StabilityPointStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults2
+            StabilityPointStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
                                                                                             .First(sr => ReferenceEquals(sr.Section, section2));
             result1.Calculation = calculation1;
             result2.Calculation = calculation2;

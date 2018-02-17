@@ -53,7 +53,7 @@ namespace Ringtoets.StabilityPointStructures.Util.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.AddSection(CreateFailureMechanismSection(location));
 
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = CreateCalculation(location);
 
             // Call
@@ -81,7 +81,7 @@ namespace Ringtoets.StabilityPointStructures.Util.Test
             };
             failureMechanism.AddSection(CreateFailureMechanismSection(location));
 
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults2.First();
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = CreateCalculation(location);
 
             // Call

@@ -75,13 +75,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
-                failureMechanism.SectionResults2, failureMechanism, assessmentSection);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(failureMechanism.SectionResults2, viewData);
+            Assert.AreSame(failureMechanism.SectionResults, viewData);
             mocks.VerifyAll();
         }
 
@@ -94,12 +94,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var constructionResultView = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2,
+            var constructionResultView = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults,
                                                                                                 failureMechanism,
                                                                                                 assessmentSection);
 
             // Call
-            string viewName = info.GetViewName(constructionResultView, failureMechanism.SectionResults2);
+            string viewName = info.GetViewName(constructionResultView, failureMechanism.SectionResults);
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
@@ -127,7 +127,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -154,7 +154,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -181,7 +181,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -203,7 +203,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -225,7 +225,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new StabilityPointStructuresFailureMechanism());
@@ -248,7 +248,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -272,7 +272,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(),
                                                                                               assessmentSection);
 
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults2, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -295,7 +295,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var context = new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
-                failureMechanism.SectionResults2,
+                failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);
 

@@ -413,7 +413,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             {
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults2, failureMechanism, assessmentSection),
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
         }

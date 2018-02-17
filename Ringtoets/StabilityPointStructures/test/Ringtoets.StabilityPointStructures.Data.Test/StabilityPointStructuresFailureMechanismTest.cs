@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", failureMechanism.Name);
             Assert.AreEqual("STKWp", failureMechanism.Code);
 
@@ -54,7 +54,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResults2);
             CollectionAssert.IsEmpty(failureMechanism.StabilityPointStructures);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
         }
@@ -71,10 +70,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(failureMechanism.SectionResults.ElementAt(0));
-
-            Assert.AreEqual(1, failureMechanism.SectionResults2.Count());
-            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults2.ElementAt(0));
+            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
 
         [Test]
@@ -95,7 +91,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(2, failureMechanism.SectionResults2.Count());
 
             // Call
             failureMechanism.ClearAllSections();
@@ -103,7 +98,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(0, failureMechanism.SectionResults2.Count());
         }
 
         [Test]

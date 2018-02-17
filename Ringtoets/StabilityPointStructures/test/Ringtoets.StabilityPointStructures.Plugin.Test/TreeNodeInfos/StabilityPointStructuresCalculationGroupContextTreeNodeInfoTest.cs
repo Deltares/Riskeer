@@ -1698,7 +1698,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             group.Children.Add(calculation);
 
-            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults2.First();
+            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
             result.Calculation = calculation;
 
             // Call
