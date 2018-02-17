@@ -111,7 +111,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         /// <summary>
         /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
-        /// <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+        /// <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <returns><c>null</c> if the wrapped section result does not have a calculation
         /// set. Otherwise the calculation of the wrapped section result is returned.</returns>

@@ -36,7 +36,7 @@ namespace Ringtoets.HeightStructures.Data
         private double assessmentLayerThree;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="StructuresFailureMechanismSectionResult{T}"/>.
+        /// Initializes a new instance of <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
