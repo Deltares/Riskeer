@@ -304,9 +304,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                                      .ToArray();
 
             int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
-            StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>[] sectionResults = failureMechanism.SectionResults
-                                                                                                                      .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
-                                                                                                                      .ToArray();
+            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults2
+                                                                                                     .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
+                                                                                                     .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithOutput);

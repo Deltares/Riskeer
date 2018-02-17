@@ -27,9 +27,9 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Util;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Service;
+using Ringtoets.StabilityPointStructures.Util;
 
 namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
 {
@@ -60,11 +60,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> RemoveObjectAndDependentData(StabilityPointStructure removedObject)
         {
-            return RingtoetsCommonDataSynchronizationService.RemoveStructure(removedObject,
-                                                                             FailureMechanism.Calculations
-                                                                                             .Cast<StructuresCalculation<StabilityPointStructuresInput>>(),
-                                                                             FailureMechanism.StabilityPointStructures,
-                                                                             FailureMechanism.SectionResults);
+            return StabilityPointStructuresDataSynchronizationService.RemoveStructure(removedObject, FailureMechanism);
         }
 
         #endregion
@@ -85,9 +81,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
             affectedObjects.AddRange(GetAffectedCalculationsWithStabilityPointStructure(structure)
                                          .Select(affectedCalculation => affectedCalculation.InputParameters));
 
-            affectedObjects.AddRange(StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                                         FailureMechanism.SectionResults,
-                                         FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()));
+            affectedObjects.AddRange(StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(FailureMechanism));
 
             return affectedObjects;
         }

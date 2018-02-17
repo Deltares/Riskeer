@@ -21,13 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.Common.Service;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Service;
 
 namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
 {
@@ -55,10 +53,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.FileImporters
 
         protected override IEnumerable<IObservable> ClearData()
         {
-            return RingtoetsCommonDataSynchronizationService.RemoveAllStructures(
-                FailureMechanism.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
-                FailureMechanism.StabilityPointStructures,
-                FailureMechanism.SectionResults);
+            return StabilityPointStructuresDataSynchronizationService.RemoveAllStructures(FailureMechanism);
         }
     }
 }
