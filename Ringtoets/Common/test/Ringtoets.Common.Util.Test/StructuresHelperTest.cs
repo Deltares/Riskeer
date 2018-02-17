@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -35,9 +35,6 @@ namespace Ringtoets.Common.Util.Test
     [TestFixture]
     public class StructuresHelperTest
     {
-        private const string firstSectionName = "firstSection";
-        private const string secondSectionName = "secondSection";
-
         [Test]
         public void CollectCalculationsPerSection_SectionsAreNull_ThrowsArgumentNullException()
         {
@@ -57,17 +54,25 @@ namespace Ringtoets.Common.Util.Test
         [Test]
         public void CollectCalculationsPerSection_SectionElementsAreNull_ThrowsArgumentException()
         {
+            // Setup
+            var structuresCalculation = new StructuresCalculation<TestStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStructure("anId", "aName", new Point2D(1.1, 2.2))
+                }
+            };
+
             // Call
-            TestDelegate test = () => StructuresHelper.CollectCalculationsPerSection(
-                new FailureMechanismSection[]
-                {
-                    null,
-                    null
-                },
-                new[]
-                {
-                    calculationInSectionA
-                });
+            TestDelegate test = () => StructuresHelper.CollectCalculationsPerSection(new FailureMechanismSection[]
+                                                                                     {
+                                                                                         null,
+                                                                                         null
+                                                                                     },
+                                                                                     new[]
+                                                                                     {
+                                                                                         structuresCalculation
+                                                                                     });
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -79,7 +84,10 @@ namespace Ringtoets.Common.Util.Test
         {
             // Call
             TestDelegate test = () => StructuresHelper.CollectCalculationsPerSection<TestStructuresInput>(
-                twoSections,
+                new[]
+                {
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+                },
                 null);
 
             // Assert
@@ -92,78 +100,9 @@ namespace Ringtoets.Common.Util.Test
         {
             // Call
             TestDelegate test = () => StructuresHelper.CollectCalculationsPerSection(
-                twoSections,
-                new StructuresCalculation<TestStructuresInput>[]
-                {
-                    null
-                });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void UpdateCalculationToSectionResultAssignments_SectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                null,
                 new[]
                 {
-                    calculationInSectionB
-                });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("sectionResults", exception.ParamName);
-        }
-
-        [Test]
-        public void UpdateCalculationToSectionResultAssignments_SectionResultElementsNull_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate test = () => StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                new TestStructuresFailureMechanismSectionResult[]
-                {
-                    null,
-                    null
-                },
-                new[]
-                {
-                    calculationInSectionB
-                });
-
-            // Assert
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
-                test, "SectionResults contains an entry without value.");
-            Assert.AreEqual("sectionResults", exception.ParamName);
-        }
-
-        [Test]
-        public void UpdateCalculationToSectionResultAssignments_CalculationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                new[]
-                {
-                    sectionResult
-                },
-                null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculations", exception.ParamName);
-        }
-
-        [Test]
-        public void UpdateCalculationToSectionResultAssignments_CalculationsElementNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                new[]
-                {
-                    sectionResult
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
                 },
                 new StructuresCalculation<TestStructuresInput>[]
                 {
@@ -176,50 +115,146 @@ namespace Ringtoets.Common.Util.Test
         }
 
         [Test]
-        public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationNoRemainingCalculations_SectionResultCalculationIsNull()
+        public void CollectCalculationsPerSegment_ValidEmptySectionResults_EmptyDictionary()
         {
             // Setup
-            var failureMechanismSectionResult = new TestStructuresFailureMechanismSectionResult(
-                failureMechanismSectionA)
+            var structuresCalculation = new StructuresCalculation<TestStructuresInput>
             {
-                Calculation = calculationInSectionA
+                InputParameters =
+                {
+                    Structure = new TestStructure(new Point2D(1.1, 2.2))
+                }
             };
 
             // Call
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                new[]
+            IDictionary<string, List<ICalculation>> collectCalculationsPerSegment =
+                StructuresHelper.CollectCalculationsPerSection(Enumerable.Empty<FailureMechanismSection>(), new[]
                 {
-                    failureMechanismSectionResult
-                },
-                Enumerable.Empty<StructuresCalculation<TestStructuresInput>>());
-
-            // Assert
-            Assert.IsNull(failureMechanismSectionResult.Calculation);
-        }
-
-        [Test]
-        public void UpdateCalculationToSectionResultAssignments_SectionResultWithCalculationWithRemainingCalculations_SectionResultCalculationSetToRemainingCalculation()
-        {
-            // Setup
-            var failureMechanismSectionResult = new TestStructuresFailureMechanismSectionResult(
-                failureMechanismSectionA)
-            {
-                Calculation = calculationInSectionA
-            };
-
-            // Call
-            StructuresHelper.UpdateCalculationToSectionResultAssignments(
-                new[]
-                {
-                    failureMechanismSectionResult
-                },
-                new[]
-                {
-                    calculationInSectionB
+                    structuresCalculation
                 });
 
             // Assert
-            Assert.AreSame(calculationInSectionB, failureMechanismSectionResult.Calculation);
+            Assert.AreEqual(0, collectCalculationsPerSegment.Count);
+        }
+
+        [Test]
+        public void CollectCalculationsPerSegment_ValidEmptyCalculations_EmptyDictionary()
+        {
+            // Call
+            IDictionary<string, List<ICalculation>> collectCalculationsPerSegment =
+                StructuresHelper.CollectCalculationsPerSection(new[]
+                                                               {
+                                                                   FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+                                                               },
+                                                               Enumerable.Empty<StructuresCalculation<TestStructuresInput>>());
+
+            // Assert
+            Assert.AreEqual(0, collectCalculationsPerSegment.Count);
+        }
+
+        [Test]
+        public void CollectCalculationsPerSegment_MultipleCalculationsInSegment_OneSegmentHasAllCalculations()
+        {
+            // Setup
+            const string firstSectionName = "A";
+            var location = new Point2D(1, 1);
+
+            var calculationOne = new StructuresCalculation<TestStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStructure(location)
+                }
+            };
+            var calculationTwo = new StructuresCalculation<TestStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStructure(location)
+                }
+            };
+            var calculations = new[]
+            {
+                calculationOne,
+                calculationTwo
+            };
+
+            // Call
+            IDictionary<string, List<ICalculation>> collectCalculationsPerSegment =
+                StructuresHelper.CollectCalculationsPerSection(new[]
+                {
+                    new FailureMechanismSection(firstSectionName, new[]
+                    {
+                        location,
+                        new Point2D(2, 2)
+                    }),
+                    new FailureMechanismSection("B", new[]
+                    {
+                        new Point2D(2, 2),
+                        new Point2D(3, 3)
+                    })
+                }, calculations);
+
+            // Assert
+            Assert.AreEqual(1, collectCalculationsPerSegment.Count);
+            Assert.IsTrue(collectCalculationsPerSegment.ContainsKey(firstSectionName));
+            CollectionAssert.AreEqual(calculations, collectCalculationsPerSegment[firstSectionName]);
+        }
+
+        [Test]
+        public void CollectCalculationsPerSegment_SingleCalculationPerSegment_OneCalculationPerSegment()
+        {
+            // Setup
+            const string firstSectionName = "A";
+            const string secondSectionName = "B";
+
+            var locationOne = new Point2D(1, 1);
+            var locationTwo = new Point2D(3, 3);
+
+            var calculationOne = new StructuresCalculation<TestStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStructure(locationOne)
+                }
+            };
+            var calculationTwo = new StructuresCalculation<TestStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = new TestStructure(locationTwo)
+                }
+            };
+            var calculations = new[]
+            {
+                calculationOne,
+                calculationTwo
+            };
+
+            var failureMechanismSections = new[]
+            {
+                new FailureMechanismSection(firstSectionName, new[]
+                {
+                    locationOne,
+                    new Point2D(2, 2)
+                }),
+                new FailureMechanismSection(secondSectionName, new[]
+                {
+                    new Point2D(2, 2),
+                    locationTwo
+                })
+            };
+
+            // Call
+            IDictionary<string, List<ICalculation>> collectCalculationsPerSegment =
+                StructuresHelper.CollectCalculationsPerSection(failureMechanismSections, calculations);
+
+            // Assert
+            Assert.AreEqual(2, collectCalculationsPerSegment.Count);
+            Assert.AreEqual(1, collectCalculationsPerSegment[firstSectionName].Count);
+            Assert.AreSame(calculationOne, collectCalculationsPerSegment[firstSectionName][0]);
+            Assert.AreEqual(1, collectCalculationsPerSegment[secondSectionName].Count);
+            Assert.AreSame(calculationTwo, collectCalculationsPerSegment[secondSectionName][0]);
         }
 
         private class TestStructuresInput : StructuresInputBase<StructureBase>
@@ -234,51 +269,5 @@ namespace Ringtoets.Common.Util.Test
 
             public override void SynchronizeStructureInput() {}
         }
-
-        private class TestStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<TestStructuresInput>
-        {
-            public TestStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
-        }
-
-        #region Prepared data
-
-        private static readonly FailureMechanismSection failureMechanismSectionA = new FailureMechanismSection(firstSectionName, new List<Point2D>
-        {
-            new Point2D(0.0, 0.0),
-            new Point2D(10.0, 10.0)
-        });
-
-        private static readonly FailureMechanismSection failureMechanismSectionB = new FailureMechanismSection(secondSectionName, new List<Point2D>
-        {
-            new Point2D(11.0, 11.0),
-            new Point2D(100.0, 100.0)
-        });
-
-        private static readonly TestStructuresFailureMechanismSectionResult sectionResult = new TestStructuresFailureMechanismSectionResult(
-            failureMechanismSectionA);
-
-        private readonly FailureMechanismSection[] twoSections =
-        {
-            failureMechanismSectionA,
-            failureMechanismSectionB
-        };
-
-        private readonly StructuresCalculation<TestStructuresInput> calculationInSectionA = new StructuresCalculation<TestStructuresInput>
-        {
-            InputParameters =
-            {
-                Structure = new TestStructure("anId", "aName", new Point2D(1.1, 2.2))
-            }
-        };
-
-        private readonly StructuresCalculation<TestStructuresInput> calculationInSectionB = new StructuresCalculation<TestStructuresInput>
-        {
-            InputParameters =
-            {
-                Structure = new TestStructure("anId", "aName", new Point2D(50.0, 66.0))
-            }
-        };
-
-        #endregion
     }
 }

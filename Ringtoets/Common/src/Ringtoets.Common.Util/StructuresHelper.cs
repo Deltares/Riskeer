@@ -56,32 +56,6 @@ namespace Ringtoets.Common.Util
         }
 
         /// <summary>
-        /// Updates the <see cref="StructuresFailureMechanismSectionResult{T}.Calculation"/> for each element
-        /// of <see cref="sectionResults"/> if required due to a change.
-        /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="StructuresFailureMechanismSectionResult{T}"/>
-        /// to possibly reassign a calculation to.</param>
-        /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="StructuresCalculation{T}"/> to try 
-        /// and match with the <paramref name="sectionResults"/>.</param>
-        /// <returns>All affected objects by the deletion.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when an element 
-        /// in <paramref name="calculations"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
-        /// <c>null</c>.</exception>
-        public static IEnumerable<StructuresFailureMechanismSectionResult<T>> UpdateCalculationToSectionResultAssignments<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
-                                                                                                                             IEnumerable<StructuresCalculation<T>> calculations)
-            where T : IStructuresCalculationInput<StructureBase>, new()
-        {
-            ValidateSectionResults(sectionResults);
-
-            return AssignUnassignCalculations.Update(
-                                                 sectionResults.Select(AsCalculationAssignment),
-                                                 AsCalculationsWithLocations(calculations))
-                                             .Cast<StructuresFailureMechanismSectionResult<T>>()
-                                             .ToArray();
-        }
-
-        /// <summary>
         /// Transforms the <paramref name="calculations"/> into <see cref="CalculationWithLocation"/> and filter out the calculations
         /// for which a <see cref="CalculationWithLocation"/> could not be made.
         /// </summary>
@@ -99,19 +73,6 @@ namespace Ringtoets.Common.Util
             return calculations.Select(AsCalculationWithLocation).Where(c => c != null);
         }
 
-        private static void ValidateSectionResults<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults)
-            where T : IStructuresCalculationInput<StructureBase>, new()
-        {
-            if (sectionResults == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResults));
-            }
-            if (sectionResults.Any(sr => sr == null))
-            {
-                throw new ArgumentException(@"SectionResults contains an entry without value.", nameof(sectionResults));
-            }
-        }
-
         private static CalculationWithLocation AsCalculationWithLocation<T>(StructuresCalculation<T> calculation)
             where T : IStructuresCalculationInput<StructureBase>, new()
         {
@@ -124,15 +85,6 @@ namespace Ringtoets.Common.Util
                 return null;
             }
             return new CalculationWithLocation(calculation, calculation.InputParameters.Structure.Location);
-        }
-
-        private static SectionResultWithCalculationAssignment AsCalculationAssignment<T>(StructuresFailureMechanismSectionResult<T> failureMechanismSectionResult)
-            where T : IStructuresCalculationInput<StructureBase>, new()
-        {
-            return new SectionResultWithCalculationAssignment(
-                failureMechanismSectionResult,
-                result => ((StructuresFailureMechanismSectionResult<T>) result).Calculation,
-                (result, calculation) => ((StructuresFailureMechanismSectionResult<T>) result).Calculation = (StructuresCalculation<T>) calculation);
         }
     }
 }
