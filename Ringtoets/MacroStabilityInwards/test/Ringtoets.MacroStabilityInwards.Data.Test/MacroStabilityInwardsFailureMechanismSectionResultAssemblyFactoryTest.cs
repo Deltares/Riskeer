@@ -57,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_WithInput_SetsInputOnCalculator()
+        public void AssembleSimpleAssessment_WithSectionResult_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(21);
