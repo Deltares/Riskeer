@@ -459,8 +459,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSections))]
-        public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenDetailedAssessmentNoError(
+        [TestCaseSource(nameof(GetVariousSimpleAssessmentResultConfigurationsWithoutErrorMessage))]
+        public void GivenVariousSectionResultAndSimpleAssessmentResultConfigurations_ThenDetailedAssessmentNoError(
             StabilityPointStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
         {
             // Given
@@ -593,7 +593,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }
         }
 
-        private static IEnumerable AssessmentLayerOneStateIsSufficientVariousSections()
+        private static IEnumerable GetVariousSimpleAssessmentResultConfigurationsWithoutErrorMessage()
         {
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
 

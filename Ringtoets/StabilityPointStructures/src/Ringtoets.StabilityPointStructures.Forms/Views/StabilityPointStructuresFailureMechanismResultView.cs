@@ -116,7 +116,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             base.AddDataGridColumns();
 
-            EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[] layerOneDataSource =
+            EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[] simpleAssessmentResultDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentResultValidityOnlyType))
                     .OfType<SimpleAssessmentResultValidityOnlyType>()
                     .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>(sa))
@@ -125,7 +125,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             DataGridViewControl.AddComboBoxColumn(
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
-                layerOneDataSource,
+                simpleAssessmentResultDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
 
