@@ -108,19 +108,22 @@ namespace Ringtoets.Piping.Data
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator calculator = calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+            IFailureMechanismSectionAssemblyCalculator calculator = calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(
+                AssemblyToolKernelFactory.Instance);
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories = AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                    assessmentSection.FailureMechanismContribution.SignalingNorm,
-                    assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                    failureMechanism.Contribution,
-                    failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanism.PipingProbabilityAssessmentInput.SectionLength));
+                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
+                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
+                        assessmentSection.FailureMechanismContribution.SignalingNorm,
+                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                        failureMechanism.Contribution,
+                        failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanism.PipingProbabilityAssessmentInput.SectionLength));
 
-                return calculator.AssembleDetailedAssessment(failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
-                                                             categories,
-                                                             failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
+                return calculator.AssembleDetailedAssessment(
+                    failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
+                    categories,
+                    failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

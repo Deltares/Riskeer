@@ -100,18 +100,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator calculator = calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+            IFailureMechanismSectionAssemblyCalculator calculator = calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(
+                AssemblyToolKernelFactory.Instance);
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories = AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                    assessmentSection.FailureMechanismContribution.SignalingNorm,
-                    assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                    failureMechanism.Contribution,
-                    failureMechanism.GeneralInput.N);
+                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
+                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
+                        assessmentSection.FailureMechanismContribution.SignalingNorm,
+                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                        failureMechanism.Contribution,
+                        failureMechanism.GeneralInput.N);
 
-                return calculator.AssembleDetailedAssessment(failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
-                                                             categories);
+                return calculator.AssembleDetailedAssessment(
+                    failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
+                    categories);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

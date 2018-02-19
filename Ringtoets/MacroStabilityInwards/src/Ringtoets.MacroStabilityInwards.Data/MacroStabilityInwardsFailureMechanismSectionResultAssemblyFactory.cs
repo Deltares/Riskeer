@@ -108,19 +108,23 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator calculator = calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+            IFailureMechanismSectionAssemblyCalculator calculator = calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(
+                AssemblyToolKernelFactory.Instance);
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories = AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                    assessmentSection.FailureMechanismContribution.SignalingNorm,
-                    assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                    failureMechanism.Contribution,
-                    failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength));
+                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
+                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
+                        assessmentSection.FailureMechanismContribution.SignalingNorm,
+                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                        failureMechanism.Contribution,
+                        failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+                            failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength));
 
-                return calculator.AssembleDetailedAssessment(failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
-                                                             categories,
-                                                             failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
+                return calculator.AssembleDetailedAssessment(
+                    failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
+                    categories,
+                    failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

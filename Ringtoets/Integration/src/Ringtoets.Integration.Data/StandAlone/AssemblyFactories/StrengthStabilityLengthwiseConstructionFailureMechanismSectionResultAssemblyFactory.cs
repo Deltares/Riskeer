@@ -55,6 +55,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismSectionAssemblyCalculator calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
             try
             {
                 return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult);
