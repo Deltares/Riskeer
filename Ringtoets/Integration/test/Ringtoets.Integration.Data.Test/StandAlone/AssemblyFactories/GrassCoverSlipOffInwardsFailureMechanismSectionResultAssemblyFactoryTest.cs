@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyFactoryException()
+        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyFactoryException>(call);
+                var exception = Assert.Throws<AssemblyException>(call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);

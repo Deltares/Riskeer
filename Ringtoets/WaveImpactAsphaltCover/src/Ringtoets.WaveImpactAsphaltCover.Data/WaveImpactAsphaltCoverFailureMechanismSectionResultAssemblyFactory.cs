@@ -41,7 +41,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyFactoryException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
             WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
@@ -60,7 +60,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
-                throw new AssemblyFactoryException(e.Message, e);
+                throw new AssemblyException(e.Message, e);
             }
         }
     }

@@ -25,35 +25,35 @@ using System.Runtime.Serialization;
 namespace Ringtoets.Common.Data.Exceptions
 {
     /// <summary>
-    /// Exception thrown when assembling the assembly tool results went wrong.
+    /// Exception that is thrown when performing an assembly has failed.
     /// </summary>
     [Serializable]
-    public class AssemblyFactoryException : Exception
+    public class AssemblyException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyFactoryException"/> class.
+        /// Initializes a new instance of the <see cref="AssemblyException"/> class.
         /// </summary>
-        public AssemblyFactoryException() {}
+        public AssemblyException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyFactoryException"/> class 
+        /// Initializes a new instance of the <see cref="AssemblyException"/> class 
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public AssemblyFactoryException(string message)
+        public AssemblyException(string message)
             : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyFactoryException"/> class with a specified error message 
+        /// Initializes a new instance of the <see cref="AssemblyException"/> class with a specified error message 
         /// and a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
-        public AssemblyFactoryException(string message, Exception innerException) : base(message, innerException) {}
+        public AssemblyException(string message, Exception innerException) : base(message, innerException) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="AssemblyFactoryException"/> with
+        /// Initializes a new instance of <see cref="AssemblyException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>
@@ -63,6 +63,6 @@ namespace Ringtoets.Common.Data.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected AssemblyFactoryException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected AssemblyException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyFactoryException()
+        public void CreateAssessmentSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 TestDelegate test = () => AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(0, 0);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyFactoryException>(test);
+                var exception = Assert.Throws<AssemblyException>(test);
                 Assert.IsInstanceOf<AssemblyCategoriesCalculatorException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
@@ -165,7 +165,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyFactoryException()
+        public void CreateFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -178,7 +178,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 TestDelegate test = () => AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(0, 0, 0, 0);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyFactoryException>(test);
+                var exception = Assert.Throws<AssemblyException>(test);
                 Assert.IsInstanceOf<AssemblyCategoriesCalculatorException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
@@ -246,7 +246,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateGeotechnicFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyFactoryException()
+        public void CreateGeotechnicFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -259,7 +259,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 TestDelegate test = () => AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(0, 0, 0, 0);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyFactoryException>(test);
+                var exception = Assert.Throws<AssemblyException>(test);
                 Assert.IsInstanceOf<AssemblyCategoriesCalculatorException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }

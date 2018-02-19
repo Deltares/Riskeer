@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyCategory"/>.</returns>
-        /// <exception cref="AssemblyFactoryException">Thrown when an error occurred while creating the categories.</exception>
+        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
         public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerLimitNorm)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
-                throw new AssemblyFactoryException(e.Message, e);
+                throw new AssemblyException(e.Message, e);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// <param name="n">The n to calculate with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
-        /// <exception cref="AssemblyFactoryException">Thrown when an error occurred while creating the categories.</exception>
+        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
         public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateFailureMechanismSectionAssemblyCategories(
             double signalingNorm,
             double lowerLimitNorm,
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
-                throw new AssemblyFactoryException(e.Message, e);
+                throw new AssemblyException(e.Message, e);
             }
         }
 
@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// <param name="n">The n to calculate with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
-        /// <exception cref="AssemblyFactoryException">Thrown when an error occurred while creating the categories.</exception>
+        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
         public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateGeotechnicFailureMechanismSectionAssemblyCategories(
             double signalingNorm,
             double lowerLimitNorm,
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
-                throw new AssemblyFactoryException(e.Message, e);
+                throw new AssemblyException(e.Message, e);
             }
         }
     }

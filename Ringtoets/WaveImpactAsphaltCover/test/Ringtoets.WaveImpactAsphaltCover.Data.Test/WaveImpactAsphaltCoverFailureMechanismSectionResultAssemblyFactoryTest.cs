@@ -94,7 +94,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyFactoryException()
+        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -110,7 +110,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyFactoryException>(call);
+                var exception = Assert.Throws<AssemblyException>(call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);

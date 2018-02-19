@@ -27,6 +27,6 @@ using Ringtoets.Common.Data.Exceptions;
 namespace Ringtoets.Common.Data.Test.Exceptions
 {
     [TestFixture]
-    public class AssemblyFactoryExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<AssemblyFactoryException, Exception> {}
+    public class AssemblyExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<AssemblyException, Exception> {}
 }

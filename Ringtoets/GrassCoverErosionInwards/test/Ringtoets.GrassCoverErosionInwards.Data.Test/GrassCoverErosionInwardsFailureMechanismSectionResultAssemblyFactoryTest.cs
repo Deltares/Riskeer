@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyFactoryException()
+        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -117,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyFactoryException>(call);
+                var exception = Assert.Throws<AssemblyException>(call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -259,7 +259,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyFactoryException()
+        public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(21);
@@ -290,7 +290,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                     assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyFactoryException>(call);
+                var exception = Assert.Throws<AssemblyException>(call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
