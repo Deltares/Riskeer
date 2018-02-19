@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
     public class HeightStructuresFailureMechanismResultView
         : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult, HeightStructuresFailureMechanism>
     {
-        private const int assessmentLayerTwoAIndex = 2;
+        private const int detailedAssessmentIndex = 2;
         private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -130,7 +130,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
-                nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerTwoA),
+                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
                 true);
             DataGridViewControl.AddTextBoxColumn(
@@ -161,7 +161,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex != assessmentLayerTwoAIndex)
+            if (e.ColumnIndex != detailedAssessmentIndex)
             {
                 return;
             }
@@ -172,7 +172,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
                                                                               resultRow.AssessmentLayerOne,
-                                                                              resultRow.AssessmentLayerTwoA,
+                                                                              resultRow.DetailedAssessmentProbability,
                                                                               normativeCalculation);
         }
     }

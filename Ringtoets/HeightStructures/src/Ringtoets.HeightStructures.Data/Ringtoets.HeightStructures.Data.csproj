@@ -14,7 +14,7 @@
     <Compile Include="GeneralHeightStructuresInput.cs" />
     <Compile Include="HeightStructure.cs" />
     <Compile Include="HeightStructuresFailureMechanism.cs" />
-    <Compile Include="HeightStructuresFailureMechanismSection2aAssessmentResultExtensions.cs" />
+    <Compile Include="HeightStructuresFailureMechanismSectionDetailedAssessmentResultExtensions.cs" />
     <Compile Include="HeightStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="HeightStructuresFailureMechanismSectionResultAssemblyFactory.cs" />
     <Compile Include="HeightStructuresInput.cs" />

@@ -47,7 +47,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
     {
         private const int nameColumnIndex = 0;
         private const int assessmentLayerOneIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
+        private const int detailedAssessmentIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
         private Form testForm;
 
@@ -110,14 +110,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
-                Assert.IsTrue(dataGridView.Columns[assessmentLayerTwoAIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[detailedAssessmentIndex].ReadOnly);
 
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -141,14 +141,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
-                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
-                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
@@ -174,25 +174,25 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                DataGridViewCell cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                DataGridViewCell detailedAssessmentCell = cells[detailedAssessmentIndex];
                 DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
                 DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
 
                 Assert.AreEqual(assessmentLayerOneState, cells[assessmentLayerOneIndex].Value);
-                Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
+                Assert.AreEqual("-", detailedAssessmentCell.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
                 {
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerTwoA);
+                    DataGridViewTestHelper.AssertCellIsDisabled(detailedAssessmentCell);
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
 
                     Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
                 }
                 else
                 {
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerTwoA, true);
+                    DataGridViewTestHelper.AssertCellIsEnabled(detailedAssessmentCell, true);
                     DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
 
                     Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
@@ -266,7 +266,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        public void GivenSectionResultWithoutCalculation_ThenDetailedAssessmentErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -282,7 +282,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -296,7 +296,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndCalculationNotCalculated_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        public void GivenSectionResultAndCalculationNotCalculated_ThenDetailedAssessmentErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -314,7 +314,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -328,7 +328,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndFailedCalculation_ThenLayerTwoAErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        public void GivenSectionResultAndFailedCalculation_ThenDetailedAssessmentErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             var calculation = new StructuresCalculation<HeightStructuresInput>
@@ -351,7 +351,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -365,7 +365,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenLayerTwoANoError(AssessmentLayerOneState assessmentLayerOneState)
+        public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError(AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -386,7 +386,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -399,7 +399,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
         [Test]
         [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSections))]
-        public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenLayerTwoANoError(
+        public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenDetailedAssessmentNoError(
             HeightStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
         {
             // Given
@@ -412,7 +412,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -426,7 +426,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         [Test]
         [TestCase(AssessmentLayerOneState.NotAssessed)]
         [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
+        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenDetailedAssessmentHasError(
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
@@ -447,7 +447,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
 
                 // Precondition
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.

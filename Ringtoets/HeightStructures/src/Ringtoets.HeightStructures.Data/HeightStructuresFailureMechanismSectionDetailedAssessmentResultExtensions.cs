@@ -22,28 +22,27 @@
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.HeightStructures.Data
 {
     /// <summary>
-    /// Extension methods for obtaining level 2a results from output for an assessment of the 
+    /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of the 
     /// height structures failure mechanism.
     /// </summary>
-    public static class HeightStructuresFailureMechanismSection2aAssessmentResultExtensions
+    public static class HeightStructuresFailureMechanismSectionDetailedAssessmentResultExtensions
     {
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <param name="sectionResult">The section result to get the assessment layer 2A for.</param>
+        /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
-        /// <returns>The calculated assessment layer 2A; or <see cref="double.NaN"/> when there is no
+        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there is no
         /// calculation assigned to the section result or the calculation is not performed.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetAssessmentLayerTwoA(this HeightStructuresFailureMechanismSectionResult sectionResult,
-                                                    HeightStructuresFailureMechanism failureMechanism,
-                                                    IAssessmentSection assessmentSection)
+        public static double GetDetailedAssessmentProbability(this HeightStructuresFailureMechanismSectionResult sectionResult,
+                                                              HeightStructuresFailureMechanism failureMechanism,
+                                                              IAssessmentSection assessmentSection)
         {
             if (sectionResult == null)
             {
