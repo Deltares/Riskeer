@@ -62,14 +62,15 @@ namespace Ringtoets.HeightStructures.Data.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSection(section);
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<HeightStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
         }
 
         [Test]
@@ -95,8 +96,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             failureMechanism.ClearAllSections();
 
             // Assert
-            Assert.AreEqual(0, failureMechanism.Sections.Count());
-            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]

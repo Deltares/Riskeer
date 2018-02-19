@@ -58,20 +58,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AddSection_WithSection_AddedFailureMechanismSectionResult()
+        public void AddSection_WithSection_AddedSectionResult()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(2, 1)
-            }));
+            failureMechanism.AddSection(section);
 
             // Assert
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
         }
 
         [Test]
@@ -80,11 +79,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));
@@ -97,8 +96,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             failureMechanism.ClearAllSections();
 
             // Assert
-            Assert.AreEqual(0, failureMechanism.Sections.Count());
-            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]

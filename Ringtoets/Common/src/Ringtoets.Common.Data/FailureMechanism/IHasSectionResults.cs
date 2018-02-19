@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     public interface IHasSectionResults<out T> where T : FailureMechanismSectionResult
     {
         /// <summary>
-        /// Gets an <see cref="ObservableList{T}"/> of <see cref="FailureMechanismSectionResult"/>.
+        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
         /// </summary>
         IObservableEnumerable<T> SectionResults { get; }
     }
