@@ -33,7 +33,7 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Factory for assembling the assembly tool results for macro stability inwards failure mechanism section results.
+    /// Factory for creating assembly results for macro stability inwards failure mechanism section results.
     /// </summary>
     public static class MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory
     {

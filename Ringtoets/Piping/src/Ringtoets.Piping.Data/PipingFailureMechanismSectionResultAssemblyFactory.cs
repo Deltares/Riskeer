@@ -33,7 +33,7 @@ using Ringtoets.Common.Data.Probability;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Factory for assembling the assembly tool results for piping failure mechanism section results.
+    /// Factory for creating assembly results for piping failure mechanism section results.
     /// </summary>
     public static class PipingFailureMechanismSectionResultAssemblyFactory
     {

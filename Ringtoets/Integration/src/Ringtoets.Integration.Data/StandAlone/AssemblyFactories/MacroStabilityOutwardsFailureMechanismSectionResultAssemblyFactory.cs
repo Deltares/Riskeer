@@ -30,7 +30,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 {
     /// <summary>
-    /// Factory for assembling the assembly tool results for macro stability outwards failure mechanism section results.
+    /// Factory for creating assembly results for macro stability outwards failure mechanism section results.
     /// </summary>
     public static class MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory
     {

@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Exceptions;
 namespace Ringtoets.StabilityPointStructures.Data
 {
     /// <summary>
-    /// Factory for assembling the assembly tool results for stability point structures failure mechanism section results.
+    /// Factory for creating assembly results for stability point structures failure mechanism section results.
     /// </summary>
     public static class StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory
     {

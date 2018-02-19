@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Exceptions;
 namespace Ringtoets.WaveImpactAsphaltCover.Data
 {
     /// <summary>
-    /// Factory for assembling the assembly tool results for wave impact asphalt cover failure mechanism section results.
+    /// Factory for creating assembly results for wave impact asphalt cover failure mechanism section results.
     /// </summary>
     public static class WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory
     {
