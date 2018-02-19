@@ -41,8 +41,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyFactoryException">Thrown when <see cref="FailureMechanismSectionAssembly"/>
-        /// cannot be assembled.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
             GrassCoverErosionOutwardsFailureMechanismSectionResult failureMechanismSectionResult)
         {

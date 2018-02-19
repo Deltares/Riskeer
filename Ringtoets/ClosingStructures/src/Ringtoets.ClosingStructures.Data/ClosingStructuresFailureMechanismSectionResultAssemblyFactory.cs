@@ -44,8 +44,8 @@ namespace Ringtoets.ClosingStructures.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyFactoryException">Thrown when <see cref="FailureMechanismSectionAssembly"/>
-        /// cannot be assembled.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
             ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult)
         {
@@ -76,8 +76,8 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> belonging to this calculation.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyFactoryException">Thrown when <see cref="FailureMechanismSectionAssembly"/>
-        /// cannot be assembled.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssembly(
             ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult,
             ClosingStructuresFailureMechanism failureMechanism,
