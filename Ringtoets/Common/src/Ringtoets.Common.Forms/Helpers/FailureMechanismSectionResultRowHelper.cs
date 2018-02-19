@@ -39,13 +39,13 @@ namespace Ringtoets.Common.Forms.Helpers
         /// </summary>
         /// <param name="dataGridViewCell">The current data grid view cell.</param>
         /// <param name="passedAssessmentLayerOne">The value representing whether the section passed the simple assessment.</param>
-        /// <param name="assessmentLayerTwoA">The value representing the result of the detailed assessment.</param>
+        /// <param name="detailedAssessmentProbability">The value representing the result of the detailed assessment.</param>
         /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
         public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
                                                       AssessmentLayerOneState passedAssessmentLayerOne,
-                                                      double assessmentLayerTwoA,
+                                                      double detailedAssessmentProbability,
                                                       ICalculation normativeCalculation)
         {
             if (dataGridViewCell == null)
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Helpers
                 return;
             }
 
-            SetDetailedAssessmentError(dataGridViewCell, assessmentLayerTwoA, normativeCalculation);
+            SetDetailedAssessmentError(dataGridViewCell, detailedAssessmentProbability, normativeCalculation);
         }
 
         /// <summary>
@@ -67,13 +67,13 @@ namespace Ringtoets.Common.Forms.Helpers
         /// </summary>
         /// <param name="dataGridViewCell">The current data grid view cell.</param>
         /// <param name="simpleAssessmentResult">The value representing whether the simple assessment result.</param>
-        /// <param name="assessmentLayerTwoA">The value representing the result of the layer 2a assessment.</param>
+        /// <param name="detailedAssessmentProbability">The value representing the probability of the detailed assessment.</param>
         /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
         public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
                                                       SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
-                                                      double assessmentLayerTwoA,
+                                                      double detailedAssessmentProbability,
                                                       ICalculation normativeCalculation)
         {
             if (dataGridViewCell == null)
@@ -87,11 +87,11 @@ namespace Ringtoets.Common.Forms.Helpers
                 return;
             }
 
-            SetDetailedAssessmentError(dataGridViewCell, assessmentLayerTwoA, normativeCalculation);
+            SetDetailedAssessmentError(dataGridViewCell, detailedAssessmentProbability, normativeCalculation);
         }
 
         private static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
-                                                       double assessmentLayerTwoA,
+                                                       double detailedAssessmentProbability,
                                                        ICalculation normativeCalculation)
         {
             if (normativeCalculation == null)
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Forms.Helpers
             }
 
             CalculationScenarioStatus calculationScenarioStatus = GetCalculationStatus(normativeCalculation,
-                                                                                       assessmentLayerTwoA);
+                                                                                       detailedAssessmentProbability);
             if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
             {
                 dataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated;
@@ -118,14 +118,14 @@ namespace Ringtoets.Common.Forms.Helpers
         }
 
         private static CalculationScenarioStatus GetCalculationStatus(ICalculation calculation,
-                                                                      double assessmentLayerTwoA)
+                                                                      double detailedAssessmentProbability)
         {
             if (!calculation.HasOutput)
             {
                 return CalculationScenarioStatus.NotCalculated;
             }
 
-            if (double.IsNaN(assessmentLayerTwoA))
+            if (double.IsNaN(detailedAssessmentProbability))
             {
                 return CalculationScenarioStatus.Failed;
             }

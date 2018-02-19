@@ -62,14 +62,14 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCaseSource(nameof(AssessmentLayerOneStateIsNotSufficientAndCalculationWithOutput))]
         public void SetDetailedAssessmentError_WithAssessmentLayerOne_SetsErrorText(DataGridViewCell dataGridViewCell,
                                                                                      AssessmentLayerOneState passedAssessmentLayerOne,
-                                                                                     double assessmentLayerTwoA,
+                                                                                     double detailedAssessmentProbability,
                                                                                      ICalculation normativeCalculation,
                                                                                      string expectedErrorText)
         {
             // Call
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(dataGridViewCell,
                                                                                passedAssessmentLayerOne,
-                                                                               assessmentLayerTwoA,
+                                                                               detailedAssessmentProbability,
                                                                                normativeCalculation);
 
             // Assert
@@ -101,16 +101,16 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCaseSource(nameof(SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationNull))]
         [TestCaseSource(nameof(SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithoutOutput))]
         [TestCaseSource(nameof(SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithOutput))]
-        public void SetAssessmentLayerTwoAError_WithSimpleAssessmentValidityOnly_SetsErrorText(DataGridViewCell dataGridViewCell,
+        public void SetAssessmentDetailedAssessmentError_WithSimpleAssessmentValidityOnly_SetsErrorText(DataGridViewCell dataGridViewCell,
                                                                                                SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
-                                                                                               double assessmentLayerTwoA,
+                                                                                               double detailedAssessmentProbability,
                                                                                                ICalculation normativeCalculation,
                                                                                                string expectedErrorText)
         {
             // Call
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(dataGridViewCell,
                                                                                simpleAssessmentResult,
-                                                                               assessmentLayerTwoA,
+                                                                               detailedAssessmentProbability,
                                                                                normativeCalculation);
 
             // Assert
@@ -129,27 +129,27 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             };
 
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN, null, string.Empty)
-                .SetName("SufficientWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("SufficientWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0, null, string.Empty)
-                .SetName("SufficientWithValidLayerTwoAAndNoCalculation");
+                .SetName("SufficientWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           string.Empty)
-                .SetName("SufficientWithInvalidLayerTwoAAndCalculationWithOutput");
+                .SetName("SufficientWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           string.Empty)
-                .SetName("SufficientWithValidLayerTwoAAndCalculationWithOutput");
+                .SetName("SufficientWithValidDetailedAssessmentAndCalculationWithOutput");
 
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           string.Empty)
-                .SetName("SufficientWithInvalidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("SufficientWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.Sufficient, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           string.Empty)
-                .SetName("SufficientWithValidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("SufficientWithValidDetailedAssessmentAndCalculationWithoutOutput");
         }
 
         private static IEnumerable AssessmentLayerOneStateIsNotSufficientAndCalculationNull()
@@ -161,17 +161,17 @@ namespace Ringtoets.Common.Forms.Test.Helpers
 
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
-                .SetName("NotAssessedWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("NotAssessedWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
-                .SetName("NotAssessedWithValidLayerTwoAAndNoCalculation");
+                .SetName("NotAssessedWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, double.NaN, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
-                .SetName("NeedsDetailedAssessmentWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("NeedsDetailedAssessmentWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, 0.0, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
-                .SetName("NeedsDetailedAssessmentWithValidLayerTwoAAndNoCalculation");
+                .SetName("NeedsDetailedAssessmentWithValidDetailedAssessmentAndNoCalculation");
         }
 
         private static IEnumerable AssessmentLayerOneStateIsNotSufficientAndCalculationWithoutOutput()
@@ -184,20 +184,20 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
-                .SetName("NotAssessedWithInvalidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("NotAssessedWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
-                .SetName("NotAssessedWithValidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("NotAssessedWithValidDetailedAssessmentAndCalculationWithoutOutput");
 
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
-                .SetName("NeedsDetailedAssessmentWithInvalidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("NeedsDetailedAssessmentWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
-                .SetName("NeedsDetailedAssessmentValidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("NeedsDetailedAssessmentValidDetailedAssessmentAndCalculationWithoutOutput");
         }
 
         private static IEnumerable AssessmentLayerOneStateIsNotSufficientAndCalculationWithOutput()
@@ -210,20 +210,20 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.")
-                .SetName("NotAssessedWithInvalidLayerTwoAAndCalculationWithOutput");
+                .SetName("NotAssessedWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NotAssessed, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           string.Empty)
-                .SetName("NotAssessedWithValidLayerTwoAAndCalculationWithOutput");
+                .SetName("NotAssessedWithValidDetailedAssessmentAndCalculationWithOutput");
 
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.")
-                .SetName("NeedsDetailedAssessmentWithInvalidLayerTwoAAndCalculationWithOutput");
+                .SetName("NeedsDetailedAssessmentWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, AssessmentLayerOneState.NoVerdict, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           string.Empty)
-                .SetName("NeedsDetailedAssessmentWithValidLayerTwoAAndCalculationWithOutput");
+                .SetName("NeedsDetailedAssessmentWithValidDetailedAssessmentAndCalculationWithOutput");
         }
 
         #endregion
@@ -238,27 +238,27 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             };
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, double.NaN, null, string.Empty)
-                .SetName("NotApplicableWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("NotApplicableWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, 0.0, null, string.Empty)
-                .SetName("NotApplicableWithValidLayerTwoAAndNoCalculation");
+                .SetName("NotApplicableWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           string.Empty)
-                .SetName("NotApplicableWithInvalidLayerTwoAAndCalculationWithOutput");
+                .SetName("NotApplicableWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           string.Empty)
-                .SetName("NotApplicableWithValidLayerTwoAAndCalculationWithOutput");
+                .SetName("NotApplicableWithValidDetailedAssessmentAndCalculationWithOutput");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           string.Empty)
-                .SetName("NotApplicableWithInvalidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("NotApplicableWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           string.Empty)
-                .SetName("NotApplicableWithValidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("NotApplicableWithValidDetailedAssessmentAndCalculationWithoutOutput");
         }
 
         private static IEnumerable SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationNull()
@@ -270,17 +270,17 @@ namespace Ringtoets.Common.Forms.Test.Helpers
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, double.NaN, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
-                .SetName("NoneWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("NoneWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, 0.0, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
-                .SetName("NoneWithValidLayerTwoAAndNoCalculation");
+                .SetName("NoneWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, double.NaN, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
-                .SetName("ApplicableWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("ApplicableWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, 0.0, null,
                                           "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
-                .SetName("ApplicableWithValidLayerTwoAAndNoCalculation");
+                .SetName("ApplicableWithValidDetailedAssessmentAndNoCalculation");
         }
 
         private static IEnumerable SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithoutOutput()
@@ -293,20 +293,20 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
-                .SetName("NoneWithInvalidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("NoneWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
-                .SetName("NoneWithValidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("NoneWithValidDetailedAssessmentAndCalculationWithoutOutput");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
-                .SetName("ApplicableWithInvalidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("ApplicableWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
-                .SetName("ApplicableValidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("ApplicableValidDetailedAssessmentAndCalculationWithoutOutput");
         }
 
         private static IEnumerable SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithOutput()
@@ -319,20 +319,20 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.")
-                .SetName("NoneWithInvalidLayerTwoAAndCalculationWithOutput");
+                .SetName("NoneWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           string.Empty)
-                .SetName("NoneWithValidLayerTwoAAndCalculationWithOutput");
+                .SetName("NoneWithValidDetailedAssessmentAndCalculationWithOutput");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.")
-                .SetName("ApplicableWithInvalidLayerTwoAAndCalculationWithOutput");
+                .SetName("ApplicableWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           string.Empty)
-                .SetName("ApplicableWithValidLayerTwoAAndCalculationWithOutput");
+                .SetName("ApplicableWithValidDetailedAssessmentAndCalculationWithOutput");
         }
 
         #endregion
