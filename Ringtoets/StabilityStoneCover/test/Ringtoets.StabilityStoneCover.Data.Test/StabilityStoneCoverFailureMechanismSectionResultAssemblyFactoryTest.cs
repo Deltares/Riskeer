@@ -41,7 +41,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(null);
+            TestDelegate call = () => StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -65,7 +65,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentValidityOnlyInput);
@@ -86,7 +86,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    StabilityStoneCoverFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                    StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
@@ -108,7 +108,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityStoneCoverFailureMechanismSectionAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

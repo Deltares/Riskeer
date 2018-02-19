@@ -35,7 +35,7 @@ using Ringtoets.Common.Primitives;
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismSectionAssemblyFactoryTest
+    public class GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()

@@ -31,7 +31,7 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// <summary>
     /// Factory for creating assembly results for stability stone cover failure mechanism section results.
     /// </summary>
-    public static class StabilityStoneCoverFailureMechanismSectionAssemblyFactory
+    public static class StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory
     {
         /// <summary>
         /// Assembles the simple assessment results.

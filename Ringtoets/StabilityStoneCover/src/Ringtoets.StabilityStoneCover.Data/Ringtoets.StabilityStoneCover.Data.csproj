@@ -18,7 +18,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StabilityStoneCoverFailureMechanismSectionAssemblyFactory.cs" />
+    <Compile Include="StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculation.cs" />
     <Compile Include="StabilityStoneCoverFailureMechanism.cs" />
     <Compile Include="StabilityStoneCoverFailureMechanismSectionResult.cs" />
