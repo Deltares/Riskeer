@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(
+        public void FailureMechanismResultsView_ChangeComboBox_DataGridViewCorrectlySyncedAndStylingSet(
             SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup

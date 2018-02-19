@@ -158,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(
+        public void FailureMechanismResultsView_ChangeComboBox_DataGridViewCorrectlySyncedAndStylingSet(
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Setup

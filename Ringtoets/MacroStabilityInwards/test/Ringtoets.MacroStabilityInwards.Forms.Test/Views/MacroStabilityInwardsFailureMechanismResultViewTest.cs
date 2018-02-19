@@ -162,7 +162,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(SimpleAssessmentResultType simpleAssessmentResult)
+        public void FailureMechanismResultsView_ChangeComboBox_DataGridViewCorrectlySyncedAndStylingSet(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
