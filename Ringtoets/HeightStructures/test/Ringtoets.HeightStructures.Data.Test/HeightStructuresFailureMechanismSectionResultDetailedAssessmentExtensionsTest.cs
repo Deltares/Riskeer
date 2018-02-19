@@ -22,15 +22,15 @@
 using System;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HeightStructures.Data.TestUtil;
 
-namespace Ringtoets.ClosingStructures.Data.Test
+namespace Ringtoets.HeightStructures.Data.Test
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismSectionDetailedAssessmentResultExtensionsTest
+    public class HeightStructuresFailureMechanismSectionResultDetailedAssessmentExtensionsTest
     {
         [Test]
         public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
@@ -41,9 +41,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionDetailedAssessmentResultExtensions.GetDetailedAssessmentProbability(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
                 null,
-                new ClosingStructuresFailureMechanism(),
+                new HeightStructuresFailureMechanism(),
                 assessmentSection);
 
             // Assert
@@ -61,7 +61,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, assessmentSection);
@@ -77,10 +77,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(), null);
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(new HeightStructuresFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -96,10 +96,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(),
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new HeightStructuresFailureMechanism(),
                                                                                                                   assessmentSection);
 
             // Assert
@@ -116,13 +116,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestClosingStructuresCalculation()
+                Calculation = new TestHeightStructuresCalculation()
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(),
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new HeightStructuresFailureMechanism(),
                                                                                                                   assessmentSection);
 
             // Assert
@@ -134,27 +134,27 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void GetDetailedAssessmentProbability_CalculationWithOutput_ReturnsDerivedProbability()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestClosingStructuresCalculation
+                Calculation = new TestHeightStructuresCalculation
                 {
-                    Output = new TestStructuresOutput(0.45)
+                    Output = new TestStructuresOutput(0.8)
                 }
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(),
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new HeightStructuresFailureMechanism(),
                                                                                                                   assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.32635522028792008, detailedAssessmentProbability);
+            Assert.AreEqual(0.21185539858339669, detailedAssessmentProbability);
             mocks.VerifyAll();
         }
     }

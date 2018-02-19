@@ -23,13 +23,13 @@ using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of the 
-    /// closing structures failure mechanism.
+    /// grass cover erosion inwards failure mechanism.
     /// </summary>
-    public static class ClosingStructuresFailureMechanismSectionDetailedAssessmentResultExtensions
+    public static class GrassCoverErosionInwardsFailureMechanismSectionResultDetailedAssessmentExtensions
     {
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
@@ -37,11 +37,11 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
-        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there is no
+        /// <returns>The calculated detailed assessment probability or <see cref="double.NaN"/> when there is no
         /// calculation assigned to the section result or the calculation is not performed.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetDetailedAssessmentProbability(this ClosingStructuresFailureMechanismSectionResult sectionResult,
-                                                              ClosingStructuresFailureMechanism failureMechanism,
+        public static double GetDetailedAssessmentProbability(this GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
+                                                              GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                               IAssessmentSection assessmentSection)
         {
             if (sectionResult == null)
@@ -64,8 +64,8 @@ namespace Ringtoets.ClosingStructures.Data
                 return double.NaN;
             }
 
-            ProbabilityAssessmentOutput derivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(sectionResult.Calculation.Output,
-                                                                                                                   failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput derivedOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(sectionResult.Calculation.Output.OvertoppingOutput,
+                                                                                                                          failureMechanism, assessmentSection);
 
             return derivedOutput.Probability;
         }

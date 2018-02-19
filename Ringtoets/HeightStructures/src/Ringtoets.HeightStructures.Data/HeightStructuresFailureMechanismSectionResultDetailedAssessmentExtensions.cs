@@ -29,7 +29,7 @@ namespace Ringtoets.HeightStructures.Data
     /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of the 
     /// height structures failure mechanism.
     /// </summary>
-    public static class HeightStructuresFailureMechanismSectionDetailedAssessmentResultExtensions
+    public static class HeightStructuresFailureMechanismSectionResultDetailedAssessmentExtensions
     {
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.

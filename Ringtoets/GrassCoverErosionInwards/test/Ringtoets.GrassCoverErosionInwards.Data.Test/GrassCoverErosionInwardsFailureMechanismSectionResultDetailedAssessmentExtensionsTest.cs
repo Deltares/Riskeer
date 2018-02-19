@@ -30,7 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismSectionDetailedAssessmentProbabilityResultExtensionsTest
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultDetailedAssessmentExtensionsTest
     {
         [Test]
         public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionDetailedAssessmentProbabilityResultExtensions.GetDetailedAssessmentProbability(null,
+            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(null,
                                                                                                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                                                                                     assessmentSection);
 

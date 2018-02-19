@@ -38,7 +38,7 @@
     <Compile Include="MacroStabilityInwardsSlidingCurveTest.cs" />
     <Compile Include="MacroStabilityInwardsSlipPlaneUpliftVanTest.cs" />
     <Compile Include="MacroStabilityInwardsTangentLineDeterminationTypeTest.cs" />
-    <Compile Include="MacroStabilityInwardsFailureMechanismSectionDetailedAssessmentResultExtensionsTest.cs" />
+    <Compile Include="MacroStabilityInwardsFailureMechanismSectionResultDetailedAssessmentExtensionsTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismTest.cs" />
     <Compile Include="MacroStabilityInwardsInputTest.cs" />

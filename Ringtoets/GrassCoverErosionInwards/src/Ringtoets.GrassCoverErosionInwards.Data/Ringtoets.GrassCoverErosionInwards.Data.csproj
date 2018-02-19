@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.cs" />
-    <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionDetailedAssessmentProbabilityResultExtensions.cs" />
+    <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResultDetailedAssessmentExtensions.cs" />
     <Compile Include="GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.cs" />
     <Compile Include="OvertoppingOutput.cs" />
     <Compile Include="OvertoppingRateOutput.cs" />

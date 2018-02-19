@@ -23,13 +23,13 @@ using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probability;
 
-namespace Ringtoets.StabilityPointStructures.Data
+namespace Ringtoets.ClosingStructures.Data
 {
     /// <summary>
     /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of the 
-    /// stability point structures failure mechanism.
+    /// closing structures failure mechanism.
     /// </summary>
-    public static class StabilityPointStructuresFailureMechanismSectionDetailedAssessmentResultExtensions
+    public static class ClosingStructuresFailureMechanismSectionResultDetailedAssessmentExtensions
     {
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
@@ -40,8 +40,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there is no
         /// calculation assigned to the section result or the calculation is not performed.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetDetailedAssessmentProbability(this StabilityPointStructuresFailureMechanismSectionResult sectionResult,
-                                                              StabilityPointStructuresFailureMechanism failureMechanism,
+        public static double GetDetailedAssessmentProbability(this ClosingStructuresFailureMechanismSectionResult sectionResult,
+                                                              ClosingStructuresFailureMechanism failureMechanism,
                                                               IAssessmentSection assessmentSection)
         {
             if (sectionResult == null)
@@ -64,8 +64,8 @@ namespace Ringtoets.StabilityPointStructures.Data
                 return double.NaN;
             }
 
-            ProbabilityAssessmentOutput derivedOutput = StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(sectionResult.Calculation.Output,
-                                                                                                                          failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput derivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(sectionResult.Calculation.Output,
+                                                                                                                   failureMechanism, assessmentSection);
 
             return derivedOutput.Probability;
         }

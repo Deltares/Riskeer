@@ -33,7 +33,7 @@ using Ringtoets.Piping.Data.TestUtil;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionDetailedAssessmentResultExtensionsTest
+    public class PipingFailureMechanismSectionResultDetailedAssessmentExtensionsTest
     {
         [Test]
         public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionDetailedAssessmentResultExtensions.GetDetailedAssessmentProbability(
+            TestDelegate call = () => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
                 null, Enumerable.Empty<PipingCalculationScenario>(),
                 new PipingFailureMechanism(), assessmentSection);
 

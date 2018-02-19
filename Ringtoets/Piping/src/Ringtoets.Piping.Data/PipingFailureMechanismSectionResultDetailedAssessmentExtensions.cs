@@ -28,13 +28,12 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.MacroStabilityInwards.Data
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of 
-    /// the macro stability inwards failure mechanism.
+    /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of the piping failure mechanism.
     /// </summary>
-    public static class MacroStabilityInwardsFailureMechanismSectionDetailedAssessmentResultExtensions
+    public static class PipingFailureMechanismSectionResultDetailedAssessmentExtensions
     {
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
@@ -46,9 +45,9 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there are no
         /// performed or relevant calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetDetailedAssessmentProbability(this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
-                                                              IEnumerable<MacroStabilityInwardsCalculationScenario> calculations,
-                                                              MacroStabilityInwardsFailureMechanism failureMechanism,
+        public static double GetDetailedAssessmentProbability(this PipingFailureMechanismSectionResult sectionResult,
+                                                              IEnumerable<PipingCalculationScenario> calculations,
+                                                              PipingFailureMechanism failureMechanism,
                                                               IAssessmentSection assessmentSection)
         {
             if (sectionResult == null)
@@ -71,7 +70,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            MacroStabilityInwardsCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculations).ToArray();
+            PipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculations).ToArray();
             bool relevantScenarioAvailable = relevantScenarios.Length != 0;
 
             if (relevantScenarioAvailable && Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
@@ -85,13 +84,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
 
             double totalDetailedAssessmentProbability = 0;
-            foreach (MacroStabilityInwardsCalculationScenario scenario in relevantScenarios)
+            foreach (PipingCalculationScenario scenario in relevantScenarios)
             {
-                DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output,
-                                                                                                                    failureMechanism,
-                                                                                                                    assessmentSection);
+                DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(scenario.Output, failureMechanism, assessmentSection);
 
-                totalDetailedAssessmentProbability += derivedOutput.MacroStabilityInwardsProbability * (double) scenario.Contribution;
+                totalDetailedAssessmentProbability += derivedOutput.PipingProbability * (double) scenario.Contribution;
             }
 
             return totalDetailedAssessmentProbability;
@@ -100,12 +97,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the contribution of all relevant <see cref="GetCalculationScenarios"/> together.
         /// </summary>
-        /// <param name="macroStabilityInwardsFailureMechanismSectionResult">The result to get the result for.</param>
+        /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
-        public static RoundedDouble GetTotalContribution(this MacroStabilityInwardsFailureMechanismSectionResult macroStabilityInwardsFailureMechanismSectionResult,
-                                                         IEnumerable<MacroStabilityInwardsCalculationScenario> calculations)
+        public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
+                                                         IEnumerable<PipingCalculationScenario> calculations)
         {
-            return (RoundedDouble) macroStabilityInwardsFailureMechanismSectionResult
+            return (RoundedDouble) pipingFailureMechanismSectionResult
                                    .GetCalculationScenarios(calculations)
                                    .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
@@ -113,12 +110,12 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets a list of the relevant <see cref="ICalculationScenario"/>.
         /// </summary>
-        /// <param name="macroStabilityInwardsFailureMechanismSectionResult">The result to get the result for.</param>
+        /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
-        public static IEnumerable<MacroStabilityInwardsCalculationScenario> GetCalculationScenarios(this MacroStabilityInwardsFailureMechanismSectionResult macroStabilityInwardsFailureMechanismSectionResult,
-                                                                                                    IEnumerable<MacroStabilityInwardsCalculationScenario> calculations)
+        public static IEnumerable<PipingCalculationScenario> GetCalculationScenarios(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
+                                                                                     IEnumerable<PipingCalculationScenario> calculations)
         {
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(macroStabilityInwardsFailureMechanismSectionResult.Section.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(pipingFailureMechanismSectionResult.Section.Points);
 
             return calculations
                 .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
@@ -127,28 +124,27 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Gets the status of the section result depending on the relevant calculation scenarios.
         /// </summary>
-        /// <param name="macroStabilityInwardsFailureMechanismSectionResult">The result to get the result for.</param>
+        /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when any of the relevant calculations 
-        /// in <paramref name="macroStabilityInwardsFailureMechanismSectionResult"/> has an invalid <see cref="CalculationScenarioStatus"/>.</exception>
+        /// in <paramref name="pipingFailureMechanismSectionResult"/> has an invalid <see cref="CalculationScenarioStatus"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when any of the relevant scenarios has an unsupported value of <see cref="CalculationScenarioStatus"/>.</exception>
-        public static CalculationScenarioStatus GetCalculationScenarioStatus(
-            this MacroStabilityInwardsFailureMechanismSectionResult macroStabilityInwardsFailureMechanismSectionResult,
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations)
+        public static CalculationScenarioStatus GetCalculationScenarioStatus(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
+                                                                             IEnumerable<PipingCalculationScenario> calculations)
         {
             var failed = false;
             var notCalculated = false;
-            foreach (MacroStabilityInwardsCalculationScenario calculationScenario in macroStabilityInwardsFailureMechanismSectionResult.GetCalculationScenarios(calculations).Where(cs => cs.IsRelevant))
+            foreach (PipingCalculationScenario calculationScenario in pipingFailureMechanismSectionResult.GetCalculationScenarios(calculations).Where(cs => cs.IsRelevant))
             {
                 CalculationScenarioStatus calculationScenarioStatus = calculationScenario.Status;
                 if (!Enum.IsDefined(typeof(CalculationScenarioStatus), calculationScenarioStatus))
                 {
-                    throw new InvalidEnumArgumentException(nameof(macroStabilityInwardsFailureMechanismSectionResult),
+                    throw new InvalidEnumArgumentException(nameof(pipingFailureMechanismSectionResult),
                                                            (int) calculationScenarioStatus,
                                                            typeof(CalculationScenarioStatus));
                 }
 
-                switch (calculationScenario.Status)
+                switch (calculationScenarioStatus)
                 {
                     case CalculationScenarioStatus.Failed:
                         failed = true;

@@ -33,7 +33,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 namespace Ringtoets.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismSectionDetailedAssessmentResultExtensionsTest
+    public class MacroStabilityInwardsFailureMechanismSectionResultDetailedAssessmentExtensionsTest
     {
         [Test]
         public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionDetailedAssessmentResultExtensions.GetDetailedAssessmentProbability(
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
                 null, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 

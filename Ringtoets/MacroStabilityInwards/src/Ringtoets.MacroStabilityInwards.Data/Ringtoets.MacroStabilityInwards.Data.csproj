@@ -21,7 +21,7 @@
     <Compile Include="MacroStabilityInwardsCalculationScenario.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioExtensions.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanism.cs" />
-    <Compile Include="MacroStabilityInwardsFailureMechanismSectionDetailedAssessmentResultExtensions.cs" />
+    <Compile Include="MacroStabilityInwardsFailureMechanismSectionResultDetailedAssessmentExtensions.cs" />
     <Compile Include="MacroStabilityInwardsFailureMechanismSectionResult.cs" />
     <Compile Include="MacroStabilityInwardsInput.cs" />
     <Compile Include="MacroStabilityInwardsLocationInputExtreme.cs" />
