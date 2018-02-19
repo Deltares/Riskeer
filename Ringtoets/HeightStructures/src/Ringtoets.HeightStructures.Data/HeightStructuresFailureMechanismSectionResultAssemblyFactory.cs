@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.HeightStructures.Data
@@ -57,6 +60,57 @@ namespace Ringtoets.HeightStructures.Data
             try
             {
                 return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult);
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyFactoryException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Assembles the detailed assessment result.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to
+        /// assemble the detailed assembly for.</param>
+        /// <param name="failureMechanism">The failure mechanism belonging to this calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> belonging to this calculation.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyFactoryException">Thrown when <see cref="FailureMechanismSectionAssembly"/>
+        /// cannot be assembled.</exception>
+        public static FailureMechanismSectionAssembly AssembleDetailedAssembly(
+            HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            HeightStructuresFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator = calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                IEnumerable<FailureMechanismSectionAssemblyCategory> categories = AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
+                    assessmentSection.FailureMechanismContribution.SignalingNorm,
+                    assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                    failureMechanism.Contribution,
+                    failureMechanism.GeneralInput.N);
+
+                return calculator.AssembleDetailedAssessment(failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
+                                                             categories);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
