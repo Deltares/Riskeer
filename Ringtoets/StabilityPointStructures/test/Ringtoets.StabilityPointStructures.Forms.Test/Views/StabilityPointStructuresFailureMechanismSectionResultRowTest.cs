@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 
@@ -57,7 +58,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>>(row);
-            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
+            Assert.AreEqual(result.AssessmentLayerOne, row.SimpleAssessmentResult);
             Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
@@ -105,10 +106,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(AssessmentLayerOneState newValue)
+        public void SimpleAssessmentResult_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged()
         {
             // Setup
             var mocks = new MockRepository();
@@ -121,15 +119,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
             result.Attach(observer);
 
+            var newValue = new Random(21).NextEnumValue<SimpleAssessmentResultValidityOnlyType>();
+
             var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result,
                                                                                    new StabilityPointStructuresFailureMechanism(),
                                                                                    assessmentSection);
 
             // Call
-            row.AssessmentLayerOne = newValue;
+            row.SimpleAssessmentResult = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerOne);
+            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
         }
 

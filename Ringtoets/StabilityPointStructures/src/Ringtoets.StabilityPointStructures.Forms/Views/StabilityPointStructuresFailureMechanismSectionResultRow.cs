@@ -22,10 +22,10 @@
 using System;
 using System.ComponentModel;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Views
@@ -67,17 +67,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value representing whether the section passed the layer 1 assessment.
+        /// Gets or sets the value representing the simple assessment result.
         /// </summary>
-        public AssessmentLayerOneState AssessmentLayerOne
+        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult
         {
             get
             {
-                return SectionResult.AssessmentLayerOne;
+                return SectionResult.SimpleAssessmentResult;
             }
             set
             {
-                SectionResult.AssessmentLayerOne = value;
+                SectionResult.SimpleAssessmentResult = value;
                 SectionResult.NotifyObservers();
             }
         }

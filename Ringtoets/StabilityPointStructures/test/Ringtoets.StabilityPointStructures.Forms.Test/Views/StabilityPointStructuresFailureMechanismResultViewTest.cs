@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -37,6 +36,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 
@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
     public class StabilityPointStructuresFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
+        private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
 
@@ -118,14 +118,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
@@ -133,11 +133,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
-        public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(
-            AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable)]
+        public void FailureMechanismResultsView_ChangeComboBox_DataGridViewCorrectlySyncedAndStylingSet(
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Setup
             using (CreateConfiguredFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
@@ -145,7 +145,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[0].Cells[simpleAssessmentResultIndex].Value = simpleAssessmentResult;
 
                 // Assert
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -155,14 +155,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 DataGridViewCell cellDetailedAssessment = cells[detailedAssessmentIndex];
                 DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
-                DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
+                DataGridViewCell dataGridViewCell = cells[simpleAssessmentResultIndex];
 
-                Assert.AreEqual(assessmentLayerOneState, dataGridViewCell.Value);
+                Assert.AreEqual(simpleAssessmentResult, dataGridViewCell.Value);
                 Assert.AreEqual("-", cellDetailedAssessment.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
-                if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
+                if (simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable)
                 {
                     DataGridViewTestHelper.AssertCellIsDisabled(cellDetailedAssessment);
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
@@ -190,11 +190,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
 
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -223,17 +223,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var random = new Random(21);
             var result1 = new StabilityPointStructuresFailureMechanismSectionResult(section1)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new StabilityPointStructuresFailureMechanismSectionResult(section2)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new StabilityPointStructuresFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
 
@@ -254,7 +254,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentResultIndex].Value);
 
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.AssessmentLayerThree),
@@ -266,7 +266,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result2.AssessmentLayerThree),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
@@ -277,7 +277,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result3.AssessmentLayerThree),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
@@ -288,10 +288,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "ResultView_SectionPassesLevel0AndListenersNotified_RowsDisabled(notAssessed)")]
-        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "ResultView_SectionPassesLevel0AndListenersNotified_RowsDisabled(noVerdict)")]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionDisabled(
-            AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None, TestName = "ResultView_SectionnBecomesNotApplicableAndListenersNotified_RowsDisabled(None)")]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, TestName = "ResultView_SectionnBecomesNotApplicableAndListenersNotified_RowsDisabled(Applicable)")]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_ThenRowsForSectionDisabled(
+            SimpleAssessmentResultValidityOnlyType assessmentLayerOneState)
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -301,7 +301,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var random = new Random(21);
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = assessmentLayerOneState,
+                SimpleAssessmentResult = assessmentLayerOneState,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             using (ShowFailureMechanismResultsView(
@@ -311,7 +311,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 }))
             {
                 // When
-                result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                result.SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable;
                 result.NotifyObservers();
 
                 // Then
@@ -359,16 +359,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
         public void GivenSectionResultAndCalculationNotCalculated_ThenDetailedAssessmentErrorTooltip(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>(),
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -485,10 +485,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_DetailedAssessmentHasError(notAssessed)")]
-        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_DetailedAssessmentHasError(noVerdict)")]
-        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenDetailedAssessmentHasError(
-            AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(None)")]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(Applicable)")]
+        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -497,7 +497,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 {
                     Output = new TestStructuresOutput(0.56789)
                 },
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -599,16 +599,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable
             }, "-").SetName("SectionWithoutCalculation");
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
             }, "-").SetName("SectionWithCalculationNoOutput");
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
                     Output = new TestStructuresOutput(double.NaN)
@@ -616,7 +616,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }, "-").SetName("SectionWithInvalidCalculationOutput");
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
                     Output = new TestStructuresOutput(0.56789)
@@ -626,25 +626,23 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
         private static FailureMechanismSection CreateSimpleFailureMechanismSection()
         {
-            var section = new FailureMechanismSection("A",
-                                                      new[]
-                                                      {
-                                                          new Point2D(1, 2),
-                                                          new Point2D(3, 4)
-                                                      });
-            return section;
+            return FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
         }
 
         private StabilityPointStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView(
             StabilityPointStructuresFailureMechanism failureMechanism)
         {
-            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new[]
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new[]
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
