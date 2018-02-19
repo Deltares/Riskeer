@@ -30,10 +30,10 @@ using Ringtoets.StabilityPointStructures.Data.TestUtil;
 namespace Ringtoets.StabilityPointStructures.Data.Test
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismSection2aAssessmentResultExtensionsTest
+    public class StabilityPointStructuresFailureMechanismSectionDetailedAssessmentResultExtensionsTest
     {
         [Test]
-        public void GetAssessmentLayerTwoA_SectionResultNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -41,7 +41,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismSection2aAssessmentResultExtensions.GetAssessmentLayerTwoA(
+            TestDelegate call = () => StabilityPointStructuresFailureMechanismSectionDetailedAssessmentResultExtensions.GetDetailedAssessmentProbability(
                 null,
                 new StabilityPointStructuresFailureMechanism(),
                 assessmentSection);
@@ -53,7 +53,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_FailureMechanismNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -64,7 +64,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(null, assessmentSection);
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -73,14 +73,14 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(), null);
+            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(new StabilityPointStructuresFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -88,7 +88,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_SectionResultWithoutCalculation_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_SectionResultWithoutCalculation_ReturnsNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -99,16 +99,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(),
-                                                                                              assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new StabilityPointStructuresFailureMechanism(),
+                                                                                                                  assessmentSection);
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_CalculationWithoutOutput_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_CalculationWithoutOutput_ReturnsNaN()
         {
             // Setup
             var mocks = new MockRepository();
@@ -122,16 +122,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(),
-                                                                                              assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new StabilityPointStructuresFailureMechanism(),
+                                                                                                                  assessmentSection);
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GetAssessmentLayerTwoA_CalculationWithOutput_ReturnsDerivedProbability()
+        public void GetDetailedAssessmentProbability_CalculationWithOutput_ReturnsDerivedProbability()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -150,11 +150,11 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             };
 
             // Call
-            double assessmentLayerTwoA = failureMechanismSectionResult.GetAssessmentLayerTwoA(new StabilityPointStructuresFailureMechanism(),
-                                                                                              assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new StabilityPointStructuresFailureMechanism(),
+                                                                                                                  assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.22662735237686821, assessmentLayerTwoA);
+            Assert.AreEqual(0.22662735237686821, detailedAssessmentProbability);
             mocks.VerifyAll();
         }
     }

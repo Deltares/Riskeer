@@ -21,7 +21,7 @@
     </Compile>
     <Compile Include="StabilityPointStructure.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanism.cs" />
-    <Compile Include="StabilityPointStructuresFailureMechanismSection2aAssessmentResultExtensions.cs" />
+    <Compile Include="StabilityPointStructuresFailureMechanismSectionDetailedAssessmentResultExtensions.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.cs" />
     <Compile Include="StabilityPointStructuresInput.cs" />

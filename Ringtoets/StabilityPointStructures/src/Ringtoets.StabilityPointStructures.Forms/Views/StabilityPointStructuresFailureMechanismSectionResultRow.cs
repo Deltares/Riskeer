@@ -83,14 +83,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the value representing the result of the layer 2a assessment.
+        /// Gets the value representing the detailed assessment probability.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double AssessmentLayerTwoA
+        public double DetailedAssessmentProbability
         {
             get
             {
-                return SectionResult.GetAssessmentLayerTwoA(failureMechanism, assessmentSection);
+                return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
             }
         }
 
