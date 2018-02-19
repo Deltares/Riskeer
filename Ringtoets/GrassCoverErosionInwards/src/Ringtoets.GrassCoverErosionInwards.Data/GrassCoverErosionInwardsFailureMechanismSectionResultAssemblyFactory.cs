@@ -100,8 +100,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator calculator = calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(
-                AssemblyToolKernelFactory.Instance);
+            IFailureMechanismSectionAssemblyCalculator calculator = 
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
             try
             {
