@@ -224,7 +224,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 SimpleAssessmentResult = SimpleAssessmentResultType.None,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result4 = new ClosingStructuresFailureMechanismSectionResult(section4)
+            var result4 = new ClosingStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 4"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 AssessmentLayerThree = random.NextRoundedDouble()
@@ -298,12 +299,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var section = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
             var random = new Random(21);
-            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            var result = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 AssessmentLayerThree = random.NextRoundedDouble()

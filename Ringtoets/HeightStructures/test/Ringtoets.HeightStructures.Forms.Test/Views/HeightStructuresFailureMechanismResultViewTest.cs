@@ -204,40 +204,27 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanismResultView_WithHeightStructuresFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
             // Setup
-            var section1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section4 = new FailureMechanismSection("Section 4", new[]
-            {
-                new Point2D(0, 0)
-            });
-
             var random = new Random(21);
-            var result1 = new HeightStructuresFailureMechanismSectionResult(section1)
+            var result1 = new HeightStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result2 = new HeightStructuresFailureMechanismSectionResult(section2)
+            var result2 = new HeightStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result3 = new HeightStructuresFailureMechanismSectionResult(section3)
+            var result3 = new HeightStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.None,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result4 = new HeightStructuresFailureMechanismSectionResult(section4)
+            var result4 = new HeightStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 4"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 AssessmentLayerThree = random.NextRoundedDouble()
@@ -312,12 +299,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var section = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
             var random = new Random(21);
-            var result = new HeightStructuresFailureMechanismSectionResult(section)
+            var result = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 AssessmentLayerThree = random.NextRoundedDouble()
@@ -352,12 +335,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var section = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
             var random = new Random(21);
-            var result = new HeightStructuresFailureMechanismSectionResult(section)
+            var result = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 AssessmentLayerThree = random.NextRoundedDouble()

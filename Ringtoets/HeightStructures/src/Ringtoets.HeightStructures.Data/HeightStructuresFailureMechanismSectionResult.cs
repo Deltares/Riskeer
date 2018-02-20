@@ -53,7 +53,7 @@ namespace Ringtoets.HeightStructures.Data
         public StructuresCalculation<HeightStructuresInput> Calculation { get; set; }
 
         /// <summary>
-        /// Gets or sets the state of the simple assessment per failure mechanism section.
+        /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 

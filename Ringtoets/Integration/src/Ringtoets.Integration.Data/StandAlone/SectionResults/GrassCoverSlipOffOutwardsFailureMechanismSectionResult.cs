@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         }
 
         /// <summary>
-        /// Gets or sets the state of the simple assessment per failure mechanism section.
+        /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 

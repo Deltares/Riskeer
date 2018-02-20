@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public GrassCoverErosionInwardsCalculation Calculation { get; set; }
 
         /// <summary>
-        /// Gets or sets the state of the simple assessment per failure mechanism section.
+        /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult { get; set; }
 
