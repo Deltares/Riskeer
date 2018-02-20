@@ -22,10 +22,8 @@
 using System;
 using System.Collections;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -107,7 +105,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenFailureMechanismResultsView_WhenAllDataSet_ThenDataGridViewCorrectlyInitialized()
         {
             // Given
-            using (CreateConfiguredFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -140,7 +138,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -522,7 +520,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -543,7 +541,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(double newValue)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -565,9 +563,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(double newValue)
         {
             // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
-            using (CreateConfiguredFailureMechanismResultsView(failureMechanism))
+            using (ShowFailureMechanismResultsView(new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
+            {
+                result
+            }))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -576,7 +577,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, failureMechanism.SectionResults.First().AssessmentLayerThree);
+                Assert.AreEqual(newValue, result.AssessmentLayerThree);
             }
         }
 
@@ -611,22 +612,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutput");
         }
 
-        private StabilityPointStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView(
-            StabilityPointStructuresFailureMechanism failureMechanism)
+        private StabilityPointStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()
         {
-            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new[]
+            var results = new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
+                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")),
+                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
+            };
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
-
-            StabilityPointStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
+            StabilityPointStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(results);
 
             return failureMechanismResultView;
         }

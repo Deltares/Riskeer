@@ -21,12 +21,9 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -130,7 +127,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            using (CreateConfiguredFailureMechanismResultsView(new HeightStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -163,7 +160,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView(new HeightStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -394,7 +391,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView(new HeightStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -415,7 +412,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(double newValue)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView(new HeightStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -437,8 +434,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(double newValue)
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            using (CreateConfiguredFailureMechanismResultsView(failureMechanism))
+            var result = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (ShowFailureMechanismResultsView(new ObservableList<HeightStructuresFailureMechanismSectionResult>
+            {
+                result
+            }))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -447,7 +448,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, failureMechanism.SectionResults.First().AssessmentLayerThree);
+                Assert.AreEqual(newValue, result.AssessmentLayerThree);
             }
         }
 
@@ -712,21 +713,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
         }
 
-        private HeightStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView(HeightStructuresFailureMechanism failureMechanism)
+        private HeightStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()
         {
-            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            var results = new ObservableList<HeightStructuresFailureMechanismSectionResult>
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
+                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")),
+                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
+            };
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
-
-            HeightStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(failureMechanism.SectionResults);
+            HeightStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(results);
 
             return failureMechanismResultView;
         }
