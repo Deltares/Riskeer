@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Util.Test
 {
@@ -44,7 +43,8 @@ namespace Ringtoets.Common.Util.Test
         public void Constructor_GetCalculationActionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanismSectionResult = new TestFailureMechanismSectionResult();
+            TestFailureMechanismSectionResult failureMechanismSectionResult =
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
             TestDelegate test = () => new SectionResultWithCalculationAssignment(failureMechanismSectionResult,
@@ -59,7 +59,8 @@ namespace Ringtoets.Common.Util.Test
         public void Constructor_SetCalculationActionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanismSectionResult = new TestFailureMechanismSectionResult();
+            TestFailureMechanismSectionResult failureMechanismSectionResult =
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
             TestDelegate test = () => new SectionResultWithCalculationAssignment(failureMechanismSectionResult,
@@ -74,7 +75,8 @@ namespace Ringtoets.Common.Util.Test
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var failureMechanismSectionResult = new TestFailureMechanismSectionResult();
+            TestFailureMechanismSectionResult failureMechanismSectionResult =
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
             var sectionResultWithCalculationAssignment = new SectionResultWithCalculationAssignment(failureMechanismSectionResult,
@@ -82,14 +84,6 @@ namespace Ringtoets.Common.Util.Test
 
             // Assert
             Assert.AreSame(failureMechanismSectionResult, sectionResultWithCalculationAssignment.Result);
-        }
-
-        private class TestFailureMechanismSectionResult : FailureMechanismSectionResult
-        {
-            public TestFailureMechanismSectionResult() : base(new FailureMechanismSection("", new[]
-            {
-                new Point2D(1.1, 2.2)
-            })) {}
         }
     }
 }

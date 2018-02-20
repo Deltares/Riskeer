@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -30,7 +31,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class FailureMechanismSectionTestFactoryTest
     {
         [Test]
-        public void CreateFailureMechanismSection_ReturnsExpectedValues()
+        public void CreateFailureMechanismSection_DefaultName_ReturnsExpectedValues()
         {
             // Call
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -46,10 +47,26 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
+        public void CreateFailureMechanismSection_WithName_ReturnsExpectedValues()
+        {
+            // Call
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("section ABC");
+
+            // Assert
+            Assert.IsNotNull(section);
+            Assert.AreEqual("section ABC", section.Name);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 0)
+            }, section.Points);
+        }
+
+        [Test]
         public void CreateFailureMechanismSection_CoordinatesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionTestFactory.CreateFailureMechanismSection(null);
+            TestDelegate call = () => FailureMechanismSectionTestFactory.CreateFailureMechanismSection((IEnumerable<Point2D>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

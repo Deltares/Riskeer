@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
@@ -94,33 +95,20 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         public void StabilityStoneCoverFailureMechanismResultView_WithStabilityStoneCoverFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
             // Setup
-            var section1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(0, 0)
-            });
-
             var random = new Random(21);
-            var result1 = new StabilityStoneCoverFailureMechanismSectionResult(section1)
+            var result1 = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result2 = new StabilityStoneCoverFailureMechanismSectionResult(section2)
+            var result2 = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result3 = new StabilityStoneCoverFailureMechanismSectionResult(section3)
+            var result3 = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,

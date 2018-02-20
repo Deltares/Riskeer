@@ -28,6 +28,7 @@
     <Compile Include="CustomObservableUniqueItemCollectionWithSourcePathTestFixtureBase.cs" />
     <Compile Include="DistributionTestHelper.cs" />
     <Compile Include="FailureMechanismContributionTestFactory.cs" />
+    <Compile Include="FailureMechanismSectionResultTestFactory.cs" />
     <Compile Include="FailureMechanismSectionTestFactory.cs" />
     <Compile Include="ForeshoreProfilePermutationHelper.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTestFactory.cs" />

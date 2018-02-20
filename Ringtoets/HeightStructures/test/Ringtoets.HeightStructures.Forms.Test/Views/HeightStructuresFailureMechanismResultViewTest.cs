@@ -457,7 +457,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -487,7 +487,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenSectionResultAndCalculationNotCalculated_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<HeightStructuresInput>(),
                 SimpleAssessmentResult = simpleAssessmentResult
@@ -523,7 +523,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             {
                 Output = new TestStructuresOutput(double.NaN)
             };
-            FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 Calculation = calculation,
@@ -556,7 +556,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<HeightStructuresInput>
                 {
@@ -618,7 +618,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<HeightStructuresInput>
                 {
@@ -657,7 +657,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
         private static IEnumerable GetVariousSimpleAssessmentResultConfigurationsWithoutErrorMessage()
         {
-            FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
             {
@@ -710,15 +710,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     Output = new TestStructuresOutput(0.56789)
                 }
             }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
-        }
-
-        private static FailureMechanismSection CreateSimpleFailureMechanismSection()
-        {
-            return FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
         }
 
         private HeightStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView(HeightStructuresFailureMechanism failureMechanism)

@@ -22,11 +22,10 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -94,43 +93,30 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void FailureMechanismResultView_FailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
             // Setup
-            var section1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section4 = new FailureMechanismSection("Section 4", new[]
-            {
-                new Point2D(0, 0)
-            });
-
             var random = new Random(21);
-            var result1 = new MacroStabilityOutwardsFailureMechanismSectionResult(section1)
+            var result1 = new MacroStabilityOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.None,
                 AssessmentLayerTwoA = random.NextRoundedDouble(),
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result2 = new MacroStabilityOutwardsFailureMechanismSectionResult(section2)
+            var result2 = new MacroStabilityOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 AssessmentLayerTwoA = random.NextRoundedDouble(),
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result3 = new MacroStabilityOutwardsFailureMechanismSectionResult(section3)
+            var result3 = new MacroStabilityOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
                 AssessmentLayerTwoA = random.NextRoundedDouble(),
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result4 = new MacroStabilityOutwardsFailureMechanismSectionResult(section4)
+            var result4 = new MacroStabilityOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 4"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 AssessmentLayerTwoA = random.NextRoundedDouble(),
@@ -210,10 +196,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             var random = new Random(21);
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            }))
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 AssessmentLayerTwoA = random.NextRoundedDouble(),

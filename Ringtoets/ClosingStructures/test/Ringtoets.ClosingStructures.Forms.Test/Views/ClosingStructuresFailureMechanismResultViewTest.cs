@@ -104,8 +104,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         [Test]
         public void GivenFailureMechanismResultsView_WhenAllDataSet_ThenDataGridViewCorrectlyInitialized()
         {
-            // Given
-            using (CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
+            // Given & When
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -139,7 +139,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -208,35 +208,21 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanismResultView_WithClosingStructuresFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
             // Setup
-            var section1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section4 = new FailureMechanismSection("Section 4", new[]
-            {
-                new Point2D(0, 0)
-            });
-
             var random = new Random(21);
-            var result1 = new ClosingStructuresFailureMechanismSectionResult(section1)
+            var result1 = new ClosingStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result2 = new ClosingStructuresFailureMechanismSectionResult(section2)
+            var result2 = new ClosingStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result3 = new ClosingStructuresFailureMechanismSectionResult(section3)
+            var result3 = new ClosingStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.None,
                 AssessmentLayerThree = random.NextRoundedDouble()
@@ -355,12 +341,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var section = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
             var random = new Random(21);
-            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            var result = new ClosingStructuresFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 AssessmentLayerThree = random.NextRoundedDouble()
@@ -394,7 +377,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -426,7 +409,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>(),
                 SimpleAssessmentResult = simpleAssessmentResult
@@ -457,7 +440,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultAndFailedCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
@@ -492,7 +475,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
@@ -552,7 +535,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             AssessmentLayerOneState assessmentLayerOneState)
         {
             // Given
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
@@ -595,7 +578,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -616,7 +599,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(double newValue)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
+            using (CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -654,7 +637,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
         private static IEnumerable GetVariousSimpleAssessmentResultConfigurationsWithoutErrorMessage()
         {
-            FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
@@ -709,13 +692,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
         }
 
-        private static FailureMechanismSection CreateSimpleFailureMechanismSection()
+        private ClosingStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()
         {
-            return FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
+            return CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism());
         }
 
         private ClosingStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView(

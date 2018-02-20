@@ -22,14 +22,12 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
@@ -109,10 +107,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(0, dataGridView.RowCount);
 
                 // When
-                sectionResults.Add(new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
-                {
-                    new Point2D(0, 0)
-                })));
+                sectionResults.Add(FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult());
                 sectionResults.NotifyObservers();
 
                 // Then
@@ -124,13 +119,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenCellFormattingEventFired()
         {
             // Given
-            var sectionResult = new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
-            {
-                new Point2D(0, 0)
-            }))
-            {
-                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict
-            };
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
                 sectionResult
@@ -162,7 +152,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
     public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, TestFailureMechanism>
     {
-        public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
+        public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults,
+                                              TestFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             UpdateDataGridViewDataSource();

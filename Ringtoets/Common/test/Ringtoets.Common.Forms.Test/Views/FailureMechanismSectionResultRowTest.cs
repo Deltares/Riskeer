@@ -20,10 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -47,14 +44,13 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new TestFailureMechanismSectionResult(section);
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
-            var row = new TestFailureMechanismSectionResultRow(result);
+            var row = new TestFailureMechanismSectionResultRow(sectionResult);
 
             // Assert
-            Assert.AreEqual(section.Name, row.Name);
+            Assert.AreEqual(sectionResult.Section.Name, row.Name);
         }
     }
 

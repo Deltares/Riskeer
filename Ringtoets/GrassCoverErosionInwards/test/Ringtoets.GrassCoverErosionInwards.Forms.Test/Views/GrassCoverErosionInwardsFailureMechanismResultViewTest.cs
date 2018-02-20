@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            using (ShowFullyConfiguredFailureMechanismResultsView(new GrassCoverErosionInwardsFailureMechanism()))
+            using (ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -162,7 +162,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Setup
-            using (ShowFullyConfiguredFailureMechanismResultsView(new GrassCoverErosionInwardsFailureMechanism()))
+            using (ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -207,7 +207,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            using (ShowFullyConfiguredFailureMechanismResultsView(new GrassCoverErosionInwardsFailureMechanism()))
+            using (ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -228,7 +228,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(double newValue)
         {
             // Setup
-            using (ShowFullyConfiguredFailureMechanismResultsView(new GrassCoverErosionInwardsFailureMechanism()))
+            using (ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -270,7 +270,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultWithoutCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -302,7 +302,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new GrassCoverErosionInwardsCalculation(),
                 SimpleAssessmentResult = simpleAssessmentResult
@@ -340,7 +340,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                                                             new TestDikeHeightOutput(double.NaN),
                                                             new TestOvertoppingRateOutput(double.NaN))
             };
-            FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 Calculation = calculation,
@@ -373,7 +373,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
@@ -436,7 +436,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
@@ -480,7 +480,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         private static IEnumerable SimpleAssessmentResultIsSufficientVariousSectionResults()
         {
-            FailureMechanismSection section = CreateSimpleFailureMechanismSection();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             const double reliability = 0.56789;
 
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -514,15 +514,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutput");
         }
 
-        private static FailureMechanismSection CreateSimpleFailureMechanismSection()
+        private GrassCoverErosionInwardsFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {
-            var section = new FailureMechanismSection("A",
-                                                      new[]
-                                                      {
-                                                          new Point2D(1, 2),
-                                                          new Point2D(3, 4)
-                                                      });
-            return section;
+            return ShowFullyConfiguredFailureMechanismResultsView(new GrassCoverErosionInwardsFailureMechanism());
         }
 
         private GrassCoverErosionInwardsFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView(

@@ -22,11 +22,11 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -94,43 +94,30 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void WaveImpactAsphaltCoverFailureMechanismResultView_WithWaveImpactAsphaltCoverFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
         {
             // Setup
-            var section1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var section4 = new FailureMechanismSection("Section 4", new[]
-            {
-                new Point2D(0, 0)
-            });
-
             var random = new Random(21);
-            var result1 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section1)
+            var result1 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.None,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result2 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section2)
+            var result2 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result3 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section3)
+            var result3 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result4 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section4)
+            var result4 = new WaveImpactAsphaltCoverFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 4"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
@@ -185,7 +172,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-                
+
                 cells = rows[3].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 4", cells[nameColumnIndex].FormattedValue);
@@ -205,12 +192,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
-            var section = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
             var random = new Random(21);
-            var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section)
+            var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,

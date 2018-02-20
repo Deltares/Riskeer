@@ -33,12 +33,13 @@ namespace Ringtoets.Common.Data.TestUtil
     public static class FailureMechanismSectionTestFactory
     {
         /// <summary>
-        /// Creates a default <see cref="FailureMechanismSection"/>.
+        /// Creates a <see cref="FailureMechanismSection"/>.
         /// </summary>
+        /// <param name="name">The (optional) name of the section.</param>
         /// <returns>A valid <see cref="FailureMechanismSection"/>.</returns>
-        public static FailureMechanismSection CreateFailureMechanismSection()
+        public static FailureMechanismSection CreateFailureMechanismSection(string name = "test")
         {
-            return CreateFailureMechanismSection(new[]
+            return CreateFailureMechanismSection(name, new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 0)
@@ -64,7 +65,12 @@ namespace Ringtoets.Common.Data.TestUtil
                 throw new ArgumentNullException(nameof(coordinates));
             }
 
-            return new FailureMechanismSection("test", coordinates);
+            return CreateFailureMechanismSection("test", coordinates);
+        }
+
+        private static FailureMechanismSection CreateFailureMechanismSection(string name, IEnumerable<Point2D> coordinates)
+        {
+            return new FailureMechanismSection(name, coordinates);
         }
     }
 }

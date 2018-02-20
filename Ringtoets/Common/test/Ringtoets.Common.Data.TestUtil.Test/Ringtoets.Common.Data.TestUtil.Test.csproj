@@ -22,6 +22,7 @@
     <Compile Include="AssessmentSectionHelperTest.cs" />
     <Compile Include="CalculationTestDataFactoryTest.cs" />
     <Compile Include="FailureMechanismContributionTestFactoryTest.cs" />
+    <Compile Include="FailureMechanismSectionResultTestFactoryTest.cs" />
     <Compile Include="FailureMechanismSectionTestFactoryTest.cs" />
     <Compile Include="ForeshoreProfilePermutationHelperTest.cs" />
     <Compile Include="IllustrationPoints\FaultTreeIllustrationPointTestFactoryTest.cs" />
