@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
@@ -138,19 +137,13 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
         }
 
-        private bool HasPassedSimpleAssessment(int rowIndex)
-        {
-            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, SimpleAssessmentColumnIndex).Value
-                   == AssessmentLayerOneState.Sufficient;
-        }
-
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
                 var simpleAssessmentResult = (SimpleAssessmentResultType) DataGridViewControl.GetCell(eventArgs.RowIndex,
                                                                                                       SimpleAssessmentColumnIndex).Value;
-                if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
+                if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
@@ -173,7 +166,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             StructuresCalculation<HeightStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
-                                                                               resultRow.SimpleAssessmentResult,
+                                                                              resultRow.SimpleAssessmentResult,
                                                                               resultRow.DetailedAssessmentProbability,
                                                                               normativeCalculation);
         }

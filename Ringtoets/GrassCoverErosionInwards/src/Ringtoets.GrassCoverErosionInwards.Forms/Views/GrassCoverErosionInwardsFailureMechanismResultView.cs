@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 var simpleAssessmentResult = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(eventArgs.RowIndex,
                                                                                                                   SimpleAssessmentColumnIndex).Value;
-                if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
+                if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }

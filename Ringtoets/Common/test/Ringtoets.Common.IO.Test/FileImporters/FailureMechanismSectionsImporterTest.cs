@@ -103,7 +103,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                                  Path.Combine("FailureMechanismSections", sectionsFileName));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call
@@ -128,7 +128,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("A", importReferenceLine.Points));
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
@@ -154,7 +154,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
@@ -182,7 +182,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             var progressChangeNotifications = new List<ProgressNotification>();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
             importer.SetProgressChanged((description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps)));
@@ -213,7 +213,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
@@ -239,7 +239,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
@@ -267,7 +267,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
@@ -297,7 +297,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
@@ -327,7 +327,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
@@ -354,7 +354,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
@@ -381,7 +381,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
@@ -404,7 +404,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                  Path.Combine("FailureMechanismSections", "vakindeling_Empty_Name_Value.shp"));
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, new ReferenceLine(), sectionsFilePath);
 
@@ -431,7 +431,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
             importer.SetProgressChanged((description, step, steps) =>
@@ -464,7 +464,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
             importer.SetProgressChanged((description, step, steps) =>
@@ -497,7 +497,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
             importer.SetProgressChanged((description, step, steps) =>
@@ -530,7 +530,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
 
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
             importer.SetProgressChanged((description, step, steps) => importer.Cancel());
@@ -658,19 +658,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 if (startPoint != null)
                 {
                     yield return new Segment2D(startPoint, endPoint);
-                }
-            }
-        }
-
-        private class SimpleFailureMechanism : FailureMechanismBase
-        {
-            public SimpleFailureMechanism() : base("Stubbed name", "Stubbed code") {}
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new NotImplementedException();
                 }
             }
         }

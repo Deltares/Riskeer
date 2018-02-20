@@ -30,24 +30,24 @@ namespace Ringtoets.Common.Forms.Helpers
     public static class FailureMechanismResultViewHelper
     {
         /// <summary>
-        /// Helper method that determines whether the simple assessment has passed.
+        /// Helper method that determines whether the simple assessment is sufficient.
         /// </summary>
         /// <param name="simpleAssessmentResult">The simple assessment result to check.</param>
         /// <returns><c>true</c> when the simple assessment is <see cref="SimpleAssessmentResultType.ProbabilityNegligible"/>
         /// or <see cref="SimpleAssessmentResultType.NotApplicable"/>, <c>false</c> otherwise.</returns>
-        public static bool HasPassedSimpleAssessment(SimpleAssessmentResultType simpleAssessmentResult)
+        public static bool SimpleAssessmentIsSufficient(SimpleAssessmentResultType simpleAssessmentResult)
         {
             return simpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible
                    || simpleAssessmentResult == SimpleAssessmentResultType.NotApplicable;
         }
 
         /// <summary>
-        /// Helper method that determines whether the simple assessment has passed.
+        /// Helper method that determines whether the simple assessment is sufficient.
         /// </summary>
         /// <param name="simpleAssessmentResult">The simple assessment result to check.</param>
         /// <returns><c>true</c> when the simple assessment is <see cref="SimpleAssessmentResultType.NotApplicable"/>, 
         /// <c>false</c> otherwise.</returns>
-        public static bool HasPassedSimpleAssessment(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        public static bool SimpleAssessmentIsSufficient(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             return simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable;
         }

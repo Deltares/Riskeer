@@ -31,50 +31,50 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [Test]
         [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
-        public void HasPassedSimpleAssessment_WithPassingSimpleAssessmentResultType_ReturnsTrue(SimpleAssessmentResultType simpleAssessmentResult)
+        public void SimpleAssessmentIsSufficient_WithPassingSimpleAssessmentResultType_ReturnsTrue(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Call
-            bool hasPassed = FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult);
+            bool isSufficient = FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult);
 
             // Assert
-            Assert.IsTrue(hasPassed);
+            Assert.IsTrue(isSufficient);
         }
 
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void HasPassedSimpleAssessment_WithNotPassingSimpleAssessmentResultType_ReturnsFalse(SimpleAssessmentResultType simpleAssessmentResult)
+        public void SimpleAssessmentIsSufficient_WithNotPassingSimpleAssessmentResultType_ReturnsFalse(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Call
-            bool hasPassed = FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult);
+            bool isSufficient = FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult);
 
             // Assert
-            Assert.IsFalse(hasPassed);
+            Assert.IsFalse(isSufficient);
         }
 
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable)]
-        public void HasPassedSimpleAssessment_WithPassingSimpleAssessmentResultValidityOnlyType_ReturnsTrue(
+        public void SimpleAssessmentIsSufficient_WithPassingSimpleAssessmentResultValidityOnlyType_ReturnsTrue(
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Call
-            bool hasPassed = FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult);
+            bool isSufficient = FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult);
 
             // Assert
-            Assert.IsTrue(hasPassed);
+            Assert.IsTrue(isSufficient);
         }
 
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void HasPassedSimpleAssessment_WithNotPassingSimpleAssessmentResultValidityOnlyType_ReturnsFalse(
+        public void SimpleAssessmentIsSufficient_WithNotPassingSimpleAssessmentResultValidityOnlyType_ReturnsFalse(
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Call
-            bool hasPassed = FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult);
+            bool isSufficient = FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult);
 
             // Assert
-            Assert.IsFalse(hasPassed);
+            Assert.IsFalse(isSufficient);
         }
     }
 }
