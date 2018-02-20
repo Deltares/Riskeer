@@ -47,7 +47,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
     public class ClosingStructuresFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
+        private const int simpleAssessmentIndex = 1;
         private const int detailedAssessmentIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
         private Form testForm;
@@ -116,14 +116,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(SimpleAssessmentResultType.None, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(SimpleAssessmentResultType.None, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
@@ -144,7 +144,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = simpleAssessmentResult;
+                dataGridView.Rows[0].Cells[simpleAssessmentIndex].Value = simpleAssessmentResult;
 
                 // Assert
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -154,7 +154,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 DataGridViewCell cellDetailedAssessment = cells[detailedAssessmentIndex];
                 DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
-                DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
+                DataGridViewCell dataGridViewCell = cells[simpleAssessmentIndex];
 
                 Assert.AreEqual(simpleAssessmentResult, dataGridViewCell.Value);
                 Assert.AreEqual("-", cellDetailedAssessment.FormattedValue);
@@ -191,11 +191,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
 
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
+                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -264,7 +264,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.SimpleAssessmentResult, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
 
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.AssessmentLayerThree),
@@ -276,19 +276,18 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.SimpleAssessmentResult, cells[assessmentLayerOneIndex].Value);
-
+                Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.AssessmentLayerThree),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.SimpleAssessmentResult, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result3.AssessmentLayerThree),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
@@ -299,12 +298,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 cells = rows[3].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 4", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result4.SimpleAssessmentResult, cells[assessmentLayerOneIndex].Value);
-                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual(result4.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result4.AssessmentLayerThree),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
@@ -384,7 +383,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
 
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
@@ -522,7 +521,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(AssessmentLayerOneStateIsSufficientVariousSections))]
+        [TestCaseSource(nameof(GetVariousSimpleAssessmentResultConfigurationsWithoutErrorMessage))]
         public void GivenSectionResultAndAssessmentLayerOneStateSufficient_ThenDetailedAssessmentNoError(
             ClosingStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
         {
