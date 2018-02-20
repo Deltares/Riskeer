@@ -86,46 +86,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                string viewName = info.GetViewName(view, failureMechanism.SectionResults);
-
-                // Assert
-                Assert.AreEqual("Resultaat", viewName);
-            }
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
             // Call
-            Type viewType = info.ViewType;
+            string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>), viewDataType);
+            Assert.AreEqual("Resultaat", viewName);
         }
 
         [Test]
@@ -293,7 +258,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_Always_ReturnsView()
+        public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();

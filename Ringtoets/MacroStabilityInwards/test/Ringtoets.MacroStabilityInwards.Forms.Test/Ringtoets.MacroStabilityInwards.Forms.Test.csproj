@@ -29,7 +29,6 @@
     <Compile Include="MacroStabilityInwardsCalculationConfigurationHelperTest.cs" />
     <Compile Include="MacroStabilityInwardsSurfaceLineSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\ProbabilityFailureMechanismSectionResultContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsFailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsOutputContextTest.cs" />
     <Compile Include="PresentationObjects\MacroStabilityInwardsScenariosContextTest.cs" />

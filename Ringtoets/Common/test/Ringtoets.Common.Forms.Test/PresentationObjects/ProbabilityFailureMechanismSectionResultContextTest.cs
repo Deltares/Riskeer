@@ -25,7 +25,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
@@ -36,13 +35,20 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
             // Call
             TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResult>(
-                new ObservableList<FailureMechanismSectionResult>(), new TestFailureMechanism(), null);
+                sectionResults, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -51,13 +57,13 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
-            IObservableEnumerable<FailureMechanismSectionResult> sectionResults = new ObservableList<FailureMechanismSectionResult>();
-            var failureMechanism = new TestFailureMechanism();
-
             // Call
-            var context = new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, failureMechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResult>(
+                sectionResults, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultContext<FailureMechanismSectionResult>>(context);

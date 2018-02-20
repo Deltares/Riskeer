@@ -21,12 +21,10 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
@@ -40,19 +38,15 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
-            var failureMechanismSectionResults = new ObservableList<FailureMechanismSectionResult>
-            {
-                CreateFailureMechanismSectionResult()
-            };
-
             // Call
-            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanismSectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<IObservableEnumerable<FailureMechanismSectionResult>>>(context);
-            Assert.AreSame(failureMechanismSectionResults, context.WrappedData);
+            Assert.AreSame(sectionResults, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             mocks.VerifyAll();
         }
@@ -61,31 +55,17 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            FailureMechanismSectionResult sectionResult = CreateFailureMechanismSectionResult();
+            var mocks = new MockRepository();
+            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
+            mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(
-                new ObservableList<FailureMechanismSectionResult>
-                {
-                    sectionResult
-                }, null);
+            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        private static FailureMechanismSectionResult CreateFailureMechanismSectionResult()
-        {
-            var points = new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            };
-
-            var section = new FailureMechanismSection("test", points);
-            var sectionResult = new TestFailureMechanismSectionResult(section);
-            return sectionResult;
+            mocks.VerifyAll();
         }
     }
 }
