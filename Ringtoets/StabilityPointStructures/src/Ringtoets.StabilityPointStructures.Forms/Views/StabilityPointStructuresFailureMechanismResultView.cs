@@ -49,11 +49,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
-        /// <inheritdoc />
         public StabilityPointStructuresFailureMechanismResultView(
             IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
             StabilityPointStructuresFailureMechanism failureMechanism,

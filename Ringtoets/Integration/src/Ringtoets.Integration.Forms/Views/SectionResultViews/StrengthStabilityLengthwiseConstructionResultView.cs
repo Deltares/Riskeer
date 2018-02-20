@@ -42,10 +42,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
             StrengthStabilityLengthwiseConstructionFailureMechanism>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionResultView"/>.
         /// </summary>
-        /// <inheritdoc />
         public StrengthStabilityLengthwiseConstructionResultView(
             IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults,
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)

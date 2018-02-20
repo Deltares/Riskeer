@@ -47,11 +47,11 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly IAssessmentSection assessmentSection;
         private readonly Observer failureMechanismObserver;
 
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
-        /// <inheritdoc />
         public PipingFailureMechanismResultView(IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults,
                                                 PipingFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection)

@@ -41,10 +41,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class PipingStructureResultView
         : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult, PipingStructureFailureMechanism>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="PipingStructureResultView"/>.
         /// </summary>
-        /// <inheritdoc />
         public PipingStructureResultView(IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults,
                                          PipingStructureFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)

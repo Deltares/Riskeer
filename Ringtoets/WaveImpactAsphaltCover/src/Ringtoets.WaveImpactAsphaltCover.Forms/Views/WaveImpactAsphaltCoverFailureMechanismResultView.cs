@@ -39,10 +39,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
     public class WaveImpactAsphaltCoverFailureMechanismResultView
         : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult, WaveImpactAsphaltCoverFailureMechanism>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismResultView"/>.
         /// </summary>
-        /// <inheritdoc />
         public WaveImpactAsphaltCoverFailureMechanismResultView(
             IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
             WaveImpactAsphaltCoverFailureMechanism failureMechanism)

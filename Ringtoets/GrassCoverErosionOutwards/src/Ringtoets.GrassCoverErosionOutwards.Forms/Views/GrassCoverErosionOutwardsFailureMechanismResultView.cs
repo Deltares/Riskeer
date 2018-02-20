@@ -39,10 +39,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     public class GrassCoverErosionOutwardsFailureMechanismResultView
         : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult, GrassCoverErosionOutwardsFailureMechanism>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismResultView"/>.
         /// </summary>
-        /// <inheritdoc />
         public GrassCoverErosionOutwardsFailureMechanismResultView(
             IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism)

@@ -41,10 +41,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class MicrostabilityResultView
         : FailureMechanismResultView<MicrostabilityFailureMechanismSectionResult, MicrostabilityFailureMechanism>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="MicrostabilityResultView"/>.
         /// </summary>
-        /// <inheritdoc />
         public MicrostabilityResultView(IObservableEnumerable<MicrostabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                         MicrostabilityFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)

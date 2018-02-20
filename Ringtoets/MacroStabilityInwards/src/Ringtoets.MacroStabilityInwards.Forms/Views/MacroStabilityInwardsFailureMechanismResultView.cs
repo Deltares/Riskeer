@@ -49,11 +49,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly IAssessmentSection assessmentSection;
 
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
-        /// <inheritdoc />
         public MacroStabilityInwardsFailureMechanismResultView(
             IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             MacroStabilityInwardsFailureMechanism failureMechanism,

@@ -47,11 +47,11 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
-        /// <inheritdoc />
         public ClosingStructuresFailureMechanismResultView(
             IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
             ClosingStructuresFailureMechanism failureMechanism,

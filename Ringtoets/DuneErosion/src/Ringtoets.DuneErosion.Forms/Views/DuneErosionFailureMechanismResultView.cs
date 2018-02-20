@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
@@ -37,10 +38,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// </summary>
     public class DuneErosionFailureMechanismResultView : FailureMechanismResultView<DuneErosionFailureMechanismSectionResult, DuneErosionFailureMechanism>
     {
+        /// <inheritdoc/>
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismResultView"/>.
         /// </summary>
-        /// <inheritdoc/>
         public DuneErosionFailureMechanismResultView(
             IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults,
             DuneErosionFailureMechanism failureMechanism)
@@ -96,17 +97,13 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
         }
 
-        private bool HasPassedSimpleAssessment(int rowIndex)
-        {
-            var simpleAssessmentType = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(rowIndex, SimpleAssessmentColumnIndex).Value;
-            return simpleAssessmentType == SimpleAssessmentResultValidityOnlyType.NotApplicable;
-        }
-
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
+                var simpleAssessmentResult = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(eventArgs.RowIndex,
+                                                                                                                  SimpleAssessmentColumnIndex).Value;
+                if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }

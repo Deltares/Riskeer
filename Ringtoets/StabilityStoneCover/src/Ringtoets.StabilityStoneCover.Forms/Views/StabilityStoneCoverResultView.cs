@@ -39,10 +39,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     public class StabilityStoneCoverResultView
         : FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult, StabilityStoneCoverFailureMechanism>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverResultView"/>.
         /// </summary>
-        /// <inheritdoc />
         public StabilityStoneCoverResultView(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults,
                                              StabilityStoneCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)

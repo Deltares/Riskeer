@@ -42,10 +42,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
             WaterPressureAsphaltCoverFailureMechanism>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="WaterPressureAsphaltCoverResultView"/>.
         /// </summary>
-        /// <inheritdoc />
         public WaterPressureAsphaltCoverResultView(
             IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
             WaterPressureAsphaltCoverFailureMechanism failureMechanism)

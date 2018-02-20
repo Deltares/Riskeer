@@ -41,10 +41,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class GrassCoverSlipOffInwardsResultView
         : FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanismSectionResult, GrassCoverSlipOffInwardsFailureMechanism>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsResultView"/>.
         /// </summary>
-        /// <inheritdoc />
         public GrassCoverSlipOffInwardsResultView(
             IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             GrassCoverSlipOffInwardsFailureMechanism failureMechanism)

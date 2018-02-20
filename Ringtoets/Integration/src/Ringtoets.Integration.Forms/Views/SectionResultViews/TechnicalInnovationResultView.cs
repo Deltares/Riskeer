@@ -41,10 +41,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class TechnicalInnovationResultView
         : FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult, TechnicalInnovationFailureMechanism>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="TechnicalInnovationResultView"/>.
         /// </summary>
-        /// <inheritdoc />
         public TechnicalInnovationResultView(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults,
                                              TechnicalInnovationFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
