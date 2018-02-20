@@ -116,14 +116,14 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             base.AddDataGridColumns();
 
-            EnumDisplayWrapper<AssessmentLayerOneState>[] layerOneDataSource =
-                Enum.GetValues(typeof(AssessmentLayerOneState))
-                    .OfType<AssessmentLayerOneState>()
-                    .Select(sa => new EnumDisplayWrapper<AssessmentLayerOneState>(sa))
+            EnumDisplayWrapper<SimpleAssessmentResultType>[] layerOneDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentResultType))
+                    .OfType<SimpleAssessmentResultType>()
+                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerOne),
+                nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
                 layerOneDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
@@ -148,7 +148,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
+                var simpleAssessmentResult = (SimpleAssessmentResultType) DataGridViewControl.GetCell(eventArgs.RowIndex,
+                                                                                                      SimpleAssessmentColumnIndex).Value;
+                if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
@@ -171,7 +173,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             StructuresCalculation<HeightStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
-                                                                              resultRow.AssessmentLayerOne,
+                                                                               resultRow.SimpleAssessmentResult,
                                                                               resultRow.DetailedAssessmentProbability,
                                                                               normativeCalculation);
         }

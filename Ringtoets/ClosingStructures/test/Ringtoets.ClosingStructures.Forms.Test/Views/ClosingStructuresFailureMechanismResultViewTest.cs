@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
 {
@@ -115,14 +116,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(AssessmentLayerOneState.NotAssessed, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
@@ -130,11 +131,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
-        public void FailureMechanismResultsView_ChangeAssessmentLayerOneState_DataGridViewCorrectlySyncedAndStylingSet(
-            AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
+        public void FailureMechanismResultsView_ChangeSimpleAssessmentResult_DataGridViewCorrectlySyncedAndStylingSet(
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
             using (CreateConfiguredFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
@@ -142,7 +144,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = assessmentLayerOneState;
+                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = simpleAssessmentResult;
 
                 // Assert
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -154,12 +156,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
                 DataGridViewCell dataGridViewCell = cells[assessmentLayerOneIndex];
 
-                Assert.AreEqual(assessmentLayerOneState, dataGridViewCell.Value);
+                Assert.AreEqual(simpleAssessmentResult, dataGridViewCell.Value);
                 Assert.AreEqual("-", cellDetailedAssessment.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
-                if (assessmentLayerOneState == AssessmentLayerOneState.Sufficient)
+                if (simpleAssessmentResult == SimpleAssessmentResultType.NotApplicable
+                    || simpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible)
                 {
                     DataGridViewTestHelper.AssertCellIsDisabled(cellDetailedAssessment);
                     DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
@@ -217,21 +220,30 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 new Point2D(0, 0)
             });
+            var section4 = new FailureMechanismSection("Section 4", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             var random = new Random(21);
             var result1 = new ClosingStructuresFailureMechanismSectionResult(section1)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new ClosingStructuresFailureMechanismSectionResult(section2)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NotAssessed,
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new ClosingStructuresFailureMechanismSectionResult(section3)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.NoVerdict,
+                SimpleAssessmentResult = SimpleAssessmentResultType.None,
+                AssessmentLayerThree = random.NextRoundedDouble()
+            };
+            var result4 = new ClosingStructuresFailureMechanismSectionResult(section4)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
 
@@ -240,18 +252,19 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 result1,
                 result2,
-                result3
+                result3,
+                result4
             }))
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(3, rows.Count);
+                Assert.AreEqual(4, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result1.SimpleAssessmentResult, cells[assessmentLayerOneIndex].Value);
 
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.AssessmentLayerThree),
@@ -263,9 +276,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result2.SimpleAssessmentResult, cells[assessmentLayerOneIndex].Value);
+
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(result2.AssessmentLayerThree),
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.AssessmentLayerThree),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
@@ -274,21 +288,32 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual(result3.SimpleAssessmentResult, cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result3.AssessmentLayerThree),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+
+                cells = rows[3].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 4", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result4.SimpleAssessmentResult, cells[assessmentLayerOneIndex].Value);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(result4.AssessmentLayerThree),
+                                cells[assessmentLayerThreeIndex].FormattedValue);
+
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(notAssessed)")]
-        [TestCase(AssessmentLayerOneState.NoVerdict, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(noVerdict)")]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionDisabled(
-            AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_RowsForSectionDisabled(None)")]
+        [TestCase(SimpleAssessmentResultType.AssessFurther, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_RowsForSectionDisabled(AssessFurther)")]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_ThenRowsForSectionDisabled(
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -298,7 +323,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var random = new Random(21);
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = assessmentLayerOneState,
+                SimpleAssessmentResult = simpleAssessmentResult,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
 
@@ -308,7 +333,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }))
             {
                 // When
-                result.AssessmentLayerOne = AssessmentLayerOneState.Sufficient;
+                result.SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable;
                 result.NotifyObservers();
 
                 // Then
@@ -325,14 +350,54 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultWithoutCalculation_ThenDetailedAssessmentErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesProbabilityNegligibleAndListenersNotified_RowsForSectionDisabled(None)")]
+        [TestCase(SimpleAssessmentResultType.AssessFurther, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesProbabilityNegligibleAndListenersNotified_RowsForSectionDisabled(AssessFurther)")]
+        public void GivenFormWithFailureMechanismResultView_WhenSectionBecomesProbabilityNegligibleAndListenersNotified_ThenRowsForSectionDisabled(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Given
+            var section = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0, 0)
+            });
+            var random = new Random(21);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult,
+                AssessmentLayerThree = random.NextRoundedDouble()
+            };
+
+            using (ShowFailureMechanismResultsView(new ObservableList<ClosingStructuresFailureMechanismSectionResult>
+            {
+                result
+            }))
+            {
+                // When
+                result.SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible;
+                result.NotifyObservers();
+
+                // Then
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(1, rows.Count);
+
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual(4, cells.Count);
+
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void GivenSectionResultWithoutCalculation_ThenLayerTwoAErrorTooltip(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -356,16 +421,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void GivenSectionResultAndCalculationNotCalculated_ThenDetailedAssessmentErrorTooltip(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
             {
                 Calculation = new StructuresCalculation<ClosingStructuresInput>(),
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(new ObservableList<ClosingStructuresFailureMechanismSectionResult>
@@ -388,9 +453,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndFailedCalculation_ThenDetailedAssessmentErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void GivenSectionResultAndFailedCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -399,7 +464,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 {
                     Output = new TestStructuresOutput(double.NaN)
                 },
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -423,9 +488,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(CreateSimpleFailureMechanismSection())
@@ -434,7 +499,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 {
                     Output = new TestStructuresOutput(0.56789)
                 },
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(new ObservableList<ClosingStructuresFailureMechanismSectionResult>
@@ -588,46 +653,70 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }
         }
 
-        private static IEnumerable AssessmentLayerOneStateIsSufficientVariousSections()
+        private static IEnumerable GetVariousSimpleAssessmentResultConfigurationsWithoutErrorMessage()
         {
             FailureMechanismSection section = CreateSimpleFailureMechanismSection();
 
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient
-            }, "-").SetName("SectionWithoutCalculation");
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible
+            }, "-").SetName("SectionWithoutCalculationAndSimpleAssessmentResultProbabilityNegligible");
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>()
-            }, "-").SetName("SectionWithCalculationNoOutput");
+            }, "-").SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultProbabilityNegligible");
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Output = new TestStructuresOutput(double.NaN)
                 }
-            }, "-").SetName("SectionWithInvalidCalculationOutput");
+            }, "-").SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                AssessmentLayerOne = AssessmentLayerOneState.Sufficient,
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
                 Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Output = new TestStructuresOutput(0.56789)
                 }
-            }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutput");
+            }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
+
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable
+            }, "-").SetName("SectionWithoutCalculationAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
+                Calculation = new StructuresCalculation<ClosingStructuresInput>()
+            }, "-").SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
+                {
+                    Output = new TestStructuresOutput(double.NaN)
+                }
+            }, "-").SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
+                {
+                    Output = new TestStructuresOutput(0.56789)
+                }
+            }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
         }
 
         private static FailureMechanismSection CreateSimpleFailureMechanismSection()
         {
-            var section = new FailureMechanismSection("A",
-                                                      new[]
-                                                      {
-                                                          new Point2D(1, 2),
-                                                          new Point2D(3, 4)
-                                                      });
-            return section;
+            return FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
         }
 
         private ClosingStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView(

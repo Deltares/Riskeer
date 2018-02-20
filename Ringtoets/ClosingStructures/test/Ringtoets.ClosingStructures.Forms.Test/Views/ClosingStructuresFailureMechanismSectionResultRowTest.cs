@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
 {
@@ -57,8 +58,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
+<<<<<<< HEAD
             Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
+=======
+            Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
+            Assert.AreEqual(result.GetAssessmentLayerTwoA(failureMechanism, assessmentSection), row.AssessmentLayerTwoA);
+>>>>>>> Implemented SimpleAssessmentResult type for Closing and Height structures:
             Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
@@ -104,10 +110,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(AssessmentLayerOneState newValue)
+        public void SimpleAssessmentResult_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged()
         {
             // Setup
             var mocks = new MockRepository();
@@ -120,15 +123,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
             result.Attach(observer);
 
+            var newValue = new Random(21).NextEnumValue<SimpleAssessmentResultType>();
             var row = new ClosingStructuresFailureMechanismSectionResultRow(result,
                                                                             new ClosingStructuresFailureMechanism(),
                                                                             assessmentSection);
 
             // Call
-            row.AssessmentLayerOne = newValue;
+            row.SimpleAssessmentResult = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerOne);
+            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
         }
 

@@ -27,7 +27,6 @@ using Core.Common.Util;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
@@ -112,16 +111,16 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             base.AddDataGridColumns();
 
-            EnumDisplayWrapper<AssessmentLayerOneState>[] layerOneDataSource =
-                Enum.GetValues(typeof(AssessmentLayerOneState))
-                    .OfType<AssessmentLayerOneState>()
-                    .Select(sa => new EnumDisplayWrapper<AssessmentLayerOneState>(sa))
+            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentResultDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentResultType))
+                    .OfType<SimpleAssessmentResultType>()
+                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerOne),
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
-                layerOneDataSource,
+                simpleAssessmentResultDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
@@ -133,17 +132,13 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
         }
 
-        private bool HasPassedSimpleAssessment(int rowIndex)
-        {
-            return (AssessmentLayerOneState) DataGridViewControl.GetCell(rowIndex, SimpleAssessmentColumnIndex).Value
-                   == AssessmentLayerOneState.Sufficient;
-        }
-
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                if (HasPassedSimpleAssessment(eventArgs.RowIndex))
+                var simpleAssessmentResult = (SimpleAssessmentResultType) DataGridViewControl.GetCell(eventArgs.RowIndex,
+                                                                                                      SimpleAssessmentColumnIndex).Value;
+                if (FailureMechanismResultViewHelper.HasPassedSimpleAssessment(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
@@ -166,7 +161,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             StructuresCalculation<ClosingStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
-                                                                              resultRow.AssessmentLayerOne,
+                                                                              resultRow.SimpleAssessmentResult,
                                                                               resultRow.DetailedAssessmentProbability,
                                                                               normativeCalculation);
         }

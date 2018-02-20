@@ -22,7 +22,6 @@
 using System;
 using System.Windows.Forms;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -38,13 +37,13 @@ namespace Ringtoets.Common.Forms.Helpers
         /// Sets the <see cref="DataGridViewCell.ErrorText"/> when the detailed assessment fails.
         /// </summary>
         /// <param name="dataGridViewCell">The current data grid view cell.</param>
-        /// <param name="passedAssessmentLayerOne">The value representing whether the section passed the simple assessment.</param>
+        /// <param name="simpleAssessmentResult">The value representing the simple assessment result type.</param>
         /// <param name="detailedAssessmentProbability">The value representing the result of the detailed assessment.</param>
         /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
         public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
-                                                      AssessmentLayerOneState passedAssessmentLayerOne,
+                                                       SimpleAssessmentResultType simpleAssessmentResult,
                                                       double detailedAssessmentProbability,
                                                       ICalculation normativeCalculation)
         {
@@ -53,7 +52,8 @@ namespace Ringtoets.Common.Forms.Helpers
                 throw new ArgumentNullException(nameof(dataGridViewCell));
             }
 
-            if (passedAssessmentLayerOne == AssessmentLayerOneState.Sufficient)
+            if (simpleAssessmentResult == SimpleAssessmentResultType.NotApplicable
+                || simpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible)
             {
                 dataGridViewCell.ErrorText = string.Empty;
                 return;
@@ -66,13 +66,13 @@ namespace Ringtoets.Common.Forms.Helpers
         /// Sets the <see cref="DataGridViewCell.ErrorText"/> when the detailed assessment fails.
         /// </summary>
         /// <param name="dataGridViewCell">The current data grid view cell.</param>
-        /// <param name="simpleAssessmentResult">The value representing whether the simple assessment result.</param>
+        /// <param name="simpleAssessmentResult">The value representing the simple assessment result.</param>
         /// <param name="detailedAssessmentProbability">The value representing the probability of the detailed assessment.</param>
         /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
         public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
-                                                      SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
+                                                       SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
                                                       double detailedAssessmentProbability,
                                                       ICalculation normativeCalculation)
         {
