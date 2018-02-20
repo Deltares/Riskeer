@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
@@ -36,18 +37,20 @@ namespace Ringtoets.Common.Forms.Test.Helpers
     public class FailureMechanismSectionResultRowHelperTest
     {
         [Test]
-        public void SetDetailedAssessmentError_WithAssessmentLayerOneAndDataGridViewCellNull_ThrowsArgumentNullException()
+        public void SetDetailedAssessmentErrorSimpleAssessmentResultType_DataGridViewCellNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
             var calculation = mockRepository.Stub<ICalculation>();
             mockRepository.ReplayAll();
 
+            var simpleAssessmentResult = new Random(21).NextEnumValue<SimpleAssessmentResultType>();
+
             // Call
             TestDelegate call = () => FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(null,
-                                                                                                         SimpleAssessmentResultType.NotApplicable,
-                                                                                                         0.0,
-                                                                                                         calculation);
+                                                                                                        simpleAssessmentResult,
+                                                                                                        0.0,
+                                                                                                        calculation);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -61,35 +64,37 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCaseSource(nameof(GetSimpleAssessmentResultAssessFurtherOrNoneAndCalculationNullConfigurations))]
         [TestCaseSource(nameof(GetSimpleAssessmentResultAssessFurtherOrNoneAndCalculationWithoutOutputConfigurations))]
         [TestCaseSource(nameof(GetSimpleAssessmentResultAssessFurtherOrNoneAndCalculationWithOutputConfigurations))]
-        public void SetDetailedAssessmentError_WithAssessmentLayerOne_SetsErrorText(DataGridViewCell dataGridViewCell,
-                                                                                     SimpleAssessmentResultType passedAssessmentLayerOne,
-                                                                                     double detailedAssessmentProbability,
-                                                                                     ICalculation normativeCalculation,
-                                                                                     string expectedErrorText)
+        public void SetDetailedAssessmentError_WithSimpleAssessmentResultConfigurations_SetsErrorText(DataGridViewCell dataGridViewCell,
+                                                                                                      SimpleAssessmentResultType simpleAssessmentResult,
+                                                                                                      double detailedAssessmentProbability,
+                                                                                                      ICalculation normativeCalculation,
+                                                                                                      string expectedErrorText)
         {
             // Call
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(dataGridViewCell,
-                                                                               passedAssessmentLayerOne,
-                                                                               detailedAssessmentProbability,
-                                                                               normativeCalculation);
+                                                                              simpleAssessmentResult,
+                                                                              detailedAssessmentProbability,
+                                                                              normativeCalculation);
 
             // Assert
             Assert.AreEqual(expectedErrorText, dataGridViewCell.ErrorText);
         }
 
         [Test]
-        public void SetDetailedAssessmentError_WithSimpleAssessmentValidityOnlyAndDataGridViewCellNull_ThrowsArgumentNullException()
+        public void SetDetailedAssessmentErrorSimpleAssessmentValidityOnlyType_DataGridViewCellNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
             var calculation = mockRepository.Stub<ICalculation>();
             mockRepository.ReplayAll();
 
+            var simpleAssessmentResult = new Random(21).NextEnumValue<SimpleAssessmentResultValidityOnlyType>();
+
             // Call
             TestDelegate call = () => FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(null,
-                                                                                                         SimpleAssessmentResultValidityOnlyType.NotApplicable,
-                                                                                                         0.0,
-                                                                                                         calculation);
+                                                                                                        simpleAssessmentResult,
+                                                                                                        0.0,
+                                                                                                        calculation);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -98,21 +103,21 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource(nameof(SimpleAssessmentResultValidityOnlyIsNotApplicable))]
-        [TestCaseSource(nameof(SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationNull))]
-        [TestCaseSource(nameof(SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithoutOutput))]
+        [TestCaseSource(nameof(GetSimpleAssessmentResultValidityOnlyIsNotApplicableConfigurations))]
+        [TestCaseSource(nameof(GetSimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationNullConfigurations))]
+        [TestCaseSource(nameof(GetSimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithoutOutputConfigurations))]
         [TestCaseSource(nameof(SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithOutput))]
-        public void SetAssessmentDetailedAssessmentError_WithSimpleAssessmentValidityOnly_SetsErrorText(DataGridViewCell dataGridViewCell,
-                                                                                               SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
-                                                                                               double detailedAssessmentProbability,
-                                                                                               ICalculation normativeCalculation,
-                                                                                               string expectedErrorText)
+        public void SetAssessmentDetailedAssessmentError_WithSimpleAssessmentValidityOnlyConfigurations_SetsErrorText(DataGridViewCell dataGridViewCell,
+                                                                                                                      SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
+                                                                                                                      double detailedAssessmentProbability,
+                                                                                                                      ICalculation normativeCalculation,
+                                                                                                                      string expectedErrorText)
         {
             // Call
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(dataGridViewCell,
-                                                                               simpleAssessmentResult,
-                                                                               detailedAssessmentProbability,
-                                                                               normativeCalculation);
+                                                                              simpleAssessmentResult,
+                                                                              detailedAssessmentProbability,
+                                                                              normativeCalculation);
 
             // Assert
             Assert.AreEqual(expectedErrorText, dataGridViewCell.ErrorText);
@@ -120,7 +125,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
 
         private class TestDataGridViewCell : DataGridViewCell {}
 
-        #region Test cases assessment layer one
+        #region Test cases simple assessment (result)
 
         private static IEnumerable<TestCaseData> GetSimpleAssessmentResultNotApplicableConfigurations()
         {
@@ -258,26 +263,26 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 ErrorText = "Default text"
             };
 
-            const string expectedErrorMessage = "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.";
-            string emptyErrorMessage = string.Empty;
+            const string expectedErrorMessageOutputInvalid = "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.";
+            string expectedEmptyErrorMessage = string.Empty;
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.AssessFurther, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          expectedErrorMessage)
+                                          expectedErrorMessageOutputInvalid)
                 .SetName("AssessFurtherWithInvalidDetailedAssessmentAndCalculationWithOutput");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.AssessFurther, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          emptyErrorMessage)
+                                          expectedEmptyErrorMessage)
                 .SetName("AssessFurtherWithValidDetailedAssessmentAndCalculationWithOutput");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.None, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          expectedErrorMessage)
+                                          expectedErrorMessageOutputInvalid)
                 .SetName("NoneWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.None, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          emptyErrorMessage)
+                                          expectedEmptyErrorMessage)
                 .SetName("NoneWithValidDetailedAssessmentAndCalculationWithOutput");
         }
 
@@ -285,82 +290,88 @@ namespace Ringtoets.Common.Forms.Test.Helpers
 
         #region Test cases simple assessment (validity only)
 
-        private static IEnumerable SimpleAssessmentResultValidityOnlyIsNotApplicable()
+        private static IEnumerable GetSimpleAssessmentResultValidityOnlyIsNotApplicableConfigurations()
         {
             var dataGridViewCell = new TestDataGridViewCell
             {
                 ErrorText = "Default text"
             };
 
-            yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, double.NaN, null, string.Empty)
+            string expectedErrorMessage = string.Empty;
+
+            yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, double.NaN, null, expectedErrorMessage)
                 .SetName("NotApplicableWithInvalidDetailedAssessmentAndNoCalculation");
-            yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, 0.0, null, string.Empty)
+            yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, 0.0, null, expectedErrorMessage)
                 .SetName("NotApplicableWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          string.Empty)
+                                          expectedErrorMessage)
                 .SetName("NotApplicableWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          string.Empty)
+                                          expectedErrorMessage)
                 .SetName("NotApplicableWithValidDetailedAssessmentAndCalculationWithOutput");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
-                                          string.Empty)
+                                          expectedErrorMessage)
                 .SetName("NotApplicableWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.NotApplicable, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
-                                          string.Empty)
+                                          expectedErrorMessage)
                 .SetName("NotApplicableWithValidDetailedAssessmentAndCalculationWithoutOutput");
         }
 
-        private static IEnumerable SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationNull()
+        private static IEnumerable GetSimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationNullConfigurations()
         {
             var dataGridViewCell = new TestDataGridViewCell
             {
                 ErrorText = "Default text"
             };
 
+            const string expectedErrorMessage = "Er moet een maatgevende berekening voor dit vak worden geselecteerd.";
+
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, double.NaN, null,
-                                          "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
+                                          expectedErrorMessage)
                 .SetName("NoneWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, 0.0, null,
-                                          "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
+                                          expectedErrorMessage)
                 .SetName("NoneWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, double.NaN, null,
-                                          "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
+                                          expectedErrorMessage)
                 .SetName("ApplicableWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, 0.0, null,
-                                          "Er moet een maatgevende berekening voor dit vak worden geselecteerd.")
+                                          expectedErrorMessage)
                 .SetName("ApplicableWithValidDetailedAssessmentAndNoCalculation");
         }
 
-        private static IEnumerable SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithoutOutput()
+        private static IEnumerable GetSimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithoutOutputConfigurations()
         {
             var dataGridViewCell = new TestDataGridViewCell
             {
                 ErrorText = "Default text"
             };
 
+            const string expectedErrorMessage = "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.";
+
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
-                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
+                                          expectedErrorMessage)
                 .SetName("NoneWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
-                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
+                                          expectedErrorMessage)
                 .SetName("NoneWithValidDetailedAssessmentAndCalculationWithoutOutput");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
-                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
+                                          expectedErrorMessage)
                 .SetName("ApplicableWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
-                                          "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.")
+                                          expectedErrorMessage)
                 .SetName("ApplicableValidDetailedAssessmentAndCalculationWithoutOutput");
         }
 
@@ -371,22 +382,26 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 ErrorText = "Default text"
             };
 
+            const string expectedErrorMessageOutputInvalid = "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.";
+            string expectedEmptyErrorMessage = string.Empty;
+
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.")
+                                          expectedErrorMessageOutputInvalid)
                 .SetName("NoneWithInvalidDetailedAssessmentAndCalculationWithOutput");
+
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.None, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          string.Empty)
+                                          expectedEmptyErrorMessage)
                 .SetName("NoneWithValidDetailedAssessmentAndCalculationWithOutput");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.")
+                                          expectedErrorMessageOutputInvalid)
                 .SetName("ApplicableWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          string.Empty)
+                                          expectedEmptyErrorMessage)
                 .SetName("ApplicableWithValidDetailedAssessmentAndCalculationWithOutput");
         }
 

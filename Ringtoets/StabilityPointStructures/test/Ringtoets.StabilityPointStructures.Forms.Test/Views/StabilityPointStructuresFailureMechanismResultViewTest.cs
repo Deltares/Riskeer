@@ -279,14 +279,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         [TestCase(SimpleAssessmentResultValidityOnlyType.None, TestName = "ResultView_SectionnBecomesNotApplicableAndListenersNotified_RowsDisabled(None)")]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, TestName = "ResultView_SectionnBecomesNotApplicableAndListenersNotified_RowsDisabled(Applicable)")]
         public void GivenFormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_ThenRowsForSectionDisabled(
-            SimpleAssessmentResultValidityOnlyType assessmentLayerOneState)
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var random = new Random(21);
             var result = new StabilityPointStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                SimpleAssessmentResult = assessmentLayerOneState,
+                SimpleAssessmentResult = simpleAssessmentResult,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             using (ShowFailureMechanismResultsView(
@@ -313,14 +313,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultWithoutCalculation_ThenDetailedAssessmentErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        public void GivenSectionResultWithoutCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(
@@ -377,9 +377,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        public void GivenSectionResultAndFailedCalculation_ThenDetailedAssessmentErrorTooltip(AssessmentLayerOneState assessmentLayerOneState)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        public void GivenSectionResultAndFailedCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -388,7 +388,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 {
                     Output = new TestStructuresOutput(double.NaN)
                 },
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
 
             using (ShowFailureMechanismResultsView(

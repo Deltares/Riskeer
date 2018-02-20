@@ -348,7 +348,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             }))
             {
                 // When
-                result.SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable;
+                result.SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible;
                 result.NotifyObservers();
 
                 // Then
@@ -592,10 +592,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenDetailedAssessmentHasError(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -604,7 +604,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 {
                     Output = new TestStructuresOutput(0.56789)
                 },
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
             using (ShowFailureMechanismResultsView(
                 new ObservableList<HeightStructuresFailureMechanismSectionResult>

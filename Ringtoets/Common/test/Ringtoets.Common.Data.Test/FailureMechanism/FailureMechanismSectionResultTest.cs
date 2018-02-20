@@ -55,23 +55,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             Assert.AreEqual("section", paramName);
         }
 
-        [Test]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.Sufficient)]
-        public void AssessmentLayerOne_SetNewValue_ReturnsNewValue(AssessmentLayerOneState newValue)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new TestFailureMechanismSectionResult(section);
-
-            // Call
-            failureMechanismSectionResult.AssessmentLayerOne = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerOne);
-        }
-
         private class TestFailureMechanismSectionResult : FailureMechanismSectionResult
         {
             public TestFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}

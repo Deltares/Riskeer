@@ -523,10 +523,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentLayerOneState.NotAssessed)]
-        [TestCase(AssessmentLayerOneState.NoVerdict)]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenDetailedAssessmentHasError(
-            AssessmentLayerOneState assessmentLayerOneState)
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Given
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -535,7 +535,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 {
                     Output = new TestStructuresOutput(0.56789)
                 },
-                AssessmentLayerOne = assessmentLayerOneState
+                SimpleAssessmentResult = simpleAssessmentResult
             };
             using (ShowFailureMechanismResultsView(
                 new ObservableList<ClosingStructuresFailureMechanismSectionResult>
