@@ -121,18 +121,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_DisplayName,
                 true);
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

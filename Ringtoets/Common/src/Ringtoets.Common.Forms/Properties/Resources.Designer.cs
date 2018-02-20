@@ -1438,27 +1438,27 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gedetailleerde toets per vak.
         /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessment_ColumnHeader {
+        public static string FailureMechanismResultView_DetailedAssessment_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessment_ColumnHeader", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessment_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Eenvoudige toets.
         /// </summary>
-        public static string FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader {
+        public static string FailureMechanismResultView_SimpleAssessmentResult_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_SimpleAssessmentResult_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Toets op maat.
         /// </summary>
-        public static string FailureMechanismResultView_TailorMadeAssessment_ColumnHeader {
+        public static string FailureMechanismResultView_TailorMadeAssessment_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessment_ColumnHeader", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessment_DisplayName", resourceCulture);
             }
         }
         
@@ -2597,9 +2597,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Vak.
         /// </summary>
-        public static string Section_ColumnHeader {
+        public static string Section_DisplayName {
             get {
-                return ResourceManager.GetString("Section_ColumnHeader", resourceCulture);
+                return ResourceManager.GetString("Section_DisplayName", resourceCulture);
             }
         }
         

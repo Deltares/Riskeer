@@ -76,7 +76,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
@@ -89,13 +89,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_DisplayName,
                 twoAResultDataSource,
                 nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
                 nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
                 nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

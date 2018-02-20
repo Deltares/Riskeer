@@ -132,18 +132,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_DisplayName,
                 true);
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
         }
 
         #region Event handling

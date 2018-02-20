@@ -25,7 +25,7 @@ using Ringtoets.Common.Primitives;
 namespace Ringtoets.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper class for determining read-only states in <see cref="FailureMechanismResultView{TSectionResult,TFailureMechanism}"/>.
+    /// Helper class for <see cref="FailureMechanismResultView{TSectionResult,TFailureMechanism}"/>.
     /// </summary>
     public static class FailureMechanismResultViewHelper
     {
@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Helpers
                    || simpleAssessmentResult == SimpleAssessmentResultType.NotApplicable;
         }
 
-        /// <summary>
+        /// <summary>nnnnnnn
         /// Helper method that determines whether the simple assessment is sufficient.
         /// </summary>
         /// <param name="simpleAssessmentResult">The simple assessment result to check.</param>

@@ -75,7 +75,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(DuneErosionSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_ColumnHeader,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
@@ -88,13 +88,13 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(DuneErosionSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_ColumnHeader,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_DisplayName,
                 twoAResultDataSource,
                 nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
                 nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
                 nameof(DuneErosionSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_ColumnHeader);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

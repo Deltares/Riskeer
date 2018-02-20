@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms
         private void AddDataGridColumns()
         {
             dataGridViewControl.AddTextBoxColumn(nameof(IScenarioRow<ICalculation>.Name),
-                                                 RingtoetsCommonFormsResources.Section_ColumnHeader,
+                                                 RingtoetsCommonFormsResources.Section_DisplayName,
                                                  true);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<ICalculation>>(
