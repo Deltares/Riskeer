@@ -119,6 +119,31 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenCellFormattingEventFired()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var cellFormattingEventFired = false;
+                dataGridView.CellFormatting += (sender, args) => cellFormattingEventFired = true;
+
+                // When
+                sectionResult.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(cellFormattingEventFired);
+            }
+        }
+
         private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
         {
             var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults, new TestFailureMechanism());

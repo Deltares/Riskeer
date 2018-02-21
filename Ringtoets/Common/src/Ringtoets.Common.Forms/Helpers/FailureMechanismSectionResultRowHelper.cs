@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
         public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
-                                                       SimpleAssessmentResultType simpleAssessmentResult,
+                                                      SimpleAssessmentResultType simpleAssessmentResult,
                                                       double detailedAssessmentProbability,
                                                       ICalculation normativeCalculation)
         {
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
         public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
-                                                       SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
+                                                      SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
                                                       double detailedAssessmentProbability,
                                                       ICalculation normativeCalculation)
         {

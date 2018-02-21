@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Util.Test
             {
                 InputParameters =
                 {
-                    Structure = new TestStructure("anId", "aName", new Point2D(1.1, 2.2))
+                    Structure = new TestStructure()
                 }
             };
 
