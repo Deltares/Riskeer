@@ -177,9 +177,15 @@ namespace Core.Common.Gui.Forms.ViewHost
         {
             ViewInfo viewInfo = viewInfos.FirstOrDefault(vi => vi.ViewType == view.GetType());
 
-            return viewInfo != null
-                   && (Equals(viewInfo.GetViewData(data), view.Data) ||
-                       viewInfo.CloseForData(view, data));
+            if (viewInfo == null)
+            {
+                return false;
+            }
+
+            bool isViewData = data.GetType().Implements(viewInfo.DataType)
+                              && Equals(viewInfo.GetViewData(data), view.Data);
+
+            return isViewData || viewInfo.CloseForData(view, data);
         }
 
         private void ViewHostOnViewClosed(object sender, ViewChangeEventArgs viewChangeEventArgs)
