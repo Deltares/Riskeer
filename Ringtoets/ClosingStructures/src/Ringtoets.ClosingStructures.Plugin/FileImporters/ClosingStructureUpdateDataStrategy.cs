@@ -30,8 +30,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Util;
 
 namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 {

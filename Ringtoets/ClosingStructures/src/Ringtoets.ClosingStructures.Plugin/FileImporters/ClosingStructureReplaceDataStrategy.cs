@@ -21,14 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.UpdateDataStrategies;
 using Ringtoets.Common.IO.Structures;
-using Ringtoets.Common.Service;
 
 namespace Ringtoets.ClosingStructures.Plugin.FileImporters
 {

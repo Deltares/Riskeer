@@ -39,66 +39,64 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class ClosingStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
     {
+        private ClosingStructuresPlugin plugin;
+        private TreeNodeInfo info;
+
+        [SetUp]
+        public void Setup()
+        {
+            plugin = new ClosingStructuresPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            using (var plugin = new ClosingStructuresPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Assert
-                Assert.IsNotNull(info.Text);
-                Assert.IsNull(info.ForeColor);
-                Assert.IsNotNull(info.Image);
-                Assert.IsNotNull(info.ContextMenuStrip);
-                Assert.IsNull(info.EnsureVisibleOnCreate);
-                Assert.IsNull(info.ExpandOnCreate);
-                Assert.IsNull(info.ChildNodeObjects);
-                Assert.IsNull(info.CanRename);
-                Assert.IsNull(info.OnNodeRenamed);
-                Assert.IsNull(info.CanRemove);
-                Assert.IsNull(info.OnNodeRemoved);
-                Assert.IsNull(info.CanCheck);
-                Assert.IsNull(info.IsChecked);
-                Assert.IsNull(info.OnNodeChecked);
-                Assert.IsNull(info.CanDrag);
-                Assert.IsNull(info.CanDrop);
-                Assert.IsNull(info.CanInsert);
-                Assert.IsNull(info.OnDrop);
-            }
+            // Assert
+            Assert.IsNotNull(info.Text);
+            Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.ContextMenuStrip);
+            Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.ExpandOnCreate);
+            Assert.IsNull(info.ChildNodeObjects);
+            Assert.IsNull(info.CanRename);
+            Assert.IsNull(info.OnNodeRenamed);
+            Assert.IsNull(info.CanRemove);
+            Assert.IsNull(info.OnNodeRemoved);
+            Assert.IsNull(info.CanCheck);
+            Assert.IsNull(info.IsChecked);
+            Assert.IsNull(info.OnNodeChecked);
+            Assert.IsNull(info.CanDrag);
+            Assert.IsNull(info.CanDrop);
+            Assert.IsNull(info.CanInsert);
+            Assert.IsNull(info.OnDrop);
         }
 
         [Test]
         public void Text_Always_ReturnsName()
         {
-            // Setup
-            using (var plugin = new ClosingStructuresPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
+            // Call
+            string text = info.Text(null);
 
-                // Call
-                string text = info.Text(null);
-
-                // Assert
-                Assert.AreEqual("Resultaat", text);
-            }
+            // Assert
+            Assert.AreEqual("Resultaat", text);
         }
 
         [Test]
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
-            // Setup
-            using (var plugin = new ClosingStructuresPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
+            // Call
+            Image image = info.Image(null);
 
-                // Call
-                Image image = info.Image(null);
-
-                // Assert
-                TestHelper.AssertImagesAreEqual(Resources.FailureMechanismSectionResultIcon, image);
-            }
+            // Assert
+            TestHelper.AssertImagesAreEqual(Resources.FailureMechanismSectionResultIcon, image);
         }
 
         [Test]
@@ -125,24 +123,14 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(sectionResultContext, treeViewControl)).Return(menuBuilder);
                 mockRepository.ReplayAll();
 
-                using (var plugin = new ClosingStructuresPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-                    plugin.Gui = gui;
-
-                    // Call
-                    info.ContextMenuStrip(sectionResultContext, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(sectionResultContext, null, treeViewControl);
             }
 
             // Assert
             mockRepository.VerifyAll();
-        }
-
-        private static TreeNodeInfo GetInfo(ClosingStructuresPlugin plugin)
-        {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>));
         }
     }
 }

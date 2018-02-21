@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util;
@@ -36,7 +35,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
@@ -138,30 +136,37 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 {
                     return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.VerticalWall;
                 }
+
                 if (propertyName == nameof(ModelFactorSuperCriticalFlow))
                 {
                     return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.FloodedCulvert;
                 }
+
                 if (propertyName == nameof(DrainCoefficient))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.FloodedCulvert;
                 }
+
                 if (propertyName == nameof(StructureNormalOrientation))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall;
                 }
+
                 if (propertyName == nameof(ThresholdHeightOpenWeir))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.LowSill;
                 }
+
                 if (propertyName == nameof(AreaFlowApertures))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.FloodedCulvert;
                 }
+
                 if (propertyName == nameof(LevelCrestStructureNotClosing))
                 {
                     return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall;
                 }
+
                 if (propertyName == nameof(WidthFlowApertures))
                 {
                     return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.FloodedCulvert;
