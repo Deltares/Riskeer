@@ -32,7 +32,7 @@ namespace Core.Common.Gui.Forms.ViewHost
     /// <summary>
     /// Class responsible for finding a view given some data object.
     /// </summary>
-    public class DocumentViewController : IDocumentViewController, IDisposable
+    public class DocumentViewController : IDocumentViewController
     {
         private readonly IViewHost viewHost;
         private readonly ViewInfo[] viewInfos;

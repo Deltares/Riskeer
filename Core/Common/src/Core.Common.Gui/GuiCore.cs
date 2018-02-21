@@ -264,7 +264,11 @@ namespace Core.Common.Gui
                     mainWindow = null;
                 }
 
-                DocumentViewController = null;
+                if (DocumentViewController != null)
+                {
+                    DocumentViewController.Dispose();
+                    DocumentViewController = null;
+                }
 
                 splashScreen = null;
 

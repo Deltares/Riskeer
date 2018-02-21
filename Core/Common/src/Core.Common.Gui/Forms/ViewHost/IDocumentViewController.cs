@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Gui.Plugin;
 
@@ -38,7 +39,7 @@ namespace Core.Common.Gui.Forms.ViewHost
     /// </item>
     /// </list>
     /// </summary>
-    public interface IDocumentViewController
+    public interface IDocumentViewController : IDisposable
     {
         /// <summary>
         /// Opens a view for <paramref name="data"/>.

@@ -131,6 +131,7 @@ namespace Core.Common.Gui.Test
                                    "OS not supporting visual styles, therefore application shouldn't be render with visual styles.");
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -163,6 +164,7 @@ namespace Core.Common.Gui.Test
                 const string expectedMessage = "Value cannot be null.";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             }
+
             mocks.VerifyAll();
         }
 
@@ -218,6 +220,7 @@ namespace Core.Common.Gui.Test
                 // Assert
                 Assert.Throws<ArgumentNullException>(test);
             }
+
             mocks.VerifyAll();
         }
 
@@ -318,6 +321,7 @@ namespace Core.Common.Gui.Test
                 Assert.IsTrue(mainWindow.IsWindowDisposed);
                 Assert.IsNull(gui.MainWindow);
             }
+
             mocks.VerifyAll();
         }
 
@@ -360,6 +364,7 @@ namespace Core.Common.Gui.Test
             {
                 rootLogger.RemoveAppender(messageWindowLogAppender);
             }
+
             mocks.VerifyAll();
         }
 
@@ -388,6 +393,7 @@ namespace Core.Common.Gui.Test
                 CollectionAssert.IsEmpty(gui.ViewHost.ToolViews);
                 Assert.IsTrue(toolView.IsDisposed);
             }
+
             mocks.VerifyAll();
         }
 
@@ -417,6 +423,7 @@ namespace Core.Common.Gui.Test
                 Assert.IsNull(gui.DocumentViewController);
                 Assert.IsTrue(documentView.IsDisposed);
             }
+
             mocks.VerifyAll();
         }
 
@@ -460,6 +467,7 @@ namespace Core.Common.Gui.Test
                     rootLogger.AddAppender(appender);
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -506,6 +514,7 @@ namespace Core.Common.Gui.Test
                     rootLogger.AddAppender(originalAppender);
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -552,6 +561,7 @@ namespace Core.Common.Gui.Test
                 string expectedTitle = $"{fileName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
+
             mocks.VerifyAll();
         }
 
@@ -594,6 +604,7 @@ namespace Core.Common.Gui.Test
                 string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
+
             mocks.VerifyAll();
         }
 
@@ -640,6 +651,7 @@ namespace Core.Common.Gui.Test
                 string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
+
             mocks.VerifyAll();
         }
 
@@ -695,6 +707,7 @@ namespace Core.Common.Gui.Test
                 string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
+
             mocks.VerifyAll();
         }
 
@@ -745,6 +758,7 @@ namespace Core.Common.Gui.Test
                 string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
+
             mocks.VerifyAll();
         }
 
@@ -784,6 +798,7 @@ namespace Core.Common.Gui.Test
                 string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
+
             mocks.VerifyAll();
         }
 
@@ -814,6 +829,7 @@ namespace Core.Common.Gui.Test
                 // Assert
                 Assert.AreSame(gui, plugin.Gui);
             }
+
             mocks.VerifyAll();
         }
 
@@ -841,6 +857,7 @@ namespace Core.Common.Gui.Test
                 // Call
                 gui.Run();
             }
+
             // Assert
             mocks.VerifyAll(); // Expect calls on plugin
         }
@@ -874,6 +891,7 @@ namespace Core.Common.Gui.Test
                 Tuple<string, LogLevelConstant> expectedMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Error);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessageAndLogLevel);
             }
+
             mocks.VerifyAll(); // Expect Dispose call on plugin
         }
 
@@ -928,6 +946,7 @@ namespace Core.Common.Gui.Test
                 // Assert
                 CollectionAssert.IsEmpty(dataInstancesWithViewDefinitions);
             }
+
             mocks.VerifyAll();
         }
 
@@ -976,6 +995,7 @@ namespace Core.Common.Gui.Test
                 };
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1037,6 +1057,7 @@ namespace Core.Common.Gui.Test
                 };
                 CollectionAssert.AreEquivalent(expectedDataDefinitions, dataInstancesWithViewDefinitions);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1141,6 +1162,7 @@ namespace Core.Common.Gui.Test
                 string message = Assert.Throws<InvalidOperationException>(call).Message;
                 Assert.AreEqual("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.", message);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1176,6 +1198,7 @@ namespace Core.Common.Gui.Test
                                                       .Build();
                 Assert.AreEqual(9, contextMenu.Items.Count);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1215,6 +1238,7 @@ namespace Core.Common.Gui.Test
                 Assert.AreEqual(1, openedCallCount);
                 Assert.AreEqual(1, beforeOpenCallCount);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1245,6 +1269,7 @@ namespace Core.Common.Gui.Test
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1274,6 +1299,7 @@ namespace Core.Common.Gui.Test
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1304,6 +1330,7 @@ namespace Core.Common.Gui.Test
                 // Then
                 Assert.AreSame(selectionProvider.Selection, gui.Selection);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1337,6 +1364,7 @@ namespace Core.Common.Gui.Test
                 // Then
                 Assert.AreSame(selection, gui.Selection);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1367,6 +1395,7 @@ namespace Core.Common.Gui.Test
                 // Then
                 Assert.AreSame(selection, gui.Selection);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1397,6 +1426,7 @@ namespace Core.Common.Gui.Test
                 // Then
                 Assert.AreSame(selection, gui.Selection);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1428,6 +1458,7 @@ namespace Core.Common.Gui.Test
                 // Then
                 Assert.IsNull(gui.Selection);
             }
+
             mocks.VerifyAll();
         }
 
@@ -1461,6 +1492,7 @@ namespace Core.Common.Gui.Test
                 // Then
                 Assert.IsNull(gui.Selection);
             }
+
             mocks.VerifyAll();
         }
 
