@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSection_Length_Rounded_Description))]
         public RoundedDouble Length
         {
             get

@@ -1483,9 +1483,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De totale lengte van het vak in meters (afgerond)..
         /// </summary>
-        public static string FailureMechanismSection_Length_Description {
+        public static string FailureMechanismSection_Length_Rounded_Description {
             get {
-                return ResourceManager.GetString("FailureMechanismSection_Length_Description", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSection_Length_Rounded_Description", resourceCulture);
             }
         }
         
@@ -1537,9 +1537,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Vakspecifieke waarde voor het in rekening brengen van het lengte-effect tijdens assemblage (afgerond)..
         /// </summary>
-        public static string FailureMechanismSectionProbabilityAssessment_N_Description {
+        public static string FailureMechanismSectionProbabilityAssessment_N_Rounded_Description {
             get {
-                return ResourceManager.GetString("FailureMechanismSectionProbabilityAssessment_N_Description", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSectionProbabilityAssessment_N_Rounded_Description", resourceCulture);
             }
         }
         
@@ -2495,9 +2495,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Totale lengte van het traject in meters (afgerond)..
         /// </summary>
-        public static string ReferenceLine_Length_Description {
+        public static string ReferenceLine_Length_Rounded_Description {
             get {
-                return ResourceManager.GetString("ReferenceLine_Length_Description", resourceCulture);
+                return ResourceManager.GetString("ReferenceLine_Length_Rounded_Description", resourceCulture);
             }
         }
         
