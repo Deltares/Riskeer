@@ -19,13 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -50,18 +54,38 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_WithContext_SetsHydraulicBoundaryLocationsAsData()
+        public void CreateInstance_WithContext_SetsDataCorrectly()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var context = new WaveHeightLocationsContext(hydraulicBoundaryDatabase.Locations,
+            var random = new Random();
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
+            var locationsLookup = new Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>
+            {
+                {
+                    new TestHydraulicBoundaryLocation(),
+                    new HydraulicBoundaryLocationCalculation
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                    }
+                },
+                {
+                    new TestHydraulicBoundaryLocation(),
+                    new HydraulicBoundaryLocationCalculation
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                    }
+                }
+            };
+
+            hydraulicBoundaryLocations.AddRange(locationsLookup.Keys);
+
+            var context = new WaveHeightLocationsContext(hydraulicBoundaryLocations,
                                                          assessmentSection,
-                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                         hbl => locationsLookup[hbl],
                                                          "Category");
 
             using (var plugin = new RingtoetsPlugin())
@@ -73,7 +97,10 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<WaveHeightLocationsProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryDatabase.Locations, objectProperties.Data);
+                Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
+                WaveHeightLocationProperties[] locationProperties = ((WaveHeightLocationsProperties) objectProperties).Locations;
+                CollectionAssert.AreEqual(locationsLookup.Keys, locationProperties.Select(p => p.Data));
+                CollectionAssert.AreEqual(locationsLookup.Values.Select(c => c.Output.Result), locationProperties.Select(p => p.WaveHeight));
             }
 
             mockRepository.VerifyAll();
