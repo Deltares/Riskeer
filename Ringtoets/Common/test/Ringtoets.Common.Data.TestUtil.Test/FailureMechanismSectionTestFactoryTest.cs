@@ -50,11 +50,12 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void CreateFailureMechanismSection_WithName_ReturnsExpectedValues()
         {
             // Call
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("section ABC");
+            const string sectionName = "section ABC";
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(sectionName);
 
             // Assert
             Assert.IsNotNull(section);
-            Assert.AreEqual("section ABC", section.Name);
+            Assert.AreEqual(sectionName, section.Name);
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 0),

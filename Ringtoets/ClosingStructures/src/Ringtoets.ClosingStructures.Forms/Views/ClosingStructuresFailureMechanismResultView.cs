@@ -136,8 +136,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                var simpleAssessmentResult = (SimpleAssessmentResultType) DataGridViewControl.GetCell(eventArgs.RowIndex,
-                                                                                                      SimpleAssessmentColumnIndex).Value;
+                SimpleAssessmentResultType simpleAssessmentResult =
+                    ((ClosingStructuresFailureMechanismSectionResultRow) GetDataAtRow(eventArgs.RowIndex)).SimpleAssessmentResult;
                 if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);

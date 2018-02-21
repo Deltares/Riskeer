@@ -141,8 +141,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                var simpleAssessmentResult = (SimpleAssessmentResultValidityOnlyType) DataGridViewControl.GetCell(eventArgs.RowIndex,
-                                                                                                                  SimpleAssessmentColumnIndex).Value;
+                SimpleAssessmentResultValidityOnlyType simpleAssessmentResult =
+                    ((StabilityPointStructuresFailureMechanismSectionResultRow) GetDataAtRow(eventArgs.RowIndex)).SimpleAssessmentResult;
                 if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);

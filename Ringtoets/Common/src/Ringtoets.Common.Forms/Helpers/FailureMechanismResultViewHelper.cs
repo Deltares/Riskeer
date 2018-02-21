@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Helpers
                    || simpleAssessmentResult == SimpleAssessmentResultType.NotApplicable;
         }
 
-        /// <summary>nnnnnnn
+        /// <summary>
         /// Helper method that determines whether the simple assessment is sufficient.
         /// </summary>
         /// <param name="simpleAssessmentResult">The simple assessment result to check.</param>

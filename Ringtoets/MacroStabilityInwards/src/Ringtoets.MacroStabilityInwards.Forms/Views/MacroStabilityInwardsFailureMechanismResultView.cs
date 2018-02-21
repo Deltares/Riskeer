@@ -152,8 +152,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                var simpleAssessmentResult = (SimpleAssessmentResultType) DataGridViewControl.GetCell(eventArgs.RowIndex,
-                                                                                                      SimpleAssessmentColumnIndex).Value;
+                SimpleAssessmentResultType simpleAssessmentResult =
+                    ((MacroStabilityInwardsFailureMechanismSectionResultRow) GetDataAtRow(eventArgs.RowIndex)).SimpleAssessmentResult;
                 if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);

@@ -143,7 +143,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Adds the column for the section name in the view.
+        /// Adds the columns to the view.
         /// </summary>
         protected virtual void AddDataGridColumns()
         {

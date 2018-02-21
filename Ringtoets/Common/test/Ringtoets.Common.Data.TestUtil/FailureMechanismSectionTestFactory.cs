@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a <see cref="FailureMechanismSection"/>.
         /// </summary>
-        /// <param name="name">The (optional) name of the section.</param>
+        /// <param name="name">The name of the section.</param>
         /// <returns>A valid <see cref="FailureMechanismSection"/>.</returns>
         public static FailureMechanismSection CreateFailureMechanismSection(string name = "test")
         {
