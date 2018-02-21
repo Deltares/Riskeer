@@ -43,15 +43,19 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
             // Call
-            var documentViewController = new DocumentViewController(viewHost, Enumerable.Empty<ViewInfo>(), dialogParent);
-
-            // Assert
-            Assert.IsInstanceOf<IDocumentViewController>(documentViewController);
-            CollectionAssert.IsEmpty(documentViewController.DefaultViewTypes);
+            using (var documentViewController = new DocumentViewController(viewHost,
+                                                                           Enumerable.Empty<ViewInfo>(),
+                                                                           dialogParent))
+            {
+                // Assert
+                Assert.IsInstanceOf<IDocumentViewController>(documentViewController);
+                CollectionAssert.IsEmpty(documentViewController.DefaultViewTypes);
+            }
 
             mocks.VerifyAll();
         }
@@ -67,6 +71,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
@@ -75,18 +80,49 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<object, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                bool result = documentViewController.OpenViewForData(null, forceShowDialog);
 
-            // Call
-            bool result = documentViewController.OpenViewForData(null, forceShowDialog);
+                // Assert
+                Assert.IsFalse(result);
+            }
 
-            // Assert
-            Assert.IsFalse(result);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void OpenViewForData_DataHasSingleMatch_ReturnTrueAndAddToViewList()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OpenViewForData_NoViewInfoRegistered_ReturnFalse(bool forceShowDialog)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var viewHost = mocks.StrictMock<IViewHost>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
+
+            mocks.ReplayAll();
+
+            var viewInfos = new ViewInfo[0];
+
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                bool result = documentViewController.OpenViewForData(new object(), forceShowDialog);
+
+                // Assert
+                Assert.IsFalse(result);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenViewForData_DataHasSingleMatch_ReturnTrueAndAddToViewHost()
         {
             // Setup
             TestView view = null;
@@ -95,6 +131,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -132,47 +169,23 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<int, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                bool result = documentViewController.OpenViewForData(data);
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data);
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(viewData, view.Data);
+                Assert.AreEqual(viewName, view.Text);
+                Assert.IsTrue(afterCreateCalled);
+            }
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(viewData, view.Data);
-            Assert.AreEqual(viewName, view.Text);
-            Assert.IsTrue(afterCreateCalled);
             mocks.VerifyAll();
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void OpenViewForData_NoViewInfoRegistered_ReturnFalse(bool forceShowDialog)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            var viewHost = mocks.StrictMock<IViewHost>();
-
-            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
-
-            mocks.ReplayAll();
-
-            var viewInfos = new ViewInfo[0];
-
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            // Call
-            bool result = documentViewController.OpenViewForData(new object(), forceShowDialog);
-
-            // Assert
-            Assert.IsFalse(result);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void OpenViewForData_DataHasSingleMatchOnBaseType_ReturnTrueAndAddToViewList()
+        public void OpenViewForData_DataHasSingleMatchOnBaseType_ReturnTrueAndAddToViewHost()
         {
             // Setup
             TestView view = null;
@@ -181,6 +194,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -212,21 +226,25 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<int, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                bool result = documentViewController.OpenViewForData(data);
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data);
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(data, view.Data);
+                Assert.AreEqual(viewName, view.Text);
+                Assert.IsTrue(afterCreateCalled);
+            }
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(data, view.Data);
-            Assert.AreEqual(viewName, view.Text);
-            Assert.IsTrue(afterCreateCalled);
+            ;
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void OpenViewForData_DataHasMultipleMatchesOnType_ResolveToMostSpecializedAndReturnTrueAndAddToViewList()
+        public void OpenViewForData_DataHasMultipleMatchesOnType_ResolveToMostSpecializedAndReturnTrueAndAddToViewHost()
         {
             // Setup
             TestViewDerivative view = null;
@@ -235,6 +253,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -249,20 +268,22 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<A, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                bool result = documentViewController.OpenViewForData(data);
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data);
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(data, view.Data);
+                Assert.IsEmpty(view.Text);
+            }
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(data, view.Data);
-            Assert.IsEmpty(view.Text);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void OpenViewForData_ViewInfosForInheritedData_ResolveToMostSpecializedForDataAndReturnTrueAndAddToViewList()
+        public void OpenViewForData_ViewInfosForInheritedData_ResolveToMostSpecializedForDataAndReturnTrueAndAddToViewHost()
         {
             // Setup
             TestView view = null;
@@ -271,6 +292,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -285,20 +307,24 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<A, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                bool result = documentViewController.OpenViewForData(data);
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data);
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(data, view.Data);
+                Assert.IsEmpty(view.Text);
+            }
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(data, view.Data);
-            Assert.IsEmpty(view.Text);
+            ;
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void OpenViewForData_DataHasMultipleSingleMatches_UseAdditionalDataCheckAndReturnTrueAndAddToViewList()
+        public void OpenViewForData_DataHasMultipleSingleMatches_UseAdditionalDataCheckAndReturnTrueAndAddToViewHost()
         {
             // Setup
             TestViewDerivative view = null;
@@ -307,6 +333,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -327,20 +354,22 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 }
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                bool result = documentViewController.OpenViewForData(data);
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data);
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(data, view.Data);
+                Assert.IsEmpty(view.Text);
+            }
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(data, view.Data);
-            Assert.IsEmpty(view.Text);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void OpenViewForData_ClickCancelInOpenedDialog_ReturnFalseAndNoViewAddedToViewList()
+        public void OpenViewForData_ClickCancelInOpenedDialog_ReturnFalseAndNoViewAddedToViewHost()
         {
             // Setup
             var mocks = new MockRepository();
@@ -348,6 +377,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
 
             mocks.ReplayAll();
@@ -359,25 +389,27 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<object, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            DialogBoxHandler = (name, wnd) =>
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
-                var buttonCancel = new ControlTester("buttonCancel");
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var buttonCancel = new ControlTester("buttonCancel");
 
-                buttonCancel.Click();
-            };
+                    buttonCancel.Click();
+                };
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data);
+                // Call
+                bool result = documentViewController.OpenViewForData(data);
 
-            // Assert
-            Assert.IsFalse(result);
+                // Assert
+                Assert.IsFalse(result);
+            }
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void OpenViewForData_ClickOkInOpenedDialog_ReturnTrueAndViewAddedToViewList()
+        public void OpenViewForData_ClickOkInOpenedDialog_ReturnTrueAndViewAddedToViewHost()
         {
             // Setup
             TestView view = null;
@@ -386,6 +418,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -400,27 +433,29 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<object, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            DialogBoxHandler = (name, wnd) =>
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
-                var buttonOk = new ControlTester("buttonOk");
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var buttonOk = new ControlTester("buttonOk");
 
-                buttonOk.Click();
-            };
+                    buttonOk.Click();
+                };
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data);
+                // Call
+                bool result = documentViewController.OpenViewForData(data);
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(data, view.Data);
-            Assert.IsEmpty(view.Text);
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(data, view.Data);
+                Assert.IsEmpty(view.Text);
+            }
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void OpenViewForData_MarkAsDefaultViewAndClickOkInOpenedDialog_ReturnTrueViewAddedToViewListAndDefaultViewTypesUpdated()
+        public void OpenViewForData_MarkAsDefaultViewAndClickOkInOpenedDialog_ReturnTrueViewAddedToViewHostAndDefaultViewTypesUpdated()
         {
             // Setup
             TestView view = null;
@@ -429,6 +464,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -443,29 +479,31 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<object, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            DialogBoxHandler = (name, wnd) =>
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
-                var buttonOk = new ControlTester("buttonOk");
-                var checkbox = new CheckBoxTester("checkBoxDefault");
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var buttonOk = new ControlTester("buttonOk");
+                    var checkbox = new CheckBoxTester("checkBoxDefault");
 
-                checkbox.Check();
-                buttonOk.Click();
-            };
+                    checkbox.Check();
+                    buttonOk.Click();
+                };
 
-            // Precondition
-            Assert.IsFalse(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
+                // Precondition
+                Assert.IsFalse(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data);
+                // Call
+                bool result = documentViewController.OpenViewForData(data);
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(data, view.Data);
-            Assert.IsEmpty(view.Text);
-            Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
-            Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(data, view.Data);
+                Assert.IsEmpty(view.Text);
+                Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
+                Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
+            }
+
             mocks.VerifyAll();
         }
 
@@ -479,6 +517,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -493,29 +532,32 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<object, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-            documentViewController.DefaultViewTypes[typeof(object)] = typeof(TestViewDerivative);
-
-            DialogBoxHandler = (name, wnd) =>
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
-                var buttonOk = new ControlTester("buttonOk");
-                var listBox = new ListBoxTester("listBox");
-                var checkBox = new CheckBoxTester("checkBoxDefault");
+                documentViewController.DefaultViewTypes[typeof(object)] = typeof(TestViewDerivative);
 
-                listBox.SetSelected(0, true);
-                checkBox.Check();
-                buttonOk.Click();
-            };
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var buttonOk = new ControlTester("buttonOk");
+                    var listBox = new ListBoxTester("listBox");
+                    var checkBox = new CheckBoxTester("checkBoxDefault");
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data, true);
+                    listBox.SetSelected(0, true);
+                    checkBox.Check();
+                    buttonOk.Click();
+                };
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(data, view.Data);
-            Assert.IsEmpty(view.Text);
-            Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
-            Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
+                // Call
+                bool result = documentViewController.OpenViewForData(data, true);
+
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(data, view.Data);
+                Assert.IsEmpty(view.Text);
+                Assert.IsTrue(documentViewController.DefaultViewTypes.ContainsKey(typeof(object)));
+                Assert.AreEqual(documentViewController.DefaultViewTypes[typeof(object)], typeof(TestView));
+            }
+
             mocks.VerifyAll();
         }
 
@@ -529,6 +571,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull)).WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -543,16 +586,19 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<object, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-            documentViewController.DefaultViewTypes[typeof(object)] = typeof(TestViewDerivative);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                documentViewController.DefaultViewTypes[typeof(object)] = typeof(TestViewDerivative);
 
-            // Call
-            bool result = documentViewController.OpenViewForData(data);
+                // Call
+                bool result = documentViewController.OpenViewForData(data);
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(data, view.Data);
-            Assert.IsEmpty(view.Text);
+                // Assert
+                Assert.IsTrue(result);
+                Assert.AreEqual(data, view.Data);
+                Assert.IsEmpty(view.Text);
+            }
+
             mocks.VerifyAll();
         }
 
@@ -567,6 +613,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data1)));
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data2)));
@@ -579,11 +626,12 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<object, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            // Call
-            documentViewController.OpenViewForData(data1);
-            documentViewController.OpenViewForData(data2);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                documentViewController.OpenViewForData(data1);
+                documentViewController.OpenViewForData(data2);
+            }
 
             // Assert
             mocks.VerifyAll();
@@ -600,6 +648,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(viewList);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => viewList.Add(invocation.Arguments[0] as TestView));
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
@@ -612,13 +661,14 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<object, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Open view
+                documentViewController.OpenViewForData(data);
 
-            // Open view
-            documentViewController.OpenViewForData(data);
-
-            // Call
-            documentViewController.OpenViewForData(data);
+                // Call
+                documentViewController.OpenViewForData(data);
+            }
 
             // Assert
             mocks.VerifyAll();
@@ -633,18 +683,20 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            var documentViewController = new DocumentViewController(viewHost, Enumerable.Empty<ViewInfo>(), dialogParent);
+            using (var documentViewController = new DocumentViewController(viewHost, Enumerable.Empty<ViewInfo>(), dialogParent))
+            {
+                var data = new object();
 
-            var data = new object();
+                // Call
+                IEnumerable<ViewInfo> matchedViewInfos = documentViewController.GetViewInfosFor(data);
 
-            // Call
-            IEnumerable<ViewInfo> matchedViewInfos = documentViewController.GetViewInfosFor(data);
-
-            // Assert
-            CollectionAssert.IsEmpty(matchedViewInfos);
+                // Assert
+                CollectionAssert.IsEmpty(matchedViewInfos);
+            }
 
             mocks.VerifyAll();
         }
@@ -658,6 +710,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
@@ -668,18 +721,19 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<string, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            const int data = default(int);
-
-            // Call
-            ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
-                viewInfos[1]
-            }, matchedViewInfos);
+                const int data = default(int);
+
+                // Call
+                ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
+
+                // Assert
+                CollectionAssert.AreEqual(new[]
+                {
+                    viewInfos[1]
+                }, matchedViewInfos);
+            }
 
             mocks.VerifyAll();
         }
@@ -693,6 +747,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
@@ -703,20 +758,21 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<object, TestView>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            var data = new A();
-
-            // Call
-            ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
-
-            // Assert
-            var expected = new[]
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
-                viewInfos[0],
-                viewInfos[2]
-            };
-            CollectionAssert.AreEqual(expected, matchedViewInfos);
+                var data = new A();
+
+                // Call
+                ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
+
+                // Assert
+                var expected = new[]
+                {
+                    viewInfos[0],
+                    viewInfos[2]
+                };
+                CollectionAssert.AreEqual(expected, matchedViewInfos);
+            }
 
             mocks.VerifyAll();
         }
@@ -730,6 +786,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
@@ -746,20 +803,21 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 }
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            var data = new InheritedFromA();
-
-            // Call
-            ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
-
-            // Assert
-            var expected = new[]
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
-                viewInfos[0],
-                viewInfos[1]
-            };
-            CollectionAssert.AreEqual(expected, matchedViewInfos);
+                var data = new InheritedFromA();
+
+                // Call
+                ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
+
+                // Assert
+                var expected = new[]
+                {
+                    viewInfos[0],
+                    viewInfos[1]
+                };
+                CollectionAssert.AreEqual(expected, matchedViewInfos);
+            }
 
             mocks.VerifyAll();
         }
@@ -784,6 +842,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new[]
             {
                 testView,
@@ -798,10 +857,11 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<InheritedFromA, TestViewDerivative>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            // Call
-            documentViewController.CloseAllViewsFor(null);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                documentViewController.CloseAllViewsFor(null);
+            }
 
             // Assert
             mocks.VerifyAll();
@@ -827,6 +887,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new[]
             {
                 testView,
@@ -841,10 +902,11 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<InheritedFromA, TestViewDerivative>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            // Call
-            documentViewController.CloseAllViewsFor(new object());
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                documentViewController.CloseAllViewsFor(new object());
+            }
 
             // Assert
             mocks.VerifyAll();
@@ -875,6 +937,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             };
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
             viewHost.Expect(vh => vh.Remove(testView)).WhenCalled(x => documentViews.Remove(testView));
 
@@ -886,10 +949,11 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 new ViewInfo<InheritedFromA, TestViewDerivative>()
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            // Call
-            documentViewController.CloseAllViewsFor(data1);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                documentViewController.CloseAllViewsFor(data1);
+            }
 
             // Assert
             mocks.VerifyAll();
@@ -921,6 +985,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             };
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
             viewHost.Expect(vh => vh.Remove(testView)).WhenCalled(x => documentViews.Remove(testView));
             viewHost.Expect(vh => vh.Remove(testViewDerivative)).WhenCalled(x => documentViews.Remove(testViewDerivative));
@@ -951,10 +1016,11 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 }
             };
 
-            var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent);
-
-            // Call
-            documentViewController.CloseAllViewsFor(unusedViewData);
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                // Call
+                documentViewController.CloseAllViewsFor(unusedViewData);
+            }
 
             // Assert
             mocks.VerifyAll();
