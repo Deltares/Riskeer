@@ -92,7 +92,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 
         public override int GetHashCode()
         {
-            return base.GetHashCode() ^ Parent.GetHashCode();
+            return base.GetHashCode() ^ Parent?.GetHashCode() ?? 0;
         }
     }
 }
