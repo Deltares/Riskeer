@@ -138,13 +138,11 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private bool ShouldRemoveViewForData(IView view, object data)
         {
-            if (IsViewData(view, data))
-            {
-                return true;
-            }
+            ViewInfo viewInfo = viewInfos.FirstOrDefault(vi => vi.ViewType == view.GetType());
 
-            ViewInfo viewInfo = GetViewInfoForView(view);
-            return viewInfo != null && viewInfo.CloseForData(view, data);
+            return viewInfo != null
+                   && (Equals(viewInfo.GetViewData(data), view.Data) ||
+                       viewInfo.CloseForData(view, data));
         }
 
         private Type GetDefaultViewType(object dataObject)
@@ -230,26 +228,6 @@ namespace Core.Common.Gui.Forms.ViewHost
 
                 return selectedViewInfo;
             }
-        }
-
-        private bool IsViewData(IView view, object data)
-        {
-            if (data.Equals(view.Data))
-            {
-                return true;
-            }
-
-            ViewInfo viewInfo = GetViewInfoForView(view);
-
-            return viewInfo != null
-                   && data.GetType().Implements(viewInfo.DataType)
-                   && viewInfo.AdditionalDataCheck(data)
-                   && Equals(viewInfo.GetViewData(data), view.Data);
-        }
-
-        private ViewInfo GetViewInfoForView(IView view)
-        {
-            return viewInfos.FirstOrDefault(vi => vi.ViewType == view.GetType());
         }
 
         private void ClearDefaultView(object data)
