@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
             var random = new Random();
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
-            var locationsLookup = new Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>
+            var hydraulicBoundaryLocationsLookup = new Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>
             {
                 {
                     new TestHydraulicBoundaryLocation(),
@@ -81,11 +81,11 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 }
             };
 
-            hydraulicBoundaryLocations.AddRange(locationsLookup.Keys);
+            hydraulicBoundaryLocations.AddRange(hydraulicBoundaryLocationsLookup.Keys);
 
             var context = new WaveHeightLocationsContext(hydraulicBoundaryLocations,
                                                          assessmentSection,
-                                                         hbl => locationsLookup[hbl],
+                                                         hbl => hydraulicBoundaryLocationsLookup[hbl],
                                                          "Category");
 
             using (var plugin = new RingtoetsPlugin())
@@ -99,8 +99,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<WaveHeightLocationsProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
                 WaveHeightLocationProperties[] locationProperties = ((WaveHeightLocationsProperties) objectProperties).Locations;
-                CollectionAssert.AreEqual(locationsLookup.Keys, locationProperties.Select(p => p.Data));
-                CollectionAssert.AreEqual(locationsLookup.Values.Select(c => c.Output.Result), locationProperties.Select(p => p.WaveHeight));
+                CollectionAssert.AreEqual(hydraulicBoundaryLocationsLookup.Keys, locationProperties.Select(p => p.Data));
+                CollectionAssert.AreEqual(hydraulicBoundaryLocationsLookup.Values.Select(c => c.Output.Result), locationProperties.Select(p => p.WaveHeight));
             }
 
             mockRepository.VerifyAll();

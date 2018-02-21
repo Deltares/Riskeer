@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -36,6 +37,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -45,6 +47,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class DesignWaterLevelLocationsViewInfoTest
     {
+        private const int locationDesignWaterlevelColumnIndex = 5;
+
         private RingtoetsPlugin plugin;
         private ViewInfo info;
 
@@ -127,13 +131,35 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_WithContext_SetExpectedProperties()
+        public void CreateInstance_WithContext_SetsExpectedData()
         {
             // Setup
+            var random = new Random();
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocationsLookup = new Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>
+            {
+                {
+                    new TestHydraulicBoundaryLocation(),
+                    new HydraulicBoundaryLocationCalculation
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                    }
+                },
+                {
+                    new TestHydraulicBoundaryLocation(),
+                    new HydraulicBoundaryLocationCalculation
+                    {
+                        Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                    }
+                }
+            };
+
+            hydraulicBoundaryLocations.AddRange(hydraulicBoundaryLocationsLookup.Keys);
+
+            var context = new DesignWaterLevelLocationsContext(hydraulicBoundaryLocations,
                                                                assessmentSection,
-                                                               hbl => new HydraulicBoundaryLocationCalculation(),
+                                                               hbl => hydraulicBoundaryLocationsLookup[hbl],
                                                                "Category");
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
@@ -145,6 +171,18 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
+
+                using (var testForm = new Form())
+                {
+                    testForm.Controls.Add(view);
+                    testForm.Show();
+
+                    DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
+                    DataGridViewRowCollection rows = locationsDataGridView.Rows;
+                    Assert.AreEqual(2, rows.Count);
+                    Assert.AreEqual(hydraulicBoundaryLocationsLookup.Values.ElementAt(0).Output.Result.ToString(), rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+                    Assert.AreEqual(hydraulicBoundaryLocationsLookup.Values.ElementAt(1).Output.Result.ToString(), rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+                }
             }
         }
 
