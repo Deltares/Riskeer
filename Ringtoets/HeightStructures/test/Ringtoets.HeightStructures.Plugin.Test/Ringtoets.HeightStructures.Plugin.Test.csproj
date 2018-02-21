@@ -34,7 +34,7 @@
     <Compile Include="PropertyInfos\HeightStructuresFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStructuresInputContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\HeightStrucutesOutputPropertyInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\HeightStructuresProbabilityFailureMechanismResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\HeightStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresContextTreeNodeInfoTest.cs" />
@@ -100,10 +100,6 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
-      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Ringtoets.Common.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
