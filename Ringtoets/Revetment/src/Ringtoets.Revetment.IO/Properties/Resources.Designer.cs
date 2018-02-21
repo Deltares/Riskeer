@@ -40,7 +40,7 @@ namespace Ringtoets.Revetment.IO.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -159,9 +159,9 @@ namespace Ringtoets.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ondergrens van de waterstanden.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterlevels_DisplayName {
+        internal static string WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayName {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterlevels_DisplayNa" +
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayNa" +
                         "me", resourceCulture);
             }
         }
@@ -179,9 +179,9 @@ namespace Ringtoets.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to bovengrens van de waterstanden.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterlevels_DisplayName {
+        internal static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterLevels_DisplayName {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterlevels_DisplayNa" +
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterLevels_DisplayNa" +
                         "me", resourceCulture);
             }
         }

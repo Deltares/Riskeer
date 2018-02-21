@@ -121,11 +121,11 @@ namespace Ringtoets.Revetment.IO.Configurations
                                        calculation.Name)
                    && TryReadParameter(calculationConfiguration.UpperBoundaryWaterLevels,
                                        v => input.UpperBoundaryWaterLevels = v,
-                                       Resources.WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterlevels_DisplayName,
+                                       Resources.WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterLevels_DisplayName,
                                        calculation.Name)
                    && TryReadParameter(calculationConfiguration.LowerBoundaryWaterLevels,
                                        v => input.LowerBoundaryWaterLevels = v,
-                                       Resources.WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterlevels_DisplayName,
+                                       Resources.WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayName,
                                        calculation.Name);
         }
 

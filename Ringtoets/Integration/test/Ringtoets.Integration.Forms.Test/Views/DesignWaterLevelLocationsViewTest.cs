@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int locationNameColumnIndex = 2;
         private const int locationIdColumnIndex = 3;
         private const int locationColumnIndex = 4;
-        private const int locationDesignWaterlevelColumnIndex = 5;
+        private const int locationDesignWaterLevelColumnIndex = 5;
 
         private Form testForm;
         private MockRepository mockRepository;
@@ -138,8 +138,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var locationColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[locationColumnIndex];
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
-            var locationDesignWaterlevelColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[locationDesignWaterlevelColumnIndex];
-            Assert.AreEqual("Toetspeil [m+NAP]", locationDesignWaterlevelColumn.HeaderText);
+            var locationDesignWaterLevelColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[locationDesignWaterLevelColumnIndex];
+            Assert.AreEqual("Toetspeil [m+NAP]", locationDesignWaterLevelColumn.HeaderText);
 
             var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);
@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("-", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[locationDesignWaterLevelColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(6, cells.Count);
@@ -175,7 +175,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterLevelColumnIndex].FormattedValue);
 
             cells = rows[2].Cells;
             Assert.AreEqual(6, cells.Count);
@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("-", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[locationDesignWaterLevelColumnIndex].FormattedValue);
 
             cells = rows[3].Cells;
             Assert.AreEqual(6, cells.Count);
@@ -193,7 +193,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("4", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("4", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(4, 4).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterLevelColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -237,7 +237,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(designWaterLevel, cells[locationDesignWaterlevelColumnIndex].Value);
+            Assert.AreEqual(designWaterLevel, cells[locationDesignWaterLevelColumnIndex].Value);
         }
 
         [Test]
@@ -662,7 +662,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 get
                 {
-                    return locationDesignWaterlevelColumnIndex;
+                    return locationDesignWaterLevelColumnIndex;
                 }
             }
 
