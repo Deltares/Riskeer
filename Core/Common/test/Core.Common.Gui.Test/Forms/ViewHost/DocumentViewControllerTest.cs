@@ -508,7 +508,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void OpenViewForData_SelectDifferentDefaultViewAndClickOkInOpenedDialog_ReturnTrueViewAddedToViewListAndDefaultViewTypesUpdated()
+        public void OpenViewForData_SelectDifferentDefaultViewAndClickOkInOpenedDialog_ReturnTrueViewAddedToViewHostAndDefaultViewTypesUpdated()
         {
             // Setup
             TestView view = null;
@@ -562,7 +562,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void OpenViewForData_DataHasMultipleMatchesAndRegisteredDefaultView_ReturnTrueAndAddDefaultViewToViewList()
+        public void OpenViewForData_DataHasMultipleMatchesAndRegisteredDefaultView_ReturnTrueAndAddDefaultViewToViewHost()
         {
             // Setup
             TestViewDerivative view = null;
