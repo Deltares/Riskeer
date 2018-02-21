@@ -26,7 +26,6 @@ using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Structures;
 
 namespace Application.Ringtoets.Storage.Create.ClosingStructures
 {
