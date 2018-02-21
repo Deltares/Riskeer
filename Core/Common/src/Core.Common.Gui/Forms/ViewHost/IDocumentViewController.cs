@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Core.Common.Gui.Plugin;
 
@@ -41,14 +40,6 @@ namespace Core.Common.Gui.Forms.ViewHost
     /// </summary>
     public interface IDocumentViewController
     {
-        /// <summary>
-        /// Gets the default view types registered for data object types, that can be used to
-        /// automatically resolve a particular view when multiple candidates are available.
-        /// </summary>
-        /// <remarks>The keys in this dictionary are the object types and the values the 
-        /// corresponding view types.</remarks>
-        IDictionary<Type, Type> DefaultViewTypes { get; }
-
         /// <summary>
         /// Opens a view for <paramref name="data"/>.
         /// </summary>

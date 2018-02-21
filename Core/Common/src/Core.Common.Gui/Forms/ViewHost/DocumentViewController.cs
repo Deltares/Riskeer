@@ -25,19 +25,15 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Properties;
 using Core.Common.Util.Reflection;
-using log4net;
 
 namespace Core.Common.Gui.Forms.ViewHost
 {
     /// <summary>
-    /// Class responsible for finding a view given some data-object.
+    /// Class responsible for finding a view given some data object.
     /// </summary>
-    public class DocumentViewController : IDocumentViewController
+    public class DocumentViewController : IDocumentViewController, IDisposable
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(DocumentViewController));
-
         private readonly IViewHost viewHost;
         private readonly ViewInfo[] viewInfos;
         private readonly IWin32Window dialogParent;
@@ -56,10 +52,23 @@ namespace Core.Common.Gui.Forms.ViewHost
             this.viewInfos = viewInfos.ToArray();
             this.dialogParent = dialogParent;
 
+            DefaultViewTypes = new Dictionary<Type, Type>();
+
             viewHost.ViewClosed += ViewHostOnViewClosed;
         }
 
-        public IDictionary<Type, Type> DefaultViewTypes { get; } = new Dictionary<Type, Type>();
+        /// <summary>
+        /// Gets the default view types registered for data object types, that can be used to
+        /// automatically resolve a particular view when multiple candidates are available.
+        /// </summary>
+        /// <remarks>The keys in this dictionary are the object types and the values the 
+        /// corresponding view types.</remarks>
+        public IDictionary<Type, Type> DefaultViewTypes { get; }
+
+        public void Dispose()
+        {
+            viewHost.ViewClosed -= ViewHostOnViewClosed;
+        }
 
         public bool OpenViewForData(object data, bool alwaysShowDialog = false)
         {
@@ -71,7 +80,6 @@ namespace Core.Common.Gui.Forms.ViewHost
             ViewInfo[] viewInfoList = FilterOnInheritance(GetViewInfosFor(data)).ToArray();
             if (viewInfoList.Length == 0)
             {
-                log.DebugFormat(Resources.DocumentViewController_OpenViewForData_No_view_registered_for_0_, data);
                 return false;
             }
 
@@ -124,36 +132,6 @@ namespace Core.Common.Gui.Forms.ViewHost
             return viewInfos.Where(vi => data.GetType().Implements(vi.DataType) && vi.AdditionalDataCheck(data));
         }
 
-        private void ViewHostOnViewClosed(object sender, ViewChangeEventArgs viewChangeEventArgs)
-        {
-            object data = openedViewLookup.Where(kv => ReferenceEquals(kv.Value, viewChangeEventArgs.View))
-                                          .Select(kv => kv.Key)
-                                          .FirstOrDefault();
-
-            if (data != null)
-            {
-                openedViewLookup.Remove(data);
-            }
-        }
-
-        private bool ShouldRemoveViewForData(IView view, object data)
-        {
-            ViewInfo viewInfo = viewInfos.FirstOrDefault(vi => vi.ViewType == view.GetType());
-
-            return viewInfo != null
-                   && (Equals(viewInfo.GetViewData(data), view.Data) ||
-                       viewInfo.CloseForData(view, data));
-        }
-
-        private Type GetDefaultViewType(object dataObject)
-        {
-            Type selectionType = dataObject.GetType();
-
-            return DefaultViewTypes.ContainsKey(selectionType)
-                       ? DefaultViewTypes[selectionType]
-                       : null;
-        }
-
         private static IEnumerable<ViewInfo> FilterOnInheritance(IEnumerable<ViewInfo> compatibleStandaloneViewInfos)
         {
             ViewInfo[] viewInfos = compatibleStandaloneViewInfos.ToArray();
@@ -195,6 +173,67 @@ namespace Core.Common.Gui.Forms.ViewHost
             return view;
         }
 
+        private bool ShouldRemoveViewForData(IView view, object data)
+        {
+            ViewInfo viewInfo = viewInfos.FirstOrDefault(vi => vi.ViewType == view.GetType());
+
+            return viewInfo != null
+                   && (Equals(viewInfo.GetViewData(data), view.Data) ||
+                       viewInfo.CloseForData(view, data));
+        }
+
+        private void ViewHostOnViewClosed(object sender, ViewChangeEventArgs viewChangeEventArgs)
+        {
+            object data = openedViewLookup.Where(kv => ReferenceEquals(kv.Value, viewChangeEventArgs.View))
+                                          .Select(kv => kv.Key)
+                                          .FirstOrDefault();
+
+            if (data != null)
+            {
+                openedViewLookup.Remove(data);
+            }
+        }
+
+        private Type GetDefaultViewType(object dataObject)
+        {
+            Type selectionType = dataObject.GetType();
+
+            return DefaultViewTypes.ContainsKey(selectionType)
+                       ? DefaultViewTypes[selectionType]
+                       : null;
+        }
+
+        private void ClearDefaultView(object data)
+        {
+            Type selectedItemType = data.GetType();
+
+            if (DefaultViewTypes.ContainsKey(selectedItemType))
+            {
+                DefaultViewTypes.Remove(selectedItemType);
+            }
+        }
+
+        private void SetDefaultView(Type selectedViewType, object data)
+        {
+            Type selectedItemType = data.GetType();
+
+            if (DefaultViewTypes.ContainsKey(selectedItemType))
+            {
+                DefaultViewTypes[selectedItemType] = selectedViewType;
+            }
+            else
+            {
+                DefaultViewTypes.Add(selectedItemType, selectedViewType);
+            }
+        }
+
+        private Type GetDefaultViewTypeForData(object dataObject)
+        {
+            Type selectionType = dataObject.GetType();
+
+            return DefaultViewTypes.ContainsKey(selectionType) ? DefaultViewTypes[selectionType] : null;
+        }
+
         private ViewInfo GetViewInfoUsingDialog(object data, IEnumerable<ViewInfo> viewInfoList)
         {
             Type defaultViewTypeForData = GetDefaultViewTypeForData(data);
@@ -228,37 +267,6 @@ namespace Core.Common.Gui.Forms.ViewHost
 
                 return selectedViewInfo;
             }
-        }
-
-        private void ClearDefaultView(object data)
-        {
-            Type selectedItemType = data.GetType();
-
-            if (DefaultViewTypes.ContainsKey(selectedItemType))
-            {
-                DefaultViewTypes.Remove(selectedItemType);
-            }
-        }
-
-        private void SetDefaultView(Type selectedViewType, object data)
-        {
-            Type selectedItemType = data.GetType();
-
-            if (DefaultViewTypes.ContainsKey(selectedItemType))
-            {
-                DefaultViewTypes[selectedItemType] = selectedViewType;
-            }
-            else
-            {
-                DefaultViewTypes.Add(selectedItemType, selectedViewType);
-            }
-        }
-
-        private Type GetDefaultViewTypeForData(object dataObject)
-        {
-            Type selectionType = dataObject.GetType();
-
-            return DefaultViewTypes.ContainsKey(selectionType) ? DefaultViewTypes[selectionType] : null;
         }
     }
 }

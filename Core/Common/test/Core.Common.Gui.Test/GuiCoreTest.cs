@@ -902,8 +902,8 @@ namespace Core.Common.Gui.Test
                 Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is MessageWindow));
 
                 Assert.IsNotNull(gui.DocumentViewController);
-                CollectionAssert.IsEmpty(gui.DocumentViewController.DefaultViewTypes);
             }
+
             mocks.VerifyAll();
         }
 
