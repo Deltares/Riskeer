@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -30,7 +29,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Common.IO.Configurations.Import;
-using Ringtoets.Common.Util;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.IO.Configurations.Helpers;
 using Ringtoets.StabilityPointStructures.IO.Properties;
@@ -79,18 +77,22 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+
             if (foreshoreProfiles == null)
             {
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
+
             if (structures == null)
             {
                 throw new ArgumentNullException(nameof(structures));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
             availableStructures = structures;
@@ -138,6 +140,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations
                 SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
                 return calculation;
             }
+
             return null;
         }
 

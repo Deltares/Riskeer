@@ -52,7 +52,7 @@ namespace Ringtoets.StabilityPointStructures.Util
 
             IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults = failureMechanism.SectionResults;
             IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations = failureMechanism.Calculations
-                                                                                                      .Cast<StructuresCalculation<StabilityPointStructuresInput>>();
+                                                                                                             .Cast<StructuresCalculation<StabilityPointStructuresInput>>();
             return AssignUnassignCalculations.Update(sectionResults.Select(AsCalculationAssignment),
                                                      AsCalculationsWithLocations(calculations))
                                              .Cast<StabilityPointStructuresFailureMechanismSectionResult>()
@@ -80,8 +80,8 @@ namespace Ringtoets.StabilityPointStructures.Util
         {
             return new SectionResultWithCalculationAssignment(
                 failureMechanismSectionResult,
-                result => ((StabilityPointStructuresFailureMechanismSectionResult)result).Calculation,
-                (result, calculation) => ((StabilityPointStructuresFailureMechanismSectionResult)result).Calculation = (StructuresCalculation<StabilityPointStructuresInput>)calculation);
+                result => ((StabilityPointStructuresFailureMechanismSectionResult) result).Calculation,
+                (result, calculation) => ((StabilityPointStructuresFailureMechanismSectionResult) result).Calculation = (StructuresCalculation<StabilityPointStructuresInput>) calculation);
         }
     }
 }

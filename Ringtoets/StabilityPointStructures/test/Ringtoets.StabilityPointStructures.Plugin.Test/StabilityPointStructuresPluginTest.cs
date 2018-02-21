@@ -26,7 +26,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Data;

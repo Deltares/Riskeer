@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util;
@@ -32,7 +31,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Util;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Properties;
@@ -127,14 +125,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 {
                     return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill;
                 }
+
                 if (propertyName == nameof(DrainCoefficient))
                 {
                     return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert;
                 }
+
                 if (propertyName == nameof(AreaFlowApertures))
                 {
                     return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert;
                 }
+
                 if (propertyName == nameof(WidthFlowApertures))
                 {
                     return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill;
@@ -149,14 +150,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 {
                     return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear;
                 }
+
                 if (propertyName == nameof(ConstructiveStrengthQuadraticLoadModel))
                 {
                     return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic;
                 }
+
                 if (propertyName == nameof(StabilityLinearLoadModel))
                 {
                     return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear;
                 }
+
                 if (propertyName == nameof(StabilityQuadraticLoadModel))
                 {
                     return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic;
