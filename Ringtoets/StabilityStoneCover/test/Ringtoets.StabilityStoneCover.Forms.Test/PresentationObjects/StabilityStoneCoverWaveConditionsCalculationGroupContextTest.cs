@@ -37,7 +37,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ParameteredConstructor_ExpectedValues(bool withParent)
+        public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
             var mocks = new MockRepository();
@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+            CalculationGroup parent = hasParent ? new CalculationGroup() : null;
 
             // Call
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
@@ -62,7 +62,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
-        [TestFixture]
+        [TestFixture(true)]
+        [TestFixture(false)]
         private class StabilityStoneCoverWaveConditionsCalculationGroupContextEqualsTest
             : EqualsTestFixture<StabilityStoneCoverWaveConditionsCalculationGroupContext,
                 DerivedStabilityStoneCoverWaveConditionsCalculationGroupContext>
@@ -71,8 +72,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             private static readonly StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
-            private static readonly CalculationGroup parent = new CalculationGroup();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
+
+            private static CalculationGroup parent;
 
             [SetUp]
             public void SetUp()
@@ -84,6 +86,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             public void TearDown()
             {
                 mocks.VerifyAll();
+            }
+
+            public StabilityStoneCoverWaveConditionsCalculationGroupContextEqualsTest(bool hasParent)
+            {
+                parent = hasParent ? new CalculationGroup() : null;
             }
 
             protected override StabilityStoneCoverWaveConditionsCalculationGroupContext CreateObject()

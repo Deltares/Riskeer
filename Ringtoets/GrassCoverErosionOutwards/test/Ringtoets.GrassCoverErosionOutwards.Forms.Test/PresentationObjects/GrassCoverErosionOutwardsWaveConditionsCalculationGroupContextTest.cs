@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ParameteredConstructor_ExpectedValues(bool withParent)
+        public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
             var mocks = new MockRepository();
@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+            CalculationGroup parent = hasParent ? new CalculationGroup() : null;
 
             // Call
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
@@ -62,7 +62,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
-        [TestFixture]
+        [TestFixture(true)]
+        [TestFixture(false)]
         private class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextEqualsTest
             : EqualsTestFixture<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext,
                 DerivedGrassCoverErosionOutwardsWaveConditionsCalculationsGroupContext>
@@ -71,8 +72,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             private static readonly GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            private static readonly CalculationGroup parent = new CalculationGroup();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
+
+            private static CalculationGroup parent;
 
             [SetUp]
             public void SetUp()
@@ -84,6 +86,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             public void TearDown()
             {
                 mocks.VerifyAll();
+            }
+
+            public GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextEqualsTest(bool hasParent)
+            {
+                parent = hasParent ? new CalculationGroup() : null;
             }
 
             protected override GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext CreateObject()

@@ -37,7 +37,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ParameteredConstructor_ExpectedValues(bool withParent)
+        public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -47,7 +47,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+            CalculationGroup parent = hasParent ? new CalculationGroup() : null;
 
             // Call
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
@@ -63,7 +63,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             mockRepository.VerifyAll();
         }
 
-        [TestFixture]
+        [TestFixture(true)]
+        [TestFixture(false)]
         private class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextEqualsTest
             : EqualsTestFixture<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext,
                 DerivedWaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
@@ -72,8 +73,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             private static readonly WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            private static readonly CalculationGroup parent = new CalculationGroup();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
+
+            private static CalculationGroup parent;
 
             [SetUp]
             public void SetUp()
@@ -85,6 +87,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             public void TearDown()
             {
                 mocks.VerifyAll();
+            }
+
+            public WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextEqualsTest(bool hasParent)
+            {
+                parent = hasParent ? new CalculationGroup() : null;
             }
 
             protected override WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext CreateObject()
@@ -105,7 +112,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(), 
+                yield return new TestCaseData(new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
                                                                                                               parent,
                                                                                                               failureMechanism,
                                                                                                               assessmentSection))

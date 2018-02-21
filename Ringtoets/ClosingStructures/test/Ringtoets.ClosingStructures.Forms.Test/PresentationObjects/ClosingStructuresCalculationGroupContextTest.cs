@@ -37,7 +37,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ParameteredConstructor_ExpectedValues(bool withParent)
+        public void ParameteredConstructor_ExpectedValues(bool hasParent)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -47,7 +47,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            CalculationGroup parent = withParent ? new CalculationGroup() : null;
+            CalculationGroup parent = hasParent ? new CalculationGroup() : null;
 
             // Call
             var groupContext = new ClosingStructuresCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
@@ -64,7 +64,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             mockRepository.VerifyAll();
         }
 
-        [TestFixture]
+        [TestFixture(true)]
+        [TestFixture(false)]
         private class ClosingStructuresCalculationGroupContextEqualsTest
             : EqualsTestFixture<ClosingStructuresCalculationGroupContext,
                 DerivedClosingStructuresCalculationGroupContext>
@@ -73,8 +74,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             private static readonly ClosingStructuresFailureMechanism failureMechanism = new ClosingStructuresFailureMechanism();
-            private static readonly CalculationGroup parent = new CalculationGroup();
             private static readonly CalculationGroup calculationGroup = new CalculationGroup();
+
+            private static CalculationGroup parent;
 
             [SetUp]
             public void SetUp()
@@ -86,6 +88,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             public void TearDown()
             {
                 mocks.VerifyAll();
+            }
+
+            public ClosingStructuresCalculationGroupContextEqualsTest(bool hasParent)
+            {
+                parent = hasParent ? new CalculationGroup() : null;
             }
 
             protected override ClosingStructuresCalculationGroupContext CreateObject()
