@@ -293,8 +293,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultType.None, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_RowsForSectionDisabled(None)")]
-        [TestCase(SimpleAssessmentResultType.AssessFurther, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_RowsForSectionDisabled(AssessFurther)")]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
         public void GivenFormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_ThenRowsForSectionDisabled(
             SimpleAssessmentResultType simpleAssessmentResult)
         {
