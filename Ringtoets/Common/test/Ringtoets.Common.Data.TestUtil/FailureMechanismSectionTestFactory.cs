@@ -37,6 +37,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         /// <param name="name">The name of the section.</param>
         /// <returns>A valid <see cref="FailureMechanismSection"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
+        /// is <c>null.</c></exception>
         public static FailureMechanismSection CreateFailureMechanismSection(string name = "test")
         {
             return CreateFailureMechanismSection(name, new[]
