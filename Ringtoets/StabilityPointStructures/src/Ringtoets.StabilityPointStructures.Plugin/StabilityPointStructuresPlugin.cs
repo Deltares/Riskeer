@@ -93,7 +93,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             yield return new ViewInfo<StabilityPointStructuresFailureMechanismContext, StabilityPointStructuresFailureMechanismView>
             {
-                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseStabilityPointStructuresFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
@@ -116,7 +116,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             yield return new ViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon,
                 AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
                 CloseForData = CloseScenariosViewForData

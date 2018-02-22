@@ -171,7 +171,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             yield return new ViewInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismView>
             {
-                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseGrassCoverErosionInwardsFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
@@ -183,7 +183,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 GrassCoverErosionInwardsScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
                 CloseForData = CloseScenariosViewForData,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon
@@ -194,7 +194,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
                 GrassCoverErosionInwardsFailureMechanismResultView>
             {
-                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -207,7 +207,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>
             {
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                GetViewName = (view, input) => RingtoetsCommonFormsResources.Calculation_Input,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
                 CloseForData = CloseInputViewForData
             };

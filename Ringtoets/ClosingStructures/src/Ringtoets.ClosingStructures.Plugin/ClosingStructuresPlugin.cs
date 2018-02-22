@@ -95,7 +95,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             yield return new ViewInfo<ClosingStructuresFailureMechanismContext, ClosingStructuresFailureMechanismView>
             {
-                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseClosingStructuresFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
@@ -106,7 +106,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 IEnumerable<ClosingStructuresFailureMechanismSectionResult>,
                 ClosingStructuresFailureMechanismResultView>
             {
-                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -118,7 +118,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon,
                 AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
                 CloseForData = CloseScenariosViewForData

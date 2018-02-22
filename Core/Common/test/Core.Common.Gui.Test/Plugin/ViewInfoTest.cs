@@ -171,7 +171,7 @@ namespace Core.Common.Gui.Test.Plugin
             var viewInfo = new ViewInfo<int, string, StringView>();
 
             const string newDescription = "<text>";
-            Func<IView, object, string> getViewNameDelegate = (view, o) => "";
+            Func<IView, int, string> getViewNameDelegate = (view, o) => "";
             Image icon = Resources.abacus;
             Func<int, bool> additionalDataDelegate = o => true;
             Func<int, string> getViewDataDelegate = o => o.ToString();
@@ -242,10 +242,10 @@ namespace Core.Common.Gui.Test.Plugin
 
             const string newDescription = "<text>";
             const string newViewName = "<view name>";
-            Func<IView, object, string> getViewNameDelegate = (view, o) =>
+            Func<IView, int, string> getViewNameDelegate = (view, o) =>
             {
                 Assert.AreSame(stringView, view);
-                Assert.AreEqual(dataObject.ToString(), o);
+                Assert.AreEqual(dataObject, o);
                 return newViewName;
             };
             Image icon = Resources.abacus;

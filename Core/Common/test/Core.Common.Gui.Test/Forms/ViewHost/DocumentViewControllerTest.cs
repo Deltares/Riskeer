@@ -162,7 +162,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                     GetViewName = (v, o) =>
                     {
                         Assert.IsInstanceOf<TestView>(v);
-                        Assert.AreSame(viewData, o);
+                        Assert.AreSame(data, o);
                         return viewName;
                     }
                 },

@@ -78,7 +78,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             yield return new ViewInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismView>
             {
-                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseWaveImpactAsphaltCoverFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
@@ -88,7 +88,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
                 WaveImpactAsphaltCoverFailureMechanismResultView>
             {
-                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,

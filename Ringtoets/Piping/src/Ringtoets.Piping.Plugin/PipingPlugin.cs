@@ -201,7 +201,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new ViewInfo<PipingFailureMechanismContext, PipingFailureMechanismView>
             {
-                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = ClosePipingFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
@@ -212,7 +212,7 @@ namespace Ringtoets.Piping.Plugin
                 IEnumerable<PipingFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>
             {
-                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -225,7 +225,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, calculationGroup) => calculationGroup.Name,
+                GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = ClosePipingCalculationsViewForData,
@@ -239,7 +239,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new ViewInfo<PipingInputContext, PipingCalculationScenario, PipingInputView>
             {
                 GetViewData = context => context.PipingCalculation,
-                GetViewName = (view, input) => RingtoetsCommonFormsResources.Calculation_Input,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = PipingFormsResources.PipingInputIcon,
                 CloseForData = ClosePipingInputViewForData
             };
@@ -247,7 +247,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new ViewInfo<PipingScenariosContext, CalculationGroup, PipingScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon,
                 CloseForData = ClosePipingScenariosViewForData,
                 CreateInstance = context => new PipingScenariosView(context.AssessmentSection),

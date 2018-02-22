@@ -504,8 +504,8 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<Comment, CommentView>
             {
-                GetViewName = (view, context) => RingtoetsIntegrationPluginResources.Comment_DisplayName,
-                GetViewData = context => context,
+                GetViewName = (view, comment) => RingtoetsIntegrationPluginResources.Comment_DisplayName,
+                GetViewData = comment => comment,
                 Image = RingtoetsCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData
             };

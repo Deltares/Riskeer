@@ -206,7 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         {
             yield return new ViewInfo<MacroStabilityInwardsFailureMechanismContext, MacroStabilityInwardsFailureMechanismView>
             {
-                GetViewName = (view, mechanism) => mechanism.WrappedData.Name,
+                GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
@@ -217,7 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
                 MacroStabilityInwardsFailureMechanismResultView>
             {
-                GetViewName = (view, results) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -229,7 +229,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             yield return new ViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, calculationGroup) => calculationGroup.Name,
+                GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = CloseCalculationsViewForData,
@@ -243,7 +243,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             yield return new ViewInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInputView>
             {
                 GetViewData = context => context.MacroStabilityInwardsCalculation,
-                GetViewName = (view, input) => RingtoetsCommonFormsResources.Calculation_Input,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseInputViewForData
             };
@@ -251,7 +251,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             yield return new ViewInfo<MacroStabilityInwardsScenariosContext, CalculationGroup, MacroStabilityInwardsScenariosView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
                 Image = RingtoetsCommonFormsResources.ScenariosIcon,
                 CloseForData = CloseScenariosViewForData,
                 AfterCreate = (view, context) => { view.MacroStabilityInwardsFailureMechanism = context.FailureMechanism; },
@@ -261,7 +261,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             yield return new ViewInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsOutputView>
             {
                 GetViewData = context => context.WrappedData,
-                GetViewName = (view, output) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData
             };

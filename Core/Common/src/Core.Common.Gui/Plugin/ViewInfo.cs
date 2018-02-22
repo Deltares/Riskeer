@@ -62,7 +62,7 @@ namespace Core.Common.Gui.Plugin
         /// Gets or sets the method used to determine the name for the view. Function arguments:
         /// <list type="number">
         ///     <item>The view to get a name for.</item>
-        ///     <item>The data of the view.</item>
+        ///     <item>The data corresponding to this view info.</item>
         ///     <item>out - The name of the view.</item>
         /// </list>
         /// </summary>
@@ -190,11 +190,11 @@ namespace Core.Common.Gui.Plugin
         /// Gets or sets the method used to determine the name for the view. Function arguments:
         /// <list type="number">
         ///     <item>The view to get a name for.</item>
-        ///     <item>The data of the view.</item>
+        ///     <item>The data corresponding to this view info.</item>
         ///     <item>out - The name of the view.</item>
         /// </list>
         /// </summary>
-        public Func<TView, TViewData, string> GetViewName { get; set; }
+        public Func<TView, TData, string> GetViewName { get; set; }
 
         /// <summary>
         /// Gets or sets the icon of the view.
@@ -272,7 +272,7 @@ namespace Core.Common.Gui.Plugin
                 GetViewData = o => viewInfo.GetViewData != null ? viewInfo.GetViewData((TData) o) : o,
                 CloseForData = (v, o) => viewInfo.CloseForData != null && viewInfo.CloseForData((TView) v, o),
                 AfterCreate = (v, o) => viewInfo.AfterCreate?.Invoke((TView) v, (TData) o),
-                GetViewName = (v, o) => viewInfo.GetViewName?.Invoke((TView) v, (TViewData) o),
+                GetViewName = (v, o) => viewInfo.GetViewName?.Invoke((TView) v, (TData) o),
                 CreateInstance = o => viewInfo.CreateInstance((TData) o)
             };
         }
