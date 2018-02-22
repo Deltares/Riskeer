@@ -191,13 +191,9 @@ namespace Ringtoets.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
-            PipingCalculationScenario calculationScenario1 = PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section);
-            PipingCalculationScenario calculationScenario2 = PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section);
-
             var calculationScenarios = new[]
             {
-                calculationScenario1,
-                calculationScenario2
+                PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section)
             };
 
             // Call

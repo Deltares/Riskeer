@@ -309,7 +309,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [SetCulture("nl-NL")]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void FailureMechanismResultView_DetailedAssessmentHasValue_DoesNotShowsErrorTooltip(
+        public void FailureMechanismResultView_DetailedAssessmentProbabilityHasValue_DoesNotShowsErrorTooltip(
             SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
@@ -340,7 +340,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void FailureMechanismResultView_DetailedAssessmentNull_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
+        public void FailureMechanismResultView_NoCalculatedScenario_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;
@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void FailureMechanismResultView_DetailedAssessmentNaN_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
+        public void FailureMechanismResultView_DetailedAssessmentProbabilityNaN_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentType)
         {
             // Setup
             const int rowIndex = 0;

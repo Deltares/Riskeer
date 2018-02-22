@@ -338,7 +338,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void FailureMechanismResultView_DetailedAssessmentProbabilityNull_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentResult)
+        public void FailureMechanismResultView_NoCalculatedScenario_ShowsErrorTooltip(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
             const int rowIndex = 0;
