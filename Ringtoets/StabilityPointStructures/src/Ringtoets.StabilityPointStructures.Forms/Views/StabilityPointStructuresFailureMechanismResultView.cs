@@ -143,8 +143,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                SimpleAssessmentResultValidityOnlyType simpleAssessmentResult =
-                    ((StabilityPointStructuresFailureMechanismSectionResultRow) GetDataAtRow(eventArgs.RowIndex)).SimpleAssessmentResult;
+                SimpleAssessmentResultValidityOnlyType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
                 if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
@@ -163,7 +162,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 return;
             }
 
-            var resultRow = (StabilityPointStructuresFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+            StabilityPointStructuresFailureMechanismSectionResultRow resultRow = GetDataAtRow(e.RowIndex);
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
             StructuresCalculation<StabilityPointStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 

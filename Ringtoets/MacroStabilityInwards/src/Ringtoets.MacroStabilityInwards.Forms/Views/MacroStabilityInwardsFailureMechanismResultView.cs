@@ -154,8 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                SimpleAssessmentResultType simpleAssessmentResult =
-                    ((MacroStabilityInwardsFailureMechanismSectionResultRow) GetDataAtRow(eventArgs.RowIndex)).SimpleAssessmentResult;
+                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
                 if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
@@ -176,7 +175,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
 
-            var resultRow = (MacroStabilityInwardsFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+            MacroStabilityInwardsFailureMechanismSectionResultRow resultRow = GetDataAtRow(e.RowIndex);
             MacroStabilityInwardsFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
             if (rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible ||
                 rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)

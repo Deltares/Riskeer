@@ -151,8 +151,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                SimpleAssessmentResultType simpleAssessmentResult =
-                    ((PipingFailureMechanismSectionResultRow) GetDataAtRow(eventArgs.RowIndex)).SimpleAssessmentResult;
+                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
                 if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
@@ -173,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
 
-            var resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+            PipingFailureMechanismSectionResultRow resultRow = GetDataAtRow(e.RowIndex);
             PipingFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
             if (rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible
                 || rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)

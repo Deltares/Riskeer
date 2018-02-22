@@ -138,9 +138,9 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <param name="rowIndex">The position of the row in the data source.</param>
         /// <returns>The data bound to the row at index <paramref name="rowIndex"/>.</returns>
-        protected object GetDataAtRow(int rowIndex)
+        protected TSectionResultRow GetDataAtRow(int rowIndex)
         {
-            return DataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem;
+            return (TSectionResultRow) DataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem;
         }
 
         /// <summary>

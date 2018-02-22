@@ -144,8 +144,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                SimpleAssessmentResultType simpleAssessmentResult =
-                    ((HeightStructuresFailureMechanismSectionResultRow) GetDataAtRow(eventArgs.RowIndex)).SimpleAssessmentResult;
+                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
                 if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
@@ -164,7 +163,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 return;
             }
 
-            var resultRow = (HeightStructuresFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+            HeightStructuresFailureMechanismSectionResultRow resultRow = GetDataAtRow(e.RowIndex);
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
             StructuresCalculation<HeightStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 

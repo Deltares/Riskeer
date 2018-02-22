@@ -142,8 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                SimpleAssessmentResultValidityOnlyType simpleAssessmentResult =
-                    ((GrassCoverErosionInwardsFailureMechanismSectionResultRow) GetDataAtRow(eventArgs.RowIndex)).SimpleAssessmentResult;
+                SimpleAssessmentResultValidityOnlyType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
                 if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
@@ -162,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 return;
             }
 
-            var resultRow = (GrassCoverErosionInwardsFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+            GrassCoverErosionInwardsFailureMechanismSectionResultRow resultRow = GetDataAtRow(e.RowIndex);
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
             GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
 

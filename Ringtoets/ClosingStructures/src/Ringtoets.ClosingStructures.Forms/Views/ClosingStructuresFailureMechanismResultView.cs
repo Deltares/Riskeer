@@ -139,8 +139,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                SimpleAssessmentResultType simpleAssessmentResult =
-                    ((ClosingStructuresFailureMechanismSectionResultRow) GetDataAtRow(eventArgs.RowIndex)).SimpleAssessmentResult;
+                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
                 if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
@@ -159,7 +158,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 return;
             }
 
-            var resultRow = (ClosingStructuresFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
+            ClosingStructuresFailureMechanismSectionResultRow resultRow = GetDataAtRow(e.RowIndex);
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
             StructuresCalculation<ClosingStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
 
