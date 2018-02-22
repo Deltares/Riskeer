@@ -85,6 +85,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
             var context = new WaveHeightLocationsContext(hydraulicBoundaryLocations,
                                                          assessmentSection,
+                                                         () => 0.01,
                                                          hbl => hydraulicBoundaryLocationsLookup[hbl],
                                                          "Category");
 

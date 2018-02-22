@@ -98,6 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             const string categoryBoundaryName = "Category";
             var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
                                                                assessmentSection,
+                                                               () => 0.01,
                                                                hbl => new HydraulicBoundaryLocationCalculation(),
                                                                categoryBoundaryName);
 
@@ -151,6 +152,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var nodeData = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
                                                                 assessmentSection,
+                                                                () => 0.01,
                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
                                                                 "Category");
 
@@ -185,6 +187,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var nodeData = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
                                                                 assessmentSection,
+                                                                () => 0.01,
                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
                                                                 "Category");
 
@@ -227,6 +230,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var nodeData = new DesignWaterLevelLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                 assessmentSection,
+                                                                () => 0.01,
                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
                                                                 "Category");
 
@@ -275,6 +279,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var nodeData = new DesignWaterLevelLocationsContext(hydraulicBoundaryDatabase.Locations,
                                                                 assessmentSection,
+                                                                () => 0.01,
                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
                                                                 "Category");
 
@@ -328,6 +333,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new DesignWaterLevelLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                assessmentSection,
+                                                               () => 0.01,
                                                                hbl => new HydraulicBoundaryLocationCalculation(),
                                                                "Category");
 
@@ -399,6 +405,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new DesignWaterLevelLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                assessmentSection,
+                                                               () => 0.01,
                                                                hbl => new HydraulicBoundaryLocationCalculation(),
                                                                "Category");
 
@@ -469,6 +476,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new DesignWaterLevelLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                assessmentSection,
+                                                               () => 0.01,
                                                                hbl => new HydraulicBoundaryLocationCalculation(),
                                                                "Category");
 
@@ -537,6 +545,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
             var context = new DesignWaterLevelLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                assessmentSection,
+                                                               () => 0.01,
                                                                hbl => hydraulicBoundaryLocationCalculation,
                                                                "Category");
 

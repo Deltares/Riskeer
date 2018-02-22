@@ -121,6 +121,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var context = new WaveHeightLocationsContext(locations,
                                                          assessmentSection,
+                                                         () => 0.01,
                                                          hbl => new HydraulicBoundaryLocationCalculation(),
                                                          "Category");
 
@@ -160,6 +161,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var context = new WaveHeightLocationsContext(hydraulicBoundaryLocations,
                                                          assessmentSection,
+                                                         () => 0.01,
                                                          hbl => hydraulicBoundaryLocationsLookup[hbl],
                                                          "Category");
 
@@ -202,17 +204,20 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
+            Func<double> getNormFunc = () => 0.01;
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var locations = new ObservableList<HydraulicBoundaryLocation>();
+
             var context = new WaveHeightLocationsContext(locations,
                                                          assessmentSection,
+                                                         getNormFunc,
                                                          hbl => new HydraulicBoundaryLocationCalculation(),
                                                          "Category");
 
             using (var view = new WaveHeightLocationsView(locations,
                                                           hbl => new HydraulicBoundaryLocationCalculation(),
                                                           assessmentSection,
-                                                          () => 0.01))
+                                                          getNormFunc))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));

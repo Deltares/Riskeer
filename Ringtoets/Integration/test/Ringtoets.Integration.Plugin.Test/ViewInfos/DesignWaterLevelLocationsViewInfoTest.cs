@@ -120,6 +120,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             ObservableList<HydraulicBoundaryLocation> locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             var context = new DesignWaterLevelLocationsContext(locations,
                                                                assessmentSection,
+                                                               () => 0.01,
                                                                hbl => new HydraulicBoundaryLocationCalculation(),
                                                                "Category");
 
@@ -159,6 +160,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var context = new DesignWaterLevelLocationsContext(hydraulicBoundaryLocations,
                                                                assessmentSection,
+                                                               () => 0.01,
                                                                hbl => hydraulicBoundaryLocationsLookup[hbl],
                                                                "Category");
 
@@ -200,17 +202,20 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
             mocks.ReplayAll();
 
+            Func<double> getNormFunc = () => 0.01;
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var locations = new ObservableList<HydraulicBoundaryLocation>();
+
             var context = new DesignWaterLevelLocationsContext(locations,
                                                                assessmentSection,
+                                                               getNormFunc,
                                                                hbl => new HydraulicBoundaryLocationCalculation(),
                                                                "Category");
 
             using (var view = new DesignWaterLevelLocationsView(locations,
                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
                                                                 new ObservableTestAssessmentSectionStub(),
-                                                                () => 0.01))
+                                                                getNormFunc))
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelLocationsView));
