@@ -89,22 +89,33 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsCalculationGroupName()
+        public void GetViewName_WithPipingCalculationGroupContext_ReturnsCalculationGroupName()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculationsView = new PipingCalculationsView();
+
+            const string calculationGroupName = "Test";
+
             var calculationGroup = new CalculationGroup
             {
-                Name = "Test"
+                Name = calculationGroupName
             };
 
+            var pipingCalculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
+                                                                                  null,
+                                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                  new PipingFailureMechanism(),
+                                                                                  assessmentSection);
+
             // Call
-            string name = info.GetViewName(calculationsView, calculationGroup);
+            string name = info.GetViewName(calculationsView, pipingCalculationGroupContext);
 
             // Assert
-            Assert.AreEqual("Test", name);
+            Assert.AreEqual(calculationGroupName, name);
             mocks.VerifyAll();
         }
 

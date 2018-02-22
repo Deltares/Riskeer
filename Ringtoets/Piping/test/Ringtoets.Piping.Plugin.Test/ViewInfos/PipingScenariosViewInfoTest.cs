@@ -87,25 +87,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsScenarios()
         {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-            var pipingCalculationsGroup = new CalculationGroup
-            {
-                Name = "Test"
-            };
-
-            using (var view = new PipingScenariosView(assessmentSection))
-            {
-                // Call
-                string viewName = info.GetViewName(view, pipingCalculationsGroup);
-
-                // Assert
-                Assert.AreEqual("Scenario's", viewName);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.AreEqual("Scenario's", viewName);
         }
 
         [Test]

@@ -67,17 +67,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnViewName()
         {
-            // Setup
-            using (var view = new StabilityPointStructuresScenariosView())
-            {
-                var viewData = new CalculationGroup();
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-                // Call
-                string viewName = info.GetViewName(view, viewData);
-
-                // Assert
-                Assert.AreEqual("Scenario's", viewName);
-            }
+            // Assert
+            Assert.AreEqual("Scenario's", viewName);
         }
 
         [Test]

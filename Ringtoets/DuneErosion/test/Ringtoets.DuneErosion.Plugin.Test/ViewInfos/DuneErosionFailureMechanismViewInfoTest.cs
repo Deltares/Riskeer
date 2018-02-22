@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithDuneErosionFailureMechanism_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithDuneErosionFailureMechanismContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

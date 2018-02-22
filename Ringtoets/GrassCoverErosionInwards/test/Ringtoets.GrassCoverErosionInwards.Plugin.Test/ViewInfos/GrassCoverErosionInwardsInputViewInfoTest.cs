@@ -66,17 +66,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsInputResourceName()
         {
-            // Setup
-            using (var view = new GrassCoverErosionInwardsInputView())
-            {
-                var calculation = new GrassCoverErosionInwardsCalculation();
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-                // Call
-                string viewName = info.GetViewName(view, calculation);
-
-                // Assert
-                Assert.AreEqual("Invoer", viewName);
-            }
+            // Assert
+            Assert.AreEqual("Invoer", viewName);
         }
 
         [Test]

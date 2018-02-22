@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
             var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
-                failureMechanism.SectionResults, 
+                failureMechanism.SectionResults,
                 failureMechanism);
             mocks.ReplayAll();
 
@@ -89,16 +89,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
-            // Setup
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                string viewName = info.GetViewName(view, failureMechanism.SectionResults);
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-                // Assert
-                Assert.AreEqual("Resultaat", viewName);
-            }
+            // Assert
+            Assert.AreEqual("Resultaat", viewName);
         }
 
         [Test]

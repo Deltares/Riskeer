@@ -64,7 +64,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithHeightStructuresFailureMechanism_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithHeightStructuresFailureMechanismContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

@@ -48,7 +48,7 @@
     <Compile Include="UpdateInfos\StabilityPointStructuresContextUpdateInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityPointStructuresFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityPointStructuresScenariosViewInfoTest.cs" />
-    <Compile Include="ViewInfos\StabilityPointStructuresResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\StabilityPointStructuresFailureMechanismResultViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

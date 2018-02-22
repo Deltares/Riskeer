@@ -61,19 +61,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
-            // Setup
-            var viewCommands = mocks.Stub<IViewCommands>();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            mocks.ReplayAll();
-
-            var view = new FailureMechanismContributionView(viewCommands);
-
             // Call
-            string viewName = info.GetViewName(view, assessmentSection.FailureMechanismContribution);
+            string viewName = info.GetViewName(null, null);
 
             // Assert
             Assert.AreEqual("Faalkansbegroting", viewName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -156,6 +148,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -207,6 +200,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -239,6 +233,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreSame(view.AssessmentSection, assessmentSection);
             }
+
             mocks.VerifyAll();
         }
     }

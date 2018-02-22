@@ -81,17 +81,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsInputResourceName()
         {
-            // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
-            {
-                var calculation = new TestWaveConditionsCalculation();
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-                // Call
-                string viewName = info.GetViewName(view, calculation);
-
-                // Assert
-                Assert.AreEqual("Invoer", viewName);
-            }
+            // Assert
+            Assert.AreEqual("Invoer", viewName);
         }
 
         [Test]

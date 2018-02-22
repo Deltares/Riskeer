@@ -67,18 +67,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
-            // Setup
-            var view = mocks.StrictMock<FailureMechanismSectionsView>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism();
-
             // Call
-            string viewName = info.GetViewName(view, failureMechanism.Sections);
+            string viewName = info.GetViewName(null, null);
 
             // Assert
             Assert.AreEqual("Vakindeling", viewName);
-            mocks.VerifyAll();
         }
 
         [Test]

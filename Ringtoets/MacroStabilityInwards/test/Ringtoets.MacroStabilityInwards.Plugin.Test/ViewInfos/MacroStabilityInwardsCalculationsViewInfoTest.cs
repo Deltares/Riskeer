@@ -89,22 +89,32 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsCalculationGroupName()
+        public void GetViewName_WithMacroStabilityInwardsCalculationGroupContext_ReturnsCalculationGroupName()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculationsView = new MacroStabilityInwardsCalculationsView();
+
+            const string calculationGroupName = "Test";
+
             var calculationGroup = new CalculationGroup
             {
-                Name = "Test"
+                Name = calculationGroupName
             };
 
+            var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                                           null,
+                                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                                                                                           Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                                                                                           new MacroStabilityInwardsFailureMechanism(),
+                                                                                           assessmentSection);
             // Call
-            string name = info.GetViewName(calculationsView, calculationGroup);
+            string name = info.GetViewName(calculationsView, calculationGroupContext);
 
             // Assert
-            Assert.AreEqual("Test", name);
+            Assert.AreEqual(calculationGroupName, name);
             mocks.VerifyAll();
         }
 

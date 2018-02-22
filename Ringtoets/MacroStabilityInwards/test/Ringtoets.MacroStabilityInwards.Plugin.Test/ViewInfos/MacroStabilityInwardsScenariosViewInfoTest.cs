@@ -87,23 +87,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsScenarios()
         {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-            var calculationsGroup = new CalculationGroup
-            {
-                Name = "Test"
-            };
-
-            using (var view = new MacroStabilityInwardsScenariosView(assessmentSection))
-            {
-                // Call
-                string viewName = info.GetViewName(view, calculationsGroup);
-
-                // Assert
-                Assert.AreEqual("Scenario's", viewName);
-            }
+            // Assert
+            Assert.AreEqual("Scenario's", viewName);
         }
 
         [Test]

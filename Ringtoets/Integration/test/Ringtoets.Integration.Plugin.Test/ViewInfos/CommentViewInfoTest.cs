@@ -67,18 +67,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
-            // Setup
-            var comment = new Comment();
-            var view = mocks.StrictMock<CommentView>();
-
-            mocks.ReplayAll();
-
             // Call
-            string viewName = info.GetViewName(view, comment);
+            string viewName = info.GetViewName(null, null);
 
             // Assert
             Assert.AreEqual("Opmerkingen", viewName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -152,6 +145,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -175,6 +169,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -202,6 +197,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -240,6 +236,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -280,6 +277,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -314,6 +312,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -348,6 +347,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -382,6 +382,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -416,6 +417,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -450,6 +452,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -487,6 +490,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -519,6 +523,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -553,6 +558,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -581,6 +587,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -669,6 +676,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -704,6 +712,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
     }

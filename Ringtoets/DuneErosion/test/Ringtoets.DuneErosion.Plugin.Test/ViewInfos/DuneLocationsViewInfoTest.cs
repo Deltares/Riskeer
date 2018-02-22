@@ -62,24 +62,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-            using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                    dl => new DuneLocationCalculation(),
-                                                    new DuneErosionFailureMechanism(),
-                                                    assessmentSection))
-            {
-                // Call
-                string viewName = info.GetViewName(view, Enumerable.Empty<DuneLocation>());
-
-                // Assert
-                Assert.AreEqual("Hydraulische randvoorwaarden", viewName);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.AreEqual("Hydraulische randvoorwaarden", viewName);
         }
 
         [Test]

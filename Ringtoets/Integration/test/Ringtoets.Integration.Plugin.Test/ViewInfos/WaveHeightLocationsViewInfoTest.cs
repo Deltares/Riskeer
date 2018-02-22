@@ -70,18 +70,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
-            // Setup
-            using (var view = new WaveHeightLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                          hbl => new HydraulicBoundaryLocationCalculation(),
-                                                          new ObservableTestAssessmentSectionStub(),
-                                                          () => 0.01))
-            {
-                // Call
-                string viewName = info.GetViewName(view, Enumerable.Empty<HydraulicBoundaryLocation>());
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-                // Assert
-                Assert.AreEqual("Golfhoogtes", viewName);
-            }
+            // Assert
+            Assert.AreEqual("Golfhoogtes", viewName);
         }
 
         [Test]

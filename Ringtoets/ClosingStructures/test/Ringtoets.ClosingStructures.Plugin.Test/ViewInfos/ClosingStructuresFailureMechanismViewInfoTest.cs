@@ -64,7 +64,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithClosingStructuresFailureMechanism_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithClosingStructuresFailureMechanismContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

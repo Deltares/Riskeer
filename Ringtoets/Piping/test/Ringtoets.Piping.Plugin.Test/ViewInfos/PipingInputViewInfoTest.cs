@@ -68,17 +68,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsInputResourceName()
         {
-            // Setup
-            using (var view = new PipingInputView())
-            {
-                var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-                // Call
-                string viewName = info.GetViewName(view, calculationScenario);
-
-                // Assert
-                Assert.AreEqual("Invoer", viewName);
-            }
+            // Assert
+            Assert.AreEqual("Invoer", viewName);
         }
 
         [Test]

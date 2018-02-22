@@ -64,7 +64,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithStabilityPointStructuresFailureMechanism_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithStabilityPointStructuresFailureMechanismContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

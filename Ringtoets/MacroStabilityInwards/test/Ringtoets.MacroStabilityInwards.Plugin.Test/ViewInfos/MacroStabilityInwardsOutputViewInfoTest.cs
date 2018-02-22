@@ -73,17 +73,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsOutputResourceName()
         {
-            // Setup
-            using (var view = new MacroStabilityInwardsOutputView())
-            {
-                var calculationScenario = new MacroStabilityInwardsCalculationScenario();
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-                // Call
-                string viewName = info.GetViewName(view, calculationScenario);
-
-                // Assert
-                Assert.AreEqual("Resultaat", viewName);
-            }
+            // Assert
+            Assert.AreEqual("Resultaat", viewName);
         }
 
         [Test]

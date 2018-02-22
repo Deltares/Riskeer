@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithPipingFailureMechanism_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithPipingFailureMechanismContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

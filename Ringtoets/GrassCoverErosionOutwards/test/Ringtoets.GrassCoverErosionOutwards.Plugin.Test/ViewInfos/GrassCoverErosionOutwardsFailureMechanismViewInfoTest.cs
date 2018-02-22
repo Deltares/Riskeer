@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithGrassCoverErosionOutwardsFailureMechanism_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithGrassCoverErosionOutwardsFailureMechanismContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

@@ -31,27 +31,26 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using Ringtoets.Piping.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ViewInfos
+namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class MacroStabilityOutwardsResultViewInfoTest
+    public class WaveImpactAsphaltCoverFailureMechanismResultViewInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private WaveImpactAsphaltCoverPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityOutwardsResultView));
+            plugin = new WaveImpactAsphaltCoverPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveImpactAsphaltCoverFailureMechanismResultView));
         }
 
         [TearDown]
@@ -64,16 +63,18 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+                failureMechanism.SectionResults,
+                failureMechanism);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -99,7 +100,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Type viewType = info.ViewType;
 
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityOutwardsResultView), viewType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismResultView), viewType);
         }
 
         [Test]
@@ -109,7 +110,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Type dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>), dataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>), dataType);
         }
 
         [Test]
@@ -119,7 +120,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Type viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>), viewDataType);
+            Assert.AreEqual(typeof(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -140,9 +141,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -159,7 +160,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
@@ -169,7 +170,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -186,17 +187,17 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new PipingFailureMechanism(),
+                new WaveImpactAsphaltCoverFailureMechanism(),
                 failureMechanism
             });
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -212,9 +213,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -228,12 +229,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, new MacroStabilityOutwardsFailureMechanism());
+                bool closeForData = info.CloseForData(view, new WaveImpactAsphaltCoverFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -244,13 +245,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
+                                                                                            assessmentSection);
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -266,13 +268,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new MacroStabilityOutwardsFailureMechanism());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                            assessmentSection);
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -288,8 +291,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
                 failureMechanism);
 
@@ -297,7 +300,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityOutwardsResultView>(view);
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismResultView>(view);
         }
     }
 }

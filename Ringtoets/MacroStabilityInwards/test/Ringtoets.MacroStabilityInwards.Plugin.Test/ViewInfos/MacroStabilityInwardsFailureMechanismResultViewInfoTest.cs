@@ -91,21 +91,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            // Call
+            string viewName = info.GetViewName(null, null);
 
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
-            {
-                // Call
-                string viewName = info.GetViewName(view, failureMechanism.SectionResults);
-
-                // Assert
-                Assert.AreEqual("Resultaat", viewName);
-            }
-
-            mocks.VerifyAll();
+            // Assert
+            Assert.AreEqual("Resultaat", viewName);
         }
 
         [Test]

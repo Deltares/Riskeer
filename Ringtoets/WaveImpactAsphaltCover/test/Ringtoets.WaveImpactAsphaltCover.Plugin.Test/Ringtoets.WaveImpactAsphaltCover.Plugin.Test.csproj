@@ -39,7 +39,7 @@
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\WaveImpactAsphaltCoverFailureMechanismViewInfoTest.cs" />
-    <Compile Include="ViewInfos\WaveImpactAsphaltCoverResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\WaveImpactAsphaltCoverFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="WaveImpactAsphaltCoverPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

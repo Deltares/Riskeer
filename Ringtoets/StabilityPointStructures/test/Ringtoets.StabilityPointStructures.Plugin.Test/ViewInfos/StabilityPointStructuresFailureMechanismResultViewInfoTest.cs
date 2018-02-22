@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -30,28 +29,26 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
+using Ringtoets.StabilityPointStructures.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ViewInfos
+namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class MacroStabilityOutwardsResultViewInfoTest
+    public class StabilityPointStructuresFailureMechanismResultViewInfoTest
     {
-        private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private StabilityPointStructuresPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityOutwardsResultView));
+            plugin = new StabilityPointStructuresPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityPointStructuresFailureMechanismResultView));
         }
 
         [TearDown]
@@ -64,22 +61,28 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -90,36 +93,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(MacroStabilityOutwardsResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -136,13 +109,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -158,18 +132,18 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });
-
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -185,18 +159,18 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new PipingFailureMechanism(),
+                new TestFailureMechanism(),
                 failureMechanism
             });
-
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -212,9 +186,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -222,35 +200,44 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, new MacroStabilityOutwardsFailureMechanism());
+                bool closeForData = info.CloseForData(view, new StabilityPointStructuresFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
-
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -266,13 +253,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new MacroStabilityOutwardsFailureMechanism());
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(),
+                                                                                              assessmentSection);
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -288,16 +277,23 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
-                failureMechanism);
+                failureMechanism,
+                assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityOutwardsResultView>(view);
+            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismResultView>(view);
+            mocks.VerifyAll();
         }
     }
 }
