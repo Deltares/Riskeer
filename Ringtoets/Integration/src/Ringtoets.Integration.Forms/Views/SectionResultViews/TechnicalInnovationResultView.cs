@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult)
+        protected override TechnicalInnovationSectionResultRow CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult)
         {
             return new TechnicalInnovationSectionResultRow(sectionResult);
         }

@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
+        protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
             return new TestRow(sectionResult);
         }

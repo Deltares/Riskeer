@@ -92,7 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+        protected override StabilityPointStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
             return new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult,
                                                                                 FailureMechanism,

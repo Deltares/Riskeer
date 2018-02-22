@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
+        protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
         {
             return new MacroStabilityOutwardsSectionResultRow(sectionResult);
         }

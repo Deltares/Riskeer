@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
+        protected override GrassCoverErosionInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
             return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(sectionResult,
                                                                                 FailureMechanism,

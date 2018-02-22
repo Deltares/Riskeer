@@ -52,7 +52,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
+        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
             return new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(sectionResult);
         }

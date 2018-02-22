@@ -90,7 +90,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
+        protected override ClosingStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
         {
             return new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, FailureMechanism, assessmentSection);
         }

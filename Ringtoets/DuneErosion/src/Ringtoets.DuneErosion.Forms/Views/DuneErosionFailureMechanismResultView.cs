@@ -52,7 +52,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
+        protected override DuneErosionSectionResultRow CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
         {
             return new DuneErosionSectionResultRow(sectionResult);
         }

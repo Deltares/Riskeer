@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
+        protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
             return new PipingFailureMechanismSectionResultRow(sectionResult, FailureMechanism.Calculations.Cast<PipingCalculationScenario>(),
                                                               FailureMechanism, assessmentSection);

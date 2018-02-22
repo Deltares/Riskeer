@@ -111,7 +111,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
+        protected override MacroStabilityInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
         {
             return new MacroStabilityInwardsFailureMechanismSectionResultRow(sectionResult,
                                                                              FailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>(),

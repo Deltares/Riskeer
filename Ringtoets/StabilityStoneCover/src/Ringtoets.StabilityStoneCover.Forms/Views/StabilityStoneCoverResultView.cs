@@ -51,7 +51,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
+        protected override StabilityStoneCoverSectionResultRow CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
         {
             return new StabilityStoneCoverSectionResultRow(sectionResult);
         }

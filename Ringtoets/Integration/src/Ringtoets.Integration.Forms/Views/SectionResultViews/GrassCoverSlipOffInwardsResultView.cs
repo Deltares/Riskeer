@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult)
+        protected override GrassCoverSlipOffInwardsSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult)
         {
             return new GrassCoverSlipOffInwardsSectionResultRow(sectionResult);
         }

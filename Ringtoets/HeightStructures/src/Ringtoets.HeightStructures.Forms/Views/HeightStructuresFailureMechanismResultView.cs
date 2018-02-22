@@ -104,7 +104,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
+        protected override HeightStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
         {
             return new HeightStructuresFailureMechanismSectionResultRow(sectionResult,
                                                                         FailureMechanism,

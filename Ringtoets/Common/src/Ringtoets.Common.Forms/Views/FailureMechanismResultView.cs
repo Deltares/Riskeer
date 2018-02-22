@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="sectionResult">The <typeparamref name="TSectionResult"/> for which to create a
         /// display object.</param>
         /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
-        protected abstract object CreateFailureMechanismSectionResultRow(TSectionResult sectionResult);
+        protected abstract TSectionResultRow CreateFailureMechanismSectionResultRow(TSectionResult sectionResult);
 
         protected override void Dispose(bool disposing)
         {

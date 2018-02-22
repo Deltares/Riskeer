@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
+        protected override GrassCoverErosionOutwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
         {
             return new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(sectionResult);
         }
