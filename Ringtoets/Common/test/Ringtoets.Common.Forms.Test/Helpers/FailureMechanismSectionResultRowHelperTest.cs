@@ -66,14 +66,14 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCaseSource(nameof(GetSimpleAssessmentResultAssessFurtherOrNoneAndCalculationWithOutputConfigurations))]
         public void SetDetailedAssessmentError_WithSimpleAssessmentResultConfigurations_SetsErrorText(DataGridViewCell dataGridViewCell,
                                                                                                       SimpleAssessmentResultType simpleAssessmentResult,
-                                                                                                      double detailedAssessmentProbability,
+                                                                                                      double detailedAssessmentResult,
                                                                                                       ICalculation normativeCalculation,
                                                                                                       string expectedErrorText)
         {
             // Call
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(dataGridViewCell,
                                                                               simpleAssessmentResult,
-                                                                              detailedAssessmentProbability,
+                                                                              detailedAssessmentResult,
                                                                               normativeCalculation);
 
             // Assert
@@ -109,14 +109,14 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [TestCaseSource(nameof(SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithOutput))]
         public void SetAssessmentDetailedAssessmentError_WithSimpleAssessmentValidityOnlyConfigurations_SetsErrorText(DataGridViewCell dataGridViewCell,
                                                                                                                       SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
-                                                                                                                      double detailedAssessmentProbability,
+                                                                                                                      double detailedAssessmentResult,
                                                                                                                       ICalculation normativeCalculation,
                                                                                                                       string expectedErrorText)
         {
             // Call
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(dataGridViewCell,
                                                                               simpleAssessmentResult,
-                                                                              detailedAssessmentProbability,
+                                                                              detailedAssessmentResult,
                                                                               normativeCalculation);
 
             // Assert
@@ -372,7 +372,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultValidityOnlyType.Applicable, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           expectedErrorMessage)
-                .SetName("ApplicableValidDetailedAssessmentAndCalculationWithoutOutput");
+                .SetName("ApplicableWithValidDetailedAssessmentAndCalculationWithoutOutput");
         }
 
         private static IEnumerable SimpleAssessmentResultValidityOnlyIsNotApplicableAndCalculationWithOutput()

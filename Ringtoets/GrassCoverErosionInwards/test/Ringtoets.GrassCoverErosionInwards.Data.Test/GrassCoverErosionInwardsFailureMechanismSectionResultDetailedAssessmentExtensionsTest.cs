@@ -42,8 +42,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Call
             TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(null,
-                                                                                                                                                                    new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                                                                    assessmentSection);
+                                                                                                                                                         new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                                                                         assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

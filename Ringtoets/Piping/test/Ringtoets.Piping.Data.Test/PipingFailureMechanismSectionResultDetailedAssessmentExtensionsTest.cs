@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -309,7 +311,33 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetTotalContribution_Always_ReturnsTotalRelevantScenarioContribution()
+        public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((PipingFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<PipingCalculationScenario>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTotalContribution_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => sectionResult.GetTotalContribution(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTotalContribution_WithScenarios_ReturnsTotalRelevantScenarioContribution()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -335,6 +363,32 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual((RoundedDouble) 0.8, totalContribution);
+        }
+
+        [Test]
+        public void GetCalculationScenarioStatus_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((PipingFailureMechanismSectionResult) null).GetCalculationScenarioStatus(Enumerable.Empty<PipingCalculationScenario>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarioStatus_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => sectionResult.GetCalculationScenarioStatus(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
         }
 
         [Test]
@@ -408,6 +462,75 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((PipingFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<PipingCalculationScenario>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => sectionResult.GetCalculationScenarios(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_WithRelevantAndIrrelevantScenarios_ReturnsRelevantCalculationScenarios()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new PipingFailureMechanismSectionResult(section);
+            PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            PipingCalculationScenario calculationScenario2 = PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section);
+
+            // Call
+            IEnumerable<PipingCalculationScenario> relevantScenarios = sectionResult.GetCalculationScenarios(new[]
+            {
+                calculationScenario,
+                calculationScenario2
+            });
+
+            // Assert
+            Assert.AreEqual(calculationScenario, relevantScenarios.Single());
+        }
+
+        [Test]
+        public void GetCalculationScenarios_WithNotIntersectingScenario_ReturnsNoCalculationScenarios()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(999, 999),
+                new Point2D(998, 998)
+            });
+            var sectionResult = new PipingFailureMechanismSectionResult(section);
+            PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            // Call
+            IEnumerable<PipingCalculationScenario> relevantScenarios = sectionResult.GetCalculationScenarios(new[]
+            {
+                calculationScenario
+            });
+
+            // Assert
+            CollectionAssert.IsEmpty(relevantScenarios);
         }
     }
 }

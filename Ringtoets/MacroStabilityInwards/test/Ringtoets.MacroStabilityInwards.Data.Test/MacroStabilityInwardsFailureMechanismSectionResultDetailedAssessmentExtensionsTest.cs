@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -312,7 +314,33 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetTotalContribution_Always_ReturnsTotalRelevantScenarioContribution()
+        public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTotalContribution_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => sectionResult.GetTotalContribution(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTotalContribution_WithScenarios_ReturnsTotalRelevantScenarioContribution()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -338,6 +366,32 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual((RoundedDouble) 0.8, totalContribution);
+        }
+
+        [Test]
+        public void GetCalculationScenarioStatus_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetCalculationScenarioStatus(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarioStatus_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => sectionResult.GetCalculationScenarioStatus(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
         }
 
         [Test]
@@ -433,6 +487,79 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Done, status);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetCalculationScenarios(
+                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => sectionResult.GetCalculationScenarios(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_WithRelevantAndIrrelevantScenarios_ReturnsRelevantCalculationScenarios()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            MacroStabilityInwardsCalculationScenario calculationScenario =
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario calculationScenario2 =
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
+
+            // Call
+            IEnumerable<MacroStabilityInwardsCalculationScenario> relevantScenarios = sectionResult.GetCalculationScenarios(new[]
+            {
+                calculationScenario,
+                calculationScenario2
+            });
+
+            // Assert
+            Assert.AreEqual(calculationScenario, relevantScenarios.Single());
+        }
+
+        [Test]
+        public void GetCalculationScenarios_WithNotIntersectingScenario_ReturnsNoCalculationScenarios()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(999, 999),
+                new Point2D(998, 998)
+            });
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            MacroStabilityInwardsCalculationScenario calculationScenario =
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            // Call
+            IEnumerable<MacroStabilityInwardsCalculationScenario> relevantScenarios = sectionResult.GetCalculationScenarios(new[]
+            {
+                calculationScenario
+            });
+
+            // Assert
+            CollectionAssert.IsEmpty(relevantScenarios);
         }
     }
 }

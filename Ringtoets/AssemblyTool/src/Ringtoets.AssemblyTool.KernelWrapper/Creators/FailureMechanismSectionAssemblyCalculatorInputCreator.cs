@@ -112,8 +112,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <returns>The created <see cref="DetailedCalculationInputFromProbability"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categories"/>
-        /// contains items that are <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categories"/> contains
         /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="categories"/> contains
@@ -127,11 +125,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             if (categories == null)
             {
                 throw new ArgumentNullException(nameof(categories));
-            }
-
-            if (categories.Contains(null))
-            {
-                throw new ArgumentException(@"Categories cannot contain null items.", nameof(categories));
             }
 
             return new DetailedCalculationInputFromProbability(new Probability(probability),
@@ -150,8 +143,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The created <see cref="DetailedCalculationInputFromProbabilityWithLengthEffect"/>.</returns>\<exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categories"/>
-        /// contains items that are <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categories"/> contains
         /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="categories"/> contains
@@ -166,11 +157,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             if (categories == null)
             {
                 throw new ArgumentNullException(nameof(categories));
-            }
-
-            if (categories.Contains(null))
-            {
-                throw new ArgumentException(@"Categories cannot contain null items.", nameof(categories));
             }
 
             return new DetailedCalculationInputFromProbabilityWithLengthEffect(

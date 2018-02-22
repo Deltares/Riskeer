@@ -95,56 +95,95 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the contribution of all relevant <see cref="GetCalculationScenarios"/> together.
+        /// Gets the total contribution of all relevant calculation scenarios.
         /// </summary>
-        /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
-        /// <param name="calculations">All calculations in the failure mechanism.</param>
-        public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
-                                                         IEnumerable<PipingCalculationScenario> calculations)
+        /// <param name="sectionResult">The section result to get the total contribution for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios to get the total contribution for.</param>
+        /// <returns>The total contribution of all relevant calculation scenarios.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult sectionResult,
+                                                         IEnumerable<PipingCalculationScenario> calculationScenarios)
         {
-            return (RoundedDouble) pipingFailureMechanismSectionResult
-                                   .GetCalculationScenarios(calculations)
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
+            return (RoundedDouble) sectionResult
+                                   .GetCalculationScenarios(calculationScenarios)
                                    .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
 
         /// <summary>
-        /// Gets a list of the relevant <see cref="ICalculationScenario"/>.
+        /// Gets a collection of the relevant <see cref="PipingCalculationScenario"/>.
         /// </summary>
-        /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
-        /// <param name="calculations">All calculations in the failure mechanism.</param>
-        public static IEnumerable<PipingCalculationScenario> GetCalculationScenarios(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
-                                                                                     IEnumerable<PipingCalculationScenario> calculations)
+        /// <param name="sectionResult">The section result to get the relevant scenarios for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios to get the relevant scenarios from.</param>
+        /// <returns>A collection of relevant calculation scenarios.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<PipingCalculationScenario> GetCalculationScenarios(
+            this PipingFailureMechanismSectionResult sectionResult,
+            IEnumerable<PipingCalculationScenario> calculationScenarios)
         {
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(pipingFailureMechanismSectionResult.Section.Points);
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
 
-            return calculations
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(sectionResult.Section.Points);
+
+            return calculationScenarios
                 .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
         }
 
         /// <summary>
         /// Gets the status of the section result depending on the relevant calculation scenarios.
         /// </summary>
-        /// <param name="pipingFailureMechanismSectionResult">The result to get the result for.</param>
-        /// <param name="calculations">All calculations in the failure mechanism.</param>
+        /// <param name="sectionResult">The section result to get the calculation status for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios to get the calculation status for.</param>
+        /// <returns>The calculation scenario status for the section result.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when any of the relevant calculations 
-        /// in <paramref name="pipingFailureMechanismSectionResult"/> has an invalid <see cref="CalculationScenarioStatus"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when any of the relevant scenarios has an unsupported value of <see cref="CalculationScenarioStatus"/>.</exception>
-        public static CalculationScenarioStatus GetCalculationScenarioStatus(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
-                                                                             IEnumerable<PipingCalculationScenario> calculations)
+        /// in <paramref name="sectionResult"/> has an invalid <see cref="CalculationScenarioStatus"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when any of the relevant scenarios has an unsupported
+        /// value of <see cref="CalculationScenarioStatus"/>.</exception>
+        public static CalculationScenarioStatus GetCalculationScenarioStatus(
+            this PipingFailureMechanismSectionResult sectionResult,
+            IEnumerable<PipingCalculationScenario> calculationScenarios)
         {
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
             var failed = false;
             var notCalculated = false;
-            foreach (PipingCalculationScenario calculationScenario in pipingFailureMechanismSectionResult.GetCalculationScenarios(calculations).Where(cs => cs.IsRelevant))
+            foreach (PipingCalculationScenario calculationScenario in sectionResult.GetCalculationScenarios(calculationScenarios).Where(cs => cs.IsRelevant))
             {
                 CalculationScenarioStatus calculationScenarioStatus = calculationScenario.Status;
                 if (!Enum.IsDefined(typeof(CalculationScenarioStatus), calculationScenarioStatus))
                 {
-                    throw new InvalidEnumArgumentException(nameof(pipingFailureMechanismSectionResult),
+                    throw new InvalidEnumArgumentException(nameof(sectionResult),
                                                            (int) calculationScenarioStatus,
                                                            typeof(CalculationScenarioStatus));
                 }
 
-                switch (calculationScenarioStatus)
+                switch (calculationScenario.Status)
                 {
                     case CalculationScenarioStatus.Failed:
                         failed = true;
