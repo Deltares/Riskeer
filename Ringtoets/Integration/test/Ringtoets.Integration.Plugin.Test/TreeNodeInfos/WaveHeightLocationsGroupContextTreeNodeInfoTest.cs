@@ -28,6 +28,8 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -105,8 +107,19 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
+            const double signalingNorm = 0.002;
+            const double lowerLimitNorm = 0.005;
+
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            assessmentSection.Expect(a => a.FailureMechanismContribution)
+                             .Return(new FailureMechanismContribution(
+                                         Enumerable.Empty<IFailureMechanism>(),
+                                         10,
+                                         lowerLimitNorm,
+                                         signalingNorm))
+                             .Repeat.Any();
+
             mocks.ReplayAll();
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
@@ -132,15 +145,19 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 Assert.AreEqual("A+->A", locationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation1, locationsContexts[0].GetCalculationFunc(testLocation));
+                Assert.AreEqual(signalingNorm / 30, locationsContexts[0].GetNormFunc());
 
                 Assert.AreEqual("A->B", locationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation2, locationsContexts[1].GetCalculationFunc(testLocation));
+                Assert.AreEqual(signalingNorm, locationsContexts[1].GetNormFunc());
 
                 Assert.AreEqual("B->C", locationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation3, locationsContexts[2].GetCalculationFunc(testLocation));
+                Assert.AreEqual(lowerLimitNorm, locationsContexts[2].GetNormFunc());
 
                 Assert.AreEqual("C->D", locationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation4, locationsContexts[3].GetCalculationFunc(testLocation));
+                Assert.AreEqual(lowerLimitNorm * 30, locationsContexts[3].GetNormFunc());
             }
 
             mocks.VerifyAll();
