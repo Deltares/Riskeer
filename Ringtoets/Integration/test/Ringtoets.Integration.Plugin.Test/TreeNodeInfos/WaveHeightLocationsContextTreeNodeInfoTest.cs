@@ -331,9 +331,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
+            Func<double> getNormFunc = () => 0.01;
             var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                          assessmentSection,
-                                                         () => 0.01,
+                                                         getNormFunc,
                                                          hbl => new HydraulicBoundaryLocationCalculation(),
                                                          "Category");
 
@@ -372,8 +373,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = assessmentSection.FailureMechanismContribution.Norm;
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(getNormFunc()), waveHeightCalculationInput.Beta);
                     }
                 }
             }
@@ -403,9 +403,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
+            Func<double> getNormFunc = () => 0.01;
             var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                          assessmentSection,
-                                                         () => 0.01,
+                                                         getNormFunc,
                                                          hbl => new HydraulicBoundaryLocationCalculation(),
                                                          "Category");
 
@@ -444,8 +445,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = assessmentSection.FailureMechanismContribution.Norm;
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(getNormFunc()), waveHeightCalculationInput.Beta);
                     }
                 }
             }
@@ -474,9 +474,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
+            Func<double> getNormFunc = () => 0.01;
             var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                          assessmentSection,
-                                                         () => 0.01,
+                                                         getNormFunc,
                                                          hbl => new HydraulicBoundaryLocationCalculation(),
                                                          "Category");
 
@@ -515,8 +516,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = assessmentSection.FailureMechanismContribution.Norm;
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(getNormFunc()), waveHeightCalculationInput.Beta);
                     }
                 }
             }
