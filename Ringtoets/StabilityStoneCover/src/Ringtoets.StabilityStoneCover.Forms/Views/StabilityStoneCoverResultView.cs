@@ -65,7 +65,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(StabilityStoneCoverSectionResultRow.Name),
+                RingtoetsCommonFormsResources.Section_DisplayName,
+                true);
 
             EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[] simpleAssessmentDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentResultValidityOnlyType))

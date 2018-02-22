@@ -66,7 +66,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityOutwardsSectionResultRow.Name),
+                RingtoetsCommonFormsResources.Section_DisplayName,
+                true);
 
             EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentResultType))

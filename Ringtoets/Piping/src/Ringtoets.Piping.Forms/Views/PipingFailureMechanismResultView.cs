@@ -117,7 +117,10 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(PipingFailureMechanismSectionResultRow.Name),
+                RingtoetsCommonFormsResources.Section_DisplayName,
+                true);
 
             EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentResultType))

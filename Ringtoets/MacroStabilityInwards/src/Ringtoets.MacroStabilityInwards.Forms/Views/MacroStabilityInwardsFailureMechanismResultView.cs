@@ -121,7 +121,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.Name),
+                RingtoetsCommonFormsResources.Section_DisplayName,
+                true);
 
             EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentResultType))

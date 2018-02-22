@@ -22,7 +22,6 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -91,7 +90,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(1, dataGridView.ColumnCount);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
 
-                Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("Test", dataGridView.Columns[nameColumnIndex].HeaderText);
             }
         }
 
@@ -108,10 +107,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(0, dataGridView.RowCount);
 
                 // When
-                sectionResults.Add(new TestFailureMechanismSectionResult(new FailureMechanismSection("a", new[]
-                {
-                    new Point2D(0, 0)
-                })));
+                sectionResults.Add(FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult());
                 sectionResults.NotifyObservers();
 
                 // Then
@@ -165,6 +161,11 @@ namespace Ringtoets.Common.Forms.Test.Views
         protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
             return new TestRow(sectionResult);
+        }
+
+        protected override void AddDataGridColumns()
+        {
+            DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
         }
     }
 

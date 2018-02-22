@@ -66,7 +66,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.Name),
+                RingtoetsCommonFormsResources.Section_DisplayName,
+                true);
 
             EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentResultType))

@@ -66,7 +66,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(DuneErosionSectionResultRow.Name),
+                RingtoetsCommonFormsResources.Section_DisplayName,
+                true);
 
             EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[] simpleAssessmentDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentResultValidityOnlyType))

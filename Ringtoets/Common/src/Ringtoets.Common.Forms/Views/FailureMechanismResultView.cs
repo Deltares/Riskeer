@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -37,7 +36,7 @@ namespace Ringtoets.Common.Forms.Views
     /// <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism}"/>.</typeparam>
     /// <typeparam name="TSectionResultRow">The type of the row that is used to show the data.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
-    public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView 
+    public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView
         where TSectionResult : FailureMechanismSectionResult
         where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
         where TFailureMechanism : IFailureMechanism
@@ -147,12 +146,6 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Adds the columns to the view.
         /// </summary>
-        protected virtual void AddDataGridColumns()
-        {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(FailureMechanismSectionResultRow<TSectionResult>.Name),
-                Resources.Section_DisplayName,
-                true);
-        }
+        protected abstract void AddDataGridColumns();
     }
 }

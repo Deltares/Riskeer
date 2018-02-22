@@ -113,7 +113,10 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(HeightStructuresFailureMechanismSectionResultRow.Name),
+                RingtoetsCommonFormsResources.Section_DisplayName,
+                true);
 
             EnumDisplayWrapper<SimpleAssessmentResultType>[] layerOneDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentResultType))

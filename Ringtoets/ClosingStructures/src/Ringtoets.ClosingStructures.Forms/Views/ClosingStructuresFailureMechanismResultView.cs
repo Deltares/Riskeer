@@ -109,7 +109,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            base.AddDataGridColumns();
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.Name),
+                RingtoetsCommonFormsResources.Section_DisplayName,
+                true);
 
             EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentResultDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentResultType))
