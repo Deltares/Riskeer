@@ -400,7 +400,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelLocationsView>
             {
-                GetViewName = (view, context) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
+                GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
@@ -413,7 +413,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<WaveHeightLocationsContext, IEnumerable<HydraulicBoundaryLocation>, WaveHeightLocationsView>
             {
-                GetViewName = (view, context) => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
+                GetViewName = (view, context) => $"{RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,

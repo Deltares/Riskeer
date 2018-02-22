@@ -68,13 +68,22 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsViewName()
+        public void GetViewName_WithDesignWaterLevelLocationsContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
+            // Setup
+            const string categoryBoundaryName = "Category";
+
+            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                               new ObservableTestAssessmentSectionStub(),
+                                                               () => 0.01,
+                                                               hbl => new HydraulicBoundaryLocationCalculation(),
+                                                               categoryBoundaryName);
+
             // Call
-            string viewName = info.GetViewName(null, null);
+            string viewName = info.GetViewName(null, context);
 
             // Assert
-            Assert.AreEqual("Toetspeilen", viewName);
+            Assert.AreEqual($"Toetspeilen - {categoryBoundaryName}", viewName);
         }
 
         [Test]
