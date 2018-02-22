@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Exceptions;
 namespace Ringtoets.HeightStructures.Data
 {
     /// <summary>
-    /// Factory for creating assembly results for height structures failure mechanism section results.
+    /// Factory for assembling assembly results for height structures failure mechanism section results.
     /// </summary>
     public static class HeightStructuresFailureMechanismSectionResultAssemblyFactory
     {

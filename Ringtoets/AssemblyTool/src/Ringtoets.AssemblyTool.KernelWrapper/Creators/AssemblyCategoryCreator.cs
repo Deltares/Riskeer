@@ -74,6 +74,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <returns>An <see cref="IEnumerable{FailureMechanismSectionAssemblyCategory}"/>
         /// with information taken from the <paramref name="output"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="output"/> contains <c>null</c> items.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionCategoryGroup"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionCategoryGroup"/>
@@ -86,6 +87,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(output));
             }
 
+            if (output.Result.Contains(null))
+            {
+                throw new ArgumentException(@"Output result cannot contain null items", nameof(output));
+            }
+
             return output.Result.Select(
                 categoriesOutput => new FailureMechanismSectionAssemblyCategory(categoriesOutput.LowerBoundary,
                                                                                 categoriesOutput.UpperBoundary,
@@ -93,7 +99,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Converts a <see cref="category"/> into a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
+        /// Converts a <see cref="AssessmentSectionCategoryGroup"/> into a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
         /// </summary>
         /// <param name="category">The <see cref="AssessmentSectionCategoryGroup"/> to convert.</param>
         /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
@@ -128,7 +134,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Converts a <see cref="category"/> into a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
+        /// Converts a <see cref="FailureMechanismSectionCategoryGroup"/> into a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
         /// </summary>
         /// <param name="category">The <see cref="FailureMechanismSectionCategoryGroup"/> to convert.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>

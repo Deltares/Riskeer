@@ -115,10 +115,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultType) 99);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultType'.";
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                StringAssert.StartsWith(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -182,10 +182,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultType.AssessFurther);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'originalGroup' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                StringAssert.StartsWith(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -206,8 +206,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+                Exception innerException = exception.InnerException;
+                Assert.IsNotNull(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -225,10 +226,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultValidityOnlyType) 99);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultValidityOnlyType'.";
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                StringAssert.StartsWith(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -292,10 +293,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.Applicable);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'originalGroup' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                StringAssert.StartsWith(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -316,7 +317,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.IsNotNull(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
         }
@@ -351,10 +352,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(probability, categories);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                StringAssert.StartsWith(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -366,8 +367,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             double probability = random.NextDouble();
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
-                                                            random.NextRoundedDouble(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
+                                                            random.GetFromRange(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -402,8 +403,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             double probability = random.NextDouble();
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
-                                                            random.NextRoundedDouble(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
+                                                            random.GetFromRange(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -432,8 +433,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             double probability = random.NextDouble();
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
-                                                            random.NextRoundedDouble(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
+                                                            random.GetFromRange(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -450,10 +451,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(probability, categories);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'originalGroup' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                StringAssert.StartsWith(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -465,8 +466,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             double probability = random.NextDouble();
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
-                                                            random.NextRoundedDouble(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
+                                                            random.GetFromRange(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -483,8 +484,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+                Exception innerException = exception.InnerException;
+                Assert.IsNotNull(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -494,7 +496,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.NextRoundedDouble(1.0, 10.0);
+            double n = random.GetFromRange(1.0, 10.0);
             var categories = new[]
             {
                 new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
@@ -515,10 +517,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(probability, categories, n);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                StringAssert.StartsWith(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -528,11 +530,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.NextRoundedDouble(1.0, 10.0);
+            double n = random.GetFromRange(1.0, 10.0);
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
-                                                            random.NextRoundedDouble(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
+                                                            random.GetFromRange(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -566,11 +568,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.NextRoundedDouble(1.0, 10.0);
+            double n = random.GetFromRange(1.0, 10.0);
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
-                                                            random.NextRoundedDouble(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
+                                                            random.GetFromRange(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -597,11 +599,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.NextRoundedDouble(1.0, 10.0);
+            double n = random.GetFromRange(1.0, 10.0);
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
-                                                            random.NextRoundedDouble(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
+                                                            random.GetFromRange(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -618,10 +620,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(probability, categories, n);
 
                 // Assert
-                const string expectedMessage = "The value of argument 'originalGroup' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                StringAssert.StartsWith(expectedMessage, exception.Message);
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -631,11 +633,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.NextRoundedDouble(1.0, 10.0);
+            double n = random.GetFromRange(1.0, 10.0);
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
-                                                            random.NextRoundedDouble(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
+                                                            random.GetFromRange(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -652,8 +654,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+                Exception innerException = exception.InnerException;
+                Assert.IsNotNull(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 

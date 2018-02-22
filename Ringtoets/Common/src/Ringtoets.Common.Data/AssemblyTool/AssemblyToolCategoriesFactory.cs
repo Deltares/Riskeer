@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
         /// <param name="probabilityDistributionFactor">The probability distribution factor to calculate with.</param>
-        /// <param name="n">The n to calculate with.</param>
+        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
         /// <param name="probabilityDistributionFactor">The probability distribution factor to calculate with.</param>
-        /// <param name="n">The n to calculate with.</param>
+        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>

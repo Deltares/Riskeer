@@ -28,6 +28,7 @@ using AssemblyTool.Kernel.Assembly.CalculatorInput;
 using AssemblyTool.Kernel.Data;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
 using AssemblyTool.Kernel.Data.CalculationResults;
+using AssemblyTool.Kernel.ErrorHandling;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 
@@ -109,14 +110,30 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
         /// create the input for.</param>
         /// <returns>The created <see cref="DetailedCalculationInputFromProbability"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categories"/>
+        /// contains items that are <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categories"/> contains
         /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="categories"/> contains
         /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
+        /// invalid value.</exception>
         public static DetailedCalculationInputFromProbability CreateDetailedCalculationInputFromProbability(
             double probability,
             IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
         {
+            if (categories == null)
+            {
+                throw new ArgumentNullException(nameof(categories));
+            }
+
+            if (categories.Contains(null))
+            {
+                throw new ArgumentException(@"Categories cannot contain null items.", nameof(categories));
+            }
+
             return new DetailedCalculationInputFromProbability(new Probability(probability),
                                                                categories.Select(category => new FailureMechanismSectionCategory(
                                                                                      ConvertFailureMechanismSectionAssemblyCategoryGroup(category.Group),
@@ -131,16 +148,31 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
         /// create the input for.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
-        /// <returns>The created <see cref="DetailedCalculationInputFromProbabilityWithLengthEffect"/>.</returns>
+        /// <returns>The created <see cref="DetailedCalculationInputFromProbabilityWithLengthEffect"/>.</returns>\<exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categories"/>
+        /// contains items that are <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categories"/> contains
         /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="categories"/> contains
         /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
+        /// invalid value.</exception>
         public static DetailedCalculationInputFromProbabilityWithLengthEffect CreateDetailedCalculationInputFromProbabilityWithLengthEffect(
             double probability,
             IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
             double n)
         {
+            if (categories == null)
+            {
+                throw new ArgumentNullException(nameof(categories));
+            }
+
+            if (categories.Contains(null))
+            {
+                throw new ArgumentException(@"Categories cannot contain null items.", nameof(categories));
+            }
+
             return new DetailedCalculationInputFromProbabilityWithLengthEffect(
                 new Probability(probability),
                 categories.Select(category => new FailureMechanismSectionCategory(
@@ -151,7 +183,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Converts a <see cref="category"/> into a <see cref="FailureMechanismSectionCategoryGroup"/>.
+        /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="FailureMechanismSectionCategoryGroup"/>.
         /// </summary>
         /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>
         /// <returns>A <see cref="FailureMechanismSectionCategoryGroup"/> based on <paramref name="category"/>.</returns>

@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Exceptions;
 namespace Ringtoets.ClosingStructures.Data
 {
     /// <summary>
-    /// Factory for creating assembly results for closing structures failure mechanism section results.
+    /// Factory for assembling assembly results for closing structures failure mechanism section results.
     /// </summary>
     public static class ClosingStructuresFailureMechanismSectionResultAssemblyFactory
     {

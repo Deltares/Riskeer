@@ -54,7 +54,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         #region Simple Assessment
 
         [Test]
-        public void AssembleSimpleAssessment_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        public void AssembleSimpleAssessment_ThrowExceptionOnCalculateFalse_ReturnOutput()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
@@ -100,7 +100,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         }
 
         [Test]
-        public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateFalse_ReturnOutput()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
@@ -150,7 +150,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         #region Detailed Assessment
 
         [Test]
-        public void AssembleDetailedAssessment_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        public void AssembleDetailedAssessment_ThrowExceptionOnCalculateFalse_ReturnOutput()
         {
             // Setup
             var random = new Random(39);
@@ -179,6 +179,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             double probability = random.NextDouble();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
+            var assemblyCategory = new FailureMechanismSectionAssemblyCategory(lowerBoundary,
+                                                                               upperBoundary,
+                                                                               FailureMechanismSectionAssemblyCategoryGroup.IIv);
 
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
@@ -187,18 +190,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 probability,
                 new[]
                 {
-                    new FailureMechanismSectionAssemblyCategory(lowerBoundary,
-                                                                upperBoundary,
-                                                                FailureMechanismSectionAssemblyCategoryGroup.IIv)
+                    assemblyCategory
                 });
 
             // Assert
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
-
-            FailureMechanismSectionAssemblyCategory actualSectionCategory = calculator.DetailedAssessmentCategoriesInput.Single();
-            Assert.AreEqual(lowerBoundary, actualSectionCategory.LowerBoundary);
-            Assert.AreEqual(upperBoundary, actualSectionCategory.UpperBoundary);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, actualSectionCategory.Group);
+            Assert.AreSame(assemblyCategory, calculator.DetailedAssessmentCategoriesInput.Single());
         }
 
         [Test]
@@ -228,7 +225,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         }
 
         [Test]
-        public void AssembleDetailedAssessmentWithLengthEffect_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        public void AssembleDetailedAssessmentWithLengthEffect_ThrowExceptionOnCalculateFalse_ReturnOutput()
         {
             // Setup
             var random = new Random(39);
@@ -259,6 +256,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             double lowerBoundary = random.NextRoundedDouble(0.0, 0.5);
             double upperBoundary = random.NextRoundedDouble(0.6, 1.0);
             double n = random.NextRoundedDouble(1.0, 10.0);
+            var assemblyCategory = new FailureMechanismSectionAssemblyCategory(lowerBoundary,
+                                                                               upperBoundary,
+                                                                               FailureMechanismSectionAssemblyCategoryGroup.IIv);
 
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
@@ -267,9 +267,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 probability,
                 new[]
                 {
-                    new FailureMechanismSectionAssemblyCategory(lowerBoundary,
-                                                                upperBoundary,
-                                                                FailureMechanismSectionAssemblyCategoryGroup.IIv)
+                    assemblyCategory
                 },
                 n);
 
@@ -277,10 +275,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
             Assert.AreEqual(n, calculator.DetailedAssessmentNInput);
 
-            FailureMechanismSectionAssemblyCategory actualSectionCategory = calculator.DetailedAssessmentCategoriesInput.Single();
-            Assert.AreEqual(lowerBoundary, actualSectionCategory.LowerBoundary);
-            Assert.AreEqual(upperBoundary, actualSectionCategory.UpperBoundary);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, actualSectionCategory.Group);
+            Assert.AreSame(assemblyCategory, calculator.DetailedAssessmentCategoriesInput.Single());
+
         }
 
         [Test]

@@ -137,7 +137,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.IsNotNull(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
         }
@@ -147,8 +147,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.GetFromRange(0.5, 1.0);
+            double signalingNorm = random.GetFromRange(0.0, 0.4);
             double probabilityDistributionFactor = random.NextDouble();
             double n = random.GetFromRange(1, 5);
 
@@ -223,7 +223,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.IsNotNull(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
         }
@@ -309,7 +309,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.IsNotNull(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
         }

@@ -29,6 +29,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Exceptions;
@@ -186,26 +187,18 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AssembleDetailedAssembly_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            var random = new Random(21);
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
-                                                                                   Enumerable.Empty<IFailureMechanism>(),
-                                                                                   random.Next(0, 100),
-                                                                                   random.NextRoundedDouble(0.06, 0.1),
-                                                                                   random.NextRoundedDouble(0.00001, 0.05)));
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
-            };
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
                 ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
@@ -216,7 +209,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
-                Assert.IsNotNull(calculator.DetailedAssessmentCategoriesInput);
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
+                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
+                Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
                 mocks.VerifyAll();
             }
         }
@@ -225,20 +222,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AssembleDetailedAssembly_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            var random = new Random(21);
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
-                                                                                   Enumerable.Empty<IFailureMechanism>(),
-                                                                                   random.Next(0, 100),
-                                                                                   random.NextRoundedDouble(0.06, 0.1),
-                                                                                   random.NextRoundedDouble(0.00001, 0.05)));
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
-            };
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -255,6 +244,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
+                mocks.VerifyAll();
             }
         }
 
@@ -262,20 +252,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
-            var random = new Random(21);
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
-                                                                                   Enumerable.Empty<IFailureMechanism>(),
-                                                                                   random.Next(0, 100),
-                                                                                   random.NextRoundedDouble(0.06, 0.1),
-                                                                                   random.NextRoundedDouble(0.00001, 0.05)));
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
-            };
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -294,6 +276,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
+                mocks.VerifyAll();
             }
         }
 

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
@@ -28,13 +29,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
     /// <summary>
     /// Interface representing a failure mechanism section assembly calculator.
     /// </summary>
-    /// <remarks>
-    /// This interface is introduced for being able to test the conversion of:
-    /// <list type="bullet">
-    /// <item>Ringtoets failure mechanism section assembly input into kernel input;</item>
-    /// <item>kernel output into Ringtoets failure mechanism section assembly output.</item>
-    /// </list>
-    /// </remarks>
     public interface IFailureMechanismSectionAssemblyCalculator
     {
         /// <summary>
@@ -59,8 +53,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
         /// <param name="probability">The calculated probability.</param>
-        /// <param name="categories">The list of categories for this failure mechanism section.</param>
+        /// <param name="categories">The collection of categories for this failure mechanism section.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categories"/>
+        /// contains items that are <c>null</c>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories);
@@ -69,9 +67,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
         /// <param name="probability">The calculated probability.</param>
-        /// <param name="categories">The list of categories for this failure mechanism section.</param>
+        /// <param name="categories">The collection of categories for this failure mechanism section.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categories"/>
+        /// contains items that are <c>null</c>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability,

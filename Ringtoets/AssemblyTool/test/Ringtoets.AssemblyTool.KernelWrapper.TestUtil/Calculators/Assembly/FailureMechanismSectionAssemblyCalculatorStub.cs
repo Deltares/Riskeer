@@ -48,7 +48,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public SimpleAssessmentResultValidityOnlyType SimpleAssessmentValidityOnlyInput { get; private set; }
 
         /// <summary>
-        /// Gets or sets the output of the detailed assessment calculation.
+        /// Gets the output of the detailed assessment calculation.
         /// </summary>
         public FailureMechanismSectionAssembly DetailedAssessmentAssemblyOutput { get; private set; }
 
@@ -68,7 +68,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double DetailedAssessmentNInput { get; private set; }
 
         /// <summary>
-        /// Gets or sets an indicator whether an exception must be thrown when performing a calculation.
+        /// Sets an indicator whether an exception must be thrown when performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 

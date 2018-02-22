@@ -110,6 +110,36 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
+        public void CreateDetailedCalculationInputFromProbability_CategoriesContainsNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromProbability(
+                new Random(39).NextDouble(),
+                new FailureMechanismSectionAssemblyCategory[]
+                {
+                    null
+                });
+
+            // Assert
+            const string expectedMessage = "Categories cannot contain null items.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            Assert.AreEqual("categories", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateDetailedCalculationInputFromProbability_CategoriesNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromProbability(
+                new Random(39).NextDouble(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("categories", exception.ParamName);
+        }
+
+        [Test]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, FailureMechanismCategoryGroup.NotApplicable)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionCategoryGroup.None)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, FailureMechanismSectionCategoryGroup.Iv)]
@@ -126,8 +156,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double lowerBoundary = random.NextRoundedDouble(0.0, 0.5);
-            double upperBoundary = random.NextRoundedDouble(0.6, 1.0);
+            double lowerBoundary = random.GetFromRange(0.0, 0.5);
+            double upperBoundary = random.GetFromRange(0.6, 1.0);
 
             // Call
             DetailedCalculationInputFromProbability result =
@@ -170,7 +200,44 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
+        
+        [Test]
+        public void CreateDetailedCalculationInputFromProbabilityWithLengthEffect_CategoriesContainsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
 
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromProbabilityWithLengthEffect(
+                random.NextDouble(),
+                new FailureMechanismSectionAssemblyCategory[]
+                {
+                    null
+                },
+                random.NextDouble());
+
+            // Assert
+            const string expectedMessage = "Categories cannot contain null items.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            Assert.AreEqual("categories", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateDetailedCalculationInputFromProbabilityWithLengthEffect_CategoriesNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromProbabilityWithLengthEffect(
+                random.NextDouble(),
+                null,
+                random.NextDouble());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("categories", exception.ParamName);
+        }
         [Test]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, FailureMechanismCategoryGroup.NotApplicable)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionCategoryGroup.None)]
@@ -188,9 +255,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double lowerBoundary = random.NextRoundedDouble(0.0, 0.5);
-            double upperBoundary = random.NextRoundedDouble(0.6, 1.0);
-            double n = random.NextRoundedDouble(1.0, 10.0);
+            double lowerBoundary = random.GetFromRange(0.0, 0.5);
+            double upperBoundary = random.GetFromRange(0.6, 1.0);
+            double n = random.GetFromRange(1.0, 10.0);
 
             // Call
             DetailedCalculationInputFromProbabilityWithLengthEffect result =
