@@ -599,7 +599,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         });
 
                         HydraulicBoundaryLocationOutput output = hydraulicBoundaryLocationCalculation.Output;
-                        Assert.AreEqual(0, output.Result, output.Result.GetAccuracy());
+                        Assert.AreEqual(calculator.DesignWaterLevel, output.Result, output.Result.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
                     }
                 }

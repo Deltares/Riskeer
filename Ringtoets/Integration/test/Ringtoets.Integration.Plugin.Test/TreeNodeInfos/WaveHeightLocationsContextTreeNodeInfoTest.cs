@@ -599,6 +599,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                             Assert.AreEqual($"Golfhoogte berekenen voor locatie '{locationName}' is gelukt.", msgs[7]);
                         });
+
+                        HydraulicBoundaryLocationOutput output = hydraulicBoundaryLocationCalculation.Output;
+                        Assert.AreEqual(calculator.WaveHeight, output.Result, output.Result.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
                     }
                 }

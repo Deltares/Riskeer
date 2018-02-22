@@ -238,8 +238,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 Assert.IsTrue(afterCreateCalled);
             }
 
-            ;
-
             mocks.VerifyAll();
         }
 
@@ -317,8 +315,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(data, view.Data);
                 Assert.IsEmpty(view.Text);
             }
-
-            ;
 
             mocks.VerifyAll();
         }
