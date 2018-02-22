@@ -32,6 +32,7 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
@@ -47,6 +48,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class WaveHeightLocationsViewInfoTest
     {
+        private const int locationCalculateColumnIndex = 0;
         private const int locationWaveHeightColumnIndex = 5;
 
         private RingtoetsPlugin plugin;
@@ -133,11 +135,33 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_WithContext_SetsExpectedData()
+        public void CreateInstance_WithContext_SetsExpectedViewProperties()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var context = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                         assessmentSection,
+                                                         () => 0.01,
+                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                         "Category");
+
+            using (var ringtoetsPlugin = new RingtoetsPlugin())
+            {
+                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
+
+                // Call
+                var view = (WaveHeightLocationsView) info.CreateInstance(context);
+
+                // Assert
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
+            }
+        }
+
+        [Test]
+        public void CreateInstance_WithContext_SetsExpectedDataGridViewData()
         {
             // Setup
             var random = new Random();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocationsLookup = new Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>
             {
@@ -160,7 +184,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             hydraulicBoundaryLocations.AddRange(hydraulicBoundaryLocationsLookup.Keys);
 
             var context = new WaveHeightLocationsContext(hydraulicBoundaryLocations,
-                                                         assessmentSection,
+                                                         new ObservableTestAssessmentSectionStub(),
                                                          () => 0.01,
                                                          hbl => hydraulicBoundaryLocationsLookup[hbl],
                                                          "Category");
@@ -170,11 +194,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
 
                 // Call
-                var view = info.CreateInstance(context) as WaveHeightLocationsView;
+                var view = (WaveHeightLocationsView) info.CreateInstance(context);
 
                 // Assert
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-
                 using (var testForm = new Form())
                 {
                     testForm.Controls.Add(view);
@@ -187,6 +209,79 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                     Assert.AreEqual(hydraulicBoundaryLocationsLookup.Values.ElementAt(1).Output.Result.ToString(), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
                 }
             }
+        }
+
+        [Test]
+        public void CreateInstance_WithContext_SetsExpectedCalculationData()
+        {
+            // Setup
+            Func<double> getNormFunc = () => 0.01;
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocationsLookup = new Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>
+            {
+                {
+                    new TestHydraulicBoundaryLocation(),
+                    new HydraulicBoundaryLocationCalculation()
+                },
+                {
+                    new TestHydraulicBoundaryLocation(),
+                    new HydraulicBoundaryLocationCalculation()
+                }
+            };
+
+            hydraulicBoundaryLocations.AddRange(hydraulicBoundaryLocationsLookup.Keys);
+
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => hydraulicBoundaryLocationsLookup[hbl];
+
+            var context = new WaveHeightLocationsContext(hydraulicBoundaryLocations,
+                                                         new ObservableTestAssessmentSectionStub(),
+                                                         getNormFunc,
+                                                         getCalculationFunc,
+                                                         "Category");
+
+            var mockRepository = new MockRepository();
+            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+
+            double actualNormValue = double.NaN;
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> actualGetCalculationFuncValue = null;
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+                invocation =>
+                {
+                    actualGetCalculationFuncValue = (Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>) invocation.Arguments[3];
+                    actualNormValue = (double) invocation.Arguments[4];
+                });
+
+            mockRepository.ReplayAll();
+
+            using (var ringtoetsPlugin = new RingtoetsPlugin())
+            {
+                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
+
+                // Call
+                var view = (WaveHeightLocationsView) info.CreateInstance(context);
+
+                // Assert
+                using (var testForm = new Form())
+                {
+                    view.CalculationGuiService = guiService;
+                    testForm.Controls.Add(view);
+                    testForm.Show();
+
+                    DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
+                    DataGridViewRowCollection rows = locationsDataGridView.Rows;
+                    rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+                    view.CalculationGuiService = guiService;
+                    var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+                    button.Click();
+
+                    Assert.AreEqual(getNormFunc(), actualNormValue);
+                    Assert.AreSame(getCalculationFunc, actualGetCalculationFuncValue);
+                }
+            }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
