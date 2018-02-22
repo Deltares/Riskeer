@@ -38,14 +38,16 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The locations that the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
+        /// <param name="getNormFunc"><see cref="Func{TResult}"/> for obtaining the norm to use during calculations.</param>
         /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
         /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="assessmentSection"/>
-        /// or <paramref name="getCalculationFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="assessmentSection"/>,
+        /// <paramref name="getNormFunc"/> or <paramref name="getCalculationFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public DesignWaterLevelLocationsContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
                                                 IAssessmentSection assessmentSection,
+                                                Func<double> getNormFunc,
                                                 Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                                 string categoryBoundaryName)
             : base(wrappedData)
@@ -53,6 +55,11 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (getNormFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormFunc));
             }
 
             if (getCalculationFunc == null)
@@ -66,6 +73,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
             }
 
             AssessmentSection = assessmentSection;
+            GetNormFunc = getNormFunc;
             GetCalculationFunc = getCalculationFunc;
             CategoryBoundaryName = categoryBoundaryName;
         }
@@ -74,6 +82,11 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// Gets the assessment section that the context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
+
+        /// <summary>
+        /// Gets the <see cref="Func{TResult}"/> for obtaining the norm to use during calculations.
+        /// </summary>
+        public Func<double> GetNormFunc { get; }
 
         /// <summary>
         /// Gets the <see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
