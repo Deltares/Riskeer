@@ -52,7 +52,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanismSectionResult, DuneErosionFailureMechanism>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanismSectionResult, DuneErosionSectionResultRow, DuneErosionFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

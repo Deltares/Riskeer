@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// <summary>
     /// Class for displaying <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> as a row in a grid view.
     /// </summary>
-    internal class GrassCoverErosionOutwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionOutwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultRow"/>.
@@ -41,7 +41,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <param name="sectionResult">The <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        internal GrassCoverErosionOutwardsFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
+            : base(sectionResult) {}
 
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.

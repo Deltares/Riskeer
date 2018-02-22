@@ -33,7 +33,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="HeightStructuresFailureMechanismSectionResult"/> for height structures.
     /// </summary>
-    internal class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>
+    public class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>
     {
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -45,7 +45,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult,
+        internal HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult,
                                                                 HeightStructuresFailureMechanism failureMechanism,
                                                                 IAssessmentSection assessmentSection)
             : base(sectionResult)

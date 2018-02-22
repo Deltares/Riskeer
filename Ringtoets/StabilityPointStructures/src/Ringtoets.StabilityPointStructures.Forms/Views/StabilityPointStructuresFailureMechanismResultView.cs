@@ -39,9 +39,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// The view for a collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>
     /// for stability point structures.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismResultView
-        : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
-            StabilityPointStructuresFailureMechanism>
+    public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
+        StabilityPointStructuresFailureMechanismSectionResultRow, StabilityPointStructuresFailureMechanism>
     {
         private const int detailedAssessmentIndex = 2;
         private readonly IAssessmentSection assessmentSection;

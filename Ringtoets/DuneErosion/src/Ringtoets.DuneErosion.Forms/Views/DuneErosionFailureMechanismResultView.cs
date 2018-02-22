@@ -36,7 +36,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResult"/>.
     /// </summary>
-    public class DuneErosionFailureMechanismResultView : FailureMechanismResultView<DuneErosionFailureMechanismSectionResult, DuneErosionFailureMechanism>
+    public class DuneErosionFailureMechanismResultView : FailureMechanismResultView
+        <DuneErosionFailureMechanismSectionResult, DuneErosionSectionResultRow, DuneErosionFailureMechanism>
     {
         /// <inheritdoc/>
         /// <summary>

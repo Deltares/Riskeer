@@ -36,8 +36,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismResultView
-        : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult, WaveImpactAsphaltCoverFailureMechanism>
+    public class WaveImpactAsphaltCoverFailureMechanismResultView : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult,
+        WaveImpactAsphaltCoverFailureMechanismSectionResultRow, WaveImpactAsphaltCoverFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>

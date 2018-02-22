@@ -77,7 +77,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
-                    StabilityPointStructuresFailureMechanism>>(view);
+                    StabilityPointStructuresFailureMechanismSectionResultRow, StabilityPointStructuresFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

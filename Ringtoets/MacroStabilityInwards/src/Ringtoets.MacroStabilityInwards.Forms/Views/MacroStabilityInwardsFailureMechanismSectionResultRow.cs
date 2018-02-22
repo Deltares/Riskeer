@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// Container of a <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    internal class MacroStabilityInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResult>
+    public class MacroStabilityInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResult>
     {
         private const double tolerance = 1e-6;
         private readonly IEnumerable<MacroStabilityInwardsCalculationScenario> calculations;
@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
+        internal MacroStabilityInwardsFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
                                                                      IEnumerable<MacroStabilityInwardsCalculationScenario> calculations,
                                                                      MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                      IAssessmentSection assessmentSection)

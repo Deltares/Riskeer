@@ -53,7 +53,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult,
-                    WaveImpactAsphaltCoverFailureMechanism>>(view);
+                    WaveImpactAsphaltCoverFailureMechanismSectionResultRow, WaveImpactAsphaltCoverFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

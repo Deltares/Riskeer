@@ -36,8 +36,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanismResultView
-        : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult, GrassCoverErosionOutwardsFailureMechanism>
+    public class GrassCoverErosionOutwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult,
+            GrassCoverErosionOutwardsFailureMechanismSectionResultRow, GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>

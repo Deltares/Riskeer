@@ -31,6 +31,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 
 namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
@@ -54,7 +55,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
-                    MacroStabilityOutwardsFailureMechanism>>(view);
+                    MacroStabilityOutwardsSectionResultRow, MacroStabilityOutwardsFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

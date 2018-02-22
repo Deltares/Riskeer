@@ -33,12 +33,14 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// The view for the <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
-    /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
     /// <typeparam name="TSectionResult">The type of results which are presented by the 
-    /// <see cref="FailureMechanismResultView{TSectionResult, TFailureMechanism}"/>.</typeparam>
-    public abstract partial class FailureMechanismResultView<TSectionResult, TFailureMechanism> : UserControl, IView
-        where TFailureMechanism : IFailureMechanism
+    /// <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism}"/>.</typeparam>
+    /// <typeparam name="TSectionResultRow">The type of the row that is used to show the data.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
+    public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView 
         where TSectionResult : FailureMechanismSectionResult
+        where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
+        where TFailureMechanism : IFailureMechanism
     {
         protected const int SimpleAssessmentColumnIndex = 1;
         private readonly Observer failureMechanismSectionResultObserver;
@@ -46,7 +48,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult, TFailureMechanism}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism}"/>.
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="TSectionResult"/> to
         /// show in the view.</param>
@@ -98,7 +100,7 @@ namespace Ringtoets.Common.Forms.Views
 
         /// <summary>
         /// Creates a display object for <paramref name="sectionResult"/> which is added to the
-        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{TFailureMechanism, TSectionResult}"/>.
+        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism}"/>.
         /// </summary>
         /// <param name="sectionResult">The <typeparamref name="TSectionResult"/> for which to create a
         /// display object.</param>

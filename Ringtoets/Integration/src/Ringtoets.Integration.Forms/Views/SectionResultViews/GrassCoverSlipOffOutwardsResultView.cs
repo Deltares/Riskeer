@@ -38,8 +38,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class GrassCoverSlipOffOutwardsResultView
-        : FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanismSectionResult, GrassCoverSlipOffOutwardsFailureMechanism>
+    public class GrassCoverSlipOffOutwardsResultView : FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
+        GrassCoverSlipOffOutwardsSectionResultRow, GrassCoverSlipOffOutwardsFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>

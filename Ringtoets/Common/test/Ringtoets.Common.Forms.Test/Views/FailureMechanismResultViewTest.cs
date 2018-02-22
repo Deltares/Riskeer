@@ -154,7 +154,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
     }
 
-    public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, TestFailureMechanism>
+    public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>
     {
         public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)

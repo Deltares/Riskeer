@@ -37,9 +37,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionResultView
-        : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
-            StrengthStabilityLengthwiseConstructionFailureMechanism>
+    public class StrengthStabilityLengthwiseConstructionResultView : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
+           StrengthStabilityLengthwiseConstructionSectionResultRow, StrengthStabilityLengthwiseConstructionFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>

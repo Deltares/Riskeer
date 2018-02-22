@@ -37,8 +37,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class MacroStabilityOutwardsResultView
-        : FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult, MacroStabilityOutwardsFailureMechanism>
+    public class MacroStabilityOutwardsResultView : FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
+        MacroStabilityOutwardsSectionResultRow, MacroStabilityOutwardsFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>

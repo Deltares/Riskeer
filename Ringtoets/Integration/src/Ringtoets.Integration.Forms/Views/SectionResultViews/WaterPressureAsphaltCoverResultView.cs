@@ -37,9 +37,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
-    public class WaterPressureAsphaltCoverResultView
-        : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
-            WaterPressureAsphaltCoverFailureMechanism>
+    public class WaterPressureAsphaltCoverResultView : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
+        WaterPressureAsphaltCoverSectionResultRow, WaterPressureAsphaltCoverFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>

@@ -54,7 +54,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult,
-                    StabilityStoneCoverFailureMechanism>>(view);
+                    StabilityStoneCoverSectionResultRow, StabilityStoneCoverFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

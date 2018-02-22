@@ -78,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult,
-                    MacroStabilityInwardsFailureMechanism>>(view);
+                    MacroStabilityInwardsFailureMechanismSectionResultRow, MacroStabilityInwardsFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

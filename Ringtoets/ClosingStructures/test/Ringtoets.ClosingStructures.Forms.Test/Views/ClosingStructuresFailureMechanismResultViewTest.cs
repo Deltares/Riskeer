@@ -76,7 +76,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult,
-                    ClosingStructuresFailureMechanism>>(view);
+                    ClosingStructuresFailureMechanismSectionResultRow, ClosingStructuresFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

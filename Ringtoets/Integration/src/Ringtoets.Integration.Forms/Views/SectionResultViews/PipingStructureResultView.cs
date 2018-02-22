@@ -38,8 +38,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResult"/>.
     /// </summary>
-    public class PipingStructureResultView
-        : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult, PipingStructureFailureMechanism>
+    public class PipingStructureResultView : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult, 
+            PipingStructureSectionResultRow, PipingStructureFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>

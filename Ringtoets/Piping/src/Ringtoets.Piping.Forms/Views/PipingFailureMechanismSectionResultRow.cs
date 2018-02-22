@@ -34,9 +34,8 @@ namespace Ringtoets.Piping.Forms.Views
     /// Container of a <see cref="PipingFailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    internal class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>
+    public class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>
     {
-        private const double tolerance = 1e-6;
         private readonly IEnumerable<PipingCalculationScenario> calculations;
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -50,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult,
+        internal PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult,
                                                       IEnumerable<PipingCalculationScenario> calculations,
                                                       PipingFailureMechanism failureMechanism,
                                                       IAssessmentSection assessmentSection)

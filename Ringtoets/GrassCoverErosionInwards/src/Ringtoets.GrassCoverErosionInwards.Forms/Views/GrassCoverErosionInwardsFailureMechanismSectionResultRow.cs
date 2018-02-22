@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    internal class GrassCoverErosionInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
         private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
+        internal GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
                                                                         GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                         IAssessmentSection assessmentSection)
             : base(sectionResult)

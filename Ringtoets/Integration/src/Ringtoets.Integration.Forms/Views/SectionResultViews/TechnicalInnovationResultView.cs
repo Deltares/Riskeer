@@ -37,8 +37,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
     /// </summary>
-    public class TechnicalInnovationResultView
-        : FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult, TechnicalInnovationFailureMechanism>
+    public class TechnicalInnovationResultView : FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult,
+        TechnicalInnovationSectionResultRow, TechnicalInnovationFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>

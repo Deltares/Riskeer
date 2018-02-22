@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingFailureMechanismResultView(pipingFailureMechanism.SectionResults, pipingFailureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanismSectionResult, PipingFailureMechanism>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanismSectionResult, PipingFailureMechanismSectionResultRow, PipingFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(pipingFailureMechanism, view.FailureMechanism);
             }

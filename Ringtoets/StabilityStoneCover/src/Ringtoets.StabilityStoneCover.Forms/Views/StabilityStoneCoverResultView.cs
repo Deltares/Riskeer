@@ -36,8 +36,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
     /// </summary>
-    public class StabilityStoneCoverResultView
-        : FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult, StabilityStoneCoverFailureMechanism>
+    public class StabilityStoneCoverResultView : FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult,
+        StabilityStoneCoverSectionResultRow, StabilityStoneCoverFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>

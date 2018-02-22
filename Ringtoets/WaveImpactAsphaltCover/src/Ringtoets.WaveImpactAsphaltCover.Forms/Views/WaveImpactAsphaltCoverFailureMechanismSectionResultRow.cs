@@ -33,7 +33,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
     /// <summary>
     /// Class for displaying <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>  as a row in a grid view.
     /// </summary>
-    internal class WaveImpactAsphaltCoverFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultRow"/>.
@@ -41,7 +41,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// <param name="sectionResult">The <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        internal WaveImpactAsphaltCoverFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
+            : base(sectionResult) {}
         
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
