@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.Data.Test
 
         private class SimpleCategory : AssemblyCategory
         {
-            public SimpleCategory(double lowerBoundary, double upperBoundary) 
+            public SimpleCategory(double lowerBoundary, double upperBoundary)
                 : base(lowerBoundary, upperBoundary) {}
         }
     }

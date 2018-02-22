@@ -276,7 +276,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual(n, calculator.DetailedAssessmentNInput);
 
             Assert.AreSame(assemblyCategory, calculator.DetailedAssessmentCategoriesInput.Single());
-
         }
 
         [Test]

@@ -96,7 +96,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IFailureMechanismSectionAssemblyCalculator calculator = 
+                IFailureMechanismSectionAssemblyCalculator calculator =
                     factory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
                 // Assert

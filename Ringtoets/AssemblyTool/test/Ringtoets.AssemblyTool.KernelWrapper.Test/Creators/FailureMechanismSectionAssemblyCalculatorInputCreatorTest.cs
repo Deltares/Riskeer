@@ -200,7 +200,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
-        
+
         [Test]
         public void CreateDetailedCalculationInputFromProbabilityWithLengthEffect_CategoriesContainsNull_ThrowArgumentNullException()
         {
@@ -238,6 +238,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("categories", exception.ParamName);
         }
+
         [Test]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, FailureMechanismCategoryGroup.NotApplicable)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionCategoryGroup.None)]

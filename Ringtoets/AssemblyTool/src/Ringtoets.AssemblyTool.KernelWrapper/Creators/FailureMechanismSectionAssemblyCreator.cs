@@ -54,7 +54,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             if (!Enum.IsDefined(typeof(FailureMechanismSectionCategoryGroup), originalGroup))
             {
                 throw new InvalidEnumArgumentException(nameof(originalGroup),
-                                                       (int)originalGroup,
+                                                       (int) originalGroup,
                                                        typeof(FailureMechanismSectionCategoryGroup));
             }
 

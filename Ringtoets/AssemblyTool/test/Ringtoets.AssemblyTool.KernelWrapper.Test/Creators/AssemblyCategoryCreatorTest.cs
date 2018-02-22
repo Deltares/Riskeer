@@ -151,8 +151,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var random = new Random(11);
             var output = new CalculationOutput<FailureMechanismSectionCategory[]>(new[]
             {
-                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), 
-                                                    new Probability(random.GetFromRange(0, 0.5)), 
+                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                                                    new Probability(random.GetFromRange(0, 0.5)),
                                                     new Probability(random.GetFromRange(0.5, 1))),
                 null
             });

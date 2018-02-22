@@ -58,7 +58,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
             IAssemblyToolCalculatorFactory expectedFactory = AssemblyToolCalculatorFactory.Instance;
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig()) { }
+            using (new AssemblyToolCalculatorFactoryConfig()) {}
 
             // Assert
             Assert.AreSame(expectedFactory, AssemblyToolCalculatorFactory.Instance);
