@@ -297,7 +297,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(typeof(string), info.ViewDataType);
             Assert.AreEqual(typeof(StringView), info.ViewType);
             Assert.AreEqual(newDescription, info.Description);
-            Assert.AreEqual(newViewName, info.GetViewName(stringView, dataObject.ToString()));
+            Assert.AreEqual(newViewName, info.GetViewName(stringView, dataObject));
             Assert.AreEqual(icon, info.Image);
             Assert.IsTrue(viewInfo.AdditionalDataCheck(dataObject));
             Assert.AreEqual(dataObject.ToString(), viewInfo.GetViewData(dataObject));

@@ -168,7 +168,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             viewInfo.AfterCreate(view, data);
 
-            view.Text = viewInfo.GetViewName(view, view.Data);
+            view.Text = viewInfo.GetViewName(view, data);
 
             return view;
         }
