@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             var inputToUpdate = new GeneralDuneErosionInput();
             var entity = new DuneErosionFailureMechanismMetaEntity
             {
-                N = new Random(31).GetFromRange(1, 20)
+                N = new Random(31).NextDouble(1, 20)
             };
 
             // Call

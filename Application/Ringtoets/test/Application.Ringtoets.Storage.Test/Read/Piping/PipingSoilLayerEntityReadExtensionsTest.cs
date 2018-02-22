@@ -54,12 +54,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             const string materialName = "sand";
 
             bool isAquifer = random.NextBoolean();
-            double belowPhreaticLevelMean = random.GetFromRange(1, double.MaxValue);
+            double belowPhreaticLevelMean = random.NextDouble(1, double.MaxValue);
             double belowPhreaticLevelDeviation = random.NextDouble();
             double belowPhreaticLevelShift = random.NextDouble();
-            double diameterD70Mean = random.GetFromRange(1, double.MaxValue);
+            double diameterD70Mean = random.NextDouble(1, double.MaxValue);
             double diameterD70CoefficientOfVariation = random.NextDouble();
-            double permeabilityMean = random.GetFromRange(1, double.MaxValue);
+            double permeabilityMean = random.NextDouble(1, double.MaxValue);
             double permeabilityCoefficientOfVariation = random.NextDouble();
 
             var entity = new PipingSoilLayerEntity

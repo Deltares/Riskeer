@@ -80,13 +80,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                     EntryPointL = (RoundedDouble) entryPoint,
                     PhreaticLevelExit =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(-9999.9999, 9999.9999),
-                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        Mean = random.NextRoundedDouble(-9999.9999, 9999.9999),
+                        StandardDeviation = random.NextRoundedDouble(1e-6, 9999.9999)
                     },
                     DampingFactorExit =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        Mean = random.NextRoundedDouble(1e-6, 9999.9999),
+                        StandardDeviation = random.NextRoundedDouble(1e-6, 9999.9999)
                     },
                     UseAssessmentLevelManualInput = useAssessmentLevelManualInput,
                     AssessmentLevel = (RoundedDouble) assessmentLevel

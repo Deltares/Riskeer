@@ -230,7 +230,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             // Setup
             var random = new Random(22);
             var input = new SimpleStructuresInput();
-            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
             var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
@@ -239,7 +239,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var distributionToSet = new NormalDistribution(5)
             {
                 Mean = mean,
-                StandardDeviation = (RoundedDouble) random.NextDouble()
+                StandardDeviation = random.NextRoundedDouble()
             };
 
             // Call
@@ -259,7 +259,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             // Setup
             var random = new Random(22);
             var input = new SimpleStructuresInput();
-            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
             var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = mean,
@@ -268,7 +268,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
             {
                 Mean = mean,
-                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                CoefficientOfVariation = random.NextRoundedDouble()
             };
 
             // Call

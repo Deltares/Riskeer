@@ -157,18 +157,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             // Setup
             var random = new Random(21);
 
-            double leftGridXLeft = random.GetFromRange(0.0, 1.0);
-            double leftGridXRight = random.GetFromRange(1.0, 2.0);
-            double leftGridZTop = random.GetFromRange(1.0, 2.0);
-            double leftGridZBottom = random.GetFromRange(0.0, 1.0);
+            double leftGridXLeft = random.NextDouble(0.0, 1.0);
+            double leftGridXRight = random.NextDouble(1.0, 2.0);
+            double leftGridZTop = random.NextDouble(1.0, 2.0);
+            double leftGridZBottom = random.NextDouble(0.0, 1.0);
 
-            double rightGridXLeft = random.GetFromRange(0.0, 1.0);
-            double rightGridXRight = random.GetFromRange(1.0, 2.0);
-            double rightGridZTop = random.GetFromRange(1.0, 2.0);
-            double rightGridZBottom = random.GetFromRange(0.0, 1.0);
+            double rightGridXLeft = random.NextDouble(0.0, 1.0);
+            double rightGridXRight = random.NextDouble(1.0, 2.0);
+            double rightGridZTop = random.NextDouble(1.0, 2.0);
+            double rightGridZBottom = random.NextDouble(0.0, 1.0);
 
-            double tangentLineZTop = random.GetFromRange(1.0, 2.0);
-            double tangentLineZBottom = random.GetFromRange(0.0, 1.0);
+            double tangentLineZTop = random.NextDouble(1.0, 2.0);
+            double tangentLineZBottom = random.NextDouble(0.0, 1.0);
 
             var properties = new MacroStabilityInwardsInput.ConstructionProperties
             {
@@ -236,8 +236,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double leakageLengthInwardsPhreaticLine4 = random.NextDouble();
             double piezometricHeadPhreaticLine2Outwards = random.NextDouble();
             double piezometricHeadPhreaticLine2Inwards = random.NextDouble();
-            double tangentLineZTop = random.GetFromRange(1.0, 2.0);
-            double tangentLineZBottom = random.GetFromRange(0.0, 1.0);
+            double tangentLineZTop = random.NextDouble(1.0, 2.0);
+            double tangentLineZBottom = random.NextDouble(0.0, 1.0);
             int tangentLineNumber = random.Next(1, 51);
             double zoneBoundaryLeft = random.NextDouble();
             double zoneBoundaryRight = random.NextDouble();

@@ -382,7 +382,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new ClosingStructuresInput();
-            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            RoundedDouble mean = random.NextRoundedDouble(0.01, 1.0);
             var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
@@ -391,7 +391,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var distributionToSet = new NormalDistribution(5)
             {
                 Mean = mean,
-                StandardDeviation = (RoundedDouble) random.NextDouble()
+                StandardDeviation = random.NextRoundedDouble()
             };
 
             // Call

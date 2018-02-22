@@ -39,7 +39,7 @@ namespace Core.Common.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="lowerLimit"/> is larger than <paramref name="upperLimit"/>.</exception>
         /// <exception cref="NotFiniteNumberException">Thrown when the generated value is not finite.</exception>
-        public static double GetFromRange(this Random random, double lowerLimit, double upperLimit)
+        public static double NextDouble(this Random random, double lowerLimit, double upperLimit)
         {
             if (random == null)
             {
@@ -111,7 +111,7 @@ namespace Core.Common.TestUtil
                 throw new ArgumentNullException(nameof(random));
             }
 
-            return (RoundedDouble) random.GetFromRange(lowerLimit, upperLimit);
+            return (RoundedDouble) random.NextDouble(lowerLimit, upperLimit);
         }
 
         /// <summary>

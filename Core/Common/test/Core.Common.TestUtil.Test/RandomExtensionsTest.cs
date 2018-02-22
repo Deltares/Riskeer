@@ -29,10 +29,10 @@ namespace Core.Common.TestUtil.Test
     public class RandomExtensionsTest
     {
         [Test]
-        public void GetFromRange_RandomIsNull_ThrowsArgumentNullException()
+        public void NextDouble_RandomIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((Random) null).GetFromRange(0, 0);
+            TestDelegate test = () => ((Random) null).NextDouble(0, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -40,13 +40,13 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void GetFromRange_LowerLimitLargerThanUpperLimit_ThrowsArgumentException()
+        public void NextDouble_LowerLimitLargerThanUpperLimit_ThrowsArgumentException()
         {
             // Setup
             var random = new Random();
 
             // Call
-            TestDelegate test = () => random.GetFromRange(1, 0);
+            TestDelegate test = () => random.NextDouble(1, 0);
 
             // Assert
             string message = Assert.Throws<ArgumentException>(test).Message;
@@ -59,13 +59,13 @@ namespace Core.Common.TestUtil.Test
         [TestCase(0, double.PositiveInfinity)]
         [TestCase(double.NaN, 0)]
         [TestCase(0, double.NaN)]
-        public void GetFromRange_LimitsTooLarge_ThrowsNotFiniteNumberException(double lowerLimit, double upperLimit)
+        public void NextDouble_LimitsTooLarge_ThrowsNotFiniteNumberException(double lowerLimit, double upperLimit)
         {
             // Setup
             var random = new Random();
 
             // Call
-            TestDelegate test = () => random.GetFromRange(lowerLimit, upperLimit);
+            TestDelegate test = () => random.NextDouble(lowerLimit, upperLimit);
 
             // Assert
             string message = Assert.Throws<NotFiniteNumberException>(test).Message;
@@ -80,13 +80,13 @@ namespace Core.Common.TestUtil.Test
         [TestCase(-10, 0)]
         [TestCase(0, 0)]
         [TestCase(0, 10)]
-        public void GetFromRange_VariousLimits_RandomNumberBetweenLimits(double lowerLimit, double upperLimit)
+        public void NextDouble_VariousLimits_RandomNumberBetweenLimits(double lowerLimit, double upperLimit)
         {
             // Setup
             var random = new Random();
 
             // Call
-            double randomValue = random.GetFromRange(lowerLimit, upperLimit);
+            double randomValue = random.NextDouble(lowerLimit, upperLimit);
 
             // Assert
             Assert.LessOrEqual(randomValue, upperLimit);

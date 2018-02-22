@@ -83,53 +83,53 @@ namespace Application.Ringtoets.Storage.Test.Create
                 },
                 InputParameters =
                 {
-                    StructureNormalOrientation = (RoundedDouble) random.GetFromRange(0, 360),
+                    StructureNormalOrientation = random.NextRoundedDouble(0, 360),
                     ModelFactorSuperCriticalFlow =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(-9999.9999, 9999.9999)
+                        Mean = random.NextRoundedDouble(-9999.9999, 9999.9999)
                     },
                     AllowedLevelIncreaseStorage =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        Mean = random.NextRoundedDouble(1e-6, 9999.9999),
+                        StandardDeviation = random.NextRoundedDouble(1e-6, 9999.9999)
                     },
                     StorageStructureArea =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        Mean = random.NextRoundedDouble(1e-6, 9999.9999),
+                        CoefficientOfVariation = random.NextRoundedDouble(1e-6, 9999.9999)
                     },
                     FlowWidthAtBottomProtection =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        Mean = random.NextRoundedDouble(1e-6, 9999.9999),
+                        StandardDeviation = random.NextRoundedDouble(1e-6, 9999.9999)
                     },
                     CriticalOvertoppingDischarge =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        Mean = random.NextRoundedDouble(1e-6, 9999.9999),
+                        CoefficientOfVariation = random.NextRoundedDouble(1e-6, 9999.9999)
                     },
                     FailureProbabilityStructureWithErosion = random.NextDouble(),
                     WidthFlowApertures =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(-9999.9999, 9999.9999),
-                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        Mean = random.NextRoundedDouble(-9999.9999, 9999.9999),
+                        StandardDeviation = random.NextRoundedDouble(1e-6, 9999.9999)
                     },
                     StormDuration =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        Mean = random.NextRoundedDouble(1e-6, 9999.9999),
+                        CoefficientOfVariation = random.NextRoundedDouble(1e-6, 9999.9999)
                     },
-                    DeviationWaveDirection = (RoundedDouble) random.NextDouble(),
+                    DeviationWaveDirection = random.NextRoundedDouble(),
                     LevelCrestStructure =
                     {
-                        Mean = (RoundedDouble) random.GetFromRange(-9999.9999, 9999.9999),
-                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
+                        Mean = random.NextRoundedDouble(-9999.9999, 9999.9999),
+                        StandardDeviation = random.NextRoundedDouble(1e-6, 9999.9999)
                     },
                     UseBreakWater = true,
                     UseForeshore = false,
                     BreakWater =
                     {
-                        Height = (RoundedDouble) random.NextDouble(),
+                        Height = random.NextRoundedDouble(),
                         Type = BreakWaterType.Dam
                     },
                     ShouldIllustrationPointsBeCalculated = random.NextBoolean()
@@ -387,77 +387,77 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     StormDuration =
                     {
-                        Mean = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble()
                     },
-                    StructureNormalOrientation = (RoundedDouble) random.NextDouble(),
-                    FailureProbabilityStructureWithErosion = (RoundedDouble) random.NextDouble(),
+                    StructureNormalOrientation = random.NextRoundedDouble(),
+                    FailureProbabilityStructureWithErosion = random.NextRoundedDouble(),
                     UseForeshore = random.NextBoolean(),
                     UseBreakWater = random.NextBoolean(),
                     BreakWater =
                     {
                         Type = BreakWaterType.Dam,
-                        Height = (RoundedDouble) random.NextDouble()
+                        Height = random.NextRoundedDouble()
                     },
                     AllowedLevelIncreaseStorage =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     StorageStructureArea =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     FlowWidthAtBottomProtection =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     CriticalOvertoppingDischarge =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     ModelFactorSuperCriticalFlow =
                     {
-                        Mean = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble()
                     },
                     WidthFlowApertures =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     InflowModelType = ClosingStructureInflowModelType.VerticalWall,
                     InsideWaterLevel =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
-                    DeviationWaveDirection = (RoundedDouble) random.NextDouble(),
+                    DeviationWaveDirection = random.NextRoundedDouble(),
                     DrainCoefficient =
                     {
-                        Mean = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble()
                     },
-                    FactorStormDurationOpenStructure = (RoundedDouble) random.NextDouble(),
+                    FactorStormDurationOpenStructure = random.NextRoundedDouble(),
                     ThresholdHeightOpenWeir =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     AreaFlowApertures =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
-                    FailureProbabilityOpenStructure = (RoundedDouble) random.NextDouble(),
-                    FailureProbabilityReparation = (RoundedDouble) random.NextDouble(),
+                    FailureProbabilityOpenStructure = random.NextRoundedDouble(),
+                    FailureProbabilityReparation = random.NextRoundedDouble(),
                     IdenticalApertures = random.Next(),
                     LevelCrestStructureNotClosing =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
-                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = (RoundedDouble) random.NextDouble(),
+                    ProbabilityOrFrequencyOpenStructureBeforeFlooding = random.NextRoundedDouble(),
                     ShouldIllustrationPointsBeCalculated = random.NextBoolean()
                 }
             };
@@ -748,128 +748,128 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     StormDuration =
                     {
-                        Mean = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble()
                     },
-                    StructureNormalOrientation = (RoundedDouble) random.NextDouble(),
+                    StructureNormalOrientation = random.NextRoundedDouble(),
                     FailureProbabilityStructureWithErosion = random.NextDouble(),
                     UseForeshore = random.NextBoolean(),
                     UseBreakWater = random.NextBoolean(),
                     BreakWater =
                     {
                         Type = BreakWaterType.Dam,
-                        Height = (RoundedDouble) random.NextDouble()
+                        Height = random.NextRoundedDouble()
                     },
                     AllowedLevelIncreaseStorage =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     StorageStructureArea =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     FlowWidthAtBottomProtection =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     CriticalOvertoppingDischarge =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     ModelFactorSuperCriticalFlow =
                     {
-                        Mean = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble()
                     },
                     WidthFlowApertures =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     InsideWaterLevel =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     ThresholdHeightOpenWeir =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     ConstructiveStrengthLinearLoadModel =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     ConstructiveStrengthQuadraticLoadModel =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     BankWidth =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     InsideWaterLevelFailureConstruction =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
-                    EvaluationLevel = (RoundedDouble) random.NextDouble(),
+                    EvaluationLevel = random.NextRoundedDouble(),
                     LevelCrestStructure =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
-                    VerticalDistance = (RoundedDouble) random.NextDouble(),
+                    VerticalDistance = random.NextRoundedDouble(),
                     FailureProbabilityRepairClosure = random.NextDouble(),
                     FailureCollisionEnergy =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     ShipMass =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     ShipVelocity =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     LevellingCount = random.Next(),
                     ProbabilityCollisionSecondaryStructure = random.NextDouble(),
                     FlowVelocityStructureClosable =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     StabilityLinearLoadModel =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     StabilityQuadraticLoadModel =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        CoefficientOfVariation = random.NextRoundedDouble()
                     },
                     AreaFlowApertures =
                     {
-                        Mean = (RoundedDouble) random.NextDouble(),
-                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble(),
+                        StandardDeviation = random.NextRoundedDouble()
                     },
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Quadratic,
-                    VolumicWeightWater = (RoundedDouble) random.NextDouble(),
-                    FactorStormDurationOpenStructure = (RoundedDouble) random.NextDouble(),
+                    VolumicWeightWater = random.NextRoundedDouble(),
+                    FactorStormDurationOpenStructure = random.NextRoundedDouble(),
                     DrainCoefficient =
                     {
-                        Mean = (RoundedDouble) random.NextDouble()
+                        Mean = random.NextRoundedDouble()
                     },
                     ShouldIllustrationPointsBeCalculated = random.NextBoolean()
                 }

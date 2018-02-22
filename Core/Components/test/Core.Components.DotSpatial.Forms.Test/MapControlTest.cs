@@ -1841,7 +1841,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             var backgroundMapData = new WellKnownTileSourceMapData(random.NextEnum<WellKnownTileSource>())
             {
                 IsVisible = random.NextBoolean(),
-                Transparency = (RoundedDouble) random.NextDouble()
+                Transparency = random.NextRoundedDouble()
             };
 
             using (new UseCustomSettingsHelper(testSettingsHelper))

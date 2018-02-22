@@ -120,7 +120,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var random = new Random(21);
 
             const string mapDataName = "Background";
-            double transparency = random.GetFromRange(0, 1);
+            double transparency = random.NextDouble(0, 1);
             bool isVisible = random.NextBoolean();
             const BackgroundDataType backgroundDataType = BackgroundDataType.WellKnown;
 

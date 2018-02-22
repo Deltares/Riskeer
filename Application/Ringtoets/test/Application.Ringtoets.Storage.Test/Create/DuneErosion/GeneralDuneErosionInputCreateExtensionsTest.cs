@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             var random = new Random(45);
             var generalinput = new GeneralDuneErosionInput
             {
-                N = (RoundedDouble) random.GetFromRange(1, 20)
+                N = random.NextRoundedDouble(1, 20)
             };
 
             // Call

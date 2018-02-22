@@ -367,8 +367,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             double probability = random.NextDouble();
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
-                                                            random.GetFromRange(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -403,8 +403,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             double probability = random.NextDouble();
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
-                                                            random.GetFromRange(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -433,8 +433,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             double probability = random.NextDouble();
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
-                                                            random.GetFromRange(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -466,8 +466,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             double probability = random.NextDouble();
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
-                                                            random.GetFromRange(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -496,7 +496,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.GetFromRange(1.0, 10.0);
+            double n = random.NextDouble(1.0, 10.0);
             var categories = new[]
             {
                 new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
@@ -530,11 +530,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.GetFromRange(1.0, 10.0);
+            double n = random.NextDouble(1.0, 10.0);
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
-                                                            random.GetFromRange(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -568,11 +568,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.GetFromRange(1.0, 10.0);
+            double n = random.NextDouble(1.0, 10.0);
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
-                                                            random.GetFromRange(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -599,11 +599,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.GetFromRange(1.0, 10.0);
+            double n = random.NextDouble(1.0, 10.0);
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
-                                                            random.GetFromRange(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 
@@ -633,11 +633,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double n = random.GetFromRange(1.0, 10.0);
+            double n = random.NextDouble(1.0, 10.0);
             var categories = new[]
             {
-                new FailureMechanismSectionAssemblyCategory(random.GetFromRange(0.0, 0.5),
-                                                            random.GetFromRange(0.6, 1.0),
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
                                                             FailureMechanismSectionAssemblyCategoryGroup.IIv)
             };
 

@@ -137,17 +137,17 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(21);
-            var assessmentLevel = (RoundedDouble) random.NextDouble();
-            var lowerBoundaryRevetment = (RoundedDouble) random.NextDouble();
-            var lowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
-            RoundedDouble upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
-            RoundedDouble upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
+            RoundedDouble assessmentLevel = random.NextRoundedDouble();
+            RoundedDouble lowerBoundaryRevetment = random.NextRoundedDouble();
+            RoundedDouble lowerBoundaryWaterLevels = random.NextRoundedDouble();
+            RoundedDouble upperBoundaryRevetment = lowerBoundaryRevetment + random.NextRoundedDouble();
+            RoundedDouble upperBoundaryWaterLevels = lowerBoundaryWaterLevels + random.NextRoundedDouble();
             const WaveConditionsInputStepSize stepSize = WaveConditionsInputStepSize.Half;
 
-            var worldX = (RoundedDouble) random.NextDouble();
-            var worldY = (RoundedDouble) random.NextDouble();
-            var damHeight = (RoundedDouble) random.NextDouble();
-            var foreshoreProfileOrientation = (RoundedDouble) random.NextDouble();
+            RoundedDouble worldX = random.NextRoundedDouble();
+            RoundedDouble worldY = random.NextRoundedDouble();
+            RoundedDouble damHeight = random.NextRoundedDouble();
+            RoundedDouble foreshoreProfileOrientation = random.NextRoundedDouble();
 
             var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(worldX, worldY),

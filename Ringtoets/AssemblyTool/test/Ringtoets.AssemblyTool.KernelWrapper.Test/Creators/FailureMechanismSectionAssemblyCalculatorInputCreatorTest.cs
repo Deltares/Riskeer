@@ -139,8 +139,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double lowerBoundary = random.GetFromRange(0.0, 0.5);
-            double upperBoundary = random.GetFromRange(0.6, 1.0);
+            double lowerBoundary = random.NextDouble(0.0, 0.5);
+            double upperBoundary = random.NextDouble(0.6, 1.0);
 
             // Call
             DetailedCalculationInputFromProbability result =
@@ -218,9 +218,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double lowerBoundary = random.GetFromRange(0.0, 0.5);
-            double upperBoundary = random.GetFromRange(0.6, 1.0);
-            double n = random.GetFromRange(1.0, 10.0);
+            double lowerBoundary = random.NextDouble(0.0, 0.5);
+            double upperBoundary = random.NextDouble(0.6, 1.0);
+            double n = random.NextDouble(1.0, 10.0);
 
             // Call
             DetailedCalculationInputFromProbabilityWithLengthEffect result =
