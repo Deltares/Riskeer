@@ -1916,22 +1916,28 @@ namespace Ringtoets.Integration.Plugin
 
         private static object[] DesignWaterLevelLocationsGroupContextChildNodeObjects(DesignWaterLevelLocationsGroupContext context)
         {
+            Func<double> getNormFunc = () => context.AssessmentSection.FailureMechanismContribution.Norm;
+
             return new object[]
             {
                 new DesignWaterLevelLocationsContext(context.WrappedData,
                                                      context.AssessmentSection,
+                                                     getNormFunc,
                                                      hbl => hbl.DesignWaterLevelCalculation1,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
                 new DesignWaterLevelLocationsContext(context.WrappedData,
                                                      context.AssessmentSection,
+                                                     getNormFunc,
                                                      hbl => hbl.DesignWaterLevelCalculation2,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
                 new DesignWaterLevelLocationsContext(context.WrappedData,
                                                      context.AssessmentSection,
+                                                     getNormFunc,
                                                      hbl => hbl.DesignWaterLevelCalculation3,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
                 new DesignWaterLevelLocationsContext(context.WrappedData,
                                                      context.AssessmentSection,
+                                                     getNormFunc,
                                                      hbl => hbl.DesignWaterLevelCalculation4,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
             };
@@ -1939,22 +1945,28 @@ namespace Ringtoets.Integration.Plugin
 
         private static object[] WaveHeightLocationsGroupContextChildNodeObjects(WaveHeightLocationsGroupContext context)
         {
+            Func<double> getNormFunc = () => context.AssessmentSection.FailureMechanismContribution.Norm;
+
             return new object[]
             {
                 new WaveHeightLocationsContext(context.WrappedData,
                                                context.AssessmentSection,
+                                               getNormFunc,
                                                hbl => hbl.WaveHeightCalculation1,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
                 new WaveHeightLocationsContext(context.WrappedData,
                                                context.AssessmentSection,
+                                               getNormFunc,
                                                hbl => hbl.WaveHeightCalculation2,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
                 new WaveHeightLocationsContext(context.WrappedData,
                                                context.AssessmentSection,
+                                               getNormFunc,
                                                hbl => hbl.WaveHeightCalculation3,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
                 new WaveHeightLocationsContext(context.WrappedData,
                                                context.AssessmentSection,
+                                               getNormFunc,
                                                hbl => hbl.WaveHeightCalculation4,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
             };
