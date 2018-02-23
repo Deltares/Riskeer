@@ -346,5 +346,159 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         #endregion
+
+        #region Assessment Assembly
+
+        [Test]
+        public void AddSimpleAssessmentAssemblyColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentAssemblyColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddSimpleAssessmentAssemblyColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentAssemblyColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddSimpleAssessmentAssemblyColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            const string dataPropertyName = "test property";
+
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentAssemblyColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Assemblageresultaat\r\neenvoudige toets", columnData.HeaderText);
+            }
+        }
+
+        [Test]
+        public void AddDetailedAssessmentAssemblyColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentAssemblyColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddDetailedAssessmentAssemblyColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentAssemblyColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddDetailedAssessmentAssemblyColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            const string dataPropertyName = "test property";
+
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentAssemblyColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Assemblageresultaat\r\ngedetailleerde toets per vak", columnData.HeaderText);
+            }
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentAssemblyColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentAssemblyColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentAssemblyColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentAssemblyColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentAssemblyColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            const string dataPropertyName = "test property";
+
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentAssemblyColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Assemblageresultaat\r\ntoets op maat", columnData.HeaderText);
+            }
+        }
+
+        #endregion
     }
 }

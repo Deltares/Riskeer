@@ -34,6 +34,16 @@ namespace Ringtoets.Common.Forms.Builders
     /// </summary>
     public static class FailureMechanismSectionResultColumnBuilder
     {
+        private static IEnumerable<EnumDisplayWrapper<T>> CreateEnumDisplayWrappers<T>()
+        {
+            return Enum.GetValues(typeof(T))
+                       .OfType<T>()
+                       .Select(e => new EnumDisplayWrapper<T>(e))
+                       .ToArray();
+        }
+
+        #region Assessment
+
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
         /// <see cref="SimpleAssessmentResultType"/>.
@@ -169,12 +179,82 @@ namespace Ringtoets.Common.Forms.Builders
                 Resources.FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName);
         }
 
-        private static IEnumerable<EnumDisplayWrapper<T>> CreateEnumDisplayWrappers<T>()
+        #endregion
+
+        #region Assessment Assembly
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the simple
+        /// assessment assembly group.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddSimpleAssessmentAssemblyColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
-            return Enum.GetValues(typeof(T))
-                       .OfType<T>()
-                       .Select(e => new EnumDisplayWrapper<T>(e))
-                       .ToArray();
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_SimpleAssessmentAssembly_DisplayName);
         }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed
+        /// assessment assembly group.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddDetailedAssessmentAssemblyColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_DetailedAssessmentAssembly_DisplayName);
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the tailor made
+        /// assessment assembly group.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddTailorMadeAssessmentAssemblyColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName);
+        }
+
+        #endregion
     }
 }

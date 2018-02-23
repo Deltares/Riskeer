@@ -1445,12 +1445,32 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat
+        ///gedetailleerde toets per vak.
+        /// </summary>
+        public static string FailureMechanismResultView_DetailedAssessmentAssembly_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentAssembly_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gedetailleerde toets per vak
         ///Faalkans.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentProbability_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat
+        ///eenvoudige toets.
+        /// </summary>
+        public static string FailureMechanismResultView_SimpleAssessmentAssembly_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_SimpleAssessmentAssembly_DisplayName", resourceCulture);
             }
         }
         
@@ -1469,6 +1489,16 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanismResultView_TailorMadeAssessment_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessment_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat
+        ///toets op maat.
+        /// </summary>
+        public static string FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName", resourceCulture);
             }
         }
         

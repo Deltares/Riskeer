@@ -234,6 +234,18 @@ Faalkans</value>
     <value>Gedetailleerde toets per vak
 Faalkans</value>
   </data>
+  <data name="FailureMechanismResultView_SimpleAssessmentAssembly_DisplayName" xml:space="preserve">
+    <value>Assemblageresultaat
+eenvoudige toets</value>
+  </data>
+  <data name="FailureMechanismResultView_DetailedAssessmentAssembly_DisplayName" xml:space="preserve">
+  <value>Assemblageresultaat
+gedetailleerde toets per vak</value>
+  </data>
+  <data name="FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName" xml:space="preserve">
+  <value>Assemblageresultaat
+toets op maat</value>
+  </data>
   <data name="Section_DisplayName" xml:space="preserve">
     <value>Vak</value>
   </data>
