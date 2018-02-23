@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 
@@ -29,6 +30,23 @@ namespace Ringtoets.Integration.Service.MessageProviders
     /// </summary>
     public class DesignWaterLevelCalculationMessageProvider : ICalculationMessageProvider
     {
+        private readonly string categoryBoundaryName;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DesignWaterLevelCalculationMessageProvider"/>.
+        /// </summary>
+        /// <param name="categoryBoundaryName">The category boundary name.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        public DesignWaterLevelCalculationMessageProvider(string categoryBoundaryName)
+        {
+            if (string.IsNullOrEmpty(categoryBoundaryName))
+            {
+                throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
+            }
+
+            this.categoryBoundaryName = categoryBoundaryName;
+        }
+
         public string GetActivityDescription(string calculationSubject)
         {
             return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_, calculationSubject);

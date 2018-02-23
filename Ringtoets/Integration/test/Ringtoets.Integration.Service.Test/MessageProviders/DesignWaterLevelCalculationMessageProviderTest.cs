@@ -30,10 +30,32 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
     public class DesignWaterLevelCalculationMessageProviderTest
     {
         [Test]
+        public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new DesignWaterLevelCalculationMessageProvider(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
+        }
+
+        [Test]
+        public void Constructor_CategoryBoundaryNameEmpty_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new DesignWaterLevelCalculationMessageProvider("");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var provider = new DesignWaterLevelCalculationMessageProvider();
+            var provider = new DesignWaterLevelCalculationMessageProvider("Category description");
 
             // Assert
             Assert.IsInstanceOf<ICalculationMessageProvider>(provider);
@@ -46,7 +68,8 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         public void GetActivityDescription_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
-            var provider = new DesignWaterLevelCalculationMessageProvider();
+            const string categoryBoundaryName = "Category description";
+            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
 
             // Call
             string activityDescription = provider.GetActivityDescription(name);
@@ -63,7 +86,8 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         public void GetCalculationFailedMessage_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
-            var provider = new DesignWaterLevelCalculationMessageProvider();
+            const string categoryBoundaryName = "Category description";
+            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
 
             // Call
             string message = provider.GetCalculationFailedMessage(name);
@@ -81,7 +105,8 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         public void GetCalculationFailedWithErrorReportMessage_ValidNames_ExpectedValues(string name)
         {
             // Setup
-            var provider = new DesignWaterLevelCalculationMessageProvider();
+            const string categoryBoundaryName = "Category description";
+            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
             const string failureMessage = "It failed";
 
             // Call
@@ -100,7 +125,8 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         public void GetCalculationFailedWithErrorReportMessage_ValidFailureMessages_ExpectedValues(string failureMessage)
         {
             // Setup
-            var provider = new DesignWaterLevelCalculationMessageProvider();
+            const string categoryBoundaryName = "Category description";
+            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
             const string name = "calculation name";
 
             // Call
@@ -119,7 +145,8 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         public void GetCalculatedNotConvergedMessage_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
-            var provider = new DesignWaterLevelCalculationMessageProvider();
+            const string categoryBoundaryName = "Category description";
+            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
 
             // Call
             string message = provider.GetCalculatedNotConvergedMessage(name);
