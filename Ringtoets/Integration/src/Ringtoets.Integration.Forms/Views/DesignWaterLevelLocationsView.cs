@@ -48,11 +48,15 @@ namespace Ringtoets.Integration.Forms.Views
         /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/>, <paramref name="getCalculationFunc"/>,
+        /// <paramref name="assessmentSection"/> or <paramref name="getNormFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public DesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
                                              Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                              IAssessmentSection assessmentSection,
-                                             Func<double> getNormFunc)
+                                             Func<double> getNormFunc,
+                                             string categoryBoundaryName)
             : base(locations, getCalculationFunc, assessmentSection)
         {
             if (getNormFunc == null)
@@ -62,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             InitializeComponent();
 
-            messageProvider = new DesignWaterLevelCalculationMessageProvider();
+            messageProvider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
 
             this.getNormFunc = getNormFunc;
         }
