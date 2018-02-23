@@ -343,6 +343,10 @@
       <Name>Core.Components.Stack</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>

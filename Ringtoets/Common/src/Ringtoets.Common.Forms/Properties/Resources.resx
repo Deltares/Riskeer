@@ -239,12 +239,23 @@ Faalkans</value>
 eenvoudige toets</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssessmentAssembly_DisplayName" xml:space="preserve">
-  <value>Assemblageresultaat
+    <value>Assemblageresultaat
 gedetailleerde toets per vak</value>
   </data>
   <data name="FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName" xml:space="preserve">
-  <value>Assemblageresultaat
+    <value>Assemblageresultaat
 toets op maat</value>
+  </data>
+  <data name="FailureMechanismResultView_CombinedAssembly_DisplayName" xml:space="preserve">
+    <value>Assemblageresultaat
+gecombineerd</value>
+  </data>
+  <data name="FailureMechanismResultView_OverrideAssembly_DisplayName" xml:space="preserve">
+    <value>Overschrijf assemblageresultaat</value>
+  </data>
+  <data name="FailureMechanismResultView_OverrideAssemblyGroup_DisplayName" xml:space="preserve">
+    <value>Assemblageresultaat
+handmatig</value>
   </data>
   <data name="Section_DisplayName" xml:space="preserve">
     <value>Vak</value>

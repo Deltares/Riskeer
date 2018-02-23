@@ -1369,6 +1369,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat
+        ///gecombineerd.
+        /// </summary>
+        public static string FailureMechanismResultView_CombinedAssembly_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_CombinedAssembly_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten een geldige uitkomst hebben..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output {
@@ -1461,6 +1471,25 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanismResultView_DetailedAssessmentProbability_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overschrijf assemblageresultaat.
+        /// </summary>
+        public static string FailureMechanismResultView_OverrideAssembly_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_OverrideAssembly_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat
+        ///handmatig.
+        /// </summary>
+        public static string FailureMechanismResultView_OverrideAssemblyGroup_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_OverrideAssemblyGroup_DisplayName", resourceCulture);
             }
         }
         

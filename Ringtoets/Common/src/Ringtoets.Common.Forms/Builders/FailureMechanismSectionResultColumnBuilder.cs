@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Primitives;
 
@@ -253,6 +254,87 @@ namespace Ringtoets.Common.Forms.Builders
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
                 Resources.FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName);
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the
+        /// combined assessment assembly group.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddCombinedAssessmentAssemblyColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_CombinedAssembly_DisplayName);
+        }
+
+        #endregion
+
+        #region Override Assembly
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the
+        /// checkbox for the combined assembly overriding.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddOverrideAssemblyColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddCheckBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_OverrideAssembly_DisplayName);
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the
+        /// overridden combined assembly group.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddOverrideAssemblyGroupColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>> dataSource = CreateEnumDisplayWrappers<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_OverrideAssemblyGroup_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>.Value),
+                nameof(EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>.DisplayName));
         }
 
         #endregion

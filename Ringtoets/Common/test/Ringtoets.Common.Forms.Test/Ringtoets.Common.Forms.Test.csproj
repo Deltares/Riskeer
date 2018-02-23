@@ -227,6 +227,10 @@
       <Project>{0500CA45-1791-4C91-9243-EF95567068A3}</Project>
       <Name>Core.Components.GraphSharp.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>
