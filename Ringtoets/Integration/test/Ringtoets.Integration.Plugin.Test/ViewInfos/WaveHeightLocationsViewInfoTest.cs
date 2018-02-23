@@ -218,7 +218,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             Func<double> getNormFunc = () => 0.01;
-            const string categoryBoundaryName = "Category";
 
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
             var hydraulicBoundaryLocationsLookup = new Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>
@@ -241,20 +240,18 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                          new ObservableTestAssessmentSectionStub(),
                                                          getNormFunc,
                                                          getCalculationFunc,
-                                                         categoryBoundaryName);
+                                                         "Category");
 
             var mockRepository = new MockRepository();
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             double actualNormValue = double.NaN;
             Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> actualGetCalculationFuncValue = null;
-            var actualCategoryBoundaryNameValue = "";
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     actualGetCalculationFuncValue = (Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>) invocation.Arguments[3];
                     actualNormValue = (double) invocation.Arguments[4];
-                    actualCategoryBoundaryNameValue = (string) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
@@ -284,7 +281,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                     Assert.AreEqual(getNormFunc(), actualNormValue);
                     Assert.AreSame(getCalculationFunc, actualGetCalculationFuncValue);
-                    Assert.AreEqual(categoryBoundaryName, actualCategoryBoundaryNameValue);
                 }
             }
 

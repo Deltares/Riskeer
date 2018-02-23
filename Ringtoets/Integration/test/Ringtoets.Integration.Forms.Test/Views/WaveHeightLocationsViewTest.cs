@@ -359,7 +359,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
-            const string categoryBoundaryName = "Category";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -380,7 +379,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = null;
             double normValue = double.NaN;
-            var categoryBoundaryNameValue = "";
             ICalculationMessageProvider messageProviderValue = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
@@ -390,13 +388,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     getCalculationFunc = (Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>) invocation.Arguments[3];
                     normValue = (double) invocation.Arguments[4];
-                    categoryBoundaryNameValue = (string) invocation.Arguments[5];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[6];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
 
-            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, categoryBoundaryName, testForm);
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, "Category", testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -412,7 +409,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
-            Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
@@ -450,7 +446,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = null;
             double normValue = double.NaN;
-            var categoryBoundaryNameValue = "";
             ICalculationMessageProvider messageProviderValue = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
@@ -460,8 +455,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     getCalculationFunc = (Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>) invocation.Arguments[3];
                     normValue = (double) invocation.Arguments[4];
-                    categoryBoundaryNameValue = (string) invocation.Arguments[5];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[6];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
@@ -482,7 +476,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
-            Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
@@ -495,7 +488,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
-            const string categoryBoundaryName = "Category";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -519,7 +511,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             HydraulicBoundaryLocation[] calculatedLocationsValue = null;
             Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = null;
             double normValue = double.NaN;
-            var categoryBoundaryNameValue = "";
             ICalculationMessageProvider messageProviderValue = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
@@ -529,13 +520,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculatedLocationsValue = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray();
                     getCalculationFunc = (Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>) invocation.Arguments[3];
                     normValue = (double) invocation.Arguments[4];
-                    categoryBoundaryNameValue = (string) invocation.Arguments[5];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[6];
+                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[5];
                 });
 
             mockRepository.ReplayAll();
 
-            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, categoryBoundaryName, testForm);
+            WaveHeightLocationsView view = ShowWaveHeightLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, "Category", testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -551,7 +541,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(string.Empty, preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
-            Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
             Assert.AreEqual(1, calculatedLocationsValue.Length);
             HydraulicBoundaryLocation expectedLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocationsValue.First());
