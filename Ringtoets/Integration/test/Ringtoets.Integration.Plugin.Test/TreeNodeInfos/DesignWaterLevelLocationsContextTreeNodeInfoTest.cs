@@ -542,12 +542,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
 
+            const string categoryBoundaryName = "Category";
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
             var context = new DesignWaterLevelLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                assessmentSection,
                                                                () => 0.01,
                                                                hbl => hydraulicBoundaryLocationCalculation,
-                                                               "Category");
+                                                               categoryBoundaryName);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -588,14 +589,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(8, msgs.Length);
-                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' is gestart.", msgs[0]);
+                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' ({categoryBoundaryName}) is gestart.", msgs[0]);
                             CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                             CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                             CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                            Assert.AreEqual($"Toetspeil berekening voor locatie '{location.Name}' is niet geconvergeerd.", msgs[4]);
+                            Assert.AreEqual($"Toetspeil berekening voor locatie '{location.Name}' ({categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                             StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' is gelukt.", msgs[7]);
+                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{location.Name}' ({categoryBoundaryName}) is gelukt.", msgs[7]);
                         });
 
                         HydraulicBoundaryLocationOutput output = hydraulicBoundaryLocationCalculation.Output;

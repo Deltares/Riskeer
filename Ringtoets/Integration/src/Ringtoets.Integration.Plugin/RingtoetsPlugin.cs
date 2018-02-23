@@ -1762,7 +1762,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                               assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                                               nodeData.GetCalculationFunc,
                                                                                               nodeData.GetNormFunc(),
-                                                                                              new DesignWaterLevelCalculationMessageProvider());
+                                                                                              new DesignWaterLevelCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, designWaterLevelItem);
@@ -1795,7 +1795,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                         assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                                                         nodeData.GetCalculationFunc,
                                                                                         nodeData.GetNormFunc(),
-                                                                                        new WaveHeightCalculationMessageProvider());
+                                                                                        new WaveHeightCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waveHeightItem);
