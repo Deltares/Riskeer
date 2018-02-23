@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string activityDescription = provider.GetActivityDescription(name);
 
             // Assert
-            string expectedName = $"Toetspeil berekenen voor locatie '{name}'";
+            string expectedName = $"Toetspeil berekenen voor locatie '{name}' ({categoryBoundaryName})";
             Assert.AreEqual(expectedName, activityDescription);
         }
 
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedMessage(name);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de toetspeil berekening '{name}'. " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de toetspeil berekening '{name}' ({categoryBoundaryName}). " +
                                      "Er is geen foutrapport beschikbaar.";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de toetspeil berekening '{name}'. " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de toetspeil berekening '{name}' ({categoryBoundaryName}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de toetspeil berekening '{name}'. " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de toetspeil berekening '{name}' ({categoryBoundaryName}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             string message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            string expectedMessage = $"Toetspeil berekening voor locatie '{name}' is niet geconvergeerd.";
+            string expectedMessage = $"Toetspeil berekening voor locatie '{name}' ({categoryBoundaryName}) is niet geconvergeerd.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

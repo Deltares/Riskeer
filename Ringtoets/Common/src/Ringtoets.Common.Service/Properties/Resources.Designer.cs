@@ -138,12 +138,12 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
+        ///   Looks up a localized string similar to Toetspeil berekening voor locatie &apos;{0}&apos; ({1}) is niet geconvergeerd..
         /// </summary>
-        public static string DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_not_converged {
+        public static string DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged {
             get {
                 return ResourceManager.GetString("DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoun" +
-                        "daryLocation_0_not_converged", resourceCulture);
+                        "daryLocation_0_Category_1_not_converged", resourceCulture);
             }
         }
         
@@ -158,33 +158,33 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
-        ///{1}.
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos; ({1}). Bekijk het foutrapport door op details te klikken.
+        ///{2}.
         /// </summary>
-        public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_click_details_for_last_error_report_1 {
+        public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_click_details_for_last_error_report_2 {
             get {
                 return ResourceManager.GetString("DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation" +
-                        "_0_click_details_for_last_error_report_1", resourceCulture);
+                        "_0_Category_1_click_details_for_last_error_report_2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos; ({1}). Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report {
+        public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_no_error_report {
             get {
                 return ResourceManager.GetString("DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation" +
-                        "_0_no_error_report", resourceCulture);
+                        "_0_Category_1_no_error_report", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil berekenen voor locatie &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Toetspeil berekenen voor locatie &apos;{0}&apos; ({1}).
         /// </summary>
-        public static string DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_ {
+        public static string DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_Category_1_ {
             get {
                 return ResourceManager.GetString("DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicB" +
-                        "oundaryLocation_0_", resourceCulture);
+                        "oundaryLocation_0_Category_1_", resourceCulture);
             }
         }
         
@@ -348,12 +348,12 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
+        ///   Looks up a localized string similar to Golfhoogte berekening voor locatie &apos;{0}&apos; ({1}) is niet geconvergeerd..
         /// </summary>
-        public static string WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged {
+        public static string WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged {
             get {
                 return ResourceManager.GetString("WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation" +
-                        "_0_not_converged", resourceCulture);
+                        "_0_Category_1_not_converged", resourceCulture);
             }
         }
         
@@ -368,33 +368,33 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
-        ///{1}.
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos; ({1}). Bekijk het foutrapport door op details te klikken.
+        ///{2}.
         /// </summary>
-        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_click_details_for_last_error_report_1 {
+        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_click_details_for_last_error_report_2 {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_click_det" +
-                        "ails_for_last_error_report_1", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_" +
+                        "1_click_details_for_last_error_report_2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos; ({1}). Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_report {
+        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_no_error_report {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_" +
-                        "report", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_" +
+                        "1_no_error_report", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte berekenen voor locatie &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Golfhoogte berekenen voor locatie &apos;{0}&apos; ({1}).
         /// </summary>
-        public static string WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_ {
+        public static string WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_Category_1_ {
             get {
                 return ResourceManager.GetString("WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLoca" +
-                        "tion_0_", resourceCulture);
+                        "tion_0_Category_1_", resourceCulture);
             }
         }
     }

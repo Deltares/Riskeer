@@ -49,22 +49,31 @@ namespace Ringtoets.Integration.Service.MessageProviders
 
         public string GetActivityDescription(string calculationSubject)
         {
-            return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_, calculationSubject);
+            return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_Category_1_,
+                                 calculationSubject,
+                                 categoryBoundaryName);
         }
 
         public string GetCalculationFailedMessage(string calculationSubject)
         {
-            return string.Format(Resources.DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_no_error_report, calculationSubject);
+            return string.Format(Resources.DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_no_error_report,
+                                 calculationSubject,
+                                 categoryBoundaryName);
         }
 
         public string GetCalculatedNotConvergedMessage(string calculationSubject)
         {
-            return string.Format(Resources.DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_not_converged, calculationSubject);
+            return string.Format(Resources.DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged,
+                                 calculationSubject,
+                                 categoryBoundaryName);
         }
 
         public string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport)
         {
-            return string.Format(Resources.DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_click_details_for_last_error_report_1, calculationSubject, errorReport);
+            return string.Format(Resources.DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_click_details_for_last_error_report_2,
+                                 calculationSubject,
+                                 categoryBoundaryName,
+                                 errorReport);
         }
     }
 }

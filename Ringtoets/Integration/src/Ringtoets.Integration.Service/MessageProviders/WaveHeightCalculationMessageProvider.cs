@@ -49,22 +49,31 @@ namespace Ringtoets.Integration.Service.MessageProviders
 
         public string GetActivityDescription(string calculationSubject)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_, calculationSubject);
+            return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_Category_1_,
+                                 calculationSubject,
+                                 categoryBoundaryName);
         }
 
         public string GetCalculationFailedMessage(string calculationSubject)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_no_error_report, calculationSubject);
+            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_no_error_report,
+                                 calculationSubject,
+                                 categoryBoundaryName);
         }
 
         public string GetCalculatedNotConvergedMessage(string calculationSubject)
         {
-            return string.Format(Resources.WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged, calculationSubject);
+            return string.Format(Resources.WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged,
+                                 calculationSubject,
+                                 categoryBoundaryName);
         }
 
         public string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_click_details_for_last_error_report_1, calculationSubject, errorReport);
+            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_click_details_for_last_error_report_2,
+                                 calculationSubject,
+                                 categoryBoundaryName,
+                                 errorReport);
         }
     }
 }
