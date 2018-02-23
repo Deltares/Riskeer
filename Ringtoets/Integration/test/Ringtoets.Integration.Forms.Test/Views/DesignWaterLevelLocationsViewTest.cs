@@ -359,6 +359,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
+            const string categoryBoundaryName = "Category";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -393,7 +394,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, "Category", testForm);
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, categoryBoundaryName, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -406,6 +407,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual($"Toetspeil berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+                            messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
@@ -473,6 +476,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual($"Toetspeil berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+                            messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
@@ -488,6 +493,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
+            const string categoryBoundaryName = "Category";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase
@@ -525,7 +531,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, "Category", testForm);
+            DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, categoryBoundaryName, testForm);
             DataGridView locationsDataGridView = GetLocationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -538,6 +544,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual($"Toetspeil berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+                            messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(string.Empty, preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
