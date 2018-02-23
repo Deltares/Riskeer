@@ -46,6 +46,14 @@ namespace Ringtoets.Common.Forms.Test.Builders
                        .ToArray();
         }
 
+        /// <summary>
+        /// Method that asserts whether <paramref name="expected"/> and <paramref name="actual"/>
+        /// are equal.
+        /// </summary>
+        /// <param name="expected">The expected object.</param>
+        /// <param name="actual">The actual object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="expected"/> and
+        /// <paramref name="actual"/> are not equal.</exception>
         private static void AssertEnumDisplayWrappersAreEqual<T>(IEnumerable<EnumDisplayWrapper<T>> expected,
                                                                  IEnumerable<EnumDisplayWrapper<T>> actual)
         {
