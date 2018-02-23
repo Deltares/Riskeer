@@ -141,7 +141,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
         /// create the input for.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
-        /// <returns>The created <see cref="DetailedCalculationInputFromProbabilityWithLengthEffect"/>.</returns>\<exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
+        /// <returns>The created <see cref="DetailedCalculationInputFromProbabilityWithLengthEffect"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categories"/> contains
         /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>

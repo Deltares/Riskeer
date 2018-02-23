@@ -57,8 +57,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categories"/>
-        /// contains items that are <c>null</c>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories);
@@ -72,8 +70,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categories"/>
-        /// contains items that are <c>null</c>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability,

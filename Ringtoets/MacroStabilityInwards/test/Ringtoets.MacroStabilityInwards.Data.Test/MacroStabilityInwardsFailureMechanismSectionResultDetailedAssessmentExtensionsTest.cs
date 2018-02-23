@@ -535,7 +535,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetCalculationScenarios_WithNotIntersectingScenario_ReturnsNoCalculationScenarios()
+        public void GetCalculationScenarios_WithoutScenarioIntersectingSection_ReturnsNoCalculationScenarios()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -177,25 +178,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double lowerBoundary = random.NextDouble();
-            double upperBoundary = random.NextDouble();
-            var assemblyCategory = new FailureMechanismSectionAssemblyCategory(lowerBoundary,
-                                                                               upperBoundary,
-                                                                               FailureMechanismSectionAssemblyCategoryGroup.IIv);
 
+            IEnumerable<FailureMechanismSectionAssemblyCategory> categoryInput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>();
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
-            calculator.AssembleDetailedAssessment(
-                probability,
-                new[]
-                {
-                    assemblyCategory
-                });
+            calculator.AssembleDetailedAssessment(probability, categoryInput);
 
             // Assert
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
-            Assert.AreSame(assemblyCategory, calculator.DetailedAssessmentCategoriesInput.Single());
+            Assert.AreSame(categoryInput, calculator.DetailedAssessmentCategoriesInput);
         }
 
         [Test]
@@ -253,29 +245,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            double lowerBoundary = random.NextRoundedDouble(0.0, 0.5);
-            double upperBoundary = random.NextRoundedDouble(0.6, 1.0);
             double n = random.NextRoundedDouble(1.0, 10.0);
-            var assemblyCategory = new FailureMechanismSectionAssemblyCategory(lowerBoundary,
-                                                                               upperBoundary,
-                                                                               FailureMechanismSectionAssemblyCategoryGroup.IIv);
 
+            IEnumerable<FailureMechanismSectionAssemblyCategory> categoriesInput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>();
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
-            calculator.AssembleDetailedAssessment(
-                probability,
-                new[]
-                {
-                    assemblyCategory
-                },
-                n);
+            calculator.AssembleDetailedAssessment(probability, categoriesInput, n);
 
             // Assert
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
             Assert.AreEqual(n, calculator.DetailedAssessmentNInput);
 
-            Assert.AreSame(assemblyCategory, calculator.DetailedAssessmentCategoriesInput.Single());
+            Assert.AreSame(categoriesInput, calculator.DetailedAssessmentCategoriesInput);
         }
 
         [Test]

@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Exceptions;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// Factory for assembling assembly results for closing structures failure mechanism section results.
+    /// Factory for assembling assembly results for grass cover erosion inwards failure mechanism section results.
     /// </summary>
     public static class GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory
     {
