@@ -26,6 +26,7 @@
     <Compile Include="DataGrid\CellStyleTest.cs" />
     <Compile Include="DataGrid\DataGridViewColorCellTest.cs" />
     <Compile Include="DataGrid\DataGridViewColorColumnTest.cs" />
+    <Compile Include="DataGrid\DataGridViewColumnFormattingRuleTest.cs" />
     <Compile Include="DataGrid\DataGridViewComboBoxItemWrapperTest.cs" />
     <Compile Include="DataGrid\DataGridViewControlTest.cs" />
     <Compile Include="DataGrid\EnhancedDataGridViewTest.cs" />
