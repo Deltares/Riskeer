@@ -142,15 +142,18 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (ShowFailureMechanismResultsView(sectionResults))
             {
-                var invalidatedCounter = 0;
+                var invalidated = false;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                dataGridView.Invalidated += (sender, args) => invalidatedCounter++;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
 
+                // Precondition
+                Assert.IsFalse(invalidated);
+                
                 // When
                 sectionResult.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(1, invalidatedCounter);
+                Assert.IsTrue(invalidated);
             }
         }
 
@@ -158,11 +161,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultViewWithFormattingRules_WhenCellFormattingEventFired_ThenFormattingRulesEvaluated()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
-                sectionResult
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
@@ -184,11 +185,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultViewWithFormatting_WhenRulesMeet_ThenRuleMeetActionPerformed()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
-                sectionResult
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
@@ -212,11 +211,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultViewWithFormatting_WhenRulesDoNotMeet_ThenRuleDoNotMeetActionPerformed()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult("Other name");
-
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
-                sectionResult
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult("Other name")
             };
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
@@ -240,11 +237,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GivenFailureMechanismResultViewWithFormatting_WhenRulesDoNotMeetAndNoActionGiven_ThenNoActionPerformed()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
-                sectionResult
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
