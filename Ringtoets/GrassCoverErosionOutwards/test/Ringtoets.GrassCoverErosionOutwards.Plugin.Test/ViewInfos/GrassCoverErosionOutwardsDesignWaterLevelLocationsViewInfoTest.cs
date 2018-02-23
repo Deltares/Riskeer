@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui;
@@ -57,8 +58,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext), info.DataType);
                 Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocation>), info.ViewDataType);
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView), info.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, info.Image);
-                Assert.AreEqual(Resources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName, info.GetViewName(null, null));
             }
         }
 
@@ -121,6 +120,38 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             }
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Image_Always_ReturnsGenericInputOutputIcon()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                ViewInfo info = GetInfo(plugin);
+
+                // Call
+                Image image = info.Image;
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+            }
+        }
+
+        [Test]
+        public void GetViewName_Always_ReturnsViewName()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                ViewInfo info = GetInfo(plugin);
+
+                // Call
+                string name = info.GetViewName(null, null);
+
+                // Assert
+                Assert.AreEqual(Resources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName, name);
+            }
         }
 
         [Test]
