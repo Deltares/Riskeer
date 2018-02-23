@@ -1445,6 +1445,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gedetailleerde toets per vak
+        ///Faalkans.
+        /// </summary>
+        public static string FailureMechanismResultView_DetailedAssessmentProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eenvoudige toets.
         /// </summary>
         public static string FailureMechanismResultView_SimpleAssessmentResult_DisplayName {
@@ -1459,6 +1469,16 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanismResultView_TailorMadeAssessment_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessment_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toets op maat
+        ///Faalkans.
+        /// </summary>
+        public static string FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName", resourceCulture);
             }
         }
         

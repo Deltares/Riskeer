@@ -82,20 +82,38 @@ namespace Ringtoets.Common.Primitives.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;selecteer&gt;.
+        /// </summary>
+        internal static string AssessmentResultType_None {
+            get {
+                return ResourceManager.GetString("AssessmentResultType_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NGO.
+        /// </summary>
+        internal static string AssessmentResultType_NotAssessed {
+            get {
+                return ResourceManager.GetString("AssessmentResultType_NotAssessed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans.
+        /// </summary>
+        internal static string AssessmentResultType_Probability {
+            get {
+                return ResourceManager.GetString("AssessmentResultType_Probability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VB.
         /// </summary>
         internal static string SimpleAssessmentResultType_AssessFurther {
             get {
                 return ResourceManager.GetString("SimpleAssessmentResultType_AssessFurther", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;selecteer&gt;.
-        /// </summary>
-        internal static string SimpleAssessmentResultType_None {
-            get {
-                return ResourceManager.GetString("SimpleAssessmentResultType_None", resourceCulture);
             }
         }
         
@@ -123,6 +141,24 @@ namespace Ringtoets.Common.Primitives.Properties {
         internal static string SimpleAssessmentResultValidityOnlyType_Applicable {
             get {
                 return ResourceManager.GetString("SimpleAssessmentResultValidityOnlyType_Applicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VN.
+        /// </summary>
+        internal static string TailorMadeAssessmentResultType_Insufficient {
+            get {
+                return ResourceManager.GetString("TailorMadeAssessmentResultType_Insufficient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to V.
+        /// </summary>
+        internal static string TailorMadeAssessmentResultType_Sufficient {
+            get {
+                return ResourceManager.GetString("TailorMadeAssessmentResultType_Sufficient", resourceCulture);
             }
         }
     }

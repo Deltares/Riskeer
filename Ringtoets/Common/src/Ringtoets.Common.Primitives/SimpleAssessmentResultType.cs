@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Primitives
         /// No option has been selected for this failure
         /// mechanism section.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_None))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_None))]
         None = 1,
 
         /// <summary>

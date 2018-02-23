@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
@@ -52,18 +53,128 @@ namespace Ringtoets.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                    .ToArray();
+            IEnumerable<EnumDisplayWrapper<SimpleAssessmentResultType>> dataSource = CreateEnumDisplayWrappers<SimpleAssessmentResultType>();
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
                 Resources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentDataSource,
+                dataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
+        /// <see cref="DetailedAssessmentResultType"/>.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddDetailedAssessmentResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> dataSource = CreateEnumDisplayWrappers<DetailedAssessmentResultType>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_DetailedAssessment_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<DetailedAssessmentResultType>.Value),
+                nameof(EnumDisplayWrapper<DetailedAssessmentResultType>.DisplayName));
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed
+        /// assessment probability.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddDetailedAssessmentProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_DetailedAssessmentProbability_DisplayName);
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
+        /// <see cref="TailorMadeAssessmentResultType"/>.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddTailorMadeAssessmentResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentResultType>> dataSource = CreateEnumDisplayWrappers<TailorMadeAssessmentResultType>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_TailorMadeAssessment_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentResultType>.Value),
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentResultType>.DisplayName));
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the tailor made
+        /// assessment probability.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddTailorMadeAssessmentProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName);
+        }
+
+        private static IEnumerable<EnumDisplayWrapper<T>> CreateEnumDisplayWrappers<T>()
+        {
+            return Enum.GetValues(typeof(T))
+                       .OfType<T>()
+                       .Select(e => new EnumDisplayWrapper<T>(e))
+                       .ToArray();
         }
     }
 }

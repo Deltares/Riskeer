@@ -20,15 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Builders;
-using Ringtoets.Common.Forms.Test.Views;
 using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Common.Forms.Test.Builders
@@ -36,6 +35,16 @@ namespace Ringtoets.Common.Forms.Test.Builders
     [TestFixture]
     public class FailureMechanismSectionResultColumnBuilderTest
     {
+        private static IEnumerable<EnumDisplayWrapper<T>> CreateExpectedEnumDisplayWrappers<T>()
+        {
+            return Enum.GetValues(typeof(T))
+                       .OfType<T>()
+                       .Select(e => new EnumDisplayWrapper<T>(e))
+                       .ToArray();
+        }
+
+        #region Simple Assessment
+
         [Test]
         public void AddSimpleAssessmentResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
@@ -71,11 +80,6 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 form.Show();
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                control.SetDataSource(new[]
-                {
-                    new TestFailureMechanismSectionResultRow(FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult())
-                });
-
                 // Precondition
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
@@ -86,27 +90,261 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
                 var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
-
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
                 Assert.AreEqual("Eenvoudige toets", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                EnumDisplayWrapper<SimpleAssessmentResultType>[] expectedDataSource = Enum.GetValues(typeof(SimpleAssessmentResultType))
-                                                                                          .OfType<SimpleAssessmentResultType>()
-                                                                                          .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                                                                                          .ToArray();
+                IEnumerable<EnumDisplayWrapper<SimpleAssessmentResultType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<SimpleAssessmentResultType>();
                 var actualDataSource = (EnumDisplayWrapper<SimpleAssessmentResultType>[]) columnData.DataSource;
 
-                Assert.AreEqual(expectedDataSource.Length, actualDataSource.Length);
+                Assert.AreEqual(expectedDataSource.Count(), actualDataSource.Length);
                 for (var i = 0; i < actualDataSource.Length; i++)
                 {
-                    EnumDisplayWrapper<SimpleAssessmentResultType> expectedWrapper = expectedDataSource[i];
+                    EnumDisplayWrapper<SimpleAssessmentResultType> expectedWrapper = expectedDataSource.ElementAt(i);
                     EnumDisplayWrapper<SimpleAssessmentResultType> actualWrapper = actualDataSource[i];
                     Assert.AreEqual(expectedWrapper.Value, actualWrapper.Value);
                     Assert.AreEqual(expectedWrapper.DisplayName, actualWrapper.DisplayName);
                 }
             }
         }
+
+        #endregion
+
+        #region Detailed Assessment
+
+        [Test]
+        public void AddDetailedAssessmentResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentResultColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddDetailedAssessmentResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentResultColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddDetailedAssessmentResultColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            const string dataPropertyName = "test property";
+
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentResultColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Gedetailleerde toets per vak", columnData.HeaderText);
+                Assert.AreEqual("Value", columnData.ValueMember);
+                Assert.AreEqual("DisplayName", columnData.DisplayMember);
+
+                IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<DetailedAssessmentResultType>();
+                var actualDataSource = (EnumDisplayWrapper<DetailedAssessmentResultType>[]) columnData.DataSource;
+
+                Assert.AreEqual(expectedDataSource.Count(), actualDataSource.Length);
+                for (var i = 0; i < actualDataSource.Length; i++)
+                {
+                    EnumDisplayWrapper<DetailedAssessmentResultType> expectedWrapper = expectedDataSource.ElementAt(i);
+                    EnumDisplayWrapper<DetailedAssessmentResultType> actualWrapper = actualDataSource[i];
+                    Assert.AreEqual(expectedWrapper.Value, actualWrapper.Value);
+                    Assert.AreEqual(expectedWrapper.DisplayName, actualWrapper.DisplayName);
+                }
+            }
+        }
+
+        [Test]
+        public void AddDetailedAssessmentProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentProbabilityColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddDetailedAssessmentProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentProbabilityColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddDetailedAssessmentProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            const string dataPropertyName = "test property";
+
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentProbabilityColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Gedetailleerde toets per vak\r\nFaalkans", columnData.HeaderText);
+            }
+        }
+
+        #endregion
+
+        #region Tailor Made Assessment
+
+        [Test]
+        public void AddTailorMadeAssessmentResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentResultColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentResultColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentResultColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            const string dataPropertyName = "test property";
+
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentResultColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Toets op maat", columnData.HeaderText);
+                Assert.AreEqual("Value", columnData.ValueMember);
+                Assert.AreEqual("DisplayName", columnData.DisplayMember);
+
+                IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentResultType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<TailorMadeAssessmentResultType>();
+                var actualDataSource = (EnumDisplayWrapper<TailorMadeAssessmentResultType>[]) columnData.DataSource;
+
+                Assert.AreEqual(expectedDataSource.Count(), actualDataSource.Length);
+                for (var i = 0; i < actualDataSource.Length; i++)
+                {
+                    EnumDisplayWrapper<TailorMadeAssessmentResultType> expectedWrapper = expectedDataSource.ElementAt(i);
+                    EnumDisplayWrapper<TailorMadeAssessmentResultType> actualWrapper = actualDataSource[i];
+                    Assert.AreEqual(expectedWrapper.Value, actualWrapper.Value);
+                    Assert.AreEqual(expectedWrapper.DisplayName, actualWrapper.DisplayName);
+                }
+            }
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            const string dataPropertyName = "test property";
+
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Toets op maat\r\nFaalkans", columnData.HeaderText);
+            }
+        }
+
+        #endregion
     }
 }

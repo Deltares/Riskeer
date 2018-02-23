@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AssessmentResultType_NotAssessed" xml:space="preserve">
+    <value>NGO</value>
+  </data>
+  <data name="AssessmentResultType_Probability" xml:space="preserve">
+    <value>Faalkans</value>
+  </data>
   <data name="SimpleAssessmentResultType_AssessFurther" xml:space="preserve">
     <value>VB</value>
   </data>
-  <data name="SimpleAssessmentResultType_None" xml:space="preserve">
+  <data name="AssessmentResultType_None" xml:space="preserve">
     <value>&lt;selecteer&gt;</value>
   </data>
   <data name="SimpleAssessmentResultType_NotApplicable" xml:space="preserve">
@@ -131,5 +137,11 @@
   </data>
   <data name="SimpleAssessmentResultValidityOnlyType_Applicable" xml:space="preserve">
     <value>WVT</value>
+  </data>
+  <data name="TailorMadeAssessmentResultType_Insufficient" xml:space="preserve">
+    <value>VN</value>
+  </data>
+  <data name="TailorMadeAssessmentResultType_Sufficient" xml:space="preserve">
+    <value>V</value>
   </data>
 </root>

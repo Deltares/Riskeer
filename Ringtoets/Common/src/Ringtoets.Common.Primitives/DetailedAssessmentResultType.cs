@@ -25,28 +25,24 @@ using Ringtoets.Common.Primitives.Properties;
 namespace Ringtoets.Common.Primitives
 {
     /// <summary>
-    /// This enum defines the possible result types for a simple assessment 
-    /// on a failure mechanism section in case there is only a relevance check.
+    /// This enum defines the possible result types for a detailed assessment 
+    /// on a failure mechanism section.
     /// </summary>
-    public enum SimpleAssessmentResultValidityOnlyType
+    public enum DetailedAssessmentResultType
     {
         /// <summary>
-        /// No option has been selected for this failure
+        /// The calculated probability for this failure
+        /// mechanism section has to be entered.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Probability))]
+        Probability = 1,
+
+        /// <summary>
+        /// No assessment has been performed for this failure
         /// mechanism section.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_None))]
-        None = 1,
-
-        /// <summary>
-        /// The failure mechanism section is not applicable.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_NotApplicable))]
-        NotApplicable = 2,
-
-        /// <summary>
-        /// The failure mechanism section is applicable.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultValidityOnlyType_Applicable))]
-        Applicable = 3
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_NotAssessed))]
+        NotAssessed = 2
+        
     }
 }

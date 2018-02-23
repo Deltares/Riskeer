@@ -25,10 +25,10 @@ using Ringtoets.Common.Primitives.Properties;
 namespace Ringtoets.Common.Primitives
 {
     /// <summary>
-    /// This enum defines the possible result types for a simple assessment 
-    /// on a failure mechanism section in case there is only a relevance check.
+    /// This enum defines the possible result types for a tailor made assessment 
+    /// on a failure mechanism section.
     /// </summary>
-    public enum SimpleAssessmentResultValidityOnlyType
+    public enum TailorMadeAssessmentResultType
     {
         /// <summary>
         /// No option has been selected for this failure
@@ -38,15 +38,32 @@ namespace Ringtoets.Common.Primitives
         None = 1,
 
         /// <summary>
-        /// The failure mechanism section is not applicable.
+        /// The calculated probability for this failure
+        /// mechanism section has to be entered.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_NotApplicable))]
-        NotApplicable = 2,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Probability))]
+        Probability = 2,
 
         /// <summary>
-        /// The failure mechanism section is applicable.
+        /// The assessment for this failure mechanism
+        /// section was sufficient.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultValidityOnlyType_Applicable))]
-        Applicable = 3
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TailorMadeAssessmentResultType_Sufficient))]
+        Sufficient = 3,
+
+        /// <summary>
+        /// The assessment for this failure mechanism
+        /// section was insufficient.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TailorMadeAssessmentResultType_Insufficient))]
+        Insufficient = 4,
+
+        /// <summary>
+        /// No assessment has been performed for this failure
+        /// mechanism section.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_NotAssessed))]
+        NotAssessed = 5
+        
     }
 }
