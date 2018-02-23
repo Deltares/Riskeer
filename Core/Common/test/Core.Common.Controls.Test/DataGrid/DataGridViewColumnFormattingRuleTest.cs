@@ -58,7 +58,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("rulesApplyAction", exception.ParamName);
+            Assert.AreEqual("rulesMeetAction", exception.ParamName);
         }
 
         [Test]
