@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -95,7 +96,9 @@ namespace Ringtoets.Common.Forms.Views
         {
             base.OnLoad(e);
             AddDataGridColumns();
-        }
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
+        }        
 
         /// <summary>
         /// Creates a display object for <paramref name="sectionResult"/> which is added to the
@@ -110,6 +113,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             failureMechanismSectionResultObserver.Dispose();
             failureMechanismSectionResultsObserver.Dispose();
+
+            DataGridViewControl.CellFormatting -= OnCellFormatting;
 
             if (disposing)
             {
@@ -147,5 +152,27 @@ namespace Ringtoets.Common.Forms.Views
         /// Adds the columns to the view.
         /// </summary>
         protected abstract void AddDataGridColumns();
+
+        protected virtual IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> GetFormattingRules()
+        {
+            yield break;
+        }
+
+        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            TSectionResultRow row = GetDataAtRow(e.RowIndex);
+            IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> rules = GetFormattingRules();
+
+            foreach (DataGridViewColumnFormattingRule<TSectionResultRow> formattingRule in rules.Where(r => r.ColumnIndices.Contains(e.ColumnIndex)))
+            {
+                if (formattingRule.Rules.All(func => func(row)))
+                {
+                    formattingRule.RulesMeetAction(e.RowIndex, e.ColumnIndex);
+                    break;
+                }
+
+                formattingRule.RulesDoNotMeetAction?.Invoke(e.RowIndex, e.ColumnIndex);
+            }
+        }
     }
 }

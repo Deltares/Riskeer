@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class FailureMechanismSectionResultTestFactoryTest
     {
         [Test]
-        public void CreateFailureMechanismSectionResult_ReturnsExpectedValues()
+        public void CreateFailureMechanismSectionResult_WithoutName_ReturnsExpectedValues()
         {
             // Call
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -37,6 +37,25 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.AreEqual(AssessmentLayerOneState.NotAssessed, sectionResult.AssessmentLayerOne);
             Assert.AreEqual("test", sectionResult.Section.Name);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 0)
+            }, sectionResult.Section.Points);
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionResult_WithName_ReturnsExpectedValues()
+        {
+            // Setup
+            const string name = "Vak 1";
+
+            // Call
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult(name);
+
+            // Assert
+            Assert.AreEqual(AssessmentLayerOneState.NotAssessed, sectionResult.AssessmentLayerOne);
+            Assert.AreEqual(name, sectionResult.Section.Name);
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 0),
