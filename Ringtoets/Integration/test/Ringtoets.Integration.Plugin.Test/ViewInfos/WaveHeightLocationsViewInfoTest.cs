@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
+            info = GetViewInfo(plugin);
         }
 
         [TearDown]
@@ -147,16 +147,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                          hbl => new HydraulicBoundaryLocationCalculation(),
                                                          "Category");
 
-            using (var ringtoetsPlugin = new RingtoetsPlugin())
-            {
-                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
+            // Call
+            var view = (WaveHeightLocationsView) info.CreateInstance(context);
 
-                // Call
-                var view = (WaveHeightLocationsView) info.CreateInstance(context);
-
-                // Assert
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
 
         [Test]
@@ -191,25 +186,20 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                          hbl => hydraulicBoundaryLocationsLookup[hbl],
                                                          "Category");
 
-            using (var ringtoetsPlugin = new RingtoetsPlugin())
+            // Call
+            var view = (WaveHeightLocationsView) info.CreateInstance(context);
+
+            // Assert
+            using (var testForm = new Form())
             {
-                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
+                testForm.Controls.Add(view);
+                testForm.Show();
 
-                // Call
-                var view = (WaveHeightLocationsView) info.CreateInstance(context);
-
-                // Assert
-                using (var testForm = new Form())
-                {
-                    testForm.Controls.Add(view);
-                    testForm.Show();
-
-                    DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
-                    DataGridViewRowCollection rows = locationsDataGridView.Rows;
-                    Assert.AreEqual(2, rows.Count);
-                    Assert.AreEqual(hydraulicBoundaryLocationsLookup.Values.ElementAt(0).Output.Result.ToString(), rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
-                    Assert.AreEqual(hydraulicBoundaryLocationsLookup.Values.ElementAt(1).Output.Result.ToString(), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
-                }
+                DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
+                DataGridViewRowCollection rows = locationsDataGridView.Rows;
+                Assert.AreEqual(2, rows.Count);
+                Assert.AreEqual(hydraulicBoundaryLocationsLookup.Values.ElementAt(0).Output.Result.ToString(), rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
+                Assert.AreEqual(hydraulicBoundaryLocationsLookup.Values.ElementAt(1).Output.Result.ToString(), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
             }
         }
 
@@ -219,22 +209,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             Func<double> getNormFunc = () => 0.01;
 
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
-            var hydraulicBoundaryLocationsLookup = new Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
             {
-                {
-                    new TestHydraulicBoundaryLocation(),
-                    new HydraulicBoundaryLocationCalculation()
-                },
-                {
-                    new TestHydraulicBoundaryLocation(),
-                    new HydraulicBoundaryLocationCalculation()
-                }
+                new TestHydraulicBoundaryLocation()
             };
-
-            hydraulicBoundaryLocations.AddRange(hydraulicBoundaryLocationsLookup.Keys);
-
-            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => hydraulicBoundaryLocationsLookup[hbl];
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => new HydraulicBoundaryLocationCalculation();
 
             var context = new WaveHeightLocationsContext(hydraulicBoundaryLocations,
                                                          new ObservableTestAssessmentSectionStub(),
@@ -256,32 +235,27 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mockRepository.ReplayAll();
 
-            using (var ringtoetsPlugin = new RingtoetsPlugin())
+            // Call
+            var view = (WaveHeightLocationsView) info.CreateInstance(context);
+
+            // Assert
+            using (var testForm = new Form())
             {
-                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
+                view.CalculationGuiService = guiService;
+                testForm.Controls.Add(view);
+                testForm.Show();
 
-                // Call
-                var view = (WaveHeightLocationsView) info.CreateInstance(context);
+                DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
+                DataGridViewRowCollection rows = locationsDataGridView.Rows;
+                rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-                // Assert
-                using (var testForm = new Form())
-                {
-                    view.CalculationGuiService = guiService;
-                    testForm.Controls.Add(view);
-                    testForm.Show();
+                view.CalculationGuiService = guiService;
+                var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                    DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
-                    DataGridViewRowCollection rows = locationsDataGridView.Rows;
-                    rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                button.Click();
 
-                    view.CalculationGuiService = guiService;
-                    var button = new ButtonTester("CalculateForSelectedButton", testForm);
-
-                    button.Click();
-
-                    Assert.AreEqual(getNormFunc(), actualNormValue);
-                    Assert.AreSame(getCalculationFunc, actualGetCalculationFuncValue);
-                }
+                Assert.AreEqual(getNormFunc(), actualNormValue);
+                Assert.AreSame(getCalculationFunc, actualGetCalculationFuncValue);
             }
 
             mockRepository.VerifyAll();
@@ -322,12 +296,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
-                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
+                ViewInfo viewInfo = GetViewInfo(ringtoetsPlugin);
                 ringtoetsPlugin.Gui = gui;
                 ringtoetsPlugin.Activate();
 
                 // Call
-                info.AfterCreate(view, context);
+                viewInfo.AfterCreate(view, context);
 
                 // Assert
                 Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
@@ -395,6 +369,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+        }
+
+        private static ViewInfo GetViewInfo(RingtoetsPlugin plugin)
+        {
+            return plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
         }
     }
 }

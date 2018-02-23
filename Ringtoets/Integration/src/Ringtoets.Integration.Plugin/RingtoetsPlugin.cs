@@ -1935,22 +1935,22 @@ namespace Ringtoets.Integration.Plugin
             {
                 new DesignWaterLevelLocationsContext(context.WrappedData,
                                                      context.AssessmentSection,
-                                                     () => GetFirstHydraulicBoundary(context.AssessmentSection),
+                                                     () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
                                                      hbl => hbl.DesignWaterLevelCalculation1,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
                 new DesignWaterLevelLocationsContext(context.WrappedData,
                                                      context.AssessmentSection,
-                                                     () => GetSecondHydraulicBoundary(context.AssessmentSection),
+                                                     () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
                                                      hbl => hbl.DesignWaterLevelCalculation2,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
                 new DesignWaterLevelLocationsContext(context.WrappedData,
                                                      context.AssessmentSection,
-                                                     () => GetThirdHydraulicBoundary(context.AssessmentSection),
+                                                     () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
                                                      hbl => hbl.DesignWaterLevelCalculation3,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
                 new DesignWaterLevelLocationsContext(context.WrappedData,
                                                      context.AssessmentSection,
-                                                     () => GetFourthHydraulicBoundary(context.AssessmentSection),
+                                                     () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
                                                      hbl => hbl.DesignWaterLevelCalculation4,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
             };
@@ -1962,49 +1962,49 @@ namespace Ringtoets.Integration.Plugin
             {
                 new WaveHeightLocationsContext(context.WrappedData,
                                                context.AssessmentSection,
-                                               () => GetFirstHydraulicBoundary(context.AssessmentSection),
+                                               () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
                                                hbl => hbl.WaveHeightCalculation1,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
                 new WaveHeightLocationsContext(context.WrappedData,
                                                context.AssessmentSection,
-                                               () => GetSecondHydraulicBoundary(context.AssessmentSection),
+                                               () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
                                                hbl => hbl.WaveHeightCalculation2,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
                 new WaveHeightLocationsContext(context.WrappedData,
                                                context.AssessmentSection,
-                                               () => GetThirdHydraulicBoundary(context.AssessmentSection),
+                                               () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
                                                hbl => hbl.WaveHeightCalculation3,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
                 new WaveHeightLocationsContext(context.WrappedData,
                                                context.AssessmentSection,
-                                               () => GetFourthHydraulicBoundary(context.AssessmentSection),
+                                               () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
                                                hbl => hbl.WaveHeightCalculation4,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
             };
         }
 
-        private static double GetFirstHydraulicBoundary(IAssessmentSection assessmentSection)
+        private static double GetFirstHydraulicBoundaryNorm(IAssessmentSection assessmentSection)
         {
             return CreateAssessmentSectionAssemblyCategories(assessmentSection)
                    .First(c => c.Group == AssessmentSectionAssemblyCategoryGroup.A)
                    .LowerBoundary;
         }
 
-        private static double GetSecondHydraulicBoundary(IAssessmentSection assessmentSection)
+        private static double GetSecondHydraulicBoundaryNorm(IAssessmentSection assessmentSection)
         {
             return CreateAssessmentSectionAssemblyCategories(assessmentSection)
                    .First(c => c.Group == AssessmentSectionAssemblyCategoryGroup.B)
                    .LowerBoundary;
         }
 
-        private static double GetThirdHydraulicBoundary(IAssessmentSection assessmentSection)
+        private static double GetThirdHydraulicBoundaryNorm(IAssessmentSection assessmentSection)
         {
             return CreateAssessmentSectionAssemblyCategories(assessmentSection)
                    .First(c => c.Group == AssessmentSectionAssemblyCategoryGroup.C)
                    .LowerBoundary;
         }
 
-        private static double GetFourthHydraulicBoundary(IAssessmentSection assessmentSection)
+        private static double GetFourthHydraulicBoundaryNorm(IAssessmentSection assessmentSection)
         {
             return CreateAssessmentSectionAssemblyCategories(assessmentSection)
                    .First(c => c.Group == AssessmentSectionAssemblyCategoryGroup.D)
