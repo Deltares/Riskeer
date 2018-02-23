@@ -44,6 +44,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\FailureMechanismSectionResultColumnBuilderTest.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismCalculationChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\ObservablePropertyChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismPropertyChangeHandlerTest.cs" />
