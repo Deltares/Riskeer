@@ -408,7 +408,8 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData,
                                                                               context.GetCalculationFunc,
                                                                               context.AssessmentSection,
-                                                                              context.GetNormFunc),
+                                                                              context.GetNormFunc,
+                                                                              context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
@@ -421,7 +422,8 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = context => new WaveHeightLocationsView(context.WrappedData,
                                                                         context.GetCalculationFunc,
                                                                         context.AssessmentSection,
-                                                                        context.GetNormFunc),
+                                                                        context.GetNormFunc,
+                                                                        context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
