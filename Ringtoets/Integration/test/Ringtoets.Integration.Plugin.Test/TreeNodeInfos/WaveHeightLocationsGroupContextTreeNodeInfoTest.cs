@@ -143,19 +143,19 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 var testLocation = new TestHydraulicBoundaryLocation();
 
-                Assert.AreEqual("A+->A", locationsContexts[0].CategoryBoundaryName);
+                Assert.AreEqual("Categorie A+->A", locationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation1, locationsContexts[0].GetCalculationFunc(testLocation));
                 Assert.AreEqual(signalingNorm / 30, locationsContexts[0].GetNormFunc());
 
-                Assert.AreEqual("A->B", locationsContexts[1].CategoryBoundaryName);
+                Assert.AreEqual("Categorie A->B", locationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation2, locationsContexts[1].GetCalculationFunc(testLocation));
                 Assert.AreEqual(signalingNorm, locationsContexts[1].GetNormFunc());
 
-                Assert.AreEqual("B->C", locationsContexts[2].CategoryBoundaryName);
+                Assert.AreEqual("Categorie B->C", locationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation3, locationsContexts[2].GetCalculationFunc(testLocation));
                 Assert.AreEqual(lowerLimitNorm, locationsContexts[2].GetNormFunc());
 
-                Assert.AreEqual("C->D", locationsContexts[3].CategoryBoundaryName);
+                Assert.AreEqual("Categorie C->D", locationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(testLocation.WaveHeightCalculation4, locationsContexts[3].GetCalculationFunc(testLocation));
                 Assert.AreEqual(lowerLimitNorm * 30, locationsContexts[3].GetNormFunc());
             }

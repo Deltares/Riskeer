@@ -181,7 +181,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A+-&gt;A.
+        ///   Looks up a localized string similar to Categorie A+-&gt;A.
         /// </summary>
         public static string Hydraulic_category_boundary_name_1 {
             get {
@@ -190,7 +190,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A-&gt;B.
+        ///   Looks up a localized string similar to Categorie A-&gt;B.
         /// </summary>
         public static string Hydraulic_category_boundary_name_2 {
             get {
@@ -199,7 +199,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B-&gt;C.
+        ///   Looks up a localized string similar to Categorie B-&gt;C.
         /// </summary>
         public static string Hydraulic_category_boundary_name_3 {
             get {
@@ -208,7 +208,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C-&gt;D.
+        ///   Looks up a localized string similar to Categorie C-&gt;D.
         /// </summary>
         public static string Hydraulic_category_boundary_name_4 {
             get {

@@ -174,15 +174,15 @@ Weet u zeker dat u wilt doorgaan?</value>
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="Hydraulic_category_boundary_name_1" xml:space="preserve">
-    <value>A+-&gt;A</value>
+    <value>Categorie A+-&gt;A</value>
   </data>
   <data name="Hydraulic_category_boundary_name_2" xml:space="preserve">
-    <value>A-&gt;B</value>
+    <value>Categorie A-&gt;B</value>
   </data>
   <data name="Hydraulic_category_boundary_name_3" xml:space="preserve">
-    <value>B-&gt;C</value>
+    <value>Categorie B-&gt;C</value>
   </data>
   <data name="Hydraulic_category_boundary_name_4" xml:space="preserve">
-    <value>C-&gt;D</value>
+    <value>Categorie C-&gt;D</value>
   </data>
 </root>
