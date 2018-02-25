@@ -767,6 +767,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ContextMenuStrip = DesignWaterLevelLocationsGroupContextMenuStrip,
                 ChildNodeObjects = DesignWaterLevelLocationsGroupContextChildNodeObjects
             };
 
@@ -781,6 +782,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ContextMenuStrip = WaveHeightLocationsGroupContextMenuStrip,
                 ChildNodeObjects = WaveHeightLocationsGroupContextChildNodeObjects
             };
 
@@ -1927,6 +1929,22 @@ namespace Ringtoets.Integration.Plugin
             affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
 
             log.Info(RingtoetsFormsResources.Calculations_Cleared);
+        }
+
+        private ContextMenuStrip DesignWaterLevelLocationsGroupContextMenuStrip(DesignWaterLevelLocationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .Build();
+        }
+
+        private ContextMenuStrip WaveHeightLocationsGroupContextMenuStrip(WaveHeightLocationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .Build();
         }
 
         private static object[] DesignWaterLevelLocationsGroupContextChildNodeObjects(DesignWaterLevelLocationsGroupContext context)
