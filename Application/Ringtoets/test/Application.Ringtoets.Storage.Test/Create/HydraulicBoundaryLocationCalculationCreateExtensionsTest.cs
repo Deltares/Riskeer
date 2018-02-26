@@ -26,7 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(33);
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
-            var calculation = new HydraulicBoundaryLocationCalculation
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 InputParameters =
                 {
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(33);
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
-            var calculation = new HydraulicBoundaryLocationCalculation
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 InputParameters =
                 {
