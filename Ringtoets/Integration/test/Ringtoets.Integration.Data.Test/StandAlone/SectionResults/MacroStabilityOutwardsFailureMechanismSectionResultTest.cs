@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(12)]
-        public void DetailedAssessmentProbability_InvalidValue_ThrowsArgumentException(double newValue)
+        public void DetailedAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             TestDelegate test = () => result.DetailedAssessmentProbability = newValue;
 
             // Assert
-            string message = Assert.Throws<ArgumentException>(test).Message;
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
             Assert.AreEqual(expectedMessage, message);
         }

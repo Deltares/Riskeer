@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the detailed assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is 
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability

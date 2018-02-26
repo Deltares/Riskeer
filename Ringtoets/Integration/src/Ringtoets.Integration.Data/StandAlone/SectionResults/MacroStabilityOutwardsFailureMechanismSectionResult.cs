@@ -24,6 +24,7 @@ using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -71,7 +72,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Gets or sets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double DetailedAssessmentProbability
         {
             get
@@ -80,13 +81,9 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
             }
             set
             {
-                if (!double.IsNaN(value) && !validityRangeAssessmentProbability.InRange(value))
-                {
-                    string message = string.Format(RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
-                                                   validityRangeAssessmentProbability.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                    throw new ArgumentException(message);
-                }
-
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
                 detailedAssessmentProbability = value;
             }
         }
