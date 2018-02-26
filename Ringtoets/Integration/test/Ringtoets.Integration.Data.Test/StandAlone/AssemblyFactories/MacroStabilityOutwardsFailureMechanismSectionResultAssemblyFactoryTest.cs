@@ -209,9 +209,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                     assessmentSection);
 
                 // Assert
-                Assert.AreEqual(sectionResult.AssessmentLayerTwoA, calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
-
+                Assert.AreEqual(sectionResult.DetailedAssessmentProbability, calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
                 Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.ProbabilityDistributionFactor);

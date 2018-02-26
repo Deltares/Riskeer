@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
+        private const int detailedAssessmentProbabilityIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
@@ -104,11 +104,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(4, dataGridView.ColumnCount);
 
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentProbabilityIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -130,28 +130,28 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.None,
-                AssessmentLayerTwoA = random.NextRoundedDouble(),
+                DetailedAssessmentProbability = random.NextRoundedDouble(),
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                AssessmentLayerTwoA = random.NextRoundedDouble(),
+                DetailedAssessmentProbability = random.NextRoundedDouble(),
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                AssessmentLayerTwoA = random.NextRoundedDouble(),
+                DetailedAssessmentProbability = random.NextRoundedDouble(),
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result4 = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 4"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
-                AssessmentLayerTwoA = random.NextRoundedDouble(),
+                DetailedAssessmentProbability = random.NextRoundedDouble(),
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
@@ -178,44 +178,44 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                string expectedAssessmentLayer2AString1 = ProbabilityFormattingHelper.Format(result1.AssessmentLayerTwoA);
-                Assert.AreEqual(expectedAssessmentLayer2AString1, cells[assessmentLayerTwoAIndex].FormattedValue);
+                string expectedDetailedAssessmentProbabilityString1 = ProbabilityFormattingHelper.Format(result1.DetailedAssessmentProbability);
+                Assert.AreEqual(expectedDetailedAssessmentProbabilityString1, cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentProbabilityIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                string expectedAssessmentLayer2AString2 = ProbabilityFormattingHelper.Format(result2.AssessmentLayerTwoA);
-                Assert.AreEqual(expectedAssessmentLayer2AString2, cells[assessmentLayerTwoAIndex].FormattedValue);
+                string expectedDetailedAssessmentProbabilityString2 = ProbabilityFormattingHelper.Format(result2.DetailedAssessmentProbability);
+                Assert.AreEqual(expectedDetailedAssessmentProbabilityString2, cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentProbabilityIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[2].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                string expectedAssessmentLayer2AString3 = ProbabilityFormattingHelper.Format(result3.AssessmentLayerTwoA);
-                Assert.AreEqual(expectedAssessmentLayer2AString3, cells[assessmentLayerTwoAIndex].FormattedValue);
+                string expectedDetailedAssessmentProbabilityString3 = ProbabilityFormattingHelper.Format(result3.DetailedAssessmentProbability);
+                Assert.AreEqual(expectedDetailedAssessmentProbabilityString3, cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentProbabilityIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[3].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 4", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result4.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                string expectedAssessmentLayer2AString4 = ProbabilityFormattingHelper.Format(result4.AssessmentLayerTwoA);
-                Assert.AreEqual(expectedAssessmentLayer2AString4, cells[assessmentLayerTwoAIndex].FormattedValue);
+                string expectedDetailedAssessmentProbabilityString4 = ProbabilityFormattingHelper.Format(result4.DetailedAssessmentProbability);
+                Assert.AreEqual(expectedDetailedAssessmentProbabilityString4, cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(result4.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentProbabilityIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
                 mocks.VerifyAll();
             }
@@ -237,7 +237,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
-                AssessmentLayerTwoA = random.NextRoundedDouble(),
+                DetailedAssessmentProbability = random.NextRoundedDouble(),
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
@@ -263,7 +263,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
 
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
+                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentProbabilityIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
                 mocks.VerifyAll();
             }

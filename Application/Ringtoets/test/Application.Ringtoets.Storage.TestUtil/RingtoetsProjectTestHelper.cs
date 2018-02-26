@@ -230,7 +230,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (MacroStabilityOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.DetailedAssessmentProbability = (RoundedDouble) random.NextDouble();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }

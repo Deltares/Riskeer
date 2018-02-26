@@ -35,8 +35,8 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// </summary>
     public class MacroStabilityOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
-        private static readonly Range<double> validityRangeAssessmentLayerTwoA = new Range<double>(0, 1);
-        private double assessmentLayerTwoA;
+        private static readonly Range<double> validityRangeAssessmentProbability = new Range<double>(0, 1);
+        private double detailedAssessmentProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
@@ -48,8 +48,8 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
+            DetailedAssessmentProbability = double.NaN;
             TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
-            AssessmentLayerTwoA = double.NaN;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
 
@@ -72,22 +72,22 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
-        public double AssessmentLayerTwoA
+        public double DetailedAssessmentProbability
         {
             get
             {
-                return assessmentLayerTwoA;
+                return detailedAssessmentProbability;
             }
             set
             {
-                if (!double.IsNaN(value) && !validityRangeAssessmentLayerTwoA.InRange(value))
+                if (!double.IsNaN(value) && !validityRangeAssessmentProbability.InRange(value))
                 {
-                    string message = string.Format(RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_in_Range_0_,
-                                                   validityRangeAssessmentLayerTwoA.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
+                    string message = string.Format(RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                   validityRangeAssessmentProbability.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                     throw new ArgumentException(message);
                 }
 
-                assessmentLayerTwoA = value;
+                detailedAssessmentProbability = value;
             }
         }
 

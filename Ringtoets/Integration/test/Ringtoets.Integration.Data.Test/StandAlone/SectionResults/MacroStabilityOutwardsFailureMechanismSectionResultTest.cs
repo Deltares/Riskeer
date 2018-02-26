@@ -46,8 +46,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentResultType.Probability, result.DetailedAssessmentResult);
+            Assert.IsNaN(result.DetailedAssessmentProbability);
             Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
-            Assert.IsNaN(result.AssessmentLayerTwoA);
             Assert.IsNaN(result.AssessmentLayerThree);
         }
 
@@ -57,14 +57,14 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(12)]
-        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsException(double newValue)
+        public void DetailedAssessmentProbability_InvalidValue_ThrowsArgumentException(double newValue)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate test = () => result.AssessmentLayerTwoA = newValue;
+            TestDelegate test = () => result.DetailedAssessmentProbability = newValue;
 
             // Assert
             string message = Assert.Throws<ArgumentException>(test).Message;
@@ -79,17 +79,17 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         [TestCase(1 - 1e-6)]
         [TestCase(1)]
         [TestCase(double.NaN)]
-        public void AssessmentLayerTwoA_ForValidValues_NewValueSet(double newValue)
+        public void DetailedAssessmentProbability_ValidValue_NewValueSet(double newValue)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            result.AssessmentLayerTwoA = newValue;
+            result.DetailedAssessmentProbability = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
+            Assert.AreEqual(newValue, result.DetailedAssessmentProbability);
         }
 
         [Test]

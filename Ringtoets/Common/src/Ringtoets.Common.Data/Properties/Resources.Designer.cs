@@ -84,10 +84,10 @@ namespace Ringtoets.Common.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik {0} liggen..
         /// </summary>
-        public static string ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_in_Range_0_ {
+        public static string ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_ {
             get {
-                return ResourceManager.GetString("ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs" +
-                        "_to_be_in_Range_0_", resourceCulture);
+                return ResourceManager.GetString("ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_nee" +
+                        "ds_to_be_in_Range_0_", resourceCulture);
             }
         }
         

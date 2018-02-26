@@ -59,20 +59,20 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets the assessment layer two a of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
+        /// Gets the detailed assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double AssessmentLayerTwoA
+        public double DetailedAssessmentProbability
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                return SectionResult.DetailedAssessmentProbability;
             }
             set
             {
-                SectionResult.AssessmentLayerTwoA = value;
+                SectionResult.DetailedAssessmentProbability = value;
             }
         }
 

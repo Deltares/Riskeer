@@ -51,12 +51,12 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
+            Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
                 NoProbabilityValueDoubleConverter>(
-                nameof(MacroStabilityOutwardsSectionResultRow.AssessmentLayerTwoA));
+                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
             TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
                 NoValueRoundedDoubleConverter>(
                 nameof(MacroStabilityOutwardsSectionResultRow.AssessmentLayerThree));
@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [TestCase(0.5)]
         [TestCase(1e-6)]
         [TestCase(double.NaN)]
-        public void AssessmentLayerTwoA_ForValidValues_ResultPropertyChanged(double value)
+        public void DetailedAssessmentProbability_ValidValue_ResultPropertyChanged(double value)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -102,10 +102,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var row = new MacroStabilityOutwardsSectionResultRow(result);
 
             // Call
-            row.AssessmentLayerTwoA = value;
+            row.DetailedAssessmentProbability = value;
 
             // Assert
-            Assert.AreEqual(value, row.AssessmentLayerTwoA);
+            Assert.AreEqual(value, row.DetailedAssessmentProbability);
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(12)]
-        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsArgumentException(double value)
+        public void DetailedAssessmentProbability_InvalidValue_ThrowsArgumentException(double value)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var row = new MacroStabilityOutwardsSectionResultRow(result);
 
             // Call
-            TestDelegate test = () => row.AssessmentLayerTwoA = value;
+            TestDelegate test = () => row.DetailedAssessmentProbability = value;
 
             // Assert
             string message = Assert.Throws<ArgumentException>(test).Message;

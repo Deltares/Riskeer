@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
-                    failureMechanismSectionResult.AssessmentLayerTwoA,
+                    failureMechanismSectionResult.DetailedAssessmentProbability,
                     categories);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)

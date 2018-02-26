@@ -1950,7 +1950,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      (expectedItem, actualItem) =>
                                      {
                                          Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerTwoA, actualItem.AssessmentLayerTwoA);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentProbability, actualItem.DetailedAssessmentProbability);
                                          Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
                                      });
         }

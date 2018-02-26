@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityOutwards
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA, 1e-6);
+            Assert.AreEqual(layerTwoA, sectionResult.DetailedAssessmentProbability, 1e-6);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
         }
 
@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityOutwards
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
+            Assert.IsNaN(sectionResult.DetailedAssessmentProbability);
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
         }
     }

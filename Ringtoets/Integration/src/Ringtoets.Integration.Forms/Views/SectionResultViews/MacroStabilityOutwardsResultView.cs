@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityOutwardsSectionResultRow.AssessmentLayerTwoA),
+                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_DisplayName);
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityOutwardsSectionResultRow.AssessmentLayerThree),

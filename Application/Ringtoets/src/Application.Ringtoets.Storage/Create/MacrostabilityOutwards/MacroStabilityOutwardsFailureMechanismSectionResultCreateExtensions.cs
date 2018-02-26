@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityOutwards
             var sectionResultEntity = new MacroStabilityOutwardsSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull(),
+                LayerTwoA = result.DetailedAssessmentProbability.ToNaNAsNull(),
                 LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
             };
 
