@@ -30,7 +30,6 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 {
@@ -79,9 +78,17 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssessmentResult));
 
+            FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentResult));
+
             FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
+
+            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
@@ -95,8 +102,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
                     new[]
                     {
-                        2,
-                        3
+                        3,
+                        5
                     },
                     new Func<MacroStabilityOutwardsSectionResultRow, bool>[]
                     {
