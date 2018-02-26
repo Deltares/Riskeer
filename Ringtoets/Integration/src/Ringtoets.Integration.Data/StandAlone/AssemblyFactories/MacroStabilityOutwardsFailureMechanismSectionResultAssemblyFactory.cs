@@ -20,11 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.Common.Data.AssemblyTool;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
@@ -59,6 +63,62 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             try
             {
                 return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult);
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Assembles the detailed assessment result.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to
+        /// assemble the detailed assembly for.</param>
+        /// <param name="failureMechanism">The failure mechanism belonging to this section.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> belonging to this section.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssembly AssembleDetailedAssembly(
+            MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            MacroStabilityOutwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
+                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
+                        assessmentSection.FailureMechanismContribution.SignalingNorm,
+                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                        failureMechanism.Contribution,
+                        failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
+                            failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength));
+
+                return calculator.AssembleDetailedAssessment(
+                    failureMechanismSectionResult.DetailedAssessmentResult,
+                    failureMechanismSectionResult.AssessmentLayerTwoA,
+                    categories);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

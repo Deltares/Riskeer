@@ -159,6 +159,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentResultType>(),
                 random.NextDouble(),
                 new[]
                 {
@@ -169,7 +170,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Assert
             Assert.AreEqual(1.0, assembly.Probability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, assembly.Group);
         }
 
         [Test]
@@ -178,14 +179,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
 
             IEnumerable<FailureMechanismSectionAssemblyCategory> categoryInput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>();
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
-            calculator.AssembleDetailedAssessment(probability, categoryInput);
+            calculator.AssembleDetailedAssessment(detailedAssessmentResult, probability, categoryInput);
 
             // Assert
+            Assert.AreEqual(detailedAssessmentResult, calculator.DetailedAssessmentResultInput);
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
             Assert.AreSame(categoryInput, calculator.DetailedAssessmentCategoriesInput);
         }
@@ -202,6 +205,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentResultType>(),
                 random.NextDouble(),
                 new[]
                 {
@@ -236,7 +240,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Assert
             Assert.AreEqual(0.0, assembly.Probability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, assembly.Group);
         }
 
         [Test]

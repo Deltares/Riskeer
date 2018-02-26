@@ -47,6 +47,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         public MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
+            DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
             AssessmentLayerTwoA = double.NaN;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
@@ -55,6 +56,11 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value for the detailed assessment of safety per failure mechanism section as a probability.

@@ -53,6 +53,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public FailureMechanismSectionAssembly DetailedAssessmentAssemblyOutput { get; private set; }
 
         /// <summary>
+        /// Gets the result type of the detailed assessment calculation.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultInput { get; private set; }
+
+        /// <summary>
         /// Gets the probability input of the detailed assessment calculation.
         /// </summary>
         public double DetailedAssessmentProbabilityInput { get; private set; }
@@ -96,17 +101,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv);
         }
 
-        public FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult,
+                                                                          double probability,
+                                                                          IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
+            DetailedAssessmentResultInput = detailedAssessmentResult;
             DetailedAssessmentProbabilityInput = probability;
             DetailedAssessmentCategoriesInput = categories;
 
-            return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv);
+            return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv);
         }
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability,
@@ -122,7 +130,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             DetailedAssessmentCategoriesInput = categories;
             DetailedAssessmentNInput = n;
 
-            return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIIv);
+            return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv);
         }
     }
 }

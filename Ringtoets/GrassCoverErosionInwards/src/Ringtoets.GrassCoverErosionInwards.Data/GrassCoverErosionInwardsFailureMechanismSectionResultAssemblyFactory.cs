@@ -28,6 +28,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -113,6 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                         failureMechanism.GeneralInput.N);
 
                 return calculator.AssembleDetailedAssessment(
+                    DetailedAssessmentResultType.Probability,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                     categories);
             }
