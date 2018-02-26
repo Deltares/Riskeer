@@ -265,35 +265,38 @@ namespace Ringtoets.Common.Forms.Test.Views
             DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
         }
 
-        protected override IEnumerable<DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>> GetFormattingRules()
+        protected override IEnumerable<DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>> FormattingRules
         {
-            yield return new DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>(
-                new[]
-                {
-                    0
-                },
-                new Func<FailureMechanismSectionResultRow<FailureMechanismSectionResult>, bool>[]
-                {
-                    row =>
+            get
+            {
+                yield return new DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>(
+                    new[]
                     {
-                        Evaluated = true;
-                        return row.Name.Equals("test");
-                    }
-                },
-                (i, i1) => RulesMeetActionPerformed = true,
-                (i, i1) => RulesDoNotMeetActionPerformed = true);
+                        0
+                    },
+                    new Func<FailureMechanismSectionResultRow<FailureMechanismSectionResult>, bool>[]
+                    {
+                        row =>
+                        {
+                            Evaluated = true;
+                            return row.Name.Equals("test");
+                        }
+                    },
+                    (i, i1) => RulesMeetActionPerformed = true,
+                    (i, i1) => RulesDoNotMeetActionPerformed = true);
 
-            yield return new DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>(
-                new[]
-                {
-                    0
-                },
-                new Func<FailureMechanismSectionResultRow<FailureMechanismSectionResult>, bool>[]
-                {
-                    row => row.Name.Equals("Vak 1")
-                },
-                (i, i1) => {},
-                null);
+                yield return new DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>(
+                    new[]
+                    {
+                        0
+                    },
+                    new Func<FailureMechanismSectionResultRow<FailureMechanismSectionResult>, bool>[]
+                    {
+                        row => row.Name.Equals("Vak 1")
+                    },
+                    (i, i1) => {},
+                    null);
+            }
         }
     }
 

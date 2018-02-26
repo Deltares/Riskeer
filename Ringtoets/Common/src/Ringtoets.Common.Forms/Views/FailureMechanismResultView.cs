@@ -165,16 +165,18 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets the formatting rules.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of formatting rules.</returns>
-        protected virtual IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> GetFormattingRules()
+        protected virtual IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> FormattingRules
         {
-            yield break;
+            get
+            {
+                yield break;
+            }
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             TSectionResultRow row = GetDataAtRow(e.RowIndex);
-            IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> rules = GetFormattingRules();
+            IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> rules = FormattingRules;
 
             foreach (DataGridViewColumnFormattingRule<TSectionResultRow> formattingRule in rules.Where(r => r.ColumnIndices.Contains(e.ColumnIndex)))
             {
