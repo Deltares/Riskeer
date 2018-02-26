@@ -21,14 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
@@ -73,30 +71,21 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityOutwardsSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityOutwardsSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+            FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
 
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_DisplayName);
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
         }
 
         private IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> CreateFormattingRules()

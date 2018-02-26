@@ -108,8 +108,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentProbabilityIndex].HeaderText);
-                Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets per vak\r\nFaalkans", dataGridView.Columns[detailedAssessmentProbabilityIndex].HeaderText);
+                Assert.AreEqual("Toets op maat\r\nFaalkans", dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
