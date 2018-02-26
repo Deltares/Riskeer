@@ -73,6 +73,26 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double DetailedAssessmentNInput { get; private set; }
 
         /// <summary>
+        /// Gets the output of the tailor made assessment calculation.
+        /// </summary>
+        public FailureMechanismSectionAssembly TailorMadeAssessmentAssemblyOutput { get; private set; }
+
+        /// <summary>
+        /// Gets the result type of the tailor made assessment calculation.
+        /// </summary>
+        public TailorMadeAssessmentResultType TailorMadeAssessmentResultInput { get; private set; }
+
+        /// <summary>
+        /// Gets the probability input of the tailor made assessment calculation.
+        /// </summary>
+        public double TailorMadeAssessmentProbabilityInput { get; private set; }
+
+        /// <summary>
+        /// Gets the categories input of the tailor made assessment calculation.
+        /// </summary>
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> TailorMadeAssessmentCategoriesInput { get; private set; }
+
+        /// <summary>
         /// Sets an indicator whether an exception must be thrown when performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
@@ -131,6 +151,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             DetailedAssessmentNInput = n;
 
             return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv);
+        }
+
+        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult, double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            TailorMadeAssessmentResultInput = tailorMadeAssessmentResult;
+            TailorMadeAssessmentProbabilityInput = probability;
+            TailorMadeAssessmentCategoriesInput = categories;
+
+            return TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv);
         }
     }
 }

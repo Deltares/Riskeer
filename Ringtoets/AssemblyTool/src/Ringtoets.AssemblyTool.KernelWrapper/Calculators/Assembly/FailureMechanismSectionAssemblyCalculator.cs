@@ -142,5 +142,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
             }
         }
+
+        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult, double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -79,5 +79,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability,
                                                                    IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
                                                                    double n);
+
+        /// <summary>
+        /// Assembles the tailor made assessment based on the input parameters.
+        /// </summary>
+        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result.</param>
+        /// <param name="probability">The calculated probability.</param>
+        /// <param name="categories">The collection of categories for this failure mechanism section.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult,
+                                                                     double probability,
+                                                                     IEnumerable<FailureMechanismSectionAssemblyCategory> categories);
     }
 }
