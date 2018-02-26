@@ -68,6 +68,39 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             Assert.AreEqual("factory", exception.ParamName);
         }
 
+        #region Tailor Made Assessment
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithResult_Always_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            var categories = new[]
+            {
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
+                                                            FailureMechanismSectionAssemblyCategoryGroup.IIv)
+            };
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(random.NextEnumValue<TailorMadeAssessmentResultType>(),
+                                                                                                   probability,
+                                                                                                   categories);
+
+                // Assert
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
+                Assert.AreEqual(probability, assembly.Probability);
+            }
+        }
+
+        #endregion
+
         private static void AssertCalculatorOutput(CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> original, FailureMechanismSectionAssembly actual)
         {
             Assert.AreEqual(GetGroup(original.Result.CategoryGroup), actual.Group);

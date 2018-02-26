@@ -125,5 +125,61 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 throw new AssemblyException(e.Message, e);
             }
         }
+
+        /// <summary>
+        /// Assembles the tailor made assessment result.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to
+        /// assemble the tailor made assembly for.</param>
+        /// <param name="failureMechanism">The failure mechanism belonging to this section.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> belonging to this section.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssembly AssembleTailorMadeAssembly(
+            MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            MacroStabilityOutwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
+                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
+                        assessmentSection.FailureMechanismContribution.SignalingNorm,
+                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                        failureMechanism.Contribution,
+                        failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
+                            failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength));
+
+                return calculator.AssembleTailorMadeAssessment(
+                    failureMechanismSectionResult.TailorMadeAssessmentResult,
+                    failureMechanismSectionResult.AssessmentLayerThree,
+                    categories);
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
     }
 }

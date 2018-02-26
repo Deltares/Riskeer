@@ -46,6 +46,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentResultType.Probability, result.DetailedAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsNaN(result.AssessmentLayerTwoA);
             Assert.IsNaN(result.AssessmentLayerThree);
         }
