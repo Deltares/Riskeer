@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
             var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
             var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
@@ -158,7 +158,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                                       generalResult);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 Output = hydraulicBoundaryLocationOutput
             };
@@ -195,7 +195,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
             var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
@@ -290,7 +290,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 InputParameters =
                 {

@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call
             var properties = new DesignWaterLevelLocationsProperties(hydraulicBoundaryLocations,
-                                                                     hbl => new HydraulicBoundaryLocationCalculation());
+                                                                     hbl => new HydraulicBoundaryLocationCalculation(hbl));
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
@@ -72,19 +72,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var location = new TestHydraulicBoundaryLocation();
-            var calculation = new HydraulicBoundaryLocationCalculation
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 Output = new TestHydraulicBoundaryLocationOutput(1.5)
             };
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                location
-            };
 
             // Call
-            var properties = new DesignWaterLevelLocationsProperties(hydraulicBoundaryLocations,
-                                                                     hbl => calculation);
+            var properties = new DesignWaterLevelLocationsProperties(new ObservableList<HydraulicBoundaryLocation>
+                                                                     {
+                                                                         hydraulicBoundaryLocation
+                                                                     },
+                                                                     hbl => hydraulicBoundaryLocationCalculation);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelLocationProperties));
@@ -93,11 +92,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 ExpandableArrayConverter>(nameof(DesignWaterLevelLocationsProperties.Locations));
 
             DesignWaterLevelLocationProperties designWaterLevelLocationProperties = properties.Locations.First();
-            Assert.AreEqual(location.Name, designWaterLevelLocationProperties.Name);
-            Assert.AreEqual(location.Id, designWaterLevelLocationProperties.Id);
-            Assert.AreEqual(location.Location, designWaterLevelLocationProperties.Location);
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelLocationProperties.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelLocationProperties.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelLocationProperties.Location);
 
-            RoundedDouble designWaterLevel = calculation.Output.Result;
+            RoundedDouble designWaterLevel = hydraulicBoundaryLocationCalculation.Output.Result;
             Assert.AreEqual(designWaterLevel, designWaterLevelLocationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
         }
 
@@ -106,7 +105,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Call
             var properties = new DesignWaterLevelLocationsProperties(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                     hbl => new HydraulicBoundaryLocationCalculation());
+                                                                     hbl => new HydraulicBoundaryLocationCalculation(hbl));
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
