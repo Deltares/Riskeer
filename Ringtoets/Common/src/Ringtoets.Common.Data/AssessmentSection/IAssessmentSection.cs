@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Contribution;
@@ -74,6 +75,46 @@ namespace Ringtoets.Common.Data.AssessmentSection
         BackgroundData BackgroundData { get; }
 
         /// <summary>
+        /// Gets the design water level calculations corresponding to the first norm category boundary.
+        /// </summary>
+        IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations1 { get; }
+
+        /// <summary>
+        /// Gets the design water level calculations corresponding to the second norm category boundary.
+        /// </summary>
+        IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations2 { get; }
+
+        /// <summary>
+        /// Gets the design water level calculations corresponding to the third norm category boundary.
+        /// </summary>
+        IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations3 { get; }
+
+        /// <summary>
+        /// Gets the design water level calculations corresponding to the fourth norm category boundary.
+        /// </summary>
+        IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations4 { get; }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the first norm category boundary.
+        /// </summary>
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations1 { get; }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the second norm category boundary.
+        /// </summary>
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations2 { get; }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the third norm category boundary.
+        /// </summary>
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations3 { get; }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the fourth norm category boundary.
+        /// </summary>
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations4 { get; }
+
+        /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.
         /// </summary>
         IEnumerable<IFailureMechanism> GetFailureMechanisms();
@@ -84,5 +125,17 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// </summary>
         /// <param name="newComposition">The new composition description.</param>
         void ChangeComposition(AssessmentSectionComposition newComposition);
+
+        /// <summary>
+        /// Adds hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to add calculations for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation);
+
+        /// <summary>
+        /// Clears all currently added hydraulic boundary location calculations.
+        /// </summary>
+        void ClearHydraulicBoundaryLocationCalculations();
     }
 }
