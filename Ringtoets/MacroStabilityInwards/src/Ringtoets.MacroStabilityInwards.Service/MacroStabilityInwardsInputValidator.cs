@@ -147,7 +147,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 bool isNear = soilProfile2D.Layers.Any(l => IsPointNearSoilSegments(
                                                            surfaceLinePoint,
-                                                           Math2D.ConvertLinePointsToLineSegments(l.OuterRing.Points)));
+                                                           Math2D.ConvertLinePointsToClosingLineSegments(l.OuterRing.Points)));
                 if (!isNear)
                 {
                     return false;

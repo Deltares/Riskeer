@@ -92,6 +92,33 @@ namespace Core.Common.Base.Geometry
         }
 
         /// <summary>
+        /// Creates an enumerator that converts a sequence of line points to a sequence of line segments 
+        /// and adds a segment between the last and the first point of the sequence.
+        /// </summary>
+        /// <param name="linePoints">The line points.</param>
+        /// <returns>A sequence of N elements, where N is the number of elements in <paramref name="linePoints"/>,
+        /// or 0 if <paramref name="linePoints"/> has one or no elements.</returns>
+        public static IEnumerable<Segment2D> ConvertLinePointsToClosingLineSegments(IEnumerable<Point2D> linePoints)
+        {
+            if (linePoints.Count() < 2)
+            {
+                yield break;
+            }
+
+            Point2D endPoint = linePoints.Last();
+            foreach (Point2D linePoint in linePoints)
+            {
+                Point2D startPoint = endPoint;
+                endPoint = linePoint;
+
+                if (startPoint != null)
+                {
+                    yield return new Segment2D(startPoint, endPoint);
+                }
+            }
+        }
+
+        /// <summary>
         /// Determines the intersection point of a line which passes through the <paramref name="line1Point1"/> and 
         /// the <paramref name="line1Point2"/>; and a line which passes through the <paramref name="line2Point1"/>
         /// and the <paramref name="line2Point2"/>.
