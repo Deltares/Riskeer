@@ -58,6 +58,14 @@ namespace Ringtoets.Common.Data.TestUtil
         public FailureMechanismContribution FailureMechanismContribution { get; }
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
         public BackgroundData BackgroundData { get; set; }
+        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations1 { get; }
+        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations2 { get; }
+        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations3 { get; }
+        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations4 { get; }
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations1 { get; }
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations2 { get; }
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations3 { get; }
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations4 { get; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
@@ -67,6 +75,16 @@ namespace Ringtoets.Common.Data.TestUtil
         public void ChangeComposition(AssessmentSectionComposition newComposition)
         {
             throw new NotImplementedException("Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.");
+        }
+
+        public void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ClearHydraulicBoundaryLocationCalculations()
+        {
+            throw new NotImplementedException();
         }
     }
 }

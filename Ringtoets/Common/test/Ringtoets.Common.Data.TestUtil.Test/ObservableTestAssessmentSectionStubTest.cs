@@ -70,6 +70,15 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             FailureMechanismContributionItem failureMechanismContributionItem = contributionItems[0];
             Assert.AreEqual(0, failureMechanismContributionItem.Contribution);
             Assert.IsInstanceOf<OtherFailureMechanism>(failureMechanismContributionItem.FailureMechanism);
+
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations1);
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations2);
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations3);
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations4);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations1);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations2);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations3);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations4);
         }
 
         [Test]
@@ -93,6 +102,36 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Call
             TestDelegate call = () => assessmentSection.ChangeComposition(AssessmentSectionComposition.Dike);
+
+            // Assert
+            string message = Assert.Throws<NotImplementedException>(call).Message;
+            const string expectedMessage = "Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void AddHydraulicBoundaryLocationCalculations_Call_ThrowsNotImplementedException()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            // Call
+            TestDelegate call = () => assessmentSection.AddHydraulicBoundaryLocationCalculations(new TestHydraulicBoundaryLocation());
+
+            // Assert
+            string message = Assert.Throws<NotImplementedException>(call).Message;
+            const string expectedMessage = "Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculations_Call_ThrowsNotImplementedException()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            // Call
+            TestDelegate call = () => assessmentSection.ClearHydraulicBoundaryLocationCalculations();
 
             // Assert
             string message = Assert.Throws<NotImplementedException>(call).Message;
