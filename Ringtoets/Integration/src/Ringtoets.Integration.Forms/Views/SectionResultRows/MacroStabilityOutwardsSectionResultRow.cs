@@ -21,9 +21,12 @@
 
 using System;
 using System.ComponentModel;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRows
@@ -122,6 +125,19 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the simple assembly category group.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup
+        {
+            get
+            {
+                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
         }
     }
