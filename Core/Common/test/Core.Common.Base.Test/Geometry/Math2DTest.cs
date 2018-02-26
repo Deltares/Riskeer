@@ -203,6 +203,46 @@ namespace Core.Common.Base.Test.Geometry
         [Test]
         [TestCase(0)]
         [TestCase(1)]
+        public void ConvertLinePointsToClosingLineSegments_TooFewPoints_ReturnEmpty(int pointCount)
+        {
+            // Setup
+            IEnumerable<Point2D> linePoints = Enumerable.Repeat(new Point2D(0, 0), pointCount);
+
+            // Call
+            IEnumerable<Segment2D> segments = Math2D.ConvertLinePointsToClosingLineSegments(linePoints);
+
+            // Assert
+            CollectionAssert.IsEmpty(segments);
+        }
+
+        [Test]
+        public void ConvertLinePointsToClosingLineSegments_TwoPoints_ReturnsExpectedSegments()
+        {
+            // Setup
+            var linePoints = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            };
+
+            // Call
+            Segment2D[] segments = Math2D.ConvertLinePointsToClosingLineSegments(linePoints).ToArray();
+
+            // Assert
+            Assert.AreEqual(2, segments.Length);
+
+            Segment2D firstSegment = segments[0];
+            Assert.AreEqual(linePoints[1], firstSegment.FirstPoint);
+            Assert.AreEqual(linePoints[0], firstSegment.SecondPoint);
+
+            Segment2D secondSegment = segments[1];
+            Assert.AreEqual(linePoints[0], secondSegment.FirstPoint);
+            Assert.AreEqual(linePoints[1], secondSegment.SecondPoint);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
         public void SplitLineAtLengths_TooFewPoints_ThrowArgumentException(int pointCount)
         {
             // Setup
