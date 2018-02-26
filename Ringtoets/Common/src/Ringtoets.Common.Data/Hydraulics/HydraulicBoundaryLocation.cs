@@ -49,14 +49,15 @@ namespace Ringtoets.Common.Data.Hydraulics
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
 
-            DesignWaterLevelCalculation1 = new HydraulicBoundaryLocationCalculation();
-            DesignWaterLevelCalculation2 = new HydraulicBoundaryLocationCalculation();
-            DesignWaterLevelCalculation3 = new HydraulicBoundaryLocationCalculation();
-            DesignWaterLevelCalculation4 = new HydraulicBoundaryLocationCalculation();
-            WaveHeightCalculation1 = new HydraulicBoundaryLocationCalculation();
-            WaveHeightCalculation2 = new HydraulicBoundaryLocationCalculation();
-            WaveHeightCalculation3 = new HydraulicBoundaryLocationCalculation();
-            WaveHeightCalculation4 = new HydraulicBoundaryLocationCalculation();
+            DesignWaterLevelCalculation1 = new HydraulicBoundaryLocationCalculation(this);
+            DesignWaterLevelCalculation2 = new HydraulicBoundaryLocationCalculation(this);
+            DesignWaterLevelCalculation3 = new HydraulicBoundaryLocationCalculation(this);
+            DesignWaterLevelCalculation4 = new HydraulicBoundaryLocationCalculation(this);
+
+            WaveHeightCalculation1 = new HydraulicBoundaryLocationCalculation(this);
+            WaveHeightCalculation2 = new HydraulicBoundaryLocationCalculation(this);
+            WaveHeightCalculation3 = new HydraulicBoundaryLocationCalculation(this);
+            WaveHeightCalculation4 = new HydraulicBoundaryLocationCalculation(this);
         }
 
         /// <summary>
