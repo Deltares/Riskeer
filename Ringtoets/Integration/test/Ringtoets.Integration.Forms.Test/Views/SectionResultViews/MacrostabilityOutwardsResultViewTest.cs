@@ -218,5 +218,40 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 mocks.VerifyAll();
             }
         }
+
+        [Test]
+        [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
+        [TestCase(DetailedAssessmentResultType.Probability, true)]
+        public void FailureMechanismResultView_DetailedAssessmentResultSet_CellsDisabledEnabled(DetailedAssessmentResultType detailedAssessmentResult,
+                                                                                                bool cellEnabled)
+        {
+            // Setup
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                DetailedAssessmentResult = detailedAssessmentResult
+            };
+            var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
+            {
+                result
+            };
+
+            // Call
+            using (var form = new Form())
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism()))
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
+
+                // Assert
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    detailedAssessmentProbabilityIndex,
+                }, cellEnabled);
+            }
+        }
     }
 }

@@ -112,7 +112,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                         tailorMadeAssessmentResultIndex,
                         tailorMadeAssessmentProbabilityIndex
                     },
-                    row => FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(row.SimpleAssessmentResult))
+                    row => FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(row.SimpleAssessmentResult)),
+                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
+                    new[]
+                    {
+                        detailedAssessmentProbabilityIndex
+                    },
+                    row => row.DetailedAssessmentResult != DetailedAssessmentResultType.Probability)
             };
         }
     }
