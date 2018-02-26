@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
@@ -29,10 +31,23 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculation"/>.
         /// </summary>
-        public HydraulicBoundaryLocationCalculation()
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryLocationCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
+            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
             InputParameters = new HydraulicBoundaryLocationCalculationInput();
         }
+
+        /// <summary>
+        /// Gets the hydraulic boundary location the calculation belongs to.
+        /// </summary>
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
 
         /// <summary>
         /// Gets the input of the hydraulic boundary location calculation.
@@ -45,7 +60,7 @@ namespace Ringtoets.Common.Data.Hydraulics
         public HydraulicBoundaryLocationOutput Output { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether or not this calculation item contains calculation output.
+        /// Gets a value indicating whether this calculation item has output.
         /// </summary>
         public bool HasOutput
         {
