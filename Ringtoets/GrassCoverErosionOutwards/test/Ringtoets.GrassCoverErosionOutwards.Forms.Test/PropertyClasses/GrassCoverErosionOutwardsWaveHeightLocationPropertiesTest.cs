@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                                       generalResult);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 Output = hydraulicBoundaryLocationOutput
             };
@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
@@ -287,7 +287,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 InputParameters =
                 {
