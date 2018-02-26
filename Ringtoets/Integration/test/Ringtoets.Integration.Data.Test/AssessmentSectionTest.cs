@@ -462,6 +462,20 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
+        public void AddHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            // Call
+            TestDelegate test = () => assessmentSection.AddHydraulicBoundaryLocationCalculations(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
+        }
+
+        [Test]
         public void AddHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocation_AddsExpectedCalculations()
         {
             // Setup

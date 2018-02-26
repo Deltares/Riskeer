@@ -333,8 +333,14 @@ namespace Ringtoets.Integration.Data
         /// Adds hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to add calculations for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
         public void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
             designWaterLevelLocationCalculations1.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             designWaterLevelLocationCalculations2.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             designWaterLevelLocationCalculations3.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
