@@ -190,7 +190,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                SimpleAssessmentResult = simpleAssessmentResult
+                SimpleAssessmentResult = simpleAssessmentResult,
+                TailorMadeAssessmentResult = TailorMadeAssessmentResultType.Probability
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
             {
@@ -222,8 +223,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         [Test]
         [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
         [TestCase(DetailedAssessmentResultType.Probability, true)]
-        public void FailureMechanismResultView_DetailedAssessmentResultSet_CellsDisabledEnabled(DetailedAssessmentResultType detailedAssessmentResult,
-                                                                                                bool cellEnabled)
+        public void FailureMechanismResultView_DetailedAssessmentResultSet_CellDisabledEnabled(
+            DetailedAssessmentResultType detailedAssessmentResult,
+            bool cellEnabled)
         {
             // Setup
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
@@ -249,7 +251,46 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 // Assert
                 DataGridViewTestHelper.AssertCellsState(cells, new[]
                 {
-                    detailedAssessmentProbabilityIndex,
+                    detailedAssessmentProbabilityIndex
+                }, cellEnabled);
+            }
+        }
+
+        [Test]
+        [TestCase(TailorMadeAssessmentResultType.NotAssessed, false)]
+        [TestCase(TailorMadeAssessmentResultType.Insufficient, false)]
+        [TestCase(TailorMadeAssessmentResultType.None, false)]
+        [TestCase(TailorMadeAssessmentResultType.Sufficient, false)]
+        [TestCase(TailorMadeAssessmentResultType.Probability, true)]
+        public void FailureMechanismResultView_TailorMadeAssessmentResultSet_CellDisabledEnabled(
+            TailorMadeAssessmentResultType tailorMadeAssessmentResult,
+            bool cellEnabled)
+        {
+            // Setup
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult
+            };
+            var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
+            {
+                result
+            };
+
+            // Call
+            using (var form = new Form())
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism()))
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
+
+                // Assert
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    tailorMadeAssessmentProbabilityIndex
                 }, cellEnabled);
             }
         }

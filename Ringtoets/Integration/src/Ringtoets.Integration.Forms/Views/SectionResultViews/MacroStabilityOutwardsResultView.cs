@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -100,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
         }
 
-        private IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> CreateFormattingRules()
+        private static IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> CreateFormattingRules()
         {
             return new[]
             {
@@ -118,7 +117,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                     {
                         detailedAssessmentProbabilityIndex
                     },
-                    row => row.DetailedAssessmentResult != DetailedAssessmentResultType.Probability)
+                    row => row.DetailedAssessmentResult != DetailedAssessmentResultType.Probability),
+                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
+                    new[]
+                    {
+                        tailorMadeAssessmentProbabilityIndex
+                    },
+                    row => row.TailorMadeAssessmentResult != TailorMadeAssessmentResultType.Probability)
             };
         }
     }
