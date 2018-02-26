@@ -96,9 +96,10 @@ namespace Ringtoets.Common.Forms.Views
         {
             base.OnLoad(e);
             AddDataGridColumns();
+            BindEvents();
 
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-        }        
+            UpdateDataGridViewDataSource();
+        }
 
         /// <summary>
         /// Creates a display object for <paramref name="sectionResult"/> which is added to the
@@ -153,6 +154,18 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected abstract void AddDataGridColumns();
 
+        /// <summary>
+        /// Binds the events to the data grid view.
+        /// </summary>
+        protected virtual void BindEvents()
+        {
+            DataGridViewControl.CellFormatting += OnCellFormatting;
+        }
+
+        /// <summary>
+        /// Gets the formatting rules.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{T}"/> of formatting rules.</returns>
         protected virtual IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> GetFormattingRules()
         {
             yield break;

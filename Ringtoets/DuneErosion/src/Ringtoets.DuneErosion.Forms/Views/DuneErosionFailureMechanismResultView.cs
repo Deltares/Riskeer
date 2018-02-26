@@ -46,11 +46,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         public DuneErosionFailureMechanismResultView(
             IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults,
             DuneErosionFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override DuneErosionSectionResultRow CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
         {
@@ -99,6 +95,13 @@ namespace Ringtoets.DuneErosion.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(DuneErosionSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

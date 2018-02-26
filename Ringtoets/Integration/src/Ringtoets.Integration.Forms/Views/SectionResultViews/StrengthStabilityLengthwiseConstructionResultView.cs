@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionResultView : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
-           StrengthStabilityLengthwiseConstructionSectionResultRow, StrengthStabilityLengthwiseConstructionFailureMechanism>
+        StrengthStabilityLengthwiseConstructionSectionResultRow, StrengthStabilityLengthwiseConstructionFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>
@@ -47,11 +47,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public StrengthStabilityLengthwiseConstructionResultView(
             IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults,
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override StrengthStabilityLengthwiseConstructionSectionResultRow CreateFailureMechanismSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
         {
@@ -88,6 +84,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

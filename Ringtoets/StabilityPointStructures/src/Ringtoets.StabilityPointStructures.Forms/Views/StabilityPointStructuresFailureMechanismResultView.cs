@@ -65,8 +65,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             }
 
             this.assessmentSection = assessmentSection;
-            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -88,8 +86,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             calculationInputObserver.Observable = observableGroup;
             calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
-
-            UpdateDataGridViewDataSource();
         }
 
         protected override StabilityPointStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
@@ -137,6 +133,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

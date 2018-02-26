@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Precondition
                 Assert.IsFalse(invalidated);
-                
+
                 // When
                 sectionResult.NotifyObservers();
 
@@ -166,16 +166,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
 
+            // When
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                //Precondition
-                Assert.IsFalse(view.Evaluated);
-                
-                // When
-                dataGridView.Refresh();
-
                 // Then
                 Assert.IsTrue(view.Evaluated);
             }
@@ -190,17 +183,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
 
+            // When
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                //Precondition
-                Assert.IsFalse(view.RulesMeetActionPerformed);
-                Assert.IsFalse(view.RulesDoNotMeetActionPerformed);
-
-                // When
-                dataGridView.Refresh();
-
                 // Then
                 Assert.IsTrue(view.RulesMeetActionPerformed);
                 Assert.IsFalse(view.RulesDoNotMeetActionPerformed);
@@ -216,17 +201,9 @@ namespace Ringtoets.Common.Forms.Test.Views
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult("Other name")
             };
 
+            // When
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                //Precondition
-                Assert.IsFalse(view.RulesMeetActionPerformed);
-                Assert.IsFalse(view.RulesDoNotMeetActionPerformed);
-
-                // When
-                dataGridView.Refresh();
-
                 // Then
                 Assert.IsFalse(view.RulesMeetActionPerformed);
                 Assert.IsTrue(view.RulesDoNotMeetActionPerformed);
@@ -270,10 +247,13 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>
     {
         public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
+
+        public bool Evaluated { get; private set; }
+
+        public bool RulesMeetActionPerformed { get; private set; }
+
+        public bool RulesDoNotMeetActionPerformed { get; private set; }
 
         protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
@@ -288,7 +268,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         protected override IEnumerable<DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>> GetFormattingRules()
         {
             yield return new DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>(
-                new [] { 0 },
+                new[]
+                {
+                    0
+                },
                 new Func<FailureMechanismSectionResultRow<FailureMechanismSectionResult>, bool>[]
                 {
                     row =>
@@ -297,11 +280,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                         return row.Name.Equals("test");
                     }
                 },
-                (i, i1) => RulesMeetActionPerformed = true, 
+                (i, i1) => RulesMeetActionPerformed = true,
                 (i, i1) => RulesDoNotMeetActionPerformed = true);
 
             yield return new DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>(
-                new [] { 0 },
+                new[]
+                {
+                    0
+                },
                 new Func<FailureMechanismSectionResultRow<FailureMechanismSectionResult>, bool>[]
                 {
                     row => row.Name.Equals("Vak 1")
@@ -309,12 +295,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 (i, i1) => {},
                 null);
         }
-
-        public bool Evaluated { get; private set; }
-
-        public bool RulesMeetActionPerformed { get; private set; }
-
-        public bool RulesDoNotMeetActionPerformed { get; private set; }
     }
 
     public class TestRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>

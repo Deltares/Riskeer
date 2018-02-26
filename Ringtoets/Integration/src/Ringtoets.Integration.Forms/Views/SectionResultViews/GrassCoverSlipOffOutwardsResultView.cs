@@ -48,11 +48,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public GrassCoverSlipOffOutwardsResultView(
             IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override GrassCoverSlipOffOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult)
         {
@@ -101,6 +97,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverSlipOffOutwardsSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

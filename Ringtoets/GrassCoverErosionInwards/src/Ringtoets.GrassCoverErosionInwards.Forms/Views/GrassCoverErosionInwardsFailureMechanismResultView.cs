@@ -62,10 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            this.assessmentSection = assessmentSection;
-
-            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
+            this.assessmentSection = assessmentSection;            
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -86,8 +83,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationInputObserver.Observable = observableGroup;
             calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
-
-            UpdateDataGridViewDataSource();
         }
 
         protected override void Dispose(bool disposing)
@@ -136,6 +131,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

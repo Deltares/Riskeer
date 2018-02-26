@@ -45,11 +45,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// </summary>
         public StabilityStoneCoverResultView(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults,
                                              StabilityStoneCoverFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override StabilityStoneCoverSectionResultRow CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
         {
@@ -98,6 +94,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

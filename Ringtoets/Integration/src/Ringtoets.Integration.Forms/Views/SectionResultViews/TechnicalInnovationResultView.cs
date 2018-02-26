@@ -46,11 +46,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public TechnicalInnovationResultView(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults,
                                              TechnicalInnovationFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override TechnicalInnovationSectionResultRow CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult)
         {
@@ -87,6 +83,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 nameof(TechnicalInnovationSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

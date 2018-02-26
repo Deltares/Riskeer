@@ -47,11 +47,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public MicrostabilityResultView(IObservableEnumerable<MicrostabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                         MicrostabilityFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override MicrostabilitySectionResultRow CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult)
         {
@@ -100,6 +96,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MicrostabilitySectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

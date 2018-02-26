@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// The view for a collection of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult,
-            GrassCoverErosionOutwardsFailureMechanismSectionResultRow, GrassCoverErosionOutwardsFailureMechanism>
+        GrassCoverErosionOutwardsFailureMechanismSectionResultRow, GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>
@@ -46,11 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         public GrassCoverErosionOutwardsFailureMechanismResultView(
             IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override GrassCoverErosionOutwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
         {
@@ -99,6 +95,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

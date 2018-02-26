@@ -46,11 +46,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         public WaveImpactAsphaltCoverFailureMechanismResultView(
             IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
             WaveImpactAsphaltCoverFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
@@ -99,6 +95,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

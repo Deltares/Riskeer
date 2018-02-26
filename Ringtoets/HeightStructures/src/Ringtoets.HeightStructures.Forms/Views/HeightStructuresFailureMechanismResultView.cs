@@ -65,9 +65,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
-            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateDataGridViewDataSource,
@@ -88,8 +85,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
             calculationInputObserver.Observable = observableGroup;
             calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
-
-            UpdateDataGridViewDataSource();
         }
 
         protected override void Dispose(bool disposing)
@@ -138,6 +133,14 @@ namespace Ringtoets.HeightStructures.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

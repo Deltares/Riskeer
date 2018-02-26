@@ -46,11 +46,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public MacroStabilityOutwardsResultView(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
                                                 MacroStabilityOutwardsFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
         {
@@ -90,6 +86,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityOutwardsSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

@@ -64,8 +64,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             }
 
             this.assessmentSection = assessmentSection;
-            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting += OnCellFormatting;
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -86,8 +84,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             calculationInputObserver.Observable = observableGroup;
             calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
-
-            UpdateDataGridViewDataSource();
         }
 
         protected override ClosingStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
@@ -133,6 +129,14 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

@@ -47,11 +47,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public WaterPressureAsphaltCoverResultView(
             IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
             WaterPressureAsphaltCoverFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override WaterPressureAsphaltCoverSectionResultRow CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
@@ -88,6 +84,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 nameof(WaterPressureAsphaltCoverSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

@@ -38,8 +38,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResult"/>.
     /// </summary>
-    public class PipingStructureResultView : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult, 
-            PipingStructureSectionResultRow, PipingStructureFailureMechanism>
+    public class PipingStructureResultView : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult,
+        PipingStructureSectionResultRow, PipingStructureFailureMechanism>
     {
         /// <inheritdoc />
         /// <summary>
@@ -47,11 +47,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public PipingStructureResultView(IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults,
                                          PipingStructureFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-            UpdateDataGridViewDataSource();
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override PipingStructureSectionResultRow CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResult sectionResult)
         {
@@ -100,6 +96,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingStructureSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += OnCellFormatting;
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

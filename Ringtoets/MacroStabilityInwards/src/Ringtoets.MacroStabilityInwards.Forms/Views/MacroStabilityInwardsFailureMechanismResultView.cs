@@ -71,9 +71,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
-            DataGridViewControl.CellFormatting += ShowDetailedAssessmentErrors;
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateDataGridViewDataSource,
@@ -94,8 +91,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationInputObserver.Observable = observableGroup;
             calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
-
-            UpdateDataGridViewDataSource();
         }
 
         protected override void Dispose(bool disposing)
@@ -146,6 +141,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += ShowDetailedAssessmentErrors;
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         #region Event handling

@@ -68,10 +68,7 @@ namespace Ringtoets.Piping.Forms.Views
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
             {
                 Observable = failureMechanism
-            };
-
-            DataGridViewControl.CellFormatting += ShowDetailedAssessmentErrors;
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
+            };            
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -92,8 +89,6 @@ namespace Ringtoets.Piping.Forms.Views
             calculationInputObserver.Observable = observableGroup;
             calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
-
-            UpdateDataGridViewDataSource();
         }
 
         protected override void Dispose(bool disposing)
@@ -142,6 +137,14 @@ namespace Ringtoets.Piping.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+        }
+
+        protected override void BindEvents()
+        {
+            base.BindEvents();
+
+            DataGridViewControl.CellFormatting += ShowDetailedAssessmentErrors;
+            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
         }
 
         #region Event handling
