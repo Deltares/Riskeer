@@ -58,6 +58,22 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
+        /// Gets or sets the value representing the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResult;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResult = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the detailed assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 

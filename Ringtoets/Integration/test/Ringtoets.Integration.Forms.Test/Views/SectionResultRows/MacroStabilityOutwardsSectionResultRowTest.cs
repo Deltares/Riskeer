@@ -50,6 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
+            Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
             Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
             Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
 
@@ -84,6 +85,32 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DetailedAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new MacroStabilityOutwardsSectionResultRow(result);
+
+            // Call
+            row.DetailedAssessmentResult = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.DetailedAssessmentResult);
             mocks.VerifyAll();
         }
 
