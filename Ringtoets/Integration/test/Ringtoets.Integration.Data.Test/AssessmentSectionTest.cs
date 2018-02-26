@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Integration.Data.Test
 {
@@ -44,7 +45,7 @@ namespace Ringtoets.Integration.Data.Test
         public void Constructor_ExpectedValues(AssessmentSectionComposition composition, int sum)
         {
             // Call
-            var section = new AssessmentSection(composition);
+            var assessmentSection = new AssessmentSection(composition);
 
             const string pipingName = "Dijken en dammen - Piping";
             const string grassErosionInsideName = "Dijken en dammen - Grasbekleding erosie kruin en binnentalud";
@@ -105,62 +106,71 @@ namespace Ringtoets.Integration.Data.Test
             };
 
             // Assert
-            Assert.IsInstanceOf<Observable>(section);
-            Assert.IsInstanceOf<IAssessmentSection>(section);
+            Assert.IsInstanceOf<Observable>(assessmentSection);
+            Assert.IsInstanceOf<IAssessmentSection>(assessmentSection);
 
-            Assert.AreEqual("Traject", section.Name);
-            Assert.IsNull(section.Comments.Body);
-            Assert.IsNull(section.ReferenceLine);
-            Assert.AreEqual(composition, section.Composition);
-            Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
+            Assert.AreEqual("Traject", assessmentSection.Name);
+            Assert.IsNull(assessmentSection.Comments.Body);
+            Assert.IsNull(assessmentSection.ReferenceLine);
+            Assert.AreEqual(composition, assessmentSection.Composition);
+            Assert.IsInstanceOf<FailureMechanismContribution>(assessmentSection.FailureMechanismContribution);
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             Assert.IsNotNull(hydraulicBoundaryDatabase);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
             Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
 
-            CollectionAssert.IsEmpty(section.Piping.StochasticSoilModels);
-            CollectionAssert.IsEmpty(section.Piping.SurfaceLines);
+            CollectionAssert.IsEmpty(assessmentSection.Piping.StochasticSoilModels);
+            CollectionAssert.IsEmpty(assessmentSection.Piping.SurfaceLines);
 
-            Assert.NotNull(section.Piping);
-            Assert.NotNull(section.GrassCoverErosionInwards);
-            Assert.NotNull(section.MacroStabilityInwards);
-            Assert.NotNull(section.MacroStabilityOutwards);
-            Assert.NotNull(section.Microstability);
-            Assert.NotNull(section.StabilityStoneCover);
-            Assert.NotNull(section.WaveImpactAsphaltCover);
-            Assert.NotNull(section.WaterPressureAsphaltCover);
-            Assert.NotNull(section.GrassCoverErosionOutwards);
-            Assert.NotNull(section.GrassCoverSlipOffOutwards);
-            Assert.NotNull(section.GrassCoverSlipOffInwards);
-            Assert.NotNull(section.HeightStructures);
-            Assert.NotNull(section.ClosingStructures);
-            Assert.NotNull(section.PipingStructure);
-            Assert.NotNull(section.StabilityPointStructures);
-            Assert.NotNull(section.StrengthStabilityLengthwiseConstruction);
-            Assert.NotNull(section.DuneErosion);
-            Assert.NotNull(section.TechnicalInnovation);
+            Assert.NotNull(assessmentSection.Piping);
+            Assert.NotNull(assessmentSection.GrassCoverErosionInwards);
+            Assert.NotNull(assessmentSection.MacroStabilityInwards);
+            Assert.NotNull(assessmentSection.MacroStabilityOutwards);
+            Assert.NotNull(assessmentSection.Microstability);
+            Assert.NotNull(assessmentSection.StabilityStoneCover);
+            Assert.NotNull(assessmentSection.WaveImpactAsphaltCover);
+            Assert.NotNull(assessmentSection.WaterPressureAsphaltCover);
+            Assert.NotNull(assessmentSection.GrassCoverErosionOutwards);
+            Assert.NotNull(assessmentSection.GrassCoverSlipOffOutwards);
+            Assert.NotNull(assessmentSection.GrassCoverSlipOffInwards);
+            Assert.NotNull(assessmentSection.HeightStructures);
+            Assert.NotNull(assessmentSection.ClosingStructures);
+            Assert.NotNull(assessmentSection.PipingStructure);
+            Assert.NotNull(assessmentSection.StabilityPointStructures);
+            Assert.NotNull(assessmentSection.StrengthStabilityLengthwiseConstruction);
+            Assert.NotNull(assessmentSection.DuneErosion);
+            Assert.NotNull(assessmentSection.TechnicalInnovation);
 
-            AssertExpectedContributions(composition, section);
+            AssertExpectedContributions(composition, assessmentSection);
 
-            Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
-            Assert.AreEqual(codes, section.FailureMechanismContribution.Distribution.Select(d => d.AssessmentCode));
-            Assert.AreEqual(Enumerable.Repeat(1.0 / 30000.0, 12), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
+            Assert.AreEqual(names, assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
+            Assert.AreEqual(codes, assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.AssessmentCode));
+            Assert.AreEqual(Enumerable.Repeat(1.0 / 30000.0, 12), assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
-            Assert.AreEqual(double.NaN, section.Piping.PipingProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, section.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, section.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
-            Assert.AreEqual(double.NaN, section.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.Piping.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityInwards.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.MacroStabilityOutwards.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
 
-            Assert.AreEqual(sum, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
+            Assert.AreEqual(sum, assessmentSection.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
 
-            Assert.IsTrue(section.BackgroundData.IsVisible);
-            Assert.AreEqual(0.0, section.BackgroundData.Transparency.Value);
-            Assert.AreEqual("Bing Maps - Satelliet", section.BackgroundData.Name);
-            var configuration = (WellKnownBackgroundDataConfiguration) section.BackgroundData.Configuration;
+            Assert.IsTrue(assessmentSection.BackgroundData.IsVisible);
+            Assert.AreEqual(0.0, assessmentSection.BackgroundData.Transparency.Value);
+            Assert.AreEqual("Bing Maps - Satelliet", assessmentSection.BackgroundData.Name);
+            var configuration = (WellKnownBackgroundDataConfiguration) assessmentSection.BackgroundData.Configuration;
             Assert.AreEqual(RingtoetsWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
+
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations1);
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations2);
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations3);
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations4);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations1);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations2);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations3);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations4);
         }
 
         [Test]
@@ -248,28 +258,28 @@ namespace Ringtoets.Integration.Data.Test
         public void Name_SetingNewValue_GetNewValue()
         {
             // Setup
-            var section = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             const string newValue = "new value";
 
             // Call
-            section.Name = newValue;
+            assessmentSection.Name = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, section.Name);
+            Assert.AreEqual(newValue, assessmentSection.Name);
         }
 
         [Test]
         public void Comments_SettingNewValue_GetNewValue()
         {
             // Setup
-            var section = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             const string newValue = "new comment value";
 
             // Call
-            section.Comments.Body = newValue;
+            assessmentSection.Comments.Body = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, section.Comments.Body);
+            Assert.AreEqual(newValue, assessmentSection.Comments.Body);
         }
 
         [Test]
@@ -335,6 +345,7 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual(norm, contribution[i].Norm);
                 Assert.AreEqual(100.0 / (norm * contribution[i].Contribution), contribution[i].ProbabilitySpace);
             }
+
             FailureMechanismContributionItem otherContributionItem = contribution[11];
             Assert.AreEqual("Overig", otherContributionItem.Assessment);
             double expectedOtherContribution = composition == AssessmentSectionComposition.DikeAndDune ? 20.0 : 30.0;
@@ -450,7 +461,47 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(double.NaN, assessmentSection.WaveImpactAsphaltCover.GeneralWaveImpactAsphaltCoverInput.SectionLength);
         }
 
-        private IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
+        [Test]
+        public void AddHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocation_AddsExpectedCalculations()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            // Call
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocation);
+
+            // Assert
+            AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 1);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations1.ElementAt(0), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations2.ElementAt(0), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations3.ElementAt(0), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations4.ElementAt(0), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations1.ElementAt(0), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations2.ElementAt(0), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations3.ElementAt(0), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations4.ElementAt(0), hydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculations_Always_ClearsAllHydraulicBoundaryLocationCalculations()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new TestHydraulicBoundaryLocation());
+
+            // Precondition
+            AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 1);
+
+            // Call
+            assessmentSection.ClearHydraulicBoundaryLocationCalculations();
+
+            // Assert
+            AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 0);
+        }
+
+        private static IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
         {
             return new IFailureMechanism[]
             {
@@ -468,7 +519,7 @@ namespace Ringtoets.Integration.Data.Test
             };
         }
 
-        private void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
+        private static void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
         {
             double[] contributions = GetContributionsArray(composition);
 
@@ -547,6 +598,7 @@ namespace Ringtoets.Integration.Data.Test
                     Assert.Fail("{0} does not have expectancy implemented!", composition);
                     break;
             }
+
             return contributions;
         }
 
@@ -614,6 +666,26 @@ namespace Ringtoets.Integration.Data.Test
                 .SetName($"{name} maximum boundary");
             yield return new TestCaseData(0.000001 - 1e-6)
                 .SetName($"{name} minimum boundary");
+        }
+
+        private static void AssertNumberOfHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection, int expectedNumberOfCalculations)
+        {
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.DesignWaterLevelLocationCalculations1.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.DesignWaterLevelLocationCalculations2.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.DesignWaterLevelLocationCalculations3.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.DesignWaterLevelLocationCalculations4.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations1.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations2.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations3.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations4.Count());
+        }
+
+        private static void AssertDefaultHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                                              HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            Assert.AreSame(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
+            Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
         }
     }
 }
