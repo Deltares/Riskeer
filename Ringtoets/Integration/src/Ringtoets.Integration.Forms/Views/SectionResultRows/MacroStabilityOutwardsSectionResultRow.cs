@@ -92,6 +92,22 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
+        /// Gets or sets the value representing the tailor made assessment result.
+        /// </summary>
+        public TailorMadeAssessmentResultType TailorMadeAssessmentResult
+        {
+            get
+            {
+                return SectionResult.TailorMadeAssessmentResult;
+            }
+            set
+            {
+                SectionResult.TailorMadeAssessmentResult = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the tailor made assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 

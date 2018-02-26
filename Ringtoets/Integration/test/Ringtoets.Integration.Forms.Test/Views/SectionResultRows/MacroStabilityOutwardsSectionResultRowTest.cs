@@ -52,6 +52,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
             Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
             Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
+            Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
             Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
 
             TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
@@ -154,6 +155,32 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void TailorMadeAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<TailorMadeAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new MacroStabilityOutwardsSectionResultRow(result);
+
+            // Call
+            row.TailorMadeAssessmentResult = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.TailorMadeAssessmentResult);
+            mocks.VerifyAll();
         }
 
         [Test]
