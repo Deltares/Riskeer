@@ -57,15 +57,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_WithDatabase_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
-            var properties = new WaveHeightLocationsProperties(hydraulicBoundaryDatabase,
+            var properties = new WaveHeightLocationsProperties(hydraulicBoundaryLocations,
                                                                hbl => new HydraulicBoundaryLocationCalculation(hbl));
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
-            Assert.AreSame(hydraulicBoundaryDatabase, properties.Data);
+            Assert.AreSame(hydraulicBoundaryLocations, properties.Data);
         }
 
         [Test]

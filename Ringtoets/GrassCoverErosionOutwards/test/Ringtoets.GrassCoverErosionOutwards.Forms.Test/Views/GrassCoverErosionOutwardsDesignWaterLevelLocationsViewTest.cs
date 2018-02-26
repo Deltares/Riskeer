@@ -85,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Call
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                         hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                                         hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                                          assessmentSection,
                                                                                          () => 0.01))
             {
@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Call
             TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(null,
-                                                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                                                 hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                                                  assessmentSection,
                                                                                                  () => 0.01);
 
@@ -122,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Call
             TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                                 hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                                                 hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                                                  assessmentSection,
                                                                                                  null);
 
