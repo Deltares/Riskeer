@@ -50,6 +50,15 @@ namespace Ringtoets.Integration.Data
     {
         private const double defaultNorm = 1.0 / 30000;
         private const RingtoetsWellKnownTileSource defaultWellKnownTileSource = RingtoetsWellKnownTileSource.BingAerial;
+
+        private readonly IList<HydraulicBoundaryLocationCalculation> designWaterLevelLocationCalculations1 = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> designWaterLevelLocationCalculations2 = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> designWaterLevelLocationCalculations3 = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> designWaterLevelLocationCalculations4 = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightLocationCalculations1 = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightLocationCalculations2 = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightLocationCalculations3 = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightLocationCalculations4 = new List<HydraulicBoundaryLocationCalculation>();
         private ReferenceLine referenceLine;
 
         /// <summary>
@@ -201,6 +210,94 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public TechnicalInnovationFailureMechanism TechnicalInnovation { get; }
 
+        /// <summary>
+        /// Gets the design water level calculations corresponding to the first norm category boundary.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations1
+        {
+            get
+            {
+                return designWaterLevelLocationCalculations1;
+            }
+        }
+
+        /// <summary>
+        /// Gets the design water level calculations corresponding to the second norm category boundary.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations2
+        {
+            get
+            {
+                return designWaterLevelLocationCalculations2;
+            }
+        }
+
+        /// <summary>
+        /// Gets the design water level calculations corresponding to the third norm category boundary.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations3
+        {
+            get
+            {
+                return designWaterLevelLocationCalculations3;
+            }
+        }
+
+        /// <summary>
+        /// Gets the design water level calculations corresponding to the fourth norm category boundary.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations4
+        {
+            get
+            {
+                return designWaterLevelLocationCalculations4;
+            }
+        }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the first norm category boundary.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations1
+        {
+            get
+            {
+                return waveHeightLocationCalculations1;
+            }
+        }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the second norm category boundary.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations2
+        {
+            get
+            {
+                return waveHeightLocationCalculations2;
+            }
+        }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the third norm category boundary.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations3
+        {
+            get
+            {
+                return waveHeightLocationCalculations3;
+            }
+        }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the fourth norm category boundary.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations4
+        {
+            get
+            {
+                return waveHeightLocationCalculations4;
+            }
+        }
+
         public string Id { get; set; }
 
         public string Name { get; set; }
@@ -231,6 +328,37 @@ namespace Ringtoets.Integration.Data
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
 
         public BackgroundData BackgroundData { get; }
+
+        /// <summary>
+        /// Adds hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to add calculations for.</param>
+        public void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            designWaterLevelLocationCalculations1.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            designWaterLevelLocationCalculations2.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            designWaterLevelLocationCalculations3.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            designWaterLevelLocationCalculations4.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightLocationCalculations1.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightLocationCalculations2.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightLocationCalculations3.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightLocationCalculations4.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+        }
+
+        /// <summary>
+        /// Clears all currently added hydraulic boundary location calculations.
+        /// </summary>
+        public void ClearHydraulicBoundaryLocationCalculations()
+        {
+            designWaterLevelLocationCalculations1.Clear();
+            designWaterLevelLocationCalculations2.Clear();
+            designWaterLevelLocationCalculations3.Clear();
+            designWaterLevelLocationCalculations4.Clear();
+            waveHeightLocationCalculations1.Clear();
+            waveHeightLocationCalculations2.Clear();
+            waveHeightLocationCalculations3.Clear();
+            waveHeightLocationCalculations4.Clear();
+        }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
