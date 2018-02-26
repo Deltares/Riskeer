@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets the detailed assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
+        /// Gets or sets the detailed assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>
@@ -77,18 +77,18 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the tailor made assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
+        public RoundedDouble TailorMadeAssessmentProbability
         {
             get
             {
-                return SectionResult.AssessmentLayerThree;
+                return SectionResult.TailorMadeAssessmentProbability;
             }
             set
             {
-                SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
+                SectionResult.TailorMadeAssessmentProbability = value.ToPrecision(SectionResult.TailorMadeAssessmentProbability.NumberOfDecimalPlaces);
             }
         }
     }

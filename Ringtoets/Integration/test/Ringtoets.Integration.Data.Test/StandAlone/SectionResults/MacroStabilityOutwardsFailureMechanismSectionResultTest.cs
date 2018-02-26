@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.AreEqual(DetailedAssessmentResultType.Probability, result.DetailedAssessmentResult);
             Assert.IsNaN(result.DetailedAssessmentProbability);
             Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
-            Assert.IsNaN(result.AssessmentLayerThree);
+            Assert.IsNaN(result.TailorMadeAssessmentProbability);
         }
 
         [Test]
@@ -98,18 +98,18 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         [TestCase(double.NegativeInfinity)]
         [TestCase(5)]
         [TestCase(0.5)]
-        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
+        public void TailorMadeAssessmentProbability_SetNewValue_ReturnsNewValue(double newValue)
         {
             // Setup
             var failureMechanismSectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble) newValue;
+            failureMechanismSectionResult.TailorMadeAssessmentProbability = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerThree,
-                            failureMechanismSectionResult.AssessmentLayerThree.GetAccuracy());
+            Assert.AreEqual(newValue, failureMechanismSectionResult.TailorMadeAssessmentProbability,
+                            failureMechanismSectionResult.TailorMadeAssessmentProbability.GetAccuracy());
         }
     }
 }

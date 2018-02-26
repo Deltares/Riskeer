@@ -365,7 +365,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                     assessmentSection);
 
                 // Assert
-                Assert.AreEqual(sectionResult.AssessmentLayerThree, calculator.TailorMadeAssessmentProbabilityInput);
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentResultInput);
 
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);

@@ -173,7 +173,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
                 return calculator.AssembleTailorMadeAssessment(
                     failureMechanismSectionResult.TailorMadeAssessmentResult,
-                    failureMechanismSectionResult.AssessmentLayerThree,
+                    failureMechanismSectionResult.TailorMadeAssessmentProbability,
                     categories);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)

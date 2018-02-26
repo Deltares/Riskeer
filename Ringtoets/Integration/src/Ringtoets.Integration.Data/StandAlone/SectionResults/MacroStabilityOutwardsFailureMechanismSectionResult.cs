@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
             DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
             DetailedAssessmentProbability = double.NaN;
             TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
-            AssessmentLayerThree = RoundedDouble.NaN;
+            TailorMadeAssessmentProbability = RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -92,8 +92,8 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the value of the tailor made assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
+        public RoundedDouble TailorMadeAssessmentProbability { get; set; }
     }
 }

@@ -1951,7 +1951,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      {
                                          Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentProbability, actualItem.DetailedAssessmentProbability);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability);
                                      });
         }
 

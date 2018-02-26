@@ -231,7 +231,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
                 sectionResult.DetailedAssessmentProbability = (RoundedDouble) random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+                sectionResult.TailorMadeAssessmentProbability = (RoundedDouble) random.NextDouble();
             }
         }
 

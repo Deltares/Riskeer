@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_DisplayName);
             DataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityOutwardsSectionResultRow.AssessmentLayerThree),
+                nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
         }
 

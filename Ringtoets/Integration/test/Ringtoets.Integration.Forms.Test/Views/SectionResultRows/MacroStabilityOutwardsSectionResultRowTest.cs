@@ -52,14 +52,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
             Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
+            Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
 
             TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
                 NoProbabilityValueDoubleConverter>(
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
             TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
                 NoValueRoundedDoubleConverter>(
-                nameof(MacroStabilityOutwardsSectionResultRow.AssessmentLayerThree));
+                nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         }
 
         [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
+        public void TailorMadeAssessmentProbability_AlwaysOnChange_ResultPropertyChanged()
         {
             // Setup
             var random = new Random(21);
@@ -141,10 +141,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var row = new MacroStabilityOutwardsSectionResultRow(result);
 
             // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
+            row.TailorMadeAssessmentProbability = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
+            Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability.GetAccuracy());
         }
     }
 }

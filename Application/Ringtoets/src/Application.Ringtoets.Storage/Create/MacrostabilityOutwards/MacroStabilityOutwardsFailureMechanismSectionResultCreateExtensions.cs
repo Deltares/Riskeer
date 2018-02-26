@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityOutwards
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerTwoA = result.DetailedAssessmentProbability.ToNaNAsNull(),
-                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
+                LayerThree = result.TailorMadeAssessmentProbability.ToNaNAsNull()
             };
 
             return sectionResultEntity;
