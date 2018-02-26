@@ -602,6 +602,44 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("X further than x of surfaceLine");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.2, 0),
+                                new Point2D(0.0, 10),
+                                new Point2D(0.1, 20)
+                            })),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 10.0),
+                                new Point2D(0.1, 20)
+                            }))
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("SoilLayer X start- and endpoint on right side of surfaceline");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.1, 20),
+                                new Point2D(0.2, 10),
+                                new Point2D(0.0, 10)
+                            })),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 10.0),
+                                new Point2D(0.1, 20)
+                            }))
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("SoilLayer X start- and endpoint on left side of surfaceline");
         }
 
         private static RoundedDouble GetTestNormativeAssessmentLevel()
