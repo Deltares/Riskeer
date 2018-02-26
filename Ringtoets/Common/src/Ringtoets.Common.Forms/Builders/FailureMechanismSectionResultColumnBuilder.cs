@@ -35,6 +35,30 @@ namespace Ringtoets.Common.Forms.Builders
     /// </summary>
     public static class FailureMechanismSectionResultColumnBuilder
     {
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the section name.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddSectionNameColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.Section_DisplayName,
+                true);
+        }
+
         private static IEnumerable<EnumDisplayWrapper<T>> CreateEnumDisplayWrappers<T>()
         {
             return Enum.GetValues(typeof(T))
