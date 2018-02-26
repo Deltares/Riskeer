@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -31,15 +32,29 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryLocationCalculationTest
     {
         [Test]
-        public void Constructor_ExpectedProperties()
+        public void Constructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            var calculation = new HydraulicBoundaryLocationCalculation();
+            TestDelegate test = () => new HydraulicBoundaryLocationCalculation(null);
 
             // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedProperties()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            // Call
+            var calculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.AreSame(hydraulicBoundaryLocation, calculation.HydraulicBoundaryLocation);
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationInput>(calculation.InputParameters);
             Assert.IsNull(calculation.Output);
-            Assert.IsFalse(calculation.HasOutput);
         }
 
         [Test]
@@ -47,7 +62,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             [Values(true, false)] bool setOutput)
         {
             // Setup
-            var calculation = new HydraulicBoundaryLocationCalculation();
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
             if (setOutput)
             {
                 calculation.Output = new TestHydraulicBoundaryLocationOutput(5);
@@ -74,7 +89,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculations()
         {
-            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 InputParameters =
                 {
@@ -83,14 +98,14 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
             }, false);
 
-            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(), false);
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), false);
 
-            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
             }, true);
 
-            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 InputParameters =
                 {
@@ -99,7 +114,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 Output = new TestHydraulicBoundaryLocationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
             }, true);
 
-            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 Output = new TestHydraulicBoundaryLocationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
             }, false);
