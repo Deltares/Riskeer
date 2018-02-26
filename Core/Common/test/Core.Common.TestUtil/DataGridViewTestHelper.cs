@@ -94,6 +94,32 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
+        /// Asserts whether the <see cref="DataGridViewCell"/> at specified <paramref name="indices"/>
+        /// are enabled or disabled based on <paramref name="isEnabled"/>.
+        /// </summary>
+        /// <param name="cells">The cells from a view.</param>
+        /// <param name="indices">The indices to assert the cell for.</param>
+        /// <param name="isEnabled">Indicator whether the cell should be enabled or disabled.</param>
+        /// <exception cref="AssertionException">Thrown when expectancies are not met.</exception>
+        public static void AssertCellsState(DataGridViewCellCollection cells,
+                                            IEnumerable<int> indices,
+                                            bool isEnabled)
+        {
+            foreach (int index in indices)
+            {
+                DataGridViewCell cell = cells[index];
+                if (isEnabled)
+                {
+                    AssertCellIsEnabled(cell);
+                }
+                else
+                {
+                    AssertCellIsDisabled(cell);
+                }
+            }
+        }
+
+        /// <summary>
         /// Asserts whether a <see cref="DataGridViewCell"/> is in a disabled state.
         /// </summary>
         /// <param name="dataGridViewCell">The cell that needs to be asserted.</param>

@@ -102,7 +102,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
                     new[]
                     {
+                        2,
                         3,
+                        4,
                         5
                     },
                     new Func<MacroStabilityOutwardsSectionResultRow, bool>[]

@@ -174,13 +174,15 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultType.None, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(notAssessed)")]
-        [TestCase(SimpleAssessmentResultType.AssessFurther, TestName = "FormWithFailureMechanismResultView_SectionPassesLevel0AndListenersNotified_RowsForSectionDisabled(noVerdict)")]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionPassesSimpleAssessmentAndListenersNotified_ThenRowsForSectionDisabled(
-            SimpleAssessmentResultType simpleAssessmentResult)
+        [TestCase(SimpleAssessmentResultType.None, true)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther, true)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable, false)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, false)]
+        public void FailureMechanismResultView_SimpleAssessmentResultSet_CellsDisabledEnabled(
+            SimpleAssessmentResultType simpleAssessmentResult,
+            bool cellsEnabled)
         {
-            // Given
-            var random = new Random(21);
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -188,35 +190,31 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                SimpleAssessmentResult = simpleAssessmentResult,
-                DetailedAssessmentProbability = random.NextDouble(),
-                TailorMadeAssessmentProbability = random.NextDouble()
+                SimpleAssessmentResult = simpleAssessmentResult
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
             {
                 result
             };
 
+            // Call
             using (var form = new Form())
             using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
 
-                // When
-                result.SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible;
-                result.NotifyObservers();
-
-                // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(1, rows.Count);
+                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
 
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(6, cells.Count);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentProbabilityIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[tailorMadeAssessmentProbabilityIndex]);
+                // Assert
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    detailedAssessmentResultIndex,
+                    detailedAssessmentProbabilityIndex,
+                    tailorMadeAssessmentResultIndex,
+                    tailorMadeAssessmentProbabilityIndex
+                }, cellsEnabled);
                 mocks.VerifyAll();
             }
         }
