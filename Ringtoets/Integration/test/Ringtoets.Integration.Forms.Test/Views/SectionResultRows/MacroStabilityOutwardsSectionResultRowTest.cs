@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -58,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 NoProbabilityValueDoubleConverter>(
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
             TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
-                NoValueRoundedDoubleConverter>(
+                NoProbabilityValueDoubleConverter>(
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
         }
 
@@ -114,7 +113,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(12)]
-        public void DetailedAssessmentProbability_InvalidValue_ThrowsArgumentException(double value)
+        public void DetailedAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -125,26 +124,51 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             TestDelegate test = () => row.DetailedAssessmentProbability = value;
 
             // Assert
-            string message = Assert.Throws<ArgumentException>(test).Message;
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
             Assert.AreEqual(expectedMessage, message);
         }
 
         [Test]
-        public void TailorMadeAssessmentProbability_AlwaysOnChange_ResultPropertyChanged()
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(0.5)]
+        [TestCase(1e-6)]
+        [TestCase(double.NaN)]
+        public void TailorMadeAssessmentProbability_ValidValue_ResultPropertyChanged(double value)
         {
             // Setup
-            var random = new Random(21);
-            double newValue = random.NextDouble();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             var row = new MacroStabilityOutwardsSectionResultRow(result);
 
             // Call
-            row.TailorMadeAssessmentProbability = (RoundedDouble) newValue;
+            row.TailorMadeAssessmentProbability = value;
 
             // Assert
-            Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability.GetAccuracy());
+            Assert.AreEqual(value, row.TailorMadeAssessmentProbability);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void TailorMadeAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var row = new MacroStabilityOutwardsSectionResultRow(result);
+
+            // Call
+            TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
+
+            // Assert
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
         }
     }
 }

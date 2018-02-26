@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -79,8 +78,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the tailor made assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble TailorMadeAssessmentProbability
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
+        /// not in the range [0,1].</exception>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double TailorMadeAssessmentProbability
         {
             get
             {
@@ -88,7 +89,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             }
             set
             {
-                SectionResult.TailorMadeAssessmentProbability = value.ToPrecision(SectionResult.TailorMadeAssessmentProbability.NumberOfDecimalPlaces);
+                SectionResult.TailorMadeAssessmentProbability = value;
             }
         }
     }

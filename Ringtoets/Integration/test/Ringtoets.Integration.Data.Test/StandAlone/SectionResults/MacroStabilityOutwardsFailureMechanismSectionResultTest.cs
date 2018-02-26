@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -93,23 +92,44 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         }
 
         [Test]
-        [TestCase(double.NaN)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(5)]
-        [TestCase(0.5)]
-        public void TailorMadeAssessmentProbability_SetNewValue_ReturnsNewValue(double newValue)
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void TailorMadeAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
-            var failureMechanismSectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            failureMechanismSectionResult.TailorMadeAssessmentProbability = (RoundedDouble) newValue;
+            TestDelegate test = () => result.TailorMadeAssessmentProbability = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, failureMechanismSectionResult.TailorMadeAssessmentProbability,
-                            failureMechanismSectionResult.TailorMadeAssessmentProbability.GetAccuracy());
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void TailorMadeAssessmentProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+
+            // Call
+            result.TailorMadeAssessmentProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
         }
     }
 }

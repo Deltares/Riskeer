@@ -130,29 +130,29 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.None,
-                DetailedAssessmentProbability = random.NextRoundedDouble(),
-                TailorMadeAssessmentProbability = random.NextRoundedDouble()
+                DetailedAssessmentProbability = random.NextDouble(),
+                TailorMadeAssessmentProbability = random.NextDouble()
             };
             var result2 = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                DetailedAssessmentProbability = random.NextRoundedDouble(),
-                TailorMadeAssessmentProbability = random.NextRoundedDouble()
+                DetailedAssessmentProbability = random.NextDouble(),
+                TailorMadeAssessmentProbability = random.NextDouble()
             };
             var result3 = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                DetailedAssessmentProbability = random.NextRoundedDouble(),
-                TailorMadeAssessmentProbability = random.NextRoundedDouble()
+                DetailedAssessmentProbability = random.NextDouble(),
+                TailorMadeAssessmentProbability = random.NextDouble()
             };
             var result4 = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 4"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
-                DetailedAssessmentProbability = random.NextRoundedDouble(),
-                TailorMadeAssessmentProbability = random.NextRoundedDouble()
+                DetailedAssessmentProbability = random.NextDouble(),
+                TailorMadeAssessmentProbability = random.NextDouble()
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
             {
@@ -180,7 +180,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 string expectedDetailedAssessmentProbabilityString1 = ProbabilityFormattingHelper.Format(result1.DetailedAssessmentProbability);
                 Assert.AreEqual(expectedDetailedAssessmentProbabilityString1, cells[detailedAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual(result1.TailorMadeAssessmentProbability.ToString(), cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
+                string expectedTailorMadeAssessmentProbabilityString1 = ProbabilityFormattingHelper.Format(result1.TailorMadeAssessmentProbability);
+                Assert.AreEqual(expectedTailorMadeAssessmentProbabilityString1, cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentProbabilityIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[tailorMadeAssessmentProbabilityIndex]);
@@ -191,7 +192,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 string expectedDetailedAssessmentProbabilityString2 = ProbabilityFormattingHelper.Format(result2.DetailedAssessmentProbability);
                 Assert.AreEqual(expectedDetailedAssessmentProbabilityString2, cells[detailedAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual(result2.TailorMadeAssessmentProbability.ToString(), cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
+                string expectedTailorMadeAssessmentProbabilityString2 = ProbabilityFormattingHelper.Format(result2.TailorMadeAssessmentProbability);
+                Assert.AreEqual(expectedTailorMadeAssessmentProbabilityString2, cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentProbabilityIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[tailorMadeAssessmentProbabilityIndex]);
@@ -202,7 +204,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 string expectedDetailedAssessmentProbabilityString3 = ProbabilityFormattingHelper.Format(result3.DetailedAssessmentProbability);
                 Assert.AreEqual(expectedDetailedAssessmentProbabilityString3, cells[detailedAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual(result3.TailorMadeAssessmentProbability.ToString(), cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
+                string expectedTailorMadeAssessmentProbabilityString3 = ProbabilityFormattingHelper.Format(result3.TailorMadeAssessmentProbability);
+                Assert.AreEqual(expectedTailorMadeAssessmentProbabilityString3, cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentProbabilityIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[tailorMadeAssessmentProbabilityIndex]);
@@ -213,7 +216,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result4.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 string expectedDetailedAssessmentProbabilityString4 = ProbabilityFormattingHelper.Format(result4.DetailedAssessmentProbability);
                 Assert.AreEqual(expectedDetailedAssessmentProbabilityString4, cells[detailedAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual(result4.TailorMadeAssessmentProbability.ToString(), cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
+                string expectedTailorMadeAssessmentProbabilityString4 = ProbabilityFormattingHelper.Format(result4.TailorMadeAssessmentProbability);
+                Assert.AreEqual(expectedTailorMadeAssessmentProbabilityString4, cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentProbabilityIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[tailorMadeAssessmentProbabilityIndex]);
@@ -237,8 +241,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
-                DetailedAssessmentProbability = random.NextRoundedDouble(),
-                TailorMadeAssessmentProbability = random.NextRoundedDouble()
+                DetailedAssessmentProbability = random.NextDouble(),
+                TailorMadeAssessmentProbability = random.NextDouble()
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
             {

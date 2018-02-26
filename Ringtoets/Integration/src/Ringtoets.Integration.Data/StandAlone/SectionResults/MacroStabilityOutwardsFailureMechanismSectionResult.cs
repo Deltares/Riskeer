@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
@@ -36,8 +34,8 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// </summary>
     public class MacroStabilityOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
-        private static readonly Range<double> validityRangeAssessmentProbability = new Range<double>(0, 1);
         private double detailedAssessmentProbability;
+        private double tailorMadeAssessmentProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
@@ -91,6 +89,20 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Gets or sets the value of the tailor made assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        public RoundedDouble TailorMadeAssessmentProbability { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double TailorMadeAssessmentProbability
+        {
+            get
+            {
+                return tailorMadeAssessmentProbability;
+            }
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                tailorMadeAssessmentProbability = value;
+            }
+        }
     }
 }
