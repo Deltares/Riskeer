@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Plugin;
@@ -62,31 +61,29 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             mockRepository.ReplayAll();
 
             var random = new Random();
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
-            var hydraulicBoundaryLocationsLookup = new Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>
+
+            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
             {
-                {
-                    new TestHydraulicBoundaryLocation(),
-                    new HydraulicBoundaryLocationCalculation
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
-                    }
-                },
-                {
-                    new TestHydraulicBoundaryLocation(),
-                    new HydraulicBoundaryLocationCalculation
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
-                    }
-                }
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
             };
 
-            hydraulicBoundaryLocations.AddRange(hydraulicBoundaryLocationsLookup.Keys);
+            var hydraulicBoundaryLocationCalculations = new[]
+            {
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocations[0])
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                },
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocations[1])
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                }
+            };
 
             var context = new WaveHeightLocationsContext(hydraulicBoundaryLocations,
                                                          assessmentSection,
                                                          () => 0.01,
-                                                         hbl => hydraulicBoundaryLocationsLookup[hbl],
+                                                         hbl => hydraulicBoundaryLocationCalculations.First(hblc => ReferenceEquals(hblc.HydraulicBoundaryLocation, hbl)),
                                                          "Category");
 
             using (var plugin = new RingtoetsPlugin())
@@ -100,8 +97,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<WaveHeightLocationsProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
                 WaveHeightLocationProperties[] locationProperties = ((WaveHeightLocationsProperties) objectProperties).Locations;
-                CollectionAssert.AreEqual(hydraulicBoundaryLocationsLookup.Keys, locationProperties.Select(p => p.Data));
-                CollectionAssert.AreEqual(hydraulicBoundaryLocationsLookup.Values.Select(c => c.Output.Result), locationProperties.Select(p => p.WaveHeight));
+                CollectionAssert.AreEqual(hydraulicBoundaryLocations, locationProperties.Select(p => p.Data));
+                CollectionAssert.AreEqual(hydraulicBoundaryLocationCalculations.Select(c => c.Output.Result), locationProperties.Select(p => p.WaveHeight));
             }
 
             mockRepository.VerifyAll();

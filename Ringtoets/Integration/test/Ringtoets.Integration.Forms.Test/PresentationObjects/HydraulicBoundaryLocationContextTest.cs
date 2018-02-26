@@ -49,15 +49,15 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 2.0, 3.0);
-            var calculation = new HydraulicBoundaryLocationCalculation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, calculation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(context);
             Assert.AreSame(hydraulicBoundaryLocation, context.WrappedData);
-            Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(hydraulicBoundaryLocationCalculation, context.Calculation);
         }
 
         private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext

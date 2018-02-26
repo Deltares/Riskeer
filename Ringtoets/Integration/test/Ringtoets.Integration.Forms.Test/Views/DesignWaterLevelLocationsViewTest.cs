@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Call
             TestDelegate test = () => new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                        hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                        hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                         assessmentSection,
                                                                         null,
                                                                         "Category");
@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Call
             using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                 assessmentSection,
                                                                 () => 0.01,
                                                                 "Category"))
