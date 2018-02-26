@@ -55,12 +55,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             const string locationname = "LocationName";
             const double coordinateX = 1.0;
             const double coordinateY = 2.0;
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationname, coordinateX, coordinateY);
-            var calculation = new HydraulicBoundaryLocationCalculation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
-            var row = new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation,
-                                                       calculation);
+            var row = new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
 
             // Assert
             Assert.IsInstanceOf<CalculatableRow<HydraulicBoundaryLocation>>(row);
@@ -87,8 +87,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var calculation = new HydraulicBoundaryLocationCalculation();
-            var row = new HydraulicBoundaryLocationRow(new TestHydraulicBoundaryLocation(), calculation);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+
+            var row = new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
+
             row.CalculatableObject.Attach(observer);
 
             // Call
@@ -96,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(setIllustrationPoints, row.IncludeIllustrationPoints);
-            Assert.AreEqual(setIllustrationPoints, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(setIllustrationPoints, hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
 
             mockRepository.VerifyAll();
         }
@@ -105,15 +108,16 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Result_WithCalculationOutput_ReturnsResult()
         {
             // Setup
-            var calculation = new HydraulicBoundaryLocationCalculation();
-            var row = new HydraulicBoundaryLocationRow(new TestHydraulicBoundaryLocation(),
-                                                       calculation);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+
+            var row = new HydraulicBoundaryLocationRow(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
 
             var random = new Random(432);
             var locationOutput = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
 
             // Call
-            calculation.Output = locationOutput;
+            hydraulicBoundaryLocationCalculation.Output = locationOutput;
 
             // Assert
             Assert.AreEqual(locationOutput.Result, row.Result);

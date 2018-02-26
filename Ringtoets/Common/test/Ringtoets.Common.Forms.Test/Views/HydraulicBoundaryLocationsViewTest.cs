@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Call
             TestDelegate call = () => new TestHydraulicBoundaryLocationsView(null,
-                                                                             hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                             hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                              new ObservableTestAssessmentSectionStub());
 
             // Assert
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Call
             TestDelegate call = () => new TestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                             hbl => new HydraulicBoundaryLocationCalculation(),
+                                                                             hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                              null);
 
             // Assert
@@ -213,7 +213,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
             var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
-            var calculation = new HydraulicBoundaryLocationCalculation
+            var calculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 Output = output
             };
@@ -258,7 +258,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private void ShowTestHydraulicBoundaryLocationsView()
         {
             ShowTestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                   hbl => new HydraulicBoundaryLocationCalculation());
+                                                   hbl => new HydraulicBoundaryLocationCalculation(hbl));
         }
 
         private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
@@ -287,12 +287,12 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             var calculations = new[]
             {
-                new HydraulicBoundaryLocationCalculation(),
-                new HydraulicBoundaryLocationCalculation
+                new HydraulicBoundaryLocationCalculation(locations[0]),
+                new HydraulicBoundaryLocationCalculation(locations[1])
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(1.23)
                 },
-                new HydraulicBoundaryLocationCalculation
+                new HydraulicBoundaryLocationCalculation(locations[2])
                 {
                     InputParameters =
                     {
