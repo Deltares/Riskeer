@@ -32,7 +32,7 @@ namespace Core.Common.Controls.Test.DataGrid
         public void Constructor_ColumnIndicesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DataGridViewColumnFormattingRule<object>(null, new Func<object, bool>[0], (i, j) => {}, (i, j) => {});
+            TestDelegate call = () => new DataGridViewColumnFormattingRule<object>(null, o => false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -40,25 +40,14 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void Constructor_RulesNull_ThrowsArgumentNullException()
+        public void Constructor_RuleNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DataGridViewColumnFormattingRule<object>(new int[0], null, (i, j) => { }, (i, j) => { });
+            TestDelegate call = () => new DataGridViewColumnFormattingRule<object>(new int[0], null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("rules", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_RulesApplyActionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new DataGridViewColumnFormattingRule<object>(new int[0], new Func<object, bool>[0], null, (i, j) => { }); ;
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("rulesMeetAction", exception.ParamName);
+            Assert.AreEqual("rule", exception.ParamName);
         }
 
         [Test]
@@ -66,18 +55,14 @@ namespace Core.Common.Controls.Test.DataGrid
         {
             // Setup
             var columnIndices = new int[0];
-            var rules = new Func<object, bool>[0];
-            Action<int, int> rulesMeetAction = (i, j) => {};
-            Action<int, int> rulesDoNotMeetAction = (i, j) => {};
+            var rule = new Func<object, bool>(o => false);
 
             // Call
-            var formattingRule = new DataGridViewColumnFormattingRule<object>(columnIndices, rules, rulesMeetAction, rulesDoNotMeetAction);
+            var formattingRule = new DataGridViewColumnFormattingRule<object>(columnIndices, rule);
 
             // Assert
             Assert.AreSame(columnIndices, formattingRule.ColumnIndices);
-            Assert.AreSame(rules, formattingRule.Rules);
-            Assert.AreSame(rulesMeetAction, formattingRule.RulesMeetAction);
-            Assert.AreSame(rulesDoNotMeetAction, formattingRule.RulesDoNotMeetAction);
+            Assert.AreSame(rule, formattingRule.Rule);
         }
     }
 }

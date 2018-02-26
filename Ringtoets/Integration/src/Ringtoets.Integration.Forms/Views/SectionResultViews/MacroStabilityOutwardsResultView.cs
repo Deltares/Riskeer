@@ -39,6 +39,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class MacroStabilityOutwardsResultView : FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
         MacroStabilityOutwardsSectionResultRow, MacroStabilityOutwardsFailureMechanism>
     {
+        private const int detailedAssessmentResultIndex = 2;
+        private const int detailedAssessmentProbabilityIndex = 3;
+        private const int tailorMadeAssessmentResultIndex = 4;
+        private const int tailorMadeAssessmentProbabilityIndex = 5;
+
         private readonly IAssessmentSection assessmentSection;
 
         /// <inheritdoc />
@@ -102,17 +107,12 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
                     new[]
                     {
-                        2,
-                        3,
-                        4,
-                        5
+                        detailedAssessmentResultIndex,
+                        detailedAssessmentProbabilityIndex,
+                        tailorMadeAssessmentResultIndex,
+                        tailorMadeAssessmentProbabilityIndex
                     },
-                    new Func<MacroStabilityOutwardsSectionResultRow, bool>[]
-                    {
-                        row => FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(row.SimpleAssessmentResult)
-                    },
-                    (rowIndex, columnIndex) => DataGridViewControl.DisableCell(rowIndex, columnIndex),
-                    (rowIndex, columnIndex) => DataGridViewControl.RestoreCell(rowIndex, columnIndex))
+                    row => FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(row.SimpleAssessmentResult))
             };
         }
     }

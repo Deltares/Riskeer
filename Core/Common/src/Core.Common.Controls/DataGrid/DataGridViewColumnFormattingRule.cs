@@ -20,68 +20,46 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 
 namespace Core.Common.Controls.DataGrid
 {
     /// <summary>
-    /// Class to define formatting rules on a column.
+    /// Class to define formatting rule on a column.
     /// </summary>
-    /// <typeparam name="T">The type of object to use for the formatting rules.</typeparam>
+    /// <typeparam name="T">The type of object to use for the formatting rule.</typeparam>
     public class DataGridViewColumnFormattingRule<T>
     {
         /// <summary>
         /// Creates a new instance of <see cref="DataGridViewColumnFormattingRule{T}"/>
         /// </summary>
-        /// <param name="columnIndices">The column indices that the rules apply to.</param>
-        /// <param name="rules">The rules to evaluate.</param>
-        /// <param name="rulesMeetAction">The action to perform when the rules meet.</param>
-        /// <param name="rulesDoNotMeetAction">The action to perform when the rules don't meet.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="columnIndices"/>,
-        /// <paramref name="rules"/> or <paramref name="rulesMeetAction"/> is <c>null</c>.</exception>
-        public DataGridViewColumnFormattingRule(int[] columnIndices,
-                                                Func<T, bool>[] rules,
-                                                Action<int, int> rulesMeetAction,
-                                                Action<int, int> rulesDoNotMeetAction)
+        /// <param name="columnIndices">The column indices that the rule apply to.</param>
+        /// <param name="rule">The rule to evaluate.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public DataGridViewColumnFormattingRule(IEnumerable<int> columnIndices,
+                                                Func<T, bool> rule)
         {
             if (columnIndices == null)
             {
                 throw new ArgumentNullException(nameof(columnIndices));
             }
 
-            if (rules == null)
+            if (rule == null)
             {
-                throw new ArgumentNullException(nameof(rules));
-            }
-
-            if (rulesMeetAction == null)
-            {
-                throw new ArgumentNullException(nameof(rulesMeetAction));
+                throw new ArgumentNullException(nameof(rule));
             }
 
             ColumnIndices = columnIndices;
-            Rules = rules;
-            RulesMeetAction = rulesMeetAction;
-            RulesDoNotMeetAction = rulesDoNotMeetAction;
+            Rule = rule;
         }
 
         /// <summary>
-        /// Gets the column indices that the rules apply to.
-        /// </summary>
-        public int[] ColumnIndices { get; }
+        /// Gets the column indices that the rule applies to. </summary>
+        public IEnumerable<int> ColumnIndices { get; }
 
         /// <summary>
-        /// Gets the rules to evaluate.
+        /// Gets the rule to evaluate.
         /// </summary>
-        public Func<T, bool>[] Rules { get; }
-
-        /// <summary>
-        /// Gets the action to perform when the rules meet.
-        /// </summary>
-        public Action<int, int> RulesMeetAction { get; }
-
-        /// <summary>
-        /// Gets the action to perform when the rules don't meet.
-        /// </summary>
-        public Action<int, int> RulesDoNotMeetAction { get; }
+        public Func<T, bool> Rule { get; }
     }
 }

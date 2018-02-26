@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismSectionResultObserver.Dispose();
             failureMechanismSectionResultsObserver.Dispose();
 
-            DataGridViewControl.CellFormatting -= OnCellFormatting;
+            DataGridViewControl.CellFormatting -= HandleDisabledFields;
 
             if (disposing)
             {
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void BindEvents()
         {
-            DataGridViewControl.CellFormatting += OnCellFormatting;
+            DataGridViewControl.CellFormatting += HandleDisabledFields;
         }
 
         /// <summary>
@@ -173,20 +173,20 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void HandleDisabledFields(object sender, DataGridViewCellFormattingEventArgs e)
         {
             TSectionResultRow row = GetDataAtRow(e.RowIndex);
             IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> rules = FormattingRules;
 
-            foreach (DataGridViewColumnFormattingRule<TSectionResultRow> formattingRule in rules.Where(r => r.ColumnIndices.Contains(e.ColumnIndex)))
+            bool shouldDisable = rules.Where(r => r.ColumnIndices.Contains(e.ColumnIndex))
+                                      .Any(formattingRule => formattingRule.Rule(row));
+            if (shouldDisable)
             {
-                if (formattingRule.Rules.All(func => func(row)))
-                {
-                    formattingRule.RulesMeetAction(e.RowIndex, e.ColumnIndex);
-                    break;
-                }
-
-                formattingRule.RulesDoNotMeetAction?.Invoke(e.RowIndex, e.ColumnIndex);
+                DataGridViewControl.DisableCell(e.RowIndex, e.ColumnIndex);
+            }
+            else
+            {
+                DataGridViewControl.RestoreCell(e.RowIndex, e.ColumnIndex);
             }
         }
     }
