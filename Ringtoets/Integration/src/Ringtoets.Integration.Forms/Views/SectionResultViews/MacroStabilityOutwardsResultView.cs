@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Helpers;
@@ -59,18 +60,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             }
 
             this.assessmentSection = assessmentSection;
+
+            FormattingRules = CreateFormattingRules();
         }
+
+        protected override IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> FormattingRules { get; }
 
         protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
         {
             return new MacroStabilityOutwardsSectionResultRow(sectionResult);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            DataGridViewControl.CellFormatting -= OnCellFormatting;
-
-            base.Dispose(disposing);
         }
 
         protected override void AddDataGridColumns()
@@ -101,27 +99,23 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
         }
 
-        protected override void BindEvents()
+        private IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> CreateFormattingRules()
         {
-            base.BindEvents();
-
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-        }
-
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
+            return new[]
             {
-                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
+                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
+                    new[]
+                    {
+                        2,
+                        3
+                    },
+                    new Func<MacroStabilityOutwardsSectionResultRow, bool>[]
+                    {
+                        row => FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(row.SimpleAssessmentResult)
+                    },
+                    (rowIndex, columnIndex) => DataGridViewControl.DisableCell(rowIndex, columnIndex),
+                    (rowIndex, columnIndex) => DataGridViewControl.RestoreCell(rowIndex, columnIndex))
+            };
         }
     }
 }
