@@ -197,5 +197,21 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                     assessmentSection).Group;
             }
         }
+
+        /// <summary>
+        /// Gets the combined assembly category group.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup
+        {
+            get
+            {
+                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+        }
     }
 }
