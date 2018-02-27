@@ -50,7 +50,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int tailorMadeAssessmentProbabilityIndex = 5;
         private const int simpleAssemblyCategoryGroupIndex = 6;
         private const int detailedAssemblyCategoryGroupIndex = 7;
-        private const int columnCount = 8;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 8;
+        private const int columnCount = 9;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -117,6 +118,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[simpleAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssemblyCategoryGroupIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
@@ -126,6 +128,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("Toets op maat\r\nFaalkans", dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].HeaderText);
                 Assert.AreEqual("Assemblageresultaat\r\neenvoudige toets", dataGridView.Columns[simpleAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Assemblageresultaat\r\ngedetailleerde toets per vak", dataGridView.Columns[detailedAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Assemblageresultaat\r\ntoets op maat", dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -186,6 +189,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                 Assert.AreEqual(rowObject.SimpleAssemblyCategoryGroup, cells[simpleAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(rowObject.DetailedAssemblyCategoryGroup, cells[detailedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(rowObject.TailorMadeAssemblyCategoryGroup, cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 mocks.VerifyAll();
             }
         }
