@@ -178,15 +178,17 @@ namespace Ringtoets.Common.Forms.Views
             TSectionResultRow row = GetDataAtRow(e.RowIndex);
             IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> rules = FormattingRules;
 
-            bool shouldDisable = rules.Where(r => r.ColumnIndices.Contains(e.ColumnIndex))
-                                      .Any(formattingRule => formattingRule.Rule(row));
-            if (shouldDisable)
+            IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> formattingRules = rules.Where(r => r.ColumnIndices.Contains(e.ColumnIndex));
+            if (formattingRules.Any())
             {
-                DataGridViewControl.DisableCell(e.RowIndex, e.ColumnIndex);
-            }
-            else
-            {
-                DataGridViewControl.RestoreCell(e.RowIndex, e.ColumnIndex);
+                if (formattingRules.Any(formattingRule => formattingRule.Rule(row)))
+                {
+                    DataGridViewControl.DisableCell(e.RowIndex, e.ColumnIndex);
+                }
+                else
+                {
+                    DataGridViewControl.RestoreCell(e.RowIndex, e.ColumnIndex);
+                }
             }
         }
     }

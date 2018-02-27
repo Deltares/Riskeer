@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // When
             using (ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Then
                 DataGridViewTestHelper.AssertCellIsEnabled(dataGridView.Rows[0].Cells[0], true);
@@ -206,7 +206,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // When
             using (ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Then
                 DataGridViewTestHelper.AssertCellIsDisabled(dataGridView.Rows[0].Cells[0]);
@@ -230,16 +230,6 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         public bool Evaluated { get; private set; }
 
-        protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
-        {
-            return new TestRow(sectionResult);
-        }
-
-        protected override void AddDataGridColumns()
-        {
-            DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
-        }
-
         protected override IEnumerable<DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>> FormattingRules
         {
             get
@@ -255,6 +245,16 @@ namespace Ringtoets.Common.Forms.Test.Views
                         return row.Name.Equals("test");
                     });
             }
+        }
+
+        protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
+        {
+            return new TestRow(sectionResult);
+        }
+
+        protected override void AddDataGridColumns()
+        {
+            DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
         }
     }
 
