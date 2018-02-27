@@ -165,5 +165,37 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
         }
+
+        /// <summary>
+        /// Gets the detailed assembly category group.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup
+        {
+            get
+            {
+                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets the tailor made assembly category group.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup
+        {
+            get
+            {
+                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+        }
     }
 }
