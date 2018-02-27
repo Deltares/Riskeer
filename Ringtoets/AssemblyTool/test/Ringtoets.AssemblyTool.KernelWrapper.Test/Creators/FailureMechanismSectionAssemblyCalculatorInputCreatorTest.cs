@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using AssemblyTool.Kernel.Assembly.CalculatorInput;
@@ -246,45 +245,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateCombinedAssemblyCalculationInput_SimpleAssemblyNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionAssemblyCategoryResult_AssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCombinedAssemblyCalculationInput(
-                null,
-                new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.None),
-                new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.None));
+            TestDelegate call = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("simpleAssembly", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateCombinedAssemblyCalculationInput_DetailedAssemblyNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCombinedAssemblyCalculationInput(
-                new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.None),
-                null,
-                new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.None));
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("detailedAssembly", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateCombinedAssemblyCalculationInput_TailorMadeAssemblyNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCombinedAssemblyCalculationInput(
-                new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.None),
-                new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.None),
-                null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("tailorMadeAssembly", exception.ParamName);
+            Assert.AreEqual("assembly", exception.ParamName);
         }
 
         [Test]
@@ -297,65 +265,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, FailureMechanismSectionCategoryGroup.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, FailureMechanismSectionCategoryGroup.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, FailureMechanismSectionCategoryGroup.VIIv)]
-        public void CreateCombinedAssemblyCalculationInput_WithInput_ReturnFailureMechanismSectionAssemblyCategoryResults(
+        public void CreateFailureMechanismSectionAssemblyCategoryResult_WithAssembly_ReturnFailureMechanismSectionAssemblyCategoryResult(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
             FailureMechanismSectionCategoryGroup expectedGroup)
         {
             // Setup
             var random = new Random(11);
-            var simpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
-            var detailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
-            var tailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
+            var asesmbly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
 
             // Call
-            FailureMechanismSectionAssemblyCategoryResult[] input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCombinedAssemblyCalculationInput(
-                simpleAssembly, detailedAssembly, tailorMadeAssembly).ToArray();
+            FailureMechanismSectionAssemblyCategoryResult input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(
+                asesmbly);
 
             // Assert
-            Assert.AreEqual(3, input.Length);
-            FailureMechanismSectionAssemblyCategoryResult simpleAssemblyInput = input[0];
-            Assert.AreEqual(simpleAssembly.Probability, simpleAssemblyInput.EstimatedProbabilityOfFailure);
-            Assert.AreEqual(expectedGroup, simpleAssemblyInput.CategoryGroup);
-            FailureMechanismSectionAssemblyCategoryResult detailedAssemblyInput = input[1];
-            Assert.AreEqual(detailedAssembly.Probability, detailedAssemblyInput.EstimatedProbabilityOfFailure);
-            Assert.AreEqual(expectedGroup, detailedAssemblyInput.CategoryGroup);
-            FailureMechanismSectionAssemblyCategoryResult tailorMadeAssemblyInput = input[2];
-            Assert.AreEqual(tailorMadeAssembly.Probability, tailorMadeAssemblyInput.EstimatedProbabilityOfFailure);
-            Assert.AreEqual(expectedGroup, tailorMadeAssemblyInput.CategoryGroup);
+            Assert.AreEqual(asesmbly.Probability, input.EstimatedProbabilityOfFailure);
+            Assert.AreEqual(expectedGroup, input.CategoryGroup);
         }
 
         [Test]
-        [TestCaseSource(nameof(GetFailureMechanismSectionAssembliesWithInvalidEnum))]
-        public void CreateCombinedAssemblyCalculationInput_WithInvalidEnumInput_ThrowInvalidEnumArgumentException(
-            FailureMechanismSectionAssembly simpleAssembly,
-            FailureMechanismSectionAssembly detailedAssembly,
-            FailureMechanismSectionAssembly tailorMadeAssembly)
+        public void CreateFailureMechanismSectionAssemblyCategoryResult_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCombinedAssemblyCalculationInput(
-                simpleAssembly, detailedAssembly, tailorMadeAssembly);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(
+                new FailureMechanismSectionAssembly(0, (FailureMechanismSectionAssemblyCategoryGroup)99));
 
             // Assert
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
-        }
-
-        private static IEnumerable<TestCaseData> GetFailureMechanismSectionAssembliesWithInvalidEnum()
-        {
-            var random = new Random(11);
-
-            yield return new TestCaseData(
-                new FailureMechanismSectionAssembly(random.NextDouble(), (FailureMechanismSectionAssemblyCategoryGroup) 99),
-                new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()), 
-                new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()));
-            yield return new TestCaseData(
-                new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
-                new FailureMechanismSectionAssembly(random.NextDouble(), (FailureMechanismSectionAssemblyCategoryGroup)99),
-                new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()));
-            yield return new TestCaseData(
-                new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
-                new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
-                new FailureMechanismSectionAssembly(random.NextDouble(), (FailureMechanismSectionAssemblyCategoryGroup)99));
         }
     }
 }
