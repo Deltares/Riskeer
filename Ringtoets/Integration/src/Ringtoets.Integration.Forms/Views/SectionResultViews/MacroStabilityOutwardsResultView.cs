@@ -103,6 +103,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentAssemblyColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentAssemblyColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssemblyCategoryGroup));
         }
 
         private static IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> CreateFormattingRules()
