@@ -213,5 +213,37 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                     assessmentSection).Group;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
+        /// </summary>
+        public bool UseManualAssemblyCategoryGroup
+        {
+            get
+            {
+                return SectionResult.UseManualAssemblyCategoryGroup;
+            }
+            set
+            {
+                SectionResult.UseManualAssemblyCategoryGroup = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
+        {
+            get
+            {
+                return SectionResult.ManualAssemblyCategoryGroup;
+            }
+            set
+            {
+                SectionResult.ManualAssemblyCategoryGroup = value;
+                SectionResult.NotifyObservers();
+            }
+        }
     }
 }

@@ -100,6 +100,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
             Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
             Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
+            Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(result.ManualAssemblyCategoryGroup, row.ManualAssemblyCategoryGroup);
 
             TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
                 NoProbabilityValueDoubleConverter>(
@@ -107,6 +109,60 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
                 NoProbabilityValueDoubleConverter>(
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
+        }
+
+        [Test]
+        public void UseManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+
+            // Precondition
+            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+
+            // Call
+            row.UseManualAssemblyCategoryGroup = true;
+
+            // Assert
+            Assert.IsTrue(result.UseManualAssemblyCategoryGroup);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            row.ManualAssemblyCategoryGroup = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.ManualAssemblyCategoryGroup);
+            mocks.VerifyAll();
         }
 
         #region Registration
@@ -516,7 +572,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            var mocks = new MockRepository();            
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
