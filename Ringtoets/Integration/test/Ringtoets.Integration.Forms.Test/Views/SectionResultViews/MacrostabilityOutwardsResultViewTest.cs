@@ -47,6 +47,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int detailedAssessmentProbabilityIndex = 3;
         private const int tailorMadeAssessmentResultIndex = 4;
         private const int tailorMadeAssessmentProbabilityIndex = 5;
+        private const int simpleAssemblyCategoryGroupIndex = 6;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -103,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(6, dataGridView.ColumnCount);
+                Assert.AreEqual(7, dataGridView.ColumnCount);
 
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
@@ -111,6 +112,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[tailorMadeAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[simpleAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
@@ -118,6 +120,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("Gedetailleerde toets per vak\r\nFaalkans", dataGridView.Columns[detailedAssessmentProbabilityIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Toets op maat\r\nFaalkans", dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].HeaderText);
+                Assert.AreEqual("Assemblageresultaat\r\neenvoudige toets", dataGridView.Columns[simpleAssemblyCategoryGroupIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -158,8 +161,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(6, cells.Count);
+                DataGridViewRow dataGridViewRow = rows[0];
+                var rowObject = (MacroStabilityOutwardsSectionResultRow) dataGridViewRow.DataBoundItem;
+                DataGridViewCellCollection cells = dataGridViewRow.Cells;
+
+                Assert.AreEqual(7, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
 
                 Assert.AreEqual(result.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
@@ -169,6 +175,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(result.TailorMadeAssessmentResult, cells[tailorMadeAssessmentResultIndex].Value);
                 string expectedTailorMadeAssessmentProbabilityString = ProbabilityFormattingHelper.Format(result.TailorMadeAssessmentProbability);
                 Assert.AreEqual(expectedTailorMadeAssessmentProbabilityString, cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
+
+                Assert.AreEqual(rowObject.SimpleAssemblyCategoryGroup, cells[simpleAssemblyCategoryGroupIndex].Value);
                 mocks.VerifyAll();
             }
         }

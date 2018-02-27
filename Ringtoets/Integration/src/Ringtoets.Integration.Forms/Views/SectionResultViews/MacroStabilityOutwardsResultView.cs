@@ -99,6 +99,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
+
+            FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentAssemblyColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssemblyCategoryGroup));
         }
 
         private static IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> CreateFormattingRules()
