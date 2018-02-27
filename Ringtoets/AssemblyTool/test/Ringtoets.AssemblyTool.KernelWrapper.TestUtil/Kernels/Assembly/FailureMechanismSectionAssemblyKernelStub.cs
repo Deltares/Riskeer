@@ -68,6 +68,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> FailureMechanismSectionAssemblyCategoryResult { get; set; }
 
+        /// <summary>
+        /// Gets the simple assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult)"/>
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryResult CombinedSimpleAssessmentInput { get; private set; }
+
+        /// <summary>
+        /// Gets the detailed assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult)"/>
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryResult CombinedDetailedAssessmentInput { get; private set; }
+
+        /// <summary>
+        /// Gets the tailor made assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult)"/>
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryResult CombinedTailorMadeAssessmentInput { get; private set; }
+
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResult result)
         {
             if (ThrowExceptionOnCalculate)
@@ -168,7 +183,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult resultSimpleAssessment, FailureMechanismSectionAssemblyCategoryResult resultDetailedAssessment, FailureMechanismSectionAssemblyCategoryResult resultTailorMadeAssessment)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            CombinedSimpleAssessmentInput = resultSimpleAssessment;
+            CombinedDetailedAssessmentInput = resultDetailedAssessment;
+            CombinedTailorMadeAssessmentInput = resultTailorMadeAssessment;
+
+            Calculated = true;
+            return FailureMechanismSectionAssemblyCategoryResult;
         }
     }
 }

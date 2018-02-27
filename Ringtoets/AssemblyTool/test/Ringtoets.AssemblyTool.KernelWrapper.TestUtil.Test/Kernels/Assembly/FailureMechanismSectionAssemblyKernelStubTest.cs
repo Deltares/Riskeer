@@ -508,16 +508,92 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void CombinedAssessmentFromFailureMechanismSectionResultsWithCategories_Always_ThrowNotImplementedException()
+        public void CombinedAssessmentFromFailureMechanismSectionResultsWithCategories_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
+            var random = new Random(11);
+            var simpleAssemblyResult = new FailureMechanismSectionAssemblyCategoryResult(
+                random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                Probability.NaN);
+            var detailedAssemblyResult = new FailureMechanismSectionAssemblyCategoryResult(
+                random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                Probability.NaN);
+            var tailorMadeAssemblyResult = new FailureMechanismSectionAssemblyCategoryResult(
+                random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                Probability.NaN);
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            kernel.CombinedAssessmentFromFailureMechanismSectionResults(simpleAssemblyResult, detailedAssemblyResult, tailorMadeAssemblyResult);
+
+            // Assert
+            Assert.AreSame(simpleAssemblyResult, kernel.CombinedSimpleAssessmentInput);
+            Assert.AreSame(detailedAssemblyResult, kernel.CombinedDetailedAssessmentInput);
+            Assert.AreSame(tailorMadeAssemblyResult, kernel.CombinedTailorMadeAssessmentInput);
+            Assert.IsTrue(kernel.Calculated);
+        }
+
+        [Test]
+        public void CombinedAssessmentFromFailureMechanismSectionResults_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        {
+            // Setup
+            var random = new Random(11);
+            var simpleAssemblyResult = new FailureMechanismSectionAssemblyCategoryResult(
+                random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                Probability.NaN);
+            var detailedAssemblyResult = new FailureMechanismSectionAssemblyCategoryResult(
+                random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                Probability.NaN);
+            var tailorMadeAssemblyResult = new FailureMechanismSectionAssemblyCategoryResult(
+                random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                Probability.NaN);
+
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
             // Call
-            TestDelegate test = () => kernel.CombinedAssessmentFromFailureMechanismSectionResults(null, null, null);
+            CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> result = kernel.CombinedAssessmentFromFailureMechanismSectionResults(
+                simpleAssemblyResult, detailedAssemblyResult, tailorMadeAssemblyResult);
 
             // Assert
-            Assert.Throws<NotImplementedException>(test);
+            Assert.AreSame(kernel.FailureMechanismSectionAssemblyCategoryResult, result);
+        }
+
+        [Test]
+        public void CombinedAssessmentFromFailureMechanismSectionResults_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(11);
+            var simpleAssemblyResult = new FailureMechanismSectionAssemblyCategoryResult(
+                random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                Probability.NaN);
+            var detailedAssemblyResult = new FailureMechanismSectionAssemblyCategoryResult(
+                random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                Probability.NaN);
+            var tailorMadeAssemblyResult = new FailureMechanismSectionAssemblyCategoryResult(
+                random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                Probability.NaN);
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.CombinedAssessmentFromFailureMechanismSectionResults(simpleAssemblyResult, detailedAssemblyResult, tailorMadeAssemblyResult);
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.CombinedSimpleAssessmentInput);
+            Assert.IsNull(kernel.CombinedDetailedAssessmentInput);
+            Assert.IsNull(kernel.CombinedTailorMadeAssessmentInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryResult);
         }
 
         #endregion
