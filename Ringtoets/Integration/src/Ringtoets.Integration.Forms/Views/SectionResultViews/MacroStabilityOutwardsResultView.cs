@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
         {
-            return new MacroStabilityOutwardsSectionResultRow(sectionResult);
+            return new MacroStabilityOutwardsSectionResultRow(sectionResult, FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()

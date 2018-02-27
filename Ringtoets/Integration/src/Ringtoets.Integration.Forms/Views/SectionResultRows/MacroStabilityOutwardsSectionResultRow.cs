@@ -22,10 +22,12 @@
 using System;
 using System.ComponentModel;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -36,13 +38,34 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
     /// </summary>
     public class MacroStabilityOutwardsSectionResultRow : FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>
     {
+        private readonly MacroStabilityOutwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityOutwardsSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public MacroStabilityOutwardsSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MacroStabilityOutwardsSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult,
+                                                      MacroStabilityOutwardsFailureMechanism failureMechanism,
+                                                      IAssessmentSection assessmentSection) : base(sectionResult)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
+        }
 
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
@@ -91,6 +114,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.DetailedAssessmentProbability = value;
+                SectionResult.NotifyObservers();
             }
         }
 
@@ -125,6 +149,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
+                SectionResult.NotifyObservers();
             }
         }
 

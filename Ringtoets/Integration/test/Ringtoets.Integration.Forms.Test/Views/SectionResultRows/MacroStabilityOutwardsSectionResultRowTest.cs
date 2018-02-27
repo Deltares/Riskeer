@@ -28,12 +28,14 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -43,14 +45,53 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     public class MacroStabilityOutwardsSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithParameters_ExpectedValues()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, null, assessmentSection);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithParameters_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+
+            // Call
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>>(row);
@@ -73,6 +114,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -84,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             // Call
             row.SimpleAssessmentResult = newValue;
@@ -99,6 +141,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -110,7 +153,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             // Call
             row.DetailedAssessmentResult = newValue;
@@ -126,18 +169,27 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [TestCase(0.5)]
         [TestCase(1e-6)]
         [TestCase(double.NaN)]
-        public void DetailedAssessmentProbability_ValidValue_ResultPropertyChanged(double value)
+        public void DetailedAssessmentProbability_ValidValue_NotifyObserversAndPropertyChanged(double value)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            result.Attach(observer);
+
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             // Call
             row.DetailedAssessmentProbability = value;
 
             // Assert
             Assert.AreEqual(value, row.DetailedAssessmentProbability);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -149,9 +201,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void DetailedAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             // Call
             TestDelegate test = () => row.DetailedAssessmentProbability = value;
@@ -160,6 +216,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
             Assert.AreEqual(expectedMessage, message);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -167,6 +224,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -178,7 +236,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             // Call
             row.TailorMadeAssessmentResult = newValue;
@@ -194,18 +252,27 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [TestCase(0.5)]
         [TestCase(1e-6)]
         [TestCase(double.NaN)]
-        public void TailorMadeAssessmentProbability_ValidValue_ResultPropertyChanged(double value)
+        public void TailorMadeAssessmentProbability_ValidValue_NotifyObserversAndPropertyChanged(double value)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            result.Attach(observer);
+
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             // Call
             row.TailorMadeAssessmentProbability = value;
 
             // Assert
             Assert.AreEqual(value, row.TailorMadeAssessmentProbability);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -217,9 +284,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void TailorMadeAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             // Call
             TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
@@ -228,15 +299,20 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
             Assert.AreEqual(expectedMessage, message);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void SimpleAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -249,6 +325,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
                 Assert.AreEqual(calculatorOutput.Group, simpleAssemblyCategoryGroup);
+                mocks.VerifyAll();
             }
         }
 
@@ -256,9 +333,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void SimpleAssemblyCategoryGroup_AssemblyThrowsException_ThrowsAssemblyException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result);
+            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -268,10 +349,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
-                TestDelegate test = () => simpleAssemblyCategoryGroup= row.SimpleAssemblyCategoryGroup;
+                TestDelegate test = () => simpleAssemblyCategoryGroup = row.SimpleAssemblyCategoryGroup;
 
                 // Assert
                 Assert.Throws<AssemblyException>(test);
+                mocks.VerifyAll();
             }
         }
     }
