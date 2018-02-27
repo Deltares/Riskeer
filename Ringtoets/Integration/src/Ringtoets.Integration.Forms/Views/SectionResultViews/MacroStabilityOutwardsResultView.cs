@@ -119,6 +119,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.UseManualAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyGroupColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityOutwardsSectionResultRow.ManualAssemblyCategoryGroup));
         }
 
         private static IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> CreateFormattingRules()
