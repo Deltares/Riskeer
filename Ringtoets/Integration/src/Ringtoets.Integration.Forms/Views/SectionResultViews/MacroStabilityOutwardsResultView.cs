@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
 
-            FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentAssemblyColumn(
+            FailureMechanismSectionResultColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssemblyCategoryGroup));
 
@@ -114,11 +114,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentAssemblyColumn(
+            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddCombinedAssessmentAssemblyColumn(
+            FailureMechanismSectionResultColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.CombinedAssemblyCategoryGroup));
 
