@@ -92,5 +92,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult,
                                                                      double probability,
                                                                      IEnumerable<FailureMechanismSectionAssemblyCategory> categories);
+
+        /// <summary>
+        /// Assembles the combined assembly based on the input parameters.
+        /// </summary>
+        /// <param name="simpleAssembly">The simple assembly.</param>
+        /// <param name="detailedAssembly">The detailed assembly.</param>
+        /// <param name="tailorMadeAssembly">The tailor made assembly</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
+                                                         FailureMechanismSectionAssembly detailedAssembly,
+                                                         FailureMechanismSectionAssembly tailorMadeAssembly);
     }
 }
