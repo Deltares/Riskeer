@@ -40,10 +40,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class MacroStabilityOutwardsResultView : FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
         MacroStabilityOutwardsSectionResultRow, MacroStabilityOutwardsFailureMechanism>
     {
+        private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;
         private const int detailedAssessmentProbabilityIndex = 3;
         private const int tailorMadeAssessmentResultIndex = 4;
         private const int tailorMadeAssessmentProbabilityIndex = 5;
+        private const int simpleAssemblyCategoryGroupIndex = 6;
+        private const int detailedAssemblyCategoryGroupIndex = 7;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 8;
+        private const int combinedAssemblyCategoryGroupIndex = 9;
         private const int manualAssemblyCategoryGroupIndex = 11;
 
         private readonly IAssessmentSection assessmentSection;
@@ -152,11 +157,25 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                     },
                     row => row.TailorMadeAssessmentResult != TailorMadeAssessmentResultType.Probability),
                 new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
-                    new []
+                    new[]
                     {
                         manualAssemblyCategoryGroupIndex
                     },
-                    row => !row.UseManualAssemblyCategoryGroup), 
+                    row => !row.UseManualAssemblyCategoryGroup),
+                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
+                    new[]
+                    {
+                        simpleAssessmentResultIndex,
+                        detailedAssessmentResultIndex,
+                        detailedAssessmentProbabilityIndex,
+                        tailorMadeAssessmentResultIndex,
+                        tailorMadeAssessmentProbabilityIndex,
+                        simpleAssemblyCategoryGroupIndex,
+                        detailedAssemblyCategoryGroupIndex,
+                        tailorMadeAssemblyCategoryGroupIndex,
+                        combinedAssemblyCategoryGroupIndex
+                    },
+                    row => row.UseManualAssemblyCategoryGroup)
             };
         }
     }

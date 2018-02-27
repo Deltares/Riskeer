@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     public class MacroStabilityOutwardsResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int simpleAssessmentIndex = 1;
+        private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;
         private const int detailedAssessmentProbabilityIndex = 3;
         private const int tailorMadeAssessmentResultIndex = 4;
@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
 
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[tailorMadeAssessmentResultIndex]);
@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[manualAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
-                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
+                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak\r\nFaalkans", dataGridView.Columns[detailedAssessmentProbabilityIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeAssessmentResultIndex].HeaderText);
@@ -177,18 +177,18 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 form.Show();
 
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
                 DataGridViewRow dataGridViewRow = rows[0];
-                var rowObject = (MacroStabilityOutwardsSectionResultRow)dataGridViewRow.DataBoundItem;
+                var rowObject = (MacroStabilityOutwardsSectionResultRow) dataGridViewRow.DataBoundItem;
                 DataGridViewCellCollection cells = dataGridViewRow.Cells;
 
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
 
-                Assert.AreEqual(result.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result.SimpleAssessmentResult, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(result.DetailedAssessmentResult, cells[detailedAssessmentResultIndex].Value);
                 string expectedDetailedAssessmentProbabilityString = ProbabilityFormattingHelper.Format(result.DetailedAssessmentProbability);
                 Assert.AreEqual(expectedDetailedAssessmentProbabilityString, cells[detailedAssessmentProbabilityIndex].FormattedValue);
@@ -233,6 +233,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
             {
                 form.Controls.Add(view);
@@ -277,6 +278,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
             {
                 form.Controls.Add(view);
@@ -321,6 +323,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
             {
                 form.Controls.Add(view);
@@ -351,6 +354,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
+                TailorMadeAssessmentResult = TailorMadeAssessmentResultType.Probability,
                 UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
@@ -360,12 +364,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
 
                 // Assert
@@ -373,6 +378,23 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 {
                     manualAssemblyCategoryGroupIndex
                 }, useManualAssemblyCategoryGroup);
+
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    simpleAssessmentResultIndex,
+                    detailedAssessmentResultIndex,
+                    detailedAssessmentProbabilityIndex,
+                    tailorMadeAssessmentResultIndex,
+                    tailorMadeAssessmentProbabilityIndex
+                }, !useManualAssemblyCategoryGroup);
+
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    simpleAssemblyCategoryGroupIndex,
+                    detailedAssemblyCategoryGroupIndex,
+                    tailorMadeAssemblyCategoryGroupIndex,
+                    combinedAssemblyCategoryGroupIndex
+                }, !useManualAssemblyCategoryGroup, true);
                 mocks.VerifyAll();
             }
         }

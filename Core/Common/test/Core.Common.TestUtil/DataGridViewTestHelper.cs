@@ -100,17 +100,19 @@ namespace Core.Common.TestUtil
         /// <param name="cells">The cells from a view.</param>
         /// <param name="indices">The indices to assert the cell for.</param>
         /// <param name="isEnabled">Indicator whether the cell should be enabled or disabled.</param>
+        /// <param name="enabledIsReadOnly">Flag indicating whether the cell is readonly when enabled.</param>
         /// <exception cref="AssertionException">Thrown when expectancies are not met.</exception>
         public static void AssertCellsState(DataGridViewCellCollection cells,
                                             IEnumerable<int> indices,
-                                            bool isEnabled)
+                                            bool isEnabled,
+                                            bool enabledIsReadOnly = false)
         {
             foreach (int index in indices)
             {
                 DataGridViewCell cell = cells[index];
                 if (isEnabled)
                 {
-                    AssertCellIsEnabled(cell);
+                    AssertCellIsEnabled(cell, enabledIsReadOnly);
                 }
                 else
                 {
@@ -140,7 +142,7 @@ namespace Core.Common.TestUtil
         /// Asserts whether a <see cref="DataGridViewCell"/> is in an enabled state.
         /// </summary>
         /// <param name="dataGridViewCell">The cell that needs to be asserted.</param>
-        /// <param name="isReadOnly">Flag indicating whether the cell is readonly</param>
+        /// <param name="isReadOnly">Flag indicating whether the cell is readonly.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item>The readonly property of the cell does not match with <paramref name="isReadOnly"/>.</item>
