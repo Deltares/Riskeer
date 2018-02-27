@@ -41,13 +41,13 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityOutwards
             var random = new Random();
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
             const double assessmentLayerTwoAResult = 0.2;
-            const double assessmentLayerThreeResult = 3.2;
+            const double assessmentLayerThreeResult = 0.4;
 
             var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                DetailedAssessmentProbability = (RoundedDouble) assessmentLayerTwoAResult,
-                TailorMadeAssessmentProbability = (RoundedDouble) assessmentLayerThreeResult
+                DetailedAssessmentProbability = assessmentLayerTwoAResult,
+                TailorMadeAssessmentProbability = assessmentLayerThreeResult
             };
 
             // Call

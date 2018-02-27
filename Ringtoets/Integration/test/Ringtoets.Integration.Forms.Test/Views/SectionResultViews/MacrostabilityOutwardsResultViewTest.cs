@@ -228,6 +228,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             bool cellEnabled)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
@@ -240,7 +244,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism()))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -253,6 +257,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 {
                     detailedAssessmentProbabilityIndex
                 }, cellEnabled);
+                mocks.VerifyAll();
             }
         }
 
@@ -267,6 +272,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             bool cellEnabled)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
@@ -279,7 +288,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism()))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -292,6 +301,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 {
                     tailorMadeAssessmentProbabilityIndex
                 }, cellEnabled);
+                mocks.VerifyAll();
             }
         }
     }
