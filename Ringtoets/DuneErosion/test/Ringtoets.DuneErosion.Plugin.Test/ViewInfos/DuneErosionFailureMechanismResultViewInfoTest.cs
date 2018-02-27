@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -92,36 +91,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(DuneErosionFailureMechanismResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<DuneErosionFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -64,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<TechnicalInnovationFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -72,9 +71,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new TechnicalInnovationFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
+
+            var failureMechanism = new TechnicalInnovationFailureMechanism();
+            var context = new ProbabilityFailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                                failureMechanism,
+                                                                                                                                assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -92,36 +95,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(TechnicalInnovationResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<TechnicalInnovationFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -286,16 +259,21 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TechnicalInnovationFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
-                failureMechanism);
+                failureMechanism,
+                assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<TechnicalInnovationResultView>(view);
+            mocks.VerifyAll();
         }
     }
 }

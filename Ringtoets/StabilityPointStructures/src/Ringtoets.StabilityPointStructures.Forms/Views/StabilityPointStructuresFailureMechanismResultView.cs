@@ -52,7 +52,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         public StabilityPointStructuresFailureMechanismResultView(
             IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
             StabilityPointStructuresFailureMechanism failureMechanism,

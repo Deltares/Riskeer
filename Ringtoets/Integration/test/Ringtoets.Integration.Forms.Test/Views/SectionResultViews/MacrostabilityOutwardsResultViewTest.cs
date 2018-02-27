@@ -25,6 +25,8 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
@@ -45,19 +47,38 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             // Call
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            TestDelegate call = () => new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            // Call
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
                     MacroStabilityOutwardsSectionResultRow, MacroStabilityOutwardsFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
+                mocks.VerifyAll();
             }
         }
 
@@ -65,9 +86,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             using (var form = new Form())
             using (var view = new MacroStabilityOutwardsResultView(new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>(),
-                                                                   new MacroStabilityOutwardsFailureMechanism()))
+                                                                   new MacroStabilityOutwardsFailureMechanism(),
+                                                                   assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -87,6 +113,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
+                mocks.VerifyAll();
             }
         }
 
@@ -95,6 +122,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Setup
             var random = new Random(21);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var result1 = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
@@ -133,7 +164,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             // Call
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism()))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -186,6 +217,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                mocks.VerifyAll();
             }
         }
 
@@ -197,6 +229,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             var random = new Random(21);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
@@ -210,7 +246,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism()))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -229,6 +265,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                mocks.VerifyAll();
             }
         }
     }

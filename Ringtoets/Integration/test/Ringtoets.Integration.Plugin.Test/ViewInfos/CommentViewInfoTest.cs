@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Gui.Plugin;
@@ -62,6 +61,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(Comment), info.DataType);
+            Assert.AreEqual(typeof(Comment), info.ViewDataType);
         }
 
         [Test]
@@ -85,36 +85,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(comment, viewData);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(CommentView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(Comment), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(Comment), viewDataType);
         }
 
         [Test]

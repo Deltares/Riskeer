@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -71,16 +70,21 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
-                failureMechanism);
+                failureMechanism,
+                assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -91,36 +95,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -291,16 +265,21 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
-                failureMechanism);
+                failureMechanism,
+                assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismResultView>(view);
+            mocks.VerifyAll();
         }
     }
 }

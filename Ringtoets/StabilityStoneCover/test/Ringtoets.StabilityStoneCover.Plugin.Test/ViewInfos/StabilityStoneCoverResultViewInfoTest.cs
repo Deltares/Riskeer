@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -71,9 +70,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults,
-                                                                                                                     failureMechanism);
+            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                                failureMechanism,
+                                                                                                                                assessmentSection);
             mocks.ReplayAll();
 
             // Call
@@ -92,36 +95,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(StabilityStoneCoverResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -288,16 +261,21 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
-                failureMechanism);
+                failureMechanism,
+                assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<StabilityStoneCoverResultView>(view);
+            mocks.VerifyAll();
         }
     }
 }

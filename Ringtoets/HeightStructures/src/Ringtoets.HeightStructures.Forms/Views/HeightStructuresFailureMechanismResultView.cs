@@ -51,7 +51,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the failure mechanism result belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         public HeightStructuresFailureMechanismResultView(
             IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
             HeightStructuresFailureMechanism failureMechanism,

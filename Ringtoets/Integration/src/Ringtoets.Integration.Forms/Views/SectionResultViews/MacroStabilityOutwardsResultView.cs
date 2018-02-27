@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Util;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -40,13 +41,25 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class MacroStabilityOutwardsResultView : FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
         MacroStabilityOutwardsSectionResultRow, MacroStabilityOutwardsFailureMechanism>
     {
+        private readonly IAssessmentSection assessmentSection;
+
         /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityOutwardsResultView"/>.
         /// </summary>
+        /// <param name="assessmentSection">The assessment section the failure mechanism results belongs to.</param>
         public MacroStabilityOutwardsResultView(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
-                                                MacroStabilityOutwardsFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism) {}
+                                                MacroStabilityOutwardsFailureMechanism failureMechanism,
+                                                IAssessmentSection assessmentSection)
+            : base(failureMechanismSectionResults, failureMechanism)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
+        }
 
         protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
         {

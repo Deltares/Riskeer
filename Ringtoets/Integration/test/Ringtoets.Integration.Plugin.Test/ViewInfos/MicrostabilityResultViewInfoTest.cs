@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -64,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<MicrostabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -72,10 +71,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new MicrostabilityFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(failureMechanism.SectionResults,
-                                                                                                                failureMechanism);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
+
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            var context = new ProbabilityFailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(failureMechanism.SectionResults,
+                                                                                                                           failureMechanism,
+                                                                                                                           assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -93,36 +95,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(MicrostabilityResultView), viewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            Type dataType = info.DataType;
-
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>), dataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type viewDataType = info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(typeof(IEnumerable<MicrostabilityFailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -287,16 +259,21 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new MicrostabilityFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
-                failureMechanism);
+                failureMechanism,
+                assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<MicrostabilityResultView>(view);
+            mocks.VerifyAll();
         }
     }
 }

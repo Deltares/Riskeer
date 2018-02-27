@@ -27,6 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -46,7 +47,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -87,10 +88,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var mechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(mechanism.SectionResults,
+                                                                                                                                   mechanism,
+                                                                                                                                   assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -134,6 +138,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies are called in TearDown()
         }
