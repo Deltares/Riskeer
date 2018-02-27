@@ -178,21 +178,21 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
         private static IEnumerable<Point2D> GetMaximumYCoordinatesFromSoilProfile(MacroStabilityInwardsSoilProfile2D soilProfile2D)
         {
-            IEnumerable<double> points = GetSoilProfile2DXCoordinates(soilProfile2D).OrderBy(d => d)
-                                                                                    .Distinct();
+            IEnumerable<double> xCoordinates = GetSoilProfile2DXCoordinates(soilProfile2D).OrderBy(d => d)
+                                                                                          .Distinct();
 
-            var selectedPoints = new List<Point2D>();
-            foreach (double point in points)
+            var selectedCoordinates = new List<Point2D>();
+            foreach (double xCoordinate in xCoordinates)
             {
                 double maximumYCoordinate = soilProfile2D.Layers
                                                          .SelectMany(l => l.OuterRing
                                                                            .Points)
-                                                         .Where(p => p.X.Equals(point))
+                                                         .Where(p => p.X.Equals(xCoordinate))
                                                          .Max(p => p.Y);
-                selectedPoints.Add(new Point2D(point, maximumYCoordinate));
+                selectedCoordinates.Add(new Point2D(xCoordinate, maximumYCoordinate));
             }
 
-            return selectedPoints;
+            return selectedCoordinates;
         }
 
         private static IEnumerable<Point2D> GetSurfaceLineWithInterpolations(MacroStabilityInwardsInput inputParameters,
