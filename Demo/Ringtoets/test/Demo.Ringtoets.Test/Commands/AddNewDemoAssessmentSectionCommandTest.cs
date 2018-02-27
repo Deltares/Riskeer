@@ -33,6 +33,7 @@ using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -600,10 +601,25 @@ namespace Demo.Ringtoets.Test.Commands
 
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(18, hydraulicBoundaryLocations.Count);
+            AssertHydraulicBoundaryLocationCalculations(demoAssessmentSection);
             AssertDesignWaterLevelsForAssessmentSection(hydraulicBoundaryLocations);
             AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.DesignWaterLevelCalculation3));
             AssertWaveHeightsForAssessmentSection(hydraulicBoundaryLocations);
             AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.WaveHeightCalculation3));
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculations(IAssessmentSection assessmentSection)
+        {
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations1.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations2.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations3.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations4.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations1.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations2.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations3.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations4.Select(hblc => hblc.HydraulicBoundaryLocation));
         }
 
         private static void AssertDesignWaterLevelsForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)
