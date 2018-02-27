@@ -122,11 +122,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.CombinedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyColumn(
+            FailureMechanismSectionResultColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.UseManualAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyGroupColumn(
+            FailureMechanismSectionResultColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.ManualAssemblyCategoryGroup));
         }

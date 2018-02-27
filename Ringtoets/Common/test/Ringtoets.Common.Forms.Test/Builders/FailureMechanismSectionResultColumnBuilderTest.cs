@@ -579,13 +579,13 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
         #endregion
 
-        #region Override Assembly
+        #region Manual Assembly
 
         [Test]
-        public void AddOverrideAssemblyColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddUseManualAssemblyCategoryGroupColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyColumn(null, "property");
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -593,10 +593,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddOverrideAssemblyColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddUseManualAssemblyCategoryGroupColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyColumn(new DataGridViewControl(), null);
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -604,7 +604,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddOverrideAssemblyColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddUseManualAssemblyCategoryGroupColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -618,7 +618,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyColumn(control, dataPropertyName);
+                FailureMechanismSectionResultColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -630,10 +630,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddOverrideAssemblyGroupColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddManualAssemblyCategoryGroupColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyGroupColumn(null, "property");
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddManualAssemblyCategoryGroupColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -641,10 +641,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddOverrideAssemblyGroupColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddManualAssemblyCategoryGroupColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyGroupColumn(new DataGridViewControl(), null);
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddManualAssemblyCategoryGroupColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -652,7 +652,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddOverrideAssemblyGroupColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddManualAssemblyCategoryGroupColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -666,7 +666,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultColumnBuilder.AddOverrideAssemblyGroupColumn(control, dataPropertyName);
+                FailureMechanismSectionResultColumnBuilder.AddManualAssemblyCategoryGroupColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
