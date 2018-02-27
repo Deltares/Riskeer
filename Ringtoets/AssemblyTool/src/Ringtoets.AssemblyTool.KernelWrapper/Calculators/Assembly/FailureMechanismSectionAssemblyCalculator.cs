@@ -143,7 +143,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult, double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult,
+                                                                            double probability,
+                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
         {
             return FailureMechanismSectionAssemblyCreator.Create(new FailureMechanismSectionAssemblyCategoryResult(
                                                                      FailureMechanismSectionCategoryGroup.VIIv,

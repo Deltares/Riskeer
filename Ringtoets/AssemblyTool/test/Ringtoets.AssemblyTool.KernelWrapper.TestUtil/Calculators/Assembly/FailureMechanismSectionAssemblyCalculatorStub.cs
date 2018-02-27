@@ -93,6 +93,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<FailureMechanismSectionAssemblyCategory> TailorMadeAssessmentCategoriesInput { get; private set; }
 
         /// <summary>
+        /// Gets the output of the combined assembly calculation.
+        /// </summary>
+        public FailureMechanismSectionAssembly CombinedAssemblyOutput { get; private set; }
+
+        /// <summary>
+        /// Gets the input of the combined assembly calculation.
+        /// </summary>
+        public IEnumerable<FailureMechanismSectionAssembly> CombinedAssemblyInput { get; private set; }
+
+        /// <summary>
         /// Sets an indicator whether an exception must be thrown when performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
@@ -153,7 +163,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv);
         }
 
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult, double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult,
+                                                                            double probability,
+                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -165,6 +177,25 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             TailorMadeAssessmentCategoriesInput = categories;
 
             return TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv);
+        }
+
+        public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
+                                                                FailureMechanismSectionAssembly detailedAssembly,
+                                                                FailureMechanismSectionAssembly tailorMadeAssembly)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            CombinedAssemblyInput = new List<FailureMechanismSectionAssembly>
+            {
+                simpleAssembly,
+                detailedAssembly,
+                tailorMadeAssembly
+            };
+
+            return CombinedAssemblyOutput = tailorMadeAssembly;
         }
     }
 }
