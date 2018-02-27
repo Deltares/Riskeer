@@ -98,14 +98,29 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public FailureMechanismSectionAssembly CombinedAssemblyOutput { get; private set; }
 
         /// <summary>
-        /// Gets the input of the combined assembly calculation.
+        /// Gets the simple assembly input of the combined assembly calculation.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssembly> CombinedAssemblyInput { get; private set; }
+        public FailureMechanismSectionAssembly CombinedSimpleAssemblyInput { get; private set; }
+
+        /// <summary>
+        /// Gets the detailed assembly input of the combined assembly calculation.
+        /// </summary>
+        public FailureMechanismSectionAssembly CombinedDetailedAssemblyInput { get; private set; }
+
+        /// <summary>
+        /// Gets the tailor made assembly input of the combined assembly calculation.
+        /// </summary>
+        public FailureMechanismSectionAssembly CombinedTailorMadeAssemblyInput { get; private set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown when performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
+
+        /// <summary>
+        /// Sets an indicator whether an exception must be thrown when performing a combined assembly calculation.
+        /// </summary>
+        public bool ThrowExceptionOnCalculateCombinedAssembly { get; set; }
 
         public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
@@ -183,17 +198,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                                                                 FailureMechanismSectionAssembly detailedAssembly,
                                                                 FailureMechanismSectionAssembly tailorMadeAssembly)
         {
-            if (ThrowExceptionOnCalculate)
+            if (ThrowExceptionOnCalculateCombinedAssembly)
             {
                 throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
-            CombinedAssemblyInput = new List<FailureMechanismSectionAssembly>
-            {
-                simpleAssembly,
-                detailedAssembly,
-                tailorMadeAssembly
-            };
+            CombinedSimpleAssemblyInput = simpleAssembly;
+            CombinedDetailedAssemblyInput = detailedAssembly;
+            CombinedTailorMadeAssemblyInput = tailorMadeAssembly;
 
             return CombinedAssemblyOutput = tailorMadeAssembly;
         }

@@ -57,8 +57,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual((TailorMadeAssessmentResultType) 0, calculator.TailorMadeAssessmentResultInput);
             Assert.IsNull(calculator.TailorMadeAssessmentAssemblyOutput);
 
-            Assert.IsNull(calculator.CombinedAssemblyInput);
-            Assert.IsNull(calculator.CombinedAssemblyOutput);            
+            Assert.IsNull(calculator.CombinedSimpleAssemblyInput);
+            Assert.IsNull(calculator.CombinedDetailedAssemblyInput);
+            Assert.IsNull(calculator.CombinedTailorMadeAssemblyInput);
+            Assert.IsNull(calculator.CombinedAssemblyOutput);
         }
 
         #region Simple Assessment
@@ -379,7 +381,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         #region Combined Assembly
 
         [Test]
-        public void AssembleCombined_ThrowExceptionOnCalculateFalse_ReturnOutput()
+        public void AssembleCombined_ThrowExceptionOnCalculateCombinedAssemblyFalse_ReturnOutput()
         {
             // Setup
             var random = new Random(39);
@@ -398,7 +400,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         }
 
         [Test]
-        public void AssembleCombined_ThrowExceptionOnCalculateFalse_SetsInput()
+        public void AssembleCombined_ThrowExceptionOnCalculateCombinedAssemblyFalse_SetsInput()
         {
             // Setup
             var random = new Random(39);
@@ -418,21 +420,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
 
             // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                simpleAssembly,
-                detailedAssembly,
-                tailorMadeAssembly
-            }, calculator.CombinedAssemblyInput);
+            Assert.AreSame(simpleAssembly, calculator.CombinedSimpleAssemblyInput);
+            Assert.AreSame(detailedAssembly, calculator.CombinedDetailedAssemblyInput);
+            Assert.AreSame(tailorMadeAssembly, calculator.CombinedTailorMadeAssemblyInput);
         }
 
         [Test]
-        public void AssembleCombined_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleCombined_ThrowExceptionOnCalculateCombinedAssemblyTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub
             {
-                ThrowExceptionOnCalculate = true
+                ThrowExceptionOnCalculateCombinedAssembly = true
             };
 
             // Call
