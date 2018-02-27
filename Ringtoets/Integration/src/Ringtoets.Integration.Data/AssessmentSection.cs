@@ -305,33 +305,19 @@ namespace Ringtoets.Integration.Data
 
         public BackgroundData BackgroundData { get; }
 
-        public void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
-            if (hydraulicBoundaryLocation == null)
+            if (hydraulicBoundaryLocations == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
 
-            designWaterLevelLocationCalculations1.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            designWaterLevelLocationCalculations2.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            designWaterLevelLocationCalculations3.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            designWaterLevelLocationCalculations4.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightLocationCalculations1.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightLocationCalculations2.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightLocationCalculations3.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightLocationCalculations4.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-        }
+            ClearHydraulicBoundaryLocationCalculations();
 
-        public void ClearHydraulicBoundaryLocationCalculations()
-        {
-            designWaterLevelLocationCalculations1.Clear();
-            designWaterLevelLocationCalculations2.Clear();
-            designWaterLevelLocationCalculations3.Clear();
-            designWaterLevelLocationCalculations4.Clear();
-            waveHeightLocationCalculations1.Clear();
-            waveHeightLocationCalculations2.Clear();
-            waveHeightLocationCalculations3.Clear();
-            waveHeightLocationCalculations4.Clear();
+            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
+            {
+                AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocation);
+            }
         }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
@@ -420,6 +406,30 @@ namespace Ringtoets.Integration.Data
 
             Composition = newComposition;
             SetFailureMechanismRelevancy();
+        }
+
+        private void ClearHydraulicBoundaryLocationCalculations()
+        {
+            designWaterLevelLocationCalculations1.Clear();
+            designWaterLevelLocationCalculations2.Clear();
+            designWaterLevelLocationCalculations3.Clear();
+            designWaterLevelLocationCalculations4.Clear();
+            waveHeightLocationCalculations1.Clear();
+            waveHeightLocationCalculations2.Clear();
+            waveHeightLocationCalculations3.Clear();
+            waveHeightLocationCalculations4.Clear();
+        }
+
+        private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            designWaterLevelLocationCalculations1.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            designWaterLevelLocationCalculations2.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            designWaterLevelLocationCalculations3.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            designWaterLevelLocationCalculations4.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightLocationCalculations1.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightLocationCalculations2.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightLocationCalculations3.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightLocationCalculations4.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
         }
 
         private void SetFailureMechanismRelevancy()

@@ -127,15 +127,10 @@ namespace Ringtoets.Common.Data.AssessmentSection
         void ChangeComposition(AssessmentSectionComposition newComposition);
 
         /// <summary>
-        /// Adds hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocation"/>.
+        /// Sets hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to add calculations for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation);
-
-        /// <summary>
-        /// Clears all currently added hydraulic boundary location calculations.
-        /// </summary>
-        void ClearHydraulicBoundaryLocationCalculations();
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to add calculations for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
+        void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations);
     }
 }

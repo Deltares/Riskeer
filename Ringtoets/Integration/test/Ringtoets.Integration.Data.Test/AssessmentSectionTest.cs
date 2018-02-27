@@ -462,57 +462,39 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void AddHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        public void SetHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            TestDelegate test = () => assessmentSection.AddHydraulicBoundaryLocationCalculations(null);
+            TestDelegate test = () => assessmentSection.SetHydraulicBoundaryLocationCalculations(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
+            Assert.AreEqual("hydraulicBoundaryLocations", paramName);
         }
 
         [Test]
-        public void AddHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocation_AddsExpectedCalculations()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            // Call
-            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocation);
-
-            // Assert
-            AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 1);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations1.ElementAt(0), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations2.ElementAt(0), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations3.ElementAt(0), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations4.ElementAt(0), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations1.ElementAt(0), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations2.ElementAt(0), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations3.ElementAt(0), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations4.ElementAt(0), hydraulicBoundaryLocation);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationCalculations_Always_ClearsAllHydraulicBoundaryLocationCalculations()
+        public void SetHydraulicBoundaryLocationCalculations_MultipleHydraulicBoundaryLocations_SetsExpectedCalculations()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            assessmentSection.AddHydraulicBoundaryLocationCalculations(new TestHydraulicBoundaryLocation());
-
-            // Precondition
-            AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 1);
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocations = new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            };
 
             // Call
-            assessmentSection.ClearHydraulicBoundaryLocationCalculations();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             // Assert
-            AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 0);
+            AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 2);
+            AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 1, hydraulicBoundaryLocation1);
+            AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 2, hydraulicBoundaryLocation2);
         }
 
         private static IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
@@ -692,6 +674,18 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations2.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations3.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations4.Count());
+        }
+
+        private static void AssertDefaultHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection, int index, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations1.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations2.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations3.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations4.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations1.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations2.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations3.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations4.ElementAt(index), hydraulicBoundaryLocation);
         }
 
         private static void AssertDefaultHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
