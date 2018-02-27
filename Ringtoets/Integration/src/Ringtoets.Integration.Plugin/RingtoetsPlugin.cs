@@ -1881,6 +1881,8 @@ namespace Ringtoets.Integration.Plugin
                     {
                         HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
 
+                        assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+
                         assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
 

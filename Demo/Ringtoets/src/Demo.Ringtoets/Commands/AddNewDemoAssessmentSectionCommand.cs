@@ -798,10 +798,13 @@ namespace Demo.Ringtoets.Commands
                 }
             }
 
-            SetHydraulicBoundaryLocationDesignWaterLevelOutputValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
-            SetHydraulicBoundaryLocationWaveHeightOutputValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations;
 
-            demoAssessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            demoAssessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            SetHydraulicBoundaryLocationDesignWaterLevelOutputValues(hydraulicBoundaryLocations);
+            SetHydraulicBoundaryLocationWaveHeightOutputValues(hydraulicBoundaryLocations);
+
+            demoAssessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
             SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelOutputValues(demoAssessmentSection.GrassCoverErosionOutwards);
             SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightOutputValues(demoAssessmentSection.GrassCoverErosionOutwards);
         }

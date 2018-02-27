@@ -48,6 +48,15 @@ namespace Ringtoets.Common.Data.TestUtil
             };
 
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            DesignWaterLevelLocationCalculations1 = new HydraulicBoundaryLocationCalculation[0];
+            DesignWaterLevelLocationCalculations2 = new HydraulicBoundaryLocationCalculation[0];
+            DesignWaterLevelLocationCalculations3 = new HydraulicBoundaryLocationCalculation[0];
+            DesignWaterLevelLocationCalculations4 = new HydraulicBoundaryLocationCalculation[0];
+            WaveHeightLocationCalculations1 = new HydraulicBoundaryLocationCalculation[0];
+            WaveHeightLocationCalculations2 = new HydraulicBoundaryLocationCalculation[0];
+            WaveHeightLocationCalculations3 = new HydraulicBoundaryLocationCalculation[0];
+            WaveHeightLocationCalculations4 = new HydraulicBoundaryLocationCalculation[0];
         }
 
         public string Id { get; }
@@ -79,7 +88,7 @@ namespace Ringtoets.Common.Data.TestUtil
 
         public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.");
         }
     }
 }

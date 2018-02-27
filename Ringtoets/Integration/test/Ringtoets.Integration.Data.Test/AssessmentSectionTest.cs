@@ -493,8 +493,8 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 2);
-            AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 1, hydraulicBoundaryLocation1);
-            AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 2, hydraulicBoundaryLocation2);
+            AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 0, hydraulicBoundaryLocation1);
+            AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 1, hydraulicBoundaryLocation2);
         }
 
         private static IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
