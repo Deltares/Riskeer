@@ -476,6 +476,41 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
+        public void SetHydraulicBoundaryLocationCalculations_Always_PreviousCalculationsCleared()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(assessmentSection.DesignWaterLevelLocationCalculations1);
+            CollectionAssert.IsNotEmpty(assessmentSection.DesignWaterLevelLocationCalculations2);
+            CollectionAssert.IsNotEmpty(assessmentSection.DesignWaterLevelLocationCalculations3);
+            CollectionAssert.IsNotEmpty(assessmentSection.DesignWaterLevelLocationCalculations4);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightLocationCalculations1);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightLocationCalculations2);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightLocationCalculations3);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightLocationCalculations4);
+
+            // Call
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(Enumerable.Empty<HydraulicBoundaryLocation>());
+
+            // Assert
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations1);
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations2);
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations3);
+            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations4);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations1);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations2);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations3);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations4);
+        }
+
+        [Test]
         public void SetHydraulicBoundaryLocationCalculations_MultipleHydraulicBoundaryLocations_SetsExpectedCalculations()
         {
             // Setup

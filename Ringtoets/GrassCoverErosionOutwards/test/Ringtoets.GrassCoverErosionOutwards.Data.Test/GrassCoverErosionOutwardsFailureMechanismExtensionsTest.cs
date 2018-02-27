@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations_HydraulicBoundaryDatabaseWithLocations_SetLocations()
+        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations_MultipleHydraulicBoundaryLocations_SetsExpectedLocations()
         {
             // Setup
             var locations = new[]
