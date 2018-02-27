@@ -337,5 +337,44 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 mocks.VerifyAll();
             }
         }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void FailureMechanismResultView_UseManualAssemblyCategoryGroupSet_CellDisabledEnabled(bool useManualAssemblyCategoryGroup)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
+            };
+            var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
+            {
+                result
+            };
+
+            // Call
+            using (var form = new Form())
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
+
+                // Assert
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    manualAssemblyCategoryGroupIndex
+                }, useManualAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
+        }
     }
 }

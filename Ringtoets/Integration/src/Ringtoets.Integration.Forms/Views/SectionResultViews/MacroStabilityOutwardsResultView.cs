@@ -44,6 +44,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         private const int detailedAssessmentProbabilityIndex = 3;
         private const int tailorMadeAssessmentResultIndex = 4;
         private const int tailorMadeAssessmentProbabilityIndex = 5;
+        private const int manualAssemblyCategoryGroupIndex = 11;
 
         private readonly IAssessmentSection assessmentSection;
 
@@ -149,7 +150,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                     {
                         tailorMadeAssessmentProbabilityIndex
                     },
-                    row => row.TailorMadeAssessmentResult != TailorMadeAssessmentResultType.Probability)
+                    row => row.TailorMadeAssessmentResult != TailorMadeAssessmentResultType.Probability),
+                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
+                    new []
+                    {
+                        manualAssemblyCategoryGroupIndex
+                    },
+                    row => !row.UseManualAssemblyCategoryGroup), 
             };
         }
     }
