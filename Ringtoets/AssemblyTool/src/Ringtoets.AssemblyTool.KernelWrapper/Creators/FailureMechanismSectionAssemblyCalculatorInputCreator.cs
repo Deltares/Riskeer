@@ -170,6 +170,66 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
+        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionAssemblyCategoryResult"/> based on the given parameters.
+        /// </summary>
+        /// <param name="simpleAssembly">The simple assembly to convert.</param>
+        /// <param name="detailedAssembly">The detailed assembly to convert.</param>
+        /// <param name="tailorMadeAssembly">The tailor made assembly to convert.</param>
+        /// <returns>The created <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionAssemblyCategoryResult"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when a <see cref="FailureMechanismSectionAssembly"/> contains
+        /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssembly"/> contains
+        /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
+        /// invalid value.</exception>
+        public static IEnumerable<FailureMechanismSectionAssemblyCategoryResult> CreateCombinedAssemblyCalculationInput(
+            FailureMechanismSectionAssembly simpleAssembly,
+            FailureMechanismSectionAssembly detailedAssembly,
+            FailureMechanismSectionAssembly tailorMadeAssembly)
+        {
+            if (simpleAssembly == null)
+            {
+                throw new ArgumentNullException(nameof(simpleAssembly));
+            }
+
+            if (detailedAssembly == null)
+            {
+                throw new ArgumentNullException(nameof(detailedAssembly));
+            }
+
+            if (tailorMadeAssembly == null)
+            {
+                throw new ArgumentNullException(nameof(tailorMadeAssembly));
+            }
+
+            return new[]
+            {
+                CreateFailureMechanismSectionAssemblyCategoryResult(simpleAssembly),
+                CreateFailureMechanismSectionAssemblyCategoryResult(detailedAssembly),
+                CreateFailureMechanismSectionAssemblyCategoryResult(tailorMadeAssembly)
+            };
+        }
+
+        /// <summary>
+        /// Creates <see cref="FailureMechanismSectionAssemblyCategoryResult"/> based on the given parameters.
+        /// </summary>
+        /// <param name="assembly">The assembly to convert.</param>
+        /// <returns>The created <see cref="FailureMechanismSectionAssemblyCategoryResult"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="assembly"/> contains
+        /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="assembly"/> contains
+        /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
+        /// invalid value.</exception>
+        private static FailureMechanismSectionAssemblyCategoryResult CreateFailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionAssembly assembly)
+        {
+            return new FailureMechanismSectionAssemblyCategoryResult(
+                ConvertFailureMechanismSectionAssemblyCategoryGroup(assembly.Group),
+                new Probability(assembly.Probability));
+        }
+
+        /// <summary>
         /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="FailureMechanismSectionCategoryGroup"/>.
         /// </summary>
         /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>
