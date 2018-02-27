@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Primitives;
@@ -49,7 +50,8 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
             DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
             DetailedAssessmentProbability = double.NaN;
             TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
-            TailorMadeAssessmentProbability = RoundedDouble.NaN;
+            TailorMadeAssessmentProbability = double.NaN;
+            ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
         /// <summary>
@@ -104,5 +106,15 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
                 tailorMadeAssessmentProbability = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
+        /// </summary>
+        public bool UseManualAssemblyCategoryGroup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
     }
 }

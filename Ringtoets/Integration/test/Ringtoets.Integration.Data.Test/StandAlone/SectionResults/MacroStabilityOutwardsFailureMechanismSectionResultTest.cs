@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
@@ -48,6 +49,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.IsNaN(result.DetailedAssessmentProbability);
             Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsNaN(result.TailorMadeAssessmentProbability);
+            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }
 
         [Test]
