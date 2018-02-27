@@ -151,5 +151,25 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                                                                      FailureMechanismSectionCategoryGroup.VIIv,
                                                                      new Probability(probability)));
         }
+
+        public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
+                                                                FailureMechanismSectionAssembly detailedAssembly,
+                                                                FailureMechanismSectionAssembly tailorMadeAssembly)
+        {
+            try
+            {
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.CombinedAssessmentFromFailureMechanismSectionResults(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(simpleAssembly),
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(detailedAssembly),
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(tailorMadeAssembly));
+
+                return FailureMechanismSectionAssemblyCreator.Create(output.Result);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
+            }
+        }
     }
 }
