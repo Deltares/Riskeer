@@ -522,6 +522,26 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("Second segment is vertical and exceeds surfaceLine");
+            
+            yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(
+                                              "profile",
+                                              new[]
+                                              {
+                                                  new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                                                  {
+                                                      new Point2D(0, 10),
+                                                      new Point2D(0, 10.06),
+                                                      new Point2D(1, 20),
+                                                      new Point2D(2, 10)
+                                                  })),
+                                                  new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                                                  {
+                                                      new Point2D(0, 10),
+                                                      new Point2D(1, 20),
+                                                      new Point2D(2, 10)
+                                                  })),
+                                              }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("Top soillayer, one Y coordinate not within limit.");
         }
 
         private static IEnumerable<TestCaseData> SurfaceLineOnMacroStabilityInwardsSoilProfile2D()

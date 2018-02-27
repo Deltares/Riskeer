@@ -79,6 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 {
                     yield return Resources.MacroStabilityInwardsCalculationService_ValidateInput_SoilLayerTop_must_be_larger_than_SurfaceLineTop;
                 }
+
                 yield break;
             }
 
@@ -143,16 +144,17 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             IEnumerable<Point2D> surfaceLineWithInterpolations = GetSurfaceLineWithInterpolations(inputParameters, uniqueXs);
 
+            IEnumerable<Point2D> maximumYCoordinates = GetMaximumYCoordinatesFromSoilProfile(soilProfile2D);
             foreach (Point2D surfaceLinePoint in surfaceLineWithInterpolations)
             {
-                bool isNear = soilProfile2D.Layers.Any(l => IsPointNearSoilSegments(
-                                                           surfaceLinePoint,
-                                                           Math2D.ConvertLinePointsToClosingLineSegments(l.OuterRing.Points)));
+                bool isNear = IsPointNearSoilSegments(surfaceLinePoint,
+                                                      Math2D.ConvertLinePointsToClosingLineSegments(maximumYCoordinates));
                 if (!isNear)
                 {
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -160,12 +162,36 @@ namespace Ringtoets.MacroStabilityInwards.Service
                                                                        MacroStabilityInwardsSoilProfile2D soilProfile2D)
         {
             return surfaceLinePoints.Select(p => p.X)
-                                    .Concat(soilProfile2D.Layers
-                                                         .SelectMany(l => l.OuterRing
-                                                                           .Points
-                                                                           .Select(outerRingPoint => outerRingPoint.X))
-                                    ).OrderBy(d => d)
+                                    .Concat(GetSoilProfile2DXCoordinates(soilProfile2D))
+                                    .OrderBy(d => d)
                                     .Distinct();
+        }
+
+        private static IEnumerable<double> GetSoilProfile2DXCoordinates(MacroStabilityInwardsSoilProfile2D soilProfile2D)
+        {
+            return soilProfile2D.Layers
+                                .SelectMany(l => l.OuterRing
+                                                  .Points
+                                                  .Select(outerRingPoint => outerRingPoint.X));
+        }
+
+        private static IEnumerable<Point2D> GetMaximumYCoordinatesFromSoilProfile(MacroStabilityInwardsSoilProfile2D soilProfile2D)
+        {
+            IEnumerable<double> points = GetSoilProfile2DXCoordinates(soilProfile2D).OrderBy(d => d)
+                                                                                    .Distinct();
+
+            var selectedPoints = new List<Point2D>();
+            foreach (double point in points)
+            {
+                double maximumYCoordinate = soilProfile2D.Layers
+                                                         .SelectMany(l => l.OuterRing
+                                                                           .Points)
+                                                         .Where(p => p.X.Equals(point))
+                                                         .Max(p => p.Y);
+                selectedPoints.Add(new Point2D(point, maximumYCoordinate));
+            }
+
+            return selectedPoints;
         }
 
         private static IEnumerable<Point2D> GetSurfaceLineWithInterpolations(MacroStabilityInwardsInput inputParameters,
@@ -191,6 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -235,10 +262,12 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 validationResults.Add(Resources.MacroStabilityInwardsCalculationService_ValidateInput_No_SurfaceLine_selected);
             }
+
             if (inputParameters.StochasticSoilProfile == null)
             {
                 validationResults.Add(Resources.MacroStabilityInwardsCalculationService_ValidateInput_No_StochasticSoilProfile_selected);
             }
+
             return validationResults;
         }
     }
