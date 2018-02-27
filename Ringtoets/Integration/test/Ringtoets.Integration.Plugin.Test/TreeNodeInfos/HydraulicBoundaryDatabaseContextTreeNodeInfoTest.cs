@@ -291,6 +291,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
 
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            hydraulicBoundaryLocations.Attach(hydraulicBoundaryLocationsObserver);
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
+
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
             {
@@ -305,10 +311,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
 
-                assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(hydraulicBoundaryLocationsObserver);
-                assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
-
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var tester = new OpenFileDialogTester(wnd);
@@ -316,6 +318,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 };
 
                 TreeNodeInfo info = GetInfo(plugin);
+
                 plugin.Gui = gui;
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl))
@@ -335,7 +338,18 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
                     Assert.AreEqual(testFile, assessmentSection.HydraulicBoundaryDatabase.FilePath);
                     Assert.AreEqual("Dutch coast South19-11-2015 12:0013", assessmentSection.HydraulicBoundaryDatabase.Version);
-                    CollectionAssert.IsNotEmpty(assessmentSection.HydraulicBoundaryDatabase.Locations);
+
+                    CollectionAssert.IsNotEmpty(hydraulicBoundaryLocations);
+
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations1.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations2.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations3.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations4.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations1.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations2.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations3.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations4.Select(hblc => hblc.HydraulicBoundaryLocation));
+
                     CollectionAssert.IsNotEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
                 }
             }
@@ -457,9 +471,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenDatabaseLinked_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoObserversNotified()
         {
             // Given
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            var assessmentObserver = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryDatabaseObserver = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryLocationsObserver = mocks.StrictMock<IObserver>();
             var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             using (var importer = new HydraulicBoundaryDatabaseImporter())
@@ -467,10 +483,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 importer.Import(assessmentSection, validFilePath);
             }
 
-            assessmentSection.Attach(assessmentObserver);
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                        assessmentSection);
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            hydraulicBoundaryLocations.Attach(hydraulicBoundaryLocationsObserver);
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             PipingOutput pipingOutput = PipingOutputTestFactory.Create();
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
@@ -483,7 +502,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             };
 
             assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculation);
-            assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                        assessmentSection);
 
             // Precondition
             Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
@@ -491,9 +512,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             string currentFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
             string currentVersion = assessmentSection.HydraulicBoundaryDatabase.Version;
-            List<HydraulicBoundaryLocation> currentLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            HydraulicBoundaryLocation currentFirstGrassCoverErosionOutwardsLocation = assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.First();
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
+            IEnumerable<HydraulicBoundaryLocation> currentHydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentDesignWaterLevelLocationCalculations1 = assessmentSection.DesignWaterLevelLocationCalculations1.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentDesignWaterLevelLocationCalculations2 = assessmentSection.DesignWaterLevelLocationCalculations2.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentDesignWaterLevelLocationCalculations3 = assessmentSection.DesignWaterLevelLocationCalculations3.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentDesignWaterLevelLocationCalculations4 = assessmentSection.DesignWaterLevelLocationCalculations4.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightLocationCalculations1 = assessmentSection.WaveHeightLocationCalculations1.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightLocationCalculations2 = assessmentSection.WaveHeightLocationCalculations2.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightLocationCalculations3 = assessmentSection.WaveHeightLocationCalculations3.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightLocationCalculations4 = assessmentSection.WaveHeightLocationCalculations4.ToList();
+            IEnumerable<HydraulicBoundaryLocation> currentGrassCoverErosionOutwardsLocations = assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.ToList();
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -528,10 +556,18 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Assert.IsTrue(assessmentSection.HydraulicBoundaryDatabase.IsLinked());
                     Assert.AreEqual(currentFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
                     Assert.AreEqual(currentVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
-                    CollectionAssert.AreEqual(currentLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);
+                    CollectionAssert.AreEqual(currentHydraulicBoundaryLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);
+                    CollectionAssert.AreEqual(currentDesignWaterLevelLocationCalculations1, assessmentSection.DesignWaterLevelLocationCalculations1);
+                    CollectionAssert.AreEqual(currentDesignWaterLevelLocationCalculations2, assessmentSection.DesignWaterLevelLocationCalculations2);
+                    CollectionAssert.AreEqual(currentDesignWaterLevelLocationCalculations3, assessmentSection.DesignWaterLevelLocationCalculations3);
+                    CollectionAssert.AreEqual(currentDesignWaterLevelLocationCalculations4, assessmentSection.DesignWaterLevelLocationCalculations4);
+                    CollectionAssert.AreEqual(currentWaveHeightLocationCalculations1, assessmentSection.WaveHeightLocationCalculations1);
+                    CollectionAssert.AreEqual(currentWaveHeightLocationCalculations2, assessmentSection.WaveHeightLocationCalculations2);
+                    CollectionAssert.AreEqual(currentWaveHeightLocationCalculations3, assessmentSection.WaveHeightLocationCalculations3);
+                    CollectionAssert.AreEqual(currentWaveHeightLocationCalculations4, assessmentSection.WaveHeightLocationCalculations4);
+                    CollectionAssert.AreEqual(currentGrassCoverErosionOutwardsLocations, assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
                     Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations.First(), pipingCalculation.InputParameters.HydraulicBoundaryLocation);
                     Assert.AreSame(pipingOutput, pipingCalculation.Output);
-                    Assert.AreSame(currentFirstGrassCoverErosionOutwardsLocation, assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.First());
                 }
             }
 
