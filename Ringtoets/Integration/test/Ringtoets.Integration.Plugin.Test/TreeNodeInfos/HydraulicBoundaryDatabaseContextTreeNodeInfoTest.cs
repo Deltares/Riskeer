@@ -362,7 +362,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenNoDatabaseLinked_WhenOpeningInvalidFileFromContextMenu_ThenNoDatabaseLinkedNoObserversNotifiedAndLogMessagesAdded()
         {
             // Given
-            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryDatabaseObserver = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryLocationsObserver = mocks.StrictMock<IObserver>();
             var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
 
             string testFile = Path.Combine(testDataPath, "empty.sqlite");
@@ -370,6 +371,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
+
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(hydraulicBoundaryLocationsObserver);
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -382,9 +387,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
-
-                assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -416,7 +418,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenNoDatabaseLinked_WhenOpeningValidFileWithoutHLCDFromContextMenu_ThenNoDatabaseLinkedNoObserversNotifiedAndLogMessagesAdded()
         {
             // Given
-            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryDatabaseObserver = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryLocationsObserver = mocks.StrictMock<IObserver>();
             var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
 
             string testFile = Path.Combine(testDataPathNoHlcd, "HRD dutch coast south.sqlite");
@@ -424,6 +427,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
+
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(hydraulicBoundaryLocationsObserver);
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -436,9 +443,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
-
-                assessmentSection.Attach(assessmentSectionObserver);
-                assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
