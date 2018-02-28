@@ -302,6 +302,132 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             CollectionAssert.IsEmpty(messages);
         }
 
+        /// <remarks>
+        /// The soil profile used in this tests contains two outer layers (outer rings) and a surfaceline):
+        /// <list type="bullet">
+        /// <item>Soil layer one (1) is defined on top of the surfaceline on the X coordinates</item>
+        /// <item>Soil layer two (2) is defined as shown below:</item>
+        /// </list>
+        /// <code>
+        ///                                    
+        ///   20                 1             
+        ///                                    
+        ///                                    
+        ///   15         2              2      
+        ///           /     \         /   \    
+        ///          /       \       /     \   
+        ///   10   1,2       2 ---- 2      1,2 
+        ///        0     5      10     15   20 
+        /// </code>
+        /// </remarks>
+        [Test]
+        public void Validate_SurfaceLineNear2DProfileWithLayersWithTriangularXCoordinateDefinitions_ReturnsEmpty()
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0.0, 10),
+                new Point3D(10, 0.0, 20),
+                new Point3D(20, 0.0, 10)
+            });
+
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D(
+                "profile",
+                new[]
+                {
+                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                    {
+                        new Point2D(0, 10),
+                        new Point2D(10, 20),
+                        new Point2D(20, 10)
+                    })),
+                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                    {
+                        new Point2D(0, 10),
+                        new Point2D(5, 15),
+                        new Point2D(7.5, 0),
+                        new Point2D(12.5, 0),
+                        new Point2D(15, 15),
+                        new Point2D(20, 10)
+                    }))
+                }, new MacroStabilityInwardsPreconsolidationStress[0]);
+
+            input.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0,
+                                                                                         soilProfile);
+            input.SurfaceLine = surfaceLine;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+
+        /// <remarks>
+        /// The soil profile used in this tests contains two outer layers (outer rings) and a surfaceline):
+        /// <list type="bullet">
+        /// <item>Soil layer one (1) is defined on directly vertically below the X coordinates of the surface line</item>
+        /// <item>Soil layer two (2) is defined as shown below:</item>
+        /// </list>
+        /// <code>
+        ///                                  
+        ///   20    1 --------------------- 1
+        ///         |                       |
+        ///         |                       |
+        ///   15   1,2 ------------------- 1,2
+        ///         |                       |
+        ///         |                       |
+        ///   10    2                       2
+        ///             \              /
+        ///              \            /
+        ///    5                2            
+        ///        0     5      10     15   20 
+        /// </code>
+        /// </remarks>
+        [Test]
+        public void Validate_SurfaceLineNear2DProfileWithLayersWithSquareXCoordinateDefinitions_ReturnsEmpty()
+        {
+            // Setup
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0.0, 20),
+                new Point3D(20, 0.0, 20)
+            });
+
+            var soilProfile = new MacroStabilityInwardsSoilProfile2D(
+                "profile",
+                new[]
+                {
+                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                    {
+                        new Point2D(0, 20),
+                        new Point2D(20, 20),
+                        new Point2D(20, 15),
+                        new Point2D(0, 15)
+                    })),
+                    new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                    {
+                        new Point2D(0, 15),
+                        new Point2D(20, 15),
+                        new Point2D(20, 10),
+                        new Point2D(10, 5),
+                        new Point2D(0, 10)
+                    }))
+                }, new MacroStabilityInwardsPreconsolidationStress[0]);
+
+            input.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0,
+                                                                                         soilProfile);
+            input.SurfaceLine = surfaceLine;
+
+            // Call
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+
         [Test]
         public void Validate_ZoneBoundaryRightSmallerThanZoneBoundaryLeft_ReturnsError()
         {
@@ -522,17 +648,16 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("Second segment is vertical and exceeds surfaceLine");
-            
+
             yield return new TestCaseData(new MacroStabilityInwardsSoilProfile2D(
                                               "profile",
                                               new[]
                                               {
                                                   new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                                                   {
-                                                      new Point2D(0, 10),
                                                       new Point2D(0, 10.06),
-                                                      new Point2D(1, 20),
-                                                      new Point2D(2, 10)
+                                                      new Point2D(1, 20.06),
+                                                      new Point2D(2, 10.06)
                                                   })),
                                                   new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                                                   {
@@ -541,7 +666,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                                       new Point2D(2, 10)
                                                   })),
                                               }, new MacroStabilityInwardsPreconsolidationStress[0]))
-                .SetName("Top soillayer, one Y coordinate not within limit.");
+                .SetName("Top soil layer offset above surfaceline above limit.");
         }
 
         private static IEnumerable<TestCaseData> SurfaceLineOnMacroStabilityInwardsSoilProfile2D()
@@ -650,6 +775,46 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("SoilLayer X start and end point on left side of surfaceline");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 10.05),
+                                new Point2D(0.1, 20.05),
+                                new Point2D(0.2, 10.05)
+                            })),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 10),
+                                new Point2D(0.1, 20),
+                                new Point2D(0.2, 10)
+                            }))
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("Top SoilLayer offset above surfaceline within limit");
+
+            yield return new TestCaseData(
+                    new MacroStabilityInwardsSoilProfile2D(
+                        "profile",
+                        new[]
+                        {
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 9),
+                                new Point2D(0.1, 19),
+                                new Point2D(0.2, 9)
+                            })),
+                            new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
+                            {
+                                new Point2D(0.0, 10),
+                                new Point2D(0.1, 20),
+                                new Point2D(0.2, 10)
+                            }))
+                        }, new MacroStabilityInwardsPreconsolidationStress[0]))
+                .SetName("Top SoilLayer offset below surfaceline within limit");
         }
 
         private static RoundedDouble GetTestNormativeAssessmentLevel()

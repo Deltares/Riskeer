@@ -145,11 +145,12 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             IEnumerable<Point2D> surfaceLineWithInterpolations = GetSurfaceLineWithInterpolations(inputParameters, uniqueXs);
 
-            IEnumerable<Point2D> maximumYCoordinates = GetMaximumYCoordinatesFromSoilProfile(soilProfile2D);
+            IEnumerable<Point2D> topLevelCoordinates = GetTopLevelCoordinatesFromSoilProfile(soilProfile2D);
+            IEnumerable<Segment2D> polygonWithTopLevelCoordinates = Math2D.ConvertPointsToPolygonSegments(topLevelCoordinates)
+                                                                          .ToArray();
             foreach (Point2D surfaceLinePoint in surfaceLineWithInterpolations)
             {
-                bool isNear = IsPointNearSoilSegments(surfaceLinePoint,
-                                                      Math2D.ConvertPointsToPolygonSegments(maximumYCoordinates));
+                bool isNear = IsPointNearSoilSegments(surfaceLinePoint, polygonWithTopLevelCoordinates);
                 if (!isNear)
                 {
                     return false;
@@ -164,7 +165,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         {
             return surfaceLinePoints.Select(p => p.X)
                                     .Concat(GetSoilProfile2DXCoordinates(soilProfile2D))
-                                    .OrderBy(d => d)
+                                    .OrderBy(x => x)
                                     .Distinct();
         }
 
@@ -176,23 +177,23 @@ namespace Ringtoets.MacroStabilityInwards.Service
                                                   .Select(outerRingPoint => outerRingPoint.X));
         }
 
-        private static IEnumerable<Point2D> GetMaximumYCoordinatesFromSoilProfile(MacroStabilityInwardsSoilProfile2D soilProfile2D)
+        private static IEnumerable<Point2D> GetTopLevelCoordinatesFromSoilProfile(MacroStabilityInwardsSoilProfile2D soilProfile2D)
         {
-            IEnumerable<double> xCoordinates = GetSoilProfile2DXCoordinates(soilProfile2D).OrderBy(d => d)
+            IEnumerable<double> xCoordinates = GetSoilProfile2DXCoordinates(soilProfile2D).OrderBy(x => x)
                                                                                           .Distinct();
 
-            var selectedCoordinates = new List<Point2D>();
+            IEnumerable<IEnumerable<Segment2D>> layerPolygons = soilProfile2D.Layers
+                                                                             .Select(l => Math2D.ConvertPointsToPolygonSegments(l.OuterRing.Points))
+                                                                             .ToArray();
+
+            var topLevelCoordinates = new List<Point2D>();
             foreach (double xCoordinate in xCoordinates)
             {
-                double maximumYCoordinate = soilProfile2D.Layers
-                                                         .SelectMany(l => l.OuterRing
-                                                                           .Points)
-                                                         .Where(p => p.X.Equals(xCoordinate))
-                                                         .Max(p => p.Y);
-                selectedCoordinates.Add(new Point2D(xCoordinate, maximumYCoordinate));
+                IEnumerable<Point2D> intersectingCoordinates = layerPolygons.SelectMany(lp => Math2D.SegmentsIntersectionWithVerticalLine(lp, xCoordinate));
+                topLevelCoordinates.Add(new Point2D(xCoordinate, intersectingCoordinates.Select(p => p.Y).Max()));
             }
 
-            return selectedCoordinates;
+            return topLevelCoordinates;
         }
 
         private static IEnumerable<Point2D> GetSurfaceLineWithInterpolations(MacroStabilityInwardsInput inputParameters,
