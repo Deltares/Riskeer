@@ -272,7 +272,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Gedetailleerde toets per vak\r\nFaalkans", columnData.HeaderText);
+                Assert.AreEqual("Gedetailleerde toets per vak\r\nfaalkans", columnData.HeaderText);
             }
         }
 
@@ -377,7 +377,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Toets op maat\r\nFaalkans", columnData.HeaderText);
+                Assert.AreEqual("Toets op maat\r\nfaalkans", columnData.HeaderText);
             }
         }
 
@@ -625,7 +625,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Overschrijf assemblageresultaat", columnData.HeaderText);
+                Assert.AreEqual("Overschrijf\r\nassemblageresultaat", columnData.HeaderText);
             }
         }
 

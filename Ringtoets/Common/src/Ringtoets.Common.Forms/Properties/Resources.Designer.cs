@@ -1466,7 +1466,7 @@ namespace Ringtoets.Common.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Gedetailleerde toets per vak
-        ///Faalkans.
+        ///faalkans.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentProbability_DisplayName {
             get {
@@ -1475,7 +1475,8 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overschrijf assemblageresultaat.
+        ///   Looks up a localized string similar to Overschrijf
+        ///assemblageresultaat.
         /// </summary>
         public static string FailureMechanismResultView_OverrideAssembly_DisplayName {
             get {
@@ -1533,7 +1534,7 @@ namespace Ringtoets.Common.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Toets op maat
-        ///Faalkans.
+        ///faalkans.
         /// </summary>
         public static string FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName {
             get {

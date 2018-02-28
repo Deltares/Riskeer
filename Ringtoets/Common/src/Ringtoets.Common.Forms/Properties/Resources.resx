@@ -225,14 +225,14 @@
   </data>
   <data name="FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName" xml:space="preserve">
     <value>Toets op maat
-Faalkans</value>
+faalkans</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssessment_DisplayName" xml:space="preserve">
     <value>Gedetailleerde toets per vak</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssessmentProbability_DisplayName" xml:space="preserve">
     <value>Gedetailleerde toets per vak
-Faalkans</value>
+faalkans</value>
   </data>
   <data name="FailureMechanismResultView_SimpleAssessmentAssembly_DisplayName" xml:space="preserve">
     <value>Assemblageresultaat
@@ -251,7 +251,8 @@ toets op maat</value>
 gecombineerd</value>
   </data>
   <data name="FailureMechanismResultView_OverrideAssembly_DisplayName" xml:space="preserve">
-    <value>Overschrijf assemblageresultaat</value>
+    <value>Overschrijf
+assemblageresultaat</value>
   </data>
   <data name="FailureMechanismResultView_OverrideAssemblyGroup_DisplayName" xml:space="preserve">
     <value>Assemblageresultaat
