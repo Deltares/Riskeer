@@ -370,7 +370,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
-                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeProbabilityAndDetailedCalculationResult);
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityAndDetailedCalculationResult);
 
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);

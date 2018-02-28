@@ -68,40 +68,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             Assert.AreEqual("factory", exception.ParamName);
         }
 
-        #region Tailor Made Assessment
-
-        [Test]
-        public void AssembleTailorMadeAssessmentWithResult_Always_OutputCorrectlyReturnedByCalculator()
-        {
-            // Setup
-            var random = new Random(39);
-            double probability = random.NextDouble();
-            var categories = new[]
-            {
-                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
-                                                            random.NextDouble(0.6, 1.0),
-                                                            FailureMechanismSectionAssemblyCategoryGroup.IIv)
-            };
-
-            using (new AssemblyToolKernelFactoryConfig())
-            {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
-
-                // Call
-                FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(
-                    random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>(),
-                    probability,
-                    categories);
-
-                // Assert
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
-                Assert.AreEqual(probability, assembly.Probability);
-            }
-        }
-
-        #endregion
-
         private static void AssertCalculatorOutput(CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> original, FailureMechanismSectionAssembly actual)
         {
             Assert.AreEqual(GetGroup(original.Result.CategoryGroup), actual.Group);
@@ -132,6 +98,211 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     throw new NotSupportedException();
             }
         }
+
+        #region Tailor Made Assessment
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityAndDetailedCalculationResult_Always_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            var categories = new[]
+            {
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
+                                                            FailureMechanismSectionAssemblyCategoryGroup.IIv)
+            };
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(
+                    random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>(),
+                    probability,
+                    categories);
+
+                // Assert
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
+                Assert.AreEqual(probability, assembly.Probability);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_WithInvalidCategoryEnumInput_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            var categories = new[]
+            {
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
+                                                            random.NextDouble(),
+                                                            (FailureMechanismSectionAssemblyCategoryGroup) 99)
+            };
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.Iv, Probability.NaN));
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability, probability, categories);
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_WithValidInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            var categories = new[]
+            {
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
+                                                            FailureMechanismSectionAssemblyCategoryGroup.IIv)
+            };
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.Iv, Probability.NaN));
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability, probability, categories);
+
+                // Assert
+                Assert.AreEqual(probability, kernel.TailorMadeCalculationInputFromProbabilityInput.Result.Probability);
+                Assert.AreEqual(TailorMadeProbabilityCalculationResultGroup.Probability, kernel.TailorMadeCalculationInputFromProbabilityInput.Result.CalculationResultGroup);
+
+                FailureMechanismSectionCategory actualCategory = kernel.TailorMadeCalculationInputFromProbabilityInput.Categories.Single();
+                FailureMechanismSectionAssemblyCategory expectedCategory = categories.Single();
+                Assert.AreEqual(expectedCategory.LowerBoundary, actualCategory.LowerBoundary);
+                Assert.AreEqual(expectedCategory.UpperBoundary, actualCategory.UpperBoundary);
+                Assert.AreEqual(FailureMechanismSectionCategoryGroup.IIv, actualCategory.CategoryGroup);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            var categories = new[]
+            {
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
+                                                            FailureMechanismSectionAssemblyCategoryGroup.IIv)
+            };
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.Iv, Probability.NaN));
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability,
+                                                                                                   probability,
+                                                                                                   categories);
+
+                // Assert
+                AssertCalculatorOutput(kernel.FailureMechanismSectionAssemblyCategoryResult, assembly);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            var categories = new[]
+            {
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
+                                                            FailureMechanismSectionAssemblyCategoryGroup.IIv)
+            };
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult((FailureMechanismSectionCategoryGroup) 99, Probability.NaN));
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability,
+                                                                                  probability,
+                                                                                  categories);
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_KernelThrowsException_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            var categories = new[]
+            {
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(0.0, 0.5),
+                                                            random.NextDouble(0.6, 1.0),
+                                                            FailureMechanismSectionAssemblyCategoryGroup.IIv)
+            };
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.ThrowExceptionOnCalculate = true;
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability,
+                                                                                  probability,
+                                                                                  categories);
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+                Exception innerException = exception.InnerException;
+                Assert.IsNotNull(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
 
         #region Simple Assessment
 

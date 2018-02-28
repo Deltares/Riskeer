@@ -36,6 +36,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
     [TestFixture]
     public class FailureMechanismSectionAssemblyCalculatorInputCreatorTest
     {
+        #region Simple Assessment
+
         [Test]
         public void CreateSimpleCalculationResult_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
@@ -88,6 +90,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(expectedResult, result);
         }
 
+        #endregion
+
+        #region Detailed Assessment
+
         [Test]
         public void CreateDetailedCalculationInputFromProbability_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
@@ -132,7 +138,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, FailureMechanismSectionCategoryGroup.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, FailureMechanismSectionCategoryGroup.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, FailureMechanismSectionCategoryGroup.VIIv)]
-        public void CreateDetailedCalculationInputFromProbability_ValidData_ReturnSimpleCalculationResult(
+        public void CreateDetailedCalculationInputFromProbability_ValidData_ReturnDetailedCalculationInputFromProbabilityWithLengthEffect(
             FailureMechanismSectionAssemblyCategoryGroup originalResult,
             FailureMechanismSectionCategoryGroup expectedResult)
         {
@@ -211,7 +217,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, FailureMechanismSectionCategoryGroup.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, FailureMechanismSectionCategoryGroup.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, FailureMechanismSectionCategoryGroup.VIIv)]
-        public void CreateDetailedCalculationInputFromProbabilityWithLengthEffect_ValidData_ReturnSimpleCalculationResult(
+        public void CreateDetailedCalculationInputFromProbabilityWithLengthEffect_ValidData_ReturnDetailedCalculationInputFromProbabilityWithLengthEffect(
             FailureMechanismSectionAssemblyCategoryGroup originalResult,
             FailureMechanismSectionCategoryGroup expectedResult)
         {
@@ -243,6 +249,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(lowerBoundary, actualCategory.LowerBoundary);
             Assert.AreEqual(upperBoundary, actualCategory.UpperBoundary);
         }
+
+        #endregion
+
+        #region Failure Mechanism Section Assembly
 
         [Test]
         public void CreateFailureMechanismSectionAssemblyCategoryResult_AssemblyNull_ThrowsArgumentNullException()
@@ -327,5 +337,170 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
+
+        #endregion
+
+        #region Tailor Made Assessment
+
+        [Test]
+        public void CreateTailorMadeCalculationInputFromProbability_CategoriesNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationInputFromProbability(
+                random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
+                random.NextDouble(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("categories", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateTailorMadeCalculationInputFromProbability_WithInvalidResultEnumInput_ThrowInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationInputFromProbability(
+                (TailorMadeAssessmentProbabilityCalculationResultType) 99,
+                new Random(39).NextDouble(),
+                Enumerable.Empty<FailureMechanismSectionAssemblyCategory>());
+
+            // Assert
+            const string expectedMessage = "The value of argument 'tailorMadeAssessmentResult' (99) is invalid for Enum type 'TailorMadeAssessmentProbabilityCalculationResultType'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void CreateTailorMadeCalculationInputFromProbability_WithInvalidCategoryEnumInput_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationInputFromProbability(
+                random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
+                random.NextDouble(),
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
+                                                                random.NextDouble(),
+                                                                (FailureMechanismSectionAssemblyCategoryGroup) 99)
+                });
+
+            // Assert
+            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, FailureMechanismCategoryGroup.NotApplicable)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionCategoryGroup.None)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, FailureMechanismSectionCategoryGroup.Iv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionCategoryGroup.IIv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIIv, FailureMechanismSectionCategoryGroup.IIIv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IVv, FailureMechanismSectionCategoryGroup.IVv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, FailureMechanismSectionCategoryGroup.Vv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, FailureMechanismSectionCategoryGroup.VIv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, FailureMechanismSectionCategoryGroup.VIIv)]
+        public void CreateTailorMadeCalculationInputFromProbability_ValidData_ReturnTailorMadeCalculationInputFromProbabilityWithCorrectCategories(
+            FailureMechanismSectionAssemblyCategoryGroup originalResult,
+            FailureMechanismSectionCategoryGroup expectedResult)
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            double lowerBoundary = random.NextDouble(0.0, 0.5);
+            double upperBoundary = random.NextDouble(0.6, 1.0);
+
+            // Call
+            TailorMadeCalculationInputFromProbability result =
+                FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationInputFromProbability(
+                    random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
+                    probability,
+                    new[]
+                    {
+                        new FailureMechanismSectionAssemblyCategory(lowerBoundary,
+                                                                    upperBoundary,
+                                                                    originalResult)
+                    });
+
+            // Assert
+            FailureMechanismSectionCategory actualCategory = result.Categories.Single();
+            Assert.AreEqual(expectedResult, actualCategory.CategoryGroup);
+            Assert.AreEqual(lowerBoundary, actualCategory.LowerBoundary);
+            Assert.AreEqual(upperBoundary, actualCategory.UpperBoundary);
+        }
+
+        [Test]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.None, TailorMadeProbabilityCalculationResultGroup.None)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible, TailorMadeProbabilityCalculationResultGroup.FV)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed, TailorMadeProbabilityCalculationResultGroup.NGO)]
+        public void CreateTailorMadeCalculationInputFromProbability_ValidDataNotProbability_ReturnTailorMadeCalculationInputFromProbability(
+            TailorMadeAssessmentProbabilityCalculationResultType originalResult,
+            TailorMadeProbabilityCalculationResultGroup expectedResult)
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            double lowerBoundary = random.NextDouble(0.0, 0.5);
+            double upperBoundary = random.NextDouble(0.6, 1.0);
+            const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
+
+            // Call
+            TailorMadeCalculationInputFromProbability input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationInputFromProbability(
+                originalResult,
+                probability,
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(lowerBoundary,
+                                                                upperBoundary,
+                                                                categoryGroup)
+                });
+
+            // Assert
+            Assert.AreEqual(expectedResult, input.Result.CalculationResultGroup);
+            Assert.AreEqual(0.0, input.Result.Probability);
+
+            FailureMechanismSectionCategory actualCategory = input.Categories.Single();
+            Assert.AreEqual(FailureMechanismSectionCategoryGroup.IIv, actualCategory.CategoryGroup);
+            Assert.AreEqual(lowerBoundary, actualCategory.LowerBoundary);
+            Assert.AreEqual(upperBoundary, actualCategory.UpperBoundary);
+        }
+
+        [Test]
+        public void CreateTailorMadeCalculationInputFromProbability_ValidDataProbability_ReturnTailorMadeCalculationInputFromProbability()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            double lowerBoundary = random.NextDouble(0.0, 0.5);
+            double upperBoundary = random.NextDouble(0.6, 1.0);
+            const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
+
+            // Call
+            TailorMadeCalculationInputFromProbability input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationInputFromProbability(
+                TailorMadeAssessmentProbabilityCalculationResultType.Probability,
+                probability,
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(lowerBoundary,
+                                                                upperBoundary,
+                                                                categoryGroup)
+                });
+
+            // Assert
+            Assert.AreEqual(TailorMadeProbabilityCalculationResultGroup.Probability, input.Result.CalculationResultGroup);
+            Assert.AreEqual(probability, input.Result.Probability);
+
+            FailureMechanismSectionCategory actualCategory = input.Categories.Single();
+            Assert.AreEqual(FailureMechanismSectionCategoryGroup.IIv, actualCategory.CategoryGroup);
+            Assert.AreEqual(lowerBoundary, actualCategory.LowerBoundary);
+            Assert.AreEqual(upperBoundary, actualCategory.UpperBoundary);
+        }
+
+        #endregion
     }
 }

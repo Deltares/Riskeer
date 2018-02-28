@@ -80,7 +80,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the result type of the tailor made assessment calculation with probability or detailed calculation result.
         /// </summary>
-        public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeProbabilityAndDetailedCalculationResult { get; private set; }
+        public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeAssessmentProbabilityAndDetailedCalculationResult { get; private set; }
+
+        /// <summary>
+        /// Gets the result type of the tailor made assessment calculation with a probability calculation.
+        /// </summary>
+        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentProbabilityCalculationResultType { get; private set; }
 
         /// <summary>
         /// Gets the probability input of the tailor made assessment calculation.
@@ -207,7 +212,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                 throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
-            TailorMadeProbabilityAndDetailedCalculationResult = tailorMadeAssessmentResult;
+            TailorMadeAssessmentProbabilityAndDetailedCalculationResult = tailorMadeAssessmentResult;
+            TailorMadeAssessmentProbabilityInput = probability;
+            TailorMadeAssessmentCategoriesInput = categories;
+
+            return TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv);
+        }
+
+        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult, double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            TailorMadeAssessmentProbabilityCalculationResultType = tailorMadeAssessmentResult;
             TailorMadeAssessmentProbabilityInput = probability;
             TailorMadeAssessmentCategoriesInput = categories;
 

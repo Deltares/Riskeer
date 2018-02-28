@@ -195,6 +195,74 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
+        /// Creates <see cref="TailorMadeCalculationInputFromProbability"/> based on the given parameters.
+        /// </summary>
+        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create
+        /// the input for.</param>
+        /// <param name="probability">The calculated probability to create the input for.</param>
+        /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
+        /// create the input for.</param>
+        /// <returns>The created <see cref="TailorMadeCalculationInputFromProbability"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><see cref="categories"/> contains an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>;</item>
+        /// <item><see cref="tailorMadeAssessmentResult"/> is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="NotSupportedException">Thrown when:
+        ///  <list type="bullet">
+        /// <item><see cref="categories"/> contains a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>;</item>
+        /// <item><see cref="tailorMadeAssessmentResult"/> a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
+        /// invalid value.</exception>
+        public static TailorMadeCalculationInputFromProbability CreateTailorMadeCalculationInputFromProbability(
+            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+            double probability,
+            IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        {
+            if (categories == null)
+            {
+                throw new ArgumentNullException(nameof(categories));
+            }
+
+            if (!Enum.IsDefined(typeof(TailorMadeAssessmentProbabilityCalculationResultType), tailorMadeAssessmentResult))
+            {
+                throw new InvalidEnumArgumentException(nameof(tailorMadeAssessmentResult),
+                                                       (int) tailorMadeAssessmentResult,
+                                                       typeof(TailorMadeAssessmentProbabilityCalculationResultType));
+            }
+
+            TailorMadeProbabilityCalculationResult tailorMadeProbabilityCalculationResult;
+            switch (tailorMadeAssessmentResult)
+            {
+                case TailorMadeAssessmentProbabilityCalculationResultType.None:
+                    tailorMadeProbabilityCalculationResult = new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.None);
+                    break;
+                case TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible:
+                    tailorMadeProbabilityCalculationResult = new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.FV);
+                    break;
+                case TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed:
+                    tailorMadeProbabilityCalculationResult = new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.NGO);
+                    break;
+                case TailorMadeAssessmentProbabilityCalculationResultType.Probability:
+                    tailorMadeProbabilityCalculationResult = new TailorMadeProbabilityCalculationResult(new Probability(probability));
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return new TailorMadeCalculationInputFromProbability(tailorMadeProbabilityCalculationResult,
+                                                                 categories.Select(category => new FailureMechanismSectionCategory(
+                                                                                       ConvertFailureMechanismSectionAssemblyCategoryGroup(category.Group),
+                                                                                       new Probability(category.LowerBoundary),
+                                                                                       new Probability(category.UpperBoundary))).ToArray());
+        }
+
+        /// <summary>
         /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="FailureMechanismSectionCategoryGroup"/>.
         /// </summary>
         /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>

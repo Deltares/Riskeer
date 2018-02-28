@@ -54,7 +54,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             Assert.IsNull(calculator.TailorMadeAssessmentCategoriesInput);
             Assert.AreEqual(0.0, calculator.TailorMadeAssessmentProbabilityInput);
-            Assert.AreEqual((TailorMadeAssessmentProbabilityAndDetailedCalculationResultType) 0, calculator.TailorMadeProbabilityAndDetailedCalculationResult);
+            Assert.AreEqual((TailorMadeAssessmentProbabilityAndDetailedCalculationResultType) 0, calculator.TailorMadeAssessmentProbabilityAndDetailedCalculationResult);
             Assert.IsNull(calculator.TailorMadeAssessmentAssemblyOutput);
 
             Assert.IsNull(calculator.CombinedSimpleAssemblyInput);
@@ -307,7 +307,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         #region Tailor Made Assessment
 
         [Test]
-        public void AssembleTailorMadeAssessment_ThrowExceptionOnCalculateFalse_ReturnOutput()
+        public void AssembleTailorMadeAssessmentWithProbabilityAndDetailedCalculationResult_ThrowExceptionOnCalculateFalse_ReturnOutput()
         {
             // Setup
             var random = new Random(39);
@@ -330,7 +330,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         }
 
         [Test]
-        public void AssembleTailorMadeAssessment_ThrowExceptionOnCalculateFalse_SetsInput()
+        public void AssembleTailorMadeAssessmentWithProbabilityAndDetailedCalculationResult_ThrowExceptionOnCalculateFalse_SetsInput()
         {
             // Setup
             var random = new Random(39);
@@ -344,13 +344,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, categoryInput);
 
             // Assert
-            Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeProbabilityAndDetailedCalculationResult);
+            Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityAndDetailedCalculationResult);
             Assert.AreEqual(probability, calculator.TailorMadeAssessmentProbabilityInput);
             Assert.AreSame(categoryInput, calculator.TailorMadeAssessmentCategoriesInput);
         }
 
         [Test]
-        public void AssembleTailorMadeAssessment_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleTailorMadeAssessmentWithProbabilityAndDetailedCalculationResult_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(39);
@@ -362,6 +362,76 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Call
             TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
                 random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>(),
+                random.NextDouble(),
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
+                                                                random.NextRoundedDouble(0.6, 1.0),
+                                                                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                });
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResult_ThrowExceptionOnCalculateFalse_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(
+                random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
+                random.NextDouble(),
+                new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(random.NextRoundedDouble(0.0, 0.5),
+                                                                random.NextRoundedDouble(0.6, 1.0),
+                                                                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                });
+
+            // Assert
+            Assert.AreEqual(1.0, assembly.Probability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, assembly.Group);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResult_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
+
+            IEnumerable<FailureMechanismSectionAssemblyCategory> categoryInput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>();
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, categoryInput);
+
+            // Assert
+            Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultType);
+            Assert.AreEqual(probability, calculator.TailorMadeAssessmentProbabilityInput);
+            Assert.AreSame(categoryInput, calculator.TailorMadeAssessmentCategoriesInput);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResult_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
+                random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
                 random.NextDouble(),
                 new[]
                 {

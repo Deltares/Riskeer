@@ -152,6 +152,26 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                                                                      new Probability(probability)));
         }
 
+        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+                                                                            double probability,
+                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+        {
+            try
+            {
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.TailorMadeAssessmentDirectFailureMechanisms(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationInputFromProbability(tailorMadeAssessmentResult,
+                                                                                                                          probability,
+                                                                                                                          categories));
+
+                return FailureMechanismSectionAssemblyCreator.Create(output.Result);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
+            }
+        }
+
         public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
                                                                 FailureMechanismSectionAssembly detailedAssembly,
                                                                 FailureMechanismSectionAssembly tailorMadeAssembly)
