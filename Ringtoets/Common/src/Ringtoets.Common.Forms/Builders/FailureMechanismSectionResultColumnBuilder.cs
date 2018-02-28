@@ -100,6 +100,35 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
+        /// <see cref="SimpleAssessmentResultValidityOnlyType"/>.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddSimpleAssessmentResultValidityOnlyColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>> dataSource = CreateEnumDisplayWrappers<SimpleAssessmentResultValidityOnlyType>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
         /// <see cref="DetailedAssessmentResultType"/>.
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
@@ -179,6 +208,36 @@ namespace Ringtoets.Common.Forms.Builders
                 dataSource,
                 nameof(EnumDisplayWrapper<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>.Value),
                 nameof(EnumDisplayWrapper<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>.DisplayName));
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
+        /// <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddTailorMadeAssessmentProbabilityCalculationResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentProbabilityCalculationResultType>> dataSource = 
+                CreateEnumDisplayWrappers<TailorMadeAssessmentProbabilityCalculationResultType>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentProbabilityCalculationResultType>.Value),
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentProbabilityCalculationResultType>.DisplayName));
         }
 
         /// <summary>
@@ -356,10 +415,34 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_ManualAssemblyCategoryGroup_DisplayName,
+                Resources.FailureMechanismResultView_ManualAssembly_DisplayName,
                 dataSource,
                 nameof(EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>.Value),
                 nameof(EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>.DisplayName));
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the
+        /// overridden combined assembly probability.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddManualAssemblyProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_ManualAssembly_DisplayName);
         }
 
         #endregion

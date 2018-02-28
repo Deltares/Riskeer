@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None;
             DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
             TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
-            tailorMadeAssessmentProbability = double.NaN;
+            TailorMadeAssessmentProbability = double.NaN;
             ManualAssemblyProbability = double.NaN;
         }
 

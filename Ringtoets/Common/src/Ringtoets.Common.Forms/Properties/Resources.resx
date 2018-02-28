@@ -254,7 +254,7 @@ gecombineerd</value>
     <value>Overschrijf
 assemblageresultaat</value>
   </data>
-  <data name="FailureMechanismResultView_ManualAssemblyCategoryGroup_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_ManualAssembly_DisplayName" xml:space="preserve">
     <value>Assemblageresultaat
 handmatig</value>
   </data>

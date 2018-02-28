@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
             {
                 return calculator.CalculateFailureMechanismSectionCategories(signalingNorm,
                                                                              lowerLimitNorm,
-                                                                             probabilityDistributionFactor,
+                                                                             probabilityDistributionFactor / 100,
                                                                              n);
             }
             catch (AssemblyCategoriesCalculatorException e)

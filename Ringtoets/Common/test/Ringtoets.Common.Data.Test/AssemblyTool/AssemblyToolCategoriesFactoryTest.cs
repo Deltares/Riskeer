@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
                 Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
-                Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(probabilityDistributionFactor / 100, calculator.ProbabilityDistributionFactor);
                 Assert.AreEqual(n, calculator.N);
             }
         }

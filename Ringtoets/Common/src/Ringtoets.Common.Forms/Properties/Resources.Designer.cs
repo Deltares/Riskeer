@@ -1478,9 +1478,9 @@ namespace Ringtoets.Common.Forms.Properties {
         ///   Looks up a localized string similar to Assemblageresultaat
         ///handmatig.
         /// </summary>
-        public static string FailureMechanismResultView_ManualAssemblyCategoryGroup_DisplayName {
+        public static string FailureMechanismResultView_ManualAssembly_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_ManualAssemblyCategoryGroup_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_ManualAssembly_DisplayName", resourceCulture);
             }
         }
         
