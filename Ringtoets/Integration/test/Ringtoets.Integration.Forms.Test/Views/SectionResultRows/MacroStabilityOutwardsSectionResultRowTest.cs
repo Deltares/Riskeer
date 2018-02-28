@@ -560,8 +560,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup = row.CombinedAssemblyCategoryGroup;
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.CombinedAssemblyOutput;
-                Assert.AreEqual(calculatorOutput.Group, combinedAssemblyCategoryGroup);
+                FailureMechanismSectionAssemblyCategoryGroup calculatorOutput = calculator.CombinedAssemblyCategoryOutput;
+                Assert.AreEqual(calculatorOutput, combinedAssemblyCategoryGroup);
                 mocks.VerifyAll();
             }
         }

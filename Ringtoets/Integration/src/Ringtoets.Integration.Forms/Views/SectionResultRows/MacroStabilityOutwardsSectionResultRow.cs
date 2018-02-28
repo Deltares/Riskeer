@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             get
             {
-                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
         }
 
@@ -178,7 +178,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
                     SectionResult,
                     failureMechanism,
-                    assessmentSection).Group;
+                    assessmentSection);
             }
         }
 
@@ -194,7 +194,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
                     SectionResult,
                     failureMechanism,
-                    assessmentSection).Group;
+                    assessmentSection);
             }
         }
 
@@ -210,7 +210,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
                     SectionResult,
                     failureMechanism,
-                    assessmentSection).Group;
+                    assessmentSection);
             }
         }
 

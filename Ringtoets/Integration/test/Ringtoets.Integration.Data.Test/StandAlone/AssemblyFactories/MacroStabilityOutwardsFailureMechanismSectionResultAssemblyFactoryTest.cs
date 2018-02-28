@@ -94,12 +94,12 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
                     MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
-                Assert.AreSame(calculatorOutput, actualOutput);
+                Assert.AreEqual(calculatorOutput.Group, actualOutput);
             }
         }
 
@@ -240,7 +240,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
                     MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
                         sectionResult,
                         failureMechanism,
@@ -248,7 +248,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
-                Assert.AreSame(calculatorOutput, actualOutput);
+                Assert.AreEqual(calculatorOutput.Group, actualOutput);
                 mocks.VerifyAll();
             }
         }
@@ -400,7 +400,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
                     MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
                         sectionResult,
                         failureMechanism,
@@ -408,7 +408,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
-                Assert.AreSame(calculatorOutput, actualOutput);
+                Assert.AreEqual(calculatorOutput.Group, actualOutput);
                 mocks.VerifyAll();
             }
         }
@@ -528,23 +528,20 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                     assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly expectedSimpleAssembly = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(
                     sectionResult);
-                FailureMechanismSectionAssembly expectedDetailedAssembly = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                FailureMechanismSectionAssemblyCategoryGroup expectedDetailedAssembly = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
-                FailureMechanismSectionAssembly expectedTailorMadeAssembly = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
 
-                Assert.AreEqual(expectedSimpleAssembly.Group, calculator.CombinedSimpleAssemblyInput.Group);
-                Assert.AreEqual(expectedSimpleAssembly.Probability, calculator.CombinedSimpleAssemblyInput.Probability);
-                Assert.AreEqual(expectedDetailedAssembly.Group, calculator.CombinedDetailedAssemblyInput.Group);
-                Assert.AreEqual(expectedDetailedAssembly.Probability, calculator.CombinedDetailedAssemblyInput.Probability);
-                Assert.AreEqual(expectedTailorMadeAssembly.Group, calculator.CombinedTailorMadeAssemblyInput.Group);
-                Assert.AreEqual(expectedTailorMadeAssembly.Probability, calculator.CombinedTailorMadeAssemblyInput.Probability);
+                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual(expectedDetailedAssembly, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
                 mocks.VerifyAll();
             }
         }
@@ -567,15 +564,15 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
                     MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.CombinedAssemblyOutput;
-                Assert.AreSame(calculatorOutput, actualOutput);
+                FailureMechanismSectionAssemblyCategoryGroup calculatorOutput = calculator.CombinedAssemblyCategoryOutput;
+                Assert.AreEqual(calculatorOutput, actualOutput);
                 mocks.VerifyAll();
             }
         }
