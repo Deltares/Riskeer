@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
@@ -43,7 +44,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None;
+            DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
+            TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
             tailorMadeAssessmentProbability = double.NaN;
+            ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
         /// <summary>
@@ -56,6 +60,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tailor made assessment result.
+        /// </summary>
+        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the tailor made assessment of safety per failure mechanism section as a probability.
@@ -75,5 +89,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 tailorMadeAssessmentProbability = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
+        /// </summary>
+        public bool UseManualAssemblyCategoryGroup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
     }
 }

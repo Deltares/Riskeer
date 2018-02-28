@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
@@ -42,9 +43,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
-            Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, result.SimpleAssessmentResult);
             Assert.AreSame(section, result.Section);
+            Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, result.SimpleAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentResultType.Probability, result.DetailedAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsNaN(result.TailorMadeAssessmentProbability);
+            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }
 
         [Test]
