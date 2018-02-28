@@ -48,50 +48,51 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            FailureMechanismSectionAssemblyCategoryGroup group;
-            FailureMechanismSectionCategoryGroup originalGroup = result.CategoryGroup;
+            return new FailureMechanismSectionAssembly(result.EstimatedProbabilityOfFailure.Value,
+                                                       ConvertFailureMechanismSectionyCategoryGroup(result.CategoryGroup));
+        }
 
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionCategoryGroup), originalGroup))
+        /// <summary>
+        /// Converts a <see cref="FailureMechanismSectionCategoryGroup"/> into a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
+        /// </summary>
+        /// <param name="category">The <see cref="FailureMechanismSectionCategoryGroup"/> to convert.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
+        /// is a valid value, but unsupported.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup ConvertFailureMechanismSectionyCategoryGroup(FailureMechanismSectionCategoryGroup category)
+        {
+            if (!Enum.IsDefined(typeof(FailureMechanismSectionCategoryGroup), category))
             {
-                throw new InvalidEnumArgumentException(nameof(originalGroup),
-                                                       (int) originalGroup,
+                throw new InvalidEnumArgumentException(nameof(category),
+                                                       (int) category,
                                                        typeof(FailureMechanismSectionCategoryGroup));
             }
 
-            switch (originalGroup)
+            switch (category)
             {
                 case FailureMechanismSectionCategoryGroup.Iv:
-                    group = FailureMechanismSectionAssemblyCategoryGroup.Iv;
-                    break;
+                    return FailureMechanismSectionAssemblyCategoryGroup.Iv;
                 case FailureMechanismSectionCategoryGroup.IIv:
-                    group = FailureMechanismSectionAssemblyCategoryGroup.IIv;
-                    break;
+                    return FailureMechanismSectionAssemblyCategoryGroup.IIv;
                 case FailureMechanismSectionCategoryGroup.IIIv:
-                    group = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-                    break;
+                    return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
                 case FailureMechanismSectionCategoryGroup.IVv:
-                    group = FailureMechanismSectionAssemblyCategoryGroup.IVv;
-                    break;
+                    return FailureMechanismSectionAssemblyCategoryGroup.IVv;
                 case FailureMechanismSectionCategoryGroup.Vv:
-                    group = FailureMechanismSectionAssemblyCategoryGroup.Vv;
-                    break;
+                    return FailureMechanismSectionAssemblyCategoryGroup.Vv;
                 case FailureMechanismSectionCategoryGroup.VIv:
-                    group = FailureMechanismSectionAssemblyCategoryGroup.VIv;
-                    break;
+                    return FailureMechanismSectionAssemblyCategoryGroup.VIv;
                 case FailureMechanismSectionCategoryGroup.VIIv:
-                    group = FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-                    break;
+                    return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
                 case FailureMechanismSectionCategoryGroup.None:
-                    group = FailureMechanismSectionAssemblyCategoryGroup.None;
-                    break;
+                    return FailureMechanismSectionAssemblyCategoryGroup.None;
                 case FailureMechanismSectionCategoryGroup.NotApplicable:
-                    group = FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
-                    break;
+                    return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
                 default:
                     throw new NotSupportedException();
             }
-
-            return new FailureMechanismSectionAssembly(result.EstimatedProbabilityOfFailure.Value, group);
         }
     }
 }
