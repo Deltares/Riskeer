@@ -24,8 +24,13 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -107,6 +112,91 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void UseManualAssemblyProbability_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            // Precondition
+            Assert.IsFalse(result.UseManualAssemblyProbability);
+
+            // Call
+            row.UseManualAssemblyProbability = true;
+
+            // Assert
+            Assert.IsTrue(result.UseManualAssemblyProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(0.5)]
+        [TestCase(1e-6)]
+        [TestCase(double.NaN)]
+        public void ManualAssemblyProbability_ValidValue_NotifyObserversAndPropertyChanged(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            row.ManualAssemblyProbability = value;
+
+            // Assert
+            Assert.AreEqual(value, row.ManualAssemblyProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void ManualAssemblyProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            TestDelegate test = () => row.ManualAssemblyProbability = value;
+
+            // Assert
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
+            mocks.VerifyAll();
+        }
+
+        #region Registration
+
+        [Test]
         public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
@@ -132,6 +222,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DetailedAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            row.DetailedAssessmentResult = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.DetailedAssessmentResult);
             mocks.VerifyAll();
         }
 
@@ -285,6 +402,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void TailorMadeAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            row.TailorMadeAssessmentResult = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.TailorMadeAssessmentResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(0.5)]
@@ -339,5 +483,243 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(expectedMessage, message);
             mocks.VerifyAll();
         }
+
+        #endregion
+
+        #region Assembly Results
+
+        [Test]
+        public void SimpleAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup = row.SimpleAssemblyCategoryGroup;
+
+                // Assert
+                FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
+                Assert.AreEqual(calculatorOutput.Group, simpleAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void SimpleAssemblyCategoryGroup_AssemblyThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
+                TestDelegate test = () => simpleAssemblyCategoryGroup = row.SimpleAssemblyCategoryGroup;
+
+                // Assert
+                Assert.Throws<AssemblyException>(test);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void DetailedAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup = row.DetailedAssemblyCategoryGroup;
+
+                // Assert
+                FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
+                Assert.AreEqual(calculatorOutput.Group, detailedAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void DetailedAssemblyCategoryGroup_AssemblyThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
+                TestDelegate test = () => detailedAssemblyCategoryGroup = row.DetailedAssemblyCategoryGroup;
+
+                // Assert
+                Assert.Throws<AssemblyException>(test);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void TailorMadeAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup = row.TailorMadeAssemblyCategoryGroup;
+
+                // Assert
+                FailureMechanismSectionAssembly calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
+                Assert.AreEqual(calculatorOutput.Group, tailorMadeAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void TailorMadeAssemblyCategoryGroup_AssemblyThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
+                TestDelegate test = () => tailorMadeAssemblyCategoryGroup = row.TailorMadeAssemblyCategoryGroup;
+
+                // Assert
+                Assert.Throws<AssemblyException>(test);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CombinedAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup = row.CombinedAssemblyCategoryGroup;
+
+                // Assert
+                FailureMechanismSectionAssembly calculatorOutput = calculator.CombinedAssemblyOutput;
+                Assert.AreEqual(calculatorOutput.Group, combinedAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CombinedAssemblyCategoryGroup_AssemblyThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
+                TestDelegate test = () => combinedAssemblyCategoryGroup = row.CombinedAssemblyCategoryGroup;
+
+                // Assert
+                Assert.Throws<AssemblyException>(test);
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
     }
 }

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -48,8 +47,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(DetailedAssessmentResultType.Probability, result.DetailedAssessmentResult);
             Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsNaN(result.TailorMadeAssessmentProbability);
-            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
+            Assert.IsFalse(result.UseManualAssemblyProbability);
+            Assert.AreEqual(double.NaN, result.ManualAssemblyProbability);
         }
 
         [Test]
@@ -106,6 +105,47 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void ManualAssemblyProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate test = () => result.ManualAssemblyProbability = newValue;
+
+            // Assert
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void ManualAssemblyProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            result.ManualAssemblyProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.ManualAssemblyProbability);
         }
     }
 }

@@ -21,7 +21,9 @@
 
 using System;
 using System.ComponentModel;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -82,6 +84,50 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         }
 
         /// <summary>
+        /// Gets or sets the value representing the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResult;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResult = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
+        /// Gets the value representing the result of the detailed assessment.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double DetailedAssessmentProbability
+        {
+            get
+            {
+                return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the tailor made assessment result.
+        /// </summary>
+        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult
+        {
+            get
+            {
+                return SectionResult.TailorMadeAssessmentResult;
+            }
+            set
+            {
+                SectionResult.TailorMadeAssessmentResult = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the tailor made assessment probability of the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
@@ -101,14 +147,98 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets the value representing the result of the detailed assessment.
+        /// Gets the simple assembly category group.
         /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup
         {
             get
             {
-                return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
+                return GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets the detailed assembly category group.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup
+        {
+            get
+            {
+                return GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets the tailor made assembly category group.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup
+        {
+            get
+            {
+                return GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets the combined assembly category group.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup
+        {
+            get
+            {
+                return GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyProbability"/>.
+        /// </summary>
+        public bool UseManualAssemblyProbability
+        {
+            get
+            {
+                return SectionResult.UseManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.UseManualAssemblyProbability = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
+        /// not in the range [0,1].</exception>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double ManualAssemblyProbability
+        {
+            get
+            {
+                return SectionResult.ManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.ManualAssemblyProbability = value;
+                SectionResult.NotifyObservers();
             }
         }
 

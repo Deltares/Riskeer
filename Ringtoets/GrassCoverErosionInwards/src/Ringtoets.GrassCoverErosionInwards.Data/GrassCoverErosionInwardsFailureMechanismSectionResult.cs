@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
@@ -35,6 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     public class GrassCoverErosionInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private double tailorMadeAssessmentProbability;
+        private double manualAssemblyProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
             TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
             tailorMadeAssessmentProbability = double.NaN;
-            ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            ManualAssemblyProbability = double.NaN;
         }
 
         /// <summary>
@@ -91,13 +91,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyProbability"/>.
         /// </summary>
-        public bool UseManualAssemblyCategoryGroup { get; set; }
+        public bool UseManualAssemblyProbability { get; set; }
 
         /// <summary>
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double ManualAssemblyProbability
+        {
+            get
+            {
+                return manualAssemblyProbability;
+            }
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                manualAssemblyProbability = value;
+            }
+        }
     }
 }
