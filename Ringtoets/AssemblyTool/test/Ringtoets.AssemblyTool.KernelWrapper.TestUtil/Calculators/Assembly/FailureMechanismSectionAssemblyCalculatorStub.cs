@@ -113,6 +113,26 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public FailureMechanismSectionAssembly CombinedTailorMadeAssemblyInput { get; private set; }
 
         /// <summary>
+        /// Gets the output of the combined assembly calculation.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryOutput { get; private set; }
+
+        /// <summary>
+        /// Gets the simple assembly input of the combined assembly calculation.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedSimpleAssemblyGroupInput { get; private set; }
+
+        /// <summary>
+        /// Gets the detailed assembly input of the combined assembly calculation.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedDetailedAssemblyGroupInput { get; private set; }
+
+        /// <summary>
+        /// Gets the tailor made assembly input of the combined assembly calculation.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedTailorMadeAssemblyGroupInput { get; private set; }
+
+        /// <summary>
         /// Sets an indicator whether an exception must be thrown when performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
@@ -208,6 +228,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             CombinedTailorMadeAssemblyInput = tailorMadeAssembly;
 
             return CombinedAssemblyOutput = tailorMadeAssembly;
+        }
+
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly,
+                                                                             FailureMechanismSectionAssemblyCategoryGroup detailedAssembly,
+                                                                             FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly)
+        {
+            if (ThrowExceptionOnCalculateCombinedAssembly)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            CombinedSimpleAssemblyGroupInput = simpleAssembly;
+            CombinedDetailedAssemblyGroupInput = detailedAssembly;
+            CombinedTailorMadeAssemblyGroupInput = tailorMadeAssembly;
+
+            return CombinedAssemblyCategoryOutput = tailorMadeAssembly;
         }
     }
 }

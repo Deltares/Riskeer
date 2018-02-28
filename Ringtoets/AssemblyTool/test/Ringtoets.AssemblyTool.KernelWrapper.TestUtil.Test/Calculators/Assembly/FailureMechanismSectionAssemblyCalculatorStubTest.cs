@@ -381,7 +381,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         #region Combined Assembly
 
         [Test]
-        public void AssembleCombined_ThrowExceptionOnCalculateCombinedAssemblyFalse_ReturnOutput()
+        public void AssembleCombinedWithProbabilities_ThrowExceptionOnCalculateCombinedAssemblyFalse_ReturnOutput()
         {
             // Setup
             var random = new Random(39);
@@ -390,7 +390,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
-            
 
             // Call
             FailureMechanismSectionAssembly combinedAssembly = calculator.AssembleCombined(null, null, tailorMadeAssembly);
@@ -400,7 +399,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         }
 
         [Test]
-        public void AssembleCombined_ThrowExceptionOnCalculateCombinedAssemblyFalse_SetsInput()
+        public void AssembleCombinedWithProbabilities_ThrowExceptionOnCalculateCombinedAssemblyFalse_SetsInput()
         {
             // Setup
             var random = new Random(39);
@@ -426,7 +425,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         }
 
         [Test]
-        public void AssembleCombined_ThrowExceptionOnCalculateCombinedAssemblyTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleCombinedWithProbabilities_ThrowExceptionOnCalculateCombinedAssemblyTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub
@@ -436,6 +435,60 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             TestDelegate test = () => calculator.AssembleCombined(null, null, null);
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void AssembleCombined_ThrowExceptionOnCalculateCombinedAssemblyFalse_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var tailorMadeAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup combinedAssembly = calculator.AssembleCombined(0, 0, tailorMadeAssembly);
+
+            // Assert
+            Assert.AreEqual(tailorMadeAssembly, combinedAssembly);
+        }
+
+        [Test]
+        public void AssembleCombined_ThrowExceptionOnCalculateCombinedAssemblyFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            var simpleAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var detailedAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var tailorMadeAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
+
+            // Assert
+            Assert.AreEqual(simpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+            Assert.AreEqual(detailedAssembly, calculator.CombinedDetailedAssemblyGroupInput);
+            Assert.AreEqual(tailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+        }
+
+        [Test]
+        public void AssembleCombined_ThrowExceptionOnCalculateCombinedAssemblyTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculateCombinedAssembly = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleCombined(0, 0, 0);
 
             // Assert
             var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
