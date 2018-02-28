@@ -88,13 +88,13 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(DuneErosionSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_DisplayName,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
                 twoAResultDataSource,
                 nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
                 nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
                 nameof(DuneErosionSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
         }
 
         protected override void BindEvents()

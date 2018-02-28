@@ -121,7 +121,7 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_DetailedAssessment_DisplayName,
+                Resources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
                 dataSource,
                 nameof(EnumDisplayWrapper<DetailedAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<DetailedAssessmentResultType>.DisplayName));
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_TailorMadeAssessment_DisplayName,
+                Resources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName,
                 dataSource,
                 nameof(EnumDisplayWrapper<TailorMadeAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<TailorMadeAssessmentResultType>.DisplayName));
@@ -229,7 +229,7 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_SimpleAssessmentAssembly_DisplayName);
+                Resources.FailureMechanismResultView_SimpleAssemblyCategoryGroup_DisplayName);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace Ringtoets.Common.Forms.Builders
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddDetailedAssessmentAssemblyColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddDetailedAssemblyCategoryGroupColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             if (dataGridViewControl == null)
             {
@@ -253,7 +253,7 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_DetailedAssessmentAssembly_DisplayName);
+                Resources.FailureMechanismResultView_DetailedAssemblyCategoryGroup_DisplayName);
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName);
+                Resources.FailureMechanismResultView_TailorMadeAssemblyCategoryGroup_DisplayName);
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_CombinedAssembly_DisplayName);
+                Resources.FailureMechanismResultView_CombinedAssemblyCategoryGroup_DisplayName);
         }
 
         #endregion
@@ -329,7 +329,7 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddCheckBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_OverrideAssembly_DisplayName);
+                Resources.FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName);
         }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace Ringtoets.Common.Forms.Builders
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_OverrideAssemblyGroup_DisplayName,
+                Resources.FailureMechanismResultView_ManualAssemblyCategoryGroup_DisplayName,
                 dataSource,
                 nameof(EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>.Value),
                 nameof(EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>.DisplayName));

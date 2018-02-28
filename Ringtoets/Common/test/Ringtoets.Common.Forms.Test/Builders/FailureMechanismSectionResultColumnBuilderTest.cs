@@ -437,7 +437,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         public void AddDetailedAssemblyCategoryGroupColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentAssemblyColumn(null, "property");
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -448,7 +448,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         public void AddDetailedAssemblyCategoryGroupColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentAssemblyColumn(new DataGridViewControl(), null);
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -470,7 +470,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentAssemblyColumn(control, dataPropertyName);
+                FailureMechanismSectionResultColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);

@@ -1372,9 +1372,9 @@ namespace Ringtoets.Common.Forms.Properties {
         ///   Looks up a localized string similar to Assemblageresultaat
         ///gecombineerd.
         /// </summary>
-        public static string FailureMechanismResultView_CombinedAssembly_DisplayName {
+        public static string FailureMechanismResultView_CombinedAssemblyCategoryGroup_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_CombinedAssembly_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_CombinedAssemblyCategoryGroup_DisplayName", resourceCulture);
             }
         }
         
@@ -1446,21 +1446,12 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets per vak.
-        /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessment_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessment_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Assemblageresultaat
         ///gedetailleerde toets per vak.
         /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessmentAssembly_DisplayName {
+        public static string FailureMechanismResultView_DetailedAssemblyCategoryGroup_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentAssembly_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssemblyCategoryGroup_DisplayName", resourceCulture);
             }
         }
         
@@ -1475,12 +1466,11 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overschrijf
-        ///assemblageresultaat.
+        ///   Looks up a localized string similar to Gedetailleerde toets per vak.
         /// </summary>
-        public static string FailureMechanismResultView_OverrideAssembly_DisplayName {
+        public static string FailureMechanismResultView_DetailedAssessmentResult_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_OverrideAssembly_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentResult_DisplayName", resourceCulture);
             }
         }
         
@@ -1488,9 +1478,9 @@ namespace Ringtoets.Common.Forms.Properties {
         ///   Looks up a localized string similar to Assemblageresultaat
         ///handmatig.
         /// </summary>
-        public static string FailureMechanismResultView_OverrideAssemblyGroup_DisplayName {
+        public static string FailureMechanismResultView_ManualAssemblyCategoryGroup_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_OverrideAssemblyGroup_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_ManualAssemblyCategoryGroup_DisplayName", resourceCulture);
             }
         }
         
@@ -1498,9 +1488,9 @@ namespace Ringtoets.Common.Forms.Properties {
         ///   Looks up a localized string similar to Assemblageresultaat
         ///eenvoudige toets.
         /// </summary>
-        public static string FailureMechanismResultView_SimpleAssessmentAssembly_DisplayName {
+        public static string FailureMechanismResultView_SimpleAssemblyCategoryGroup_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_SimpleAssessmentAssembly_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_SimpleAssemblyCategoryGroup_DisplayName", resourceCulture);
             }
         }
         
@@ -1514,21 +1504,12 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toets op maat.
-        /// </summary>
-        public static string FailureMechanismResultView_TailorMadeAssessment_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessment_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Assemblageresultaat
         ///toets op maat.
         /// </summary>
-        public static string FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName {
+        public static string FailureMechanismResultView_TailorMadeAssemblyCategoryGroup_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssemblyCategoryGroup_DisplayName", resourceCulture);
             }
         }
         
@@ -1539,6 +1520,25 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toets op maat.
+        /// </summary>
+        public static string FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overschrijf
+        ///assemblageresultaat.
+        /// </summary>
+        public static string FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName", resourceCulture);
             }
         }
         

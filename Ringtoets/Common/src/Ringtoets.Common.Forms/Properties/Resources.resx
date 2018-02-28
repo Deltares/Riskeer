@@ -220,41 +220,41 @@
   <data name="FailureMechanismResultView_SimpleAssessmentResult_DisplayName" xml:space="preserve">
     <value>Eenvoudige toets</value>
   </data>
-  <data name="FailureMechanismResultView_TailorMadeAssessment_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName" xml:space="preserve">
     <value>Toets op maat</value>
   </data>
   <data name="FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName" xml:space="preserve">
     <value>Toets op maat
 faalkans</value>
   </data>
-  <data name="FailureMechanismResultView_DetailedAssessment_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_DetailedAssessmentResult_DisplayName" xml:space="preserve">
     <value>Gedetailleerde toets per vak</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssessmentProbability_DisplayName" xml:space="preserve">
     <value>Gedetailleerde toets per vak
 faalkans</value>
   </data>
-  <data name="FailureMechanismResultView_SimpleAssessmentAssembly_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_SimpleAssemblyCategoryGroup_DisplayName" xml:space="preserve">
     <value>Assemblageresultaat
 eenvoudige toets</value>
   </data>
-  <data name="FailureMechanismResultView_DetailedAssessmentAssembly_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_DetailedAssemblyCategoryGroup_DisplayName" xml:space="preserve">
     <value>Assemblageresultaat
 gedetailleerde toets per vak</value>
   </data>
-  <data name="FailureMechanismResultView_TailorMadeAssessmentAssembly_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_TailorMadeAssemblyCategoryGroup_DisplayName" xml:space="preserve">
     <value>Assemblageresultaat
 toets op maat</value>
   </data>
-  <data name="FailureMechanismResultView_CombinedAssembly_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_CombinedAssemblyCategoryGroup_DisplayName" xml:space="preserve">
     <value>Assemblageresultaat
 gecombineerd</value>
   </data>
-  <data name="FailureMechanismResultView_OverrideAssembly_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName" xml:space="preserve">
     <value>Overschrijf
 assemblageresultaat</value>
   </data>
-  <data name="FailureMechanismResultView_OverrideAssemblyGroup_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_ManualAssemblyCategoryGroup_DisplayName" xml:space="preserve">
     <value>Assemblageresultaat
 handmatig</value>
   </data>

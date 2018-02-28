@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(TechnicalInnovationSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
         }
 
         protected override void BindEvents()

@@ -126,11 +126,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessment_DisplayName,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
                 true);
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessment_DisplayName);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
         }
 
         protected override void BindEvents()
