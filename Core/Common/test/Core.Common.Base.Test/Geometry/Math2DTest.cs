@@ -172,10 +172,10 @@ namespace Core.Common.Base.Test.Geometry
         public void ConvertPointsToLineSegments_TooFewPoints_ReturnEmpty(int pointCount)
         {
             // Setup
-            IEnumerable<Point2D> linePoints = Enumerable.Repeat(new Point2D(0, 0), pointCount);
+            IEnumerable<Point2D> points = Enumerable.Repeat(new Point2D(0, 0), pointCount);
 
             // Call
-            IEnumerable<Segment2D> segments = Math2D.ConvertPointsToLineSegments(linePoints);
+            IEnumerable<Segment2D> segments = Math2D.ConvertPointsToLineSegments(points);
 
             // Assert
             CollectionAssert.IsEmpty(segments);
@@ -185,19 +185,19 @@ namespace Core.Common.Base.Test.Geometry
         public void ConvertPointsToLineSegments_TwoPoints_ReturnOneSegmentOfThoseTwoPoints()
         {
             // Setup
-            var linePoints = new[]
+            var points = new[]
             {
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             };
 
             // Call
-            Segment2D[] segments = Math2D.ConvertPointsToLineSegments(linePoints).ToArray();
+            Segment2D[] segments = Math2D.ConvertPointsToLineSegments(points).ToArray();
 
             // Assert
             Assert.AreEqual(1, segments.Length);
-            Assert.AreSame(linePoints[0], segments[0].FirstPoint);
-            Assert.AreSame(linePoints[1], segments[0].SecondPoint);
+            Assert.AreSame(points[0], segments[0].FirstPoint);
+            Assert.AreSame(points[1], segments[0].SecondPoint);
         }
 
         [Test]
@@ -206,10 +206,10 @@ namespace Core.Common.Base.Test.Geometry
         public void ConvertPointsToPolygonSegments_TooFewPoints_ReturnEmpty(int pointCount)
         {
             // Setup
-            IEnumerable<Point2D> linePoints = Enumerable.Repeat(new Point2D(0, 0), pointCount);
+            IEnumerable<Point2D> points = Enumerable.Repeat(new Point2D(0, 0), pointCount);
 
             // Call
-            IEnumerable<Segment2D> segments = Math2D.ConvertPointsToPolygonSegments(linePoints);
+            IEnumerable<Segment2D> segments = Math2D.ConvertPointsToPolygonSegments(points);
 
             // Assert
             CollectionAssert.IsEmpty(segments);
@@ -219,25 +219,25 @@ namespace Core.Common.Base.Test.Geometry
         public void ConvertPointsToPolygonSegments_TwoPoints_ReturnsExpectedSegments()
         {
             // Setup
-            var linePoints = new[]
+            var points = new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             };
 
             // Call
-            Segment2D[] segments = Math2D.ConvertPointsToPolygonSegments(linePoints).ToArray();
+            Segment2D[] segments = Math2D.ConvertPointsToPolygonSegments(points).ToArray();
 
             // Assert
             Assert.AreEqual(2, segments.Length);
 
             Segment2D firstSegment = segments[0];
-            Assert.AreSame(linePoints[0], firstSegment.FirstPoint);
-            Assert.AreSame(linePoints[1], firstSegment.SecondPoint);
+            Assert.AreSame(points[0], firstSegment.FirstPoint);
+            Assert.AreSame(points[1], firstSegment.SecondPoint);
 
             Segment2D secondSegment = segments[1];
-            Assert.AreSame(linePoints[1], secondSegment.FirstPoint);
-            Assert.AreSame(linePoints[0], secondSegment.SecondPoint);
+            Assert.AreSame(points[1], secondSegment.FirstPoint);
+            Assert.AreSame(points[0], secondSegment.SecondPoint);
         }
 
         [Test]
