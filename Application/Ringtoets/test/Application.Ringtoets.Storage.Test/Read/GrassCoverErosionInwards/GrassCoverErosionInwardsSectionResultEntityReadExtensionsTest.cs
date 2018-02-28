@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var random = new Random(21);
             var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            double layerThree = random.NextDouble();
+            double tailorMadeAssessmentProbability = random.NextDouble();
 
             var collector = new ReadConversionCollector();
 
@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new GrassCoverErosionInwardsSectionResultEntity
             {
-                LayerThree = layerThree,
+                LayerThree = tailorMadeAssessmentProbability,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.AreEqual(tailorMadeAssessmentProbability, sectionResult.TailorMadeAssessmentProbability, 1e-6);
             Assert.IsNull(sectionResult.Calculation);
         }
 
@@ -116,7 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
+            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.IsNull(sectionResult.Calculation);
         }
 

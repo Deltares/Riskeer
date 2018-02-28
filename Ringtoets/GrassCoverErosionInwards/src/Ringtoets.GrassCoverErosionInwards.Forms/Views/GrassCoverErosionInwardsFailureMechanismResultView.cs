@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
                 true);
             DataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
         }
 

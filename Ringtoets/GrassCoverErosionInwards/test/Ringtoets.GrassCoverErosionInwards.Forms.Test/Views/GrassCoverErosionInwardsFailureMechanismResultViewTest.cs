@@ -45,8 +45,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentIndex = 1;
-        private const int detailedAssessmentIndex = 2;
-        private const int assessmentLayerThreeIndex = 3;
+        private const int detailedAssessmentProbabilityIndex = 2;
+        private const int tailorMadeAssessmentProbabilityIndex = 3;
         private Form testForm;
 
         [SetUp]
@@ -108,15 +108,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
-                Assert.IsTrue(dataGridView.Columns[detailedAssessmentIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[detailedAssessmentProbabilityIndex].ReadOnly);
 
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentProbabilityIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentIndex].HeaderText);
-                Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentProbabilityIndex].HeaderText);
+                Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -139,15 +139,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
+                Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
+                Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
             }
         }
 
@@ -173,35 +173,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                DataGridViewCell cellDetailedAssessment = cells[detailedAssessmentIndex];
-                DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+                DataGridViewCell cellDetailedAssessment = cells[detailedAssessmentProbabilityIndex];
+                DataGridViewCell cellTailorMadeAssessment = cells[tailorMadeAssessmentProbabilityIndex];
                 DataGridViewCell dataGridViewCell = cells[simpleAssessmentIndex];
 
                 Assert.AreEqual(simpleAssessmentResult, dataGridViewCell.Value);
                 Assert.AreEqual("-", cellDetailedAssessment.FormattedValue);
-                Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
+                Assert.AreEqual("-", cellTailorMadeAssessment.FormattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 if (simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable)
                 {
                     DataGridViewTestHelper.AssertCellIsDisabled(cellDetailedAssessment);
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
+                    DataGridViewTestHelper.AssertCellIsDisabled(cellTailorMadeAssessment);
 
-                    Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
+                    Assert.IsTrue(cellTailorMadeAssessment.ReadOnly);
                 }
                 else
                 {
                     DataGridViewTestHelper.AssertCellIsEnabled(cellDetailedAssessment, true);
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
+                    DataGridViewTestHelper.AssertCellIsEnabled(cellTailorMadeAssessment);
 
-                    Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
+                    Assert.IsFalse(cellTailorMadeAssessment.ReadOnly);
                 }
             }
         }
 
         [Test]
-        [TestCase("test", assessmentLayerThreeIndex)]
-        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerThreeIndex)]
+        [TestCase("test", tailorMadeAssessmentProbabilityIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", tailorMadeAssessmentProbabilityIndex)]
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
@@ -223,7 +223,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(-0.01)]
         [TestCase(5)]
         [TestCase(-10)]
-        public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(double newValue)
+        public void FailureMechanismResultView_EditValueTailorMadeAssessmentInvalid_ShowErrorToolTip(double newValue)
         {
             // Setup
             using (CreateConfiguredFailureMechanismResultsView())
@@ -231,10 +231,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
+                dataGridView.Rows[0].Cells[tailorMadeAssessmentProbabilityIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
 
                 // Assert
-                Assert.AreEqual("Kans moet in het bereik [0,0, 1,0] liggen.", dataGridView.Rows[0].ErrorText);
+                Assert.AreEqual("De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.", dataGridView.Rows[0].ErrorText);
             }
         }
 
@@ -245,7 +245,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(0.5)]
         [TestCase(1e-6)]
         [TestCase(double.NaN)]
-        public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(double newValue)
+        public void FailureMechanismResultView_EditValueTailorMadeAssessmentValid_DoNotShowErrorToolTipAndEditValue(double newValue)
         {
             // Setup
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -258,11 +258,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
+                dataGridView.Rows[0].Cells[tailorMadeAssessmentProbabilityIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, result.AssessmentLayerThree);
+                Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
             }
         }
 
@@ -286,7 +286,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -319,7 +319,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -358,7 +358,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -394,7 +394,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -420,7 +420,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
 
                 // When
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
@@ -458,7 +458,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var gridTester = new ControlTester("dataGridView");
                 var dataGridView = (DataGridView) gridTester.TheObject;
 
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
 
                 // Precondition
                 object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.

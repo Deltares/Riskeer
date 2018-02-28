@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
+            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
             if (entity.GrassCoverErosionInwardsCalculationEntity != null)
             {
                 sectionResult.Calculation = entity.GrassCoverErosionInwardsCalculationEntity.Read(collector);

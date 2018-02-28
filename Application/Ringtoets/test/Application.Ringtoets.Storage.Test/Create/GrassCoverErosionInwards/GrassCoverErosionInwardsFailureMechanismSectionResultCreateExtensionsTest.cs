@@ -55,12 +55,12 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Setup
             var random = new Random(21);
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
+            double tailorMadeAssessmentProbability = random.NextDouble();
 
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = assessmentLayerThreeResult
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability
             };
 
             var registry = new PersistenceRegistry();
@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), entity.LayerOne);
-            Assert.AreEqual(assessmentLayerThreeResult, entity.LayerThree);
+            Assert.AreEqual(tailorMadeAssessmentProbability, entity.LayerThree);
             Assert.IsNull(entity.GrassCoverErosionInwardsCalculationEntity);
         }
 
@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Setup
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = RoundedDouble.NaN
+                TailorMadeAssessmentProbability = double.NaN
             };
 
             var registry = new PersistenceRegistry();

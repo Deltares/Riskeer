@@ -1777,7 +1777,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+                sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
                 if (!firstSectionResultHasCalculation)
                 {
                     sectionResult.Calculation = calculation;
