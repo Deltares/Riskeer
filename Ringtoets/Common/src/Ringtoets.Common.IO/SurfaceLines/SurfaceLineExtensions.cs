@@ -89,8 +89,8 @@ namespace Ringtoets.Common.IO.SurfaceLines
 
         private static ReferenceLineIntersectionResult GetReferenceLineIntersections(ReferenceLine referenceLine, SurfaceLine surfaceLine)
         {
-            IEnumerable<Segment2D> surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
-            IEnumerable<Segment2D> referenceLineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points).ToArray();
+            IEnumerable<Segment2D> surfaceLineSegments = Math2D.ConvertPointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
+            IEnumerable<Segment2D> referenceLineSegments = Math2D.ConvertPointsToLineSegments(referenceLine.Points).ToArray();
 
             return GetReferenceLineIntersectionsResult(surfaceLineSegments, referenceLineSegments);
         }

@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             foreach (Point2D surfaceLinePoint in surfaceLineWithInterpolations)
             {
                 bool isNear = IsPointNearSoilSegments(surfaceLinePoint,
-                                                      Math2D.ConvertLinePointsToClosingLineSegments(maximumYCoordinates));
+                                                      Math2D.ConvertPointsToPolygonSegments(maximumYCoordinates));
                 if (!isNear)
                 {
                     return false;
@@ -198,7 +198,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         private static IEnumerable<Point2D> GetSurfaceLineWithInterpolations(MacroStabilityInwardsInput inputParameters,
                                                                              IEnumerable<double> uniqueXs)
         {
-            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(inputParameters.SurfaceLine.LocalGeometry).ToArray();
+            Segment2D[] surfaceLineSegments = Math2D.ConvertPointsToLineSegments(inputParameters.SurfaceLine.LocalGeometry).ToArray();
 
             foreach (double x in uniqueXs)
             {

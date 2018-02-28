@@ -168,20 +168,20 @@ namespace Core.Common.Base.Test.Geometry
         [Test]
         [TestCase(0)]
         [TestCase(1)]
-        public void ConvertLinePointsToLineSegments_TooFewPoints_ReturnEmpty(int pointCount)
+        public void ConvertPointsToLineSegments_TooFewPoints_ReturnEmpty(int pointCount)
         {
             // Setup
             IEnumerable<Point2D> linePoints = Enumerable.Repeat(new Point2D(0, 0), pointCount);
 
             // Call
-            IEnumerable<Segment2D> segments = Math2D.ConvertLinePointsToLineSegments(linePoints);
+            IEnumerable<Segment2D> segments = Math2D.ConvertPointsToLineSegments(linePoints);
 
             // Assert
             CollectionAssert.IsEmpty(segments);
         }
 
         [Test]
-        public void ConvertLinePointsToLineSegments_TwoPoints_ReturnOneSegmentOfThoseTwoPoints()
+        public void ConvertPointsToLineSegments_TwoPoints_ReturnOneSegmentOfThoseTwoPoints()
         {
             // Setup
             var linePoints = new[]
@@ -191,31 +191,31 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            Segment2D[] segments = Math2D.ConvertLinePointsToLineSegments(linePoints).ToArray();
+            Segment2D[] segments = Math2D.ConvertPointsToLineSegments(linePoints).ToArray();
 
             // Assert
             Assert.AreEqual(1, segments.Length);
-            Assert.AreEqual(linePoints[0], segments[0].FirstPoint);
-            Assert.AreEqual(linePoints[1], segments[0].SecondPoint);
+            Assert.AreSame(linePoints[0], segments[0].FirstPoint);
+            Assert.AreSame(linePoints[1], segments[0].SecondPoint);
         }
 
         [Test]
         [TestCase(0)]
         [TestCase(1)]
-        public void ConvertLinePointsToClosingLineSegments_TooFewPoints_ReturnEmpty(int pointCount)
+        public void ConvertPointsToPolygonSegments_TooFewPoints_ReturnEmpty(int pointCount)
         {
             // Setup
             IEnumerable<Point2D> linePoints = Enumerable.Repeat(new Point2D(0, 0), pointCount);
 
             // Call
-            IEnumerable<Segment2D> segments = Math2D.ConvertLinePointsToClosingLineSegments(linePoints);
+            IEnumerable<Segment2D> segments = Math2D.ConvertPointsToPolygonSegments(linePoints);
 
             // Assert
             CollectionAssert.IsEmpty(segments);
         }
 
         [Test]
-        public void ConvertLinePointsToClosingLineSegments_TwoPoints_ReturnsExpectedSegments()
+        public void ConvertPointsToPolygonSegments_TwoPoints_ReturnsExpectedSegments()
         {
             // Setup
             var linePoints = new[]
@@ -225,18 +225,18 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            Segment2D[] segments = Math2D.ConvertLinePointsToClosingLineSegments(linePoints).ToArray();
+            Segment2D[] segments = Math2D.ConvertPointsToPolygonSegments(linePoints).ToArray();
 
             // Assert
             Assert.AreEqual(2, segments.Length);
 
             Segment2D firstSegment = segments[0];
-            Assert.AreEqual(linePoints[1], firstSegment.FirstPoint);
-            Assert.AreEqual(linePoints[0], firstSegment.SecondPoint);
+            Assert.AreSame(linePoints[0], firstSegment.FirstPoint);
+            Assert.AreSame(linePoints[1], firstSegment.SecondPoint);
 
             Segment2D secondSegment = segments[1];
-            Assert.AreEqual(linePoints[0], secondSegment.FirstPoint);
-            Assert.AreEqual(linePoints[1], secondSegment.SecondPoint);
+            Assert.AreSame(linePoints[1], secondSegment.FirstPoint);
+            Assert.AreSame(linePoints[0], secondSegment.SecondPoint);
         }
 
         [Test]
@@ -1292,7 +1292,7 @@ namespace Core.Common.Base.Test.Geometry
 
         private static double[] GetLengthsBasedOnRelative(IEnumerable<double> relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
         {
-            double lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
+            double lineLength = Math2D.ConvertPointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
             return relativeLengths.Select(l => lineLength * l).ToArray();
         }
 

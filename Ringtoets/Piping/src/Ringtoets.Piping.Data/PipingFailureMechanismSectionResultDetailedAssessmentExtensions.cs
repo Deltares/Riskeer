@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Data
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(sectionResult.Section.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(sectionResult.Section.Points);
 
             return calculationScenarios
                 .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
