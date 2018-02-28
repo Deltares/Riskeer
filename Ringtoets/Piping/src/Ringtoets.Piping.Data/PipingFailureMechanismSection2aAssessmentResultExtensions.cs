@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Data
         public static IEnumerable<PipingCalculationScenario> GetCalculationScenarios(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult,
                                                                                      IEnumerable<PipingCalculationScenario> calculations)
         {
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(pipingFailureMechanismSectionResult.Section.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(pipingFailureMechanismSectionResult.Section.Points);
 
             return calculations
                 .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));

@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.Forms.Views
                 return;
             }
 
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<PipingCalculationScenario> pipingCalculations = calculationGroup
                 .GetCalculations()
                 .OfType<PipingCalculationScenario>()

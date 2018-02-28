@@ -60,7 +60,7 @@ namespace Core.Common.Base.Geometry
             {
                 throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_Not_enough_points_to_make_line, nameof(linePoints));
             }
-            Segment2D[] lineSegments = ConvertLinePointsToLineSegments(linePoints).ToArray();
+            Segment2D[] lineSegments = ConvertPointsToLineSegments(linePoints).ToArray();
 
             if (Math.Abs(lengths.Sum(l => l) - lineSegments.Sum(s => s.Length)) > epsilonForComparisons)
             {
@@ -71,15 +71,16 @@ namespace Core.Common.Base.Geometry
         }
 
         /// <summary>
-        /// Creates an enumerator that converts a sequence of line points to a sequence of line segments.
+        /// Creates an enumerator that converts a sequence of points to a sequence of segments that represent a line.
         /// </summary>
-        /// <param name="linePoints">The line points.</param>
-        /// <returns>A sequence of N elements, where N is the number of elements in <paramref name="linePoints"/>
-        /// - 1, or 0 if <paramref name="linePoints"/> only has one or no elements.</returns>
-        public static IEnumerable<Segment2D> ConvertLinePointsToLineSegments(IEnumerable<Point2D> linePoints)
+        /// <param name="points">A sequence of points to convert.</param>
+        /// <returns>A sequence of N elements, where N is the number of elements in <paramref name="points"/>
+        /// - 1, or 0 if <paramref name="points"/> only has one or no elements.</returns>
+        /// <remarks>The converted points do not form a closed loop.</remarks>
+        public static IEnumerable<Segment2D> ConvertPointsToLineSegments(IEnumerable<Point2D> points)
         {
             Point2D endPoint = null;
-            foreach (Point2D linePoint in linePoints)
+            foreach (Point2D linePoint in points)
             {
                 Point2D startPoint = endPoint;
                 endPoint = linePoint;
@@ -92,29 +93,30 @@ namespace Core.Common.Base.Geometry
         }
 
         /// <summary>
-        /// Creates an enumerator that converts a sequence of line points to a sequence of line segments 
-        /// and adds a segment between the last and the first point of the sequence.
+        /// Creates an enumerator that converts a sequence of points to a sequence of segments 
+        /// that represent a polygon.
         /// </summary>
-        /// <param name="linePoints">The line points.</param>
-        /// <returns>A sequence of N elements, where N is the number of elements in <paramref name="linePoints"/>,
-        /// or 0 if <paramref name="linePoints"/> has one or no elements.</returns>
-        public static IEnumerable<Segment2D> ConvertLinePointsToClosingLineSegments(IEnumerable<Point2D> linePoints)
+        /// <param name="points">A sequence of points to convert.</param>
+        /// <returns>A sequence of N elements, where N is the number of elements in <paramref name="points"/>,
+        /// or 0 if <paramref name="points"/> has one or no elements.</returns>
+        /// <remarks>The converted points form a closed loop.</remarks>
+        public static IEnumerable<Segment2D> ConvertPointsToPolygonSegments(IEnumerable<Point2D> points)
         {
-            if (linePoints.Count() < 2)
+            Point2D[] pointsArray = points.ToArray();
+            int nrOfPoints = pointsArray.Length;
+            if (nrOfPoints < 2)
             {
                 yield break;
             }
 
-            Point2D endPoint = linePoints.Last();
-            foreach (Point2D linePoint in linePoints)
+            for (var i = 0; i < nrOfPoints; i++)
             {
-                Point2D startPoint = endPoint;
-                endPoint = linePoint;
+                Point2D startPoint = pointsArray[i];
+                Point2D endPoint = i != nrOfPoints - 1
+                                       ? pointsArray[i + 1]
+                                       : pointsArray[0];
 
-                if (startPoint != null)
-                {
-                    yield return new Segment2D(startPoint, endPoint);
-                }
+                yield return new Segment2D(startPoint, endPoint);
             }
         }
 
