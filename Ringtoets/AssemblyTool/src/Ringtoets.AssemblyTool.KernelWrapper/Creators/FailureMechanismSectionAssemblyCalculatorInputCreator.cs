@@ -203,7 +203,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        private static FailureMechanismSectionCategoryGroup ConvertFailureMechanismSectionAssemblyCategoryGroup(
+        public static FailureMechanismSectionCategoryGroup ConvertFailureMechanismSectionAssemblyCategoryGroup(
             FailureMechanismSectionAssemblyCategoryGroup category)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
