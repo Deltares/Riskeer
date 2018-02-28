@@ -576,8 +576,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
             double leftX = waternetZoneAsPolygon.Min(p => p.X);
             double rightX = waternetZoneAsPolygon.Max(p => p.X);
 
-            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLineLocalGeometry).ToArray();
-            Segment2D[] waternetZoneSegments = Math2D.ConvertLinePointsToLineSegments(waternetZoneAsPolygon).ToArray();
+            Segment2D[] surfaceLineSegments = Math2D.ConvertPointsToLineSegments(surfaceLineLocalGeometry).ToArray();
+            Segment2D[] waternetZoneSegments = Math2D.ConvertPointsToLineSegments(waternetZoneAsPolygon).ToArray();
 
             var intersectionPoints = new List<Point2D>();
 
@@ -671,8 +671,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
         {
             var areas = new List<IEnumerable<Point2D>>();
 
-            Segment2D[] phreaticLineSegments = Math2D.ConvertLinePointsToLineSegments(phreaticLineGeometry).ToArray();
-            Segment2D[] waternetLineSegments = Math2D.ConvertLinePointsToLineSegments(waternetLineGeometry).ToArray();
+            Segment2D[] phreaticLineSegments = Math2D.ConvertPointsToLineSegments(phreaticLineGeometry).ToArray();
+            Segment2D[] waternetLineSegments = Math2D.ConvertPointsToLineSegments(waternetLineGeometry).ToArray();
 
             var intersectionPoints = new List<Point2D>();
 

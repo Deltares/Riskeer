@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         public double GetSectionLength()
         {
-            return Math2D.ConvertLinePointsToLineSegments(Points).Sum(segment => segment.Length);
+            return Math2D.ConvertPointsToPolygonSegments(Points).Sum(segment => segment.Length);
         }
     }
 }

@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Data.Test
                 }
             };
 
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(referenceLine.Points);
 
             // Call
             bool intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Data.Test
                 }
             };
 
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(referenceLine.Points);
 
             // Call
             bool intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);

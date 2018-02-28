@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public static IEnumerable<MacroStabilityInwardsCalculationScenario> GetCalculationScenarios(this MacroStabilityInwardsFailureMechanismSectionResult macroStabilityInwardsFailureMechanismSectionResult,
                                                                                                     IEnumerable<MacroStabilityInwardsCalculationScenario> calculations)
         {
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertLinePointsToLineSegments(macroStabilityInwardsFailureMechanismSectionResult.Section.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(macroStabilityInwardsFailureMechanismSectionResult.Section.Points);
 
             return calculations
                 .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));

@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
 
-            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(GetSurfaceLine2DGeometry(surfaceLine)).ToArray();
+            Segment2D[] surfaceLineSegments = Math2D.ConvertPointsToLineSegments(GetSurfaceLine2DGeometry(surfaceLine)).ToArray();
             return DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments);
         }
 
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Data.SoilProfile
         private static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(PipingStochasticSoilModel stochasticSoilModel,
                                                                                   Segment2D[] surfaceLineSegments)
         {
-            IEnumerable<Segment2D> soilProfileGeometrySegments = Math2D.ConvertLinePointsToLineSegments(stochasticSoilModel.Geometry);
+            IEnumerable<Segment2D> soilProfileGeometrySegments = Math2D.ConvertPointsToLineSegments(stochasticSoilModel.Geometry);
             return soilProfileGeometrySegments.Any(s => DoesSegmentIntersectWithSegmentArray(s, surfaceLineSegments));
         }
 

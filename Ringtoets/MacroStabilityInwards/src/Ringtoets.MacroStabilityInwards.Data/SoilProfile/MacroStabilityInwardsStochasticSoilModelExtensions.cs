@@ -52,13 +52,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.SoilProfile
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
 
-            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
+            Segment2D[] surfaceLineSegments = Math2D.ConvertPointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
             return DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments);
         }
 
         private static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(MacroStabilityInwardsStochasticSoilModel stochasticSoilModel, Segment2D[] surfaceLineSegments)
         {
-            IEnumerable<Segment2D> soilProfileGeometrySegments = Math2D.ConvertLinePointsToLineSegments(stochasticSoilModel.Geometry);
+            IEnumerable<Segment2D> soilProfileGeometrySegments = Math2D.ConvertPointsToLineSegments(stochasticSoilModel.Geometry);
             return soilProfileGeometrySegments.Any(s => DoesSegmentIntersectWithSegmentArray(s, surfaceLineSegments));
         }
 
