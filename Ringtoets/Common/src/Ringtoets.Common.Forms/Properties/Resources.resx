@@ -250,6 +250,11 @@ toets op maat</value>
     <value>Assemblageresultaat
 gecombineerd</value>
   </data>
+  <data name="FailureMechanismResultView_CombinedAssemblyProbability_DisplayName" xml:space="preserve">
+    <value>Assemblageresultaat
+gecombineerde
+faalkansschatting</value>
+  </data>
   <data name="FailureMechanismResultView_UseManualAssemblyCategoryGroup_DisplayName" xml:space="preserve">
     <value>Overschrijf
 assemblageresultaat</value>

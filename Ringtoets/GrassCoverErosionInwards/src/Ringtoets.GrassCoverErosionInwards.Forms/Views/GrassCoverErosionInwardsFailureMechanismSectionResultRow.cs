@@ -208,7 +208,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyProbability"/>.
+        /// Gets the combined assembly probability.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double CombinedAssemblyProbability
+        {
+            get
+            {
+                return GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Probability;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly probability
+        /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
         /// </summary>
         public bool UseManualAssemblyProbability
         {
@@ -224,7 +242,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the manually selected assembly probability.
+        /// Gets or sets the manually entered assembly probability.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>

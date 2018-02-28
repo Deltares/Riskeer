@@ -1379,6 +1379,17 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat
+        ///gecombineerde
+        ///faalkansschatting.
+        /// </summary>
+        public static string FailureMechanismResultView_CombinedAssemblyProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_CombinedAssemblyProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten een geldige uitkomst hebben..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output {
