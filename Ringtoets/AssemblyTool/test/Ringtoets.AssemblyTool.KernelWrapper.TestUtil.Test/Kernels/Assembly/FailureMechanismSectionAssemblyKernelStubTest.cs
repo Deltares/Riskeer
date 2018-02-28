@@ -48,6 +48,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsValidityOnlyInput);
             Assert.IsNull(kernel.DetailedAssessmentFailureMechanismFromProbabilityInput);
             Assert.IsNull(kernel.DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput);
+            Assert.IsNull(kernel.CombinedSimpleAssessmentInput);
+            Assert.IsNull(kernel.CombinedDetailedAssessmentInput);
+            Assert.IsNull(kernel.CombinedTailorMadeAssessmentInput);
+            Assert.IsNull(kernel.CombinedSimpleAssessmentGroupInput);
+            Assert.IsNull(kernel.CombinedDetailedAssessmentGroupInput);
+            Assert.IsNull(kernel.CombinedTailorMadeAssessmentGroupInput);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryResult);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryGroup);
         }
 
         #region Simple Assessment
@@ -495,20 +503,75 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         #region Combined Assessment
 
         [Test]
-        public void CombinedAssessmentFromFailureMechanismSectionResults_Always_ThrowNotImplementedException()
+        public void CombinedAssessmentFromFailureMechanismSectionResults_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
+            var random = new Random(11);
+            var simpleAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
+            var detailedAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
+            var tailorMadeAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
+
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
             // Call
-            TestDelegate test = () => kernel.CombinedAssessmentFromFailureMechanismSectionResults(0, 0, 0);
+            kernel.CombinedAssessmentFromFailureMechanismSectionResults(simpleAssemblyResult, detailedAssemblyResult, tailorMadeAssemblyResult);
 
             // Assert
-            Assert.Throws<NotImplementedException>(test);
+            Assert.AreEqual(simpleAssemblyResult, kernel.CombinedSimpleAssessmentGroupInput);
+            Assert.AreEqual(detailedAssemblyResult, kernel.CombinedDetailedAssessmentGroupInput);
+            Assert.AreEqual(tailorMadeAssemblyResult, kernel.CombinedTailorMadeAssessmentGroupInput);
+            Assert.IsTrue(kernel.Calculated);
         }
 
         [Test]
-        public void CombinedAssessmentFromFailureMechanismSectionResultsWithCategories_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void CombinedAssessmentFromFailureMechanismSectionResults_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        {
+            // Setup
+            var random = new Random(11);
+            var simpleAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
+            var detailedAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
+            var tailorMadeAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub();
+
+            // Call
+            CalculationOutput<FailureMechanismSectionCategoryGroup> result = kernel.CombinedAssessmentFromFailureMechanismSectionResults(
+                simpleAssemblyResult, detailedAssemblyResult, tailorMadeAssemblyResult);
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionAssemblyCategoryGroup, result);
+        }
+
+        [Test]
+        public void CombinedAssessmentFromFailureMechanismSectionResults_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(11);
+            var simpleAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
+            var detailedAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
+            var tailorMadeAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.CombinedAssessmentFromFailureMechanismSectionResults(simpleAssemblyResult, detailedAssemblyResult, tailorMadeAssemblyResult);
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.CombinedSimpleAssessmentGroupInput);
+            Assert.IsNull(kernel.CombinedDetailedAssessmentGroupInput);
+            Assert.IsNull(kernel.CombinedTailorMadeAssessmentGroupInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryGroup);
+        }
+
+        [Test]
+        public void CombinedAssessmentFromFailureMechanismSectionResultsWithProbabilities_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(11);
@@ -538,7 +601,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void CombinedAssessmentFromFailureMechanismSectionResults_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        public void CombinedAssessmentFromFailureMechanismSectionResultsWithProbabilities_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
         {
             // Setup
             var random = new Random(11);
@@ -563,7 +626,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void CombinedAssessmentFromFailureMechanismSectionResults_ThrowExceptionOnCalculateTrue_ThrowsException()
+        public void CombinedAssessmentFromFailureMechanismSectionResultsWithProbabilities_ThrowExceptionOnCalculateTrue_ThrowsException()
         {
             // Setup
             var random = new Random(11);

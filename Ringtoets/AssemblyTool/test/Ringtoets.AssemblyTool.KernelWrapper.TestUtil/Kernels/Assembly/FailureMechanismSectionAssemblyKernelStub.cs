@@ -67,6 +67,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Gets or sets the failure mechanism section assembly category result.
         /// </summary>
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> FailureMechanismSectionAssemblyCategoryResult { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the failure mechanism section assembly category group.
+        /// </summary>
+        public CalculationOutput<FailureMechanismSectionCategoryGroup> FailureMechanismSectionAssemblyCategoryGroup { get; set; }
 
         /// <summary>
         /// Gets the simple assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult)"/>
@@ -82,6 +87,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Gets the tailor made assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult)"/>
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryResult CombinedTailorMadeAssessmentInput { get; private set; }
+
+        /// <summary>
+        /// Gets the simple assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup)"/>
+        /// </summary>
+        public FailureMechanismSectionCategoryGroup? CombinedSimpleAssessmentGroupInput { get; private set; }
+
+        /// <summary>
+        /// Gets the detailed assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup)"/>
+        /// </summary>
+        public FailureMechanismSectionCategoryGroup? CombinedDetailedAssessmentGroupInput { get; private set; }
+
+        /// <summary>
+        /// Gets the tailor made assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup)"/>
+        /// </summary>
+        public FailureMechanismSectionCategoryGroup? CombinedTailorMadeAssessmentGroupInput { get; private set; }
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResult result)
         {
@@ -178,8 +198,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup resultSimpleAssessment, FailureMechanismSectionCategoryGroup resultDetailedAssessment, FailureMechanismSectionCategoryGroup resultTailorMadeAssessment)
         {
-            throw new NotImplementedException();
-        }
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            CombinedSimpleAssessmentGroupInput = resultSimpleAssessment;
+            CombinedDetailedAssessmentGroupInput = resultDetailedAssessment;
+            CombinedTailorMadeAssessmentGroupInput = resultTailorMadeAssessment;
+
+            Calculated = true;
+            return FailureMechanismSectionAssemblyCategoryGroup;
+        }        
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult resultSimpleAssessment, FailureMechanismSectionAssemblyCategoryResult resultDetailedAssessment, FailureMechanismSectionAssemblyCategoryResult resultTailorMadeAssessment)
         {
