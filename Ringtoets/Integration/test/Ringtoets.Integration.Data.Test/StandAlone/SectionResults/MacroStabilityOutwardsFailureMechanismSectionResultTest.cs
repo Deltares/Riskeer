@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentResultType.Probability, result.DetailedAssessmentResult);
             Assert.IsNaN(result.DetailedAssessmentProbability);
-            Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsNaN(result.TailorMadeAssessmentProbability);
             Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);

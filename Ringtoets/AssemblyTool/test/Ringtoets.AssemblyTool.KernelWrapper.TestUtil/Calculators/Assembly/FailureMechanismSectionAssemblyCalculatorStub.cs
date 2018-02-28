@@ -78,9 +78,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public FailureMechanismSectionAssembly TailorMadeAssessmentAssemblyOutput { get; private set; }
 
         /// <summary>
-        /// Gets the result type of the tailor made assessment calculation.
+        /// Gets the result type of the tailor made assessment calculation with probability or detailed calculation result.
         /// </summary>
-        public TailorMadeAssessmentResultType TailorMadeAssessmentResultInput { get; private set; }
+        public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeProbabilityAndDetailedCalculationResult { get; private set; }
 
         /// <summary>
         /// Gets the probability input of the tailor made assessment calculation.
@@ -198,7 +198,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv);
         }
 
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult,
+        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
                                                                             IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
         {
@@ -207,7 +207,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                 throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
-            TailorMadeAssessmentResultInput = tailorMadeAssessmentResult;
+            TailorMadeProbabilityAndDetailedCalculationResult = tailorMadeAssessmentResult;
             TailorMadeAssessmentProbabilityInput = probability;
             TailorMadeAssessmentCategoriesInput = categories;
 

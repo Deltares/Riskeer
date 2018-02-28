@@ -26,53 +26,53 @@ using NUnit.Framework;
 namespace Ringtoets.Common.Primitives.Test
 {
     [TestFixture]
-    public class TailorMadeAssessmentResultTypeTest : EnumWithDisplayNameTestFixture<TailorMadeAssessmentResultType>
+    public class TailorMadeAssessmentProbabilityAndDetailedCalculationResultTypeTest : EnumWithDisplayNameTestFixture<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>
     {
-        protected override IDictionary<TailorMadeAssessmentResultType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType, byte> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<TailorMadeAssessmentResultType, byte>
+                return new Dictionary<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType, byte>
                 {
                     {
-                        TailorMadeAssessmentResultType.None, 1
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, 1
                     },
                     {
-                        TailorMadeAssessmentResultType.Probability, 2
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, 2
                     },
                     {
-                        TailorMadeAssessmentResultType.Sufficient, 3
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient, 3
                     },
                     {
-                        TailorMadeAssessmentResultType.Insufficient, 4
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient, 4
                     },
                     {
-                        TailorMadeAssessmentResultType.NotAssessed, 5
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed, 5
                     }
                 };
             }
         }
 
-        protected override IDictionary<TailorMadeAssessmentResultType, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<TailorMadeAssessmentResultType, string>
+                return new Dictionary<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType, string>
                 {
                     {
-                        TailorMadeAssessmentResultType.None, "<selecteer>"
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, "<selecteer>"
                     },
                     {
-                        TailorMadeAssessmentResultType.Probability, "Faalkans"
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, "Faalkans"
                     },
                     {
-                        TailorMadeAssessmentResultType.Sufficient, "V"
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient, "V"
                     },
                     {
-                        TailorMadeAssessmentResultType.Insufficient, "VN"
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient, "VN"
                     },
                     {
-                        TailorMadeAssessmentResultType.NotAssessed, "NGO"
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed, "NGO"
                     }
                 };
             }

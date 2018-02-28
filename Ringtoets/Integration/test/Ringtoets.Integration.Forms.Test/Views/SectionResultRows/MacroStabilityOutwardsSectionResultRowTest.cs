@@ -288,7 +288,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             var random = new Random(39);
-            var newValue = random.NextEnumValue<TailorMadeAssessmentResultType>();
+            var newValue = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);

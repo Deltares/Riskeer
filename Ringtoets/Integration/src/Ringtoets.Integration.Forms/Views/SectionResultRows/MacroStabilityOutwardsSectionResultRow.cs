@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
         /// </summary>
-        public TailorMadeAssessmentResultType TailorMadeAssessmentResult
+        public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeAssessmentResult
         {
             get
             {

@@ -132,16 +132,16 @@
   <data name="SimpleAssessmentResultType_NotApplicable" xml:space="preserve">
     <value>NVT</value>
   </data>
-  <data name="SimpleAssessmentResultType_ProbabilityNegligible" xml:space="preserve">
+  <data name="AssessmentResultType_ProbabilityNegligible" xml:space="preserve">
     <value>FV</value>
   </data>
   <data name="SimpleAssessmentResultValidityOnlyType_Applicable" xml:space="preserve">
     <value>WVT</value>
   </data>
-  <data name="TailorMadeAssessmentResultType_Insufficient" xml:space="preserve">
+  <data name="AssessmentResultType_Insufficient" xml:space="preserve">
     <value>VN</value>
   </data>
-  <data name="TailorMadeAssessmentResultType_Sufficient" xml:space="preserve">
+  <data name="AssessmentResultType_Sufficient" xml:space="preserve">
     <value>V</value>
   </data>
 </root>

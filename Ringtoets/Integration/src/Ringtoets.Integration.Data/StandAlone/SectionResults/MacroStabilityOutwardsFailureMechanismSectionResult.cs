@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
             DetailedAssessmentProbability = double.NaN;
-            TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
+            TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None;
             TailorMadeAssessmentProbability = double.NaN;
             ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
         }
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Gets or sets the tailor made assessment result.
         /// </summary>
-        public TailorMadeAssessmentResultType TailorMadeAssessmentResult { get; set; }
+        public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value for the detailed assessment of safety per failure mechanism section as a probability.

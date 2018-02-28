@@ -26,9 +26,10 @@ namespace Ringtoets.Common.Primitives
 {
     /// <summary>
     /// This enum defines the possible result types for a tailor made assessment 
-    /// on a failure mechanism section.
+    /// on a failure mechanism section with either a probability or detailed
+    /// calculation result.
     /// </summary>
-    public enum TailorMadeAssessmentResultType
+    public enum TailorMadeAssessmentProbabilityAndDetailedCalculationResultType
     {
         /// <summary>
         /// No option has been selected for this failure
@@ -48,14 +49,14 @@ namespace Ringtoets.Common.Primitives
         /// The assessment for this failure mechanism
         /// section was sufficient.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TailorMadeAssessmentResultType_Sufficient))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Sufficient))]
         Sufficient = 3,
 
         /// <summary>
         /// The assessment for this failure mechanism
         /// section was insufficient.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TailorMadeAssessmentResultType_Insufficient))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Insufficient))]
         Insufficient = 4,
 
         /// <summary>

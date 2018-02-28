@@ -89,9 +89,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(random.NextEnumValue<TailorMadeAssessmentResultType>(),
-                                                                                                   probability,
-                                                                                                   categories);
+                FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(
+                    random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>(),
+                    probability,
+                    categories);
 
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);

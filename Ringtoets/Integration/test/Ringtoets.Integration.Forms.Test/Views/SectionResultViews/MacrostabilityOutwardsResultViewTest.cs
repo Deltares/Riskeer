@@ -224,7 +224,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
-                TailorMadeAssessmentResult = TailorMadeAssessmentResultType.Probability
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>
             {
@@ -297,13 +297,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        [TestCase(TailorMadeAssessmentResultType.NotAssessed, false)]
-        [TestCase(TailorMadeAssessmentResultType.Insufficient, false)]
-        [TestCase(TailorMadeAssessmentResultType.None, false)]
-        [TestCase(TailorMadeAssessmentResultType.Sufficient, false)]
-        [TestCase(TailorMadeAssessmentResultType.Probability, true)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, true)]
         public void FailureMechanismResultView_TailorMadeAssessmentResultSet_CellDisabledEnabled(
-            TailorMadeAssessmentResultType tailorMadeAssessmentResult,
+            TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
             bool cellEnabled)
         {
             // Setup
@@ -354,7 +354,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                TailorMadeAssessmentResult = TailorMadeAssessmentResultType.Probability,
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability,
                 UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
             };
             var sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>

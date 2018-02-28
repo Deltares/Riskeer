@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
 
-            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentResultColumn(
+            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentResult));
 
@@ -155,7 +155,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                     {
                         tailorMadeAssessmentProbabilityIndex
                     },
-                    row => row.TailorMadeAssessmentResult != TailorMadeAssessmentResultType.Probability),
+                    row => row.TailorMadeAssessmentResult != TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability),
                 new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
                     new[]
                     {

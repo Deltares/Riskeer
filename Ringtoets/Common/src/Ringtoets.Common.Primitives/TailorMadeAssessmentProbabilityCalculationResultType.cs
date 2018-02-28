@@ -25,10 +25,10 @@ using Ringtoets.Common.Primitives.Properties;
 namespace Ringtoets.Common.Primitives
 {
     /// <summary>
-    /// This enum defines the possible result types for a simple assessment 
-    /// on a failure mechanism section.
+    /// This enum defines the possible result types for a tailor made assessment 
+    /// on a failure mechanism section with a probability calculation.
     /// </summary>
-    public enum SimpleAssessmentResultType
+    public enum TailorMadeAssessmentProbabilityCalculationResultType
     {
         /// <summary>
         /// No option has been selected for this failure
@@ -38,22 +38,25 @@ namespace Ringtoets.Common.Primitives
         None = 1,
 
         /// <summary>
-        /// The failure mechanism section is not applicable.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_NotApplicable))]
-        NotApplicable = 2,
-
-        /// <summary>
         /// The probability of failure for the failure mechanism
         /// section is negligible.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_ProbabilityNegligible))]
-        ProbabilityNegligible = 3,
-        
+        ProbabilityNegligible = 2,
+
         /// <summary>
-        /// The failure mechanism section needs further assessment.
+        /// The calculated probability for this failure
+        /// mechanism section has to be entered.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultType_AssessFurther))]
-        AssessFurther = 4
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Sufficient))]
+        Probability = 3,
+
+        /// <summary>
+        /// No assessment has been performed for this failure
+        /// mechanism section.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_NotAssessed))]
+        NotAssessed = 4
+        
     }
 }

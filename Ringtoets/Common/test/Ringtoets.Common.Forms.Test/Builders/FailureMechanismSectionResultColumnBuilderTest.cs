@@ -281,10 +281,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         #region Tailor Made Assessment
 
         [Test]
-        public void AddTailorMadeAssessmentResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentResultColumn(null, "property");
+            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -292,10 +292,11 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddTailorMadeAssessmentResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentResultColumn(new DataGridViewControl(), null);
+            TestDelegate test = () => 
+                FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -303,7 +304,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddTailorMadeAssessmentResultColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -317,7 +318,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentResultColumn(control, dataPropertyName);
+                FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -328,8 +329,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentResultType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<TailorMadeAssessmentResultType>();
-                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<TailorMadeAssessmentResultType>[]) columnData.DataSource);
+                IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>> expectedDataSource =
+                    CreateExpectedEnumDisplayWrappers<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, 
+                                                  (EnumDisplayWrapper<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>[]) columnData.DataSource);
             }
         }
 

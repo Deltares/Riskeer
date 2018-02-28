@@ -153,12 +153,12 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
-        /// <see cref="TailorMadeAssessmentResultType"/>.
+        /// <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>.
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddTailorMadeAssessmentResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             if (dataGridViewControl == null)
             {
@@ -170,14 +170,15 @@ namespace Ringtoets.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentResultType>> dataSource = CreateEnumDisplayWrappers<TailorMadeAssessmentResultType>();
+            IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>> dataSource = 
+                CreateEnumDisplayWrappers<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
                 Resources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName,
                 dataSource,
-                nameof(EnumDisplayWrapper<TailorMadeAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<TailorMadeAssessmentResultType>.DisplayName));
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>.Value),
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>.DisplayName));
         }
 
         /// <summary>
