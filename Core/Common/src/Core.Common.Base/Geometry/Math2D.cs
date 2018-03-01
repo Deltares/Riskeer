@@ -76,7 +76,7 @@ namespace Core.Common.Base.Geometry
         /// <param name="points">A sequence of points to convert.</param>
         /// <returns>A sequence of N elements, where N is the number of elements in <paramref name="points"/>
         /// - 1, or 0 if <paramref name="points"/> only has one or no elements.</returns>
-        /// <remarks>The converted points do not form a closed loop.</remarks>
+        /// <remarks>The converted segments do not form a closed loop.</remarks>
         public static IEnumerable<Segment2D> ConvertPointsToLineSegments(IEnumerable<Point2D> points)
         {
             Point2D endPoint = null;
@@ -99,7 +99,7 @@ namespace Core.Common.Base.Geometry
         /// <param name="points">A sequence of points to convert.</param>
         /// <returns>A sequence of N elements, where N is the number of elements in <paramref name="points"/>,
         /// or 0 if <paramref name="points"/> has one or no elements.</returns>
-        /// <remarks>The converted points form a closed loop.</remarks>
+        /// <remarks>The converted segments form a closed loop.</remarks>
         public static IEnumerable<Segment2D> ConvertPointsToPolygonSegments(IEnumerable<Point2D> points)
         {
             Point2D[] pointsArray = points.ToArray();
