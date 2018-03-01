@@ -420,6 +420,12 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], !useManualAssemblyCategoryGroup);
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex], !useManualAssemblyCategoryGroup);
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex], !useManualAssemblyCategoryGroup);
+
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex], !useManualAssemblyCategoryGroup);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex], !useManualAssemblyCategoryGroup);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex], !useManualAssemblyCategoryGroup);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex], !useManualAssemblyCategoryGroup);
+
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex], useManualAssemblyCategoryGroup);
 
                 mocks.VerifyAll();

@@ -340,6 +340,14 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             SetColumnState(tailorMadeAssessmentResultIndex, simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
             SetColumnState(tailorMadeAssessmentProbabilityIndex, simpleAssessmentSufficient || GetTailorMadeAssessmentResultIsNotProbability() || UseManualAssemblyCategoryGroup);
 
+            if (UseManualAssemblyCategoryGroup)
+            {
+                DisableColumn(simpleAssemblyCategoryGroupIndex);
+                DisableColumn(detailedAssemblyCategoryGroupIndex);
+                DisableColumn(tailorMadeAssemblyCategoryGroupIndex);
+                DisableColumn(combinedAssemblyCategoryGroupIndex);
+            }
+
             SetColumnState(manualAssemblyCategoryGroupIndex, !UseManualAssemblyCategoryGroup);
         }
 
