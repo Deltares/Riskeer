@@ -156,7 +156,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex]);
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex]);
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
+                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
@@ -296,7 +296,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = simpleAssessmentResult
+                SimpleAssessmentResult = simpleAssessmentResult,
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -320,7 +321,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [Test]
         [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
         [TestCase(DetailedAssessmentResultType.Probability, true)]
-        public void Constructor_WithDetailedAssessmentSet_ExpectedColumnStates(DetailedAssessmentResultType detailedAssessmentResult,
+        public void Constructor_WithDetailedAssessmentResultSet_ExpectedColumnStates(DetailedAssessmentResultType detailedAssessmentResult,
                                                                                bool cellEnabled)
         {
             // Setup
@@ -345,6 +346,43 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], cellEnabled);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, true)]
+        public void Constructor_WithTailorMadeAssessmentResultSet_ExpectedColumnStates(
+            TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
+                                                                                       bool cellEnabled)
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            {
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                     ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex], cellEnabled);
 
                 mocks.VerifyAll();
             }
