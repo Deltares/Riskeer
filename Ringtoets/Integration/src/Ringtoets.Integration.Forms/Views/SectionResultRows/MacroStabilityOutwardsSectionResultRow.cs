@@ -339,6 +339,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             SetColumnState(detailedAssessmentProbabilityIndex, simpleAssessmentSufficient || GetDetailedAssessmentResultIsNotProbability());
             SetColumnState(tailorMadeAssessmentResultIndex, simpleAssessmentSufficient);
             SetColumnState(tailorMadeAssessmentProbabilityIndex, simpleAssessmentSufficient || GetTailorMadeAssessmentResultIsNotProbability());
+
+            SetColumnState(manualAssemblyCategoryGroupIndex, !UseManualAssemblyCategoryGroup);
         }
 
         private void SetColumnState(int columnIndex, bool shouldDisable)

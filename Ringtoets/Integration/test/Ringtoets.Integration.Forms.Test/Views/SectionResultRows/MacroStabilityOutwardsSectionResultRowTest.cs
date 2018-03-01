@@ -388,6 +388,39 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             }
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithUseManualAssemblyCategoryGroupSet_ExpectedColumnStates(bool useManualAssemblyCategoryGroup)
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            {
+                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                     ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex], useManualAssemblyCategoryGroup);
+
+                mocks.VerifyAll();
+            }
+        }
+
         private static void AssertColumnState(DataGridViewColumnStateDefinition columnStateDefinition, bool cellsEnabled)
         {
             if (cellsEnabled)
