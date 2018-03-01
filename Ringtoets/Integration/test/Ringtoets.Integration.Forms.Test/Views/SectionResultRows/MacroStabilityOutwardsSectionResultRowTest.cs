@@ -83,40 +83,76 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
 
-            // Call
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>>(row);
-            Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
-            Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
-            Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
-            Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
-            Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
-            Assert.AreEqual(result.ManualAssemblyCategoryGroup, row.ManualAssemblyCategoryGroup);
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>>(row);
+                Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
+                Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
+                Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
+                Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
+                Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
+                Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(result.ManualAssemblyCategoryGroup, row.ManualAssemblyCategoryGroup);
 
-            TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
-                NoProbabilityValueDoubleConverter>(
-                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
-            TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
-                NoProbabilityValueDoubleConverter>(
-                nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
+                TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
+                    NoProbabilityValueDoubleConverter>(
+                    nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
+                TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
+                    NoProbabilityValueDoubleConverter>(
+                    nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void Constructor_AssemblyThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
+
+                // Assert
+                Assert.Throws<AssemblyException>(test);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
         public void UseManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -125,25 +161,30 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Precondition
-            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+                // Precondition
+                Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
 
-            // Call
-            row.UseManualAssemblyCategoryGroup = true;
+                // Call
+                row.UseManualAssemblyCategoryGroup = true;
 
-            // Assert
-            Assert.IsTrue(result.UseManualAssemblyCategoryGroup);
-            mocks.VerifyAll();
+                // Assert
+                Assert.IsTrue(result.UseManualAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
         public void ManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -155,14 +196,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Call
-            row.ManualAssemblyCategoryGroup = newValue;
+                // Call
+                row.ManualAssemblyCategoryGroup = newValue;
 
-            // Assert
-            Assert.AreEqual(newValue, result.ManualAssemblyCategoryGroup);
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreEqual(newValue, result.ManualAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
         }
 
         #region Registration
@@ -171,12 +215,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
-
+            
             var random = new Random(39);
             var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
 
@@ -184,22 +230,27 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Call
-            row.SimpleAssessmentResult = newValue;
+                // Call
+                row.SimpleAssessmentResult = newValue;
 
-            // Assert
-            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreEqual(newValue, result.SimpleAssessmentResult);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
         public void DetailedAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -211,14 +262,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Call
-            row.DetailedAssessmentResult = newValue;
+                // Call
+                row.DetailedAssessmentResult = newValue;
 
-            // Assert
-            Assert.AreEqual(newValue, result.DetailedAssessmentResult);
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreEqual(newValue, result.DetailedAssessmentResult);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
@@ -230,8 +284,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void DetailedAssessmentProbability_ValidValue_NotifyObserversAndPropertyChanged(double value)
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -240,14 +296,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Call
-            row.DetailedAssessmentProbability = value;
+                // Call
+                row.DetailedAssessmentProbability = value;
 
-            // Assert
-            Assert.AreEqual(value, row.DetailedAssessmentProbability);
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreEqual(value, row.DetailedAssessmentProbability);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
@@ -259,30 +318,38 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void DetailedAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
-            // Call
-            TestDelegate test = () => row.DetailedAssessmentProbability = value;
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Assert
-            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
-            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            Assert.AreEqual(expectedMessage, message);
-            mocks.VerifyAll();
+                // Call
+                TestDelegate test = () => row.DetailedAssessmentProbability = value;
+
+                // Assert
+                string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+                const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+                Assert.AreEqual(expectedMessage, message);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
         public void TailorMadeAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -294,14 +361,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Call
-            row.TailorMadeAssessmentResult = newValue;
+                // Call
+                row.TailorMadeAssessmentResult = newValue;
 
-            // Assert
-            Assert.AreEqual(newValue, result.TailorMadeAssessmentResult);
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreEqual(newValue, result.TailorMadeAssessmentResult);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
@@ -313,8 +383,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void TailorMadeAssessmentProbability_ValidValue_NotifyObserversAndPropertyChanged(double value)
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -323,14 +395,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Call
-            row.TailorMadeAssessmentProbability = value;
+                // Call
+                row.TailorMadeAssessmentProbability = value;
 
-            // Assert
-            Assert.AreEqual(value, row.TailorMadeAssessmentProbability);
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreEqual(value, row.TailorMadeAssessmentProbability);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
@@ -342,22 +417,28 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void TailorMadeAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
-            // Call
-            TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Assert
-            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
-            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            Assert.AreEqual(expectedMessage, message);
-            mocks.VerifyAll();
+                // Call
+                TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
+
+                // Assert
+                string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+                const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+                Assert.AreEqual(expectedMessage, message);
+                mocks.VerifyAll();
+            }
         }
 
         #endregion
@@ -368,16 +449,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void SimpleAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
+
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
@@ -387,34 +471,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
                 Assert.AreEqual(calculatorOutput.Group, simpleAssemblyCategoryGroup);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void SimpleAssemblyCategoryGroup_AssemblyThrowsException_ThrowsAssemblyException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                // Call
-                FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
-                TestDelegate test = () => simpleAssemblyCategoryGroup = row.SimpleAssemblyCategoryGroup;
-
-                // Assert
-                Assert.Throws<AssemblyException>(test);
                 mocks.VerifyAll();
             }
         }
@@ -431,10 +487,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
+                
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
@@ -444,36 +501,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
                 Assert.AreEqual(calculatorOutput.Group, detailedAssemblyCategoryGroup);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void DetailedAssemblyCategoryGroup_AssemblyThrowsException_ThrowsAssemblyException()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                // Call
-                FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
-                TestDelegate test = () => detailedAssemblyCategoryGroup = row.DetailedAssemblyCategoryGroup;
-
-                // Assert
-                Assert.Throws<AssemblyException>(test);
                 mocks.VerifyAll();
             }
         }
@@ -490,10 +517,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
+
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
@@ -503,36 +531,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
                 Assert.AreEqual(calculatorOutput.Group, tailorMadeAssemblyCategoryGroup);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void TailorMadeAssemblyCategoryGroup_AssemblyThrowsException_ThrowsAssemblyException()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                // Call
-                FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
-                TestDelegate test = () => tailorMadeAssemblyCategoryGroup = row.TailorMadeAssemblyCategoryGroup;
-
-                // Assert
-                Assert.Throws<AssemblyException>(test);
                 mocks.VerifyAll();
             }
         }
@@ -549,10 +547,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
+
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
@@ -562,36 +561,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup calculatorOutput = calculator.CombinedAssemblyCategoryOutput;
                 Assert.AreEqual(calculatorOutput, combinedAssemblyCategoryGroup);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void CombinedAssemblyCategoryGroup_AssemblyThrowsException_ThrowsAssemblyException()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                // Call
-                FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
-                TestDelegate test = () => combinedAssemblyCategoryGroup = row.CombinedAssemblyCategoryGroup;
-
-                // Assert
-                Assert.Throws<AssemblyException>(test);
                 mocks.VerifyAll();
             }
         }

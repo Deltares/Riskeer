@@ -216,8 +216,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             bool cellsEnabled)
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
@@ -234,7 +236,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Call
             using (var form = new Form())
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, failureMechanism, assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -262,8 +264,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             bool cellEnabled)
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
@@ -279,7 +283,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Call
             using (var form = new Form())
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, failureMechanism, assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -307,8 +311,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             bool cellEnabled)
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
@@ -324,7 +330,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Call
             using (var form = new Form())
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, failureMechanism, assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -347,8 +353,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         public void FailureMechanismResultView_UseManualAssemblyCategoryGroupSet_CellDisabledEnabled(bool useManualAssemblyCategoryGroup)
         {
             // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(
@@ -365,7 +373,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Call
             using (var form = new Form())
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new MacroStabilityOutwardsResultView(sectionResults, new MacroStabilityOutwardsFailureMechanism(), assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultView(sectionResults, failureMechanism, assessmentSection))
             {
                 form.Controls.Add(view);
                 form.Show();

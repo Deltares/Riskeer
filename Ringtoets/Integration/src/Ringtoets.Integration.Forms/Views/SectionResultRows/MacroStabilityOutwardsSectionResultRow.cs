@@ -51,7 +51,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityOutwardsSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult,
                                                       MacroStabilityOutwardsFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection) : base(sectionResult)
+                                                      IAssessmentSection assessmentSection)
+            : base(sectionResult)
         {
             if (failureMechanism == null)
             {
@@ -65,6 +66,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            Update();
         }
 
         /// <summary>
@@ -79,6 +82,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
+                Update();
                 SectionResult.NotifyObservers();
             }
         }
@@ -95,6 +99,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.DetailedAssessmentResult = value;
+                Update();
                 SectionResult.NotifyObservers();
             }
         }
@@ -114,6 +119,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.DetailedAssessmentProbability = value;
+                Update();
                 SectionResult.NotifyObservers();
             }
         }
@@ -130,6 +136,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.TailorMadeAssessmentResult = value;
+                Update();
                 SectionResult.NotifyObservers();
             }
         }
@@ -149,6 +156,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
+                Update();
                 SectionResult.NotifyObservers();
             }
         }
@@ -158,61 +166,28 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// </summary>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup
-        {
-            get
-            {
-                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
-            }
-        }
+        public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the detailed assembly category group.
         /// </summary>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup
-        {
-            get
-            {
-                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
-                    SectionResult,
-                    failureMechanism,
-                    assessmentSection);
-            }
-        }
+        public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the tailor made assembly category group.
         /// </summary>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup
-        {
-            get
-            {
-                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
-                    SectionResult,
-                    failureMechanism,
-                    assessmentSection);
-            }
-        }
+        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the combined assembly category group.
         /// </summary>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup
-        {
-            get
-            {
-                return MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
-                    SectionResult,
-                    failureMechanism,
-                    assessmentSection);
-            }
-        }
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
@@ -226,6 +201,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.UseManualAssemblyCategoryGroup = value;
+                Update();
                 SectionResult.NotifyObservers();
             }
         }
@@ -242,8 +218,34 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.ManualAssemblyCategoryGroup = value;
+                Update();
                 SectionResult.NotifyObservers();
             }
+        }
+
+        /// <summary>
+        /// Updates the derived assembly category groups.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        private void Update()
+        {
+            SimpleAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+
+            DetailedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                SectionResult,
+                failureMechanism,
+                assessmentSection);
+
+            TailorMadeAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                SectionResult,
+                failureMechanism,
+                assessmentSection);
+
+            CombinedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                SectionResult,
+                failureMechanism,
+                assessmentSection);
         }
     }
 }
