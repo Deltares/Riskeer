@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -347,8 +348,47 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 DisableColumn(tailorMadeAssemblyCategoryGroupIndex);
                 DisableColumn(combinedAssemblyCategoryGroupIndex);
             }
+            else
+            {
+                SetAssemblyCategoryGroupStyle(simpleAssemblyCategoryGroupIndex, SimpleAssemblyCategoryGroup);
+                SetAssemblyCategoryGroupStyle(detailedAssemblyCategoryGroupIndex, DetailedAssemblyCategoryGroup);
+                SetAssemblyCategoryGroupStyle(tailorMadeAssemblyCategoryGroupIndex, TailorMadeAssemblyCategoryGroup);
+                SetAssemblyCategoryGroupStyle(combinedAssemblyCategoryGroupIndex, CombinedAssemblyCategoryGroup);
+            }
 
             SetColumnState(manualAssemblyCategoryGroupIndex, !UseManualAssemblyCategoryGroup);
+        }
+
+        private void SetAssemblyCategoryGroupStyle(int index, FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
+        {
+            ColumnStateDefinitions[index].Style = new CellStyle(
+                Color.FromKnownColor(KnownColor.ControlText),
+                GetCategoryGroupColor(assemblyCategoryGroup));
+        }
+
+        private static Color GetCategoryGroupColor(FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
+        {
+            switch (categoryGroup)
+            {
+                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
+                    return Color.FromArgb(0, 255, 0);
+                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
+                    return Color.FromArgb(118, 147, 60);
+                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
+                    return Color.FromArgb(255, 255, 0);
+                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
+                    return Color.FromArgb(204, 192, 218);
+                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
+                    return Color.FromArgb(255, 153, 0);
+                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
+                    return Color.FromArgb(255, 0, 0);
+                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
+                case FailureMechanismSectionAssemblyCategoryGroup.None:
+                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
+                    return Color.FromArgb(255, 255, 255);
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         private void SetColumnState(int columnIndex, bool shouldDisable)

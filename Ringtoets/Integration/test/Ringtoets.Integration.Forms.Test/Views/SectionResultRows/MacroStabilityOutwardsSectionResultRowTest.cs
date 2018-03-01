@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
@@ -63,6 +64,22 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                     CombinedAssemblyCategoryGroupIndex = 9,
                     ManualAssemblyCategoryGroupIndex = 10
                 };
+            }
+        }
+
+        private static IEnumerable<TestCaseData> CategoryGroupColorCases
+        {
+            get
+            {
+                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, Color.FromArgb(255, 255, 255));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.None, Color.FromArgb(255, 255, 255));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.Iv, Color.FromArgb(0, 255, 0));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.IIv, Color.FromArgb(118, 147, 60));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.IIIv, Color.FromArgb(255, 255, 0));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.IVv, Color.FromArgb(204, 192, 218));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.Vv, Color.FromArgb(255, 153, 0));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.VIv, Color.FromArgb(255, 0, 0));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.VIIv, Color.FromArgb(255, 255, 255));
             }
         }
 
@@ -157,10 +174,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex]);
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
                 AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
                 AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
@@ -330,6 +343,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             }
         }
 
+        private static void AssertColumnWithColorState(DataGridViewColumnStateDefinition columnStateDefinition,
+                                                       Color expectedBackgroundColor)
+        {
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), columnStateDefinition.Style.TextColor);
+            Assert.AreEqual(expectedBackgroundColor, columnStateDefinition.Style.BackgroundColor);
+        }
+
         private static void AssertColumnStateIsDisabled(DataGridViewColumnStateDefinition columnStateDefinition)
         {
             Assert.AreEqual(CellStyle.Disabled, columnStateDefinition.Style);
@@ -489,12 +509,59 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex], !useManualAssemblyCategoryGroup);
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex], !useManualAssemblyCategoryGroup);
 
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex], !useManualAssemblyCategoryGroup);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex], !useManualAssemblyCategoryGroup);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex], !useManualAssemblyCategoryGroup);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex], !useManualAssemblyCategoryGroup);
+                if (useManualAssemblyCategoryGroup)
+                {
+                    AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
+                    AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
+                    AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
+                    AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
+                }
 
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex], useManualAssemblyCategoryGroup);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(CategoryGroupColorCases))]
+        public void Constructor_WithAssemblyCategoryGroupsSet_ExpectedColumnStates(FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup,
+                                                                                   Color expectedBackgroundColor)
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            {
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var assemblyOutput = new FailureMechanismSectionAssembly(0, assemblyCategoryGroup);
+                calculator.SimpleAssessmentAssemblyOutput = assemblyOutput;
+                calculator.DetailedAssessmentAssemblyOutput = assemblyOutput;
+                calculator.TailorMadeAssessmentAssemblyOutput = assemblyOutput;
+                calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
+
+                // Call
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                     ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                AssertColumnWithColorState(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                AssertColumnWithColorState(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                AssertColumnWithColorState(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                AssertColumnWithColorState(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex], expectedBackgroundColor);
 
                 mocks.VerifyAll();
             }
