@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
@@ -97,8 +99,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
             manualAssemblyCategoryGroupIndex = constructionProperties.ManualAssemblyCategoryGroupIndex;
 
+            ColumnStateDefinitions = CreateColumnStateDefinitions();
+
             Update();
         }
+
+        /// <summary>
+        /// Gets the column state definitions for the given indices.
+        /// </summary>
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
@@ -253,6 +262,43 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             }
         }
 
+        private Dictionary<int, DataGridViewColumnStateDefinition> CreateColumnStateDefinitions()
+        {
+            return new Dictionary<int, DataGridViewColumnStateDefinition>
+            {
+                {
+                    simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    simpleAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    detailedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    tailorMadeAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    combinedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    manualAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
+                }
+            };
+        }
+
         /// <summary>
         /// Updates the derived assembly category groups.
         /// </summary>
@@ -292,7 +338,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             /// Gets or sets the detailed assessment result index.
             /// </summary>
             public int DetailedAssessmentResultIndex { internal get; set; }
-            
+
             /// <summary>
             /// Gets or sets the detailed assessment probability index.
             /// </summary>

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -44,6 +46,26 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     [TestFixture]
     public class MacroStabilityOutwardsSectionResultRowTest
     {
+        private static MacroStabilityOutwardsSectionResultRow.ConstructionProperties ConstructionProperties
+        {
+            get
+            {
+                return new MacroStabilityOutwardsSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = 1,
+                    DetailedAssessmentResultIndex = 2,
+                    DetailedAssessmentProbabilityIndex = 3,
+                    TailorMadeAssessmentResultIndex = 4,
+                    TailorMadeAssessmentProbabilityIndex = 5,
+                    SimpleAssemblyCategoryGroupIndex = 6,
+                    DetailedAssemblyCategoryGroupIndex = 7,
+                    TailorMadeAssemblyCategoryGroupIndex = 8,
+                    CombinedAssemblyCategoryGroupIndex = 9,
+                    ManualAssemblyCategoryGroupIndex = 10
+                };
+            }
+        }
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -57,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Call
             TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, null, assessmentSection,
-                                                                                 new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                                 ConstructionProperties);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -74,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Call
             TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), null,
-                                                                                 new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                                 ConstructionProperties);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -116,7 +138,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             {
                 // Call
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>>(row);
@@ -134,6 +156,40 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
                     NoProbabilityValueDoubleConverter>(
                     nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void Constructor_WithConstructionProperties_ExpectedValues()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityOutwardsSectionResultRow(
+                    result, failureMechanism, assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                Assert.AreEqual(10, columnStateDefinitions.Count);
+
+                for (var i = 1; i < 11; i++)
+                {
+                    Assert.IsTrue(columnStateDefinitions.ContainsKey(i));
+                    Assert.IsNotNull(columnStateDefinitions[i]);
+                }
+
                 mocks.VerifyAll();
             }
         }
@@ -159,7 +215,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
                 // Call
                 TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                                     ConstructionProperties);
 
                 // Assert
                 Assert.Throws<AssemblyException>(test);
@@ -186,7 +242,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
@@ -222,7 +278,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -257,7 +313,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -290,7 +346,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResult = newValue;
@@ -325,7 +381,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentProbability = value;
@@ -357,7 +413,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.DetailedAssessmentProbability = value;
@@ -392,7 +448,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;
@@ -427,7 +483,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentProbability = value;
@@ -459,7 +515,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
@@ -492,7 +548,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -523,7 +579,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -554,7 +610,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -585,7 +641,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     new MacroStabilityOutwardsSectionResultRow.ConstructionProperties());
+                                                                     ConstructionProperties);
 
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
