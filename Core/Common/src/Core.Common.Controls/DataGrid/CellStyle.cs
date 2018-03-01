@@ -33,30 +33,32 @@ namespace Core.Common.Controls.DataGrid
         /// The cell style for enabled cells.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly CellStyle Enabled = new CellStyle
-        {
-            TextColor = Color.FromKnownColor(KnownColor.ControlText),
-            BackgroundColor = Color.FromKnownColor(KnownColor.White)
-        };
+        public static readonly CellStyle Enabled = new CellStyle(
+            Color.FromKnownColor(KnownColor.ControlText),
+            Color.FromKnownColor(KnownColor.White));
 
         /// <summary>
         /// The cell style of disabled cells.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly CellStyle Disabled = new CellStyle
+        public static readonly CellStyle Disabled = new CellStyle(
+            Color.FromKnownColor(KnownColor.GrayText),
+            Color.FromKnownColor(KnownColor.DarkGray));
+
+        public CellStyle(Color textColor, Color backgroundColor)
         {
-            TextColor = Color.FromKnownColor(KnownColor.GrayText),
-            BackgroundColor = Color.FromKnownColor(KnownColor.DarkGray)
-        };
+            TextColor = textColor;
+            BackgroundColor = backgroundColor;
+        }
 
         /// <summary>
         /// Gets or sets the color of the text.
         /// </summary>
-        public Color TextColor { get; private set; }
+        public Color TextColor { get; }
 
         /// <summary>
         /// Gets or sets the color of the background.
         /// </summary>
-        public Color BackgroundColor { get; private set; }
+        public Color BackgroundColor { get; }
     }
 }

@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Controls.Test.DataGrid
@@ -48,6 +50,22 @@ namespace Core.Common.Controls.Test.DataGrid
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellStyle.BackgroundColor);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellStyle.TextColor);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(11);
+            Color backgroundColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
+            Color textColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
+
+            // Call
+            var cellStyle = new CellStyle(textColor, backgroundColor);
+
+            // Assert
+            Assert.AreEqual(backgroundColor, cellStyle.BackgroundColor);
+            Assert.AreEqual(textColor, cellStyle.TextColor);
         }
     }
 }
