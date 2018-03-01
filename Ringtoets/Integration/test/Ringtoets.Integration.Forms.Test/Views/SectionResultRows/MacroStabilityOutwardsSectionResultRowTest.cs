@@ -182,6 +182,48 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         }
 
         [Test]
+        public void Constructor_AssemblyRan_ReturnCategoryGroups()
+        {
+            // Setup
+            var random = new Random(39);
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+                // Call
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                     ConstructionProperties);
+
+                // Assert
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, row.SimpleAssemblyCategoryGroup);
+                Assert.AreEqual(calculator.DetailedAssessmentAssemblyOutput.Group, row.DetailedAssemblyCategoryGroup);
+                Assert.AreEqual(calculator.TailorMadeAssessmentAssemblyOutput.Group, row.TailorMadeAssemblyCategoryGroup);
+                Assert.AreEqual(calculator.CombinedAssemblyCategoryOutput, row.CombinedAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void Constructor_AssemblyThrowsException_ThrowsAssemblyException()
         {
             // Setup
@@ -274,6 +316,32 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 Assert.AreEqual(newValue, result.ManualAssemblyCategoryGroup);
                 mocks.VerifyAll();
             }
+        }
+
+        private static void AssertColumnState(DataGridViewColumnStateDefinition columnStateDefinition, bool cellsEnabled)
+        {
+            if (cellsEnabled)
+            {
+                AssertColumnStateIsEnabled(columnStateDefinition);
+            }
+            else
+            {
+                AssertColumnStateIsDisabled(columnStateDefinition);
+            }
+        }
+
+        private static void AssertColumnStateIsDisabled(DataGridViewColumnStateDefinition columnStateDefinition)
+        {
+            Assert.AreEqual(CellStyle.Disabled, columnStateDefinition.Style);
+            Assert.IsTrue(columnStateDefinition.ReadOnly);
+            Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
+        }
+
+        private static void AssertColumnStateIsEnabled(DataGridViewColumnStateDefinition columnStateDefinition)
+        {
+            Assert.AreEqual(CellStyle.Enabled, columnStateDefinition.Style);
+            Assert.IsFalse(columnStateDefinition.ReadOnly);
+            Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
         }
 
         #region Column States
@@ -430,32 +498,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
                 mocks.VerifyAll();
             }
-        }
-
-        private static void AssertColumnState(DataGridViewColumnStateDefinition columnStateDefinition, bool cellsEnabled)
-        {
-            if (cellsEnabled)
-            {
-                AssertColumnStateIsEnabled(columnStateDefinition);
-            }
-            else
-            {
-                AssertColumnStateIsDisabled(columnStateDefinition);
-            }
-        }
-
-        private static void AssertColumnStateIsDisabled(DataGridViewColumnStateDefinition columnStateDefinition)
-        {
-            Assert.AreEqual(CellStyle.Disabled, columnStateDefinition.Style);
-            Assert.IsTrue(columnStateDefinition.ReadOnly);
-            Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
-        }
-
-        private static void AssertColumnStateIsEnabled(DataGridViewColumnStateDefinition columnStateDefinition)
-        {
-            Assert.AreEqual(CellStyle.Enabled, columnStateDefinition.Style);
-            Assert.IsFalse(columnStateDefinition.ReadOnly);
-            Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
         }
 
         #endregion
@@ -695,134 +737,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
                 Assert.AreEqual(expectedMessage, message);
-                mocks.VerifyAll();
-            }
-        }
-
-        #endregion
-
-        #region Assembly Results
-
-        [Test]
-        public void SimpleAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     ConstructionProperties);
-
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                // Call
-                FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup = row.SimpleAssemblyCategoryGroup;
-
-                // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
-                Assert.AreEqual(calculatorOutput.Group, simpleAssemblyCategoryGroup);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void DetailedAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     ConstructionProperties);
-
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                // Call
-                FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup = row.DetailedAssemblyCategoryGroup;
-
-                // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
-                Assert.AreEqual(calculatorOutput.Group, detailedAssemblyCategoryGroup);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void TailorMadeAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     ConstructionProperties);
-
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                // Call
-                FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup = row.TailorMadeAssemblyCategoryGroup;
-
-                // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
-                Assert.AreEqual(calculatorOutput.Group, tailorMadeAssemblyCategoryGroup);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void CombinedAssemblyCategoryGroup_AssemblyRan_ReturnCategoryGroup()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                     ConstructionProperties);
-
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                // Call
-                FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup = row.CombinedAssemblyCategoryGroup;
-
-                // Assert
-                FailureMechanismSectionAssemblyCategoryGroup calculatorOutput = calculator.CombinedAssemblyCategoryOutput;
-                Assert.AreEqual(calculatorOutput, combinedAssemblyCategoryGroup);
                 mocks.VerifyAll();
             }
         }
