@@ -142,6 +142,27 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>>(row);
+
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                Assert.AreEqual(10, columnStateDefinitions.Count);
+
+                for (var i = 1; i < 11; i++)
+                {
+                    Assert.IsTrue(columnStateDefinitions.ContainsKey(i));
+                    Assert.IsNotNull(columnStateDefinitions[i]);
+                }
+
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex]);
+
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
@@ -156,40 +177,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
                     NoProbabilityValueDoubleConverter>(
                     nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void Constructor_WithConstructionProperties_ExpectedValues()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var row = new MacroStabilityOutwardsSectionResultRow(
-                    result, failureMechanism, assessmentSection,
-                    ConstructionProperties);
-
-                // Assert
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                Assert.AreEqual(10, columnStateDefinitions.Count);
-
-                for (var i = 1; i < 11; i++)
-                {
-                    Assert.IsTrue(columnStateDefinitions.ContainsKey(i));
-                    Assert.IsNotNull(columnStateDefinitions[i]);
-                }
-
                 mocks.VerifyAll();
             }
         }
@@ -287,6 +274,62 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 Assert.AreEqual(newValue, result.ManualAssemblyCategoryGroup);
                 mocks.VerifyAll();
             }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        public void Constructor_WithSimpleAssessmentSufficient_ExpectedColumnStates(SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                     ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex]);
+                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex]);
+                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex]);
+                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
+                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
+                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex]);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        private static void AssertColumnStateIsDisabled(DataGridViewColumnStateDefinition columnStateDefinition)
+        {
+            Assert.AreEqual(CellStyle.Disabled, columnStateDefinition.Style);
+            Assert.IsTrue(columnStateDefinition.ReadOnly);
+            Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
+        }
+
+        private static void AssertColumnStateIsEnabled(DataGridViewColumnStateDefinition columnStateDefinition)
+        {
+            Assert.AreEqual(CellStyle.Enabled, columnStateDefinition.Style);
+            Assert.IsFalse(columnStateDefinition.ReadOnly);
+            Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
         }
 
         #region Registration

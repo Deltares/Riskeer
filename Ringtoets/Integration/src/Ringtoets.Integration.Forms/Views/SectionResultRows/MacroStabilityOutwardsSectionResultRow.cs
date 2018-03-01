@@ -26,6 +26,7 @@ using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -306,6 +307,12 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// could not be created.</exception>
         private void Update()
         {
+            UpdateData();
+            UpdateColumnDefinitionStates();
+        }
+
+        private void UpdateData()
+        {
             SimpleAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
 
             DetailedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
@@ -322,6 +329,55 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 SectionResult,
                 failureMechanism,
                 assessmentSection);
+        }
+
+        private void UpdateColumnDefinitionStates()
+        {
+            bool simpleAssessmentSufficient = GetSimpleAssessmentSufficient();
+
+            SetColumnState(detailedAssessmentResultIndex, simpleAssessmentSufficient);
+            SetColumnState(detailedAssessmentProbabilityIndex, simpleAssessmentSufficient);
+            SetColumnState(tailorMadeAssessmentResultIndex, simpleAssessmentSufficient);
+            SetColumnState(tailorMadeAssessmentProbabilityIndex, simpleAssessmentSufficient);
+        }
+
+        private void SetColumnState(int columnIndex, bool shouldDisable)
+        {
+            if (shouldDisable)
+            {
+                DisableColumn(columnIndex);
+            }
+            else
+            {
+                EnableColumn(columnIndex);
+            }
+        }
+
+        private void EnableColumn(int index)
+        {
+            ColumnStateDefinitions[index].ReadOnly = false;
+            ColumnStateDefinitions[index].Style = CellStyle.Enabled;
+        }
+
+        private void DisableColumn(int index)
+        {
+            ColumnStateDefinitions[index].ReadOnly = true;
+            ColumnStateDefinitions[index].Style = CellStyle.Disabled;
+        }
+
+        private bool GetSimpleAssessmentSufficient()
+        {
+            return FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
+        }
+
+        private bool GetDetailedAssessmentResultIsNotProbability()
+        {
+            return DetailedAssessmentResult != DetailedAssessmentResultType.Probability;
+        }
+
+        private bool GetTailorMadeAssessmentResultIsNotProbability()
+        {
+            return TailorMadeAssessmentResult != TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability;
         }
 
         /// <summary>
