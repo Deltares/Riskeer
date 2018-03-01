@@ -161,7 +161,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
                 AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex]);
+                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
@@ -322,7 +322,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
         [TestCase(DetailedAssessmentResultType.Probability, true)]
         public void Constructor_WithDetailedAssessmentResultSet_ExpectedColumnStates(DetailedAssessmentResultType detailedAssessmentResult,
-                                                                               bool cellEnabled)
+                                                                                     bool cellEnabled)
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -359,7 +359,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, true)]
         public void Constructor_WithTailorMadeAssessmentResultSet_ExpectedColumnStates(
             TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
-                                                                                       bool cellEnabled)
+            bool cellEnabled)
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -403,6 +403,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
             {
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability,
                 UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
             };
 
@@ -415,6 +416,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex], !useManualAssemblyCategoryGroup);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], !useManualAssemblyCategoryGroup);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex], !useManualAssemblyCategoryGroup);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex], !useManualAssemblyCategoryGroup);
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex], useManualAssemblyCategoryGroup);
 
                 mocks.VerifyAll();
