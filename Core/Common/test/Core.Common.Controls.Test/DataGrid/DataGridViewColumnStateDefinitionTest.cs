@@ -30,23 +30,13 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            const bool readOnly = true;
-            const string errorText = "Error";
-            CellStyle style = CellStyle.Disabled;
-
             // Call
-            var columnStateDefinition = new DataGridViewColumnStateDefinition
-            {
-                ReadOnly = readOnly,
-                ErrorText = errorText,
-                Style = style
-            };
+            var columnStateDefinition = new DataGridViewColumnStateDefinition();
 
             // Assert
-            Assert.AreEqual(readOnly, columnStateDefinition.ReadOnly);
-            Assert.AreEqual(errorText, columnStateDefinition.ErrorText);
-            Assert.AreSame(style, columnStateDefinition.Style);
+            Assert.IsFalse(columnStateDefinition.ReadOnly);
+            Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
+            Assert.AreEqual(CellStyle.Enabled, columnStateDefinition.Style);
         }
     }
 }

@@ -27,6 +27,14 @@ namespace Core.Common.Controls.DataGrid
     public class DataGridViewColumnStateDefinition
     {
         /// <summary>
+        /// Creates a new instance of <see cref="DataGridViewColumnStateDefinition"/>.
+        /// </summary>
+        public DataGridViewColumnStateDefinition()
+        {
+            Style = CellStyle.Enabled;
+            ErrorText = string.Empty;
+        }
+        /// <summary>
         /// Get or sets the read only state.
         /// </summary>
         public bool ReadOnly { get; set; }
