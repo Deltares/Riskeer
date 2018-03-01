@@ -33,9 +33,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     public class FailureMechanismSectionAssemblyCalculatorStub : IFailureMechanismSectionAssemblyCalculator
     {
         /// <summary>
-        /// Gets the output of the simple assessment calculation.
+        /// Gets or sets the output of the simple assessment calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly SimpleAssessmentAssemblyOutput { get; private set; }
+        public FailureMechanismSectionAssembly SimpleAssessmentAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets the input of the simple assessment calculation.
@@ -48,9 +48,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public SimpleAssessmentResultValidityOnlyType SimpleAssessmentValidityOnlyInput { get; private set; }
 
         /// <summary>
-        /// Gets the output of the detailed assessment calculation.
+        /// Gets or sets the output of the detailed assessment calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly DetailedAssessmentAssemblyOutput { get; private set; }
+        public FailureMechanismSectionAssembly DetailedAssessmentAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets the result type of the detailed assessment calculation.
@@ -73,19 +73,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double DetailedAssessmentNInput { get; private set; }
 
         /// <summary>
-        /// Gets the output of the tailor made assessment calculation.
+        /// Gets or sets the output of the tailor made assessment calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly TailorMadeAssessmentAssemblyOutput { get; private set; }
+        public FailureMechanismSectionAssembly TailorMadeAssessmentAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets the result type of the tailor made assessment calculation with probability or detailed calculation result.
         /// </summary>
-        public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeAssessmentProbabilityAndDetailedCalculationResult { get; private set; }
+        public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeAssessmentProbabilityAndDetailedCalculationResultInput { get; private set; }
 
         /// <summary>
         /// Gets the result type of the tailor made assessment calculation with a probability calculation.
         /// </summary>
-        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentProbabilityCalculationResultType { get; private set; }
+        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentProbabilityCalculationResultInput { get; private set; }
 
         /// <summary>
         /// Gets the probability input of the tailor made assessment calculation.
@@ -98,9 +98,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<FailureMechanismSectionAssemblyCategory> TailorMadeAssessmentCategoriesInput { get; private set; }
 
         /// <summary>
-        /// Gets the output of the combined assembly calculation.
+        /// Gets or sets the output of the combined assembly calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly CombinedAssemblyOutput { get; private set; }
+        public FailureMechanismSectionAssembly CombinedAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets the simple assembly input of the combined assembly calculation.
@@ -118,9 +118,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public FailureMechanismSectionAssembly CombinedTailorMadeAssemblyInput { get; private set; }
 
         /// <summary>
-        /// Gets the output of the combined assembly calculation.
+        /// Gets or sets the output of the combined assembly calculation.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryOutput { get; private set; }
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryOutput { get; set; }
 
         /// <summary>
         /// Gets the simple assembly input of the combined assembly calculation.
@@ -145,7 +145,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Sets an indicator whether an exception must be thrown when performing a combined assembly calculation.
         /// </summary>
-        public bool ThrowExceptionOnCalculateCombinedAssembly { get; set; }
+        public bool ThrowExceptionOnCalculateCombinedAssembly { private get; set; }
 
         public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
@@ -156,7 +156,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             SimpleAssessmentInput = input;
 
-            return SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.Iv);
+            return SimpleAssessmentAssemblyOutput ??
+                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.Iv));
         }
 
         public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
@@ -168,7 +169,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             SimpleAssessmentValidityOnlyInput = input;
 
-            return SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv);
+            return SimpleAssessmentAssemblyOutput ?? 
+                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
         }
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult,
@@ -184,7 +186,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             DetailedAssessmentProbabilityInput = probability;
             DetailedAssessmentCategoriesInput = categories;
 
-            return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv);
+            return DetailedAssessmentAssemblyOutput ??
+                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability,
@@ -200,7 +203,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             DetailedAssessmentCategoriesInput = categories;
             DetailedAssessmentNInput = n;
 
-            return DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv);
+            return DetailedAssessmentAssemblyOutput ??
+                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
@@ -212,11 +216,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                 throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
-            TailorMadeAssessmentProbabilityAndDetailedCalculationResult = tailorMadeAssessmentResult;
+            TailorMadeAssessmentProbabilityAndDetailedCalculationResultInput = tailorMadeAssessmentResult;
             TailorMadeAssessmentProbabilityInput = probability;
             TailorMadeAssessmentCategoriesInput = categories;
 
-            return TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv);
+            return TailorMadeAssessmentAssemblyOutput ?? 
+                   (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult, double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
@@ -226,11 +231,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                 throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
-            TailorMadeAssessmentProbabilityCalculationResultType = tailorMadeAssessmentResult;
+            TailorMadeAssessmentProbabilityCalculationResultInput = tailorMadeAssessmentResult;
             TailorMadeAssessmentProbabilityInput = probability;
             TailorMadeAssessmentCategoriesInput = categories;
 
-            return TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv);
+            return TailorMadeAssessmentAssemblyOutput ?? 
+                   (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
         public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
@@ -246,7 +252,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             CombinedDetailedAssemblyInput = detailedAssembly;
             CombinedTailorMadeAssemblyInput = tailorMadeAssembly;
 
-            return CombinedAssemblyOutput = tailorMadeAssembly;
+            return CombinedAssemblyOutput ?? (CombinedAssemblyOutput = tailorMadeAssembly);
         }
 
         public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly,
