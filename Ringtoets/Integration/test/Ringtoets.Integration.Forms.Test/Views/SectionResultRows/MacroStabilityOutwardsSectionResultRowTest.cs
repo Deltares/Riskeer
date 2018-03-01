@@ -276,10 +276,15 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             }
         }
 
+        #region Column States
+
         [Test]
-        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
-        [TestCase(SimpleAssessmentResultType.NotApplicable)]
-        public void Constructor_WithSimpleAssessmentSufficient_ExpectedColumnStates(SimpleAssessmentResultType simpleAssessmentResult)
+        [TestCase(SimpleAssessmentResultType.None, true)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther, true)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable, false)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, false)]
+        public void Constructor_WithSimpleAssessmentSufficient_ExpectedColumnStates(SimpleAssessmentResultType simpleAssessmentResult,
+                                                                                    bool cellsEnabled)
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -303,18 +308,57 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex]);
-                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex]);
-                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex]);
-                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
-                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex]);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex], cellsEnabled);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], cellsEnabled);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex], cellsEnabled);
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex], cellsEnabled);
 
                 mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
+        [TestCase(DetailedAssessmentResultType.Probability, true)]
+        public void Constructor_WithDetailedAssessmentSet_ExpectedColumnStates(DetailedAssessmentResultType detailedAssessmentResult,
+                                                                               bool cellEnabled)
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            {
+                DetailedAssessmentResult = detailedAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                     ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], cellEnabled);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        private static void AssertColumnState(DataGridViewColumnStateDefinition columnStateDefinition, bool cellsEnabled)
+        {
+            if (cellsEnabled)
+            {
+                AssertColumnStateIsEnabled(columnStateDefinition);
+            }
+            else
+            {
+                AssertColumnStateIsDisabled(columnStateDefinition);
             }
         }
 
@@ -331,6 +375,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.IsFalse(columnStateDefinition.ReadOnly);
             Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
         }
+
+        #endregion
 
         #region Registration
 
