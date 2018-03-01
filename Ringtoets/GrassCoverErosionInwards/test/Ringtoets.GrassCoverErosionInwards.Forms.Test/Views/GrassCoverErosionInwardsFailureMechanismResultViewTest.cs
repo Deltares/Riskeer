@@ -29,6 +29,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -186,50 +187,160 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void FailureMechanismResultsView_ChangeComboBox_DataGridViewCorrectlySyncedAndStylingSet(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None, true)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, false)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, true)]
+        public void FailureMechanismResultView_SimpleAssessmentResultSet_CellsDisabledEnabled(
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
+            bool cellsEnabled)
         {
             // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult,
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
+            };
+
+            // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
+                {
+                    sectionResult
+                }))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[simpleAssessmentResultIndex].Value = simpleAssessmentResult;
+                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
 
                 // Assert
-                DataGridViewRowCollection rows = dataGridView.Rows;
-
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(13, cells.Count);
-                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                DataGridViewCell cellDetailedAssessment = cells[detailedAssessmentProbabilityIndex];
-                DataGridViewCell cellTailorMadeAssessment = cells[tailorMadeAssessmentProbabilityIndex];
-                DataGridViewCell dataGridViewCell = cells[simpleAssessmentResultIndex];
-
-                Assert.AreEqual(simpleAssessmentResult, dataGridViewCell.Value);
-                Assert.AreEqual("-", cellDetailedAssessment.FormattedValue);
-                Assert.AreEqual("-", cellTailorMadeAssessment.FormattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-
-                if (simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable)
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
                 {
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellDetailedAssessment);
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellTailorMadeAssessment);
+                    detailedAssessmentResultIndex,
+                    tailorMadeAssessmentResultIndex,
+                    tailorMadeAssessmentProbabilityIndex
+                }, cellsEnabled);
 
-                    Assert.IsTrue(cellTailorMadeAssessment.ReadOnly);
-                }
-                else
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
                 {
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellDetailedAssessment, true);
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellTailorMadeAssessment);
+                    detailedAssessmentProbabilityIndex
+                }, cellsEnabled, true);
+            }
+        }
 
-                    Assert.IsFalse(cellTailorMadeAssessment.ReadOnly);
-                }
+        [Test]
+        [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
+        [TestCase(DetailedAssessmentResultType.Probability, true)]
+        public void FailureMechanismResultView_DetailedAssessmentResultSet_CellDisabledEnabled(
+            DetailedAssessmentResultType detailedAssessmentResult,
+            bool cellEnabled)
+        {
+            // Setup
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                DetailedAssessmentResult = detailedAssessmentResult
+            };
+
+            // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
+                {
+                    result
+                }))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
+
+                // Assert
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    detailedAssessmentProbabilityIndex
+                }, cellEnabled, true);
+            }
+        }
+
+        [Test]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.None, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.Probability, true)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed, false)]
+        public void FailureMechanismResultView_TailorMadeAssessmentResultSet_CellDisabledEnabled(
+            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+            bool cellEnabled)
+        {
+            // Setup
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult
+            };
+
+            // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
+                {
+                    result
+                }))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
+
+                // Assert
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    tailorMadeAssessmentProbabilityIndex
+                }, cellEnabled);
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void FailureMechanismResultView_UseManualAssemblyProbabilitySet_CellDisabledEnabled(bool useManualAssemblyProbability)
+        {
+            // Setup
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
+                UseManualAssemblyProbability = useManualAssemblyProbability
+            };
+
+            // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
+                {
+                    result
+                }))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
+
+                // Assert
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    manualAssemblyProbabilityIndex
+                }, useManualAssemblyProbability);
+
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    simpleAssessmentResultIndex,
+                    detailedAssessmentResultIndex,
+                    tailorMadeAssessmentResultIndex,
+                    tailorMadeAssessmentProbabilityIndex
+                }, !useManualAssemblyProbability);
+
+                DataGridViewTestHelper.AssertCellsState(cells, new[]
+                {
+                    detailedAssessmentProbabilityIndex,
+                    simpleAssemblyCategoryGroupIndex,
+                    detailedAssemblyCategoryGroupIndex,
+                    tailorMadeAssemblyCategoryGroupIndex,
+                    combinedAssemblyCategoryGroupIndex
+                }, !useManualAssemblyProbability, true);
             }
         }
 
@@ -404,9 +515,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError()
         {
             // Given
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -439,6 +548,66 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenSectionResultWithManualAssemblyAndNotCalculation_ThenDetailedAssessmentNoError()
+        {
+            // Given
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = new GrassCoverErosionInwardsCalculation(),
+                UseManualAssemblyProbability = true
+            };
+
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
+                {
+                    sectionResult
+                }))
+            {
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
+
+                // When
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+            }
+        }
+
+
+        [Test]
+        public void GivenSectionResultWithDetailedAssessmentNotAssessedAndNotCalculation_ThenDetailedAssessmentNoError()
+        {
+            // Given
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = new GrassCoverErosionInwardsCalculation(),
+                DetailedAssessmentResult = DetailedAssessmentResultType.NotAssessed
+            };
+
+            using (ShowFailureMechanismResultsView(
+                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
+                {
+                    sectionResult
+                }))
+            {
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
+
+                // When
+                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Then
+                Assert.AreEqual("-", formattedValue);
+                Assert.IsEmpty(dataGridViewCell.ErrorText);
+            }
+        }
         [Test]
         [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
         public void GivenSectionResultAndAssessmentSimpleAssessmentNotApplicable_ThenDetailedAssessmentNoError(

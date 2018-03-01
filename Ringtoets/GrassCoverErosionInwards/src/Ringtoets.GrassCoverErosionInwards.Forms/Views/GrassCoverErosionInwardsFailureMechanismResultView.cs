@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Builders;
@@ -30,7 +32,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
@@ -50,7 +51,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private const int tailorMadeAssemblyCategoryGroupIndex = 8;
         private const int combinedAssemblyCategoryGroupIndex = 9;
         private const int combinedAssemblyProbabilityIndex = 10;
-        private const int useManualAssemblyCategoryGroupIndex = 11;
         private const int manualAssemblyProbabilityIndex = 12;
 
         private readonly IAssessmentSection assessmentSection;
@@ -95,12 +95,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationInputObserver.Observable = observableGroup;
             calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
+
+            FormattingRules = CreateFormattingRules();
         }
+
+        protected override IEnumerable<DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>> FormattingRules { get; }
 
         protected override void Dispose(bool disposing)
         {
             DataGridViewControl.CellFormatting -= ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
 
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
@@ -176,23 +179,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             base.BindEvents();
 
             DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-        }
-
-        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
-            {
-                SimpleAssessmentResultValidityOnlyType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
         }
 
         private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
@@ -206,10 +192,65 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
             GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();
 
+            if (resultRow.UseManualAssemblyProbability || resultRow.DetailedAssessmentResult == DetailedAssessmentResultType.NotAssessed)
+            {
+                currentDataGridViewCell.ErrorText = string.Empty;
+                return;
+            }
+
             FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
                                                                               resultRow.SimpleAssessmentResult,
                                                                               resultRow.DetailedAssessmentProbability,
                                                                               normativeCalculation);
+        }
+
+        private static IEnumerable<DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>> CreateFormattingRules()
+        {
+            return new[]
+            {
+                new DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(
+                    new[]
+                    {
+                        detailedAssessmentResultIndex,
+                        detailedAssessmentProbabilityIndex,
+                        tailorMadeAssessmentResultIndex,
+                        tailorMadeAssessmentProbabilityIndex
+                    },
+                    row => FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(row.SimpleAssessmentResult)),
+                new DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(
+                    new[]
+                    {
+                        detailedAssessmentProbabilityIndex
+                    },
+                    row => row.DetailedAssessmentResult != DetailedAssessmentResultType.Probability),
+                new DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(
+                    new[]
+                    {
+                        tailorMadeAssessmentProbabilityIndex
+                    },
+                    row => row.TailorMadeAssessmentResult != TailorMadeAssessmentProbabilityCalculationResultType.Probability),
+                new DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(
+                    new[]
+                    {
+                        manualAssemblyProbabilityIndex
+                    },
+                    row => !row.UseManualAssemblyProbability),
+                new DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>(
+                    new[]
+                    {
+                        simpleAssessmentResultIndex,
+                        detailedAssessmentResultIndex,
+                        detailedAssessmentProbabilityIndex,
+                        tailorMadeAssessmentResultIndex,
+                        tailorMadeAssessmentProbabilityIndex,
+                        simpleAssemblyCategoryGroupIndex,
+                        detailedAssemblyCategoryGroupIndex,
+                        tailorMadeAssemblyCategoryGroupIndex,
+                        combinedAssemblyCategoryGroupIndex,
+                        combinedAssemblyProbabilityIndex
+                    },
+                    row => row.UseManualAssemblyProbability)
+            };
         }
     }
 }
