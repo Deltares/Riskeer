@@ -38,6 +38,17 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
     /// </summary>
     public class MacroStabilityOutwardsSectionResultRow : FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>
     {
+        private readonly int simpleAssessmentResultIndex;
+        private readonly int detailedAssessmentResultIndex;
+        private readonly int detailedAssessmentProbabilityIndex;
+        private readonly int tailorMadeAssessmentResultIndex;
+        private readonly int tailorMadeAssessmentProbabilityIndex;
+        private readonly int simpleAssemblyCategoryGroupIndex;
+        private readonly int detailedAssemblyCategoryGroupIndex;
+        private readonly int tailorMadeAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyCategoryGroupIndex;
+        private readonly int manualAssemblyCategoryGroupIndex;
+
         private readonly MacroStabilityOutwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
@@ -48,10 +59,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// so that it can be displayed as a row.</param>
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="MacroStabilityOutwardsSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityOutwardsSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult,
                                                       MacroStabilityOutwardsFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection)
+                                                      IAssessmentSection assessmentSection,
+                                                      ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (failureMechanism == null)
@@ -64,8 +78,24 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            simpleAssessmentResultIndex = constructionProperties.SimpleAssessmentResultIndex;
+            detailedAssessmentResultIndex = constructionProperties.DetailedAssessmentResultIndex;
+            detailedAssessmentProbabilityIndex = constructionProperties.DetailedAssessmentProbabilityIndex;
+            tailorMadeAssessmentResultIndex = constructionProperties.TailorMadeAssessmentResultIndex;
+            tailorMadeAssessmentProbabilityIndex = constructionProperties.TailorMadeAssessmentProbabilityIndex;
+            simpleAssemblyCategoryGroupIndex = constructionProperties.SimpleAssemblyCategoryGroupIndex;
+            detailedAssemblyCategoryGroupIndex = constructionProperties.DetailedAssemblyCategoryGroupIndex;
+            tailorMadeAssemblyCategoryGroupIndex = constructionProperties.TailorMadeAssemblyCategoryGroupIndex;
+            combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
+            manualAssemblyCategoryGroupIndex = constructionProperties.ManualAssemblyCategoryGroupIndex;
 
             Update();
         }
@@ -246,6 +276,62 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 SectionResult,
                 failureMechanism,
                 assessmentSection);
+        }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="MacroStabilityOutwardsSectionResultRow"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Gets or sets the simple assessment result index.
+            /// </summary>
+            public int SimpleAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the detailed assessment result index.
+            /// </summary>
+            public int DetailedAssessmentResultIndex { internal get; set; }
+            
+            /// <summary>
+            /// Gets or sets the detailed assessment probability index.
+            /// </summary>
+            public int DetailedAssessmentProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tailor made assessment result index.
+            /// </summary>
+            public int TailorMadeAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tailor made assessment probability index.
+            /// </summary>
+            public int TailorMadeAssessmentProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the simple assembly category group index.
+            /// </summary>
+            public int SimpleAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the detailed assembly category group index.
+            /// </summary>
+            public int DetailedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tailor made assembly category group index.
+            /// </summary>
+            public int TailorMadeAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the combined assembly category group index.
+            /// </summary>
+            public int CombinedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the manual assembly category group index.
+            /// </summary>
+            public int ManualAssemblyCategoryGroupIndex { internal get; set; }
         }
     }
 }
