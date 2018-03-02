@@ -353,6 +353,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             bool simpleAssessmentSufficient = GetSimpleAssessmentSufficient();
 
+            SetColumnState(simpleAssessmentResultIndex, UseManualAssemblyCategoryGroup);
             SetColumnState(detailedAssessmentResultIndex, simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
             SetColumnState(detailedAssessmentProbabilityIndex, simpleAssessmentSufficient || GetDetailedAssessmentResultIsNotProbability() || UseManualAssemblyCategoryGroup);
             SetColumnState(tailorMadeAssessmentResultIndex, simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
