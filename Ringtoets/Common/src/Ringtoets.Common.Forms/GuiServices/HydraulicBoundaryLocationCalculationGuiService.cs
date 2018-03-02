@@ -81,8 +81,7 @@ namespace Ringtoets.Common.Forms.GuiServices
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
-                          locations.Select(location => new DesignWaterLevelCalculationActivity(location,
-                                                                                               getCalculationFunc(location),
+                          locations.Select(location => new DesignWaterLevelCalculationActivity(getCalculationFunc(location),
                                                                                                hydraulicBoundaryDatabaseFilePath,
                                                                                                preprocessorDirectory,
                                                                                                norm,
@@ -113,8 +112,7 @@ namespace Ringtoets.Common.Forms.GuiServices
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
-                          locations.Select(location => new WaveHeightCalculationActivity(location,
-                                                                                         getCalculationFunc(location),
+                          locations.Select(location => new WaveHeightCalculationActivity(getCalculationFunc(location),
                                                                                          hydraulicBoundaryDatabaseFilePath,
                                                                                          preprocessorDirectory,
                                                                                          norm,

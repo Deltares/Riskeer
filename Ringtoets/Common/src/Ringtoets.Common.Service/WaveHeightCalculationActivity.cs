@@ -37,33 +37,25 @@ namespace Ringtoets.Common.Service
         private readonly string preprocessorDirectory;
         private readonly ICalculationMessageProvider messageProvider;
         private readonly WaveHeightCalculationService calculationService;
-        private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationActivity"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location the <paramref name="hydraulicBoundaryLocationCalculation"/> belongs to.</param>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>,
-        /// <paramref name="hydraulicBoundaryLocation"/> or <paramref name="messageProvider"/>is <c>null</c>.</exception>
-        public WaveHeightCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> or
+        /// <paramref name="messageProvider"/>is <c>null</c>.</exception>
+        public WaveHeightCalculationActivity(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                              string hydraulicBoundaryDatabaseFilePath,
                                              string preprocessorDirectory,
                                              double norm,
                                              ICalculationMessageProvider messageProvider)
         {
-            if (hydraulicBoundaryLocation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
-            }
-
             if (hydraulicBoundaryLocationCalculation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
@@ -74,14 +66,13 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException(nameof(messageProvider));
             }
 
-            this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
             this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
             this.messageProvider = messageProvider;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
 
-            Description = messageProvider.GetActivityDescription(hydraulicBoundaryLocation.Name);
+            Description = messageProvider.GetActivityDescription(hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation.Name);
 
             calculationService = new WaveHeightCalculationService();
         }
@@ -116,7 +107,7 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
-            hydraulicBoundaryLocation.NotifyObservers();
+            hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation.NotifyObservers();
         }
     }
 }
