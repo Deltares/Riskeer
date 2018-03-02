@@ -101,8 +101,7 @@ namespace Ringtoets.Common.Service
         {
             if (State != ActivityState.Skipped)
             {
-                calculationService.Calculate(hydraulicBoundaryLocation,
-                                             hydraulicBoundaryLocationCalculation,
+                calculationService.Calculate(hydraulicBoundaryLocationCalculation,
                                              hydraulicBoundaryDatabaseFilePath,
                                              preprocessorDirectory,
                                              norm,

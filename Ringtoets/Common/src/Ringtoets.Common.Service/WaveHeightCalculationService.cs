@@ -94,16 +94,14 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Performs a calculation for wave height.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location the <paramref name="hydraulicBoundaryLocationCalculation"/> belongs to.</param>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>,
-        /// <paramref name="hydraulicBoundaryLocationCalculation"/> or <paramref name="messageProvider"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> or
+        /// <paramref name="messageProvider"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
@@ -117,18 +115,12 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                              HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+        public void Calculate(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                               string hydraulicBoundaryDatabaseFilePath,
                               string preprocessorDirectory,
                               double norm,
                               ICalculationMessageProvider messageProvider)
         {
-            if (hydraulicBoundaryLocation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
-            }
-
             if (hydraulicBoundaryLocationCalculation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
@@ -140,6 +132,7 @@ namespace Ringtoets.Common.Service
             }
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation;
 
             CalculationServiceHelper.LogCalculationBegin();
 
