@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -73,7 +72,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_LocationsNull_ThrowsArgumentNullException()
+        public void CalculateDesignWaterLevels_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -89,43 +88,12 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 TestDelegate test = () => guiService.CalculateDesignWaterLevels(validFilePath,
                                                                                 validPreprocessorDirectory,
                                                                                 null,
-                                                                                hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                                 0.01,
                                                                                 calculationMessageProvider);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "locations";
-                Assert.AreEqual(expectedParamName, paramName);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateDesignWaterLevels_GetCalculationFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(validFilePath,
-                                                                                validPreprocessorDirectory,
-                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                null,
-                                                                                0.01,
-                                                                                calculationMessageProvider);
-
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "getCalculationFunc";
+                const string expectedParamName = "calculations";
                 Assert.AreEqual(expectedParamName, paramName);
             }
 
@@ -147,8 +115,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Call
                 TestDelegate test = () => guiService.CalculateDesignWaterLevels(validFilePath,
                                                                                 validPreprocessorDirectory,
-                                                                                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                hbl => new HydraulicBoundaryLocationCalculation(hbl),
+                                                                                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                                 0.01,
                                                                                 null);
 
@@ -177,8 +144,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Call
                 Action call = () => guiService.CalculateDesignWaterLevels("Does not exist",
                                                                           validPreprocessorDirectory,
-                                                                          Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                          hbl => new HydraulicBoundaryLocationCalculation(hbl),
+                                                                          Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                           0.01,
                                                                           calculationMessageProvider);
 
@@ -215,8 +181,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Call
                 Action call = () => guiService.CalculateDesignWaterLevels(validFilePath,
                                                                           validPreprocessorDirectory,
-                                                                          Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                          hbl => new HydraulicBoundaryLocationCalculation(hbl),
+                                                                          Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                           0.01,
                                                                           calculationMessageProvider);
 
@@ -255,11 +220,10 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Call
                 Action call = () => guiService.CalculateDesignWaterLevels(validFilePath,
                                                                           validPreprocessorDirectory,
-                                                                          new List<HydraulicBoundaryLocation>
+                                                                          new[]
                                                                           {
-                                                                              new TestHydraulicBoundaryLocation(hydraulicLocationName)
+                                                                              new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
                                                                           },
-                                                                          hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                           0.01,
                                                                           calculationMessageProvider);
 
@@ -283,7 +247,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_LocationsNull_ThrowsArgumentNullException()
+        public void CalculateWaveHeights_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -299,43 +263,12 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 TestDelegate test = () => guiService.CalculateWaveHeights(validFilePath,
                                                                           validPreprocessorDirectory,
                                                                           null,
-                                                                          hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                           0.01,
                                                                           calculationMessageProvider);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "locations";
-                Assert.AreEqual(expectedParamName, paramName);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateWaveHeights_GetCalculationFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                TestDelegate test = () => guiService.CalculateWaveHeights(validFilePath,
-                                                                          validPreprocessorDirectory,
-                                                                          Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                          null,
-                                                                          0.01,
-                                                                          calculationMessageProvider);
-
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "getCalculationFunc";
+                const string expectedParamName = "calculations";
                 Assert.AreEqual(expectedParamName, paramName);
             }
 
@@ -357,8 +290,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Call
                 TestDelegate test = () => guiService.CalculateWaveHeights(validFilePath,
                                                                           validPreprocessorDirectory,
-                                                                          Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                          hbl => new HydraulicBoundaryLocationCalculation(hbl),
+                                                                          Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                           0.01,
                                                                           null);
 
@@ -387,8 +319,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Call
                 Action call = () => guiService.CalculateWaveHeights("Does not exist",
                                                                     validPreprocessorDirectory,
-                                                                    Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                    hbl => new HydraulicBoundaryLocationCalculation(hbl),
+                                                                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                     0.01,
                                                                     calculationMessageProvider);
 
@@ -425,8 +356,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Call
                 Action call = () => guiService.CalculateWaveHeights(validFilePath,
                                                                     validPreprocessorDirectory,
-                                                                    Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                    hbl => new HydraulicBoundaryLocationCalculation(hbl),
+                                                                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                     0.01,
                                                                     calculationMessageProvider);
 
@@ -465,11 +395,10 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Call
                 Action call = () => guiService.CalculateWaveHeights(validFilePath,
                                                                     validPreprocessorDirectory,
-                                                                    new List<HydraulicBoundaryLocation>
+                                                                    new[]
                                                                     {
-                                                                        new TestHydraulicBoundaryLocation(hydraulicLocationName)
+                                                                        new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
                                                                     },
-                                                                    hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                     0.01,
                                                                     calculationMessageProvider);
 

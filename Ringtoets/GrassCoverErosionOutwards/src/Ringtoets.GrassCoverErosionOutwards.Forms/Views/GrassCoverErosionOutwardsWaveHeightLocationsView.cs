@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -115,8 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
             CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                        AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                       locations,
-                                                       GetCalculationFunc,
+                                                       locations.Select(l => GetCalculationFunc(l)),
                                                        mechanismSpecificNorm,
                                                        messageProvider);
         }

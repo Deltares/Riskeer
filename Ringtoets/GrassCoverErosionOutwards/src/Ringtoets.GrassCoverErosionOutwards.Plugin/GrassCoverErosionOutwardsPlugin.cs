@@ -549,8 +549,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                        nodeData.WrappedData,
-                        hbl => hbl.DesignWaterLevelCalculation1,
+                        nodeData.WrappedData.Select(l => l.DesignWaterLevelCalculation1),
                         mechanismSpecificNorm,
                         new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
                 });
@@ -600,8 +599,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                        nodeData.WrappedData,
-                        hbl => hbl.WaveHeightCalculation1,
+                        nodeData.WrappedData.Select(l => l.WaveHeightCalculation1),
                         mechanismSpecificNorm,
                         new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
                 });
