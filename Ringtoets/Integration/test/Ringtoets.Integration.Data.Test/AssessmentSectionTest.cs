@@ -163,14 +163,14 @@ namespace Ringtoets.Integration.Data.Test
             var configuration = (WellKnownBackgroundDataConfiguration) assessmentSection.BackgroundData.Configuration;
             Assert.AreEqual(RingtoetsWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
 
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations1);
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations2);
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations3);
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations4);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations1);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations2);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations3);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations4);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
         }
 
         [Test]
@@ -487,27 +487,27 @@ namespace Ringtoets.Integration.Data.Test
             });
 
             // Precondition
-            CollectionAssert.IsNotEmpty(assessmentSection.DesignWaterLevelLocationCalculations1);
-            CollectionAssert.IsNotEmpty(assessmentSection.DesignWaterLevelLocationCalculations2);
-            CollectionAssert.IsNotEmpty(assessmentSection.DesignWaterLevelLocationCalculations3);
-            CollectionAssert.IsNotEmpty(assessmentSection.DesignWaterLevelLocationCalculations4);
-            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightLocationCalculations1);
-            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightLocationCalculations2);
-            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightLocationCalculations3);
-            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightLocationCalculations4);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
 
             // Call
             assessmentSection.SetHydraulicBoundaryLocationCalculations(Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations1);
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations2);
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations3);
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations4);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations1);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations2);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations3);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations4);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
         }
 
         [Test]
@@ -701,26 +701,26 @@ namespace Ringtoets.Integration.Data.Test
 
         private static void AssertNumberOfHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection, int expectedNumberOfCalculations)
         {
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.DesignWaterLevelLocationCalculations1.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.DesignWaterLevelLocationCalculations2.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.DesignWaterLevelLocationCalculations3.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.DesignWaterLevelLocationCalculations4.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations1.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations2.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations3.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightLocationCalculations4.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Count());
         }
 
         private static void AssertDefaultHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection, int index, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations1.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations2.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations3.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.DesignWaterLevelLocationCalculations4.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations1.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations2.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations3.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightLocationCalculations4.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
         }
 
         private static void AssertDefaultHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,

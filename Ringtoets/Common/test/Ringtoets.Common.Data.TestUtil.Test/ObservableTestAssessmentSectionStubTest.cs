@@ -71,14 +71,14 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, failureMechanismContributionItem.Contribution);
             Assert.IsInstanceOf<OtherFailureMechanism>(failureMechanismContributionItem.FailureMechanism);
 
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations1);
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations2);
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations3);
-            CollectionAssert.IsEmpty(assessmentSection.DesignWaterLevelLocationCalculations4);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations1);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations2);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations3);
-            CollectionAssert.IsEmpty(assessmentSection.WaveHeightLocationCalculations4);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
         }
 
         [Test]

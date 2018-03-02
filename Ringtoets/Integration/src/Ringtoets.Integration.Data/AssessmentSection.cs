@@ -51,14 +51,14 @@ namespace Ringtoets.Integration.Data
         private const double defaultNorm = 1.0 / 30000;
         private const RingtoetsWellKnownTileSource defaultWellKnownTileSource = RingtoetsWellKnownTileSource.BingAerial;
 
-        private readonly IList<HydraulicBoundaryLocationCalculation> designWaterLevelLocationCalculations1 = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> designWaterLevelLocationCalculations2 = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> designWaterLevelLocationCalculations3 = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> designWaterLevelLocationCalculations4 = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightLocationCalculations1 = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightLocationCalculations2 = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightLocationCalculations3 = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightLocationCalculations4 = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
         private ReferenceLine referenceLine;
 
         /// <summary>
@@ -210,67 +210,67 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public TechnicalInnovationFailureMechanism TechnicalInnovation { get; }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations1
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
         {
             get
             {
-                return designWaterLevelLocationCalculations1;
+                return waterLevelCalculationsForFactorizedSignalingNorm;
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations2
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm
         {
             get
             {
-                return designWaterLevelLocationCalculations2;
+                return waterLevelCalculationsForSignalingNorm;
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations3
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm
         {
             get
             {
-                return designWaterLevelLocationCalculations3;
+                return waterLevelCalculationsForLowerLimitNorm;
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations4
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedLowerLimitNorm
         {
             get
             {
-                return designWaterLevelLocationCalculations4;
+                return waterLevelCalculationsForFactorizedLowerLimitNorm;
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations1
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm
         {
             get
             {
-                return waveHeightLocationCalculations1;
+                return waveHeightCalculationsForFactorizedSignalingNorm;
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations2
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForSignalingNorm
         {
             get
             {
-                return waveHeightLocationCalculations2;
+                return waveHeightCalculationsForSignalingNorm;
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations3
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForLowerLimitNorm
         {
             get
             {
-                return waveHeightLocationCalculations3;
+                return waveHeightCalculationsForLowerLimitNorm;
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations4
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedLowerLimitNorm
         {
             get
             {
-                return waveHeightLocationCalculations4;
+                return waveHeightCalculationsForFactorizedLowerLimitNorm;
             }
         }
 
@@ -410,26 +410,26 @@ namespace Ringtoets.Integration.Data
 
         private void ClearHydraulicBoundaryLocationCalculations()
         {
-            designWaterLevelLocationCalculations1.Clear();
-            designWaterLevelLocationCalculations2.Clear();
-            designWaterLevelLocationCalculations3.Clear();
-            designWaterLevelLocationCalculations4.Clear();
-            waveHeightLocationCalculations1.Clear();
-            waveHeightLocationCalculations2.Clear();
-            waveHeightLocationCalculations3.Clear();
-            waveHeightLocationCalculations4.Clear();
+            waterLevelCalculationsForFactorizedSignalingNorm.Clear();
+            waterLevelCalculationsForSignalingNorm.Clear();
+            waterLevelCalculationsForLowerLimitNorm.Clear();
+            waterLevelCalculationsForFactorizedLowerLimitNorm.Clear();
+            waveHeightCalculationsForFactorizedSignalingNorm.Clear();
+            waveHeightCalculationsForSignalingNorm.Clear();
+            waveHeightCalculationsForLowerLimitNorm.Clear();
+            waveHeightCalculationsForFactorizedLowerLimitNorm.Clear();
         }
 
         private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            designWaterLevelLocationCalculations1.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            designWaterLevelLocationCalculations2.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            designWaterLevelLocationCalculations3.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            designWaterLevelLocationCalculations4.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightLocationCalculations1.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightLocationCalculations2.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightLocationCalculations3.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightLocationCalculations4.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waterLevelCalculationsForFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waterLevelCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waterLevelCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waterLevelCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightCalculationsForFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
         }
 
         private void SetFailureMechanismRelevancy()

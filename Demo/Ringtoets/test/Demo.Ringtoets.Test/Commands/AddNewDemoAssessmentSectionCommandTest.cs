@@ -612,14 +612,14 @@ namespace Demo.Ringtoets.Test.Commands
         {
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
 
-            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations1.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations2.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations3.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.DesignWaterLevelLocationCalculations4.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations1.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations2.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations3.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightLocationCalculations4.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
         }
 
         private static void AssertDesignWaterLevelsForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)

@@ -75,44 +75,44 @@ namespace Ringtoets.Common.Data.AssessmentSection
         BackgroundData BackgroundData { get; }
 
         /// <summary>
-        /// Gets the design water level calculations corresponding to the first norm category boundary.
+        /// Gets the water level calculations corresponding to the factorized signaling norm.
         /// </summary>
-        IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations1 { get; }
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm { get; }
 
         /// <summary>
-        /// Gets the design water level calculations corresponding to the second norm category boundary.
+        /// Gets the water level calculations corresponding to the signaling norm.
         /// </summary>
-        IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations2 { get; }
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm { get; }
 
         /// <summary>
-        /// Gets the design water level calculations corresponding to the third norm category boundary.
+        /// Gets the water level calculations corresponding to the lower limit norm.
         /// </summary>
-        IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations3 { get; }
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the design water level calculations corresponding to the fourth norm category boundary.
+        /// Gets the water level calculations corresponding to the factorized lower limit norm.
         /// </summary>
-        IEnumerable<HydraulicBoundaryLocationCalculation> DesignWaterLevelLocationCalculations4 { get; }
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the wave height calculations corresponding to the first norm category boundary.
+        /// Gets the wave height calculations corresponding to the factorized signaling norm.
         /// </summary>
-        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations1 { get; }
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm { get; }
 
         /// <summary>
-        /// Gets the wave height calculations corresponding to the second norm category boundary.
+        /// Gets the wave height calculations corresponding to the signaling norm.
         /// </summary>
-        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations2 { get; }
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForSignalingNorm { get; }
 
         /// <summary>
-        /// Gets the wave height calculations corresponding to the third norm category boundary.
+        /// Gets the wave height calculations corresponding to the lower limit norm.
         /// </summary>
-        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations3 { get; }
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the wave height calculations corresponding to the fourth norm category boundary.
+        /// Gets the wave height calculations corresponding to the factorized lower limit norm.
         /// </summary>
-        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightLocationCalculations4 { get; }
+        IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedLowerLimitNorm { get; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.
