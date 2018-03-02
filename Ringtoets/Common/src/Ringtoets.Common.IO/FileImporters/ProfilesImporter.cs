@@ -333,7 +333,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
         {
-            return Math2D.ConvertPointsToPolygonSegments(linePoints);
+            return Math2D.ConvertPointsToLineSegments(linePoints);
         }
     }
 }
