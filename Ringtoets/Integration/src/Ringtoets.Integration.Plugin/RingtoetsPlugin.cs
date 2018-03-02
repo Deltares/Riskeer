@@ -1883,6 +1883,7 @@ namespace Ringtoets.Integration.Plugin
 
                         assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
+                        assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
 

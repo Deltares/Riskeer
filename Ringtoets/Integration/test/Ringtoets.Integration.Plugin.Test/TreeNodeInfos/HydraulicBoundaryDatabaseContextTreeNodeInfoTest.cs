@@ -292,10 +292,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                                                                                         assessmentSection);
 
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
 
             assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
             hydraulicBoundaryLocations.Attach(hydraulicBoundaryLocationsObserver);
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
+            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -340,7 +341,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Dutch coast South19-11-2015 12:0013", assessmentSection.HydraulicBoundaryDatabase.Version);
 
                     CollectionAssert.IsNotEmpty(hydraulicBoundaryLocations);
-
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -349,8 +349,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-
-                    CollectionAssert.IsNotEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
+                    CollectionAssert.IsNotEmpty(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+                    CollectionAssert.AreEqual(hydraulicBoundaryLocations, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                 }
             }
 
@@ -488,12 +493,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             }
 
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+            grassCoverErosionOutwardsFailureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            grassCoverErosionOutwardsFailureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
             assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
             hydraulicBoundaryLocations.Attach(hydraulicBoundaryLocationsObserver);
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
+            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             PipingOutput pipingOutput = PipingOutputTestFactory.Create();
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
@@ -525,7 +533,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightCalculationsForSignalingNorm = assessmentSection.WaveHeightCalculationsForSignalingNorm.ToList();
             IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightCalculationsForLowerLimitNorm = assessmentSection.WaveHeightCalculationsForLowerLimitNorm.ToList();
             IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightCalculationsForFactorizedLowerLimitNorm = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ToList();
-            IEnumerable<HydraulicBoundaryLocation> currentGrassCoverErosionOutwardsLocations = assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.ToList();
+            IEnumerable<HydraulicBoundaryLocation> currentGrassCoverErosionOutwardsLocations = grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaterLevelCalculationsForMechanismSpecificSignalingNorm = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaterLevelCalculationsForMechanismSpecificLowerLimitNorm = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightCalculationsForMechanismSpecificSignalingNorm = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.ToList();
+            IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightCalculationsForMechanismSpecificLowerLimitNorm = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.ToList();
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -569,7 +583,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     CollectionAssert.AreEqual(currentWaveHeightCalculationsForSignalingNorm, assessmentSection.WaveHeightCalculationsForSignalingNorm);
                     CollectionAssert.AreEqual(currentWaveHeightCalculationsForLowerLimitNorm, assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
                     CollectionAssert.AreEqual(currentWaveHeightCalculationsForFactorizedLowerLimitNorm, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
-                    CollectionAssert.AreEqual(currentGrassCoverErosionOutwardsLocations, assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
+                    CollectionAssert.AreEqual(currentWaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
+                    CollectionAssert.AreEqual(currentWaterLevelCalculationsForMechanismSpecificSignalingNorm, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
+                    CollectionAssert.AreEqual(currentWaterLevelCalculationsForMechanismSpecificLowerLimitNorm, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
+                    CollectionAssert.AreEqual(currentWaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
+                    CollectionAssert.AreEqual(currentWaveHeightCalculationsForMechanismSpecificSignalingNorm, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
+                    CollectionAssert.AreEqual(currentWaveHeightCalculationsForMechanismSpecificLowerLimitNorm, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
+                    CollectionAssert.AreEqual(currentGrassCoverErosionOutwardsLocations, grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
                     Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations.First(), pipingCalculation.InputParameters.HydraulicBoundaryLocation);
                     Assert.AreSame(pipingOutput, pipingCalculation.Output);
                 }
