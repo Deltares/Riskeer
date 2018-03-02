@@ -220,7 +220,7 @@ namespace Ringtoets.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
 
-                AssessmentLevelCalculationInput expectedInput = CreateInput(100, 1.0 / 30);
+                AssessmentLevelCalculationInput expectedInput = CreateInput(0, 1.0 / 30);
                 AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
 
@@ -278,6 +278,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const double norm = 1.0 / 30;
+            const string locationName = "punt_flw_1";
 
             var calculator = new TestDesignWaterLevelCalculator
             {
@@ -291,10 +292,10 @@ namespace Ringtoets.Common.Service.Test
 
             const string failedConvergenceMessage = "Did not converge";
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(c => c.GetCalculatedNotConvergedMessage("punt_flw_ 1")).Return(failedConvergenceMessage);
+            calculationMessageProvider.Expect(c => c.GetCalculatedNotConvergedMessage(locationName)).Return(failedConvergenceMessage);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName))
             {
                 InputParameters =
                 {
@@ -323,7 +324,7 @@ namespace Ringtoets.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
 
-                AssessmentLevelCalculationInput expectedInput = CreateInput(100, norm);
+                AssessmentLevelCalculationInput expectedInput = CreateInput(0, norm);
                 AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
                 Assert.IsNotNull(hydraulicBoundaryLocationCalculation.Output);
@@ -394,6 +395,8 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_CalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
+            const string locationName = "punt_flw_1";
+
             var calculator = new TestDesignWaterLevelCalculator
             {
                 IllustrationPointsResult = GeneralResultTestFactory.CreateGeneralResultWithDuplicateStochasts(),
@@ -407,7 +410,7 @@ namespace Ringtoets.Common.Service.Test
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName))
             {
                 InputParameters =
                 {
@@ -433,7 +436,7 @@ namespace Ringtoets.Common.Service.Test
                     Assert.AreEqual(4, msgs.Length);
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual("Fout bij het uitlezen van de illustratiepunten voor berekening punt_flw_ 1: " +
+                    Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {locationName}: " +
                                     "Een of meerdere stochasten hebben dezelfde naam. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
                     Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
@@ -451,6 +454,8 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidDesignWaterLevelCalculationThrowsException_ThrowsHydraRingFileParserException()
         {
             // Setup
+            const string locationName = "punt_flw_1";
+
             var expectedException = new HydraRingFileParserException();
 
             var mockRepository = new MockRepository();
@@ -464,10 +469,10 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(mp => mp.GetCalculatedNotConvergedMessage("punt_flw_ 1")).Return(string.Empty);
+            calculationMessageProvider.Stub(mp => mp.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName));
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -625,7 +630,7 @@ namespace Ringtoets.Common.Service.Test
         public void Run_InvalidCalculation_LogsErrorAndThrowException(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            const string locationName = "punt_flw_ 1";
+            const string locationName = "punt_flw_1";
             const string calculationFailedMessage = "calculationFailedMessage";
             const double norm = 1.0 / 30;
 

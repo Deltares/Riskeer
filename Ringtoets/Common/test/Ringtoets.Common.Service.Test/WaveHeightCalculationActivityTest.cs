@@ -514,14 +514,15 @@ namespace Ringtoets.Common.Service.Test
         public void Finish_ActivityWithSpecificState_NotifyHydraulicBoundaryLocation(ActivityState state)
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-            new TestHydraulicBoundaryLocation().Attach(observer);
+            hydraulicBoundaryLocation.Attach(observer);
             mockRepository.ReplayAll();
 
-            var activity = new TestWaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+            var activity = new TestWaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
                                                                  validFilePath,
                                                                  validPreprocessorDirectory,
                                                                  1.0,
