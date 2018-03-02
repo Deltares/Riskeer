@@ -161,6 +161,7 @@ namespace Demo.Ringtoets.Test.Commands
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocationsGrassOutwards = demoAssessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations;
 
             Assert.AreEqual(hydraulicBoundaryLocations.Count, hydraulicBoundaryLocationsGrassOutwards.Count);
+            AssertHydraulicBoundaryLocationCalculations(demoAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
             AssertDesignWaterLevelsForGrassCoverErosionOutwards(hydraulicBoundaryLocationsGrassOutwards);
             AssertCalculationConvergence(hydraulicBoundaryLocationsGrassOutwards.Select(l => l.DesignWaterLevelCalculation1));
             AssertWaveHeightsForGrassCoverErosionOutwards(hydraulicBoundaryLocationsGrassOutwards);
@@ -172,6 +173,16 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                                   .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
                                                                                                   .First();
             AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(calculation.InputParameters);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(hydraulicBoundaryLocations, failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
         }
 
         private static void AssertDesignWaterLevelsForGrassCoverErosionOutwards(ObservableList<HydraulicBoundaryLocation> locations)
