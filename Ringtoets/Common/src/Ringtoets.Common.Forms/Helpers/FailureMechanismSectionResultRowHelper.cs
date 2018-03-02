@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Helpers
                 return;
             }
 
-            SetDetailedAssessmentError(dataGridViewCell, detailedAssessmentResult, normativeCalculation);
+            dataGridViewCell.ErrorText = GetDetailedAssessmentError(detailedAssessmentResult, normativeCalculation);
         }
 
         /// <summary>
@@ -87,34 +87,30 @@ namespace Ringtoets.Common.Forms.Helpers
                 return;
             }
 
-            SetDetailedAssessmentError(dataGridViewCell, detailedAssessmentResult, normativeCalculation);
+            dataGridViewCell.ErrorText = GetDetailedAssessmentError(detailedAssessmentResult, normativeCalculation);
         }
 
-        private static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
-                                                       double detailedAssessmentResult,
-                                                       ICalculation normativeCalculation)
+        public static string GetDetailedAssessmentError(double detailedAssessmentResult,
+                                                        ICalculation normativeCalculation)
         {
             if (normativeCalculation == null)
             {
-                dataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set;
-                return;
+                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set;
             }
 
             CalculationScenarioStatus calculationScenarioStatus = GetCalculationStatus(normativeCalculation,
                                                                                        detailedAssessmentResult);
             if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
             {
-                dataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated;
-                return;
+                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated;
             }
 
             if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
             {
-                dataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output;
-                return;
+                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output;
             }
 
-            dataGridViewCell.ErrorText = string.Empty;
+            return string.Empty;
         }
 
         private static CalculationScenarioStatus GetCalculationStatus(ICalculation calculation,

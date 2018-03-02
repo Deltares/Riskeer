@@ -123,7 +123,69 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             Assert.AreEqual(expectedErrorText, dataGridViewCell.ErrorText);
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetCalculationNullConfigurations))]
+        [TestCaseSource(nameof(GetCalculationWithoutOutputConfigurations))]
+        [TestCaseSource(nameof(GetCalculationWithOutputConfigurations))]
+        public void GetAssessmentDetailedAssessmentError_WithVariousConfigurations_GetsExpectedErrorText(double detailedAssessmentResult,
+                                                                                                         ICalculation normativeCalculation,
+                                                                                                         string expectedErrorText)
+        {
+            // Call
+            string errorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentError(detailedAssessmentResult,
+                                                                                                 normativeCalculation);
+
+            // Assert
+            Assert.AreEqual(expectedErrorText, errorText);
+        }
+
         private class TestDataGridViewCell : DataGridViewCell {}
+
+        #region Test cases
+
+        private static IEnumerable<TestCaseData> GetCalculationNullConfigurations()
+        {
+            const string expectedErrorMessage = "Er moet een maatgevende berekening voor dit vak worden geselecteerd.";
+
+            yield return new TestCaseData(double.NaN, null,
+                                          expectedErrorMessage)
+                .SetName("InvalidDetailedAssessmentAndNoCalculation");
+            yield return new TestCaseData(0.0, null,
+                                          expectedErrorMessage)
+                .SetName("ValidDetailedAssessmentAndNoCalculation");
+        }
+
+        private static IEnumerable<TestCaseData> GetCalculationWithoutOutputConfigurations()
+        {
+            const string expectedErrorMessage = "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.";
+
+            yield return new TestCaseData(double.NaN,
+                                          CalculationTestDataFactory.CreateCalculationWithoutOutput(),
+                                          expectedErrorMessage)
+                .SetName("InvalidDetailedAssessmentAndCalculationWithoutOutput");
+            yield return new TestCaseData(0.0,
+                                          CalculationTestDataFactory.CreateCalculationWithoutOutput(),
+                                          expectedErrorMessage)
+                .SetName("ValidDetailedAssessmentAndCalculationWithoutOutput");
+        }
+
+        private static IEnumerable<TestCaseData> GetCalculationWithOutputConfigurations()
+        {
+            const string expectedErrorMessageOutputInvalid = "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.";
+            string expectedEmptyErrorMessage = string.Empty;
+
+            yield return new TestCaseData(double.NaN,
+                                          CalculationTestDataFactory.CreateCalculationWithOutput(),
+                                          expectedErrorMessageOutputInvalid)
+                .SetName("InvalidDetailedAssessmentAndCalculationWithOutput");
+
+            yield return new TestCaseData(0.0,
+                                          CalculationTestDataFactory.CreateCalculationWithOutput(),
+                                          expectedEmptyErrorMessage)
+                .SetName("ValidDetailedAssessmentAndCalculationWithOutput");
+        }
+
+        #endregion
 
         #region Test cases simple assessment (result)
 
@@ -141,9 +203,9 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 .SetName("SufficientWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.NotApplicable, double.NaN, null, expectedErrorMessage)
-                .SetName("NotApplicableWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("NotApplicableWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.NotApplicable, 0.0, null, expectedErrorMessage)
-                .SetName("NotApplicableWithValidLayerTwoAAndNoCalculation");
+                .SetName("NotApplicableWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.NotApplicable, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
@@ -181,27 +243,27 @@ namespace Ringtoets.Common.Forms.Test.Helpers
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.ProbabilityNegligible, double.NaN, null,
                                           expectedErrorMessage)
-                .SetName("ProbabilityNegligibleWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("ProbabilityNegligibleWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.ProbabilityNegligible, 0.0, null, expectedErrorMessage)
-                .SetName("ProbabilityNegligibleWithValidLayerTwoAAndNoCalculation");
+                .SetName("ProbabilityNegligibleWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.ProbabilityNegligible, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           expectedErrorMessage)
-                .SetName("ProbabilityNegligibleWithInvalidLayerTwoAAndCalculationWithOutput");
+                .SetName("ProbabilityNegligibleWithInvalidDetailedAssessmentAndCalculationWithOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.ProbabilityNegligible, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithOutput(),
                                           expectedErrorMessage)
-                .SetName("ProbabilityNegligibleWithValidLayerTwoAAndCalculationWithOutput");
+                .SetName("ProbabilityNegligibleWithValidDetailedAssessmentAndCalculationWithOutput");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.ProbabilityNegligible, double.NaN,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           expectedErrorMessage)
-                .SetName("ProbabilityNegligibleWithInvalidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("ProbabilityNegligibleWithInvalidDetailedAssessmentAndCalculationWithoutOutput");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.ProbabilityNegligible, 0.0,
                                           CalculationTestDataFactory.CreateCalculationWithoutOutput(),
                                           expectedErrorMessage)
-                .SetName("ProbabilityNegligibleWithValidLayerTwoAAndCalculationWithoutOutput");
+                .SetName("ProbabilityNegligibleWithValidDetailedAssessmentAndCalculationWithoutOutput");
         }
 
         private static IEnumerable<TestCaseData> GetSimpleAssessmentResultAssessFurtherOrNoneAndCalculationNullConfigurations()
@@ -215,17 +277,17 @@ namespace Ringtoets.Common.Forms.Test.Helpers
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.AssessFurther, double.NaN, null,
                                           expectedErrorMessage)
-                .SetName("AssessFurtherWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("AssessFurtherWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.AssessFurther, 0.0, null,
                                           expectedErrorMessage)
-                .SetName("AssessFurtherWithValidLayerTwoAAndNoCalculation");
+                .SetName("AssessFurtherWithValidDetailedAssessmentAndNoCalculation");
 
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.None, double.NaN, null,
                                           expectedErrorMessage)
-                .SetName("NoneWithInvalidLayerTwoAAndNoCalculation");
+                .SetName("NoneWithInvalidDetailedAssessmentAndNoCalculation");
             yield return new TestCaseData(dataGridViewCell, SimpleAssessmentResultType.None, 0.0, null,
                                           expectedErrorMessage)
-                .SetName("NoneWithValidLayerTwoAAndNoCalculation");
+                .SetName("NoneWithValidDetailedAssessmentAndNoCalculation");
         }
 
         private static IEnumerable<TestCaseData> GetSimpleAssessmentResultAssessFurtherOrNoneAndCalculationWithoutOutputConfigurations()
