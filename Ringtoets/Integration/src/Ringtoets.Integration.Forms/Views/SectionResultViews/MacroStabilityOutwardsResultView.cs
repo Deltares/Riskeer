@@ -20,14 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Builders;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
@@ -69,11 +65,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             }
 
             this.assessmentSection = assessmentSection;
-
-            FormattingRules = CreateFormattingRules();
         }
-
-        protected override IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> FormattingRules { get; }
 
         protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
         {
@@ -143,54 +135,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.ManualAssemblyCategoryGroup));
-        }
-
-        private static IEnumerable<DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>> CreateFormattingRules()
-        {
-            return new[]
-            {
-                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
-                    new[]
-                    {
-                        detailedAssessmentResultIndex,
-                        detailedAssessmentProbabilityIndex,
-                        tailorMadeAssessmentResultIndex,
-                        tailorMadeAssessmentProbabilityIndex
-                    },
-                    row => FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(row.SimpleAssessmentResult)),
-                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
-                    new[]
-                    {
-                        detailedAssessmentProbabilityIndex
-                    },
-                    row => row.DetailedAssessmentResult != DetailedAssessmentResultType.Probability),
-                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
-                    new[]
-                    {
-                        tailorMadeAssessmentProbabilityIndex
-                    },
-                    row => row.TailorMadeAssessmentResult != TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability),
-                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
-                    new[]
-                    {
-                        manualAssemblyCategoryGroupIndex
-                    },
-                    row => !row.UseManualAssemblyCategoryGroup),
-                new DataGridViewColumnFormattingRule<MacroStabilityOutwardsSectionResultRow>(
-                    new[]
-                    {
-                        simpleAssessmentResultIndex,
-                        detailedAssessmentResultIndex,
-                        detailedAssessmentProbabilityIndex,
-                        tailorMadeAssessmentResultIndex,
-                        tailorMadeAssessmentProbabilityIndex,
-                        simpleAssemblyCategoryGroupIndex,
-                        detailedAssemblyCategoryGroupIndex,
-                        tailorMadeAssemblyCategoryGroupIndex,
-                        combinedAssemblyCategoryGroupIndex
-                    },
-                    row => row.UseManualAssemblyCategoryGroup)
-            };
         }
     }
 }

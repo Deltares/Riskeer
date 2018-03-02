@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -160,17 +159,6 @@ namespace Ringtoets.Common.Forms.Views
         protected virtual void BindEvents()
         {
             DataGridViewControl.CellFormatting += HandleCellStyling;
-        }
-
-        /// <summary>
-        /// Gets the formatting rules.
-        /// </summary>
-        protected virtual IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> FormattingRules
-        {
-            get
-            {
-                yield break;
-            }
         }
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)

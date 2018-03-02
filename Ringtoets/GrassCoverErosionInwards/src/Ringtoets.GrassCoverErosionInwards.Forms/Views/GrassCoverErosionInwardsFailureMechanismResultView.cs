@@ -99,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             FormattingRules = CreateFormattingRules();
         }
 
-        protected override IEnumerable<DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>> FormattingRules { get; }
+        protected IEnumerable<DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>> FormattingRules { get; }
 
         protected override void Dispose(bool disposing)
         {
