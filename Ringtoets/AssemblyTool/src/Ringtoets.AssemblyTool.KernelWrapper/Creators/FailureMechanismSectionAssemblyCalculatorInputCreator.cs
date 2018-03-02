@@ -229,33 +229,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(categories));
             }
 
-            if (!Enum.IsDefined(typeof(TailorMadeAssessmentProbabilityCalculationResultType), tailorMadeAssessmentResult))
-            {
-                throw new InvalidEnumArgumentException(nameof(tailorMadeAssessmentResult),
-                                                       (int) tailorMadeAssessmentResult,
-                                                       typeof(TailorMadeAssessmentProbabilityCalculationResultType));
-            }
-
-            TailorMadeProbabilityCalculationResult tailorMadeProbabilityCalculationResult;
-            switch (tailorMadeAssessmentResult)
-            {
-                case TailorMadeAssessmentProbabilityCalculationResultType.None:
-                    tailorMadeProbabilityCalculationResult = new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.None);
-                    break;
-                case TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible:
-                    tailorMadeProbabilityCalculationResult = new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.FV);
-                    break;
-                case TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed:
-                    tailorMadeProbabilityCalculationResult = new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.NGO);
-                    break;
-                case TailorMadeAssessmentProbabilityCalculationResultType.Probability:
-                    tailorMadeProbabilityCalculationResult = new TailorMadeProbabilityCalculationResult(new Probability(probability));
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-
-            return new TailorMadeCalculationInputFromProbability(tailorMadeProbabilityCalculationResult,
+            return new TailorMadeCalculationInputFromProbability(ConvertTailorMadeProbabilityCalculationResult(tailorMadeAssessmentResult, probability),
                                                                  categories.Select(category => new FailureMechanismSectionCategory(
                                                                                        ConvertFailureMechanismSectionAssemblyCategoryGroup(category.Group),
                                                                                        new Probability(category.LowerBoundary),
@@ -301,6 +275,46 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     return FailureMechanismSectionCategoryGroup.NotApplicable;
                 case FailureMechanismSectionAssemblyCategoryGroup.None:
                     return FailureMechanismSectionCategoryGroup.None;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Converts a <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/> and the given
+        /// <paramref name="probability"/> to a <see cref="TailorMadeProbabilityCalculationResult"/>.
+        /// </summary>
+        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create
+        /// the input for.</param>
+        /// <param name="probability">The calculated probability to create the input for.</param>
+        /// <returns>The converted <see cref="TailorMadeProbabilityCalculationResult"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when: <see cref="tailorMadeAssessmentResult"/>
+        /// is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="tailorMadeAssessmentResult"/> 
+        /// is a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>. </exception>
+        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
+        /// invalid value.</exception>
+        private static TailorMadeProbabilityCalculationResult ConvertTailorMadeProbabilityCalculationResult(
+            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+            double probability)
+        {
+            if (!Enum.IsDefined(typeof(TailorMadeAssessmentProbabilityCalculationResultType), tailorMadeAssessmentResult))
+            {
+                throw new InvalidEnumArgumentException(nameof(tailorMadeAssessmentResult),
+                                                       (int) tailorMadeAssessmentResult,
+                                                       typeof(TailorMadeAssessmentProbabilityCalculationResultType));
+            }
+
+            switch (tailorMadeAssessmentResult)
+            {
+                case TailorMadeAssessmentProbabilityCalculationResultType.None:
+                    return new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.None);
+                case TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible:
+                    return new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.FV);
+                case TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed:
+                    return new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.NGO);
+                case TailorMadeAssessmentProbabilityCalculationResultType.Probability:
+                    return new TailorMadeProbabilityCalculationResult(new Probability(probability));
                 default:
                     throw new NotSupportedException();
             }
