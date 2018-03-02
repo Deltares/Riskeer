@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismSectionResultObserver.Dispose();
             failureMechanismSectionResultsObserver.Dispose();
 
-            DataGridViewControl.CellFormatting -= HandleDisabledFields;
+            DataGridViewControl.CellFormatting -= HandleCellStyling;
 
             if (disposing)
             {
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void BindEvents()
         {
-            DataGridViewControl.CellFormatting += HandleDisabledFields;
+            DataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
         /// <summary>
@@ -173,22 +173,19 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private void HandleDisabledFields(object sender, DataGridViewCellFormattingEventArgs e)
+        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
             TSectionResultRow row = GetDataAtRow(e.RowIndex);
-            IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> rules = FormattingRules;
 
-            IEnumerable<DataGridViewColumnFormattingRule<TSectionResultRow>> formattingRules = rules.Where(r => r.ColumnIndices.Contains(e.ColumnIndex));
-            if (formattingRules.Any())
+            if (row.ColumnStateDefinitions.ContainsKey(e.ColumnIndex))
             {
-                if (formattingRules.Any(formattingRule => formattingRule.Rule(row)))
-                {
-                    DataGridViewControl.DisableCell(e.RowIndex, e.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(e.RowIndex, e.ColumnIndex);
-                }
+                DataGridViewColumnStateDefinition columnStateDefinition = row.ColumnStateDefinitions[e.ColumnIndex];
+                DataGridViewCell cell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+
+                cell.ReadOnly = columnStateDefinition.ReadOnly;
+                cell.ErrorText = columnStateDefinition.ErrorText;
+                cell.Style.BackColor = columnStateDefinition.Style.BackgroundColor;
+                cell.Style.ForeColor = columnStateDefinition.Style.TextColor;
             }
         }
     }

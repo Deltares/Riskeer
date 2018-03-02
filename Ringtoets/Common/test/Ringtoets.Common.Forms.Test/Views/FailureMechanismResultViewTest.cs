@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
+using Deltares.WTIStability.Data.Standard;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -159,57 +160,45 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewWithFormattingRules_WhenCellFormattingEventFired_ThenFormattingRulesEvaluated()
+        [TestCaseSource(nameof(CellFormattingStates))]
+        public void GivenFailureMechanismResultView_WhenCellFormattingEventFired_ThenCellStyleSetToColumnDefinition(
+            bool readOnly, string errorText, CellStyle style)
         {
             // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
+                sectionResult
             };
 
-            // When
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
-            {
-                // Then
-                Assert.IsTrue(view.Evaluated);
-            }
-        }
-
-        [Test]
-        public void GivenFailureMechanismResultViewWithFormatting_WhenRulesDoNotMeet_ThenCellEnabled()
-        {
-            // Given
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
-            {
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult("Other name")
-            };
-
-            // When
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
+                DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[0];
+                definition.ReadOnly = readOnly;
+                definition.ErrorText = errorText;
+                definition.Style = style;
+
+                // When
+                sectionResult.NotifyObservers();
 
                 // Then
-                DataGridViewTestHelper.AssertCellIsEnabled(dataGridView.Rows[0].Cells[0], true);
+                DataGridViewCell cell = dataGridView.Rows[0].Cells[0];
+                Assert.AreEqual(readOnly, cell.ReadOnly);
+                Assert.AreEqual(errorText, cell.ErrorText);
+                Assert.AreEqual(style.BackgroundColor, cell.Style.BackColor);
+                Assert.AreEqual(style.TextColor, cell.Style.ForeColor);
             }
         }
 
-        [Test]
-        public void GivenFailureMechanismResultViewWithFormatting_WhenSingleRuleMeets_ThenCellDisabled()
+        private static IEnumerable<TestCaseData> CellFormattingStates
         {
-            // Given
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            get
             {
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
-            };
-
-            // When
-            using (ShowFailureMechanismResultsView(sectionResults))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Then
-                DataGridViewTestHelper.AssertCellIsDisabled(dataGridView.Rows[0].Cells[0]);
+                yield return new TestCaseData(true, "", CellStyle.Disabled);
+                yield return new TestCaseData(false, "Error", CellStyle.Enabled);
             }
         }
 
@@ -226,25 +215,9 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>
     {
         public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism) {}
-
-        public bool Evaluated { get; private set; }
-
-        protected override IEnumerable<DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>> FormattingRules
+            : base(failureMechanismSectionResults, failureMechanism)
         {
-            get
-            {
-                yield return new DataGridViewColumnFormattingRule<FailureMechanismSectionResultRow<FailureMechanismSectionResult>>(
-                    new[]
-                    {
-                        0
-                    },
-                    row =>
-                    {
-                        Evaluated = true;
-                        return row.Name.Equals("test");
-                    });
-            }
+            
         }
 
         protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
@@ -260,6 +233,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
     public class TestRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>
     {
-        public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult)
+        {
+            ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
+        }
     }
 }

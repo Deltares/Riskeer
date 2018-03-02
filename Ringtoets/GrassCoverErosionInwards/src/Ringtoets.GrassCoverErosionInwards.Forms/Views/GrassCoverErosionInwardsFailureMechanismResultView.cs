@@ -104,6 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         protected override void Dispose(bool disposing)
         {
             DataGridViewControl.CellFormatting -= ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting -= HandleCellStyling;
 
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
@@ -179,6 +180,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             base.BindEvents();
 
             DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
+            DataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
         private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
@@ -202,6 +204,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                                                                               resultRow.SimpleAssessmentResult,
                                                                               resultRow.DetailedAssessmentProbability,
                                                                               normativeCalculation);
+        }
+
+        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            GrassCoverErosionInwardsFailureMechanismSectionResultRow row = GetDataAtRow(e.RowIndex);
+
+
+            IEnumerable<DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>> rules = FormattingRules;
+
+            IEnumerable<DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>> formattingRules = rules.Where(r => r.ColumnIndices.Contains(e.ColumnIndex));
+            if (formattingRules.Any())
+            {
+                if (formattingRules.Any(formattingRule => formattingRule.Rule(row)))
+                {
+                    DataGridViewControl.DisableCell(e.RowIndex, e.ColumnIndex);
+                }
+                else
+                {
+                    DataGridViewControl.RestoreCell(e.RowIndex, e.ColumnIndex);
+                }
+            }
         }
 
         private static IEnumerable<DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>> CreateFormattingRules()

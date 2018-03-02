@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
             manualAssemblyCategoryGroupIndex = constructionProperties.ManualAssemblyCategoryGroupIndex;
 
-            ColumnStateDefinitions = CreateColumnStateDefinitions();
+            CreateColumnStateDefinitions();
 
             Update();
         }
@@ -251,41 +251,18 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             }
         }
 
-        private Dictionary<int, DataGridViewColumnStateDefinition> CreateColumnStateDefinitions()
+        private void CreateColumnStateDefinitions()
         {
-            return new Dictionary<int, DataGridViewColumnStateDefinition>
-            {
-                {
-                    simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition()
-                },
-                {
-                    detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition()
-                },
-                {
-                    detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition()
-                },
-                {
-                    tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition()
-                },
-                {
-                    tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition()
-                },
-                {
-                    simpleAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
-                },
-                {
-                    detailedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
-                },
-                {
-                    tailorMadeAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
-                },
-                {
-                    combinedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
-                },
-                {
-                    manualAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition()
-                }
-            };
+            ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(simpleAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(combinedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(manualAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
         }
 
         private void Update()

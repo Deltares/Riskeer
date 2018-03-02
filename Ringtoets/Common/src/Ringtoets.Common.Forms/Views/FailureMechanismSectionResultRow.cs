@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -47,6 +48,7 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             SectionResult = sectionResult;
+            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
         }
 
         /// <summary>
@@ -68,6 +70,6 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Gets the column state definitions for the given indices.
         /// </summary>
-        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; protected set; }
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
     }
 }

@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(sectionResult.Section.Name, row.Name);
-            Assert.IsNull(row.ColumnStateDefinitions);
+            CollectionAssert.IsEmpty(row.ColumnStateDefinitions);
         }
     }
 
