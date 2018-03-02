@@ -108,20 +108,5 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             const string expectedMessage = "Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.";
             Assert.AreEqual(expectedMessage, message);
         }
-
-        [Test]
-        public void SetHydraulicBoundaryLocationCalculations_Call_ThrowsNotImplementedException()
-        {
-            // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-            // Call
-            TestDelegate call = () => assessmentSection.SetHydraulicBoundaryLocationCalculations(Enumerable.Empty<HydraulicBoundaryLocation>());
-
-            // Assert
-            string message = Assert.Throws<NotImplementedException>(call).Message;
-            const string expectedMessage = "Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.";
-            Assert.AreEqual(expectedMessage, message);
-        }
     }
 }

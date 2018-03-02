@@ -305,6 +305,11 @@ namespace Ringtoets.Integration.Data
 
         public BackgroundData BackgroundData { get; }
 
+        /// <summary>
+        /// Sets hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocations"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to add calculations for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
         public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (hydraulicBoundaryLocations == null)
