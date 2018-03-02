@@ -1748,8 +1748,7 @@ namespace Ringtoets.Integration.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                               assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                              assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                              nodeData.GetCalculationFunc,
+                                                                                              assessmentSection.HydraulicBoundaryDatabase.Locations.Select(l => nodeData.GetCalculationFunc(l)),
                                                                                               nodeData.GetNormFunc(),
                                                                                               new DesignWaterLevelCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
@@ -1781,8 +1780,7 @@ namespace Ringtoets.Integration.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                        assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                        nodeData.GetCalculationFunc,
+                                                                                        assessmentSection.HydraulicBoundaryDatabase.Locations.Select(l => nodeData.GetCalculationFunc(l)),
                                                                                         nodeData.GetNormFunc(),
                                                                                         new WaveHeightCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
