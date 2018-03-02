@@ -107,11 +107,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets the column state definitions for the given indices.
-        /// </summary>
-        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
-
-        /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult

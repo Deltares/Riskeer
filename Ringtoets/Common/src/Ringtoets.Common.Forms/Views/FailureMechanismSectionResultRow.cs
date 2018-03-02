@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
@@ -62,5 +64,10 @@ namespace Ringtoets.Common.Forms.Views
         /// Gets the <see cref="FailureMechanismSectionResult"/> that is the source of this row.
         /// </summary>
         protected T SectionResult { get; }
+
+        /// <summary>
+        /// Gets the column state definitions for the given indices.
+        /// </summary>
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; protected set; }
     }
 }
