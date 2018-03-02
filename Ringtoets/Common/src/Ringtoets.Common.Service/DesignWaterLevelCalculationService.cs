@@ -149,8 +149,7 @@ namespace Ringtoets.Common.Service
 
             try
             {
-                PerformCalculation(hydraulicBoundaryLocation,
-                                   hydraulicBoundaryLocationCalculation,
+                PerformCalculation(hydraulicBoundaryLocationCalculation,
                                    hydraulicBoundaryDatabaseFilePath,
                                    !string.IsNullOrEmpty(preprocessorDirectory),
                                    norm,
@@ -200,7 +199,6 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Performs a calculation for the design water level.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location the <paramref name="hydraulicBoundaryLocationCalculation"/> belongs to.</param>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
@@ -214,13 +212,14 @@ namespace Ringtoets.Common.Service
         /// <item>Unable to read required data from database file.</item>
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
-        private void PerformCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                        HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+        private void PerformCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                         string hydraulicBoundaryDatabaseFilePath,
                                         bool usePreprocessor,
                                         double norm,
                                         ICalculationMessageProvider messageProvider)
         {
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation;
+
             AssessmentLevelCalculationInput calculationInput = CreateInput(hydraulicBoundaryLocation.Id, norm, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             calculator.Calculate(calculationInput);
