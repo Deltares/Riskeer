@@ -24,12 +24,10 @@ using System.Collections;
 using System.Globalization;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -187,167 +185,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None, true)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, false)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, true)]
-        public void FailureMechanismResultView_SimpleAssessmentResultSet_CellsDisabledEnabled(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
-            bool cellsEnabled)
-        {
-            // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = simpleAssessmentResult,
-                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
-            };
-
-            // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
-
-                // Assert
-                DataGridViewTestHelper.AssertCellsState(cells, new[]
-                {
-                    detailedAssessmentResultIndex,
-                    tailorMadeAssessmentResultIndex,
-                    tailorMadeAssessmentProbabilityIndex
-                }, cellsEnabled);
-
-                DataGridViewTestHelper.AssertCellsState(cells, new[]
-                {
-                    detailedAssessmentProbabilityIndex
-                }, cellsEnabled, true);
-            }
-        }
-
-        [Test]
-        [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
-        [TestCase(DetailedAssessmentResultType.Probability, true)]
-        public void FailureMechanismResultView_DetailedAssessmentResultSet_CellDisabledEnabled(
-            DetailedAssessmentResultType detailedAssessmentResult,
-            bool cellEnabled)
-        {
-            // Setup
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                DetailedAssessmentResult = detailedAssessmentResult
-            };
-
-            // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    result
-                }))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
-
-                // Assert
-                DataGridViewTestHelper.AssertCellsState(cells, new[]
-                {
-                    detailedAssessmentProbabilityIndex
-                }, cellEnabled, true);
-            }
-        }
-
-        [Test]
-        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.None, false)]
-        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible, false)]
-        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.Probability, true)]
-        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed, false)]
-        public void FailureMechanismResultView_TailorMadeAssessmentResultSet_CellDisabledEnabled(
-            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-            bool cellEnabled)
-        {
-            // Setup
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                TailorMadeAssessmentResult = tailorMadeAssessmentResult
-            };
-
-            // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    result
-                }))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
-
-                // Assert
-                DataGridViewTestHelper.AssertCellsState(cells, new[]
-                {
-                    tailorMadeAssessmentProbabilityIndex
-                }, cellEnabled);
-            }
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void FailureMechanismResultView_UseManualAssemblyProbabilitySet_CellDisabledEnabled(bool useManualAssemblyProbability)
-        {
-            // Setup
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
-                UseManualAssemblyProbability = useManualAssemblyProbability
-            };
-
-            // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    result
-                }))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewCellCollection cells = dataGridView.Rows[0].Cells;
-
-                // Assert
-                DataGridViewTestHelper.AssertCellsState(cells, new[]
-                {
-                    manualAssemblyProbabilityIndex
-                }, useManualAssemblyProbability);
-
-                DataGridViewTestHelper.AssertCellsState(cells, new[]
-                {
-                    simpleAssessmentResultIndex,
-                    detailedAssessmentResultIndex,
-                    tailorMadeAssessmentResultIndex,
-                    tailorMadeAssessmentProbabilityIndex
-                }, !useManualAssemblyProbability);
-
-                DataGridViewTestHelper.AssertCellsState(cells, new[]
-                {
-                    detailedAssessmentProbabilityIndex,
-                    simpleAssemblyCategoryGroupIndex,
-                    detailedAssemblyCategoryGroupIndex,
-                    tailorMadeAssemblyCategoryGroupIndex,
-                    combinedAssemblyCategoryGroupIndex
-                }, !useManualAssemblyProbability, true);
-            }
-        }
-
-        [Test]
-        [TestCase("test", tailorMadeAssessmentProbabilityIndex)]
-        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", tailorMadeAssessmentProbabilityIndex)]
-        public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
+        [TestCase("test")]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?")]
+        public void FailureMechanismResultView_EditValueNotAProbability_ShowsErrorTooltip(string newValue)
         {
             // Setup
             using (CreateConfiguredFailureMechanismResultsView())
@@ -355,7 +195,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+                dataGridView.Rows[0].Cells[tailorMadeAssessmentProbabilityIndex].Value = newValue;
 
                 // Assert
                 Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kans.", dataGridView.Rows[0].ErrorText);
@@ -368,7 +208,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(-0.01)]
         [TestCase(5)]
         [TestCase(-10)]
-        public void FailureMechanismResultView_EditValueTailorMadeAssessmentInvalid_ShowErrorToolTip(double newValue)
+        public void FailureMechanismResultView_EditValueTailorMadeAssessmentProbabilityInvalid_ShowErrorToolTip(double newValue)
         {
             // Setup
             using (CreateConfiguredFailureMechanismResultsView())
@@ -578,7 +418,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
-
         [Test]
         public void GivenSectionResultWithDetailedAssessmentNotAssessedAndNotCalculation_ThenDetailedAssessmentNoError()
         {
@@ -608,6 +447,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
             }
         }
+
         [Test]
         [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
         public void GivenSectionResultAndAssessmentSimpleAssessmentNotApplicable_ThenDetailedAssessmentNoError(
