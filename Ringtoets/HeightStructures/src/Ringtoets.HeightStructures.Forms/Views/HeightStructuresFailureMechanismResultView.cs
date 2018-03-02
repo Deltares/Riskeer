@@ -27,6 +27,7 @@ using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -108,31 +109,21 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(HeightStructuresFailureMechanismSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] layerOneDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                layerOneDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+           FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+               DataGridViewControl,
+               nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
-                true);
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
+            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
         protected override void BindEvents()
