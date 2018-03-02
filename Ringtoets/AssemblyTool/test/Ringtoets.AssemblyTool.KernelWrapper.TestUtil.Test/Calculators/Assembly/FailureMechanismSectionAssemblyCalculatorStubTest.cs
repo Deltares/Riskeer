@@ -56,9 +56,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual(0.0, calculator.TailorMadeAssessmentProbabilityInput);
 
             Assert.AreEqual((TailorMadeAssessmentProbabilityAndDetailedCalculationResultType) 0,
-                            calculator.TailorMadeAssessmentProbabilityAndDetailedCalculationResult);
+                            calculator.TailorMadeAssessmentProbabilityAndDetailedCalculationResultInput);
             Assert.AreEqual((TailorMadeAssessmentProbabilityCalculationResultType) 0,
-                            calculator.TailorMadeAssessmentProbabilityCalculationResultType);
+                            calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
             Assert.IsNull(calculator.TailorMadeAssessmentAssemblyOutput);
 
             Assert.IsNull(calculator.CombinedSimpleAssemblyInput);

@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2026
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{89F6BC2C-78E6-42F1-A056-704C877B5453}"
 EndProject
@@ -1877,6 +1877,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.Util.Test", "Ringtoets\HeightStructures\test\Ringtoets.HeightStructures.Util.Test\Ringtoets.HeightStructures.Util.Test.csproj", "{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.AssemblyTool.Data.TestUtil", "Ringtoets\AssemblyTool\test\Ringtoets.AssemblyTool.Data.TestUtil\Ringtoets.AssemblyTool.Data.TestUtil.csproj", "{C6EE9E6A-6578-49DF-914F-CDB531E61891}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -4957,6 +4962,15 @@ Global
 		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.Release|x86.Build.0 = Release|x86
 		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.Debug|x86.ActiveCfg = Debug|x86
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.Debug|x86.Build.0 = Debug|x86
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.Release|x86.ActiveCfg = Release|x86
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.Release|x86.Build.0 = Release|x86
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5359,6 +5373,7 @@ Global
 		{9AADA1BD-E47C-429A-B455-A13522645F76} = {91119B0B-C26B-4ADF-BE4A-B4228331786E}
 		{B60FC9A2-22B5-4E4C-986E-40766B843AB5} = {2A2E6519-A2B8-4A6B-8849-4873578D7C8C}
 		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4} = {E550D725-9C80-4242-8A3F-C1A3E020DEA2}
+		{C6EE9E6A-6578-49DF-914F-CDB531E61891} = {614D79BC-9919-4AC8-A2B1-9DD89BCB0653}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {039D31AA-B517-4354-B8CD-0B2B826D0B1F}

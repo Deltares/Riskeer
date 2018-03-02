@@ -214,7 +214,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 Assert.AreEqual(sectionResult.DetailedAssessmentProbability, calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
                 Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
                                     failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength), categoryCalculator.N);
                 Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
@@ -374,7 +374,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
                 Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
                                     failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength), categoryCalculator.N);
                 Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.TailorMadeAssessmentCategoriesInput);

@@ -246,7 +246,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                                 calculator.DetailedAssessmentNInput);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
                 Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
                                     failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
                                 categoryCalculator.N);

@@ -247,7 +247,7 @@ namespace Ringtoets.Piping.Data.Test
                                 calculator.DetailedAssessmentNInput);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
                 Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.GetN(
                                     failureMechanism.PipingProbabilityAssessmentInput.SectionLength),
                                 categoryCalculator.N);

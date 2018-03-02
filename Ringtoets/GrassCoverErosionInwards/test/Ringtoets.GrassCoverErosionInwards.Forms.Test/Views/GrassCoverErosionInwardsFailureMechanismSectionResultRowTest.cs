@@ -134,15 +134,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             result.Attach(observer);
 
             var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-            // Precondition
-            Assert.IsFalse(result.UseManualAssemblyProbability);
+            bool originalValue = result.UseManualAssemblyProbability;
+            bool newValue = !originalValue;
 
             // Call
-            row.UseManualAssemblyProbability = true;
+            row.UseManualAssemblyProbability = newValue;
 
             // Assert
-            Assert.IsTrue(result.UseManualAssemblyProbability);
+            Assert.AreEqual(newValue, result.UseManualAssemblyProbability);
             mocks.VerifyAll();
         }
 
@@ -196,9 +195,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             TestDelegate test = () => row.ManualAssemblyProbability = value;
 
             // Assert
-            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            Assert.AreEqual(expectedMessage, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
             mocks.VerifyAll();
         }
 
@@ -486,9 +484,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
 
             // Assert
-            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            Assert.AreEqual(expectedMessage, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
             mocks.VerifyAll();
         }
 

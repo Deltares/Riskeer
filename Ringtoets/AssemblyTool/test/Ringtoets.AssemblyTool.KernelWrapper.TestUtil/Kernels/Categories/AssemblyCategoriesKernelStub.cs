@@ -48,9 +48,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         public double SignalingNorm { get; private set; }
 
         /// <summary>
-        /// Gets the probability distribution factor.
+        /// Gets the failure mechanism contribution.
         /// </summary>
-        public double ProbabilityDistributionFactor { get; private set; }
+        public double FailureMechanismContribution { get; private set; }
 
         /// <summary>
         /// Gets the n.
@@ -101,7 +101,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
             SignalingNorm = input.SignalingStandard;
             LowerLimitNorm = input.LowerBoundaryStandard;
-            ProbabilityDistributionFactor = input.ProbabilityDistributionFactor;
+            FailureMechanismContribution = input.ProbabilityDistributionFactor;
             N = input.NValue;
 
             Calculated = true;
@@ -118,7 +118,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
             SignalingNorm = input.SignalingStandard;
             LowerLimitNorm = input.LowerBoundaryStandard;
-            ProbabilityDistributionFactor = input.ProbabilityDistributionFactor;
+            FailureMechanismContribution = input.ProbabilityDistributionFactor;
             N = input.NValue;
 
             Calculated = true;

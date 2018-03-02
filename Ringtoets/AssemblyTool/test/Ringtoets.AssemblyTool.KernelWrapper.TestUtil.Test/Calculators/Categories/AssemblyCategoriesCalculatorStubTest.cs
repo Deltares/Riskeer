@@ -150,18 +150,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             var random = new Random(39);
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
-            double probabilityDistributionFactor = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
+            calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
 
             // Assert
             Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
             Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
-            Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
+            Assert.AreEqual(failureMechanismContribution, calculator.FailureMechanismContribution);
             Assert.AreEqual(n, calculator.N);
         }
 
@@ -221,18 +221,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             var random = new Random(39);
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
-            double probabilityDistributionFactor = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
+            calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
 
             // Assert
             Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
             Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
-            Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
+            Assert.AreEqual(failureMechanismContribution, calculator.FailureMechanismContribution);
             Assert.AreEqual(n, calculator.N);
         }
 

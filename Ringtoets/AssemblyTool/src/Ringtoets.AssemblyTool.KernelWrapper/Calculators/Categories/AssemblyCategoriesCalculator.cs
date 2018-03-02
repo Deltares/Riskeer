@@ -72,13 +72,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 
         public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(double signalingNorm,
                                                                                                                double lowerLimitNorm,
-                                                                                                               double probabilityDistributionFactor,
+                                                                                                               double failureMechanismContribution,
                                                                                                                double n)
         {
             try
             {
                 var input = new CalculateFailureMechanismSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerLimitNorm),
-                                                                                probabilityDistributionFactor, n);
+                                                                                failureMechanismContribution, n);
                 ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 CalculationOutput<FailureMechanismSectionCategory[]> output = kernel.CalculateFailureMechanismSectionCategories(input);
 
@@ -92,13 +92,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 
         public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(double signalingNorm,
                                                                                                                          double lowerLimitNorm,
-                                                                                                                         double probabilityDistributionFactor,
+                                                                                                                         double failureMechanismContribution,
                                                                                                                          double n)
         {
             try
             {
                 var input = new CalculateFailureMechanismSectionCategoriesInput(new Probability(signalingNorm), new Probability(lowerLimitNorm),
-                                                                                probabilityDistributionFactor, n);
+                                                                                failureMechanismContribution, n);
                 ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 CalculationOutput<FailureMechanismSectionCategory[]> output = kernel.CalculateGeotechnicFailureMechanismSectionCategories(input);
 

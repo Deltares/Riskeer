@@ -129,11 +129,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             var random = new Random(11);
             var lowerLimitNorm = new Probability(random.NextDouble());
             var signalingNorm = new Probability(random.NextDouble());
-            double probabilityDistributionFactor = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble(1, 5);
 
             var kernelStub = new AssemblyCategoriesKernelStub();
-            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
+            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
 
             // Call
             kernelStub.CalculateFailureMechanismSectionCategories(input);
@@ -141,7 +141,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             // Assert
             Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
             Assert.AreEqual(lowerLimitNorm, kernelStub.LowerLimitNorm);
-            Assert.AreEqual(probabilityDistributionFactor, kernelStub.ProbabilityDistributionFactor);
+            Assert.AreEqual(failureMechanismContribution, kernelStub.FailureMechanismContribution);
             Assert.AreEqual(n, kernelStub.N);
         }
 
@@ -209,11 +209,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             var random = new Random(11);
             var lowerLimitNorm = new Probability(random.NextDouble());
             var signalingNorm = new Probability(random.NextDouble());
-            double probabilityDistributionFactor = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble(1, 5);
 
             var kernelStub = new AssemblyCategoriesKernelStub();
-            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, probabilityDistributionFactor, n);
+            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
 
             // Call
             kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(input);
@@ -221,7 +221,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             // Assert
             Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
             Assert.AreEqual(lowerLimitNorm, kernelStub.LowerLimitNorm);
-            Assert.AreEqual(probabilityDistributionFactor, kernelStub.ProbabilityDistributionFactor);
+            Assert.AreEqual(failureMechanismContribution, kernelStub.FailureMechanismContribution);
             Assert.AreEqual(n, kernelStub.N);
         }
 

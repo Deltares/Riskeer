@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
-        /// <param name="probabilityDistributionFactor">The probability distribution factor to calculate with.</param>
+        /// <param name="failureMechanismContribution">The failure mechanism contribution to calculate with.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
         public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateFailureMechanismSectionAssemblyCategories(
             double signalingNorm,
             double lowerLimitNorm,
-            double probabilityDistributionFactor,
+            double failureMechanismContribution,
             double n)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
             {
                 return calculator.CalculateFailureMechanismSectionCategories(signalingNorm,
                                                                              lowerLimitNorm,
-                                                                             probabilityDistributionFactor / 100,
+                                                                             failureMechanismContribution / 100,
                                                                              n);
             }
             catch (AssemblyCategoriesCalculatorException e)
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
-        /// <param name="probabilityDistributionFactor">The probability distribution factor to calculate with.</param>
+        /// <param name="failureMechanismContribution">The failure mechanism contribution to calculate with.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
         public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateGeotechnicFailureMechanismSectionAssemblyCategories(
             double signalingNorm,
             double lowerLimitNorm,
-            double probabilityDistributionFactor,
+            double failureMechanismContribution,
             double n)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
             {
                 return calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm,
                                                                                        lowerLimitNorm,
-                                                                                       probabilityDistributionFactor,
+                                                                                       failureMechanismContribution / 100,
                                                                                        n);
             }
             catch (AssemblyCategoriesCalculatorException e)

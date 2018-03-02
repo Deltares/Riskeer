@@ -31,9 +31,10 @@ using Ringtoets.Common.Primitives;
 namespace Ringtoets.Common.Forms.Builders
 {
     /// <summary>
-    /// Builder class for adding various columns to a <see cref="DataGridViewControl"/>.
+    /// Builder class for adding various columns to a <see cref="DataGridViewControl"/> in
+    /// failure mechanism result views.
     /// </summary>
-    public static class FailureMechanismSectionResultColumnBuilder
+    public static class FailureMechanismSectionResultViewColumnBuilder
     {
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the section name.

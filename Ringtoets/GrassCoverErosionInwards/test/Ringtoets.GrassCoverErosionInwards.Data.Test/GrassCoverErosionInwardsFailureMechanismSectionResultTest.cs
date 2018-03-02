@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsNaN(result.TailorMadeAssessmentProbability);
             Assert.IsFalse(result.UseManualAssemblyProbability);
-            Assert.AreEqual(double.NaN, result.ManualAssemblyProbability);
+            Assert.IsNaN(result.ManualAssemblyProbability);
         }
 
         [Test]

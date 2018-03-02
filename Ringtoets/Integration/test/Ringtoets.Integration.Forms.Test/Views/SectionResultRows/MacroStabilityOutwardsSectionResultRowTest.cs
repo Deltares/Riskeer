@@ -814,9 +814,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 TestDelegate test = () => row.DetailedAssessmentProbability = value;
 
                 // Assert
-                string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-                Assert.AreEqual(expectedMessage, message);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
                 mocks.VerifyAll();
             }
         }
@@ -916,9 +915,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
 
                 // Assert
-                string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-                Assert.AreEqual(expectedMessage, message);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
                 mocks.VerifyAll();
             }
         }

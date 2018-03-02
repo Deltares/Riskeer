@@ -42,9 +42,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public double LowerLimitNorm { get; private set; }
 
         /// <summary>
-        /// Gets the probability distribution factor that is used in the calculation.
+        /// Gets the failure mechanism contribution that is used in the calculation.
         /// </summary>
-        public double ProbabilityDistributionFactor { get; private set; }
+        public double FailureMechanismContribution { get; private set; }
 
         /// <summary>
         /// Gets the n that is used in the calculation.
@@ -86,7 +86,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         }
 
         public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(double signalingNorm, double lowerLimitNorm,
-                                                                                                               double probabilityDistributionFactor, double n)
+                                                                                                               double failureMechanismContribution, double n)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -95,7 +95,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 
             SignalingNorm = signalingNorm;
             LowerLimitNorm = lowerLimitNorm;
-            ProbabilityDistributionFactor = probabilityDistributionFactor;
+            FailureMechanismContribution = failureMechanismContribution;
             N = n;
 
             return FailureMechanismSectionCategoriesOutput
@@ -108,7 +108,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         }
 
         public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(double signalingNorm, double lowerLimitNorm,
-                                                                                                                         double probabilityDistributionFactor, double n)
+                                                                                                                         double failureMechanismContribution, double n)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -117,7 +117,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 
             SignalingNorm = signalingNorm;
             LowerLimitNorm = lowerLimitNorm;
-            ProbabilityDistributionFactor = probabilityDistributionFactor;
+            FailureMechanismContribution = failureMechanismContribution;
             N = n;
 
             return FailureMechanismSectionCategoriesOutput

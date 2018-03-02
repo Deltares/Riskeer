@@ -122,55 +122,55 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            FailureMechanismSectionResultColumnBuilder.AddSectionNameColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.Name));
 
-            FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentResultValidityOnlyColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultValidityOnlyColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-            FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentResult));
 
-            FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
-            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
 
-            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
 
-            FailureMechanismSectionResultColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddCombinedAssemblyProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
-            FailureMechanismSectionResultColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.UseManualAssemblyProbability));
 
-            FailureMechanismSectionResultColumnBuilder.AddManualAssemblyProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
@@ -209,7 +209,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
             GrassCoverErosionInwardsFailureMechanismSectionResultRow row = GetDataAtRow(e.RowIndex);
-
 
             IEnumerable<DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>> rules = FormattingRules;
 

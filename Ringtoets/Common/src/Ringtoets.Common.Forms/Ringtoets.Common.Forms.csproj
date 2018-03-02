@@ -20,7 +20,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\FailureMechanismSectionResultColumnBuilder.cs" />
+    <Compile Include="Builders\FailureMechanismSectionResultViewColumnBuilder.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismCalculationChangeHandler.cs" />
     <Compile Include="ChangeHandlers\ObservablePropertyChangeHandler.cs" />
     <Compile Include="ChangeHandlers\FailureMechanismPropertyChangeHandler.cs" />

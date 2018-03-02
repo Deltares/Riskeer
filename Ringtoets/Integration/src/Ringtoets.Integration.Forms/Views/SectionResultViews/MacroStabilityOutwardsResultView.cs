@@ -88,51 +88,51 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override void AddDataGridColumns()
         {
-            FailureMechanismSectionResultColumnBuilder.AddSectionNameColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.Name));
 
-            FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssessmentResult));
 
-            FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentResult));
 
-            FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
 
-            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentResult));
 
-            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
 
-            FailureMechanismSectionResultColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.CombinedAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.UseManualAssemblyCategoryGroup));
 
-            FailureMechanismSectionResultColumnBuilder.AddManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.ManualAssemblyCategoryGroup));
         }

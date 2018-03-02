@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
             var random = new Random(11);
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
-            double probabilityDistributionFactor = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -121,13 +121,13 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 // Call
                 AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(signalingNorm,
                                                                                               lowerLimitNorm,
-                                                                                              probabilityDistributionFactor,
+                                                                                              failureMechanismContribution,
                                                                                               n);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
                 Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
-                Assert.AreEqual(probabilityDistributionFactor / 100, calculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(failureMechanismContribution / 100, calculator.FailureMechanismContribution);
                 Assert.AreEqual(n, calculator.N);
             }
         }
@@ -139,7 +139,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
             var random = new Random(11);
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
-            double probabilityDistributionFactor = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -151,7 +151,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCategory[] output = AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
                     signalingNorm,
                     lowerLimitNorm,
-                    probabilityDistributionFactor,
+                    failureMechanismContribution,
                     n).ToArray();
 
                 // Assert
@@ -191,7 +191,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
             var random = new Random(11);
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
-            double probabilityDistributionFactor = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -202,13 +202,13 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 // Call
                 AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(signalingNorm,
                                                                                                         lowerLimitNorm,
-                                                                                                        probabilityDistributionFactor,
+                                                                                                        failureMechanismContribution,
                                                                                                         n);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
                 Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
-                Assert.AreEqual(probabilityDistributionFactor, calculator.ProbabilityDistributionFactor);
+                Assert.AreEqual(failureMechanismContribution / 100, calculator.FailureMechanismContribution);
                 Assert.AreEqual(n, calculator.N);
             }
         }
@@ -220,7 +220,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
             var random = new Random(11);
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
-            double probabilityDistributionFactor = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -232,7 +232,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCategory[] output = AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(
                     signalingNorm,
                     lowerLimitNorm,
-                    probabilityDistributionFactor,
+                    failureMechanismContribution,
                     n).ToArray();
 
                 // Assert

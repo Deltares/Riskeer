@@ -149,8 +149,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// could not be calculated.</exception>
         public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup
         {
             get
@@ -162,8 +162,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets the detailed assembly category group.
         /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// could not be calculated.</exception>
         public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup
         {
             get
@@ -178,8 +178,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets the tailor made assembly category group.
         /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// could not be calculated.</exception>
         public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup
         {
             get
@@ -194,8 +194,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets the combined assembly category group.
         /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// could not be calculated.</exception>
         public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup
         {
             get
@@ -210,8 +210,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets the combined assembly probability.
         /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
+        /// <exception cref="AssemblyException">Thrown when the probability could not be calculated.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CombinedAssemblyProbability
         {

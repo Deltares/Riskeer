@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Data.TestUtil;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -100,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssembleSimpleAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleSimpleAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -207,13 +208,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.ProbabilityDistributionFactor);
-                Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
+                AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
                 Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
                 mocks.VerifyAll();
             }
+        }
+
+        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection, AssemblyCategoriesCalculatorStub categoryCalculator, GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
+            Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
         }
 
         [Test]
@@ -247,7 +253,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleDetailedAssembly_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -363,11 +369,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
-
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.ProbabilityDistributionFactor);
-                Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
+                AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
                 Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.TailorMadeAssessmentCategoriesInput);
                 mocks.VerifyAll();
             }
@@ -405,7 +407,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleTailorMadeAssembly_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -530,12 +532,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                     failureMechanism,
                     assessmentSection);
 
-                Assert.AreEqual(expectedSimpleAssembly.Group, calculator.CombinedSimpleAssemblyInput.Group);
-                Assert.AreEqual(expectedSimpleAssembly.Probability, calculator.CombinedSimpleAssemblyInput.Probability);
-                Assert.AreEqual(expectedDetailedAssembly.Group, calculator.CombinedDetailedAssemblyInput.Group);
-                Assert.AreEqual(expectedDetailedAssembly.Probability, calculator.CombinedDetailedAssemblyInput.Probability);
-                Assert.AreEqual(expectedTailorMadeAssembly.Group, calculator.CombinedTailorMadeAssemblyInput.Group);
-                Assert.AreEqual(expectedTailorMadeAssembly.Probability, calculator.CombinedTailorMadeAssemblyInput.Probability);
+                AssemblyToolTestHelper.AssertAreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyInput);
+                AssemblyToolTestHelper.AssertAreEqual(expectedDetailedAssembly, calculator.CombinedDetailedAssemblyInput);
+                AssemblyToolTestHelper.AssertAreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyInput);
                 mocks.VerifyAll();
             }
         }
@@ -572,7 +571,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleCombinedAssembly_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
