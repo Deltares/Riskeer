@@ -205,29 +205,21 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
         public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the detailed assembly category group.
         /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
         public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the tailor made assembly category group.
         /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
         public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the combined assembly category group.
         /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
         public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
@@ -301,35 +293,79 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             };
         }
 
-        /// <summary>
-        /// Updates the derived assembly category groups.
-        /// </summary>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
-        /// could not be created.</exception>
         private void Update()
         {
-            UpdateData();
+            UpdateDerivedData();
             UpdateColumnDefinitionStates();
         }
 
-        private void UpdateData()
+        private void UpdateDerivedData()
         {
-            SimpleAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+            TryGetSimpleAssemblyCategoryGroup();
+            TryGetDetailedAssemblyCategoryGroup();
+            TryGetTailorMadeAssemblyCategoryGroup();
+            TryGetCombinedAssemblyCategoryGroup();
+        }
 
-            DetailedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
-                SectionResult,
-                failureMechanism,
-                assessmentSection);
+        private void TryGetSimpleAssemblyCategoryGroup()
+        {
+            try
+            {
+                SimpleAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+            }
+            catch (AssemblyException e)
+            {
+                SimpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
+        }
 
-            TailorMadeAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
-                SectionResult,
-                failureMechanism,
-                assessmentSection);
+        private void TryGetDetailedAssemblyCategoryGroup()
+        {
+            try
+            {
+                DetailedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection);
+            }
+            catch (AssemblyException e)
+            {
+                DetailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
+        }
 
-            CombinedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
-                SectionResult,
-                failureMechanism,
-                assessmentSection);
+        private void TryGetTailorMadeAssemblyCategoryGroup()
+        {
+            try
+            {
+                TailorMadeAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection);
+            }
+            catch (AssemblyException e)
+            {
+                TailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
+        }
+
+        private void TryGetCombinedAssemblyCategoryGroup()
+        {
+            try
+            {
+                CombinedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection);
+            }
+            catch (AssemblyException e)
+            {
+                CombinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
         }
 
         private void UpdateColumnDefinitionStates()

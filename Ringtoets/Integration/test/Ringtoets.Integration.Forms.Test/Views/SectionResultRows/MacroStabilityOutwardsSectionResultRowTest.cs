@@ -237,7 +237,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         }
 
         [Test]
-        public void Constructor_AssemblyThrowsException_ThrowsAssemblyException()
+        public void Constructor_AssemblyThrowsException_ExpectedColumnStates()
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -256,11 +256,18 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                     ConstructionProperties);
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                     ConstructionProperties);
 
                 // Assert
-                Assert.Throws<AssemblyException>(test);
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                const string expectedErrorText = "Message";
+
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex].ErrorText);
+
                 mocks.VerifyAll();
             }
         }
@@ -327,6 +334,58 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
                 // Assert
                 Assert.AreEqual(newValue, result.ManualAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenRowWithoutErrors_WhenUpdatingAndAssemblyThrowsException_ThenAssemblyGroupSetToNone()
+        {
+            // Given
+            var random = new Random(39);
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                     ConstructionProperties);
+
+                // Precondition
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, row.SimpleAssemblyCategoryGroup);
+                Assert.AreEqual(calculator.DetailedAssessmentAssemblyOutput.Group, row.DetailedAssemblyCategoryGroup);
+                Assert.AreEqual(calculator.TailorMadeAssessmentAssemblyOutput.Group, row.TailorMadeAssemblyCategoryGroup);
+                Assert.AreEqual(calculator.CombinedAssemblyCategoryOutput, row.CombinedAssemblyCategoryGroup);
+
+                // When
+                calculator.ThrowExceptionOnCalculate = true;
+                row.SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther;
+
+                // Then
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, row.SimpleAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, row.DetailedAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, row.TailorMadeAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, row.CombinedAssemblyCategoryGroup);
+
                 mocks.VerifyAll();
             }
         }
