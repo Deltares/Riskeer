@@ -134,7 +134,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Gets the water level calculations corresponding to the mechanism specific factorized signaling norm.
         /// </summary>
-        private IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
         {
             get
             {
@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Gets the water level calculations corresponding to the mechanism specific signaling norm.
         /// </summary>
-        private IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificSignalingNorm
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificSignalingNorm
         {
             get
             {
@@ -156,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Gets the water level calculations corresponding to the mechanism specific lower limit norm.
         /// </summary>
-        private IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
         {
             get
             {
@@ -167,7 +167,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Gets the wave height calculations corresponding to the mechanism specific factorized signaling norm.
         /// </summary>
-        private IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
         {
             get
             {
@@ -178,7 +178,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Gets the wave height calculations corresponding to the mechanism specific signaling norm.
         /// </summary>
-        private IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificSignalingNorm
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificSignalingNorm
         {
             get
             {
@@ -189,7 +189,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <summary>
         /// Gets the wave height calculations corresponding to the mechanism specific lower limit norm.
         /// </summary>
-        private IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
         {
             get
             {
