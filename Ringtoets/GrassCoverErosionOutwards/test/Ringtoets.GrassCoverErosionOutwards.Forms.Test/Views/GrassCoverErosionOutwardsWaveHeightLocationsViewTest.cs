@@ -318,9 +318,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
-            HydraulicBoundaryLocation[] calculatedLocations = null;
-            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation => { calculatedLocations = ((IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]).ToArray(); });
+            HydraulicBoundaryLocationCalculation[] performedCalculations = null;
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+                invocation => { performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray(); });
 
             mockRepository.ReplayAll();
 
@@ -337,9 +337,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.AreEqual(1, calculatedLocations.Length);
+            Assert.AreEqual(1, performedCalculations.Length);
             HydraulicBoundaryLocation expectedLocation = view.FailureMechanism.HydraulicBoundaryLocations.First();
-            Assert.AreEqual(expectedLocation, calculatedLocations.First());
+            Assert.AreSame(expectedLocation, performedCalculations.First().HydraulicBoundaryLocation);
             Assert.AreSame(dataGridViewSource, locationsDataGridView.DataSource);
             Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
             Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);

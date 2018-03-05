@@ -315,9 +315,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
-            IEnumerable<HydraulicBoundaryLocation> locations = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]; });
+            HydraulicBoundaryLocationCalculation[] performedCalculations = null;
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+                invocation => { performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray(); });
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;
@@ -327,10 +327,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             buttonTester.Click();
 
             // Assert
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = locations.ToArray();
-            Assert.AreEqual(1, hydraulicBoundaryLocations.Length);
+            Assert.AreEqual(1, performedCalculations.Length);
             HydraulicBoundaryLocation expectedLocation = testHydraulicBoundaryDatabase.Locations.First();
-            Assert.AreEqual(expectedLocation, hydraulicBoundaryLocations.First());
+            Assert.AreSame(expectedLocation, performedCalculations.First().HydraulicBoundaryLocation);
         }
 
         [Test]
