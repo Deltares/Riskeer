@@ -24,6 +24,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Data
 {
@@ -34,6 +35,7 @@ namespace Ringtoets.ClosingStructures.Data
     public class ClosingStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private double assessmentLayerThree;
+        private double manualAssemblyProbability;
 
         /// <summary>
         /// Initializes a new instance of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
@@ -43,7 +45,10 @@ namespace Ringtoets.ClosingStructures.Data
         public ClosingStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
+            DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
+            TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
             assessmentLayerThree = double.NaN;
+            ManualAssemblyProbability = double.NaN;
         }
 
         /// <summary>
@@ -58,6 +63,16 @@ namespace Ringtoets.ClosingStructures.Data
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
+        /// Gets or sets the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the tailor made assessment result.
+        /// </summary>
+        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult { get; set; }
+
+        /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when 
@@ -70,8 +85,34 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null, true);
+                ProbabilityHelper.ValidateProbability(value, null, 
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_, 
+                                                      true);
                 assessmentLayerThree = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyProbability"/>.
+        /// </summary>
+        public bool UseManualAssemblyProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double ManualAssemblyProbability
+        {
+            get
+            {
+                return manualAssemblyProbability;
+            }
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                manualAssemblyProbability = value;
             }
         }
     }
