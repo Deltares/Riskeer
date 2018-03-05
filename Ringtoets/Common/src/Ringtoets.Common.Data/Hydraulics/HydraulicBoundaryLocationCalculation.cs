@@ -20,13 +20,14 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 
 namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
     /// This class holds information about a calculation for a hydraulic boundary location.
     /// </summary>
-    public class HydraulicBoundaryLocationCalculation
+    public class HydraulicBoundaryLocationCalculation : Observable
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculation"/>.

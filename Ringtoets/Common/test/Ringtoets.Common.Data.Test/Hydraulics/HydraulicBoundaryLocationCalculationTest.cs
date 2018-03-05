@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -52,8 +53,9 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var calculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Assert
+            Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreSame(hydraulicBoundaryLocation, calculation.HydraulicBoundaryLocation);
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationInput>(calculation.InputParameters);
+            Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Output);
         }
 
