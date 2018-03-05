@@ -46,7 +46,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentResultType.Probability, sectionResult.DetailedAssessmentResult);
             Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
+            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.UseManualAssemblyProbability);
             Assert.IsNaN(sectionResult.ManualAssemblyProbability);
@@ -58,14 +58,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(double.PositiveInfinity)]
         [TestCase(1.1)]
         [TestCase(-0.1)]
-        public void AssessmentLayerThree_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
+        public void TailorMadeAssessmentProbability_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            TestDelegate call = () => sectionResult.AssessmentLayerThree = invalidValue;
+            TestDelegate call = () => sectionResult.TailorMadeAssessmentProbability = invalidValue;
 
             // Assert
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
@@ -77,17 +77,17 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(0.5)]
-        public void AssessmentLayerThree_SetValidValue_SetsValue(double validValue)
+        public void TailorMadeAssessmentProbability_SetValidValue_SetsValue(double validValue)
         {
             // Setup
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            sectionResult.AssessmentLayerThree = validValue;
+            sectionResult.TailorMadeAssessmentProbability = validValue;
 
             // Assert
-            Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(validValue, sectionResult.TailorMadeAssessmentProbability);
         }
 
 

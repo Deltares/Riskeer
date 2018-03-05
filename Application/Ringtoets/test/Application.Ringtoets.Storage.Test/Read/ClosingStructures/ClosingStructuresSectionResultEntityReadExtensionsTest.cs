@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.AreEqual(layerThree, sectionResult.TailorMadeAssessmentProbability, 1e-6);
             Assert.IsNull(sectionResult.Calculation);
         }
 
@@ -117,7 +117,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
+            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.IsNull(sectionResult.Calculation);
         }
 

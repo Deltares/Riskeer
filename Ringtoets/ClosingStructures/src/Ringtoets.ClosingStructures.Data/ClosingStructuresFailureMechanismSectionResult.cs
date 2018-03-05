@@ -34,7 +34,7 @@ namespace Ringtoets.ClosingStructures.Data
     /// </summary>
     public class ClosingStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
     {
-        private double assessmentLayerThree;
+        private double tailorMadeAssessmentProbability;
         private double manualAssemblyProbability;
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Ringtoets.ClosingStructures.Data
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
             TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
-            assessmentLayerThree = double.NaN;
+            TailorMadeAssessmentProbability = double.NaN;
             ManualAssemblyProbability = double.NaN;
         }
 
@@ -73,22 +73,21 @@ namespace Ringtoets.ClosingStructures.Data
         public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the value of the tailor made assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
-        /// <paramref name="value"/> is outside of the valid ranges.</exception>
-        public double AssessmentLayerThree
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double TailorMadeAssessmentProbability
         {
             get
             {
-                return assessmentLayerThree;
+                return tailorMadeAssessmentProbability;
             }
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null, 
                                                       RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_, 
                                                       true);
-                assessmentLayerThree = value;
+                tailorMadeAssessmentProbability = value;
             }
         }
 

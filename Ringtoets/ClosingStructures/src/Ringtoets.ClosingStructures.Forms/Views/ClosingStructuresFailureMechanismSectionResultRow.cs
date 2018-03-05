@@ -91,11 +91,11 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerThree;
+                return SectionResult.TailorMadeAssessmentProbability;
             }
             set
             {
-                SectionResult.AssessmentLayerThree = value;
+                SectionResult.TailorMadeAssessmentProbability = value;
             }
         }
 

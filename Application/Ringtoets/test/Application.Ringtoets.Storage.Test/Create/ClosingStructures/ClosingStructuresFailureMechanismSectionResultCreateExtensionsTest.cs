@@ -55,12 +55,12 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Setup
             var random = new Random(21);
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
+            double tailorMadeAssessmentProbability = random.NextDouble();
 
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = assessmentLayerThreeResult
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability
             };
 
             // Call
@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
+            Assert.AreEqual(tailorMadeAssessmentProbability, result.LayerThree);
             Assert.IsNull(result.ClosingStructuresCalculationEntityId);
         }
 
@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Setup
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = RoundedDouble.NaN
+                TailorMadeAssessmentProbability = double.NaN
             };
 
             // Call

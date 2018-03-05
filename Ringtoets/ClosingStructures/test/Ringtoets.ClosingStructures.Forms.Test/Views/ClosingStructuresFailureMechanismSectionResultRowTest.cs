@@ -60,7 +60,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
             Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
-            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
+            Assert.AreEqual(row.AssessmentLayerThree, result.TailorMadeAssessmentProbability);
 
             TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
@@ -296,7 +296,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
-            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(assessmentLayerThree, sectionResult.TailorMadeAssessmentProbability);
             mocks.VerifyAll();
         }
     }
