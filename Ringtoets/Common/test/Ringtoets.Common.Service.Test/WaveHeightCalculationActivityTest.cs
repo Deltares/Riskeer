@@ -511,18 +511,18 @@ namespace Ringtoets.Common.Service.Test
         [TestCase(ActivityState.Failed)]
         [TestCase(ActivityState.Canceled)]
         [TestCase(ActivityState.Skipped)]
-        public void Finish_ActivityWithSpecificState_NotifyHydraulicBoundaryLocation(ActivityState state)
+        public void Finish_ActivityWithSpecificState_NotifyHydraulicBoundaryLocationCalculation(ActivityState state)
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-            hydraulicBoundaryLocation.Attach(observer);
+            hydraulicBoundaryLocationCalculation.Attach(observer);
             mockRepository.ReplayAll();
 
-            var activity = new TestWaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
+            var activity = new TestWaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                                  validFilePath,
                                                                  validPreprocessorDirectory,
                                                                  1.0,

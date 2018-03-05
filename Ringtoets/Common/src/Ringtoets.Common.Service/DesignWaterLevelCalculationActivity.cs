@@ -107,6 +107,7 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
+            hydraulicBoundaryLocationCalculation.NotifyObservers();
             hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation.NotifyObservers();
         }
     }
