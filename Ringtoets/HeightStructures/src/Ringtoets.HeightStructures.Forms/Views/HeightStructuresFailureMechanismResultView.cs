@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
@@ -109,19 +108,19 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            FailureMechanismSectionResultColumnBuilder.AddSectionNameColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.Name));
 
-            FailureMechanismSectionResultColumnBuilder.AddSimpleAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-           FailureMechanismSectionResultColumnBuilder.AddDetailedAssessmentProbabilityColumn(
-               DataGridViewControl,
-               nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
-            FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
         }

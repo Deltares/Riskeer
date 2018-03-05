@@ -253,21 +253,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="GrassCoverErosionInwardsCalculation"/> of the wrapped
-        /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
-        /// </summary>
-        /// <returns><c>null</c> if the wrapped section result does not have a calculation
-        /// set. Otherwise the calculation of the wrapped section result is returned.</returns>
-        public GrassCoverErosionInwardsCalculation GetSectionResultCalculation()
+        public void UpdateDetailedAssessmentProbabilityError()
         {
-            return SectionResult.Calculation;
+            if (GetSimpleAssessmentSufficient() || GetDetailedAssessmentResultIsNotProbability() || UseManualAssemblyProbability)
+            {
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = string.Empty;
+            }
+            else
+            {
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentError(
+                    DetailedAssessmentProbability,
+                    SectionResult.Calculation);
+            }
         }
 
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
             ColumnStateDefinitions.Add(detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
@@ -391,7 +397,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             SetColumnState(simpleAssessmentResultIndex, UseManualAssemblyProbability);
             SetColumnState(detailedAssessmentResultIndex, simpleAssessmentSufficient || UseManualAssemblyProbability);
-            SetColumnState(detailedAssessmentProbabilityIndex, simpleAssessmentSufficient || GetDetailedAssessmentResultIsNotProbability() || UseManualAssemblyProbability);
+            if (simpleAssessmentSufficient || GetDetailedAssessmentResultIsNotProbability() || UseManualAssemblyProbability)
+            {
+                DisableColumn(detailedAssessmentProbabilityIndex);
+            }
+            else
+            {
+                EnableColumn(detailedAssessmentProbabilityIndex, true);
+            }
+
             SetColumnState(tailorMadeAssessmentResultIndex, simpleAssessmentSufficient || UseManualAssemblyProbability);
             SetColumnState(tailorMadeAssessmentProbabilityIndex, simpleAssessmentSufficient || GetTailorMadeAssessmentResultIsNotProbability() || UseManualAssemblyProbability);
 

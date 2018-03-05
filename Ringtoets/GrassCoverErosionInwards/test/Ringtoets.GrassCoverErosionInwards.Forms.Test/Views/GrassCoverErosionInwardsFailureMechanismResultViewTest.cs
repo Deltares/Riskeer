@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Globalization;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -29,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
@@ -254,229 +252,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultWithoutCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
-        {
-            // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.", dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultAndCalculationNotCalculated_ThenDetailedAssessmentErrorTooltip(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
-        {
-            // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new GrassCoverErosionInwardsCalculation(),
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.", dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultAndFailedCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
-        {
-            // Given
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                            new TestDikeHeightOutput(double.NaN),
-                                                            new TestOvertoppingRateOutput(double.NaN))
-            };
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation,
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError()
-        {
-            // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
-                                                                new TestDikeHeightOutput(0),
-                                                                new TestOvertoppingRateOutput(0))
-                }
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        public void GivenSectionResultWithManualAssemblyAndNotCalculation_ThenDetailedAssessmentNoError()
-        {
-            // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new GrassCoverErosionInwardsCalculation(),
-                UseManualAssemblyProbability = true
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual("-", formattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        public void GivenSectionResultWithDetailedAssessmentNotAssessedAndNotCalculation_ThenDetailedAssessmentNoError()
-        {
-            // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new GrassCoverErosionInwardsCalculation(),
-                DetailedAssessmentResult = DetailedAssessmentResultType.NotAssessed
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual("-", formattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
-        public void GivenSectionResultAndAssessmentSimpleAssessmentNotApplicable_ThenDetailedAssessmentNoError(
-            GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, string expectedValue)
-        {
-            // Given
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual(expectedValue, formattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
         public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenDetailedAssessmentHasError(
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
@@ -504,8 +279,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
 
                 // Precondition
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), dataGridViewCell.FormattedValue);
                 Assert.IsEmpty(dataGridViewCell.ErrorText);
 
                 // When
@@ -515,48 +289,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                                                                 new TestDikeHeightOutput(double.NaN),
                                                                 new TestOvertoppingRateOutput(double.NaN))
                 };
-                formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+                sectionResult.NotifyObservers();
 
                 // Then
-                Assert.AreEqual("-", formattedValue);
+                Assert.AreEqual("-", dataGridViewCell.FormattedValue);
                 Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
             }
-        }
-
-        private static IEnumerable SimpleAssessmentResultIsSufficientVariousSectionResults()
-        {
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            const double reliability = 0.56789;
-
-            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable
-            }, "-").SetName("SectionWithoutCalculation");
-            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
-                Calculation = new GrassCoverErosionInwardsCalculation()
-            }, "-").SetName("SectionWithCalculationNoOutput");
-            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
-                Calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                                new TestDikeHeightOutput(double.NaN),
-                                                                new TestOvertoppingRateOutput(double.NaN))
-                }
-            }, "-").SetName("SectionWithInvalidCalculationOutput");
-            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
-                Calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(reliability),
-                                                                new TestDikeHeightOutput(0),
-                                                                new TestOvertoppingRateOutput(0))
-                }
-            }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutput");
         }
 
         private GrassCoverErosionInwardsFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()

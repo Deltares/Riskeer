@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -45,6 +46,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
+        protected IEnumerable<TSectionResultRow> SectionResultRows;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism}"/>.
@@ -75,7 +77,7 @@ namespace Ringtoets.Common.Forms.Views
             };
 
             failureMechanismSectionResultsObserver = new RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult>(
-                DataGridViewControl.RefreshDataGridView,
+                UpdateSectionResultRows,
                 sr => sr)
             {
                 Observable = failureMechanismSectionResults
@@ -90,6 +92,14 @@ namespace Ringtoets.Common.Forms.Views
         public object Data { get; set; }
 
         protected DataGridViewControl DataGridViewControl { get; private set; }
+
+        /// <summary>
+        /// Updates the section result rows whenever a section result is notified.
+        /// </summary>
+        protected virtual void UpdateSectionResultRows()
+        {
+            DataGridViewControl.RefreshDataGridView();
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -130,12 +140,12 @@ namespace Ringtoets.Common.Forms.Views
         protected void UpdateDataGridViewDataSource()
         {
             DataGridViewControl.EndEdit();
-            DataGridViewControl.SetDataSource(
-                failureMechanismSectionResults
-                    .Select(CreateFailureMechanismSectionResultRow)
-                    .Where(sr => sr != null)
-                    .ToList()
-            );
+            SectionResultRows = failureMechanismSectionResults
+                                .Select(CreateFailureMechanismSectionResultRow)
+                                .Where(sr => sr != null)
+                                .ToList();
+            DataGridViewControl.SetDataSource(SectionResultRows);
+            UpdateSectionResultRows();
         }
 
         /// <summary>
