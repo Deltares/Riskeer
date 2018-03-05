@@ -41,7 +41,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
     public class HeightStructuresFailureMechanismResultView
         : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult, HeightStructuresFailureMechanismSectionResultRow, HeightStructuresFailureMechanism>
     {
-        private const int detailedAssessmentIndex = 2;
+        private const int detailedAssessmentIndex = 3;
         private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -116,9 +116,13 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
+
+           FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+               DataGridViewControl,
+               nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
