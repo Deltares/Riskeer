@@ -81,12 +81,12 @@ namespace Ringtoets.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the tailor made assessment probability of the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
-        /// <paramref name="value"/> is outside of the valid ranges.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
+        /// not in the range [0,1].</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double AssessmentLayerThree
+        public double TailorMadeAssessmentProbability
         {
             get
             {
@@ -95,6 +95,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
+                SectionResult.NotifyObservers();
             }
         }
 

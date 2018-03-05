@@ -60,12 +60,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
             Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
-            Assert.AreEqual(row.AssessmentLayerThree, result.TailorMadeAssessmentProbability);
+            Assert.AreEqual(row.TailorMadeAssessmentProbability, result.TailorMadeAssessmentProbability);
 
             TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
             TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
+                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
             mocks.VerifyAll();
         }
 
@@ -277,27 +277,58 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(0.5)]
+        [TestCase(1e-6)]
+        [TestCase(double.NaN)]
+        public void TailorMadeAssessmentProbability_ValidValue_NotifyObserversAndPropertyChanged(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new HeightStructuresFailureMechanismSectionResultRow(result, new HeightStructuresFailureMechanism(), assessmentSection);
+
+            // Call
+            row.TailorMadeAssessmentProbability = value;
+
+            // Assert
+            Assert.AreEqual(value, row.TailorMadeAssessmentProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void TailorMadeAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var random = new Random(21);
-            double assessmentLayerThree = random.NextDouble();
-
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            var row = new HeightStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
+            var row = new HeightStructuresFailureMechanismSectionResultRow(result, new HeightStructuresFailureMechanism(), assessmentSection);
 
             // Call
-            row.AssessmentLayerThree = assessmentLayerThree;
+            TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
 
             // Assert
-            Assert.AreEqual(assessmentLayerThree, sectionResult.TailorMadeAssessmentProbability);
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
             mocks.VerifyAll();
         }
     }

@@ -123,7 +123,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             FailureMechanismSectionResultColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
+                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
         }
 
         protected override void BindEvents()
