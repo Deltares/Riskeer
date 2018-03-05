@@ -31,7 +31,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Views
 {
@@ -120,10 +119,10 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
 
-           FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
-               DataGridViewControl,
-               nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
-            
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
