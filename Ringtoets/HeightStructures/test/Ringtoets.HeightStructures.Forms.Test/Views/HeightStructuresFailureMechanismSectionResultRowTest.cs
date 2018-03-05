@@ -104,6 +104,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
+        #region Registration
+
         [Test]
         public void SimpleAssessmentResult_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged()
         {
@@ -128,6 +130,33 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DetailedAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new HeightStructuresFailureMechanismSectionResultRow(result, new HeightStructuresFailureMechanism(), assessmentSection);
+
+            // Call
+            row.DetailedAssessmentResult = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.DetailedAssessmentResult);
             mocks.VerifyAll();
         }
 
@@ -331,5 +360,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             Assert.AreEqual(expectedMessage, message);
             mocks.VerifyAll();
         }
+
+        #endregion
     }
 }

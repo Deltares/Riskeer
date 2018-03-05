@@ -81,6 +81,22 @@ namespace Ringtoets.HeightStructures.Forms.Views
         }
 
         /// <summary>
+        /// Gets or sets the value representing the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResult;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResult = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the tailor made assessment probability of the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
