@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -33,6 +32,16 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public abstract class FailureMechanismSectionResultRow<T> where T : FailureMechanismSectionResult
     {
+        /// <summary>
+        /// Fired when the row has started updating.
+        /// </summary>
+        public EventHandler RowUpdated;
+
+        /// <summary>
+        /// Fired when the row has finished updating.
+        /// </summary>
+        public EventHandler RowUpdateDone;
+
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultRow{T}"/>.
         /// </summary>
@@ -63,13 +72,30 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
+        /// Gets the column state definitions for the given indices.
+        /// </summary>
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
+
+        /// <summary>
+        /// Updates all data and states for the row.
+        /// </summary>
+        public virtual void Update() {}
+
+        /// <summary>
         /// Gets the <see cref="FailureMechanismSectionResult"/> that is the source of this row.
         /// </summary>
         protected T SectionResult { get; }
 
         /// <summary>
-        /// Gets the column state definitions for the given indices.
+        /// Updates all data and notifies the wrapped section result.
         /// </summary>
-        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
+        protected void UpdateInternalData()
+        {
+            Update();
+
+            RowUpdated?.Invoke(this, EventArgs.Empty);
+            SectionResult.NotifyObservers();
+            RowUpdateDone?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

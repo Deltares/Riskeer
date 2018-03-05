@@ -38,6 +38,15 @@ namespace Ringtoets.Common.Forms.Test.Views
     {
         private Form testForm;
 
+        private static IEnumerable<TestCaseData> CellFormattingStates
+        {
+            get
+            {
+                yield return new TestCaseData(true, "", CellStyle.Disabled);
+                yield return new TestCaseData(false, "Error", CellStyle.Enabled);
+            }
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -191,12 +200,105 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
-        private static IEnumerable<TestCaseData> CellFormattingStates
+        [Test]
+        public void GivenFailureMechanismResultView_WhenFirstRowUpdatesInternally_ThenSecondRowNotUpdatedAndViewInvalidated()
         {
-            get
+            // Given
+            TestFailureMechanismSectionResult sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResult sectionResult2 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
-                yield return new TestCaseData(true, "", CellStyle.Disabled);
-                yield return new TestCaseData(false, "Error", CellStyle.Enabled);
+                sectionResult1,
+                sectionResult2
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var row1 = (TestRow) dataGridView.Rows[0].DataBoundItem;
+                var row2 = (TestRow) dataGridView.Rows[1].DataBoundItem;
+                var invalidated = false;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+
+                // Precondition
+                Assert.IsFalse(invalidated);
+                Assert.IsFalse(row1.Updated);
+                Assert.IsFalse(row2.Updated);
+
+                // When
+                row1.InternalUpdate();
+
+                // Then
+                Assert.IsTrue(invalidated);
+                Assert.IsTrue(row1.Updated);
+                Assert.IsFalse(row2.Updated);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultView_WhenFirstSectionResultNotified_ThenAllRowsUpdatedAndViewInvalidated()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResult sectionResult2 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult1,
+                sectionResult2
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var row1 = (TestRow) dataGridView.Rows[0].DataBoundItem;
+                var row2 = (TestRow) dataGridView.Rows[1].DataBoundItem;
+                var invalidated = false;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+
+                // Precondition
+                Assert.IsFalse(invalidated);
+                Assert.IsFalse(row1.Updated);
+                Assert.IsFalse(row2.Updated);
+
+                // When
+                sectionResult1.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(invalidated);
+                Assert.IsTrue(row1.Updated);
+                Assert.IsTrue(row2.Updated);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultView_WhenResultRemovedAndSectionResultsNotified_ThenEventHandlersDisconnected()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
+
+                // Precondition
+                Assert.IsNotNull(row.RowUpdated);
+                Assert.IsNotNull(row.RowUpdateDone);
+
+                // When
+                sectionResults.Remove(sectionResult);
+                sectionResults.NotifyObservers();
+
+                // Then
+                Assert.IsNull(row.RowUpdated);
+                Assert.IsNull(row.RowUpdateDone);
             }
         }
 
@@ -213,10 +315,7 @@ namespace Ringtoets.Common.Forms.Test.Views
     public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>
     {
         public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
@@ -234,6 +333,18 @@ namespace Ringtoets.Common.Forms.Test.Views
         public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult)
         {
             ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
+        }
+
+        public bool Updated { get; set; }
+
+        public void InternalUpdate()
+        {
+            UpdateInternalData();
+        }
+
+        public override void Update()
+        {
+            Updated = true;
         }
     }
 }

@@ -118,8 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -135,8 +134,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             set
             {
                 SectionResult.DetailedAssessmentResult = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -164,8 +162,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             set
             {
                 SectionResult.TailorMadeAssessmentResult = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -184,8 +181,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -228,8 +224,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             set
             {
                 SectionResult.UseManualAssemblyProbability = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -248,8 +243,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             set
             {
                 SectionResult.ManualAssemblyProbability = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -265,6 +259,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                     DetailedAssessmentProbability,
                     SectionResult.Calculation);
             }
+        }
+
+        public override void Update()
+        {
+            UpdateDerivedData();
+            UpdateColumnDefinitionStates();
+            UpdateDetailedAssessmentProbabilityError();
         }
 
         private void CreateColumnStateDefinitions()
@@ -298,12 +299,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 ReadOnly = true
             });
             ColumnStateDefinitions.Add(manualAssemblyProbabilityIndex, new DataGridViewColumnStateDefinition());
-        }
-
-        private void Update()
-        {
-            UpdateDerivedData();
-            UpdateColumnDefinitionStates();
         }
 
         private void UpdateDerivedData()

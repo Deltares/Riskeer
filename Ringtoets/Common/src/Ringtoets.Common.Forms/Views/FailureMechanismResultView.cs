@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
@@ -46,7 +47,8 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
-        protected IEnumerable<TSectionResultRow> SectionResultRows;
+        private IEnumerable<TSectionResultRow> sectionResultRows;
+        private bool rowUpdating;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism}"/>.
@@ -93,14 +95,6 @@ namespace Ringtoets.Common.Forms.Views
 
         protected DataGridViewControl DataGridViewControl { get; private set; }
 
-        /// <summary>
-        /// Updates the section result rows whenever a section result is notified.
-        /// </summary>
-        protected virtual void UpdateSectionResultRows()
-        {
-            DataGridViewControl.RefreshDataGridView();
-        }
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -126,6 +120,12 @@ namespace Ringtoets.Common.Forms.Views
 
             DataGridViewControl.CellFormatting -= HandleCellStyling;
 
+            sectionResultRows?.ForEachElementDo(row =>
+            {
+                row.RowUpdated -= RowUpdated;
+                row.RowUpdateDone -= RowUpdateDone;
+            });
+
             if (disposing)
             {
                 components?.Dispose();
@@ -140,12 +140,24 @@ namespace Ringtoets.Common.Forms.Views
         protected void UpdateDataGridViewDataSource()
         {
             DataGridViewControl.EndEdit();
-            SectionResultRows = failureMechanismSectionResults
+
+            sectionResultRows?.ForEachElementDo(row =>
+            {
+                row.RowUpdated -= RowUpdated;
+                row.RowUpdateDone -= RowUpdateDone;
+            });
+
+            sectionResultRows = failureMechanismSectionResults
                                 .Select(CreateFailureMechanismSectionResultRow)
                                 .Where(sr => sr != null)
                                 .ToList();
-            DataGridViewControl.SetDataSource(SectionResultRows);
-            UpdateSectionResultRows();
+            DataGridViewControl.SetDataSource(sectionResultRows);
+
+            foreach (TSectionResultRow sectionResultRow in sectionResultRows)
+            {
+                sectionResultRow.RowUpdated += RowUpdated;
+                sectionResultRow.RowUpdateDone += RowUpdateDone;
+            }
         }
 
         /// <summary>
@@ -171,6 +183,17 @@ namespace Ringtoets.Common.Forms.Views
             DataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
+        private void RowUpdateDone(object sender, EventArgs eventArgs)
+        {
+            rowUpdating = false;
+        }
+
+        private void RowUpdated(object sender, EventArgs eventArgs)
+        {
+            rowUpdating = true;
+            DataGridViewControl.RefreshDataGridView();
+        }
+
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
             TSectionResultRow row = GetDataAtRow(e.RowIndex);
@@ -185,6 +208,17 @@ namespace Ringtoets.Common.Forms.Views
                 cell.Style.BackColor = columnStateDefinition.Style.BackgroundColor;
                 cell.Style.ForeColor = columnStateDefinition.Style.TextColor;
             }
+        }
+
+        private void UpdateSectionResultRows()
+        {
+            if (rowUpdating)
+            {
+                return;
+            }
+
+            sectionResultRows.ForEachElementDo(row => row.Update());
+            DataGridViewControl.RefreshDataGridView();
         }
     }
 }

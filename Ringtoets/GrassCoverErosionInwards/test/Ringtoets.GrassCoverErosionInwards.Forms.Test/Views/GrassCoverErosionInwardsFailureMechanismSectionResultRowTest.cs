@@ -151,7 +151,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                Calculation = CreateCompleteCalculation()
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -467,6 +470,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
+                Calculation = CreateCompleteCalculation(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
             };
 
@@ -480,15 +484,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex], cellsEnabled);
-
-                if (cellsEnabled)
-                {
-                    AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], true);
-                }
-                else
-                {
-                    AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex]);
-                }
+                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], cellsEnabled, true);
 
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex], cellsEnabled);
                 AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex], cellsEnabled);
@@ -513,7 +509,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                DetailedAssessmentResult = detailedAssessmentResult
+                DetailedAssessmentResult = detailedAssessmentResult,
+                Calculation = CreateCompleteCalculation()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -579,6 +576,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
+                Calculation = CreateCompleteCalculation(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssemblyProbability = useManualAssemblyProbability
             };
@@ -959,12 +957,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
-                                                                new TestDikeHeightOutput(0),
-                                                                new TestOvertoppingRateOutput(0))
-                }
+                Calculation = CreateCompleteCalculation()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1198,13 +1191,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
-                Calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
-                                                                new TestDikeHeightOutput(0),
-                                                                new TestOvertoppingRateOutput(0))
-                }
+                Calculation = CreateCompleteCalculation()
             }).SetName("SectionWithValidCalculationOutput");
+        }
+
+        private static GrassCoverErosionInwardsCalculation CreateCompleteCalculation()
+        {
+            return new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
+                                                            new TestDikeHeightOutput(0),
+                                                            new TestOvertoppingRateOutput(0))
+            };
         }
 
         #endregion

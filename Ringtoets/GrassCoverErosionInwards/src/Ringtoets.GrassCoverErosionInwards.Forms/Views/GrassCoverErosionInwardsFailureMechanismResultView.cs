@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Builders;
@@ -177,12 +176,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
-        }
-
-        protected override void UpdateSectionResultRows()
-        {
-            SectionResultRows.ForEachElementDo(row => row.UpdateDetailedAssessmentProbabilityError());
-            base.UpdateSectionResultRows();
         }
     }
 }
