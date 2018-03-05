@@ -114,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                         failureMechanism.GeneralInput.N);
 
                 return calculator.AssembleDetailedAssessment(
-                    DetailedAssessmentResultType.Probability,
+                    failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                     categories);
             }

@@ -191,7 +191,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                DetailedAssessmentResult = new Random(39).NextEnumValue<DetailedAssessmentResultType>()
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -208,13 +211,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
                 AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
                 Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
                 mocks.VerifyAll();
             }
         }
 
-        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection, AssemblyCategoriesCalculatorStub categoryCalculator, GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection,
+                                                          AssemblyCategoriesCalculatorStub categoryCalculator,
+                                                          GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
             Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);

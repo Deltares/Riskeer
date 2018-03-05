@@ -94,8 +94,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             calculationGroupObserver.Observable = observableGroup;
         }
 
-        protected IEnumerable<DataGridViewColumnFormattingRule<GrassCoverErosionInwardsFailureMechanismSectionResultRow>> FormattingRules { get; }
-
         protected override void Dispose(bool disposing)
         {
             calculationInputObserver.Dispose();
