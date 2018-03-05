@@ -207,11 +207,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             Func<double> getNormFunc = () => 0.01;
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
             {
-                new TestHydraulicBoundaryLocation()
+                hydraulicBoundaryLocation
             };
-            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => new HydraulicBoundaryLocationCalculation(hbl);
+
+            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => hydraulicBoundaryLocationCalculation;
 
             var context = new WaveHeightLocationsContext(hydraulicBoundaryLocations,
                                                          new ObservableTestAssessmentSectionStub(),
@@ -223,12 +226,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             double actualNormValue = double.NaN;
-            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> actualGetCalculationFuncValue = null;
-            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+            IEnumerable<HydraulicBoundaryLocationCalculation> performedCalculations = null;
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
-                    actualGetCalculationFuncValue = (Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>) invocation.Arguments[3];
-                    actualNormValue = (double) invocation.Arguments[4];
+                    performedCalculations = (IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2];
+                    actualNormValue = (double) invocation.Arguments[3];
                 });
 
             mockRepository.ReplayAll();
@@ -253,7 +256,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 button.Click();
 
                 Assert.AreEqual(getNormFunc(), actualNormValue);
-                Assert.AreSame(getCalculationFunc, actualGetCalculationFuncValue);
+                Assert.AreSame(hydraulicBoundaryLocationCalculation, performedCalculations.First());
             }
 
             mockRepository.VerifyAll();
