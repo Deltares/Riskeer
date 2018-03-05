@@ -123,6 +123,10 @@ namespace Ringtoets.HeightStructures.Forms.Views
            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                DataGridViewControl,
                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+            
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
