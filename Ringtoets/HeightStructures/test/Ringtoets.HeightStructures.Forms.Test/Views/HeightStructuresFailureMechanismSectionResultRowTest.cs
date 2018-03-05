@@ -306,6 +306,33 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
+        public void TailorMadeAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new HeightStructuresFailureMechanismSectionResultRow(result, new HeightStructuresFailureMechanism(), assessmentSection);
+
+            // Call
+            row.TailorMadeAssessmentResult = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.TailorMadeAssessmentResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(0.5)]

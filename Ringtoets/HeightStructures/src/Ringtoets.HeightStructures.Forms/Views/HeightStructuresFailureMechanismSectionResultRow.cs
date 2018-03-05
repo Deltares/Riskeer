@@ -97,6 +97,34 @@ namespace Ringtoets.HeightStructures.Forms.Views
         }
 
         /// <summary>
+        /// Gets the value representing the detailed assessment probability.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double DetailedAssessmentProbability
+        {
+            get
+            {
+                return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the tailor made assessment result.
+        /// </summary>
+        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult
+        {
+            get
+            {
+                return SectionResult.TailorMadeAssessmentResult;
+            }
+            set
+            {
+                SectionResult.TailorMadeAssessmentResult = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the tailor made assessment probability of the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
@@ -112,18 +140,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
                 SectionResult.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets the value representing the detailed assessment probability.
-        /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability
-        {
-            get
-            {
-                return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
             }
         }
 
