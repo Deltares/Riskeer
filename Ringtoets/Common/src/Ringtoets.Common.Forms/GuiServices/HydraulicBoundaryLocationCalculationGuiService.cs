@@ -100,11 +100,11 @@ namespace Ringtoets.Common.Forms.GuiServices
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
-                          calculations.Select(calculation => new DesignWaterLevelCalculationActivity(calculation,
-                                                                                                     hydraulicBoundaryDatabaseFilePath,
-                                                                                                     preprocessorDirectory,
-                                                                                                     norm,
-                                                                                                     messageProvider)).ToArray());
+                          calculations.Select(calculation => new WaveHeightCalculationActivity(calculation,
+                                                                                               hydraulicBoundaryDatabaseFilePath,
+                                                                                               preprocessorDirectory,
+                                                                                               norm,
+                                                                                               messageProvider)).ToArray());
         }
 
         private void RunActivities<TActivity>(string hydraulicBoundaryDatabasePath, string preprocessorDirectory,
