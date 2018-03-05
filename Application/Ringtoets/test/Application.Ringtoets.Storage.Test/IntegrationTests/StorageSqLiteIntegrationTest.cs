@@ -1082,7 +1082,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      (expectedItem, actualItem) =>
                                      {
                                          Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability);
                                          if (expectedItem.Calculation == null)
                                          {
                                              Assert.IsNull(actualItem.Calculation);

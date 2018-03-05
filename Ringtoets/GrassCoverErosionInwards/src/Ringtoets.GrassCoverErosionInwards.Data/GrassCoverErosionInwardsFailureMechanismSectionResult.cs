@@ -22,8 +22,8 @@
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Data.Properties;
 using Ringtoets.Common.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
-                                                      Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 tailorMadeAssessmentProbability = value;
             }
@@ -108,7 +108,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
-                                                      Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 manualAssemblyProbability = value;
             }

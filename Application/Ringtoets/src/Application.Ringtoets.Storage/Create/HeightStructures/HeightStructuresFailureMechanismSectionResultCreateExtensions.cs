@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             var sectionResultEntity = new HeightStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
+                LayerThree = result.TailorMadeAssessmentProbability.ToNaNAsNull()
             };
             if (result.Calculation != null)
             {

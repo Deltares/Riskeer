@@ -46,8 +46,8 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult,
-                                                                HeightStructuresFailureMechanism failureMechanism,
-                                                                IAssessmentSection assessmentSection)
+                                                                  HeightStructuresFailureMechanism failureMechanism,
+                                                                  IAssessmentSection assessmentSection)
             : base(sectionResult)
         {
             if (failureMechanism == null)
@@ -90,11 +90,11 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerThree;
+                return SectionResult.TailorMadeAssessmentProbability;
             }
             set
             {
-                SectionResult.AssessmentLayerThree = value;
+                SectionResult.TailorMadeAssessmentProbability = value;
             }
         }
 

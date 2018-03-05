@@ -44,7 +44,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.IsNull(sectionResult.Calculation);
             Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
+            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.AreSame(section, sectionResult.Section);
         }
 
@@ -54,14 +54,14 @@ namespace Ringtoets.HeightStructures.Data.Test
         [TestCase(double.PositiveInfinity)]
         [TestCase(1.1)]
         [TestCase(-0.1)]
-        public void AssessmentLayerThree_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
+        public void TailorMadeAssessmentProbability_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            TestDelegate call = () => sectionResult.AssessmentLayerThree = invalidValue;
+            TestDelegate call = () => sectionResult.TailorMadeAssessmentProbability = invalidValue;
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
@@ -73,17 +73,17 @@ namespace Ringtoets.HeightStructures.Data.Test
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(0.5)]
-        public void AssessmentLayerThree_SetValidValue_SetsValue(double validValue)
+        public void TailorMadeAssessmentProbability_SetValidValue_SetsValue(double validValue)
         {
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            sectionResult.AssessmentLayerThree = validValue;
+            sectionResult.TailorMadeAssessmentProbability = validValue;
 
             // Assert
-            Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(validValue, sectionResult.TailorMadeAssessmentProbability);
         }
     }
 }

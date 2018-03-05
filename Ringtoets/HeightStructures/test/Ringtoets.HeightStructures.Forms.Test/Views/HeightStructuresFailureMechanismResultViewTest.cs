@@ -210,25 +210,25 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                AssessmentLayerThree = random.NextRoundedDouble()
+                TailorMadeAssessmentProbability = random.NextRoundedDouble()
             };
             var result2 = new HeightStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                AssessmentLayerThree = random.NextRoundedDouble()
+                TailorMadeAssessmentProbability = random.NextRoundedDouble()
             };
             var result3 = new HeightStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.None,
-                AssessmentLayerThree = random.NextRoundedDouble()
+                TailorMadeAssessmentProbability = random.NextRoundedDouble()
             };
             var result4 = new HeightStructuresFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 4"))
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
-                AssessmentLayerThree = random.NextRoundedDouble()
+                TailorMadeAssessmentProbability = random.NextRoundedDouble()
             };
 
             // Call
@@ -251,7 +251,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
 
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.AssessmentLayerThree),
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.TailorMadeAssessmentProbability),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentIndex]);
@@ -263,7 +263,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
 
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.AssessmentLayerThree),
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.TailorMadeAssessmentProbability),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentIndex]);
@@ -274,7 +274,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(result3.AssessmentLayerThree),
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(result3.TailorMadeAssessmentProbability),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
@@ -285,7 +285,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.AreEqual("Section 4", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result4.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(result4.AssessmentLayerThree),
+                Assert.AreEqual(ProbabilityFormattingHelper.Format(result4.TailorMadeAssessmentProbability),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
@@ -304,7 +304,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var result = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
-                AssessmentLayerThree = random.NextRoundedDouble()
+                TailorMadeAssessmentProbability = random.NextRoundedDouble()
             };
 
             using (ShowFailureMechanismResultsView(new ObservableList<HeightStructuresFailureMechanismSectionResult>
@@ -340,7 +340,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var result = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
-                AssessmentLayerThree = random.NextRoundedDouble()
+                TailorMadeAssessmentProbability = random.NextRoundedDouble()
             };
 
             using (ShowFailureMechanismResultsView(new ObservableList<HeightStructuresFailureMechanismSectionResult>
@@ -428,7 +428,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, result.AssessmentLayerThree);
+                Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
             }
         }
 
