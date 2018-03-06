@@ -26,7 +26,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with a wave height calculation result
     /// for properties panel of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveHeightLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties
+    public class GrassCoverErosionOutwardsWaveHeightLocationProperties : HydraulicBoundaryLocationProperties
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationProperties"/>.
@@ -46,16 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveHeightLocationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-            : base(hydraulicBoundaryLocationCalculation, new ConstructionProperties
-            {
-                IdIndex = 1,
-                NameIndex = 2,
-                LocationIndex = 3,
-                GoverningWindDirectionIndex = 11,
-                StochastsIndex = 12,
-                DurationsIndex = 13,
-                IllustrationPointsIndex = 14
-            }) {}
+            : base(hydraulicBoundaryLocationCalculation) {}
 
         [PropertyOrder(4)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
@@ -70,58 +61,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_Description))]
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double TargetProbability
-        {
-            get
-            {
-                return data.Output?.TargetProbability ?? double.NaN;
-            }
-        }
-
-        [PropertyOrder(6)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_Description))]
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble TargetReliability
-        {
-            get
-            {
-                return data.Output?.TargetReliability ?? RoundedDouble.NaN;
-            }
-        }
-
-        [PropertyOrder(7)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_Description))]
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double CalculatedProbability
-        {
-            get
-            {
-                return data.Output?.CalculatedProbability ?? double.NaN;
-            }
-        }
-
-        [PropertyOrder(8)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_Description))]
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble CalculatedReliability
-        {
-            get
-            {
-                return data.Output?.CalculatedReliability ?? RoundedDouble.NaN;
-            }
-        }
-
         [PropertyOrder(9)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
@@ -133,33 +72,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
                 CalculationConvergence convergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
                 return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             }
-        }
-
-        [PropertyOrder(10)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
-        public bool ShouldIllustrationPointsBeCalculated
-        {
-            get
-            {
-                return data.InputParameters.ShouldIllustrationPointsBeCalculated;
-            }
-            set
-            {
-                data.InputParameters.ShouldIllustrationPointsBeCalculated = value;
-                data.NotifyObservers();
-            }
-        }
-
-        protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
-        {
-            if (data.HasOutput && data.Output.HasGeneralResult)
-            {
-                return data.Output.GeneralResult;
-            }
-
-            return null;
         }
     }
 }
