@@ -32,31 +32,18 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> with
     /// a design water level calculation result for properties panel.
     /// </summary>
     public class DesignWaterLevelLocationsProperties : HydraulicBoundaryLocationsProperties
     {
-        private readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
-
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The list of hydraulic boundary locations to set as data.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DesignWaterLevelLocationsProperties(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                   Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-            : base(hydraulicBoundaryLocations)
-        {
-            if (getCalculationFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getCalculationFunc));
-            }
-
-            this.getCalculationFunc = getCalculationFunc;
-        }
+        /// <param name="hydraulicBoundaryLocationCalculations">The list of hydraulic boundary location calculations to set as data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
+        public DesignWaterLevelLocationsProperties(ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+            : base(hydraulicBoundaryLocationCalculations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
@@ -66,7 +53,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new DesignWaterLevelLocationProperties(getCalculationFunc(loc))).ToArray();
+                return data.Select(calculation => new DesignWaterLevelLocationProperties(calculation)).ToArray();
             }
         }
     }
