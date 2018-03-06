@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     context.WrappedData,
                     new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties>
             {
                 CreateInstance = context =>
                 {
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
                     hydraulicBoundaryLocationCalculations.AddRange(context.WrappedData.Select(loc => loc.DesignWaterLevelCalculation1));
 
-                    return new GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties(hydraulicBoundaryLocationCalculations);
+                    return new GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties(hydraulicBoundaryLocationCalculations);
                 }
             };
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationsContext, GrassCoverErosionOutwardsWaveHeightCalculationsProperties>
