@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -40,32 +39,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int requiredLocationsPropertyIndex = 0;
 
         [Test]
-        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
+        public void Constructor_WithHydraulicBoundaryLocationCalculations_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            TestDelegate call = () => new WaveHeightLocationsProperties(hydraulicBoundaryLocations, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getCalculationFunc", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithDatabase_ExpectedValues()
-        {
-            // Setup
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
-
-            // Call
-            var properties = new WaveHeightLocationsProperties(hydraulicBoundaryLocations,
-                                                               hbl => new HydraulicBoundaryLocationCalculation(hbl));
+            var properties = new WaveHeightLocationsProperties(hydraulicBoundaryLocationCalculations);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
-            Assert.AreSame(hydraulicBoundaryLocations, properties.Data);
+            Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
         }
 
         [Test]
@@ -79,11 +63,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new WaveHeightLocationsProperties(new ObservableList<HydraulicBoundaryLocation>
-                                                               {
-                                                                   hydraulicBoundaryLocation
-                                                               },
-                                                               hbl => hydraulicBoundaryLocationCalculation);
+            var properties = new WaveHeightLocationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                hydraulicBoundaryLocationCalculation
+            });
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(WaveHeightLocationProperties));
@@ -104,8 +87,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new WaveHeightLocationsProperties(new ObservableList<HydraulicBoundaryLocation>(),
-                                                               hbl => new HydraulicBoundaryLocationCalculation(hbl));
+            var properties = new WaveHeightLocationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
