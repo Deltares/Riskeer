@@ -93,21 +93,28 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
 
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
-            Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
-            Assert.AreEqual(row.AssessmentLayerThree, result.TailorMadeAssessmentProbability);
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
+                Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
+                Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
+                Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
+                Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
+                Assert.AreEqual(result.TailorMadeAssessmentProbability, row.AssessmentLayerThree);
+                Assert.AreEqual(result.UseManualAssemblyProbability, row.UseManualAssemblyProbability);
+                Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
 
-            TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
-            TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
-            TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
-            mocks.VerifyAll();
+                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
+                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                mocks.VerifyAll();
+            }
         }
 
         [Test]

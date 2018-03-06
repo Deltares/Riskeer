@@ -78,7 +78,41 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResult;
+            }
+        }
+
+        /// <summary>
+        /// Gets the value representing the detailed assessment probability.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double DetailedAssessmentProbability
+        {
+            get
+            {
+                return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the tailor made assessment result.
+        /// </summary>
+        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult
+        {
+            get
+            {
+                return SectionResult.TailorMadeAssessmentResult;
             }
         }
 
@@ -101,14 +135,37 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the value representing the detailed assessment probability.
+        /// Gets or sets the indicator whether the combined assembly probability
+        /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
         /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability
+        public bool UseManualAssemblyProbability
         {
             get
             {
-                return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
+                return SectionResult.UseManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.UseManualAssemblyProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the manually entered assembly probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
+        /// not in the range [0,1].</exception>
+        public double ManualAssemblyProbability
+        {
+            get
+            {
+                return SectionResult.ManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.ManualAssemblyProbability = value;
+                UpdateInternalData();
             }
         }
 
@@ -177,41 +234,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                                                                                                               failureMechanism,
                                                                                                               assessmentSection)
                                                                                     .Probability;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the indicator whether the combined assembly probability
-        /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
-        /// </summary>
-        public bool UseManualAssemblyProbability
-        {
-            get
-            {
-                return SectionResult.UseManualAssemblyProbability;
-            }
-            set
-            {
-                SectionResult.UseManualAssemblyProbability = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the manually entered assembly probability.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
-        /// not in the range [0,1].</exception>
-        public double ManualAssemblyProbability
-        {
-            get
-            {
-                return SectionResult.ManualAssemblyProbability;
-            }
-            set
-            {
-                SectionResult.ManualAssemblyProbability = value;
-                UpdateInternalData();
             }
         }
 
