@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -35,6 +36,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class WaveHeightLocationsPropertiesTest
     {
+        private const int requiredLocationsPropertyIndex = 0;
+
         [Test]
         public void Constructor_WithHydraulicBoundaryLocationCalculations_ExpectedValues()
         {
@@ -47,6 +50,28 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Call
+            var properties = new WaveHeightLocationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
+
+            // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
+            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                            "Algemeen",
+                                                                            "Locaties",
+                                                                            "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                            true);
         }
 
         [Test]

@@ -37,6 +37,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveHeightLocationsPropertiesTest
     {
+        private const int requiredLocationsPropertyIndex = 0;
+
         [Test]
         public void Constructor_WithLocations_ExpectedValues()
         {
@@ -67,6 +69,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedLocationsDisplayName, locationsProperty.DisplayName);
             Assert.AreEqual(expectedLocationsDescription, locationsProperty.Description);
             Assert.AreEqual(expectedLocationsCategory, locationsProperty.Category);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Call
+            var properties = new GrassCoverErosionOutwardsWaveHeightLocationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
+
+            // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
+            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                            "Algemeen",
+                                                                            "Locaties",
+                                                                            "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                            true);
         }
 
         [Test]
