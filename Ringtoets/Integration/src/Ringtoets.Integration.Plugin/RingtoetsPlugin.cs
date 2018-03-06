@@ -328,8 +328,14 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsProperties>
             {
-                CreateInstance = context => new DesignWaterLevelLocationsProperties(context.WrappedData,
-                                                                                    context.GetCalculationFunc)
+                CreateInstance = context =>
+                {
+                    var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
+                    hydraulicBoundaryLocationCalculations.AddRange(context.WrappedData.Select(loc => context.GetCalculationFunc(loc)));
+
+                    return new DesignWaterLevelLocationsProperties(hydraulicBoundaryLocationCalculations);
+                }
             };
             yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationProperties>
             {
@@ -337,8 +343,14 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsProperties>
             {
-                CreateInstance = context => new WaveHeightLocationsProperties(context.WrappedData,
-                                                                              context.GetCalculationFunc)
+                CreateInstance = context =>
+                {
+                    var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
+                    hydraulicBoundaryLocationCalculations.AddRange(context.WrappedData.Select(loc => context.GetCalculationFunc(loc)));
+
+                    return new WaveHeightLocationsProperties(hydraulicBoundaryLocationCalculations);
+                }
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationProperties>
             {
