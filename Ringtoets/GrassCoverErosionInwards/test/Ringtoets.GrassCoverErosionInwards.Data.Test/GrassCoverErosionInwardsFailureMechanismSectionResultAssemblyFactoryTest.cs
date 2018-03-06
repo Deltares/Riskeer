@@ -41,6 +41,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
+        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection,
+                                                          AssemblyCategoriesCalculatorStub categoryCalculator,
+                                                          GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
+            Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
+        }
+
         #region Simple Assessment
 
         [Test]
@@ -186,8 +196,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssembleDetailedAssembly_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
@@ -218,22 +229,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             }
         }
 
-        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection,
-                                                          AssemblyCategoriesCalculatorStub categoryCalculator,
-                                                          GrassCoverErosionInwardsFailureMechanism failureMechanism)
-        {
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-            Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
-        }
-
         [Test]
         public void AssembleDetailedAssembly_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
@@ -262,8 +264,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssembleDetailedAssembly_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
