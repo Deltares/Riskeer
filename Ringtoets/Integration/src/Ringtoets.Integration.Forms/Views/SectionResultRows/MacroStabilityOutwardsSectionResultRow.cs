@@ -121,8 +121,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -140,8 +139,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.DetailedAssessmentResult = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -162,8 +160,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.DetailedAssessmentProbability = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -181,8 +178,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.TailorMadeAssessmentResult = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -203,8 +199,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -242,8 +237,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.UseManualAssemblyCategoryGroup = value;
-                Update();
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
