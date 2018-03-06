@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using System.Windows.Forms;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
@@ -147,6 +146,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("Overschrijf\r\nassemblageresultaat", dataGridView.Columns[useManualAssemblyProbabilityIndex].HeaderText);
                 Assert.AreEqual("Assemblageresultaat\r\nhandmatig", dataGridView.Columns[manualAssemblyProbabilityIndex].HeaderText);
 
+                Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[simpleAssessmentResultIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[detailedAssessmentResultIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[detailedAssessmentProbabilityIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[tailorMadeAssessmentResultIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[simpleAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[detailedAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[useManualAssemblyProbabilityIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[manualAssemblyProbabilityIndex].ReadOnly);
+
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
             }
@@ -179,73 +191,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("-", cells[combinedAssemblyProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useManualAssemblyProbabilityIndex].Value);
                 Assert.AreEqual("-", cells[manualAssemblyProbabilityIndex].FormattedValue);
-            }
-        }
-
-        [Test]
-        [TestCase("test")]
-        [TestCase(";/[].,~!@#$%^&*()_-+={}|?")]
-        public void FailureMechanismResultView_EditValueNotAProbability_ShowsErrorTooltip(string newValue)
-        {
-            // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[tailorMadeAssessmentProbabilityIndex].Value = newValue;
-
-                // Assert
-                Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kans.", dataGridView.Rows[0].ErrorText);
-            }
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(1.01)]
-        [TestCase(-0.01)]
-        [TestCase(5)]
-        [TestCase(-10)]
-        public void FailureMechanismResultView_EditValueTailorMadeAssessmentProbabilityInvalid_ShowErrorToolTip(double newValue)
-        {
-            // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[tailorMadeAssessmentProbabilityIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
-
-                // Assert
-                Assert.AreEqual("De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.", dataGridView.Rows[0].ErrorText);
-            }
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(1)]
-        [TestCase(0)]
-        [TestCase(0.5)]
-        [TestCase(1e-6)]
-        [TestCase(double.NaN)]
-        public void FailureMechanismResultView_EditValueTailorMadeAssessmentValid_DoNotShowErrorToolTipAndEditValue(double newValue)
-        {
-            // Setup
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-
-            using (ShowFailureMechanismResultsView(new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-            {
-                result
-            }))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[tailorMadeAssessmentProbabilityIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
-
-                // Assert
-                Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
             }
         }
 

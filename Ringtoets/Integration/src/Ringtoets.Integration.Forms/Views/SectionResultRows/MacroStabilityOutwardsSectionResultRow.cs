@@ -378,7 +378,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// is a valid value, but unsupported.</exception>
         private void UpdateColumnStateDefinitionStates()
         {
-            bool simpleAssessmentSufficient = GetSimpleAssessmentSufficient();
+            bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
             SetColumnState(simpleAssessmentResultIndex, UseManualAssemblyCategoryGroup);
             SetColumnState(detailedAssessmentResultIndex, simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
@@ -473,11 +473,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             ColumnStateDefinitions[index].ReadOnly = true;
             ColumnStateDefinitions[index].Style = CellStyle.Disabled;
-        }
-
-        private bool GetSimpleAssessmentSufficient()
-        {
-            return FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
         }
 
         private bool GetDetailedAssessmentResultIsNotProbability()

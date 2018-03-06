@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
                 SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
+                if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
                 }
