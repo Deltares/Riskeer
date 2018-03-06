@@ -25,7 +25,7 @@ using Ringtoets.Common.Primitives;
 namespace Ringtoets.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper class for <see cref="FailureMechanismResultView{TSectionResult,TFailureMechanism}"/>.
+    /// Helper class for <see cref="FailureMechanismResultView{TSectionResult,TSectionResultRow,TFailureMechanism}"/>.
     /// </summary>
     public static class FailureMechanismResultViewHelper
     {

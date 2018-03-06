@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -249,7 +248,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         public void UpdateDetailedAssessmentProbabilityError()
         {
-            if (GetSimpleAssessmentSufficient() || GetDetailedAssessmentResultIsNotProbability() || UseManualAssemblyProbability)
+            if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult)
+                || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
+                || UseManualAssemblyProbability)
             {
                 ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = string.Empty;
             }
@@ -388,111 +389,51 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateColumnDefinitionStates()
         {
-            bool simpleAssessmentSufficient = GetSimpleAssessmentSufficient();
+            bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
-            SetColumnState(simpleAssessmentResultIndex, UseManualAssemblyProbability);
-            SetColumnState(detailedAssessmentResultIndex, simpleAssessmentSufficient || UseManualAssemblyProbability);
-            if (simpleAssessmentSufficient || GetDetailedAssessmentResultIsNotProbability() || UseManualAssemblyProbability)
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyProbability);
+            if (simpleAssessmentSufficient
+                || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
+                || UseManualAssemblyProbability)
             {
-                DisableColumn(detailedAssessmentProbabilityIndex);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex]);
             }
             else
             {
-                EnableColumn(detailedAssessmentProbabilityIndex, true);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex], true);
             }
 
-            SetColumnState(tailorMadeAssessmentResultIndex, simpleAssessmentSufficient || UseManualAssemblyProbability);
-            SetColumnState(tailorMadeAssessmentProbabilityIndex, simpleAssessmentSufficient || GetTailorMadeAssessmentResultIsNotProbability() || UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
+                                                                  simpleAssessmentSufficient
+                                                                  || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
+                                                                  || UseManualAssemblyProbability);
 
             if (UseManualAssemblyProbability)
             {
-                DisableColumn(simpleAssemblyCategoryGroupIndex);
-                DisableColumn(detailedAssemblyCategoryGroupIndex);
-                DisableColumn(tailorMadeAssemblyCategoryGroupIndex);
-                DisableColumn(combinedAssemblyCategoryGroupIndex);
-                DisableColumn(combinedAssemblyProbabilityIndex);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyProbabilityIndex]);
             }
             else
             {
-                SetAssemblyCategoryGroupStyle(simpleAssemblyCategoryGroupIndex, SimpleAssemblyCategoryGroup);
-                SetAssemblyCategoryGroupStyle(detailedAssemblyCategoryGroupIndex, DetailedAssemblyCategoryGroup);
-                SetAssemblyCategoryGroupStyle(tailorMadeAssemblyCategoryGroupIndex, TailorMadeAssemblyCategoryGroup);
-                SetAssemblyCategoryGroupStyle(combinedAssemblyCategoryGroupIndex, CombinedAssemblyCategoryGroup);
-                EnableColumn(combinedAssemblyProbabilityIndex, true);
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex],
+                                                                                     SimpleAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex],
+                                                                                     DetailedAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex],
+                                                                                     TailorMadeAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex],
+                                                                                     CombinedAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[combinedAssemblyProbabilityIndex], true);
             }
 
-            SetColumnState(manualAssemblyProbabilityIndex, !UseManualAssemblyProbability);
-        }
-
-        private void SetAssemblyCategoryGroupStyle(int index, FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
-        {
-            ColumnStateDefinitions[index].Style = new CellStyle(
-                Color.FromKnownColor(KnownColor.ControlText),
-                GetCategoryGroupColor(assemblyCategoryGroup));
-        }
-
-        private static Color GetCategoryGroupColor(FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
-        {
-            switch (categoryGroup)
-            {
-                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
-                    return Color.FromArgb(0, 255, 0);
-                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
-                    return Color.FromArgb(118, 147, 60);
-                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
-                    return Color.FromArgb(255, 255, 0);
-                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
-                    return Color.FromArgb(204, 192, 218);
-                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
-                    return Color.FromArgb(255, 153, 0);
-                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
-                    return Color.FromArgb(255, 0, 0);
-                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
-                case FailureMechanismSectionAssemblyCategoryGroup.None:
-                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
-                    return Color.FromArgb(255, 255, 255);
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private void SetColumnState(int columnIndex, bool shouldDisable)
-        {
-            if (shouldDisable)
-            {
-                DisableColumn(columnIndex);
-            }
-            else
-            {
-                EnableColumn(columnIndex);
-            }
-        }
-
-        private void EnableColumn(int index, bool readOnly = false)
-        {
-            ColumnStateDefinitions[index].ReadOnly = readOnly;
-            ColumnStateDefinitions[index].Style = CellStyle.Enabled;
-        }
-
-        private void DisableColumn(int index)
-        {
-            ColumnStateDefinitions[index].ReadOnly = true;
-            ColumnStateDefinitions[index].Style = CellStyle.Disabled;
-        }
-
-        private bool GetSimpleAssessmentSufficient()
-        {
-            return FailureMechanismResultViewHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
-        }
-
-        private bool GetDetailedAssessmentResultIsNotProbability()
-        {
-            return DetailedAssessmentResult != DetailedAssessmentResultType.Probability;
-        }
-
-        private bool GetTailorMadeAssessmentResultIsNotProbability()
-        {
-            return TailorMadeAssessmentResult != TailorMadeAssessmentProbabilityCalculationResultType.Probability;
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyProbabilityIndex], !UseManualAssemblyProbability);
         }
 
         /// <summary>

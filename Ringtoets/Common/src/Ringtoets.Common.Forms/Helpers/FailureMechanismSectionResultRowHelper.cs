@@ -20,7 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
@@ -29,7 +33,8 @@ using Ringtoets.Common.Primitives;
 namespace Ringtoets.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper class for showing error messages in <see cref="FailureMechanismSectionResultRow{T}"/>.
+    /// Helper class for updating states of a <see cref="DataGridViewColumnStateDefinition"/>
+    /// in a <see cref="FailureMechanismSectionResultRow{T}"/>.
     /// </summary>
     public static class FailureMechanismSectionResultRowHelper
     {
@@ -117,6 +122,179 @@ namespace Ringtoets.Common.Forms.Helpers
             }
 
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Helper method that determines whether the simple assessment is sufficient.
+        /// </summary>
+        /// <param name="simpleAssessmentResult">The simple assessment result to check.</param>
+        /// <returns><c>true</c> when the simple assessment is <see cref="SimpleAssessmentResultType.ProbabilityNegligible"/>
+        /// or <see cref="SimpleAssessmentResultType.NotApplicable"/>, <c>false</c> otherwise.</returns>
+        public static bool SimpleAssessmentIsSufficient(SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            return simpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible
+                   || simpleAssessmentResult == SimpleAssessmentResultType.NotApplicable;
+        }
+
+        /// <summary>
+        /// Helper method that determines whether the simple assessment is sufficient.
+        /// </summary>
+        /// <param name="simpleAssessmentResult">The simple assessment result to check.</param>
+        /// <returns><c>true</c> when the simple assessment is <see cref="SimpleAssessmentResultType.NotApplicable"/>, 
+        /// <c>false</c> otherwise.</returns>
+        public static bool SimpleAssessmentIsSufficient(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        {
+            return simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable;
+        }
+
+        /// <summary>
+        /// Helper method that determines whether the detailed assessment
+        /// is <see cref="DetailedAssessmentResultType.Probability"/>.
+        /// </summary>
+        /// <param name="detailedAssessmentResult">The detailed assessment result to check.</param>
+        /// <returns><c>true</c> when the detailed assessment is
+        /// <see cref="DetailedAssessmentResultType.Probability"/>, <c>false</c> otherwise.</returns>
+        public static bool DetailedAssessmentResultIsProbability(DetailedAssessmentResultType detailedAssessmentResult)
+        {
+            return detailedAssessmentResult == DetailedAssessmentResultType.Probability;
+        }
+
+        /// <summary>
+        /// Helper method that determines whether the tailor made assessment
+        /// is <see cref="TailorMadeAssessmentProbabilityCalculationResultType.Probability"/>.
+        /// </summary>
+        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to check.</param>
+        /// <returns><c>true</c> when the tailor made assessment
+        /// is <see cref="TailorMadeAssessmentProbabilityCalculationResultType.Probability"/>, <c>false</c> otherwise.</returns>
+        public static bool TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult)
+        {
+            return tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityCalculationResultType.Probability;
+        }
+
+        /// <summary>
+        /// Helper method that sets the style of a <paramref name="columnStateDefinition"/> based on a
+        /// <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
+        /// </summary>
+        /// <param name="columnStateDefinition">The column state definition to set the style for.</param>
+        /// <param name="assemblyCategoryGroup">The assembly category group to base the style on.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyCategoryGroup"/>
+        /// has an invalid value for <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyCategoryGroup"/>
+        /// is not supported.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="columnStateDefinition"/>
+        /// is <c>null</c>.</exception>
+        public static void SetAssemblyCategoryGroupStyle(DataGridViewColumnStateDefinition columnStateDefinition,
+                                                         FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
+        {
+            if (columnStateDefinition == null)
+            {
+                throw new ArgumentNullException(nameof(columnStateDefinition));
+            }
+
+            columnStateDefinition.Style = new CellStyle(
+                Color.FromKnownColor(KnownColor.ControlText),
+                GetCategoryGroupColor(assemblyCategoryGroup));
+        }
+
+        /// <summary>
+        /// Helper method that sets the state of the <paramref name="columnStateDefinition"/>
+        /// based on <paramref name="shouldDisable"/>.
+        /// </summary>
+        /// <param name="columnStateDefinition">The column state definition to set the state for.</param>
+        /// <param name="shouldDisable">Indicator whether the column should be disabled or not.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="columnStateDefinition"/>
+        /// is <c>null</c>.</exception>
+        public static void SetColumnState(DataGridViewColumnStateDefinition columnStateDefinition, bool shouldDisable)
+        {
+            if (columnStateDefinition == null)
+            {
+                throw new ArgumentNullException(nameof(columnStateDefinition));
+            }
+
+            if (shouldDisable)
+            {
+                DisableColumn(columnStateDefinition);
+            }
+            else
+            {
+                EnableColumn(columnStateDefinition);
+            }
+        }
+
+        /// <summary>
+        /// Helper method that enables the <paramref name="columnStateDefinition"/>.
+        /// </summary>
+        /// <param name="columnStateDefinition">The column state definition to enable.</param>
+        /// <param name="readOnly">Indicator whether the column should be read-only or not.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="columnStateDefinition"/>
+        /// is <c>null</c>.</exception>
+        public static void EnableColumn(DataGridViewColumnStateDefinition columnStateDefinition, bool readOnly = false)
+        {
+            if (columnStateDefinition == null)
+            {
+                throw new ArgumentNullException(nameof(columnStateDefinition));
+            }
+
+            columnStateDefinition.ReadOnly = readOnly;
+            columnStateDefinition.Style = CellStyle.Enabled;
+        }
+
+        /// <summary>
+        /// Helper method that disables the <paramref name="columnStateDefinition"/>.
+        /// </summary>
+        /// <param name="columnStateDefinition">The column state definition to enable.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="columnStateDefinition"/>
+        /// is <c>null</c>.</exception>
+        public static void DisableColumn(DataGridViewColumnStateDefinition columnStateDefinition)
+        {
+            if (columnStateDefinition == null)
+            {
+                throw new ArgumentNullException(nameof(columnStateDefinition));
+            }
+
+            columnStateDefinition.ReadOnly = true;
+            columnStateDefinition.Style = CellStyle.Disabled;
+        }
+
+        /// <summary>
+        /// Gets the color for a category group.
+        /// </summary>
+        /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
+        /// <returns>The <see cref="Color"/> corresponding to the given category group.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyCategoryGroup"/>
+        /// has an invalid value for <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyCategoryGroup"/>
+        /// is not supported.</exception>
+        private static Color GetCategoryGroupColor(FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
+        {
+            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), assemblyCategoryGroup))
+            {
+                throw new InvalidEnumArgumentException(nameof(assemblyCategoryGroup),
+                                                       (int) assemblyCategoryGroup,
+                                                       typeof(FailureMechanismSectionAssemblyCategoryGroup));
+            }
+
+            switch (assemblyCategoryGroup)
+            {
+                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
+                    return Color.FromArgb(0, 255, 0);
+                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
+                    return Color.FromArgb(118, 147, 60);
+                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
+                    return Color.FromArgb(255, 255, 0);
+                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
+                    return Color.FromArgb(204, 192, 218);
+                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
+                    return Color.FromArgb(255, 153, 0);
+                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
+                    return Color.FromArgb(255, 0, 0);
+                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
+                case FailureMechanismSectionAssemblyCategoryGroup.None:
+                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
+                    return Color.FromArgb(255, 255, 255);
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         private static CalculationScenarioStatus GetCalculationStatus(ICalculation calculation,

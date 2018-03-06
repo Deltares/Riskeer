@@ -22,10 +22,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
@@ -137,6 +141,221 @@ namespace Ringtoets.Common.Forms.Test.Helpers
 
             // Assert
             Assert.AreEqual(expectedErrorText, errorText);
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None, false)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable, true)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, true)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther, false)]
+        public void SimpleAssessmentIsSufficient_WithSimpleAssessmentResultType_ReturnsExpectedResult(
+            SimpleAssessmentResultType simpleAssessmentResult, bool expectedSufficiency)
+        {
+            // Call
+            bool isSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(expectedSufficiency, isSufficient);
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None, false)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, false)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, true)]
+        public void SimpleAssessmentIsSufficient_WithSimpleAssessmentResultValidityOnlyType_ReturnsExpectedResult(
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult, bool expectedSufficiency)
+        {
+            // Call
+            bool isSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(expectedSufficiency, isSufficient);
+        }
+
+        [Test]
+        [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
+        [TestCase(DetailedAssessmentResultType.Probability, true)]
+        public void DetailedAssessmentResultIsProbability_WithDetailedAssessmentResultType_ReturnsExpectedResult(
+            DetailedAssessmentResultType detailedAssessmentResult, bool expectedIsProbability)
+        {
+            // Call
+            bool isProbability = FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(detailedAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(expectedIsProbability, isProbability);
+        }
+
+        [Test]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.Probability, true)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed, false)]
+        public void TailorMadeAssessmentResultIsProbability_WithTailorMadeAssessmentProbabilityCalculationResultType_ReturnsExpectedResult(
+            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult, bool expectedIsProbability)
+        {
+            // Call
+            bool isProbability = FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(tailorMadeAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(expectedIsProbability, isProbability);
+        }
+
+        [Test]
+        public void SetAssemblyCategoryGroupStyle_DataGridViewColumnStateDefinitionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(
+                null,
+                new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("columnStateDefinition", exception.ParamName);
+        }
+
+        [Test]
+        public void SetAssemblyCategoryGroupStyle_WithInvalidFailureMechanismSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var columnStateDefinition = new DataGridViewColumnStateDefinition
+            {
+                Style = new CellStyle(Color.FromKnownColor(KnownColor.Transparent), Color.FromKnownColor(KnownColor.Transparent))
+            };
+
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(columnStateDefinition,
+                                                                                                           (FailureMechanismSectionAssemblyCategoryGroup) 99);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, 255, 255, 255)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, 255, 255, 255)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, 255, 255, 255)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, 255, 0, 0)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, 255, 153, 0)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IVv, 204, 192, 218)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIIv, 255, 255, 0)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, 118, 147, 60)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, 0, 255, 0)]
+        public void SetAssemblyCategoryGroupStyle_WithFailureMechanismSectionAssemblyCategoryGroup_UpdatesColumnStyle(
+            FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup, int r, int g, int b)
+        {
+            // Setup
+            var columnStateDefinition = new DataGridViewColumnStateDefinition();
+
+            // Call
+            FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(columnStateDefinition, assemblyCategoryGroup);
+
+            // Assert
+            Assert.AreEqual(r, columnStateDefinition.Style.BackgroundColor.R);
+            Assert.AreEqual(g, columnStateDefinition.Style.BackgroundColor.G);
+            Assert.AreEqual(b, columnStateDefinition.Style.BackgroundColor.B);
+            Assert.AreEqual(255, columnStateDefinition.Style.BackgroundColor.A);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), columnStateDefinition.Style.TextColor);
+        }
+
+        [Test]
+        public void SetColumnState_DataGridViewColumnStateDefinitionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultRowHelper.SetColumnState(
+                null,
+                new Random(39).NextBoolean());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("columnStateDefinition", exception.ParamName);
+        }
+
+        [Test]
+        public void SetColumnState_ShouldDisableFalse_UpdatesColumnState()
+        {
+            // Setup
+            var columnStateDefinition = new DataGridViewColumnStateDefinition();
+
+            // Call
+            FailureMechanismSectionResultRowHelper.SetColumnState(
+                columnStateDefinition,
+                false);
+
+            // Assert
+            Assert.IsFalse(columnStateDefinition.ReadOnly);
+            Assert.AreEqual(CellStyle.Enabled, columnStateDefinition.Style);
+        }
+
+        [Test]
+        public void SetColumnState_ShouldDisableTrue_UpdatesColumnState()
+        {
+            // Setup
+            var columnStateDefinition = new DataGridViewColumnStateDefinition();
+
+            // Call
+            FailureMechanismSectionResultRowHelper.SetColumnState(
+                columnStateDefinition,
+                true);
+
+            // Assert
+            Assert.IsTrue(columnStateDefinition.ReadOnly);
+            Assert.AreEqual(CellStyle.Disabled, columnStateDefinition.Style);
+        }
+
+        [Test]
+        public void EnableColumn_DataGridViewColumnStateDefinitionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultRowHelper.EnableColumn(
+                null,
+                new Random(39).NextBoolean());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("columnStateDefinition", exception.ParamName);
+        }
+
+        [Test]
+        public void EnableColumn_WithValidData_UpdatesColumnState()
+        {
+            // Setup
+            var columnStateDefinition = new DataGridViewColumnStateDefinition();
+            bool readOnly = new Random(39).NextBoolean();
+
+            // Call
+            FailureMechanismSectionResultRowHelper.EnableColumn(
+                columnStateDefinition,
+                readOnly);
+
+            // Assert
+            Assert.AreEqual(readOnly, columnStateDefinition.ReadOnly);
+            Assert.AreEqual(CellStyle.Enabled, columnStateDefinition.Style);
+        }
+
+        [Test]
+        public void DisableColumn_DataGridViewColumnStateDefinitionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultRowHelper.DisableColumn(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("columnStateDefinition", exception.ParamName);
+        }
+
+        [Test]
+        public void DisableColumn_WithValidData_UpdatesColumnState()
+        {
+            // Setup
+            var columnStateDefinition = new DataGridViewColumnStateDefinition();
+
+            // Call
+            FailureMechanismSectionResultRowHelper.DisableColumn(columnStateDefinition);
+
+            // Assert
+            Assert.IsTrue(columnStateDefinition.ReadOnly);
+            Assert.AreEqual(CellStyle.Disabled, columnStateDefinition.Style);
         }
 
         private class TestDataGridViewCell : DataGridViewCell {}
