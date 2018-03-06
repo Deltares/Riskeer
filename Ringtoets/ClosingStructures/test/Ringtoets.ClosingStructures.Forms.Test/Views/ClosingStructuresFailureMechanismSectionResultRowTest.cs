@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
@@ -700,6 +701,56 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                                                                              !useManualAssemblyProbability, true);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex],
                                                                              useManualAssemblyProbability);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCaseSource(typeof(FailureMechanismSectionResultRowTestHelper), nameof(FailureMechanismSectionResultRowTestHelper.CategoryGroupColorCases))]
+        public void Constructor_WithAssemblyCategoryGroupsSet_ExpectedColumnStates(FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup,
+                                                                                   Color expectedBackgroundColor)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var assemblyOutput = new FailureMechanismSectionAssembly(0, assemblyCategoryGroup);
+                calculator.SimpleAssessmentAssemblyOutput = assemblyOutput;
+                calculator.DetailedAssessmentAssemblyOutput = assemblyOutput;
+                calculator.TailorMadeAssessmentAssemblyOutput = assemblyOutput;
+                calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
+
+                // Call
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, 
+                                                                                failureMechanism, 
+                                                                                assessmentSection,
+                                                                                ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(
+                    columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(
+                    columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(
+                    columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(
+                    columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex], expectedBackgroundColor);
 
                 mocks.VerifyAll();
             }
