@@ -45,56 +45,22 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocationCalculation>
     {
-        private readonly Dictionary<string, int> propertyIndexLookup;
-
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
-        /// <param name="propertyIndexes">The <see cref="ConstructionProperties"/> containing the property indices.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                      ConstructionProperties propertyIndexes)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
         {
             if (hydraulicBoundaryLocationCalculation == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
             }
 
-            if (propertyIndexes == null)
-            {
-                throw new ArgumentNullException(nameof(propertyIndexes));
-            }
-
             Data = hydraulicBoundaryLocationCalculation;
-
-            propertyIndexLookup = new Dictionary<string, int>
-            {
-                {
-                    nameof(Id), propertyIndexes.IdIndex
-                },
-                {
-                    nameof(Name), propertyIndexes.NameIndex
-                },
-                {
-                    nameof(Location), propertyIndexes.LocationIndex
-                },
-                {
-                    nameof(GoverningWindDirection), propertyIndexes.GoverningWindDirectionIndex
-                },
-                {
-                    nameof(AlphaValues), propertyIndexes.StochastsIndex
-                },
-                {
-                    nameof(Durations), propertyIndexes.DurationsIndex
-                },
-                {
-                    nameof(IllustrationPoints), propertyIndexes.IllustrationPointsIndex
-                }
-            };
         }
 
-        [DynamicPropertyOrder]
+        [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_Description))]
@@ -106,7 +72,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [DynamicPropertyOrder]
+        [PropertyOrder(2)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_Description))]
@@ -118,7 +84,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [DynamicPropertyOrder]
+        [PropertyOrder(3)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_Description))]
@@ -214,7 +180,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [DynamicPropertyOrder]
+        [PropertyOrder(11)]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_GoverningWindDirection_DisplayName))]
@@ -227,7 +193,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [DynamicPropertyOrder]
+        [PropertyOrder(12)]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_AlphaValues_DisplayName))]
@@ -242,7 +208,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [DynamicPropertyOrder]
+        [PropertyOrder(13)]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPoint_Durations_DisplayName))]
@@ -257,7 +223,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [DynamicPropertyOrder]
+        [PropertyOrder(14)]
         [DynamicVisible]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
@@ -275,16 +241,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 return topLevelIllustrationPoints.Select(p => new TopLevelSubMechanismIllustrationPointProperties(p, closingSituations))
                                                  .ToArray();
             }
-        }
-
-        [DynamicPropertyOrderEvaluationMethod]
-        public int DynamicPropertyOrderEvaluationMethod(string propertyName)
-        {
-            int propertyIndex;
-
-            propertyIndexLookup.TryGetValue(propertyName, out propertyIndex);
-
-            return propertyIndex;
         }
 
         [DynamicVisibleValidationMethod]
@@ -307,22 +263,14 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             return $"{Name} {Location}";
         }
 
-        /// <summary>
-        /// Gets the general result with the illustration points result.
-        /// </summary>
-        /// <returns>The general illustration points if it has obtained as part of the calculation, <c>null</c>
-        /// otherwise.</returns>
-        protected abstract GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult();
-
-        public class ConstructionProperties
+        private GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            public int IdIndex { get; set; } = 1;
-            public int NameIndex { get; set; } = 2;
-            public int LocationIndex { get; set; } = 3;
-            public int GoverningWindDirectionIndex { get; set; } = 4;
-            public int StochastsIndex { get; set; } = 5;
-            public int DurationsIndex { get; set; } = 6;
-            public int IllustrationPointsIndex { get; set; } = 7;
+            if (data.HasOutput && data.Output.HasGeneralResult)
+            {
+                return data.Output.GeneralResult;
+            }
+
+            return null;
         }
     }
 }

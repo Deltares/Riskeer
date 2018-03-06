@@ -25,7 +25,6 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -43,17 +42,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
         public DesignWaterLevelLocationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-            : base(hydraulicBoundaryLocationCalculation,
-                   new ConstructionProperties
-                   {
-                       IdIndex = 1,
-                       NameIndex = 2,
-                       LocationIndex = 3,
-                       GoverningWindDirectionIndex = 11,
-                       StochastsIndex = 12,
-                       DurationsIndex = 13,
-                       IllustrationPointsIndex = 14
-                   }) {}
+            : base(hydraulicBoundaryLocationCalculation) {}
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
@@ -66,16 +55,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return data.Output?.Result ?? RoundedDouble.NaN;
             }
-        }
-
-        protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
-        {
-            if (data.HasOutput && data.Output.HasGeneralResult)
-            {
-                return data.Output.GeneralResult;
-            }
-
-            return null;
         }
     }
 }
