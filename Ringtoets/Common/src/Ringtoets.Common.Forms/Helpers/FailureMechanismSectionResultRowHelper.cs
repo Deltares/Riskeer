@@ -172,6 +172,18 @@ namespace Ringtoets.Common.Forms.Helpers
         }
 
         /// <summary>
+        /// Helper method that determines whether the tailor made assessment
+        /// is <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability"/>.
+        /// </summary>
+        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to check.</param>
+        /// <returns><c>true</c> when the tailor made assessment
+        /// is <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability"/>, <c>false</c> otherwise.</returns>
+        public static bool TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult)
+        {
+            return tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability;
+        }
+
+        /// <summary>
         /// Helper method that sets the style of a <paramref name="columnStateDefinition"/> based on a
         /// <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
         /// </summary>
