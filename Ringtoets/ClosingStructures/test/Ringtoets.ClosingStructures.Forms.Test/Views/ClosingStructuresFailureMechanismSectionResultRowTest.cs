@@ -191,6 +191,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
                 TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                     nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(ClosingStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
                 mocks.VerifyAll();
             }
         }
