@@ -200,7 +200,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                DetailedAssessmentResult = new Random(21).NextEnumValue<DetailedAssessmentResultType>()
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -215,6 +218,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     assessmentSection);
 
                 // Assert
+                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
                 AssertCategoryCalculatorInput(assessmentSection, failureMechanism, categoryCalculator);
@@ -376,7 +380,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             }
         }
 
-
         [Test]
         public void AssembleTailorMadeAssembly_AssemblyRan_ReturnsOutput()
         {
@@ -391,7 +394,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
@@ -422,7 +425,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 

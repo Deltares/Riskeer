@@ -28,7 +28,6 @@ using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.ClosingStructures.Data
 {
@@ -114,7 +113,7 @@ namespace Ringtoets.ClosingStructures.Data
                         failureMechanism.GeneralInput.N);
 
                 return calculator.AssembleDetailedAssessment(
-                    DetailedAssessmentResultType.Probability,
+                    failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                     categories);
             }
