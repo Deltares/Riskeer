@@ -91,6 +91,11 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             {
                 return SectionResult.DetailedAssessmentResult;
             }
+            set
+            {
+                SectionResult.DetailedAssessmentResult = value;
+                UpdateInternalData();
+            }
         }
 
         /// <summary>
