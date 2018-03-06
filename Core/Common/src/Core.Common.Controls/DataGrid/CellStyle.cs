@@ -45,6 +45,11 @@ namespace Core.Common.Controls.DataGrid
             Color.FromKnownColor(KnownColor.GrayText),
             Color.FromKnownColor(KnownColor.DarkGray));
 
+        /// <summary>
+        /// Creates a new instance of <see cref="CellStyle"/>.
+        /// </summary>
+        /// <param name="textColor">The color of the text.</param>
+        /// <param name="backgroundColor">The color of the background.</param>
         public CellStyle(Color textColor, Color backgroundColor)
         {
             TextColor = textColor;
@@ -52,12 +57,12 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Gets or sets the color of the text.
+        /// Gets the color of the text.
         /// </summary>
         public Color TextColor { get; }
 
         /// <summary>
-        /// Gets or sets the color of the background.
+        /// Gets the color of the background.
         /// </summary>
         public Color BackgroundColor { get; }
     }

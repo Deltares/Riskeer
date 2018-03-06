@@ -21,7 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -49,8 +48,8 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityOutwards
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.DetailedAssessmentProbability = (RoundedDouble) entity.LayerTwoA.ToNullAsNaN();
-            sectionResult.TailorMadeAssessmentProbability = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
+            sectionResult.DetailedAssessmentProbability = entity.LayerTwoA.ToNullAsNaN();
+            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
         }
     }
 }

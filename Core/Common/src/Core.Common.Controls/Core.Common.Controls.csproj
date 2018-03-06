@@ -17,7 +17,6 @@
     <Compile Include="DataGrid\CellStyle.cs" />
     <Compile Include="DataGrid\DataGridViewColorCell.cs" />
     <Compile Include="DataGrid\DataGridViewColorColumn.cs" />
-    <Compile Include="DataGrid\DataGridViewColumnFormattingRule.cs" />
     <Compile Include="DataGrid\DataGridViewColumnStateDefinition.cs" />
     <Compile Include="DataGrid\EnhancedDataGridView.cs">
       <SubType>Component</SubType>
