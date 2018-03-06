@@ -571,7 +571,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                         assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup calculatorOutput = calculator.CombinedAssemblyCategoryOutput;
+                FailureMechanismSectionAssemblyCategoryGroup? calculatorOutput = calculator.CombinedAssemblyCategoryOutput;
                 Assert.AreEqual(calculatorOutput, actualOutput);
                 mocks.VerifyAll();
             }

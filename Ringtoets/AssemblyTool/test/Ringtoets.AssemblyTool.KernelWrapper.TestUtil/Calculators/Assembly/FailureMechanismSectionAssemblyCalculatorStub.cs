@@ -120,7 +120,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the combined assembly calculation.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryOutput { get; set; }
+        public FailureMechanismSectionAssemblyCategoryGroup? CombinedAssemblyCategoryOutput { get; set; }
 
         /// <summary>
         /// Gets the simple assembly input of the combined assembly calculation.
@@ -270,7 +270,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             CombinedDetailedAssemblyGroupInput = detailedAssembly;
             CombinedTailorMadeAssemblyGroupInput = tailorMadeAssembly;
 
-            return CombinedAssemblyCategoryOutput = tailorMadeAssembly;
+            if (CombinedAssemblyCategoryOutput == null)
+            {
+                CombinedAssemblyCategoryOutput = tailorMadeAssembly;
+            }
+            return CombinedAssemblyCategoryOutput.Value;
         }
     }
 }

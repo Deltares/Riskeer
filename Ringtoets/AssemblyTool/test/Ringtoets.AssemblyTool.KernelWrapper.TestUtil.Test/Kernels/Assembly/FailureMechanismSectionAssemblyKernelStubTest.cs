@@ -96,10 +96,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         public void SimpleAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
         {
             // Setup
+            var random = new Random(39);
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
-                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.IIIv, Probability.NaN))
+                    new FailureMechanismSectionAssemblyCategoryResult(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), Probability.NaN))
             };
 
             // Call
@@ -166,10 +167,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         public void SimpleAssessmentDirectFailureMechanismsValidityOnly_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
         {
             // Setup
+            var random = new Random(39);
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
-                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.IIIv, Probability.NaN))
+                    new FailureMechanismSectionAssemblyCategoryResult(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), Probability.NaN))
             };
 
             // Call
@@ -287,7 +289,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
                 FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
-                    new FailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionCategoryGroup.IIIv, Probability.NaN))
+                    new FailureMechanismSectionAssemblyCategoryResult(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), Probability.NaN))
             };
 
             // Call
@@ -604,7 +606,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var detailedAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
             var tailorMadeAssemblyResult = random.NextEnumValue<FailureMechanismSectionCategoryGroup>();
 
-            var kernel = new FailureMechanismSectionAssemblyKernelStub();
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
+                    random.NextEnumValue<FailureMechanismSectionCategoryGroup>())
+            };
 
             // Call
             CalculationOutput<FailureMechanismSectionCategoryGroup> result = kernel.CombinedAssessmentFromFailureMechanismSectionResults(
@@ -687,7 +693,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
                 random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
                 Probability.NaN);
 
-            var kernel = new FailureMechanismSectionAssemblyKernelStub();
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                FailureMechanismSectionAssemblyCategoryResult = new CalculationOutput<FailureMechanismSectionAssemblyCategoryResult>(
+                    new FailureMechanismSectionAssemblyCategoryResult(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), Probability.NaN))
+            };
 
             // Call
             CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> result = kernel.CombinedAssessmentFromFailureMechanismSectionResults(
