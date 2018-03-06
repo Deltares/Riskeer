@@ -256,14 +256,17 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             return SectionResult.Calculation;
         }
 
+        public override void Update()
+        {
+            UpdateDerivedData();
+            UpdateColumnStateDefinitions();
+        }
+
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition()
-            {
-                ReadOnly = true
-            });
+            ColumnStateDefinitions.Add(detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(simpleAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
@@ -287,12 +290,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 ReadOnly = true
             });
             ColumnStateDefinitions.Add(manualAssemblyProbabilityIndex, new DataGridViewColumnStateDefinition());
-        }
-
-        public override void Update()
-        {
-            UpdateDerivedData();
-            UpdateColumnStateDefinitions();
         }
 
         private void UpdateDerivedData()
@@ -384,10 +381,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], false);
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex], simpleAssessmentSufficient);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex], simpleAssessmentSufficient
+                                                                                                                         || UseManualAssemblyProbability);
             if (simpleAssessmentSufficient
-                || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult))
+                || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
+                || UseManualAssemblyProbability)
             {
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex]);
             }
@@ -397,10 +396,23 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             }
 
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient);
+                                                                  simpleAssessmentSufficient
+                                                                  || UseManualAssemblyProbability);
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
                                                                   simpleAssessmentSufficient
-                                                                  || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult));
+                                                                  || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
+                                                                  || UseManualAssemblyProbability);
+
+            if (UseManualAssemblyProbability)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyProbabilityIndex]);
+            }
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyProbabilityIndex], !UseManualAssemblyProbability);
         }
 
         /// <summary>

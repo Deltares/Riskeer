@@ -171,7 +171,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                                                                                       true);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex]);
 
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
@@ -506,6 +506,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        private static TestClosingStructuresCalculation CreateCalculationWithOutput()
+        {
+            return new TestClosingStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+        }
+
         #region Column States
 
         [Test]
@@ -626,15 +634,68 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }
         }
 
-        #endregion
-
-        private static TestClosingStructuresCalculation CreateCalculationWithOutput()
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithUseManualAssemblyProbability_ExpectedColumnStates(bool useManualAssemblyProbability)
         {
-            return new TestClosingStructuresCalculation
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                Output = new TestStructuresOutput()
+                Calculation = CreateCalculationWithOutput(),
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
+                UseManualAssemblyProbability = useManualAssemblyProbability
             };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex],
+                                                                             !useManualAssemblyProbability);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex],
+                                                                             !useManualAssemblyProbability);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
+                                                                             !useManualAssemblyProbability, true);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
+                                                                             !useManualAssemblyProbability);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
+                                                                             !useManualAssemblyProbability);
+
+                if (useManualAssemblyProbability)
+                {
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
+                }
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex],
+                                                                             !useManualAssemblyProbability, true);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex],
+                                                                             useManualAssemblyProbability);
+
+                mocks.VerifyAll();
+            }
         }
+
+        #endregion
 
         #region Registration
 
