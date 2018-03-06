@@ -51,14 +51,46 @@ namespace Ringtoets.AssemblyTool.Forms.Test
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, SelectableFailureMechanismSectionAssemblyCategoryGroup.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, SelectableFailureMechanismSectionAssemblyCategoryGroup.VIIv)]
         public void ConvertTo_ValidValue_ReturnsConvertedValue(FailureMechanismSectionAssemblyCategoryGroup categoryGroup,
-                                                               SelectableFailureMechanismSectionAssemblyCategoryGroup expectedDisplayCategoryGroup)
+                                                               SelectableFailureMechanismSectionAssemblyCategoryGroup expectedSelectableCategoryGroup)
         {
             // Call
-            SelectableFailureMechanismSectionAssemblyCategoryGroup displayCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(
+            SelectableFailureMechanismSectionAssemblyCategoryGroup selectableCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(
                 categoryGroup);
 
             // Assert
-            Assert.AreEqual(expectedDisplayCategoryGroup, displayCategoryGroup);
+            Assert.AreEqual(expectedSelectableCategoryGroup, selectableCategoryGroup);
+        }
+
+        [Test]
+        public void ConvertFrom_InvalidValue_ThrowsInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom((SelectableFailureMechanismSectionAssemblyCategoryGroup) 99);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'categoryGroup' (99) is invalid for Enum type 'SelectableFailureMechanismSectionAssemblyCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        [TestCase(SelectableFailureMechanismSectionAssemblyCategoryGroup.NotApplicable, FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
+        [TestCase(SelectableFailureMechanismSectionAssemblyCategoryGroup.Iv, FailureMechanismSectionAssemblyCategoryGroup.Iv)]
+        [TestCase(SelectableFailureMechanismSectionAssemblyCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
+        [TestCase(SelectableFailureMechanismSectionAssemblyCategoryGroup.IIIv, FailureMechanismSectionAssemblyCategoryGroup.IIIv)]
+        [TestCase(SelectableFailureMechanismSectionAssemblyCategoryGroup.IVv, FailureMechanismSectionAssemblyCategoryGroup.IVv)]
+        [TestCase(SelectableFailureMechanismSectionAssemblyCategoryGroup.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
+        [TestCase(SelectableFailureMechanismSectionAssemblyCategoryGroup.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
+        [TestCase(SelectableFailureMechanismSectionAssemblyCategoryGroup.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
+        public void ConvertFrom_ValidValue_ReturnsConvertedValue(SelectableFailureMechanismSectionAssemblyCategoryGroup selectableCategoryGroup,
+                                                                 FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup)
+        {
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(
+                selectableCategoryGroup);
+
+            // Assert
+            Assert.AreEqual(expectedCategoryGroup, categoryGroup);
         }
     }
 }

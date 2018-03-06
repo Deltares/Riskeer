@@ -73,5 +73,49 @@ namespace Ringtoets.AssemblyTool.Forms
                     throw new NotSupportedException();
             }
         }
+
+        /// <summary>
+        /// Converts <see cref="SelectableFailureMechanismSectionAssemblyCategoryGroup"/> into
+        /// <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
+        /// </summary>
+        /// <param name="categoryGroup">The group to convert.</param>
+        /// <returns>The converted <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SelectableFailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="SelectableFailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup ConvertFrom(SelectableFailureMechanismSectionAssemblyCategoryGroup categoryGroup)
+        {
+            if (!Enum.IsDefined(typeof(SelectableFailureMechanismSectionAssemblyCategoryGroup), categoryGroup))
+            {
+                throw new InvalidEnumArgumentException(nameof(categoryGroup),
+                                                       (int) categoryGroup,
+                                                       typeof(SelectableFailureMechanismSectionAssemblyCategoryGroup));
+            }
+
+            switch (categoryGroup)
+            {
+                case SelectableFailureMechanismSectionAssemblyCategoryGroup.None:
+                    return FailureMechanismSectionAssemblyCategoryGroup.None;
+                case SelectableFailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
+                    return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
+                case SelectableFailureMechanismSectionAssemblyCategoryGroup.Iv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.Iv;
+                case SelectableFailureMechanismSectionAssemblyCategoryGroup.IIv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.IIv;
+                case SelectableFailureMechanismSectionAssemblyCategoryGroup.IIIv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
+                case SelectableFailureMechanismSectionAssemblyCategoryGroup.IVv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.IVv;
+                case SelectableFailureMechanismSectionAssemblyCategoryGroup.Vv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.Vv;
+                case SelectableFailureMechanismSectionAssemblyCategoryGroup.VIv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.VIv;
+                case SelectableFailureMechanismSectionAssemblyCategoryGroup.VIIv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
     }
 }
