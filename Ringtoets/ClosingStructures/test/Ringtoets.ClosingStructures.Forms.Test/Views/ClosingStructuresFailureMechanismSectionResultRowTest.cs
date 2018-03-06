@@ -555,6 +555,41 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }
         }
 
+        [Test]
+        [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
+        [TestCase(DetailedAssessmentResultType.Probability, true)]
+        public void Constructor_WithDetailedAssessmentResultSet_ExpectedColumnStates(DetailedAssessmentResultType detailedAssessmentResult,
+                                                                                     bool cellEnabled)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                DetailedAssessmentResult = detailedAssessmentResult,
+                Calculation = CreateCalculationWithOutput()
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
+                                                                             cellEnabled,
+                                                                             true);
+                mocks.VerifyAll();
+            }
+        }
+
         #endregion
 
         private static TestClosingStructuresCalculation CreateCalculationWithOutput()
