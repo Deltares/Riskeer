@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext), info.DataType);
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightLocationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsProperties), info.PropertyObjectType);
             }
         }
 
@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightLocationsProperties>(objectProperties);
+                Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightCalculationsProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
             }
             mockRepository.VerifyAll();

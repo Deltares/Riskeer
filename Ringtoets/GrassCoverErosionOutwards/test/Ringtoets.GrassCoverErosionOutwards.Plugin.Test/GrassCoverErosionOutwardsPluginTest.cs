@@ -134,7 +134,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext),
-                    typeof(GrassCoverErosionOutwardsWaveHeightLocationsProperties));
+                    typeof(GrassCoverErosionOutwardsWaveHeightCalculationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
