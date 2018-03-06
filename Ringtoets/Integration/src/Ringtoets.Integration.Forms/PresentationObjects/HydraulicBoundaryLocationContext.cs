@@ -26,32 +26,17 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocation"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationContext : ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>
+    public abstract class HydraulicBoundaryLocationContext : ObservableWrappedObjectContextBase<HydraulicBoundaryLocationCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> which the <see cref="HydraulicBoundaryLocationContext"/>
-        /// belongs to.</param>
-        /// <param name="calculation">The <see cref="HydraulicBoundaryLocationCalculation"/> at stake.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData,
-                                                   HydraulicBoundaryLocationCalculation calculation)
-            : base(wrappedData)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            Calculation = calculation;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocationCalculation"/> at stake.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation Calculation { get; }
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocationCalculation"/> which the
+        /// <see cref="HydraulicBoundaryLocationContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationContext(HydraulicBoundaryLocationCalculation wrappedData)
+            : base(wrappedData) {}
     }
 }

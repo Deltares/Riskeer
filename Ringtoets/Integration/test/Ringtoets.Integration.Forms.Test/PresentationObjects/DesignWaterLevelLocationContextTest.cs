@@ -40,8 +40,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationContext>(presentationObject);
-            Assert.AreSame(hydraulicBoundaryLocation, presentationObject.WrappedData);
-            Assert.AreSame(hydraulicBoundaryLocationCalculation, presentationObject.Calculation);
+            Assert.AreSame(hydraulicBoundaryLocationCalculation, presentationObject.WrappedData);
         }
     }
 }

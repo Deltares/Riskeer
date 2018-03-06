@@ -39,6 +39,6 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public DesignWaterLevelLocationContext(HydraulicBoundaryLocation wrappedData,
                                                HydraulicBoundaryLocationCalculation calculation)
-            : base(wrappedData, calculation) {}
+            : base(calculation) {}
     }
 }
