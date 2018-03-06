@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
@@ -66,90 +65,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 return data.Output?.Result ?? RoundedDouble.NaN;
-            }
-        }
-
-        [PropertyOrder(5)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetProbability_Description))]
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double TargetProbability
-        {
-            get
-            {
-                return data.Output?.TargetProbability ?? double.NaN;
-            }
-        }
-
-        [PropertyOrder(6)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_TargetReliability_Description))]
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble TargetReliability
-        {
-            get
-            {
-                return data.Output?.TargetReliability ?? RoundedDouble.NaN;
-            }
-        }
-
-        [PropertyOrder(7)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedProbability_Description))]
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double CalculatedProbability
-        {
-            get
-            {
-                return data.Output?.CalculatedProbability ?? double.NaN;
-            }
-        }
-
-        [PropertyOrder(8)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_CalculatedReliability_Description))]
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble CalculatedReliability
-        {
-            get
-            {
-                return data.Output?.CalculatedReliability ?? RoundedDouble.NaN;
-            }
-        }
-
-        [PropertyOrder(9)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description))]
-        public string Convergence
-        {
-            get
-            {
-                CalculationConvergence calculationConvergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
-
-                return new EnumDisplayWrapper<CalculationConvergence>(calculationConvergence).DisplayName;
-            }
-        }
-
-        [PropertyOrder(10)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_IllustrationPoints))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
-        public bool ShouldIllustrationPointsBeCalculated
-        {
-            get
-            {
-                return data.InputParameters.ShouldIllustrationPointsBeCalculated;
-            }
-            set
-            {
-                data.InputParameters.ShouldIllustrationPointsBeCalculated = value;
-                data.HydraulicBoundaryLocation.NotifyObservers();
-                data.NotifyObservers();
             }
         }
 

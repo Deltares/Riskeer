@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<DesignWaterLevelLocationProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryLocation, objectProperties.Data);
+                Assert.AreSame(hydraulicBoundaryLocationCalculation, objectProperties.Data);
                 RoundedDouble actualDesignWaterLevel = ((DesignWaterLevelLocationProperties) objectProperties).DesignWaterLevel;
                 Assert.AreEqual(designWaterLevel, actualDesignWaterLevel, actualDesignWaterLevel.GetAccuracy());
             }

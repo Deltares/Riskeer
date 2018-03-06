@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<WaveHeightLocationProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryLocation, objectProperties.Data);
+                Assert.AreSame(hydraulicBoundaryLocationCalculation, objectProperties.Data);
                 RoundedDouble actualWaveHeight = ((WaveHeightLocationProperties) objectProperties).WaveHeight;
                 Assert.AreEqual(waveHeight, actualWaveHeight, actualWaveHeight.GetAccuracy());
             }
