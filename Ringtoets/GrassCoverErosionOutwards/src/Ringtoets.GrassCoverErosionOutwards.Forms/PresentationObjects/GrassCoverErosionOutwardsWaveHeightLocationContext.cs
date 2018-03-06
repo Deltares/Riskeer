@@ -21,23 +21,23 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocation"/> 
-    /// with a wave height calculation result for a given norm.
+    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
+    /// with a wave height calculation result for <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> 
-        /// which the <see cref="GrassCoverErosionOutwardsWaveHeightLocationContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
-        /// is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightLocationContext(HydraulicBoundaryLocation wrappedData)
-            : base(wrappedData.WaveHeightCalculation1) {}
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocationCalculation"/> which the
+        /// <see cref="GrassCoverErosionOutwardsWaveHeightLocationContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsWaveHeightLocationContext(HydraulicBoundaryLocationCalculation wrappedData)
+            : base(wrappedData) {}
     }
 }

@@ -21,23 +21,23 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocation"/> 
-    /// with a design water level calculation result for a given norm.
+    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
+    /// with a design water level calculation result for <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> 
-        /// which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
-        /// is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationContext(HydraulicBoundaryLocation wrappedData)
-            : base(wrappedData.DesignWaterLevelCalculation1) {}
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocationCalculation"/> which the
+        /// <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationContext(HydraulicBoundaryLocationCalculation wrappedData)
+            : base(wrappedData) {}
     }
 }
