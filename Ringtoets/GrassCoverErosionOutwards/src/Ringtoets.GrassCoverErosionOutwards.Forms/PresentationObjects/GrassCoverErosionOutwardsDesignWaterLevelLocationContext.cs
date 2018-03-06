@@ -38,6 +38,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
         /// is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsDesignWaterLevelLocationContext(HydraulicBoundaryLocation wrappedData)
-            : base(wrappedData) {}
+            : base(wrappedData.DesignWaterLevelCalculation1) {}
     }
 }

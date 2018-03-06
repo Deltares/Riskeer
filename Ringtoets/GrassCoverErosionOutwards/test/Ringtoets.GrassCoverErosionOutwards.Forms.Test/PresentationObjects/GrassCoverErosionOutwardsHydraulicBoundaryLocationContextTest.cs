@@ -34,20 +34,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var presentationObject = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocation);
+            var context = new TestGrassCoverErosionOutwardsLocationContext(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(presentationObject);
-            Assert.AreSame(hydraulicBoundaryLocation, presentationObject.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocationCalculation>>(context);
+            Assert.AreSame(hydraulicBoundaryLocationCalculation, context.WrappedData);
         }
 
         private class TestGrassCoverErosionOutwardsLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
         {
-            public TestGrassCoverErosionOutwardsLocationContext(HydraulicBoundaryLocation location)
-                : base(location) {}
+            public TestGrassCoverErosionOutwardsLocationContext(HydraulicBoundaryLocationCalculation calculation)
+                : base(calculation) {}
         }
     }
 }

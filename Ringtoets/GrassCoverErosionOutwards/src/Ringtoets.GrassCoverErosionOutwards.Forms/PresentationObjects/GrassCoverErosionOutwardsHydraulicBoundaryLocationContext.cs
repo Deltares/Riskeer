@@ -27,20 +27,19 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of a <see cref="GrassCoverErosionOutwardsFailureMechanism"/> 
-    /// specific <see cref="HydraulicBoundaryLocation"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
+    /// for <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
-        : ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>
+        : ObservableWrappedObjectContextBase<HydraulicBoundaryLocationCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> 
-        /// belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
-        /// is <c>null</c>.</exception>
-        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(HydraulicBoundaryLocation wrappedData)
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocationCalculation"/> which the
+        /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(HydraulicBoundaryLocationCalculation wrappedData)
             : base(wrappedData) {}
     }
 }
