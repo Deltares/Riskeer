@@ -53,6 +53,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         private readonly ClosingStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.
@@ -222,22 +226,46 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup { get; private set; }
+        public string SimpleAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(simpleAssemblyCategoryGroup);
+            }
+        }
 
         /// <summary>
         /// Gets the detailed assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup { get; private set; }
+        public string DetailedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(detailedAssemblyCategoryGroup);
+            }
+        }
 
         /// <summary>
         /// Gets the tailor made assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup { get; private set; }
+        public string TailorMadeAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(tailorMadeAssemblyCategoryGroup);
+            }
+        }
 
         /// <summary>
         /// Gets the combined assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup { get; private set; }
+        public string CombinedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedAssemblyCategoryGroup);
+            }
+        }
 
         /// <summary>
         /// Gets the combined assembly probability.
@@ -314,11 +342,11 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             try
             {
-                SimpleAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                simpleAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
             catch (AssemblyException e)
             {
-                SimpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
@@ -327,14 +355,14 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             try
             {
-                DetailedAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                detailedAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
             }
             catch (AssemblyException e)
             {
-                DetailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
@@ -343,14 +371,14 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             try
             {
-                TailorMadeAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                tailorMadeAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
             }
             catch (AssemblyException e)
             {
-                TailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
@@ -365,12 +393,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                         failureMechanism,
                         assessmentSection);
 
-                CombinedAssemblyCategoryGroup = combinedAssembly.Group;
+                combinedAssemblyCategoryGroup = combinedAssembly.Group;
                 CombinedAssemblyProbability = combinedAssembly.Probability;
             }
             catch (AssemblyException e)
             {
-                CombinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 CombinedAssemblyProbability = double.NaN;
                 ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
                 ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = e.Message;
