@@ -25,6 +25,7 @@ using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -220,70 +221,28 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup
-        {
-            get
-            {
-                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
-            }
-        }
+        public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the detailed assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup
-        {
-            get
-            {
-                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(SectionResult,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSection)
-                                                                                    .Group;
-            }
-        }
+        public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the tailor made assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup
-        {
-            get
-            {
-                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(SectionResult,
-                                                                                                                failureMechanism,
-                                                                                                                assessmentSection)
-                                                                                    .Group;
-            }
-        }
+        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the combined assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup
-        {
-            get
-            {
-                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(SectionResult,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSection)
-                                                                                    .Group;
-            }
-        }
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the combined assembly probability.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double CombinedAssemblyProbability
-        {
-            get
-            {
-                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(SectionResult,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSection)
-                                                                                    .Probability;
-            }
-        }
+        public double CombinedAssemblyProbability { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
@@ -295,7 +254,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             return SectionResult.Calculation;
         }
-
 
         private void CreateColumnStateDefinitions()
         {
@@ -329,6 +287,97 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             });
             ColumnStateDefinitions.Add(manualAssemblyProbabilityIndex, new DataGridViewColumnStateDefinition());
         }
+
+        public override void Update()
+        {
+            UpdateDerivedData();
+        }
+
+        private void UpdateDerivedData()
+        {
+            ResetErrorTexts();
+            TryGetSimpleAssemblyCategoryGroup();
+            TryGetDetailedAssemblyCategoryGroup();
+            TryGetTailorMadeAssemblyCategoryGroup();
+            TryGetCombinedAssemblyCategoryGroup();
+        }
+
+        private void ResetErrorTexts()
+        {
+            ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = string.Empty;
+        }
+
+        private void TryGetSimpleAssemblyCategoryGroup()
+        {
+            try
+            {
+                SimpleAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+            }
+            catch (AssemblyException e)
+            {
+                SimpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
+        }
+
+        private void TryGetDetailedAssemblyCategoryGroup()
+        {
+            try
+            {
+                DetailedAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+            catch (AssemblyException e)
+            {
+                DetailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
+        }
+
+        private void TryGetTailorMadeAssemblyCategoryGroup()
+        {
+            try
+            {
+                TailorMadeAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+            catch (AssemblyException e)
+            {
+                TailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
+        }
+
+        private void TryGetCombinedAssemblyCategoryGroup()
+        {
+            try
+            {
+                FailureMechanismSectionAssembly combinedAssembly =
+                    ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                        SectionResult,
+                        failureMechanism,
+                        assessmentSection);
+
+                CombinedAssemblyCategoryGroup = combinedAssembly.Group;
+                CombinedAssemblyProbability = combinedAssembly.Probability;
+            }
+            catch (AssemblyException e)
+            {
+                CombinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                CombinedAssemblyProbability = double.NaN;
+                ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = e.Message;
+            }
+        }
+
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.
