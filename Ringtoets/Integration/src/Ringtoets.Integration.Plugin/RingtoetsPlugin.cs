@@ -333,8 +333,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationProperties>
             {
-                CreateInstance = context => new DesignWaterLevelLocationProperties(context.WrappedData,
-                                                                                   context.Calculation)
+                CreateInstance = context => new DesignWaterLevelLocationProperties(context.Calculation)
             };
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsProperties>
             {
@@ -343,8 +342,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationProperties>
             {
-                CreateInstance = context => new WaveHeightLocationProperties(context.WrappedData,
-                                                                             context.Calculation)
+                CreateInstance = context => new WaveHeightLocationProperties(context.Calculation)
             };
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
             yield return new PropertyInfo<ForeshoreProfilesContext, ForeshoreProfileCollectionProperties>
