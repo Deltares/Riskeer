@@ -25,14 +25,12 @@ using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
@@ -167,8 +165,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
-            using (CreateConfiguredFailureMechanismResultsView())
+            // Setup
+            var results = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
+            {
+                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
+            };
+
+            // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(results))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -184,74 +189,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual("", cells[simpleAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual("", cells[detailedAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual("", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual("", cells[combinedAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual("-", cells[combinedAssemblyProbabilityIndex].FormattedValue);
+                Assert.AreEqual("VIIv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("VIv", cells[detailedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("VIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("1/1", cells[combinedAssemblyProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useManualAssemblyProbabilityIndex].Value);
                 Assert.AreEqual("-", cells[manualAssemblyProbabilityIndex].FormattedValue);
             }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenDetailedAssessmentHasError(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
-        {
-            // Given
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
-                                                                new TestDikeHeightOutput(0),
-                                                                new TestOvertoppingRateOutput(0))
-                },
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentProbabilityIndex];
-
-                // Precondition
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), dataGridViewCell.FormattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-
-                // When
-                sectionResult.Calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                                new TestDikeHeightOutput(double.NaN),
-                                                                new TestOvertoppingRateOutput(double.NaN))
-                };
-                sectionResult.NotifyObservers();
-
-                // Then
-                Assert.AreEqual("-", dataGridViewCell.FormattedValue);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
-            }
-        }
-
-        private GrassCoverErosionInwardsFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()
-        {
-            var results = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>
-            {
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
-            };
-
-            GrassCoverErosionInwardsFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(results);
-
-            return failureMechanismResultView;
         }
 
         private GrassCoverErosionInwardsFailureMechanismResultView ShowFailureMechanismResultsView(

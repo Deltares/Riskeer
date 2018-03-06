@@ -300,10 +300,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition
-            {
-                ReadOnly = true
-            });
+            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
@@ -465,7 +462,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="GrassCoverErosionInwardsScenarioRow"/>.
+        /// Class holding the various construction parameters for <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultRow"/>.
         /// </summary>
         public class ConstructionProperties
         {
