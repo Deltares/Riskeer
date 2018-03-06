@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -36,6 +38,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -45,6 +48,27 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
     [TestFixture]
     public class ClosingStructuresFailureMechanismSectionResultRowTest
     {
+        private static ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties
+        {
+            get
+            {
+                return new ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = 1,
+                    DetailedAssessmentResultIndex = 2,
+                    DetailedAssessmentProbabilityIndex = 3,
+                    TailorMadeAssessmentResultIndex = 4,
+                    TailorMadeAssessmentProbabilityIndex = 5,
+                    SimpleAssemblyCategoryGroupIndex = 6,
+                    DetailedAssemblyCategoryGroupIndex = 7,
+                    TailorMadeAssemblyCategoryGroupIndex = 8,
+                    CombinedAssemblyCategoryGroupIndex = 9,
+                    CombinedAssemblyProbabilityIndex = 10,
+                    ManualAssemblyProbabilityIndex = 11
+                };
+            }
+        }
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -57,7 +81,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result, null, assessmentSection);
+            TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result,
+                                                                                            null,
+                                                                                            assessmentSection,
+                                                                                            ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -73,11 +100,36 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result, new ClosingStructuresFailureMechanism(), null);
+            TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result,
+                                                                                            new ClosingStructuresFailureMechanism(),
+                                                                                            null,
+                                                                                            ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result,
+                                                                                            new ClosingStructuresFailureMechanism(),
+                                                                                            assessmentSection,
+                                                                                            null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
         }
 
         [Test]
@@ -102,10 +154,28 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
+
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                Assert.AreEqual(11, columnStateDefinitions.Count);
+
+                for (var i = 1; i < 12; i++)
+                {
+                    Assert.IsTrue(columnStateDefinitions.ContainsKey(i));
+                    Assert.IsNotNull(columnStateDefinitions[i]);
+                }
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
+                                                                                      true);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex]);
+
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
@@ -113,6 +183,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual(result.TailorMadeAssessmentProbability, row.AssessmentLayerThree);
                 Assert.AreEqual(result.UseManualAssemblyProbability, row.UseManualAssemblyProbability);
                 Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex],
+                                                                                      true);
 
                 TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                     nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
@@ -156,7 +228,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, row.SimpleAssemblyCategoryGroup);
@@ -187,7 +259,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssemblyProbability;
                 bool newValue = !originalValue;
 
@@ -224,7 +296,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyProbability = value;
@@ -256,7 +328,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.ManualAssemblyProbability = value;
@@ -284,7 +356,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Precondition
             Assert.IsNull(result.Calculation);
 
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+            var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection, ConstructionProperties);
 
             // Call
             StructuresCalculation<ClosingStructuresInput> calculation = row.GetSectionResultCalculation();
@@ -311,7 +383,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Calculation = expectedCalculation
             };
 
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+            var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection, ConstructionProperties);
 
             // Call
             StructuresCalculation<ClosingStructuresInput> calculation = row.GetSectionResultCalculation();
@@ -343,7 +415,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(result,
                                                                                 new ClosingStructuresFailureMechanism(),
-                                                                                assessmentSection);
+                                                                                assessmentSection, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -376,7 +448,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResult = newValue;
@@ -405,7 +477,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -442,7 +514,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -477,7 +549,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -510,7 +582,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;
@@ -545,7 +617,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
                 row.AssessmentLayerThree = value;
@@ -577,7 +649,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.AssessmentLayerThree = value;

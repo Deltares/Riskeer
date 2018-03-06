@@ -41,7 +41,18 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     public class ClosingStructuresFailureMechanismResultView : FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult,
         ClosingStructuresFailureMechanismSectionResultRow, ClosingStructuresFailureMechanism>
     {
-        private const int detailedAssessmentIndex = 2;
+        private const int simpleAssessmentResultIndex = 1;
+        private const int detailedAssessmentResultIndex = 2;
+        private const int detailedAssessmentProbabilityIndex = 3;
+        private const int tailorMadeAssessmentResultIndex = 4;
+        private const int tailorMadeAssessmentProbabilityIndex = 5;
+        private const int simpleAssemblyCategoryGroupIndex = 6;
+        private const int detailedAssemblyCategoryGroupIndex = 7;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 8;
+        private const int combinedAssemblyCategoryGroupIndex = 9;
+        private const int combinedAssemblyProbabilityIndex = 10;
+        private const int manualAssemblyProbabilityIndex = 12;
+
         private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -88,7 +99,24 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         protected override ClosingStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, FailureMechanism, assessmentSection);
+            return new ClosingStructuresFailureMechanismSectionResultRow(
+                sectionResult,
+                FailureMechanism,
+                assessmentSection,
+                new ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
+                    DetailedAssessmentProbabilityIndex = detailedAssessmentProbabilityIndex,
+                    TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
+                    TailorMadeAssessmentProbabilityIndex = tailorMadeAssessmentProbabilityIndex,
+                    SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
+                    TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
+                    CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
+                    CombinedAssemblyProbabilityIndex = combinedAssemblyProbabilityIndex,
+                    ManualAssemblyProbabilityIndex = manualAssemblyProbabilityIndex
+                });
         }
 
         protected override void Dispose(bool disposing)
@@ -157,7 +185,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex != detailedAssessmentIndex)
+            if (e.ColumnIndex != detailedAssessmentResultIndex)
             {
                 return;
             }

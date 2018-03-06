@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -36,6 +37,18 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     /// </summary>
     public class ClosingStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>
     {
+        private readonly int simpleAssessmentResultIndex;
+        private readonly int detailedAssessmentResultIndex;
+        private readonly int detailedAssessmentProbabilityIndex;
+        private readonly int tailorMadeAssessmentResultIndex;
+        private readonly int tailorMadeAssessmentProbabilityIndex;
+        private readonly int simpleAssemblyCategoryGroupIndex;
+        private readonly int detailedAssemblyCategoryGroupIndex;
+        private readonly int tailorMadeAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyProbabilityIndex;
+        private readonly int manualAssemblyProbabilityIndex;
+
         private readonly ClosingStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
@@ -43,13 +56,16 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="ClosingStructuresFailureMechanismSectionResult"/> to wrap
-        /// so that it can be displayed as a row.</param>
+        ///     so that it can be displayed as a row.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult,
                                                                  ClosingStructuresFailureMechanism failureMechanism,
-                                                                 IAssessmentSection assessmentSection)
+                                                                 IAssessmentSection assessmentSection,
+                                                                 ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (failureMechanism == null)
@@ -62,8 +78,29 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            simpleAssessmentResultIndex = constructionProperties.SimpleAssessmentResultIndex;
+            detailedAssessmentResultIndex = constructionProperties.DetailedAssessmentResultIndex;
+            detailedAssessmentProbabilityIndex = constructionProperties.DetailedAssessmentProbabilityIndex;
+            tailorMadeAssessmentResultIndex = constructionProperties.TailorMadeAssessmentResultIndex;
+            tailorMadeAssessmentProbabilityIndex = constructionProperties.TailorMadeAssessmentProbabilityIndex;
+            simpleAssemblyCategoryGroupIndex = constructionProperties.SimpleAssemblyCategoryGroupIndex;
+            detailedAssemblyCategoryGroupIndex = constructionProperties.DetailedAssemblyCategoryGroupIndex;
+            tailorMadeAssemblyCategoryGroupIndex = constructionProperties.TailorMadeAssemblyCategoryGroupIndex;
+            combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
+            combinedAssemblyProbabilityIndex = constructionProperties.CombinedAssemblyProbabilityIndex;
+            manualAssemblyProbabilityIndex = constructionProperties.ManualAssemblyProbabilityIndex;
+
+            CreateColumnStateDefinitions();
+
+            Update();
         }
 
         /// <summary>
@@ -257,6 +294,101 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         public StructuresCalculation<ClosingStructuresInput> GetSectionResultCalculation()
         {
             return SectionResult.Calculation;
+        }
+
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition()
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(simpleAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(detailedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(tailorMadeAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(combinedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(combinedAssemblyProbabilityIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(manualAssemblyProbabilityIndex, new DataGridViewColumnStateDefinition());
+        }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Sets the simple assessment result index.
+            /// </summary>
+            public int SimpleAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result index.
+            /// </summary>
+            public int DetailedAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment probability index.
+            /// </summary>
+            public int DetailedAssessmentProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the tailor made assessment result index.
+            /// </summary>
+            public int TailorMadeAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the tailor made assessment probability index.
+            /// </summary>
+            public int TailorMadeAssessmentProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the simple assembly category group index.
+            /// </summary>
+            public int SimpleAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assembly category group index.
+            /// </summary>
+            public int DetailedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the tailor made assembly category group index.
+            /// </summary>
+            public int TailorMadeAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the combined assembly category group index.
+            /// </summary>
+            public int CombinedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the combined assembly probability index.
+            /// </summary>
+            public int CombinedAssemblyProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the manual assembly category group index.
+            /// </summary>
+            public int ManualAssemblyProbabilityIndex { internal get; set; }
         }
     }
 }
