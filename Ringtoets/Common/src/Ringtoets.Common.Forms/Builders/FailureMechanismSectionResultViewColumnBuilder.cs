@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Primitives;
 
@@ -436,14 +437,14 @@ namespace Ringtoets.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            IEnumerable<EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>> dataSource = CreateEnumDisplayWrappers<FailureMechanismSectionAssemblyCategoryGroup>();
+            IEnumerable<EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>> dataSource = CreateEnumDisplayWrappers<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
                 Resources.FailureMechanismResultView_ManualAssembly_DisplayName,
                 dataSource,
-                nameof(EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>.Value),
-                nameof(EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>.DisplayName));
+                nameof(EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>.Value),
+                nameof(EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>.DisplayName));
         }
 
         /// <summary>

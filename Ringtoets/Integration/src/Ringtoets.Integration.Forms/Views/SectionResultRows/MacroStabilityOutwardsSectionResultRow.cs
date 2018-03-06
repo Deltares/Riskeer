@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Forms.Helpers;
@@ -243,17 +244,16 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
+        public SelectableFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
         {
             get
             {
-                return SectionResult.ManualAssemblyCategoryGroup;
+                return SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(SectionResult.ManualAssemblyCategoryGroup);
             }
             set
             {
-                SectionResult.ManualAssemblyCategoryGroup = value;
-                Update();
-                SectionResult.NotifyObservers();
+                SectionResult.ManualAssemblyCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(value);
+                UpdateInternalData();
             }
         }
 

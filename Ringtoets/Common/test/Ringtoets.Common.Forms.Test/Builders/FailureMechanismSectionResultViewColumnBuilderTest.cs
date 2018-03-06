@@ -27,7 +27,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Primitives;
 
@@ -838,9 +838,9 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                IEnumerable<EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>> expectedDataSource =
-                    CreateExpectedEnumDisplayWrappers<FailureMechanismSectionAssemblyCategoryGroup>();
-                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>[]) columnData.DataSource);
+                IEnumerable<EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>> expectedDataSource =
+                    CreateExpectedEnumDisplayWrappers<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>[]) columnData.DataSource);
             }
         }
 
