@@ -170,7 +170,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
                                                                                       true);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex]);
 
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
@@ -586,6 +586,42 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
                                                                              cellEnabled,
                                                                              true);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.None, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.Probability, true)]
+        public void Constructor_WithTailorMadeAssessmentResultSet_ExpectedColumnStates(
+            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+            bool cellEnabled)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
+                                                                             cellEnabled);
                 mocks.VerifyAll();
             }
         }

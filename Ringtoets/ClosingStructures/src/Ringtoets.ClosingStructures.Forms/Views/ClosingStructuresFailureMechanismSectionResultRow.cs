@@ -399,7 +399,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
                                                                   simpleAssessmentSufficient);
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
-                                                                  simpleAssessmentSufficient);
+                                                                  simpleAssessmentSufficient
+                                                                  || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult));
         }
 
         /// <summary>
