@@ -27,7 +27,8 @@ using Ringtoets.AssemblyTool.Data;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="FailureMechanismSectionAssembly"/> instances.
+    /// Creates <see cref="FailureMechanismSectionAssembly"/> instances and
+    /// <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> values.
     /// </summary>
     public static class FailureMechanismSectionAssemblyCreator
     {
@@ -49,7 +50,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return new FailureMechanismSectionAssembly(result.EstimatedProbabilityOfFailure.Value,
-                                                       ConvertFailureMechanismSectionyCategoryGroup(result.CategoryGroup));
+                                                       ConvertFailureMechanismSectionCategoryGroup(result.CategoryGroup));
         }
 
         /// <summary>
@@ -61,7 +62,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup ConvertFailureMechanismSectionyCategoryGroup(FailureMechanismSectionCategoryGroup category)
+        public static FailureMechanismSectionAssemblyCategoryGroup ConvertFailureMechanismSectionCategoryGroup(FailureMechanismSectionCategoryGroup category)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismSectionCategoryGroup), category))
             {

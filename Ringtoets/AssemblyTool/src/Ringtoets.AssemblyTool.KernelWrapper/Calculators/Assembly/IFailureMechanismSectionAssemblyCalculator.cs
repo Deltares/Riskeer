@@ -111,7 +111,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// </summary>
         /// <param name="simpleAssembly">The simple assembly.</param>
         /// <param name="detailedAssembly">The detailed assembly.</param>
-        /// <param name="tailorMadeAssembly">The tailor made assembly</param>
+        /// <param name="tailorMadeAssembly">The tailor made assembly.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
@@ -124,7 +124,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// </summary>
         /// <param name="simpleAssembly">The simple assembly.</param>
         /// <param name="detailedAssembly">The detailed assembly.</param>
-        /// <param name="tailorMadeAssembly">The tailor made assembly</param>
+        /// <param name="tailorMadeAssembly">The tailor made assembly.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>

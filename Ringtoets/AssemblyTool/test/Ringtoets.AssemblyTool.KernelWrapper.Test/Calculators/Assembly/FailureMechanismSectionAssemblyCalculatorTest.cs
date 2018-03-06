@@ -1011,12 +1011,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
 
                 // Assert
-                Assert.AreEqual(simpleAssembly.Probability, kernel.CombinedSimpleAssessmentInput.EstimatedProbabilityOfFailure);
-                Assert.AreEqual(simpleAssembly.Group, GetGroup(kernel.CombinedSimpleAssessmentInput.CategoryGroup));
-                Assert.AreEqual(detailedAssembly.Probability, kernel.CombinedDetailedAssessmentInput.EstimatedProbabilityOfFailure);
-                Assert.AreEqual(detailedAssembly.Group, GetGroup(kernel.CombinedDetailedAssessmentInput.CategoryGroup));
-                Assert.AreEqual(tailorMadeAssembly.Probability, kernel.CombinedTailorMadeAssessmentInput.EstimatedProbabilityOfFailure);
-                Assert.AreEqual(tailorMadeAssembly.Group, GetGroup(kernel.CombinedTailorMadeAssessmentInput.CategoryGroup));
+                AssertAssembly(simpleAssembly, kernel.CombinedSimpleAssessmentInput);
+                AssertAssembly(detailedAssembly, kernel.CombinedDetailedAssessmentInput);
+                AssertAssembly(tailorMadeAssembly, kernel.CombinedTailorMadeAssessmentInput);
             }
         }
 
@@ -1240,6 +1237,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsNotNull(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
+        }
+
+        private static void AssertAssembly(FailureMechanismSectionAssembly simpleAssembly, FailureMechanismSectionAssemblyCategoryResult kernelInput)
+        {
+            Assert.AreEqual(simpleAssembly.Probability, kernelInput.EstimatedProbabilityOfFailure);
+            Assert.AreEqual(simpleAssembly.Group, GetGroup(kernelInput.CategoryGroup));
         }
 
         #endregion

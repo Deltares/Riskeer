@@ -204,7 +204,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionAssemblyCategoryGroup(detailedAssembly),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionAssemblyCategoryGroup(tailorMadeAssembly));
 
-                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionyCategoryGroup(output.Result);
+                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
             }
             catch (Exception e)
             {

@@ -281,14 +281,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         {
             // Setup
             var random = new Random(11);
-            var asesmbly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
+            var assembly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
 
             // Call
             FailureMechanismSectionAssemblyCategoryResult input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(
-                asesmbly);
+                assembly);
 
             // Assert
-            Assert.AreEqual(asesmbly.Probability, input.EstimatedProbabilityOfFailure);
+            Assert.AreEqual(assembly.Probability, input.EstimatedProbabilityOfFailure);
             Assert.AreEqual(expectedGroup, input.CategoryGroup);
         }
 
