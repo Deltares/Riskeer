@@ -148,6 +148,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             set
             {
                 data.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                data.HydraulicBoundaryLocation.NotifyObservers();
                 data.NotifyObservers();
             }
         }

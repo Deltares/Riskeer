@@ -289,8 +289,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 InputParameters =
                 {
@@ -298,7 +297,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 }
             };
 
-            hydraulicBoundaryLocation.Attach(observer);
+            hydraulicBoundaryLocationCalculation.Attach(observer);
 
             var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocationCalculation);
 
