@@ -119,6 +119,11 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             {
                 return SectionResult.TailorMadeAssessmentResult;
             }
+            set
+            {
+                SectionResult.TailorMadeAssessmentResult = value;
+                UpdateInternalData();
+            }
         }
 
         /// <summary>
@@ -136,6 +141,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
+                UpdateInternalData();
             }
         }
 

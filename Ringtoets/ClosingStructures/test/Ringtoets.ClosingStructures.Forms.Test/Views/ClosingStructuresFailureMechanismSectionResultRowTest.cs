@@ -489,27 +489,104 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
+        public void TailorMadeAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var random = new Random(21);
-            double assessmentLayerThree = random.NextDouble();
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
 
-            // Call
-            row.AssessmentLayerThree = assessmentLayerThree;
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
 
-            // Assert
-            Assert.AreEqual(assessmentLayerThree, sectionResult.TailorMadeAssessmentProbability);
-            mocks.VerifyAll();
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection);
+
+                // Call
+                row.TailorMadeAssessmentResult = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.TailorMadeAssessmentResult);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(0.5)]
+        [TestCase(1e-6)]
+        [TestCase(double.NaN)]
+        public void TailorMadeAssessmentProbability_ValidValue_NotifyObserversAndPropertyChanged(double value)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+
+                // Call
+                row.AssessmentLayerThree = value;
+
+                // Assert
+                Assert.AreEqual(value, row.AssessmentLayerThree);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void TailorMadeAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+
+                // Call
+                TestDelegate test = () => row.AssessmentLayerThree = value;
+
+                // Assert
+                const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+                mocks.VerifyAll();
+            }
         }
 
         #endregion
