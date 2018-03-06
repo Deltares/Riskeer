@@ -33,6 +33,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Common.Forms.Test.Helpers
@@ -248,17 +249,9 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, 255, 255, 255)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, 255, 255, 255)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, 255, 255, 255)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, 255, 0, 0)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, 255, 153, 0)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IVv, 204, 192, 218)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIIv, 255, 255, 0)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, 118, 147, 60)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, 0, 255, 0)]
+        [TestCaseSource(typeof(FailureMechanismSectionResultRowTestHelper), nameof(FailureMechanismSectionResultRowTestHelper.CategoryGroupColorCases))]
         public void SetAssemblyCategoryGroupStyle_WithFailureMechanismSectionAssemblyCategoryGroup_UpdatesColumnStyle(
-            FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup, int r, int g, int b)
+            FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup, Color expectedColor)
         {
             // Setup
             var columnStateDefinition = new DataGridViewColumnStateDefinition();
@@ -267,10 +260,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(columnStateDefinition, assemblyCategoryGroup);
 
             // Assert
-            Assert.AreEqual(r, columnStateDefinition.Style.BackgroundColor.R);
-            Assert.AreEqual(g, columnStateDefinition.Style.BackgroundColor.G);
-            Assert.AreEqual(b, columnStateDefinition.Style.BackgroundColor.B);
-            Assert.AreEqual(255, columnStateDefinition.Style.BackgroundColor.A);
+            Assert.AreEqual(expectedColor, columnStateDefinition.Style.BackgroundColor);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), columnStateDefinition.Style.TextColor);
         }
 
