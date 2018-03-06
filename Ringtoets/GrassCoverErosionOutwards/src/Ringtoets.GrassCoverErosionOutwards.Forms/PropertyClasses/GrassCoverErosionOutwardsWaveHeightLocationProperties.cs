@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with a wave height calculation result
     /// for properties panel of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveHeightLocationProperties : HydraulicBoundaryLocationProperties
+    public class GrassCoverErosionOutwardsWaveHeightLocationProperties : HydraulicBoundaryLocationCalculationProperties
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationProperties"/>.

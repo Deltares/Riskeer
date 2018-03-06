@@ -40,14 +40,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public abstract class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocationCalculation>
+    public abstract class HydraulicBoundaryLocationCalculationProperties : ObjectProperties<HydraulicBoundaryLocationCalculation>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+        protected HydraulicBoundaryLocationCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
         {
             if (hydraulicBoundaryLocationCalculation == null)
             {

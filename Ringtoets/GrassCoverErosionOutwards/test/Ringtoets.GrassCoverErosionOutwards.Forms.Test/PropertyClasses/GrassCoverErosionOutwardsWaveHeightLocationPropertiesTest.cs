@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationProperties>(properties);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Data);
         }
 
@@ -253,7 +253,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.AlphaValues));
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationCalculationProperties.AlphaValues));
             PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesIndex];
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
@@ -262,7 +262,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.Durations));
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationCalculationProperties.Durations));
             PropertyDescriptor durationsProperty = dynamicProperties[durationsIndex];
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
@@ -271,7 +271,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, ExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.IllustrationPoints));
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, ExpandableArrayConverter>(nameof(HydraulicBoundaryLocationCalculationProperties.IllustrationPoints));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[illustrationPointsIndex],
                                                                             illustrationPointsCategory,
                                                                             "Illustratiepunten",

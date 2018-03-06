@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with <see cref="DesignWaterLevel"/> for properties panel.
     /// </summary>
-    public class DesignWaterLevelLocationProperties : HydraulicBoundaryLocationProperties
+    public class DesignWaterLevelLocationProperties : HydraulicBoundaryLocationCalculationProperties
     {
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.

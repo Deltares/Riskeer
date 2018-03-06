@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with <see cref="WaveHeight"/> for properties panel.
     /// </summary>
-    public class WaveHeightLocationProperties : HydraulicBoundaryLocationProperties
+    public class WaveHeightLocationProperties : HydraulicBoundaryLocationCalculationProperties
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightLocationProperties"/>.
