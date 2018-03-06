@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public class WaveHeightLocationsProperties : HydraulicBoundaryLocationsProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightLocationProperties"/>.
+        /// Creates a new instance of <see cref="WaveHeightLocationsProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculations">The list of hydraulic boundary location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>

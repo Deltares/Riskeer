@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public class DesignWaterLevelLocationsProperties : HydraulicBoundaryLocationsProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.
+        /// Creates a new instance of <see cref="DesignWaterLevelLocationsProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculations">The list of hydraulic boundary location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
@@ -49,11 +49,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
-        public DesignWaterLevelLocationProperties[] Locations
+        public DesignWaterLevelCalculationProperties[] Locations
         {
             get
             {
-                return data.Select(calculation => new DesignWaterLevelLocationProperties(calculation)).ToArray();
+                return data.Select(calculation => new DesignWaterLevelCalculationProperties(calculation)).ToArray();
             }
         }
     }

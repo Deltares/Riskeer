@@ -41,7 +41,7 @@
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelLocationsProperties.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelLocationProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionProperties.cs" />
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismProperties.cs" />

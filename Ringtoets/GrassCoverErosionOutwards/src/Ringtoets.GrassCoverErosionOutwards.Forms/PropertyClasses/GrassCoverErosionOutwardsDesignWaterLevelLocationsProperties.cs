@@ -39,7 +39,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties : HydraulicBoundaryLocationsProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculations">The hydraulic boundary location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>

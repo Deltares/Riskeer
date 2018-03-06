@@ -91,18 +91,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             });
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelLocationProperties));
+            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelCalculationProperties));
             Assert.AreEqual(1, properties.Locations.Length);
             TestHelper.AssertTypeConverter<DesignWaterLevelLocationsProperties,
                 ExpandableArrayConverter>(nameof(DesignWaterLevelLocationsProperties.Locations));
 
-            DesignWaterLevelLocationProperties designWaterLevelLocationProperties = properties.Locations.First();
-            Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelLocationProperties.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelLocationProperties.Id);
-            Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelLocationProperties.Location);
+            DesignWaterLevelCalculationProperties designWaterLevelCalculationProperties = properties.Locations.First();
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelCalculationProperties.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationProperties.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelCalculationProperties.Location);
 
             RoundedDouble designWaterLevel = hydraulicBoundaryLocationCalculation.Output.Result;
-            Assert.AreEqual(designWaterLevel, designWaterLevelLocationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
+            Assert.AreEqual(designWaterLevel, designWaterLevelCalculationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
         }
     }
 }
