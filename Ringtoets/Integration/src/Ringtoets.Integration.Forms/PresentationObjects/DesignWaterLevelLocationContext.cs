@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocation"/> 
+    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a design water level calculation result.
     /// </summary>
     public class DesignWaterLevelLocationContext : HydraulicBoundaryLocationContext
@@ -33,12 +33,10 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> which the <see cref="DesignWaterLevelLocationContext"/>
-        /// belongs to.</param>
-        /// <param name="calculation">The <see cref="HydraulicBoundaryLocationCalculation"/> at stake.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DesignWaterLevelLocationContext(HydraulicBoundaryLocation wrappedData,
-                                               HydraulicBoundaryLocationCalculation calculation)
-            : base(calculation) {}
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocationCalculation"/> which the
+        /// <see cref="DesignWaterLevelLocationContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        public DesignWaterLevelLocationContext(HydraulicBoundaryLocationCalculation wrappedData)
+            : base(wrappedData) {}
     }
 }

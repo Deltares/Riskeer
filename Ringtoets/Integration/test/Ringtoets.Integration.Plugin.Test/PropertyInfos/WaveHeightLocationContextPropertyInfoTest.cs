@@ -55,14 +55,12 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             double waveHeight = new Random().NextDouble();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 Output = new TestHydraulicBoundaryLocationOutput(waveHeight)
             };
 
-            var context = new WaveHeightLocationContext(hydraulicBoundaryLocation,
-                                                        hydraulicBoundaryLocationCalculation);
+            var context = new WaveHeightLocationContext(hydraulicBoundaryLocationCalculation);
 
             using (var plugin = new RingtoetsPlugin())
             {
