@@ -51,20 +51,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
-
-            // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("propertyIndexes", paramName);
-        }
-
-        [Test]
         public void Constructor_ValidData_ReturnsExpectedValues()
         {
             // Setup
@@ -94,8 +80,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const double x = 567.0;
             const double y = 890.0;
             const string name = "name";
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             var random = new Random(21);
             var topLevelIllustrationPoint =
@@ -115,11 +99,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                     topLevelIllustrationPoint
                 });
 
-            // Call
-            var locationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
-                GeneralResult = generalResult
+                Output = new TestHydraulicBoundaryLocationOutput(generalResult)
             };
+
+            // Call
+            var locationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
             Assert.AreEqual(id, locationProperties.Id);
@@ -171,13 +158,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
+            };
 
             // Call
-            var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation)
-            {
-                GeneralResult = new TestGeneralResultSubMechanismIllustrationPoint()
-            };
+            var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
@@ -238,45 +225,33 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithGeneralIllustrationPointsResultAndDifferentPropertyOrder_PropertiesAreInExpectedOrder()
+        public void Constructor_WithGeneralIllustrationPointsResult_ExpectedProperties()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
-
-            // Call
-            var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(
-                hydraulicBoundaryLocationCalculation,
-                new HydraulicBoundaryLocationProperties.ConstructionProperties
-                {
-                    IllustrationPointsIndex = 1,
-                    IdIndex = 2,
-                    NameIndex = 3,
-                    LocationIndex = 4,
-                    GoverningWindDirectionIndex = 5,
-                    StochastsIndex = 6,
-                    DurationsIndex = 7
-                })
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
-                GeneralResult = new TestGeneralResultSubMechanismIllustrationPoint()
+                Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
             };
 
-            // Assert
+            // Call
+            var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
 
+            // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(hydraulicBoundaryLocationProperties);
             Assert.AreEqual(7, dynamicProperties.Count);
 
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.IllustrationPoints), dynamicProperties[0].Name);
             Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Id), dynamicProperties[1].Name);
             Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Name), dynamicProperties[2].Name);
             Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Location), dynamicProperties[3].Name);
             Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.GoverningWindDirection), dynamicProperties[4].Name);
             Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.AlphaValues), dynamicProperties[5].Name);
             Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Durations), dynamicProperties[6].Name);
+            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.IllustrationPoints), dynamicProperties[0].Name);
         }
 
         [Test]
-        public void Constructor_WithoutGeneralIllustrationPointsResult_PropertiesAreInExpectedOrder()
+        public void Constructor_WithoutGeneralIllustrationPointsResult_ExpectedProperties()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
@@ -296,19 +271,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
         private class TestHydraulicBoundaryLocationProperties : HydraulicBoundaryLocationProperties
         {
-            public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult;
-
             public TestHydraulicBoundaryLocationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-                : base(hydraulicBoundaryLocationCalculation, new ConstructionProperties()) {}
-
-            public TestHydraulicBoundaryLocationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                           ConstructionProperties propertyIndexes)
-                : base(hydraulicBoundaryLocationCalculation, propertyIndexes) {}
-
-            protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
-            {
-                return GeneralResult;
-            }
+                : base(hydraulicBoundaryLocationCalculation) {}
         }
     }
 }
