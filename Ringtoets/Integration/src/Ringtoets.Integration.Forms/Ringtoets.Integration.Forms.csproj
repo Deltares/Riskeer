@@ -46,7 +46,7 @@
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\ReferenceLineProperties.cs" />
-    <Compile Include="PropertyClasses\WaveHeightLocationProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectProperties.cs" />
     <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

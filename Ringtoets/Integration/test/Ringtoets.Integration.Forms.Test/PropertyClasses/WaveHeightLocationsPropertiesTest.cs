@@ -91,18 +91,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             });
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(WaveHeightLocationProperties));
+            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(WaveHeightCalculationProperties));
             Assert.AreEqual(1, properties.Locations.Length);
             TestHelper.AssertTypeConverter<WaveHeightLocationsProperties,
                 ExpandableArrayConverter>(nameof(WaveHeightLocationsProperties.Locations));
 
-            WaveHeightLocationProperties waveHeightLocationProperties = properties.Locations.First();
-            Assert.AreEqual(hydraulicBoundaryLocation.Name, waveHeightLocationProperties.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightLocationProperties.Id);
-            Assert.AreEqual(hydraulicBoundaryLocation.Location, waveHeightLocationProperties.Location);
+            WaveHeightCalculationProperties waveHeightCalculationProperties = properties.Locations.First();
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, waveHeightCalculationProperties.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationProperties.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Location, waveHeightCalculationProperties.Location);
 
             RoundedDouble waveHeight = hydraulicBoundaryLocationCalculation.Output.Result;
-            Assert.AreEqual(waveHeight, waveHeightLocationProperties.WaveHeight, waveHeight.GetAccuracy());
+            Assert.AreEqual(waveHeight, waveHeightCalculationProperties.WaveHeight, waveHeight.GetAccuracy());
         }
     }
 }

@@ -49,11 +49,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
-        public WaveHeightLocationProperties[] Locations
+        public WaveHeightCalculationProperties[] Locations
         {
             get
             {
-                return data.Select(calculation => new WaveHeightLocationProperties(calculation)).ToArray();
+                return data.Select(calculation => new WaveHeightCalculationProperties(calculation)).ToArray();
             }
         }
     }

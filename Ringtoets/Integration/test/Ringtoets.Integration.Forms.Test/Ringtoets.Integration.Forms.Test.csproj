@@ -58,7 +58,7 @@
     <Compile Include="PropertyClasses\DesignWaterLevelLocationsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveHeightLocationPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
