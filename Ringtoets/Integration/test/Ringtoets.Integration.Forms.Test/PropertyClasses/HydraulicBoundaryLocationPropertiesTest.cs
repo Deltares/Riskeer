@@ -22,16 +22,17 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
-using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -39,6 +40,20 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class HydraulicBoundaryLocationPropertiesTest
     {
+        private const int idPropertyIndex = 0;
+        private const int namePropertyIndex = 1;
+        private const int coordinatesPropertyIndex = 2;
+        private const int targetProbabilityPropertyIndex = 3;
+        private const int targetReliabilityPropertyIndex = 4;
+        private const int calculatedProbabilityPropertyIndex = 5;
+        private const int calculatedReliabilityPropertyIndex = 6;
+        private const int convergencePropertyIndex = 7;
+        private const int shouldCalculateIllustrationPointsIndex = 8;
+        private const int governingWindDirectionIndex = 9;
+        private const int alphaValuesIndex = 10;
+        private const int durationsIndex = 11;
+        private const int illustrationPointsIndex = 12;
+
         [Test]
         public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
         {
@@ -51,86 +66,276 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ValidData_ReturnsExpectedValues()
+        public void Constructor_WithoutGeneralIllustrationPointsResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            // Call
+            var properties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
+
+            // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(9, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+            const string resultCategory = "Resultaat";
+            const string illustrationPointsCategory = "Illustratiepunten";
+
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
+                                                                            generalCategory,
+                                                                            "ID",
+                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
+                                                                            true);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
+
+            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
+                                                                            generalCategory,
+                                                                            "Coördinaten [m]",
+                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
+
+            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
+                                                                            resultCategory,
+                                                                            "Doelkans [1/jaar]",
+                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
+                                                                            resultCategory,
+                                                                            "Betrouwbaarheidsindex doelkans [-]",
+                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[calculatedProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
+                                                                            resultCategory,
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[calculatedReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
+                                                                            resultCategory,
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
+                                                                            resultCategory,
+                                                                            "Convergentie",
+                                                                            "Is convergentie bereikt in de toetspeil berekening?",
+                                                                            true);
+
+            PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculateIllustrationPointsProperty,
+                                                                            illustrationPointsCategory,
+                                                                            "Illustratiepunten inlezen",
+                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
+        }
+
+        [Test]
+        public void Constructor_WithGeneralIllustrationPointsResult_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            // Call
+            var properties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
+
+            // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(13, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+            const string resultCategory = "Resultaat";
+            const string illustrationPointsCategory = "Illustratiepunten";
+
+            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
+                                                                            generalCategory,
+                                                                            "ID",
+                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
+                                                                            true);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
+
+            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
+                                                                            generalCategory,
+                                                                            "Coördinaten [m]",
+                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
+                                                                            true);
+
+            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
+                                                                            resultCategory,
+                                                                            "Doelkans [1/jaar]",
+                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
+                                                                            resultCategory,
+                                                                            "Betrouwbaarheidsindex doelkans [-]",
+                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
+                                                                            true);
+
+            PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[calculatedProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
+                                                                            resultCategory,
+                                                                            "Berekende kans [1/jaar]",
+                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[calculatedReliabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
+                                                                            resultCategory,
+                                                                            "Betrouwbaarheidsindex berekende kans [-]",
+                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
+                                                                            true);
+
+            PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
+                                                                            resultCategory,
+                                                                            "Convergentie",
+                                                                            "Is convergentie bereikt in de toetspeil berekening?",
+                                                                            true);
+
+            PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculateIllustrationPointsProperty,
+                                                                            illustrationPointsCategory,
+                                                                            "Illustratiepunten inlezen",
+                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[governingWindDirectionIndex],
+                                                                            illustrationPointsCategory,
+                                                                            "Maatgevende windrichting",
+                                                                            "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
+                                                                            true);
+
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.AlphaValues));
+            PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesIndex];
+            Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
+                                                                            illustrationPointsCategory,
+                                                                            "Invloedscoëfficiënten [-]",
+                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
+                                                                            true);
+
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.Durations));
+            PropertyDescriptor durationsProperty = dynamicProperties[durationsIndex];
+            Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
+                                                                            illustrationPointsCategory,
+                                                                            "Tijdsduren [uur]",
+                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
+                                                                            true);
+
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, ExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.IllustrationPoints));
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[illustrationPointsIndex],
+                                                                            illustrationPointsCategory,
+                                                                            "Illustratiepunten",
+                                                                            "De lijst van illustratiepunten voor de berekening.",
+                                                                            true);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetProperties_ValidData_ReturnsExpectedValues(bool withIllustrationPoints)
+        {
+            // Setup
+            var random = new Random();
             const long id = 1234L;
             const double x = 567.0;
             const double y = 890.0;
             const string name = "<some name>";
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+            double targetProbability = random.NextDouble();
+            double targetReliability = random.NextDouble();
+            double calculatedProbability = random.NextDouble();
+            double calculatedReliability = random.NextDouble();
+            double result = random.NextDouble();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
-            // Call
-            HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
+            var illustrationPoints = new[]
+            {
+                new TopLevelSubMechanismIllustrationPoint(new WindDirection("WEST", 4), "sluit", new TestSubMechanismIllustrationPoint())
+            };
+            var stochasts = new[]
+            {
+                new Stochast("a", 2, 3)
+            };
+            const string governingWindDirection = "EAST";
+            GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult =
+                withIllustrationPoints
+                    ? new GeneralResult<TopLevelSubMechanismIllustrationPoint>(new WindDirection(governingWindDirection, 2),
+                                                                               stochasts,
+                                                                               illustrationPoints)
+                    : null;
 
-            // Assert
-            Assert.AreEqual(id, hydraulicBoundaryLocationProperties.Id);
-            Assert.AreEqual(name, hydraulicBoundaryLocationProperties.Name);
-            var coordinates = new Point2D(x, y);
-            Assert.AreEqual(coordinates, hydraulicBoundaryLocationProperties.Location);
-        }
-
-        [Test]
-        public void Constructor_ValidDataWithGeneralResult_ReturnsExpectedValues()
-        {
-            // Setup
-            const long id = 1;
-            const double x = 567.0;
-            const double y = 890.0;
-            const string name = "name";
-
-            var random = new Random(21);
-            var topLevelIllustrationPoint =
-                new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection("Wind direction name"),
-                                                          "closing situation",
-                                                          new TestSubMechanismIllustrationPoint());
-
-            var stochast = new Stochast("stochastName",
-                                        random.NextDouble(),
-                                        random.NextDouble());
-            var generalResult = new GeneralResult<TopLevelSubMechanismIllustrationPoint>(
-                WindDirectionTestFactory.CreateTestWindDirection("Governing Wind Direction Name"), new[]
-                {
-                    stochast
-                }, new[]
-                {
-                    topLevelIllustrationPoint
-                });
+            var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(result,
+                                                                                      targetProbability,
+                                                                                      targetReliability,
+                                                                                      calculatedProbability,
+                                                                                      calculatedReliability,
+                                                                                      convergence,
+                                                                                      generalResult);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
-                Output = new TestHydraulicBoundaryLocationOutput(generalResult)
+                Output = hydraulicBoundaryLocationOutput
             };
 
             // Call
-            var locationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
+            var properties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.AreEqual(id, locationProperties.Id);
-            Assert.AreEqual(name, locationProperties.Name);
+            Assert.AreEqual(id, properties.Id);
+            Assert.AreEqual(name, properties.Name);
             var coordinates = new Point2D(x, y);
-            Assert.AreEqual(coordinates, locationProperties.Location);
+            Assert.AreEqual(coordinates, properties.Location);
 
-            Assert.AreEqual(generalResult.GoverningWindDirection.Name, locationProperties.GoverningWindDirection);
-            CollectionAssert.AreEqual(generalResult.Stochasts, locationProperties.AlphaValues);
-            CollectionAssert.AreEqual(generalResult.Stochasts, locationProperties.Durations);
+            Assert.AreEqual(targetProbability, properties.TargetProbability);
+            Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
+            Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
+            Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
 
-            TopLevelSubMechanismIllustrationPointProperties topLevelProperties =
-                locationProperties.IllustrationPoints.Single();
-            SubMechanismIllustrationPoint subMechanismIllustrationPoint = topLevelIllustrationPoint.SubMechanismIllustrationPoint;
-            Assert.AreEqual(subMechanismIllustrationPoint.Name, topLevelProperties.Name);
-            Assert.AreEqual(topLevelIllustrationPoint.WindDirection.Name, topLevelProperties.WindDirection);
-            Assert.AreEqual(topLevelIllustrationPoint.ClosingSituation, topLevelProperties.ClosingSituation);
-            Assert.AreEqual(subMechanismIllustrationPoint.Beta, topLevelProperties.CalculatedReliability);
-            double expectedProbability = StatisticsConverter.ReliabilityToProbability(
-                subMechanismIllustrationPoint.Beta);
-            Assert.AreEqual(expectedProbability, topLevelProperties.CalculatedProbability);
-            CollectionAssert.AreEqual(subMechanismIllustrationPoint.Stochasts, topLevelProperties.AlphaValues);
-            CollectionAssert.AreEqual(subMechanismIllustrationPoint.Stochasts, topLevelProperties.Durations);
-            Assert.AreSame(subMechanismIllustrationPoint, topLevelProperties.SubMechanismIllustrationPointValues.Data);
+            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+            Assert.AreEqual(convergenceValue, properties.Convergence);
+
+            if (withIllustrationPoints)
+            {
+                GeneralResult<TopLevelSubMechanismIllustrationPoint> expectedGeneralResult = hydraulicBoundaryLocationOutput.GeneralResult;
+                CollectionAssert.AreEqual(expectedGeneralResult.Stochasts, properties.AlphaValues);
+                CollectionAssert.AreEqual(expectedGeneralResult.Stochasts, properties.Durations);
+                CollectionAssert.AreEqual(expectedGeneralResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(ip => ip.Data));
+                Assert.AreEqual(expectedGeneralResult.GoverningWindDirection.Name, properties.GoverningWindDirection);
+            }
         }
 
         [Test]
@@ -154,119 +359,32 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithGeneralIllustrationPointsResult_PropertiesHaveExpectedAttributesValues()
+        public void ShouldIllustrationPointsBeCalculated_SetNewValue_NotifyObservers()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
+                InputParameters =
+                {
+                    ShouldIllustrationPointsBeCalculated = false
+                }
             };
 
-            // Call
-            var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
+            hydraulicBoundaryLocationCalculation.Attach(observer);
 
-            // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
-
-            const string generalCategory = "Algemeen";
-            const string illustrationPointsCategory = "Illustratiepunten";
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(hydraulicBoundaryLocationProperties);
-            Assert.AreEqual(7, dynamicProperties.Count);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[0],
-                                                                            generalCategory,
-                                                                            "ID",
-                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
-                                                                            true);
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[1],
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
-                                                                            true);
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[2],
-                                                                            generalCategory,
-                                                                            "Coördinaten [m]",
-                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
-                                                                            true);
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[3],
-                                                                            illustrationPointsCategory,
-                                                                            "Maatgevende windrichting",
-                                                                            "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
-                                                                            true);
-
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.AlphaValues));
-            PropertyDescriptor alphaValuesProperty = dynamicProperties[4];
-            Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
-                                                                            illustrationPointsCategory,
-                                                                            "Invloedscoëfficiënten [-]",
-                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
-                                                                            true);
-
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.Durations));
-            PropertyDescriptor durationsProperty = dynamicProperties[5];
-            Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
-                                                                            illustrationPointsCategory,
-                                                                            "Tijdsduren [uur]",
-                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
-                                                                            true);
-
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, ExpandableArrayConverter>(nameof(HydraulicBoundaryLocationProperties.IllustrationPoints));
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[6],
-                                                                            illustrationPointsCategory,
-                                                                            "Illustratiepunten",
-                                                                            "De lijst van illustratiepunten voor de berekening.",
-                                                                            true);
-        }
-
-        [Test]
-        public void Constructor_WithGeneralIllustrationPointsResult_ExpectedProperties()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            {
-                Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
-            };
+            var properties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Call
-            var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
+            properties.ShouldIllustrationPointsBeCalculated = true;
 
             // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(hydraulicBoundaryLocationProperties);
-            Assert.AreEqual(7, dynamicProperties.Count);
-
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Id), dynamicProperties[1].Name);
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Name), dynamicProperties[2].Name);
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Location), dynamicProperties[3].Name);
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.GoverningWindDirection), dynamicProperties[4].Name);
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.AlphaValues), dynamicProperties[5].Name);
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Durations), dynamicProperties[6].Name);
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.IllustrationPoints), dynamicProperties[0].Name);
-        }
-
-        [Test]
-        public void Constructor_WithoutGeneralIllustrationPointsResult_ExpectedProperties()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
-
-            // Call
-            var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(hydraulicBoundaryLocationProperties);
-            Assert.AreEqual(3, dynamicProperties.Count);
-
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Id), dynamicProperties[0].Name);
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Name), dynamicProperties[1].Name);
-            Assert.AreEqual(nameof(HydraulicBoundaryLocationProperties.Location), dynamicProperties[2].Name);
+            Assert.IsTrue(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            mocks.VerifyAll();
         }
 
         private class TestHydraulicBoundaryLocationProperties : HydraulicBoundaryLocationProperties
