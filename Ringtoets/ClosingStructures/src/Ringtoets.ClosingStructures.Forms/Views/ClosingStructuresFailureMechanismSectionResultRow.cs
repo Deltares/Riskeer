@@ -181,6 +181,41 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         }
 
         /// <summary>
+        /// Gets or sets the indicator whether the combined assembly probability
+        /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
+        /// </summary>
+        public bool UseManualAssemblyProbability
+        {
+            get
+            {
+                return SectionResult.UseManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.UseManualAssemblyProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the manually entered assembly probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
+        /// not in the range [0,1].</exception>
+        public double ManualAssemblyProbability
+        {
+            get
+            {
+                return SectionResult.ManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.ManualAssemblyProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
         /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
         /// <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>

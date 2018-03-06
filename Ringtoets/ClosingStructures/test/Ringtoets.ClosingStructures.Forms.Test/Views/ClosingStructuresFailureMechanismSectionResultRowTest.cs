@@ -155,6 +155,106 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
+        public void UseManualAssemblyProbability_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+                bool originalValue = result.UseManualAssemblyProbability;
+                bool newValue = !originalValue;
+
+                // Call
+                row.UseManualAssemblyProbability = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.UseManualAssemblyProbability);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(0.5)]
+        [TestCase(1e-6)]
+        [TestCase(double.NaN)]
+        public void ManualAssemblyProbability_ValidValue_NotifyObserversAndPropertyChanged(double value)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+
+                // Call
+                row.ManualAssemblyProbability = value;
+
+                // Assert
+                Assert.AreEqual(value, row.ManualAssemblyProbability);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void ManualAssemblyProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, new ClosingStructuresFailureMechanism(), assessmentSection);
+
+                // Call
+                TestDelegate test = () => row.ManualAssemblyProbability = value;
+
+                // Assert
+                const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void SimpleAssessmentResult_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged()
         {
             // Setup
