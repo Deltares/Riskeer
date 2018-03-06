@@ -127,56 +127,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        [TestCase(SimpleAssessmentResultType.NotApplicable)]
-        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
-        public void FailureMechanismResultsView_ChangeSimpleAssessmentResult_DataGridViewCorrectlySyncedAndStylingSet(
-            SimpleAssessmentResultType simpleAssessmentResult)
-        {
-            // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[simpleAssessmentIndex].Value = simpleAssessmentResult;
-
-                // Assert
-                DataGridViewRowCollection rows = dataGridView.Rows;
-
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                DataGridViewCell cellDetailedAssessment = cells[detailedAssessmentIndex];
-                DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
-                DataGridViewCell dataGridViewCell = cells[simpleAssessmentIndex];
-
-                Assert.AreEqual(simpleAssessmentResult, dataGridViewCell.Value);
-                Assert.AreEqual("-", cellDetailedAssessment.FormattedValue);
-                Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-
-                if (simpleAssessmentResult == SimpleAssessmentResultType.NotApplicable
-                    || simpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible)
-                {
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellDetailedAssessment);
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
-
-                    Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
-                }
-                else
-                {
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellDetailedAssessment, true);
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
-
-                    Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
-                }
-            }
-        }
-
-        [Test]
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
@@ -276,7 +226,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result3.TailorMadeAssessmentProbability),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
 
                 cells = rows[3].Cells;
@@ -287,81 +237,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(result4.TailorMadeAssessmentProbability),
                                 cells[assessmentLayerThreeIndex].FormattedValue);
 
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
+                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex]);
                 DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultType.None, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_RowsForSectionDisabled(None)")]
-        [TestCase(SimpleAssessmentResultType.AssessFurther, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_RowsForSectionDisabled(AssessFurther)")]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_ThenRowsForSectionDisabled(
-            SimpleAssessmentResultType simpleAssessmentResult)
-        {
-            // Given
-            var random = new Random(21);
-            var result = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = simpleAssessmentResult,
-                TailorMadeAssessmentProbability = random.NextDouble()
-            };
-
-            using (ShowFailureMechanismResultsView(new ObservableList<ClosingStructuresFailureMechanismSectionResult>
-            {
-                result
-            }))
-            {
-                // When
-                result.SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable;
-                result.NotifyObservers();
-
-                // Then
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(1, rows.Count);
-
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultType.None, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesProbabilityNegligibleAndListenersNotified_RowsForSectionDisabled(None)")]
-        [TestCase(SimpleAssessmentResultType.AssessFurther, TestName = "FormWithFailureMechanismResultView_WhenSectionBecomesProbabilityNegligibleAndListenersNotified_RowsForSectionDisabled(AssessFurther)")]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionBecomesProbabilityNegligibleAndListenersNotified_ThenRowsForSectionDisabled(
-            SimpleAssessmentResultType simpleAssessmentResult)
-        {
-            // Given
-            var random = new Random(21);
-            var result = new ClosingStructuresFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = simpleAssessmentResult,
-                TailorMadeAssessmentProbability = random.NextDouble()
-            };
-
-            using (ShowFailureMechanismResultsView(new ObservableList<ClosingStructuresFailureMechanismSectionResult>
-            {
-                result
-            }))
-            {
-                // When
-                result.SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible;
-                result.NotifyObservers();
-
-                // Then
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(1, rows.Count);
-
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
             }
         }
 
