@@ -113,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(1, properties.Locations.Length);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationsProperties, ExpandableArrayConverter>(
                 nameof(GrassCoverErosionOutwardsWaveHeightLocationsProperties.Locations));
-            GrassCoverErosionOutwardsWaveHeightLocationProperties locationProperties = properties.Locations.First();
+            GrassCoverErosionOutwardsWaveHeightCalculationProperties locationProperties = properties.Locations.First();
             Assert.AreEqual(hydraulicBoundaryLocation.Name, locationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, locationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, locationProperties.Location);

@@ -39,7 +39,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightCalculationProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationsProperties.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismView.cs">
       <SubType>UserControl</SubType>

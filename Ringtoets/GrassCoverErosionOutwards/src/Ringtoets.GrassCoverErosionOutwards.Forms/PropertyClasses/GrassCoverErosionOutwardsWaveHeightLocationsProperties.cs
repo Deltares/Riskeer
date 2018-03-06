@@ -50,11 +50,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_Description))]
-        public GrassCoverErosionOutwardsWaveHeightLocationProperties[] Locations
+        public GrassCoverErosionOutwardsWaveHeightCalculationProperties[] Locations
         {
             get
             {
-                return data.Select(calculation => new GrassCoverErosionOutwardsWaveHeightLocationProperties(calculation)).ToArray();
+                return data.Select(calculation => new GrassCoverErosionOutwardsWaveHeightCalculationProperties(calculation)).ToArray();
             }
         }
     }
