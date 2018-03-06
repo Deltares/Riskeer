@@ -161,5 +161,23 @@ namespace Ringtoets.AssemblyTool.Forms.Properties {
                 return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;selecteer&gt;.
+        /// </summary>
+        internal static string SelectableFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName {
+            get {
+                return ResourceManager.GetString("SelectableFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NVT.
+        /// </summary>
+        internal static string SelectableFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName {
+            get {
+                return ResourceManager.GetString("SelectableFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName", resourceCulture);
+            }
+        }
     }
 }

@@ -144,4 +144,10 @@
   <data name="FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName" xml:space="preserve">
     <value>Vv</value>
   </data>
+  <data name="SelectableFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName" xml:space="preserve">
+    <value>&lt;selecteer&gt;</value>
+  </data>
+  <data name="SelectableFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName" xml:space="preserve">
+    <value>NVT</value>
+  </data>
 </root>
