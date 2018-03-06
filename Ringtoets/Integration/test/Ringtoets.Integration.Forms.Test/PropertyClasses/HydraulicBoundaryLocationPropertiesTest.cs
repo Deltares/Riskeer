@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
@@ -47,12 +46,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const int targetReliabilityPropertyIndex = 4;
         private const int calculatedProbabilityPropertyIndex = 5;
         private const int calculatedReliabilityPropertyIndex = 6;
-        private const int convergencePropertyIndex = 7;
-        private const int shouldCalculateIllustrationPointsIndex = 8;
-        private const int governingWindDirectionIndex = 9;
-        private const int alphaValuesIndex = 10;
-        private const int durationsIndex = 11;
-        private const int illustrationPointsIndex = 12;
+        private const int shouldCalculateIllustrationPointsIndex = 7;
+        private const int governingWindDirectionIndex = 8;
+        private const int alphaValuesIndex = 9;
+        private const int durationsIndex = 10;
+        private const int illustrationPointsIndex = 11;
 
         [Test]
         public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
@@ -79,7 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string resultCategory = "Resultaat";
@@ -132,13 +130,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             resultCategory,
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
                                                                             "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
-                                                                            true);
-
-            PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
-                                                                            resultCategory,
-                                                                            "Convergentie",
-                                                                            "Is convergentie bereikt in de toetspeil berekening?",
                                                                             true);
 
             PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
@@ -152,7 +143,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_WithGeneralIllustrationPointsResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
+            };
 
             // Call
             var properties = new TestHydraulicBoundaryLocationProperties(hydraulicBoundaryLocationCalculation);
@@ -162,7 +156,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(13, dynamicProperties.Count);
+            Assert.AreEqual(12, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string resultCategory = "Resultaat";
@@ -215,13 +209,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             resultCategory,
                                                                             "Betrouwbaarheidsindex berekende kans [-]",
                                                                             "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
-                                                                            true);
-
-            PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
-                                                                            resultCategory,
-                                                                            "Convergentie",
-                                                                            "Is convergentie bereikt in de toetspeil berekening?",
                                                                             true);
 
             PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
@@ -324,9 +311,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
-
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
-            Assert.AreEqual(convergenceValue, properties.Convergence);
 
             if (withIllustrationPoints)
             {

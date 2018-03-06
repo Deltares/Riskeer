@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
+using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -54,6 +55,20 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 return data.Output?.Result ?? RoundedDouble.NaN;
+            }
+        }
+
+        [PropertyOrder(9)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Convergence_WaveHeight_Description))]
+        public string Convergence
+        {
+            get
+            {
+                CalculationConvergence convergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+
+                return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             }
         }
     }

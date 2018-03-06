@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -157,7 +158,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_WithGeneralIllustrationPointsResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
+            };
 
             // Call
             var properties = new DesignWaterLevelLocationProperties(hydraulicBoundaryLocationCalculation);
@@ -280,13 +284,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             var random = new Random();
             double designWaterLevel = random.NextDouble();
+            var convergence = random.NextEnumValue<CalculationConvergence>();
 
             var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(designWaterLevel,
                                                                                       random.NextDouble(),
                                                                                       random.NextDouble(),
                                                                                       random.NextDouble(),
                                                                                       random.NextDouble(),
-                                                                                      random.NextEnumValue<CalculationConvergence>(),
+                                                                                      convergence,
                                                                                       new TestGeneralResultSubMechanismIllustrationPoint());
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
@@ -299,6 +304,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.DesignWaterLevel, hydraulicBoundaryLocationCalculation.Output.Result.GetAccuracy());
+
+            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+            Assert.AreEqual(convergenceValue, properties.Convergence);
         }
     }
 }

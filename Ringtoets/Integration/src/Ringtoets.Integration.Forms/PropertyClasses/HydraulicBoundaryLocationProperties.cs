@@ -28,13 +28,11 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
@@ -145,20 +143,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 return data.Output?.CalculatedReliability ?? RoundedDouble.NaN;
-            }
-        }
-
-        [PropertyOrder(9)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Convergence_WaveHeight_Description))]
-        public string Convergence
-        {
-            get
-            {
-                CalculationConvergence convergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
-
-                return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             }
         }
 
