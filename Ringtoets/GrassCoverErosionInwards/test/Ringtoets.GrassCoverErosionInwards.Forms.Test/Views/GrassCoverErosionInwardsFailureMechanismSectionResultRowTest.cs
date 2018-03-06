@@ -962,7 +962,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Update_SectionResultWithManualAssemblyAndNotCalculation_DetailedAssessmentProbabilityNoError()
+        public void Update_SectionResultWithManualAssemblyAndNotCalculated_DetailedAssessmentProbabilityNoError()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -993,7 +993,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Update_SectionResultWithDetailedAssessmentNotAssessedAndNotCalculation_DetailedAssessmentProbabilityNoError()
+        public void Update_SectionResultWithDetailedAssessmentNotAssessedAndNotCalculated_DetailedAssessmentProbabilityNoError()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
