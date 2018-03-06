@@ -179,7 +179,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
-                Assert.AreEqual(result.TailorMadeAssessmentProbability, row.AssessmentLayerThree);
+                Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
                 Assert.AreEqual(result.UseManualAssemblyProbability, row.UseManualAssemblyProbability);
                 Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex],
@@ -188,7 +188,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                     nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
                 TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerThree));
+                    nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
                 TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                     nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
                 mocks.VerifyAll();
@@ -1203,10 +1203,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
-                row.AssessmentLayerThree = value;
+                row.TailorMadeAssessmentProbability = value;
 
                 // Assert
-                Assert.AreEqual(value, row.AssessmentLayerThree);
+                Assert.AreEqual(value, row.TailorMadeAssessmentProbability);
                 mocks.VerifyAll();
             }
         }
@@ -1235,7 +1235,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
-                TestDelegate test = () => row.AssessmentLayerThree = value;
+                TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
 
                 // Assert
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";

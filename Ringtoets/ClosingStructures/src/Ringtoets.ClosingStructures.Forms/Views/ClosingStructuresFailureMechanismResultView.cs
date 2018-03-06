@@ -155,7 +155,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName);
             DataGridViewControl.AddTextBoxColumn(
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
         }
 
