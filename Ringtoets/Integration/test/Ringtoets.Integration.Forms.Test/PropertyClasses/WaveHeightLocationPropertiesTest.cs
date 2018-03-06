@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
@@ -54,7 +55,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveHeightLocationProperties(new TestHydraulicBoundaryLocation(), null);
+            TestDelegate test = () => new WaveHeightLocationProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -65,15 +66,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
+            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationProperties>(properties);
-            Assert.AreSame(hydraulicBoundaryLocation, properties.Data);
+            Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Data);
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Call
-            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
+            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocation.Id, properties.Id);
@@ -164,12 +164,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
+            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, properties.Id);
-            Assert.AreEqual(hydraulicBoundaryLocation.Name, properties.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation.Location, properties.Location);
+            Assert.AreEqual(id, properties.Id);
+            Assert.AreEqual(name, properties.Name);
+            var coordinates = new Point2D(x, y);
+            Assert.AreEqual(coordinates, properties.Location);
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.WaveHeight, hydraulicBoundaryLocationCalculation.Output.Result.GetAccuracy());
 
             Assert.AreEqual(targetProbability, properties.TargetProbability);
@@ -194,11 +195,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
+            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
@@ -300,7 +300,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             hydraulicBoundaryLocation.Attach(observer);
 
-            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation);
+            var properties = new WaveHeightLocationProperties(hydraulicBoundaryLocationCalculation);
 
             // Call
             properties.ShouldIllustrationPointsBeCalculated = true;
