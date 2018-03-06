@@ -451,6 +451,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         private static void AssertColumnWithColorState(DataGridViewColumnStateDefinition columnStateDefinition,
                                                        Color expectedBackgroundColor)
         {
+            Assert.IsTrue(columnStateDefinition.ReadOnly);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), columnStateDefinition.Style.TextColor);
             Assert.AreEqual(expectedBackgroundColor, columnStateDefinition.Style.BackgroundColor);
         }
