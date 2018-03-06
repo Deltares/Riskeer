@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
@@ -108,6 +109,74 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             get
             {
                 return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
+            }
+        }
+
+        /// <summary>
+        /// Gets the simple assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup
+        {
+            get
+            {
+                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets the detailed assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup
+        {
+            get
+            {
+                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(SectionResult,
+                                                                                                              failureMechanism,
+                                                                                                              assessmentSection)
+                                                                                    .Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets the tailor made assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup
+        {
+            get
+            {
+                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(SectionResult,
+                                                                                                                failureMechanism,
+                                                                                                                assessmentSection)
+                                                                                    .Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets the combined assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup
+        {
+            get
+            {
+                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(SectionResult,
+                                                                                                              failureMechanism,
+                                                                                                              assessmentSection)
+                                                                                    .Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets the combined assembly probability.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double CombinedAssemblyProbability
+        {
+            get
+            {
+                return ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(SectionResult,
+                                                                                                              failureMechanism,
+                                                                                                              assessmentSection)
+                                                                                    .Probability;
             }
         }
 
