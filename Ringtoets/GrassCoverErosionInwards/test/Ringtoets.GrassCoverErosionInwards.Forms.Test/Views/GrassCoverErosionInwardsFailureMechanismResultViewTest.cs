@@ -184,10 +184,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, cells[simpleAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, cells[detailedAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, cells[tailorMadeAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, cells[combinedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("", cells[detailedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("", cells[combinedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("-", cells[combinedAssemblyProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useManualAssemblyProbabilityIndex].Value);
                 Assert.AreEqual("-", cells[manualAssemblyProbabilityIndex].FormattedValue);
