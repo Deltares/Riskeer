@@ -64,6 +64,7 @@
     <Compile Include="PropertyClasses\FailureMechanismSectionsProbabilityAssessmentProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationsProperties.cs" />
     <Compile Include="PropertyClasses\IllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointValuesProperties.cs" />

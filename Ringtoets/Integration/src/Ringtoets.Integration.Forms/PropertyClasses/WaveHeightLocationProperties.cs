@@ -26,6 +26,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
