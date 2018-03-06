@@ -34,21 +34,17 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with <see cref="DesignWaterLevel"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with <see cref="DesignWaterLevel"/> for properties panel.
     /// </summary>
     public class DesignWaterLevelLocationProperties : HydraulicBoundaryLocationProperties
     {
-        private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
-
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
-        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation at stake.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DesignWaterLevelLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                  HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-            : base(hydraulicBoundaryLocation,
+        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
+        public DesignWaterLevelLocationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+            : base(hydraulicBoundaryLocationCalculation,
                    new ConstructionProperties
                    {
                        IdIndex = 1,
@@ -58,15 +54,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                        StochastsIndex = 12,
                        DurationsIndex = 13,
                        IllustrationPointsIndex = 14
-                   })
-        {
-            if (hydraulicBoundaryLocationCalculation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
-            }
-
-            this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
-        }
+                   }) {}
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
@@ -77,7 +65,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.Result ?? RoundedDouble.NaN;
+                return data.Output?.Result ?? RoundedDouble.NaN;
             }
         }
 
@@ -90,7 +78,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.TargetProbability ?? double.NaN;
+                return data.Output?.TargetProbability ?? double.NaN;
             }
         }
 
@@ -103,7 +91,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.TargetReliability ?? RoundedDouble.NaN;
+                return data.Output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -116,7 +104,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.CalculatedProbability ?? double.NaN;
+                return data.Output?.CalculatedProbability ?? double.NaN;
             }
         }
 
@@ -129,7 +117,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.CalculatedReliability ?? RoundedDouble.NaN;
+                return data.Output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -141,7 +129,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                CalculationConvergence calculationConvergence = hydraulicBoundaryLocationCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+                CalculationConvergence calculationConvergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
 
                 return new EnumDisplayWrapper<CalculationConvergence>(calculationConvergence).DisplayName;
             }
@@ -155,21 +143,20 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                return data.InputParameters.ShouldIllustrationPointsBeCalculated;
             }
             set
             {
-                hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                data.InputParameters.ShouldIllustrationPointsBeCalculated = value;
                 data.NotifyObservers();
             }
         }
 
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            if (hydraulicBoundaryLocationCalculation.HasOutput
-                && hydraulicBoundaryLocationCalculation.Output.HasGeneralResult)
+            if (data.HasOutput && data.Output.HasGeneralResult)
             {
-                return hydraulicBoundaryLocationCalculation.Output.GeneralResult;
+                return data.Output.GeneralResult;
             }
 
             return null;
