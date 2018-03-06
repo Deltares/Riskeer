@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 
@@ -53,10 +55,54 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(sectionResult.Section.Name, row.Name);
             CollectionAssert.IsEmpty(row.ColumnStateDefinitions);
         }
+
+        [Test]
+        public void UpdateInternalData_Always_UpdatesDataAndFiresEventsAndNotifiesObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            sectionResult.Attach(observer);
+
+            var row = new TestFailureMechanismSectionResultRow(sectionResult);
+            var rowUpdated = false;
+            row.RowUpdated += (sender, args) => rowUpdated = true;
+
+            var rowUpdateDone = false;
+            row.RowUpdateDone += (sender, args) => rowUpdateDone = true;
+
+            // Precondition
+            Assert.IsFalse(row.Updated);
+
+            // Call
+            row.UpdateInternal();
+
+            // Assert
+            Assert.IsTrue(row.Updated);
+            Assert.IsTrue(rowUpdated);
+            Assert.IsTrue(rowUpdateDone);
+            mocks.VerifyAll();
+        }
     }
 
     public class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResult>
     {
         public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+
+        public bool Updated { get; private set; }
+
+        public void UpdateInternal()
+        {
+            UpdateInternalData();
+        }
+
+        public override void Update()
+        {
+            Updated = true;
+        }
     }
 }

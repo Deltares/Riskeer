@@ -201,43 +201,39 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFirstRowUpdatesInternally_ThenSecondRowNotUpdatedAndViewInvalidated()
+        public void GivenFailureMechanismResultView_WhenRowUpdatedEventFiredAndSectionResultNotified_ThenRowNotUpdatedAndViewInvalidated()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-            TestFailureMechanismSectionResult sectionResult2 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
-                sectionResult1,
-                sectionResult2
+                sectionResult
             };
 
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var row1 = (TestRow) dataGridView.Rows[0].DataBoundItem;
-                var row2 = (TestRow) dataGridView.Rows[1].DataBoundItem;
+                var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
                 var invalidated = false;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
 
                 // Precondition
                 Assert.IsFalse(invalidated);
-                Assert.IsFalse(row1.Updated);
-                Assert.IsFalse(row2.Updated);
-
+                Assert.IsFalse(row.Updated);
                 // When
-                row1.InternalUpdate();
+                row.RowUpdated?.Invoke(row, EventArgs.Empty);
+                sectionResult.NotifyObservers();
+                row.RowUpdateDone?.Invoke(row, EventArgs.Empty);
 
                 // Then
                 Assert.IsTrue(invalidated);
-                Assert.IsTrue(row1.Updated);
-                Assert.IsFalse(row2.Updated);
+                Assert.IsFalse(row.Updated);
             }
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFirstSectionResultNotified_ThenAllRowsUpdatedAndViewInvalidated()
+        public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenAllRowsUpdatedAndViewInvalidated()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -335,12 +331,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
         }
 
-        public bool Updated { get; set; }
-
-        public void InternalUpdate()
-        {
-            UpdateInternalData();
-        }
+        public bool Updated { get; private set; }
 
         public override void Update()
         {
