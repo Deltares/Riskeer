@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -174,12 +175,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     Assert.IsNotNull(columnStateDefinitions[i]);
                 }
 
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex]);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], true);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
-                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
-                AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
+                                                                                      true);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex]);
 
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
@@ -187,7 +189,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
                 Assert.AreEqual(result.UseManualAssemblyProbability, row.UseManualAssemblyProbability);
                 Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
-                AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex], true);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex],
+                                                                                      true);
 
                 TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow,
                     NoProbabilityValueDoubleConverter>(
@@ -417,40 +420,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
-        private static void AssertColumnState(DataGridViewColumnStateDefinition columnStateDefinition, bool isEnabled, bool isReadOnly = false)
-        {
-            if (isEnabled)
-            {
-                AssertColumnStateIsEnabled(columnStateDefinition, isReadOnly);
-            }
-            else
-            {
-                AssertColumnStateIsDisabled(columnStateDefinition);
-            }
-        }
-
-        private static void AssertColumnWithColorState(DataGridViewColumnStateDefinition columnStateDefinition,
-                                                       Color expectedBackgroundColor)
-        {
-            Assert.IsTrue(columnStateDefinition.ReadOnly);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), columnStateDefinition.Style.TextColor);
-            Assert.AreEqual(expectedBackgroundColor, columnStateDefinition.Style.BackgroundColor);
-        }
-
-        private static void AssertColumnStateIsDisabled(DataGridViewColumnStateDefinition columnStateDefinition)
-        {
-            Assert.AreEqual(CellStyle.Disabled, columnStateDefinition.Style);
-            Assert.IsTrue(columnStateDefinition.ReadOnly);
-            Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
-        }
-
-        private static void AssertColumnStateIsEnabled(DataGridViewColumnStateDefinition columnStateDefinition, bool readOnly = false)
-        {
-            Assert.AreEqual(CellStyle.Enabled, columnStateDefinition.Style);
-            Assert.AreEqual(readOnly, columnStateDefinition.ReadOnly);
-            Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
-        }
-
         #region Column States
 
         [Test]
@@ -484,11 +453,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex], cellsEnabled);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], cellsEnabled, true);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
+                                                                             cellsEnabled,
+                                                                             true);
 
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex], cellsEnabled);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex], cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
+                                                                             cellsEnabled);
 
                 mocks.VerifyAll();
             }
@@ -522,7 +496,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], cellEnabled, true);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
+                                                                             cellEnabled,
+                                                                             true);
                 mocks.VerifyAll();
             }
         }
@@ -557,7 +533,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex], cellEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
+                                                                             cellEnabled);
                 mocks.VerifyAll();
             }
         }
@@ -591,22 +568,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex], !useManualAssemblyProbability);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex], !useManualAssemblyProbability);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex], !useManualAssemblyProbability, true);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex], !useManualAssemblyProbability);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex], !useManualAssemblyProbability);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex],
+                                                                             !useManualAssemblyProbability);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex],
+                                                                             !useManualAssemblyProbability);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
+                                                                             !useManualAssemblyProbability, true);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
+                                                                             !useManualAssemblyProbability);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
+                                                                             !useManualAssemblyProbability);
 
                 if (useManualAssemblyProbability)
                 {
-                    AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
-                    AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
-                    AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
-                    AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
                 }
 
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex], !useManualAssemblyProbability, true);
-                AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex], useManualAssemblyProbability);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex],
+                                                                             !useManualAssemblyProbability, true);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex],
+                                                                             useManualAssemblyProbability);
 
                 mocks.VerifyAll();
             }
@@ -647,10 +635,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
-                AssertColumnWithColorState(columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex], expectedBackgroundColor);
-                AssertColumnWithColorState(columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex], expectedBackgroundColor);
-                AssertColumnWithColorState(columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex], expectedBackgroundColor);
-                AssertColumnWithColorState(columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(
+                    columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(
+                    columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(
+                    columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex], expectedBackgroundColor);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(
+                    columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex], expectedBackgroundColor);
 
                 mocks.VerifyAll();
             }
