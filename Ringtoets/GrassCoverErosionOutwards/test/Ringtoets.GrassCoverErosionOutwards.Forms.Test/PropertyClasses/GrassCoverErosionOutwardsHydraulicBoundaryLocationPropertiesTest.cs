@@ -229,8 +229,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationProperties,
-                KeyValueExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationProperties.AlphaValues));
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties,
+                KeyValueExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties.AlphaValues));
             PropertyDescriptor alphaValuesProperty = dynamicProperties[4];
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
@@ -239,8 +239,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationProperties,
-                KeyValueExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationProperties.Durations));
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties,
+                KeyValueExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties.Durations));
             PropertyDescriptor durationsProperty = dynamicProperties[5];
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
@@ -249,8 +249,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationProperties,
-                ExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationProperties.IllustrationPoints));
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties,
+                ExpandableArrayConverter>(nameof(GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties.IllustrationPoints));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[6],
                                                                             illustrationPointsCategory,
                                                                             "Illustratiepunten",
