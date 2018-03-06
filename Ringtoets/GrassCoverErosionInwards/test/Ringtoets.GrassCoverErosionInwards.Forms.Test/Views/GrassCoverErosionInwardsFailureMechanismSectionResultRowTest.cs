@@ -823,7 +823,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void UpdateDetailedAssessmentProbabilityError_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
+        public void Update_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Setup
@@ -844,7 +844,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                resultRow.UpdateDetailedAssessmentProbabilityError();
+                resultRow.Update();
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
@@ -857,7 +857,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void UpdateDetailedAssessmentProbabilityError_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
+        public void Update_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Setup
@@ -879,7 +879,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                resultRow.UpdateDetailedAssessmentProbabilityError();
+                resultRow.Update();
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
@@ -892,7 +892,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
         [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void UpdateDetailedAssessmentProbabilityError_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
+        public void Update_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
         {
             // Setup
@@ -921,7 +921,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                resultRow.UpdateDetailedAssessmentProbabilityError();
+                resultRow.Update();
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
@@ -932,7 +932,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateDetailedAssessmentProbabilityError_SectionResultAndSuccessfulCalculation_DetailedAssessmentProbabilityNoError()
+        public void Update_SectionResultAndSuccessfulCalculation_DetailedAssessmentProbabilityNoError()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -952,7 +952,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                resultRow.UpdateDetailedAssessmentProbabilityError();
+                resultRow.Update();
 
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
@@ -962,7 +962,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateDetailedAssessmentProbabilityError_SectionResultWithManualAssemblyAndNotCalculation_DetailedAssessmentProbabilityNoError()
+        public void Update_SectionResultWithManualAssemblyAndNotCalculation_DetailedAssessmentProbabilityNoError()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -983,7 +983,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                resultRow.UpdateDetailedAssessmentProbabilityError();
+                resultRow.Update();
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
@@ -993,7 +993,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateDetailedAssessmentProbabilityError_SectionResultWithDetailedAssessmentNotAssessedAndNotCalculation_DetailedAssessmentProbabilityNoError()
+        public void Update_SectionResultWithDetailedAssessmentNotAssessedAndNotCalculation_DetailedAssessmentProbabilityNoError()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -1014,7 +1014,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                resultRow.UpdateDetailedAssessmentProbabilityError();
+                resultRow.Update();
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
@@ -1025,7 +1025,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
-        public void UpdateDetailedAssessmentProbabilityError_SectionResultAndAssessmentSimpleAssessmentSufficient_DetailedAssessmentProbabilityNoError(
+        public void Update_SectionResultAndAssessmentSimpleAssessmentSufficient_DetailedAssessmentProbabilityNoError(
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
             // Setup
@@ -1041,7 +1041,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                     sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                resultRow.UpdateDetailedAssessmentProbabilityError();
+                resultRow.Update();
 
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);

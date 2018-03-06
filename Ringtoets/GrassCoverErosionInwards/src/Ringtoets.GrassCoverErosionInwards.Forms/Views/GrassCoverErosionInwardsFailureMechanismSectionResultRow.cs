@@ -274,7 +274,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        public void UpdateDetailedAssessmentProbabilityError()
+        private void UpdateDetailedAssessmentProbabilityError()
         {
             if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult)
                 || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
