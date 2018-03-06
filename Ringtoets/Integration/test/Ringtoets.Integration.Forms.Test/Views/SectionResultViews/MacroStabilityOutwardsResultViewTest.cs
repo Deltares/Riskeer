@@ -191,10 +191,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, cells[simpleAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, cells[detailedAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, cells[tailorMadeAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, cells[combinedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("VIv", cells[detailedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("VIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
             }

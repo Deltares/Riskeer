@@ -54,6 +54,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
 
         private readonly MacroStabilityOutwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityOutwardsSectionResultRow"/>.
@@ -206,22 +210,46 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup SimpleAssemblyCategoryGroup { get; private set; }
+        public string SimpleAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(simpleAssemblyCategoryGroup);
+            }
+        }
 
         /// <summary>
         /// Gets the detailed assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup DetailedAssemblyCategoryGroup { get; private set; }
+        public string DetailedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(detailedAssemblyCategoryGroup);
+            }
+        }
 
         /// <summary>
         /// Gets the tailor made assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssemblyCategoryGroup { get; private set; }
+        public string TailorMadeAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(tailorMadeAssemblyCategoryGroup);
+            }
+        }
 
         /// <summary>
         /// Gets the combined assembly category group.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup CombinedAssemblyCategoryGroup { get; private set; }
+        public string CombinedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedAssemblyCategoryGroup);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
@@ -313,11 +341,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                SimpleAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
-                SimpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
@@ -326,14 +354,14 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                DetailedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                detailedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
                     SectionResult,
                     failureMechanism,
                     assessmentSection);
             }
             catch (AssemblyException e)
             {
-                DetailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
@@ -342,14 +370,14 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                TailorMadeAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                tailorMadeAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
                     SectionResult,
                     failureMechanism,
                     assessmentSection);
             }
             catch (AssemblyException e)
             {
-                TailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
@@ -358,14 +386,14 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                CombinedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                combinedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
                     SectionResult,
                     failureMechanism,
                     assessmentSection);
             }
             catch (AssemblyException e)
             {
-                CombinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
@@ -403,13 +431,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             else
             {
                 FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex],
-                                                                                     SimpleAssemblyCategoryGroup);
+                                                                                     simpleAssemblyCategoryGroup);
                 FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex],
-                                                                                     DetailedAssemblyCategoryGroup);
+                                                                                     detailedAssemblyCategoryGroup);
                 FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex],
-                                                                                     TailorMadeAssemblyCategoryGroup);
+                                                                                     tailorMadeAssemblyCategoryGroup);
                 FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex],
-                                                                                     CombinedAssemblyCategoryGroup);
+                                                                                     combinedAssemblyCategoryGroup);
             }
 
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyCategoryGroupIndex], !UseManualAssemblyCategoryGroup);

@@ -35,6 +35,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -230,10 +231,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                                                                      ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, row.SimpleAssemblyCategoryGroup);
-                Assert.AreEqual(calculator.DetailedAssessmentAssemblyOutput.Group, row.DetailedAssemblyCategoryGroup);
-                Assert.AreEqual(calculator.TailorMadeAssessmentAssemblyOutput.Group, row.TailorMadeAssemblyCategoryGroup);
-                Assert.AreEqual(calculator.CombinedAssemblyCategoryOutput, row.CombinedAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
+                                row.SimpleAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.DetailedAssessmentAssemblyOutput.Group),
+                                row.DetailedAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.TailorMadeAssessmentAssemblyOutput.Group),
+                                row.TailorMadeAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.CombinedAssemblyCategoryOutput.Value),
+                                row.CombinedAssemblyCategoryGroup);
                 mocks.VerifyAll();
             }
         }
@@ -376,20 +381,25 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                                                                      ConstructionProperties);
 
                 // Precondition
-                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, row.SimpleAssemblyCategoryGroup);
-                Assert.AreEqual(calculator.DetailedAssessmentAssemblyOutput.Group, row.DetailedAssemblyCategoryGroup);
-                Assert.AreEqual(calculator.TailorMadeAssessmentAssemblyOutput.Group, row.TailorMadeAssemblyCategoryGroup);
-                Assert.AreEqual(calculator.CombinedAssemblyCategoryOutput, row.CombinedAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
+                                row.SimpleAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.DetailedAssessmentAssemblyOutput.Group),
+                                row.DetailedAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.TailorMadeAssessmentAssemblyOutput.Group),
+                                row.TailorMadeAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.CombinedAssemblyCategoryOutput.Value),
+                                row.CombinedAssemblyCategoryGroup);
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
                 row.SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther;
 
                 // Then
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, row.SimpleAssemblyCategoryGroup);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, row.DetailedAssemblyCategoryGroup);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, row.TailorMadeAssemblyCategoryGroup);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, row.CombinedAssemblyCategoryGroup);
+                string expectedAssemblyDisplayName = FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(FailureMechanismSectionAssemblyCategoryGroup.None);
+                Assert.AreEqual(expectedAssemblyDisplayName, row.SimpleAssemblyCategoryGroup);
+                Assert.AreEqual(expectedAssemblyDisplayName, row.DetailedAssemblyCategoryGroup);
+                Assert.AreEqual(expectedAssemblyDisplayName, row.TailorMadeAssemblyCategoryGroup);
+                Assert.AreEqual(expectedAssemblyDisplayName, row.CombinedAssemblyCategoryGroup);
 
                 mocks.VerifyAll();
             }
