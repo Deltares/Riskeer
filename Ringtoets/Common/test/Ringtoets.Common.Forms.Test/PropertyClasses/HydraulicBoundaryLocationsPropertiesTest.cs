@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -32,6 +35,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class HydraulicBoundaryLocationsPropertiesTest
     {
+        private const int requiredLocationsPropertyIndex = 0;
+
         [Test]
         public void Constructor_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
         {
@@ -41,6 +46,28 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocationCalculations", paramName);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Call
+            var properties = new TestHydraulicBoundaryLocationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
+
+            // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
+            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                            "Algemeen",
+                                                                            "Locaties",
+                                                                            "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                            true);
         }
 
         [Test]

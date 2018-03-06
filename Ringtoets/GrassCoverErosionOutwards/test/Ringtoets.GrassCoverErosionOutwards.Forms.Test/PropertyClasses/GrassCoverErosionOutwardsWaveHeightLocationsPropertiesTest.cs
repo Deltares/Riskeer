@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -39,32 +38,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     public class GrassCoverErosionOutwardsWaveHeightLocationsPropertiesTest
     {
         [Test]
-        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightLocationsProperties(hydraulicBoundaryLocations, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getCalculationFunc", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_WithLocations_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveHeightLocationsProperties(hydraulicBoundaryLocations,
-                                                                                        hbl => new HydraulicBoundaryLocationCalculation(hbl));
+            var properties = new GrassCoverErosionOutwardsWaveHeightLocationsProperties(hydraulicBoundaryLocationCalculations);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
-            Assert.AreSame(hydraulicBoundaryLocations, properties.Data);
+            Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
+
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             const string expectedLocationsDisplayName = "Locaties";
             const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaardendatabase.";
@@ -95,11 +80,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveHeightLocationsProperties(new ObservableList<HydraulicBoundaryLocation>
-                                                                                        {
-                                                                                            hydraulicBoundaryLocation
-                                                                                        },
-                                                                                        hbl => hydraulicBoundaryLocationCalculation);
+            var properties = new GrassCoverErosionOutwardsWaveHeightLocationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                hydraulicBoundaryLocationCalculation
+            });
 
             // Assert
             Assert.AreEqual(1, properties.Locations.Length);
