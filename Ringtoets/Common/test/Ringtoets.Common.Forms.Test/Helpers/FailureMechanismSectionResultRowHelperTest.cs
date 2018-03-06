@@ -374,6 +374,37 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             Assert.AreEqual(CellStyle.Disabled, columnStateDefinition.Style);
         }
 
+        [Test]
+        public void GetCategoryGroupDisplayname_InvalidValue_ThrowsInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname((FailureMechanismSectionAssemblyCategoryGroup) 99);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, "")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, "-")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, "Iv")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, "IIv")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIIv, "IIIv")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IVv, "IVv")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, "Vv")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, "VIv")]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, "VIIv")]
+        public void GetCategoryGroupDisplayname_ValidValue_ReturnsDisplayName(FailureMechanismSectionAssemblyCategoryGroup categoryGroup,
+                                                                              string expectedDisplayName)
+        {
+            // Call
+            string displayName = FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(categoryGroup);
+
+            // Assert
+            Assert.AreEqual(expectedDisplayName, displayName);
+        }
+
         private class TestDataGridViewCell : DataGridViewCell {}
 
         #region Test cases
