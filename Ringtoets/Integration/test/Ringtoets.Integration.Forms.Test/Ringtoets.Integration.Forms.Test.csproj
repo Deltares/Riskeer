@@ -62,7 +62,7 @@
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveHeightLocationsPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationsPropertiesTest.cs" />
     <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

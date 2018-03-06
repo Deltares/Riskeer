@@ -288,7 +288,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveHeightLocationsContext),
-                    typeof(WaveHeightLocationsProperties));
+                    typeof(WaveHeightCalculationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

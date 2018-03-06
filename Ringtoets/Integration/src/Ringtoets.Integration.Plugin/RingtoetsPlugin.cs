@@ -341,7 +341,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = context => new DesignWaterLevelCalculationProperties(context.Calculation)
             };
-            yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsProperties>
+            yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightCalculationsProperties>
             {
                 CreateInstance = context =>
                 {
@@ -349,7 +349,7 @@ namespace Ringtoets.Integration.Plugin
 
                     hydraulicBoundaryLocationCalculations.AddRange(context.WrappedData.Select(loc => context.GetCalculationFunc(loc)));
 
-                    return new WaveHeightLocationsProperties(hydraulicBoundaryLocationCalculations);
+                    return new WaveHeightCalculationsProperties(hydraulicBoundaryLocationCalculations);
                 }
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightCalculationProperties>
