@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new WaveHeightCalculationsProperties(hydraulicBoundaryLocationCalculations);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
         }
 

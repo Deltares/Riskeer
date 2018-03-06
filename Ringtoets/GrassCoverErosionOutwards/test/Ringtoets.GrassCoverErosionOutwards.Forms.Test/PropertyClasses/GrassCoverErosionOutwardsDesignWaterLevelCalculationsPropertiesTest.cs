@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties(hydraulicBoundaryLocationCalculations);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationsProperties>(properties);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);

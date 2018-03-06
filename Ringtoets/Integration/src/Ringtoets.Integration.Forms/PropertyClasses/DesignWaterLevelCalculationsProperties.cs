@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> with
     /// a design water level calculation result for properties panel.
     /// </summary>
-    public class DesignWaterLevelCalculationsProperties : HydraulicBoundaryLocationsProperties
+    public class DesignWaterLevelCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
     {
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationsProperties"/>.
