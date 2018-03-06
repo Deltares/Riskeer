@@ -109,17 +109,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             });
 
             // Assert
-            Assert.AreEqual(1, properties.Locations.Length);
+            Assert.AreEqual(1, properties.Calculations.Length);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties, ExpandableArrayConverter>(
-                nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties.Locations));
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties locationProperties = properties.Locations[0];
-            Assert.AreEqual(hydraulicBoundaryLocation.Name, locationProperties.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, locationProperties.Id);
-            Assert.AreEqual(hydraulicBoundaryLocation.Location, locationProperties.Location);
+                nameof(GrassCoverErosionOutwardsDesignWaterLevelLocationsProperties.Calculations));
+            GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties calculationProperties = properties.Calculations[0];
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, calculationProperties.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, calculationProperties.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Location, calculationProperties.Location);
 
             RoundedDouble designWaterLevel = hydraulicBoundaryLocationCalculation.Output.Result;
-            Assert.AreEqual(designWaterLevel, locationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
-            Assert.AreEqual("Ja", locationProperties.Convergence);
+            Assert.AreEqual(designWaterLevel, calculationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
+            Assert.AreEqual("Ja", calculationProperties.Convergence);
         }
     }
 }

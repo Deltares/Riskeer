@@ -110,17 +110,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             });
 
             // Assert
-            Assert.AreEqual(1, properties.Locations.Length);
+            Assert.AreEqual(1, properties.Calculations.Length);
             TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsWaveHeightLocationsProperties, ExpandableArrayConverter>(
-                nameof(GrassCoverErosionOutwardsWaveHeightLocationsProperties.Locations));
-            GrassCoverErosionOutwardsWaveHeightCalculationProperties locationProperties = properties.Locations.First();
-            Assert.AreEqual(hydraulicBoundaryLocation.Name, locationProperties.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, locationProperties.Id);
-            Assert.AreEqual(hydraulicBoundaryLocation.Location, locationProperties.Location);
+                nameof(GrassCoverErosionOutwardsWaveHeightLocationsProperties.Calculations));
+            GrassCoverErosionOutwardsWaveHeightCalculationProperties calculationProperties = properties.Calculations.First();
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, calculationProperties.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, calculationProperties.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Location, calculationProperties.Location);
 
             RoundedDouble waveHeight = hydraulicBoundaryLocationCalculation.Output.Result;
-            Assert.AreEqual(waveHeight, locationProperties.WaveHeight, waveHeight.GetAccuracy());
-            Assert.AreEqual("Ja", locationProperties.Convergence);
+            Assert.AreEqual(waveHeight, calculationProperties.WaveHeight, waveHeight.GetAccuracy());
+            Assert.AreEqual("Ja", calculationProperties.Convergence);
         }
     }
 }

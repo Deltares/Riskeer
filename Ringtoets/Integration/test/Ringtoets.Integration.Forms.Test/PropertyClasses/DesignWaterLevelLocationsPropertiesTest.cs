@@ -91,12 +91,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             });
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelCalculationProperties));
-            Assert.AreEqual(1, properties.Locations.Length);
+            CollectionAssert.AllItemsAreInstancesOfType(properties.Calculations, typeof(DesignWaterLevelCalculationProperties));
+            Assert.AreEqual(1, properties.Calculations.Length);
             TestHelper.AssertTypeConverter<DesignWaterLevelLocationsProperties,
-                ExpandableArrayConverter>(nameof(DesignWaterLevelLocationsProperties.Locations));
+                ExpandableArrayConverter>(nameof(DesignWaterLevelLocationsProperties.Calculations));
 
-            DesignWaterLevelCalculationProperties designWaterLevelCalculationProperties = properties.Locations.First();
+            DesignWaterLevelCalculationProperties designWaterLevelCalculationProperties = properties.Calculations.First();
             Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelCalculationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelCalculationProperties.Location);

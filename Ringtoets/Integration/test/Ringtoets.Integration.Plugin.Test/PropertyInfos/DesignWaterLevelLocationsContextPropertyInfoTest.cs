@@ -96,9 +96,9 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 // Assert
                 Assert.IsInstanceOf<DesignWaterLevelLocationsProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
-                DesignWaterLevelCalculationProperties[] locationProperties = ((DesignWaterLevelLocationsProperties) objectProperties).Locations;
-                CollectionAssert.AreEqual(hydraulicBoundaryLocations, locationProperties.Select(p => p.Data));
-                CollectionAssert.AreEqual(hydraulicBoundaryLocationCalculations.Select(c => c.Output.Result), locationProperties.Select(p => p.DesignWaterLevel));
+                DesignWaterLevelCalculationProperties[] calculationProperties = ((DesignWaterLevelLocationsProperties) objectProperties).Calculations;
+                CollectionAssert.AreEqual(hydraulicBoundaryLocations, calculationProperties.Select(p => p.Data));
+                CollectionAssert.AreEqual(hydraulicBoundaryLocationCalculations.Select(c => c.Output.Result), calculationProperties.Select(p => p.DesignWaterLevel));
             }
 
             mockRepository.VerifyAll();

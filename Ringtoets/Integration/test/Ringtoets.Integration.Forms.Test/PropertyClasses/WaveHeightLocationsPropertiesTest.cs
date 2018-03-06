@@ -91,12 +91,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             });
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(WaveHeightCalculationProperties));
-            Assert.AreEqual(1, properties.Locations.Length);
+            CollectionAssert.AllItemsAreInstancesOfType(properties.Calculations, typeof(WaveHeightCalculationProperties));
+            Assert.AreEqual(1, properties.Calculations.Length);
             TestHelper.AssertTypeConverter<WaveHeightLocationsProperties,
-                ExpandableArrayConverter>(nameof(WaveHeightLocationsProperties.Locations));
+                ExpandableArrayConverter>(nameof(WaveHeightLocationsProperties.Calculations));
 
-            WaveHeightCalculationProperties waveHeightCalculationProperties = properties.Locations.First();
+            WaveHeightCalculationProperties waveHeightCalculationProperties = properties.Calculations.First();
             Assert.AreEqual(hydraulicBoundaryLocation.Name, waveHeightCalculationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, waveHeightCalculationProperties.Location);
