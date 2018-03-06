@@ -326,7 +326,7 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = context => new CalculationGroupContextProperties(context)
             };
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
-            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsProperties>
+            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelCalculationsProperties>
             {
                 CreateInstance = context =>
                 {
@@ -334,7 +334,7 @@ namespace Ringtoets.Integration.Plugin
 
                     hydraulicBoundaryLocationCalculations.AddRange(context.WrappedData.Select(loc => context.GetCalculationFunc(loc)));
 
-                    return new DesignWaterLevelLocationsProperties(hydraulicBoundaryLocationCalculations);
+                    return new DesignWaterLevelCalculationsProperties(hydraulicBoundaryLocationCalculations);
                 }
             };
             yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelCalculationProperties>

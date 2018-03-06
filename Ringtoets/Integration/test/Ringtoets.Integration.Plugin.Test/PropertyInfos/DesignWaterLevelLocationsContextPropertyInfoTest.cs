@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(DesignWaterLevelLocationsContext), info.DataType);
-                Assert.AreEqual(typeof(DesignWaterLevelLocationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(DesignWaterLevelCalculationsProperties), info.PropertyObjectType);
             }
         }
 
@@ -94,9 +94,9 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DesignWaterLevelLocationsProperties>(objectProperties);
+                Assert.IsInstanceOf<DesignWaterLevelCalculationsProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
-                DesignWaterLevelCalculationProperties[] calculationProperties = ((DesignWaterLevelLocationsProperties) objectProperties).Calculations;
+                DesignWaterLevelCalculationProperties[] calculationProperties = ((DesignWaterLevelCalculationsProperties) objectProperties).Calculations;
                 CollectionAssert.AreEqual(hydraulicBoundaryLocations, calculationProperties.Select(p => p.Data));
                 CollectionAssert.AreEqual(hydraulicBoundaryLocationCalculations.Select(c => c.Output.Result), calculationProperties.Select(p => p.DesignWaterLevel));
             }

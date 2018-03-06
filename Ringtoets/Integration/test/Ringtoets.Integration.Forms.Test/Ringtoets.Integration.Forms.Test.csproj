@@ -55,7 +55,7 @@
     <Compile Include="PresentationObjects\WaveHeightLocationsContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelLocationsPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightCalculationPropertiesTest.cs" />
