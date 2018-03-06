@@ -35,22 +35,18 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with a design water level calculation result
+    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with a design water level calculation result
     /// for properties panel of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties
     {
-        private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location.</param>
-        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation at stake.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                           HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-            : base(hydraulicBoundaryLocation, new ConstructionProperties
+        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+            : base(hydraulicBoundaryLocationCalculation, new ConstructionProperties
             {
                 IdIndex = 1,
                 NameIndex = 2,
@@ -59,15 +55,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
                 StochastsIndex = 12,
                 DurationsIndex = 13,
                 IllustrationPointsIndex = 14
-            })
-        {
-            if (hydraulicBoundaryLocationCalculation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
-            }
-
-            this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
-        }
+            }) {}
 
         [PropertyOrder(4)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
@@ -78,7 +66,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.Result ?? RoundedDouble.NaN;
+                return data.Output?.Result ?? RoundedDouble.NaN;
             }
         }
 
@@ -91,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.TargetProbability ?? double.NaN;
+                return data.Output?.TargetProbability ?? double.NaN;
             }
         }
 
@@ -104,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.TargetReliability ?? RoundedDouble.NaN;
+                return data.Output?.TargetReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -117,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.CalculatedProbability ?? double.NaN;
+                return data.Output?.CalculatedProbability ?? double.NaN;
             }
         }
 
@@ -130,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.Output?.CalculatedReliability ?? RoundedDouble.NaN;
+                return data.Output?.CalculatedReliability ?? RoundedDouble.NaN;
             }
         }
 
@@ -142,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                CalculationConvergence convergence = hydraulicBoundaryLocationCalculation.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
+                CalculationConvergence convergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
                 return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             }
         }
@@ -155,21 +143,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                return data.InputParameters.ShouldIllustrationPointsBeCalculated;
             }
             set
             {
-                hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                data.InputParameters.ShouldIllustrationPointsBeCalculated = value;
                 data.NotifyObservers();
             }
         }
 
         protected override GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            if (hydraulicBoundaryLocationCalculation.HasOutput
-                && hydraulicBoundaryLocationCalculation.Output.HasGeneralResult)
+            if (data.HasOutput && data.Output.HasGeneralResult)
             {
-                return hydraulicBoundaryLocationCalculation.Output.GeneralResult;
+                return data.Output.GeneralResult;
             }
 
             return null;

@@ -31,12 +31,14 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel of the
+    /// <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocationCalculation>
