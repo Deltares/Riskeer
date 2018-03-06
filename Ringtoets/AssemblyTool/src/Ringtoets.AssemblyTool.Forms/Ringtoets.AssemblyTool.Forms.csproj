@@ -20,6 +20,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SelectableFailureMechanismSectionAssemblyCategoryGroup.cs" />
+    <Compile Include="SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
