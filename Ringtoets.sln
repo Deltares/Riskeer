@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{89F6BC2C-78E6-42F1-A056-704C877B5453}"
 EndProject
@@ -86,6 +86,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets", "Ap
 		{FD264FAD-E6F9-47CC-97CD-770199A8E629} = {FD264FAD-E6F9-47CC-97CD-770199A8E629}
 		{B479E3AF-7C34-488C-BB73-D324100D36C9} = {B479E3AF-7C34-488C-BB73-D324100D36C9}
 		{D5F0A6B0-8710-4345-ABA1-D934C8E6783D} = {D5F0A6B0-8710-4345-ABA1-D934C8E6783D}
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1} = {22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}
 		{83885FB9-A87B-4D43-AF27-43EA44A84E42} = {83885FB9-A87B-4D43-AF27-43EA44A84E42}
 		{B388D2BA-FC6E-4EE2-B9B5-38D35F340FF5} = {B388D2BA-FC6E-4EE2-B9B5-38D35F340FF5}
 		{2344A7BD-7E25-4A1A-982E-6C674AF5167A} = {2344A7BD-7E25-4A1A-982E-6C674AF5167A}
@@ -1882,6 +1883,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.AssemblyTool.Data.TestUtil", "Ringtoets\AssemblyTool\test\Ringtoets.AssemblyTool.Data.TestUtil\Ringtoets.AssemblyTool.Data.TestUtil.csproj", "{C6EE9E6A-6578-49DF-914F-CDB531E61891}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.AssemblyTool.Forms", "Ringtoets\AssemblyTool\src\Ringtoets.AssemblyTool.Forms\Ringtoets.AssemblyTool.Forms.csproj", "{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.AssemblyTool.Forms.Test", "Ringtoets\AssemblyTool\test\Ringtoets.AssemblyTool.Forms.Test\Ringtoets.AssemblyTool.Forms.Test.csproj", "{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -4971,6 +4982,25 @@ Global
 		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.Release|x86.Build.0 = Release|x86
 		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.Debug|x86.ActiveCfg = Debug|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.Debug|x86.Build.0 = Debug|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.Release|x86.ActiveCfg = Release|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.Release|x86.Build.0 = Release|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.Debug|x86.ActiveCfg = Debug|x86
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.Debug|x86.Build.0 = Debug|x86
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.Release|x86.ActiveCfg = Release|x86
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.Release|x86.Build.0 = Release|x86
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5374,6 +5404,8 @@ Global
 		{B60FC9A2-22B5-4E4C-986E-40766B843AB5} = {2A2E6519-A2B8-4A6B-8849-4873578D7C8C}
 		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4} = {E550D725-9C80-4242-8A3F-C1A3E020DEA2}
 		{C6EE9E6A-6578-49DF-914F-CDB531E61891} = {614D79BC-9919-4AC8-A2B1-9DD89BCB0653}
+		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1} = {22080BD7-677C-48FA-AD1A-8CCF7457B984}
+		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38} = {614D79BC-9919-4AC8-A2B1-9DD89BCB0653}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {039D31AA-B517-4354-B8CD-0B2B826D0B1F}
