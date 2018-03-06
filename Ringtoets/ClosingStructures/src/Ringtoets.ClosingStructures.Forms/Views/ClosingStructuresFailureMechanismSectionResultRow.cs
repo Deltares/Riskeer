@@ -27,6 +27,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -291,6 +292,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         public override void Update()
         {
             UpdateDerivedData();
+            UpdateColumnStateDefinitions();
         }
 
         private void UpdateDerivedData()
@@ -378,6 +380,26 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             }
         }
 
+        private void UpdateColumnStateDefinitions()
+        {
+            bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], false);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex], simpleAssessmentSufficient);
+            if (simpleAssessmentSufficient)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex]);
+            }
+            else
+            {
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex], true);
+            }
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
+                                                                  simpleAssessmentSufficient);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
+                                                                  simpleAssessmentSufficient);
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.

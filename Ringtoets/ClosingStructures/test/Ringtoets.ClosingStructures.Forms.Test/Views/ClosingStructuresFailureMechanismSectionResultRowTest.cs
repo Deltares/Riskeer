@@ -145,10 +145,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestClosingStructuresCalculation
-                {
-                    Output = new TestStructuresOutput()
-                }
+                Calculation = CreateCalculationWithOutput()
             };
 
             // Call
@@ -340,7 +337,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }
         }
 
-
         [Test]
         public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenAssemblyGroupSetToNone()
         {
@@ -357,7 +353,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
@@ -372,7 +368,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                       ConstructionProperties);
+                                                                                ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, row.SimpleAssemblyCategoryGroup);
@@ -412,7 +408,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
@@ -429,7 +425,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                       ConstructionProperties);
+                                                                                ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -460,11 +456,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
@@ -486,11 +482,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
         {
             // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
             var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -509,14 +506,76 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        #region Column States
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None, true)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable, false)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, false)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther, true)]
+        public void Constructor_WithSimpleAssessmentResultSet_ExpectedColumnStates(SimpleAssessmentResultType simpleAssessmentResult,
+                                                                                   bool cellsEnabled)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult,
+                Calculation = CreateCalculationWithOutput(),
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
+                                                                             cellsEnabled,
+                                                                             true);
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
+                                                                             cellsEnabled);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
+
+        private static TestClosingStructuresCalculation CreateCalculationWithOutput()
+        {
+            return new TestClosingStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+        }
+
         #region Registration
 
         [Test]
         public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -530,8 +589,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(result,
-                                                                                new ClosingStructuresFailureMechanism(),
-                                                                                assessmentSection, ConstructionProperties);
+                                                                                failureMechanism,
+                                                                                assessmentSection,
+                                                                                ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -579,11 +639,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void DetailedAssessmentProbability_NoCalculationSet_ReturnNaN()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
