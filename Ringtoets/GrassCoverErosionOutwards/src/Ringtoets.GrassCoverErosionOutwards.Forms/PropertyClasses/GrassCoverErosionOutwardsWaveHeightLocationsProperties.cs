@@ -28,35 +28,23 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with
-    /// a wave height calculation result for properties panel.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> with a wave height
+    /// calculation result for properties panel of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsProperties : HydraulicBoundaryLocationsProperties
     {
-        private readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsProperties"/>.
         /// </summary>
-        /// <param name="locations">The locations to show the properties for.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightLocationsProperties(ObservableList<HydraulicBoundaryLocation> locations,
-                                                                      Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-            : base(locations)
-        {
-            if (getCalculationFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getCalculationFunc));
-            }
-
-            this.getCalculationFunc = getCalculationFunc;
-        }
+        /// <param name="hydraulicBoundaryLocationCalculations">The hydraulic boundary location calculations to set as data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsWaveHeightLocationsProperties(ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+            : base(hydraulicBoundaryLocationCalculations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
@@ -66,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new GrassCoverErosionOutwardsWaveHeightLocationProperties(loc, getCalculationFunc(loc))).ToArray();
+                return data.Select(calculation => new GrassCoverErosionOutwardsWaveHeightLocationProperties(calculation)).ToArray();
             }
         }
     }
