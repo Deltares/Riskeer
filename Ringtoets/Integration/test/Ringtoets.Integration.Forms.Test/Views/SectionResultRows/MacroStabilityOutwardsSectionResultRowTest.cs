@@ -287,6 +287,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
+            bool newValue = !result.UseManualAssemblyCategoryGroup;
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
@@ -296,10 +298,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
 
                 // Call
-                row.UseManualAssemblyCategoryGroup = true;
+                row.UseManualAssemblyCategoryGroup = newValue;
 
                 // Assert
-                Assert.IsTrue(result.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(newValue, result.UseManualAssemblyCategoryGroup);
                 mocks.VerifyAll();
             }
         }
@@ -390,10 +392,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         }
 
         [Test]
-        public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ExpectedColumnStates()
+        public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ThenExpectedColumnStates()
         {
             // Given
-            var random = new Random(39);
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             var mocks = new MockRepository();
@@ -408,16 +409,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
@@ -466,14 +457,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
         private static void AssertColumnStateIsDisabled(DataGridViewColumnStateDefinition columnStateDefinition)
         {
-            Assert.AreEqual(CellStyle.Disabled, columnStateDefinition.Style);
+            Assert.AreSame(CellStyle.Disabled, columnStateDefinition.Style);
             Assert.IsTrue(columnStateDefinition.ReadOnly);
             Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
         }
 
         private static void AssertColumnStateIsEnabled(DataGridViewColumnStateDefinition columnStateDefinition)
         {
-            Assert.AreEqual(CellStyle.Enabled, columnStateDefinition.Style);
+            Assert.AreSame(CellStyle.Enabled, columnStateDefinition.Style);
             Assert.IsFalse(columnStateDefinition.ReadOnly);
             Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
         }
@@ -485,7 +476,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [TestCase(SimpleAssessmentResultType.AssessFurther, true)]
         [TestCase(SimpleAssessmentResultType.NotApplicable, false)]
         [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, false)]
-        public void Constructor_WithSimpleAssessmentSufficient_ExpectedColumnStates(SimpleAssessmentResultType simpleAssessmentResult,
+        public void Constructor_WithSimpleAssessmentResultSet_ExpectedColumnStates(SimpleAssessmentResultType simpleAssessmentResult,
                                                                                     bool cellsEnabled)
         {
             // Setup

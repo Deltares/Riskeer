@@ -25,8 +25,12 @@ using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
@@ -134,9 +138,63 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("Overschrijf\r\nassemblageresultaat", dataGridView.Columns[useManualAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Assemblageresultaat\r\nhandmatig", dataGridView.Columns[manualAssemblyCategoryGroupIndex].HeaderText);
 
+                Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[simpleAssessmentResultIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[detailedAssessmentResultIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[detailedAssessmentProbabilityIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[tailorMadeAssessmentResultIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[simpleAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[detailedAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[useManualAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[manualAssemblyCategoryGroupIndex].ReadOnly);
+                                        
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
                 mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"));
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            // Call
+            using (var form = new Form())
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            {
+                form.Controls.Add(view);
+                form.Show();
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Assert
+                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
+
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(1, rows.Count);
+
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
+                Assert.AreEqual(DetailedAssessmentResultType.Probability, cells[detailedAssessmentResultIndex].Value);
+                Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
+                Assert.AreEqual(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, cells[detailedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, cells[tailorMadeAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, cells[combinedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
             }
         }
     }
