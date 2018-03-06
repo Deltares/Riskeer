@@ -27,35 +27,35 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> for properties panel.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>, IDisposable
+    public abstract class HydraulicBoundaryLocationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocationCalculation>>, IDisposable
     {
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The list of hydraulic boundary locations to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationsProperties(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        /// <param name="hydraulicBoundaryLocationCalculations">The list of hydraulic boundary location calculations to set as data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationsProperties(ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
         {
-            if (hydraulicBoundaryLocations == null)
+            if (hydraulicBoundaryLocationCalculations == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculations));
             }
 
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(OnRefreshRequired, list => list)
+            hydraulicBoundaryLocationCalculationsObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(OnRefreshRequired, list => list)
             {
-                Observable = hydraulicBoundaryLocations
+                Observable = hydraulicBoundaryLocationCalculations
             };
 
-            Data = hydraulicBoundaryLocations;
+            Data = hydraulicBoundaryLocationCalculations;
         }
 
         public void Dispose()
         {
-            hydraulicBoundaryLocationObserver.Dispose();
+            hydraulicBoundaryLocationCalculationsObserver.Dispose();
         }
     }
 }
