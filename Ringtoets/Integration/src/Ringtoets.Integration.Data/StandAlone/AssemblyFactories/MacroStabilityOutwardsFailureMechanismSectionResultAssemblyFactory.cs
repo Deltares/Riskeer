@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(
             MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult)
@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> belonging to this section.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssembly(
             MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
@@ -135,7 +135,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> belonging to this section.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssembly(
             MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
@@ -191,7 +191,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> belonging to this section.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssembly(
             MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,

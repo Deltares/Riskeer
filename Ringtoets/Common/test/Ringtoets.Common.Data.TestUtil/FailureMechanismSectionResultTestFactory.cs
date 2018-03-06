@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Data.TestUtil
@@ -34,6 +35,8 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         /// <param name="name">The name of the section.</param>
         /// <returns>A valid <see cref="TestFailureMechanismSectionResult"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <param name="name"></param>
+        /// is <c>null</c>.</exception>
         public static TestFailureMechanismSectionResult CreateFailureMechanismSectionResult(string name = "test")
         {
             return new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(name));

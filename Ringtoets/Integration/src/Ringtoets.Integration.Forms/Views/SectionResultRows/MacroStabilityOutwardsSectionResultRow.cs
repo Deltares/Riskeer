@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
@@ -66,10 +65,12 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="MacroStabilityOutwardsSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityOutwardsSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult,
-                                                      MacroStabilityOutwardsFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection,
-                                                      ConstructionProperties constructionProperties)
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        internal MacroStabilityOutwardsSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult,
+                                                        MacroStabilityOutwardsFailureMechanism failureMechanism,
+                                                        IAssessmentSection assessmentSection,
+                                                        ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (failureMechanism == null)
@@ -109,6 +110,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultType SimpleAssessmentResult
         {
             get
@@ -126,6 +129,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the detailed assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResult
         {
             get
@@ -145,6 +150,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability
         {
@@ -163,6 +170,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeAssessmentResult
         {
             get
@@ -182,6 +191,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double TailorMadeAssessmentProbability
         {
@@ -220,6 +231,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public bool UseManualAssemblyCategoryGroup
         {
             get
@@ -251,6 +264,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             }
         }
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public override void Update()
+        {
+            UpdateDerivedData();
+            UpdateColumnStateDefinitionStates();
+        }
+
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
@@ -263,12 +285,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             ColumnStateDefinitions.Add(tailorMadeAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(combinedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(manualAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
-        }
-
-        private void Update()
-        {
-            UpdateDerivedData();
-            UpdateColumnDefinitionStates();
         }
 
         private void UpdateDerivedData()
@@ -349,7 +365,12 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             }
         }
 
-        private void UpdateColumnDefinitionStates()
+        /// <summary>
+        /// Updates the column state definitions.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        private void UpdateColumnStateDefinitionStates()
         {
             bool simpleAssessmentSufficient = GetSimpleAssessmentSufficient();
 
@@ -377,6 +398,14 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             SetColumnState(manualAssemblyCategoryGroupIndex, !UseManualAssemblyCategoryGroup);
         }
 
+        /// <summary>
+        /// Sets the style of the column state definition on the given <paramref name="index"/>.
+        /// </summary>
+        /// <param name="index">The index of the column state definition.</param>
+        /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
+        /// <returns>A <see cref="Color"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         private void SetAssemblyCategoryGroupStyle(int index, FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
         {
             ColumnStateDefinitions[index].Style = new CellStyle(
@@ -384,6 +413,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 GetCategoryGroupColor(assemblyCategoryGroup));
         }
 
+        /// <summary>
+        /// Gets the color based on the <paramref name="categoryGroup"/>.
+        /// </summary>
+        /// <param name="categoryGroup">The category group to get the color for.</param>
+        /// <returns>A <see cref="Color"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         private static Color GetCategoryGroupColor(FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
         {
             switch (categoryGroup)
@@ -454,52 +490,52 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         public class ConstructionProperties
         {
             /// <summary>
-            /// Gets or sets the simple assessment result index.
+            /// Sets the simple assessment result index.
             /// </summary>
             public int SimpleAssessmentResultIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the detailed assessment result index.
+            /// Sets the detailed assessment result index.
             /// </summary>
             public int DetailedAssessmentResultIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the detailed assessment probability index.
+            /// Sets the detailed assessment probability index.
             /// </summary>
             public int DetailedAssessmentProbabilityIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the tailor made assessment result index.
+            /// Sets the tailor made assessment result index.
             /// </summary>
             public int TailorMadeAssessmentResultIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the tailor made assessment probability index.
+            /// Sets the tailor made assessment probability index.
             /// </summary>
             public int TailorMadeAssessmentProbabilityIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the simple assembly category group index.
+            /// Sets the simple assembly category group index.
             /// </summary>
             public int SimpleAssemblyCategoryGroupIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the detailed assembly category group index.
+            /// Sets the detailed assembly category group index.
             /// </summary>
             public int DetailedAssemblyCategoryGroupIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the tailor made assembly category group index.
+            /// Sets the tailor made assembly category group index.
             /// </summary>
             public int TailorMadeAssemblyCategoryGroupIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the combined assembly category group index.
+            /// Sets the combined assembly category group index.
             /// </summary>
             public int CombinedAssemblyCategoryGroupIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the manual assembly category group index.
+            /// Sets the manual assembly category group index.
             /// </summary>
             public int ManualAssemblyCategoryGroupIndex { internal get; set; }
         }
