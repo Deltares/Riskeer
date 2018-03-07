@@ -1890,22 +1890,43 @@ namespace Ringtoets.Integration.Plugin
                         HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
 
                         assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-
                         assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
-                        assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
 
                         var duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(Gui.ViewCommands, assessmentSection.DuneErosion);
                         duneLocationsReplacementHandler.Replace(hydraulicBoundaryLocations);
                         duneLocationsReplacementHandler.DoPostReplacementUpdates();
 
-                        assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
+                        NotifyObservers(assessmentSection);
                     }
 
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
             }
+        }
+
+        private static void NotifyObservers(AssessmentSection assessmentSection)
+        {
+            assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.NotifyObservers();
+            assessmentSection.WaterLevelCalculationsForSignalingNorm.NotifyObservers();
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.NotifyObservers();
+            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.NotifyObservers();
+            assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.NotifyObservers();
+            assessmentSection.WaveHeightCalculationsForSignalingNorm.NotifyObservers();
+            assessmentSection.WaveHeightCalculationsForLowerLimitNorm.NotifyObservers();
+            assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.NotifyObservers();
+
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
+
+            assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.NotifyObservers();
+            assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm.NotifyObservers();
+            assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
+            assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.NotifyObservers();
+            assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm.NotifyObservers();
+            assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
+
+            assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
         }
 
         private static bool IsClearCalculationConfirmationGiven()
