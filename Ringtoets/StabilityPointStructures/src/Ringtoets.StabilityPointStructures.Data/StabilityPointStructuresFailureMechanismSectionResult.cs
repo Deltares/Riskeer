@@ -24,6 +24,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Data
 {
@@ -58,10 +59,11 @@ namespace Ringtoets.StabilityPointStructures.Data
         public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the value of the tailor made assessment of safety
+        /// per failure mechanism section as a probability.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
-        /// <paramref name="value"/> is outside of the valid ranges.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when
+        /// <paramref name="value"/> is not in range [0,1].</exception>
         public double TailorMadeAssessmentProbability
         {
             get
@@ -70,7 +72,9 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null, true);
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
                 tailorMadeAssessmentProbability = value;
             }
         }
