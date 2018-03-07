@@ -75,8 +75,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to
         /// assemble the detailed assembly for.</param>
         /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
-        /// <param name="failureMechanism">The failure mechanism belonging to this section.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> belonging to this section.</param>
+        /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
