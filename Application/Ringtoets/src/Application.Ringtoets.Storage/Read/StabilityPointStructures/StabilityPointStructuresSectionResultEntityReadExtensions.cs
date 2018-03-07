@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
+            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
 
             if (entity.StabilityPointStructuresCalculationEntity != null)
             {

@@ -33,7 +33,7 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
     {
-        private double assessmentLayerThree;
+        private double tailorMadeAssessmentProbability;
 
         /// <summary>
         /// Initializes a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None;
-            assessmentLayerThree = double.NaN;
+            tailorMadeAssessmentProbability = double.NaN;
         }
 
         /// <summary>
@@ -62,16 +62,16 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when 
         /// <paramref name="value"/> is outside of the valid ranges.</exception>
-        public double AssessmentLayerThree
+        public double TailorMadeAssessmentProbability
         {
             get
             {
-                return assessmentLayerThree;
+                return tailorMadeAssessmentProbability;
             }
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null, true);
-                assessmentLayerThree = value;
+                tailorMadeAssessmentProbability = value;
             }
         }
     }

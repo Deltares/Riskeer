@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = assessmentLayerThreeResult
+                TailorMadeAssessmentProbability = assessmentLayerThreeResult
             };
 
             // Call
@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             // Setup
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = RoundedDouble.NaN
+                TailorMadeAssessmentProbability = double.NaN
             };
 
             // Call
