@@ -51,7 +51,7 @@
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationCalculationContextTest.cs" />
-    <Compile Include="PresentationObjects\WaveHeightLocationContextTest.cs" />
+    <Compile Include="PresentationObjects\WaveHeightCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationsContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />

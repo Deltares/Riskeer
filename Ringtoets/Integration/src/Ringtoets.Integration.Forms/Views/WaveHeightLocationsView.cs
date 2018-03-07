@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 HydraulicBoundaryLocation hydraulicBoundaryLocation = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
 
-                return new WaveHeightLocationContext(GetCalculationFunc(hydraulicBoundaryLocation));
+                return new WaveHeightCalculationContext(GetCalculationFunc(hydraulicBoundaryLocation));
             }
 
             return null;

@@ -33,7 +33,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class WaveHeightLocationContextPropertyInfoTest
+    public class WaveHeightCalculationContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(WaveHeightLocationContext), info.DataType);
+                Assert.AreEqual(typeof(WaveHeightCalculationContext), info.DataType);
                 Assert.AreEqual(typeof(WaveHeightCalculationProperties), info.PropertyObjectType);
             }
         }
@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 Output = new TestHydraulicBoundaryLocationOutput(waveHeight)
             };
 
-            var context = new WaveHeightLocationContext(hydraulicBoundaryLocationCalculation);
+            var context = new WaveHeightCalculationContext(hydraulicBoundaryLocationCalculation);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveHeightLocationContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveHeightCalculationContext));
         }
     }
 }

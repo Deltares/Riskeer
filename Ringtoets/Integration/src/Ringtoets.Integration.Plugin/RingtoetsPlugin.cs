@@ -352,7 +352,7 @@ namespace Ringtoets.Integration.Plugin
                     return new WaveHeightCalculationsProperties(hydraulicBoundaryLocationCalculations);
                 }
             };
-            yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightCalculationProperties>
+            yield return new PropertyInfo<WaveHeightCalculationContext, WaveHeightCalculationProperties>
             {
                 CreateInstance = context => new WaveHeightCalculationProperties(context.WrappedData)
             };
