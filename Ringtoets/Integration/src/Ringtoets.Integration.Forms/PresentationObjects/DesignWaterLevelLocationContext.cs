@@ -28,7 +28,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a design water level calculation result.
     /// </summary>
-    public class DesignWaterLevelLocationContext : HydraulicBoundaryLocationContext
+    public class DesignWaterLevelLocationContext : HydraulicBoundaryLocationCalculationContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationContext"/>.

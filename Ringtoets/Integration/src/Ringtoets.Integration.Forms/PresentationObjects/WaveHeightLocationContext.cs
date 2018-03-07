@@ -28,7 +28,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a wave height calculation result.
     /// </summary>
-    public class WaveHeightLocationContext : HydraulicBoundaryLocationContext
+    public class WaveHeightLocationContext : HydraulicBoundaryLocationCalculationContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightLocationContext"/>.

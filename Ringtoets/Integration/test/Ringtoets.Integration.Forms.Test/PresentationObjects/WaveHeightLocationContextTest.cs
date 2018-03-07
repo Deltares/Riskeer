@@ -36,11 +36,11 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var presentationObject = new WaveHeightLocationContext(hydraulicBoundaryLocationCalculation);
+            var context = new WaveHeightLocationContext(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationContext>(presentationObject);
-            Assert.AreSame(hydraulicBoundaryLocationCalculation, presentationObject.WrappedData);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationContext>(context);
+            Assert.AreSame(hydraulicBoundaryLocationCalculation, context.WrappedData);
         }
     }
 }
