@@ -45,6 +45,27 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultRowTest
     {
+        private static StabilityPointStructuresFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties
+        {
+            get
+            {
+                return new StabilityPointStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = 1,
+                    DetailedAssessmentResultIndex = 2,
+                    DetailedAssessmentProbabilityIndex = 3,
+                    TailorMadeAssessmentResultIndex = 4,
+                    TailorMadeAssessmentProbabilityIndex = 5,
+                    SimpleAssemblyCategoryGroupIndex = 6,
+                    DetailedAssemblyCategoryGroupIndex = 7,
+                    TailorMadeAssemblyCategoryGroupIndex = 8,
+                    CombinedAssemblyCategoryGroupIndex = 9,
+                    CombinedAssemblyProbabilityIndex = 10,
+                    ManualAssemblyProbabilityIndex = 11
+                };
+            }
+        }
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -57,7 +78,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresFailureMechanismSectionResultRow(result, null, assessmentSection);
+            TestDelegate call = () => new StabilityPointStructuresFailureMechanismSectionResultRow(result, null, assessmentSection,
+                                                                                                   ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,11 +96,34 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             // Call
             TestDelegate call = () => new StabilityPointStructuresFailureMechanismSectionResultRow(
-                result, new StabilityPointStructuresFailureMechanism(), null);
+                result, new StabilityPointStructuresFailureMechanism(), null, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => new StabilityPointStructuresFailureMechanismSectionResultRow(result,
+                                                                                            new StabilityPointStructuresFailureMechanism(),
+                                                                                            assessmentSection,
+                                                                                            null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -97,7 +142,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                                       ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>>(row);
@@ -151,7 +197,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                                       ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -197,7 +244,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                                       ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -245,7 +293,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssemblyProbability;
                 bool newValue = !originalValue;
 
@@ -282,7 +330,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyProbability = value;
@@ -314,7 +362,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.ManualAssemblyProbability = value;
@@ -344,7 +392,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                                       ConstructionProperties);
 
                 // Call
                 StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
@@ -375,7 +424,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                                       ConstructionProperties);
 
                 // Call
                 StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
@@ -411,7 +461,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result,
                                                                                        failureMechanism,
-                                                                                       assessmentSection);
+                                                                                       assessmentSection,
+                                                                                       ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -444,7 +495,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResult = newValue;
@@ -473,7 +524,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection,
+                                                                                             ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -510,7 +562,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection,
+                                                                                             ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -544,7 +597,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection);
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection,
+                                                                                             ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -577,7 +631,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;
@@ -612,7 +666,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, new StabilityPointStructuresFailureMechanism(), assessmentSection);
+                    result, new StabilityPointStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentProbability = value;
@@ -644,7 +698,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, new StabilityPointStructuresFailureMechanism(), assessmentSection);
+                    result, new StabilityPointStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.TailorMadeAssessmentProbability = value;

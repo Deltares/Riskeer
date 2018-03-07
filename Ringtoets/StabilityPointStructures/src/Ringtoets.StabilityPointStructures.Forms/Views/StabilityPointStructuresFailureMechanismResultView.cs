@@ -22,15 +22,12 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
@@ -41,6 +38,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
         StabilityPointStructuresFailureMechanismSectionResultRow, StabilityPointStructuresFailureMechanism>
     {
+        private const int simpleAssessmentResultIndex = 1;
+        private const int detailedAssessmentResultIndex = 2;
+        private const int detailedAssessmentProbabilityIndex = 3;
+        private const int tailorMadeAssessmentResultIndex = 4;
+        private const int tailorMadeAssessmentProbabilityIndex = 5;
+        private const int simpleAssemblyCategoryGroupIndex = 6;
+        private const int detailedAssemblyCategoryGroupIndex = 7;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 8;
+        private const int combinedAssemblyCategoryGroupIndex = 9;
+        private const int combinedAssemblyProbabilityIndex = 10;
+        private const int manualAssemblyProbabilityIndex = 12;
+
         private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -88,9 +97,24 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         protected override StabilityPointStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult,
-                                                                                FailureMechanism,
-                                                                                assessmentSection);
+            return new StabilityPointStructuresFailureMechanismSectionResultRow(
+                sectionResult,
+                FailureMechanism,
+                assessmentSection,
+                new StabilityPointStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
+                    DetailedAssessmentProbabilityIndex = detailedAssessmentProbabilityIndex,
+                    TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
+                    TailorMadeAssessmentProbabilityIndex = tailorMadeAssessmentProbabilityIndex,
+                    SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
+                    TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
+                    CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
+                    CombinedAssemblyProbabilityIndex = combinedAssemblyProbabilityIndex,
+                    ManualAssemblyProbabilityIndex = manualAssemblyProbabilityIndex
+                });
         }
 
         protected override void Dispose(bool disposing)

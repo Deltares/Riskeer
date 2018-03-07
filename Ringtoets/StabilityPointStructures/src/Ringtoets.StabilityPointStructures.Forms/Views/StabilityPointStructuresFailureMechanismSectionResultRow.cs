@@ -54,10 +54,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// so that it can be displayed as a row.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
+        /// /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult,
                                                                         StabilityPointStructuresFailureMechanism failureMechanism,
-                                                                        IAssessmentSection assessmentSection)
+                                                                        IAssessmentSection assessmentSection,
+                                                                        ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (failureMechanism == null)
@@ -68,6 +71,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
             }
 
             this.failureMechanism = failureMechanism;
@@ -329,6 +337,67 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 CombinedAssemblyProbability = double.NaN;
             }
+        }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Sets the simple assessment result index.
+            /// </summary>
+            public int SimpleAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result index.
+            /// </summary>
+            public int DetailedAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment probability index.
+            /// </summary>
+            public int DetailedAssessmentProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the tailor made assessment result index.
+            /// </summary>
+            public int TailorMadeAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the tailor made assessment probability index.
+            /// </summary>
+            public int TailorMadeAssessmentProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the simple assembly category group index.
+            /// </summary>
+            public int SimpleAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assembly category group index.
+            /// </summary>
+            public int DetailedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the tailor made assembly category group index.
+            /// </summary>
+            public int TailorMadeAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the combined assembly category group index.
+            /// </summary>
+            public int CombinedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the combined assembly probability index.
+            /// </summary>
+            public int CombinedAssemblyProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the manual assembly category group index.
+            /// </summary>
+            public int ManualAssemblyProbabilityIndex { internal get; set; }
         }
     }
 }
