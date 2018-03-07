@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -34,7 +33,7 @@ using Ringtoets.Integration.Service.MessageProviders;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// View for presenting and calculating design water level calculations.
+    /// View for presenting and performing design water level calculations.
     /// </summary>
     public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
@@ -44,21 +43,18 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationsView"/>.
         /// </summary>
-        /// <param name="locations">The locations to show in the view.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
+        /// <param name="calculations">The calculations to show in the view.</param>
+        /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/>, <paramref name="getCalculationFunc"/>,
-        /// <paramref name="assessmentSection"/> or <paramref name="getNormFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>, <paramref name="assessmentSection"/>
+        /// or <paramref name="getNormFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        public DesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
-                                             Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
+        public DesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
                                              IAssessmentSection assessmentSection,
                                              Func<double> getNormFunc,
                                              string categoryBoundaryName)
-            : base(locations, getCalculationFunc, assessmentSection)
+            : base(calculations, assessmentSection)
         {
             if (getNormFunc == null)
             {
@@ -78,19 +74,17 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (currentRow != null)
             {
-                HydraulicBoundaryLocation hydraulicBoundaryLocation = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
-
-                return new DesignWaterLevelCalculationContext(GetCalculationFunc(hydraulicBoundaryLocation));
+                return new DesignWaterLevelCalculationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject);
             }
 
             return null;
         }
 
-        protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
+        protected override void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                             locations.Select(l => GetCalculationFunc(l)),
+                                                             calculations,
                                                              getNormFunc(),
                                                              messageProvider);
         }
