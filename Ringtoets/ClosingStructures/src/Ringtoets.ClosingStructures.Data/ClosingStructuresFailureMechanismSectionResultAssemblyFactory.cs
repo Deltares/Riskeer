@@ -168,7 +168,7 @@ namespace Ringtoets.ClosingStructures.Data
 
                 return calculator.AssembleTailorMadeAssessment(
                     failureMechanismSectionResult.TailorMadeAssessmentResult,
-                    failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
+                    failureMechanismSectionResult.TailorMadeAssessmentProbability,
                     categories);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
