@@ -287,6 +287,66 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
+        public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ExpectedColumnStates()
+        {
+            // Given
+            var random = new Random(39);
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
+                                                                                ConstructionProperties);
+
+                // Precondition
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                const string expectedErrorText = "Message";
+
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex].ErrorText);
+
+                // When
+                calculator.ThrowExceptionOnCalculate = false;
+                row.SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable;
+
+                // Then
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex].ErrorText);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void UseManualAssemblyProbability_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup

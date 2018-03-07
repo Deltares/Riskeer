@@ -328,10 +328,20 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         private void UpdateDerivedData()
         {
+            ResetErrorTexts();
             TryGetSimpleAssemblyCategoryGroup();
             TryGetDetailedAssemblyCategoryGroup();
             TryGetTailorMadeAssemblyCategoryGroup();
             TryGetCombinedAssemblyCategoryGroup();
+        }
+
+        private void ResetErrorTexts()
+        {
+            ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = string.Empty;
         }
 
         private void TryGetSimpleAssemblyCategoryGroup()
@@ -343,6 +353,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             catch (AssemblyException e)
             {
                 simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
 
@@ -358,6 +369,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             catch (AssemblyException e)
             {
                 detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
 
@@ -373,6 +385,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             catch (AssemblyException e)
             {
                 tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
 
@@ -393,6 +406,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             {
                 combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 CombinedAssemblyProbability = double.NaN;
+                ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = e.Message;
             }
         }
 
