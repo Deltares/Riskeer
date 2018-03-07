@@ -21,8 +21,11 @@
 
 using System;
 using System.ComponentModel;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -38,6 +41,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     {
         private readonly StabilityPointStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+
+        private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.
@@ -64,6 +72,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            Update();
         }
 
         /// <summary>
@@ -146,6 +156,56 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         }
 
         /// <summary>
+        /// Gets the simple assembly category group.
+        /// </summary>
+        public string SimpleAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(simpleAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the detailed assembly category group.
+        /// </summary>
+        public string DetailedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(detailedAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the tailor made assembly category group.
+        /// </summary>
+        public string TailorMadeAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(tailorMadeAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the combined assembly category group.
+        /// </summary>
+        public string CombinedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the combined assembly probability.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double CombinedAssemblyProbability { get; private set; }
+
+        /// <summary>
         /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
         /// <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
@@ -156,6 +216,79 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             return SectionResult.Calculation;
         }
 
-        public override void Update() {}
+        public override void Update()
+        {
+            UpdateDerivedData();
+        }
+
+        private void UpdateDerivedData()
+        {
+            TryGetSimpleAssemblyCategoryGroup();
+            TryGetDetailedAssemblyCategoryGroup();
+            TryGetTailorMadeAssemblyCategoryGroup();
+            TryGetCombinedAssemblyCategoryGroup();
+        }
+
+        private void TryGetSimpleAssemblyCategoryGroup()
+        {
+            try
+            {
+                simpleAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+            }
+            catch (AssemblyException e)
+            {
+                simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
+
+        private void TryGetDetailedAssemblyCategoryGroup()
+        {
+            try
+            {
+                detailedAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+            catch (AssemblyException e)
+            {
+                detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
+
+        private void TryGetTailorMadeAssemblyCategoryGroup()
+        {
+            try
+            {
+                tailorMadeAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+            catch (AssemblyException e)
+            {
+                tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
+
+        private void TryGetCombinedAssemblyCategoryGroup()
+        {
+            try
+            {
+                FailureMechanismSectionAssembly combinedAssembly =
+                    StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                        SectionResult,
+                        failureMechanism,
+                        assessmentSection);
+
+                combinedAssemblyCategoryGroup = combinedAssembly.Group;
+                CombinedAssemblyProbability = combinedAssembly.Probability;
+            }
+            catch (AssemblyException e)
+            {
+                combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                CombinedAssemblyProbability = double.NaN;
+            }
+        }
     }
 }
