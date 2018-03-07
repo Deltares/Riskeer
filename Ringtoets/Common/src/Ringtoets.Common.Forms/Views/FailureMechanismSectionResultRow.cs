@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Updates all data and states for the row.
         /// </summary>
-        public virtual void Update() {}
+        public abstract void Update();
 
         /// <summary>
         /// Gets the <see cref="FailureMechanismSectionResult"/> that is the source of this row.

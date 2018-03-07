@@ -217,5 +217,30 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void Update_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+            var row = new PipingFailureMechanismSectionResultRow(result,
+                                                                 Enumerable.Empty<PipingCalculationScenario>(),
+                                                                 failureMechanism,
+                                                                 assessmentSection);
+
+            // Call
+            TestDelegate call = () => row.Update();
+
+            // Assert
+            Assert.Throws<NotImplementedException>(call);
+            mocks.VerifyAll();
+        }
     }
 }

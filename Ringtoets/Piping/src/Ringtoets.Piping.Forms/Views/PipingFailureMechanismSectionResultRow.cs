@@ -131,5 +131,10 @@ namespace Ringtoets.Piping.Forms.Views
                 return SectionResult;
             }
         }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -153,11 +153,11 @@ namespace Ringtoets.Common.Forms.Views
                                 .ToList();
             DataGridViewControl.SetDataSource(sectionResultRows);
 
-            foreach (TSectionResultRow sectionResultRow in sectionResultRows)
+            sectionResultRows?.ForEachElementDo(row =>
             {
-                sectionResultRow.RowUpdated += RowUpdated;
-                sectionResultRow.RowUpdateDone += RowUpdateDone;
-            }
+                row.RowUpdated += RowUpdated;
+                row.RowUpdateDone += RowUpdateDone;
+            });
         }
 
         /// <summary>

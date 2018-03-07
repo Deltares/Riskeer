@@ -116,5 +116,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
+
+        [Test]
+        public void Update_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var row = new DuneErosionSectionResultRow(result);
+
+            // Call
+            TestDelegate call = () => row.Update();
+
+            // Assert
+            Assert.Throws<NotImplementedException>(call);
+        }
     }
 }

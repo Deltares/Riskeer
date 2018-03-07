@@ -122,5 +122,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             return SectionResult.Calculation;
         }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

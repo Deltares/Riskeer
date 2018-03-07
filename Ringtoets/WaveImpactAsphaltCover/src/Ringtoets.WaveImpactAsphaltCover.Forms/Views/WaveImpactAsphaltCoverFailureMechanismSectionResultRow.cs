@@ -90,5 +90,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                 SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
             }
         }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

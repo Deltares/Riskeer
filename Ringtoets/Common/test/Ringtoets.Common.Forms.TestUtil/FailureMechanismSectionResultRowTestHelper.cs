@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class that can be used to test properties of a <see cref="FailureMechanismSectionResultRow{T}"/>.
+    /// Class that can be used to assert properties of a <see cref="FailureMechanismSectionResultRow{T}"/>.
     /// </summary>
     public static class FailureMechanismSectionResultRowTestHelper
     {

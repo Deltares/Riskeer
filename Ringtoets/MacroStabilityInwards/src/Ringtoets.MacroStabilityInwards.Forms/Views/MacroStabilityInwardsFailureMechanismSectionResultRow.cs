@@ -51,9 +51,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         internal MacroStabilityInwardsFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
-                                                                     IEnumerable<MacroStabilityInwardsCalculationScenario> calculations,
-                                                                     MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                                     IAssessmentSection assessmentSection)
+                                                                       IEnumerable<MacroStabilityInwardsCalculationScenario> calculations,
+                                                                       MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                                       IAssessmentSection assessmentSection)
             : base(sectionResult)
         {
             if (calculations == null)
@@ -131,6 +131,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 return SectionResult;
             }
+        }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
         }
     }
 }

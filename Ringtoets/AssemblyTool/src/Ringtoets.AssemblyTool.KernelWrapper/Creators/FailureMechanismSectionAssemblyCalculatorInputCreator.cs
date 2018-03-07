@@ -288,12 +288,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// the input for.</param>
         /// <param name="probability">The calculated probability to create the input for.</param>
         /// <returns>The converted <see cref="TailorMadeProbabilityCalculationResult"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when: <see cref="tailorMadeAssessmentResult"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="tailorMadeAssessmentResult"/> 
-        /// is a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>. </exception>
-        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
-        /// invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
+        /// is a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
         private static TailorMadeProbabilityCalculationResult ConvertTailorMadeProbabilityCalculationResult(
             TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
             double probability)
