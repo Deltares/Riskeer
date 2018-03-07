@@ -202,7 +202,10 @@ namespace Ringtoets.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                DetailedAssessmentResult = new Random(21).NextEnumValue<DetailedAssessmentResultType>()
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
