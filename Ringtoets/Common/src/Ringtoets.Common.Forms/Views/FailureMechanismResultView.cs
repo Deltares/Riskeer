@@ -120,11 +120,7 @@ namespace Ringtoets.Common.Forms.Views
 
             DataGridViewControl.CellFormatting -= HandleCellStyling;
 
-            sectionResultRows?.ForEachElementDo(row =>
-            {
-                row.RowUpdated -= RowUpdated;
-                row.RowUpdateDone -= RowUpdateDone;
-            });
+            RemoveSectionResultRowEvents();
 
             if (disposing)
             {
@@ -141,11 +137,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             DataGridViewControl.EndEdit();
 
-            sectionResultRows?.ForEachElementDo(row =>
-            {
-                row.RowUpdated -= RowUpdated;
-                row.RowUpdateDone -= RowUpdateDone;
-            });
+            RemoveSectionResultRowEvents();
 
             sectionResultRows = failureMechanismSectionResults
                                 .Select(CreateFailureMechanismSectionResultRow)
@@ -181,6 +173,15 @@ namespace Ringtoets.Common.Forms.Views
         protected virtual void BindEvents()
         {
             DataGridViewControl.CellFormatting += HandleCellStyling;
+        }
+
+        private void RemoveSectionResultRowEvents()
+        {
+            sectionResultRows?.ForEachElementDo(row =>
+            {
+                row.RowUpdated -= RowUpdated;
+                row.RowUpdateDone -= RowUpdateDone;
+            });
         }
 
         private void RowUpdateDone(object sender, EventArgs eventArgs)
