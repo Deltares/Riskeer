@@ -35,19 +35,19 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <summary>
     /// Class for testing data and selection synchronization in <see cref="LocationsView{T}"/> derivatives.
     /// </summary>
-    /// <typeparam name="T">The type of the locations contained by the view.</typeparam>
+    /// <typeparam name="T">The type of the calculations contained by the view.</typeparam>
     [TestFixture]
     public abstract class LocationsViewSynchronizationTester<T> where T : class
     {
         private Form testForm;
 
         /// <summary>
-        /// Gets the index of the column containing the locations output.
+        /// Gets the index of the column containing the calculations output.
         /// </summary>
         protected abstract int OutputColumnIndex { get; }
 
         [SetUp]
-        public virtual void Setup()
+        public void Setup()
         {
             testForm = new Form();
         }
@@ -59,79 +59,71 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         /// <summary>
-        /// Method for obtaining the view selection object related to the selected location row.
+        /// Method for obtaining the view selection object related to the selected calculation row.
         /// </summary>
-        /// <param name="view">The locations view involved.</param>
-        /// <param name="selectedRowObject">The selected location row object.</param>
+        /// <param name="view">The calculations view involved.</param>
+        /// <param name="selectedRowObject">The selected calculation row object.</param>
         /// <returns>The view selection object.</returns>
-        protected abstract object GetLocationSelection(LocationsView<T> view, object selectedRowObject);
+        protected abstract object GetCalculationSelection(LocationsView<T> view, object selectedRowObject);
 
         /// <summary>
-        /// Method for showing a fully configured locations view.
+        /// Method for showing a fully configured calculations view.
         /// </summary>
         /// <param name="form">The form to use for showing the view.</param>
         /// <remarks>
-        /// The view should contain the following location row data:
+        /// The view should contain the following calculation row data:
         /// <list type="bullet">
-        /// <item>Row 1: location without output</item>
-        /// <item>Row 2: location with output not containing a general result</item>
-        /// <item>Row 3: location with the flag for parsing the general result set to true</item>
-        /// <item>Row 4: location with output containing a general result with two top level illustration points</item>
+        /// <item>Row 1: calculation without output</item>
+        /// <item>Row 2: calculation with output not containing a general result</item>
+        /// <item>Row 3: calculation with the flag for parsing the general result set to true</item>
+        /// <item>Row 4: calculation with output containing a general result with two top level illustration points</item>
         /// </list>
         /// </remarks>
-        /// <returns>The fully configured locations view.</returns>
-        protected abstract LocationsView<T> ShowFullyConfiguredLocationsView(Form form);
+        /// <returns>The fully configured calculations view.</returns>
+        protected abstract LocationsView<T> ShowFullyConfiguredCalculationsView(Form form);
 
         /// <summary>
-        /// Method for getting the locations in <paramref name="view"/>.
+        /// Method for getting the calculations in <paramref name="view"/>.
         /// </summary>
-        /// <param name="view">The view to get the locations from.</param>
-        /// <returns>An <see cref="ObservableList{T}"/> of locations.</returns>
-        protected abstract ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<T> view);
-
-        /// <summary>
-        /// Method for getting the <see cref="HydraulicBoundaryLocationCalculation"/> corresponding to
-        /// the provided <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the calculation for.</param>
-        /// <returns>The calculation at stake.</returns>
-        protected abstract HydraulicBoundaryLocationCalculation GetCalculationForLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation);
+        /// <param name="view">The view to get the calculations from.</param>
+        /// <returns>An <see cref="ObservableList{T}"/> of calculations.</returns>
+        protected abstract ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(LocationsView<T> view);
 
         private void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<T> view)
         {
-            ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
+            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
-            locations.Clear();
-            locations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0));
-            locations.NotifyObservers();
+            calculations.Clear();
+            calculations.Add(new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)));
+            calculations.NotifyObservers();
         }
 
-        private void ClearLocationOutputAndNotifyObservers(LocationsView<T> view)
+        private void ClearCalculationOutputAndNotifyObservers(LocationsView<T> view)
         {
-            ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
+            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
-            locations.ForEach(loc =>
+            calculations.ForEach(calculation =>
             {
-                GetCalculationForLocation(loc).Output = null;
-                loc.NotifyObservers();
+                calculation.Output = null;
+                calculation.NotifyObservers();
             });
         }
 
-        private void AddLocationOutputAndNotifyObservers(LocationsView<T> view)
+        private void AddCalculationOutputAndNotifyObservers(LocationsView<T> view)
         {
-            ObservableList<HydraulicBoundaryLocation> locations = GetLocationsInView(view);
+            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = locations.First();
-            GetCalculationForLocation(hydraulicBoundaryLocation).Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-            hydraulicBoundaryLocation.NotifyObservers();
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = calculations.First();
+            hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+            hydraulicBoundaryLocationCalculation.NotifyObservers();
         }
 
-        private DataGridView GetLocationsDataGridView()
+        private DataGridView GetCalculationsDataGridView()
         {
             return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
         }
 
-        private DataGridViewControl GetLocationsDataGridViewControl()
+        private DataGridViewControl GetCalculationsDataGridViewControl()
         {
             return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
         }
@@ -149,16 +141,16 @@ namespace Ringtoets.Common.Forms.TestUtil
         #region Data synchronization
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingLocationWithoutOutput_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
+        public void GivenFullyConfiguredView_WhenSelectingCalculationWithoutOutput_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Given
-            ShowFullyConfiguredLocationsView(testForm);
+            ShowFullyConfiguredCalculationsView(testForm);
 
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
 
             // When
-            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(0, 1));
+            calculationsDataGridViewControl.SetCurrentCell(calculationsDataGridViewControl.GetCell(0, 1));
 
             // Then
             CollectionAssert.IsEmpty(illustrationPointsControl.Data);
@@ -168,13 +160,13 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithoutGeneralResult_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Given
-            ShowFullyConfiguredLocationsView(testForm);
+            ShowFullyConfiguredCalculationsView(testForm);
 
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
 
             // When
-            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(1, 0));
+            calculationsDataGridViewControl.SetCurrentCell(calculationsDataGridViewControl.GetCell(1, 0));
 
             // Then
             CollectionAssert.IsEmpty(illustrationPointsControl.Data);
@@ -184,13 +176,13 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocationWithGeneralResult_ThenGeneralResultSetOnIllustrationPointsControlData()
         {
             // Given
-            ShowFullyConfiguredLocationsView(testForm);
+            ShowFullyConfiguredCalculationsView(testForm);
 
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
 
             // When
-            locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(3, 0));
+            calculationsDataGridViewControl.SetCurrentCell(calculationsDataGridViewControl.GetCell(3, 0));
 
             // Then
             Assert.AreEqual(2, illustrationPointsControl.Data.Count());
@@ -200,11 +192,11 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithFilledIllustrationPointsControl_WhenOutputCleared_ThenDataGridViewsUpdated()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
-            DataGridViewRowCollection locationsDataGridViewRows = locationsDataGridView.Rows;
-            locationsDataGridView.CurrentCell = locationsDataGridViewRows[3].Cells[0];
+            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
+            DataGridViewRowCollection locationsDataGridViewRows = calculationsDataGridView.Rows;
+            calculationsDataGridView.CurrentCell = locationsDataGridViewRows[3].Cells[0];
 
             // Precondition
             Assert.AreEqual(4, locationsDataGridViewRows.Count);
@@ -215,10 +207,10 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual(2, GetIllustrationPointsControl().Data.Count());
 
             var refreshed = false;
-            locationsDataGridView.Invalidated += (sender, args) => refreshed = true;
+            calculationsDataGridView.Invalidated += (sender, args) => refreshed = true;
 
             // When
-            ClearLocationOutputAndNotifyObservers(view);
+            ClearCalculationOutputAndNotifyObservers(view);
 
             // Then
             Assert.IsTrue(refreshed);
@@ -238,96 +230,96 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingLocation_ThenSelectionUpdated()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
 
             // When
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
+            calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
 
             // Then
-            DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(3, currentLocationRow.Index);
-            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+            DataGridViewRow currentCalculationRow = GetCalculationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(3, currentCalculationRow.Index);
+            Assert.AreEqual(GetCalculationSelection(view, currentCalculationRow.DataBoundItem), view.Selection);
         }
 
         [Test]
         public void GivenFullyConfiguredViewWithLocationSelection_WhenDatabaseReplaced_ThenSelectionUpdated()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
+            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
+            calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
 
             // Precondition
-            DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(3, currentLocationRow.Index);
-            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+            DataGridViewRow currentCalculationRow = GetCalculationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(3, currentCalculationRow.Index);
+            Assert.AreEqual(GetCalculationSelection(view, currentCalculationRow.DataBoundItem), view.Selection);
 
             // When
             ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(view);
 
             // Then
-            currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(0, currentLocationRow.Index);
-            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+            currentCalculationRow = GetCalculationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(0, currentCalculationRow.Index);
+            Assert.AreEqual(GetCalculationSelection(view, currentCalculationRow.DataBoundItem), view.Selection);
         }
 
         [Test]
         public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputCleared_ThenSelectionPreserved()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
+            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
+            calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
 
             // Precondition
-            DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(3, currentLocationRow.Index);
-            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+            DataGridViewRow currentCalculationRow = GetCalculationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(3, currentCalculationRow.Index);
+            Assert.AreEqual(GetCalculationSelection(view, currentCalculationRow.DataBoundItem), view.Selection);
 
             // When
-            ClearLocationOutputAndNotifyObservers(view);
+            ClearCalculationOutputAndNotifyObservers(view);
 
             // Then
-            currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(3, currentLocationRow.Index);
-            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+            currentCalculationRow = GetCalculationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(3, currentCalculationRow.Index);
+            Assert.AreEqual(GetCalculationSelection(view, currentCalculationRow.DataBoundItem), view.Selection);
         }
 
         [Test]
         public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputUpdated_ThenSelectionPreserved()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
+            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
+            calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
 
             // Precondition
-            DataGridViewRow currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(3, currentLocationRow.Index);
-            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+            DataGridViewRow currentCalculationRow = GetCalculationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(3, currentCalculationRow.Index);
+            Assert.AreEqual(GetCalculationSelection(view, currentCalculationRow.DataBoundItem), view.Selection);
 
             // When
-            AddLocationOutputAndNotifyObservers(view);
+            AddCalculationOutputAndNotifyObservers(view);
 
             // Then
-            currentLocationRow = GetLocationsDataGridViewControl().CurrentRow;
-            Assert.AreEqual(3, currentLocationRow.Index);
-            Assert.AreEqual(GetLocationSelection(view, currentLocationRow.DataBoundItem), view.Selection);
+            currentCalculationRow = GetCalculationsDataGridViewControl().CurrentRow;
+            Assert.AreEqual(3, currentCalculationRow.Index);
+            Assert.AreEqual(GetCalculationSelection(view, currentCalculationRow.DataBoundItem), view.Selection);
         }
 
         [Test]
         public void GivenFullyConfiguredView_WhenSelectingIllustrationPoint_ThenSelectionUpdated()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
+            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
+            calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
             DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
 
             // When
@@ -341,15 +333,15 @@ namespace Ringtoets.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenDatabaseReplaced_ThenSelectionSetToLocation()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
+            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
+            calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
             DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
             illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
 
             // Precondition
-            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(3, calculationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
             AssertIllustrationPointControlSelection(view.Selection);
 
@@ -357,55 +349,55 @@ namespace Ringtoets.Common.Forms.TestUtil
             ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(view);
 
             // Then
-            Assert.AreEqual(0, locationsDataGridView.CurrentRow?.Index);
-            Assert.AreEqual(GetLocationSelection(view, locationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
+            Assert.AreEqual(0, calculationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(GetCalculationSelection(view, calculationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
         }
 
         [Test]
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputCleared_ThenSelectionSetToLocation()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
+            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
+            calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
             DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
             illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
 
             // Precondition
-            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(3, calculationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
             AssertIllustrationPointControlSelection(view.Selection);
 
             // When
-            ClearLocationOutputAndNotifyObservers(view);
+            ClearCalculationOutputAndNotifyObservers(view);
 
             // Then
-            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
-            Assert.AreEqual(GetLocationSelection(view, locationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
+            Assert.AreEqual(3, calculationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(GetCalculationSelection(view, calculationsDataGridView.CurrentRow?.DataBoundItem), view.Selection);
         }
 
         [Test]
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputUpdated_ThenSelectionPreserved()
         {
             // Given
-            LocationsView<T> view = ShowFullyConfiguredLocationsView(testForm);
+            LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
-            locationsDataGridView.CurrentCell = locationsDataGridView.Rows[3].Cells[0];
+            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
+            calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
             DataGridView illustrationPointsDataGridView = GetIllustrationPointsDataGridView();
             illustrationPointsDataGridView.CurrentCell = illustrationPointsDataGridView.Rows[1].Cells[0];
 
             // Precondition
-            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(3, calculationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
             AssertIllustrationPointControlSelection(view.Selection);
 
             // When
-            AddLocationOutputAndNotifyObservers(view);
+            AddCalculationOutputAndNotifyObservers(view);
 
             // Then
-            Assert.AreEqual(3, locationsDataGridView.CurrentRow?.Index);
+            Assert.AreEqual(3, calculationsDataGridView.CurrentRow?.Index);
             Assert.AreEqual(1, illustrationPointsDataGridView.CurrentRow?.Index);
             AssertIllustrationPointControlSelection(view.Selection);
         }
