@@ -70,6 +70,19 @@ namespace Ringtoets.Common.Data.TestUtil
             return CreateFailureMechanismSection("test", coordinates);
         }
 
+        /// <summary>
+        /// Creates a <see cref="FailureMechanismSection"/>.
+        /// </summary>
+        /// <param name="name">The name of the section.</param>
+        /// <param name="coordinates">The coordinates of the section.</param>
+        /// <returns>A valid <see cref="FailureMechanismSection"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="coordinates"/> does not have at least one geometry point.</item>
+        /// <item>One or more <paramref name="coordinates"/> elements are <c>null</c>.</item>
+        /// </list> </exception>
         private static FailureMechanismSection CreateFailureMechanismSection(string name, IEnumerable<Point2D> coordinates)
         {
             return new FailureMechanismSection(name, coordinates);
