@@ -122,6 +122,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("constructionProperties", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]

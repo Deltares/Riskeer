@@ -132,6 +132,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -1198,26 +1199,49 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable
-            }).SetName("SectionWithoutCalculation");
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible
+            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultProbabilityNegligible");
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                Calculation = new TestClosingStructuresCalculation()
-            }).SetName("SectionWithCalculationNoOutput");
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
+                Calculation = new StructuresCalculation<ClosingStructuresInput>()
+            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultProbabilityNegligible");
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                Calculation = new TestClosingStructuresCalculation
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Output = new TestStructuresOutput(double.NaN)
                 }
-            }).SetName("SectionWithInvalidCalculationOutput");
+            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
+                Calculation = CreateCalculationWithOutput()
+            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
+
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable
+            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
+                Calculation = new StructuresCalculation<ClosingStructuresInput>()
+            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
+                {
+                    Output = new TestStructuresOutput(double.NaN)
+                }
+            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultNotApplicable");
             yield return new TestCaseData(new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 Calculation = CreateCalculationWithOutput()
-            }).SetName("SectionWithValidCalculationOutput");
+            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
         }
 
         #endregion

@@ -42,6 +42,7 @@ using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.Views;
 
 namespace Ringtoets.HeightStructures.Forms.Test.Views
@@ -140,7 +141,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = CreateCompleteCalculation()
+                Calculation = CreateCalculationWithOutput()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -414,6 +415,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             }
         }
 
+        private static TestHeightStructuresCalculation CreateCalculationWithOutput()
+        {
+            return new TestHeightStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+        }
+
         #region Column States
 
         [Test]
@@ -435,7 +444,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
-                Calculation = CreateCompleteCalculation(),
+                Calculation = CreateCalculationWithOutput(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
             };
 
@@ -480,7 +489,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 DetailedAssessmentResult = detailedAssessmentResult,
-                Calculation = CreateCompleteCalculation()
+                Calculation = CreateCalculationWithOutput()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -549,7 +558,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = CreateCompleteCalculation(),
+                Calculation = CreateCalculationWithOutput(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssemblyProbability = useManualAssemblyProbability
             };
@@ -939,7 +948,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = CreateCompleteCalculation()
+                Calculation = CreateCalculationWithOutput()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1171,7 +1180,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                Calculation = CreateCompleteCalculation()
+                Calculation = CreateCalculationWithOutput()
             }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
 
             yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
@@ -1194,16 +1203,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                Calculation = CreateCompleteCalculation()
+                Calculation = CreateCalculationWithOutput()
             }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
-        }
-
-        private static StructuresCalculation<HeightStructuresInput> CreateCompleteCalculation()
-        {
-            return new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new TestStructuresOutput(new Random(39).NextDouble())
-            };
         }
 
         #endregion
