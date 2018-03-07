@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
 
-            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationContext, GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationContext, GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties(context.WrappedData)
             };
