@@ -210,7 +210,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new HeightStructuresFailureMechanismSectionResultRow(
-                    result, new HeightStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssemblyProbability;
                 bool newValue = !originalValue;
 
@@ -247,7 +247,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new HeightStructuresFailureMechanismSectionResultRow(
-                    result, new HeightStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyProbability = value;
@@ -279,7 +279,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new HeightStructuresFailureMechanismSectionResultRow(
-                    result, new HeightStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.ManualAssemblyProbability = value;
