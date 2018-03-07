@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_WithoutLocations_ReturnsNull()
+        public void Selection_WithoutCalculations_ReturnsNull()
         {
             // Call
             using (var view = new TestLocationsView())
@@ -246,6 +246,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             testForm.Controls.Add(view);
             testForm.Show();
+
             return view;
         }
 
