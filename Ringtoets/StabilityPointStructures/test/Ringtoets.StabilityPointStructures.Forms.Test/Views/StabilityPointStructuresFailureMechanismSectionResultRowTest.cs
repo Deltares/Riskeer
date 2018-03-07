@@ -749,6 +749,248 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }
         }
 
+        [Test]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        public void Constructor_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        public void Constructor_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = new TestStabilityPointStructuresCalculation(),
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        public void Constructor_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput(double.NaN)
+            };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation,
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void Constructor_SectionResultAndSuccessfulCalculation_DetailedAssessmentProbabilityNoError()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = CreateCalculationWithOutput()
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
+                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void Constructor_SectionResultWithManualAssemblyAndNotCalculated_DetailedAssessmentProbabilityNoError()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = new TestStabilityPointStructuresCalculation(),
+                UseManualAssemblyProbability = true
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call 
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void Constructor_SectionResultWithDetailedAssessmentNotAssessedAndNotCalculated_DetailedAssessmentProbabilityNoError()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = new TestStabilityPointStructuresCalculation(),
+                DetailedAssessmentResult = DetailedAssessmentResultType.NotAssessed
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
+        public void Constructor_SectionResultAndAssessmentSimpleAssessmentSufficient_DetailedAssessmentProbabilityNoError(
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
+                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        private static IEnumerable<TestCaseData> SimpleAssessmentResultIsSufficientVariousSectionResults()
+        {
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+           yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable
+            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
+            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new TestStructuresOutput(double.NaN)
+                }
+            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                Calculation = CreateCalculationWithOutput()
+            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
+        }
+
         #endregion
 
         #region Registration

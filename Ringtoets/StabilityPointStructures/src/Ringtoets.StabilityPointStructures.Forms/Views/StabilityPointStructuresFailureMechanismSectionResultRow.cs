@@ -295,6 +295,23 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             UpdateDerivedData();
             UpdateColumnStateDefinitions();
+            UpdateDetailedAssessmentProbabilityError();
+        }
+
+        private void UpdateDetailedAssessmentProbabilityError()
+        {
+            if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult)
+                || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
+                || UseManualAssemblyProbability)
+            {
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = string.Empty;
+            }
+            else
+            {
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentError(
+                    DetailedAssessmentProbability,
+                    SectionResult.Calculation);
+            }
         }
 
         private void CreateColumnStateDefinitions()
