@@ -26,6 +26,7 @@ using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
@@ -103,30 +104,21 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[] simpleAssessmentResultDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultValidityOnlyType))
-                    .OfType<SimpleAssessmentResultValidityOnlyType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultValidityOnlyColumn(
+                DataGridViewControl,
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentResultDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+                DataGridViewControl,
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName);
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
+                DataGridViewControl,
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
         }
     }
 }
