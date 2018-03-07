@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
 
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            PropertyDescriptor locationsProperty = dynamicProperties.Find("Locations", false);
+            PropertyDescriptor locationsProperty = dynamicProperties.Find("Calculations", false);
 
             Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
             Assert.IsNotNull(locationsProperty);
