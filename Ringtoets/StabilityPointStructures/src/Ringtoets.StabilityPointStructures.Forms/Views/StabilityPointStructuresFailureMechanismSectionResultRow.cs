@@ -111,6 +111,22 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         }
 
         /// <summary>
+        /// Gets or sets the value representing the tailor made assessment result.
+        /// </summary>
+        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult
+        {
+            get
+            {
+                return SectionResult.TailorMadeAssessmentResult;
+            }
+            set
+            {
+                SectionResult.TailorMadeAssessmentResult = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when 
