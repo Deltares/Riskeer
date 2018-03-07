@@ -49,14 +49,14 @@ namespace Ringtoets.Common.Data.TestUtil
 
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
-            WaterLevelCalculationsForFactorizedSignalingNorm = new HydraulicBoundaryLocationCalculation[0];
-            WaterLevelCalculationsForSignalingNorm = new HydraulicBoundaryLocationCalculation[0];
-            WaterLevelCalculationsForLowerLimitNorm = new HydraulicBoundaryLocationCalculation[0];
-            WaterLevelCalculationsForFactorizedLowerLimitNorm = new HydraulicBoundaryLocationCalculation[0];
-            WaveHeightCalculationsForFactorizedSignalingNorm = new HydraulicBoundaryLocationCalculation[0];
-            WaveHeightCalculationsForSignalingNorm = new HydraulicBoundaryLocationCalculation[0];
-            WaveHeightCalculationsForLowerLimitNorm = new HydraulicBoundaryLocationCalculation[0];
-            WaveHeightCalculationsForFactorizedLowerLimitNorm = new HydraulicBoundaryLocationCalculation[0];
+            WaterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            WaterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            WaterLevelCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            WaterLevelCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            WaveHeightCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            WaveHeightCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            WaveHeightCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            WaveHeightCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         }
 
         public string Id { get; }
@@ -67,14 +67,14 @@ namespace Ringtoets.Common.Data.TestUtil
         public FailureMechanismContribution FailureMechanismContribution { get; }
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
         public BackgroundData BackgroundData { get; set; }
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm { get; }
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm { get; }
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm { get; }
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedLowerLimitNorm { get; }
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm { get; }
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForSignalingNorm { get; }
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForLowerLimitNorm { get; }
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedLowerLimitNorm { get; }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm { get; }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm { get; }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm { get; }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedLowerLimitNorm { get; }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm { get; }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForSignalingNorm { get; }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForLowerLimitNorm { get; }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedLowerLimitNorm { get; }
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {

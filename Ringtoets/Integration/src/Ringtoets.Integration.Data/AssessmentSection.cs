@@ -51,14 +51,15 @@ namespace Ringtoets.Integration.Data
         private const double defaultNorm = 1.0 / 30000;
         private const RingtoetsWellKnownTileSource defaultWellKnownTileSource = RingtoetsWellKnownTileSource.BingAerial;
 
-        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
         private ReferenceLine referenceLine;
 
         /// <summary>
@@ -210,7 +211,7 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public TechnicalInnovationFailureMechanism TechnicalInnovation { get; }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
         {
             get
             {
@@ -218,7 +219,7 @@ namespace Ringtoets.Integration.Data
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm
         {
             get
             {
@@ -226,7 +227,7 @@ namespace Ringtoets.Integration.Data
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm
         {
             get
             {
@@ -234,7 +235,7 @@ namespace Ringtoets.Integration.Data
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedLowerLimitNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedLowerLimitNorm
         {
             get
             {
@@ -242,7 +243,7 @@ namespace Ringtoets.Integration.Data
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm
         {
             get
             {
@@ -250,7 +251,7 @@ namespace Ringtoets.Integration.Data
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForSignalingNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForSignalingNorm
         {
             get
             {
@@ -258,7 +259,7 @@ namespace Ringtoets.Integration.Data
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForLowerLimitNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForLowerLimitNorm
         {
             get
             {
@@ -266,7 +267,7 @@ namespace Ringtoets.Integration.Data
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedLowerLimitNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedLowerLimitNorm
         {
             get
             {
