@@ -105,10 +105,10 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Handles the calculation of the <paramref name="locations"/>.
+        /// Performs the selected <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="locations">The enumeration of <see cref="HydraulicBoundaryLocation"/> to use in the calculation.</param>
-        protected abstract void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations);
+        /// <param name="calculations">The calculations to perform.</param>
+        protected abstract void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations);
 
         protected override void CalculateForSelectedRows()
         {
@@ -117,8 +117,7 @@ namespace Ringtoets.Common.Forms.Views
                 return;
             }
 
-            IEnumerable<HydraulicBoundaryLocation> selectedLocations = GetSelectedCalculatableObjects();
-            HandleCalculateSelectedLocations(selectedLocations);
+            PerformSelectedCalculations(GetSelectedCalculatableObjects);
         }
 
         protected override void SetDataSource()
@@ -134,9 +133,8 @@ namespace Ringtoets.Common.Forms.Views
                 return Enumerable.Empty<IllustrationPointControlItem>();
             }
 
-            HydraulicBoundaryLocation location = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetCalculationFunc(location);
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = hydraulicBoundaryLocationCalculation.Output;
             if (hydraulicBoundaryLocationCalculation.HasOutput
                 && hydraulicBoundaryLocationOutput.HasGeneralResult)
@@ -160,13 +158,11 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Creates a new row that is added to the data table.
         /// </summary>
-        /// <param name="location">The location for which to create a new row.</param>
+        /// <param name="calculation">The calculation for which to create a new row.</param>
         /// <returns>The newly created row.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c> or
-        /// <see cref="GetCalculationFunc"/> returns <c>null</c>.</exception>
-        private HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
+        private HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation)
         {
-            return new HydraulicBoundaryLocationRow(location, GetCalculationFunc(location));
+            return new HydraulicBoundaryLocationRow(calculation);
         }
     }
 }
