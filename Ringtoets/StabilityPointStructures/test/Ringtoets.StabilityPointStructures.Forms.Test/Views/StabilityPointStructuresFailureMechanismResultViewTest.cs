@@ -102,527 +102,60 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultsView_WhenAllDataSet_ThenDataGridViewCorrectlyInitialized()
-        {
-            // Given
-            using (CreateConfiguredFailureMechanismResultsView())
-            {
-                // Then
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(2, rows.Count);
-
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentResultIndex].Value);
-                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
-
-                cells = rows[1].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentResultIndex].Value);
-                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
-            }
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable)]
-        public void FailureMechanismResultsView_ChangeComboBox_DataGridViewCorrectlySyncedAndStylingSet(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
-        {
-            // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[simpleAssessmentResultIndex].Value = simpleAssessmentResult;
-
-                // Assert
-                DataGridViewRowCollection rows = dataGridView.Rows;
-
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                DataGridViewCell cellDetailedAssessment = cells[detailedAssessmentIndex];
-                DataGridViewCell cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
-                DataGridViewCell dataGridViewCell = cells[simpleAssessmentResultIndex];
-
-                Assert.AreEqual(simpleAssessmentResult, dataGridViewCell.Value);
-                Assert.AreEqual("-", cellDetailedAssessment.FormattedValue);
-                Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-
-                if (simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable)
-                {
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellDetailedAssessment);
-                    DataGridViewTestHelper.AssertCellIsDisabled(cellAssessmentLayerThree);
-
-                    Assert.IsTrue(cellAssessmentLayerThree.ReadOnly);
-                }
-                else
-                {
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellDetailedAssessment, true);
-                    DataGridViewTestHelper.AssertCellIsEnabled(cellAssessmentLayerThree);
-
-                    Assert.IsFalse(cellAssessmentLayerThree.ReadOnly);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithClosingStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (ShowFailureMechanismResultsView(new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>()))
             {
                 // Then
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
 
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
+                Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
+
+                Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[simpleAssessmentResultIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[detailedAssessmentIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[assessmentLayerThreeIndex].ReadOnly);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
             }
         }
-
         [Test]
-        public void FailureMechanismResultView_WithFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
-        {
-            // Setup
-            var random = new Random(21);
-            var result1 = new StabilityPointStructuresFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
-                TailorMadeAssessmentProbability = random.NextDouble()
-            };
-            var result2 = new StabilityPointStructuresFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable,
-                TailorMadeAssessmentProbability = random.NextDouble()
-            };
-            var result3 = new StabilityPointStructuresFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None,
-                TailorMadeAssessmentProbability = random.NextDouble()
-            };
-
-            // Call
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-                {
-                    result1,
-                    result2,
-                    result3
-                }))
-            {
-                // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(3, rows.Count);
-
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentResultIndex].Value);
-
-                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(result1.TailorMadeAssessmentProbability),
-                                cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-
-                cells = rows[1].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentResultIndex].Value);
-                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(result2.TailorMadeAssessmentProbability),
-                                cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
-
-                cells = rows[2].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentResultIndex].Value);
-                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(result3.TailorMadeAssessmentProbability),
-                                cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[detailedAssessmentIndex], true);
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None, TestName = "ResultView_SectionnBecomesNotApplicableAndListenersNotified_RowsDisabled(None)")]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, TestName = "ResultView_SectionnBecomesNotApplicableAndListenersNotified_RowsDisabled(Applicable)")]
-        public void GivenFormWithFailureMechanismResultView_WhenSectionBecomesNotApplicableAndListenersNotified_ThenRowsForSectionDisabled(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        public void GivenFailureMechanismResultsView_WhenAllDataSet_ThenDataGridViewCorrectlyInitialized()
         {
             // Given
-            var random = new Random(21);
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var results = new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
             {
-                SimpleAssessmentResult = simpleAssessmentResult,
-                TailorMadeAssessmentProbability = random.NextDouble()
+                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             };
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-                {
-                    result
-                }))
-            {
-                // When
-                result.SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable;
-                result.NotifyObservers();
 
+            StabilityPointStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(results);
+            using (failureMechanismResultView)
+            {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[detailedAssessmentIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentResultIndex].Value);
+                Assert.AreEqual("-", cells[detailedAssessmentIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultWithoutCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
-        {
-            // Given
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.", dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        public void GivenSectionResultAndCalculationNotCalculated_ThenDetailedAssessmentErrorTooltip(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
-        {
-            // Given
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>(),
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.", dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        public void GivenSectionResultAndFailedCalculation_ThenDetailedAssessmentErrorTooltip(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
-        {
-            // Given
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                },
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        public void GivenSectionResultAndSuccessfulCalculation_ThenDetailedAssessmentNoError()
-        {
-            // Given
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
-                {
-                    Output = new TestStructuresOutput(0.56789)
-                }
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetVariousSimpleAssessmentResultConfigurationsWithoutErrorMessage))]
-        public void GivenVariousSectionResultAndSimpleAssessmentResultConfigurations_ThenDetailedAssessmentNoError(
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult, string expectedValue)
-        {
-            // Given
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
-
-                // When
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual(expectedValue, formattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(None)")]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, TestName = "SectionResultSuccessfulCalculation_CalculationToFailed_LayerTwoAHasError(Applicable)")]
-        public void GivenSectionResultAndSuccessfulCalculation_WhenChangingCalculationToFailed_ThenLayerTwoAHasError(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
-        {
-            // Given
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
-                {
-                    Output = new TestStructuresOutput(0.56789)
-                },
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (ShowFailureMechanismResultsView(
-                new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-                {
-                    sectionResult
-                }))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[detailedAssessmentIndex];
-
-                // Precondition
-                object formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), formattedValue);
-                Assert.IsEmpty(dataGridViewCell.ErrorText);
-
-                // When
-                sectionResult.Calculation = new StructuresCalculation<StabilityPointStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                };
-                formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
-
-                // Then
-                Assert.AreEqual("-", formattedValue);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.", dataGridViewCell.ErrorText);
-            }
-        }
-
-        [Test]
-        [TestCase("test", assessmentLayerThreeIndex)]
-        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerThreeIndex)]
-        public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
-        {
-            // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
-
-                // Assert
-                Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kans.", dataGridView.Rows[0].ErrorText);
-            }
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(1.01)]
-        [TestCase(-0.01)]
-        [TestCase(5)]
-        [TestCase(-10)]
-        public void FailureMechanismResultView_EditValueAssessmentLayerThreeInvalid_ShowErrorToolTip(double newValue)
-        {
-            // Setup
-            using (CreateConfiguredFailureMechanismResultsView())
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
-
-                // Assert
-                Assert.AreEqual("De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.", dataGridView.Rows[0].ErrorText);
-            }
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(1)]
-        [TestCase(0)]
-        [TestCase(0.5)]
-        [TestCase(1e-6)]
-        [TestCase(double.NaN)]
-        public void FailureMechanismResultView_EditValueAssessmentLayerThreeValid_DoNotShowErrorToolTipAndEditValue(double newValue)
-        {
-            // Setup
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-
-            using (ShowFailureMechanismResultsView(new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-            {
-                result
-            }))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[assessmentLayerThreeIndex].Value = newValue.ToString(CultureInfo.CurrentCulture);
-
-                // Assert
-                Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
-            }
-        }
-
-        private static IEnumerable GetVariousSimpleAssessmentResultConfigurationsWithoutErrorMessage()
-        {
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable
-            }, "-").SetName("SectionWithoutCalculation");
-            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
-            }, "-").SetName("SectionWithCalculationNoOutput");
-            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                }
-            }, "-").SetName("SectionWithInvalidCalculationOutput");
-            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
-                {
-                    Output = new TestStructuresOutput(0.56789)
-                }
-            }, ProbabilityFormattingHelper.Format(0.25)).SetName("SectionWithValidCalculationOutput");
-        }
-
-        private StabilityPointStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()
-        {
-            var results = new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>
-            {
-                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")),
-                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
-            };
-
-            StabilityPointStructuresFailureMechanismResultView failureMechanismResultView = ShowFailureMechanismResultsView(results);
-
-            return failureMechanismResultView;
         }
 
         private StabilityPointStructuresFailureMechanismResultView ShowFailureMechanismResultsView(

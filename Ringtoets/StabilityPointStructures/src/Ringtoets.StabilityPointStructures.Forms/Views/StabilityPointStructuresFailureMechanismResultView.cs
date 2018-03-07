@@ -21,13 +21,11 @@
 
 using System;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
@@ -42,7 +40,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
         StabilityPointStructuresFailureMechanismSectionResultRow, StabilityPointStructuresFailureMechanism>
     {
-        private const int detailedAssessmentIndex = 2;
         private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -97,9 +94,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.CellFormatting -= ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
-
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
@@ -133,47 +127,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
-        }
-
-        protected override void BindEvents()
-        {
-            base.BindEvents();
-
-            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-        }
-
-        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
-            {
-                SimpleAssessmentResultValidityOnlyType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
-        }
-
-        private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex != detailedAssessmentIndex)
-            {
-                return;
-            }
-
-            StabilityPointStructuresFailureMechanismSectionResultRow resultRow = GetDataAtRow(e.RowIndex);
-            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-            StructuresCalculation<StabilityPointStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
-
-            FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
-                                                                              resultRow.SimpleAssessmentResult,
-                                                                              resultRow.DetailedAssessmentProbability,
-                                                                              normativeCalculation);
         }
     }
 }
