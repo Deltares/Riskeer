@@ -34,6 +34,7 @@ namespace Ringtoets.Piping.Data
     public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private double tailorMadeAssessmentProbability;
+        private double manualAssemblyProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
@@ -43,13 +44,26 @@ namespace Ringtoets.Piping.Data
         public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
-            tailorMadeAssessmentProbability = double.NaN;
+            DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
+            TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
+            TailorMadeAssessmentProbability = double.NaN;
+            ManualAssemblyProbability = double.NaN;
         }
 
         /// <summary>
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tailor made assessment result.
+        /// </summary>
+        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the tailor made assessment of safety per failure mechanism section as a probability.
@@ -67,6 +81,30 @@ namespace Ringtoets.Piping.Data
                                                       RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 tailorMadeAssessmentProbability = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyProbability"/>.
+        /// </summary>
+        public bool UseManualAssemblyProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double ManualAssemblyProbability
+        {
+            get
+            {
+                return manualAssemblyProbability;
+            }
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                manualAssemblyProbability = value;
             }
         }
     }

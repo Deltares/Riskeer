@@ -43,7 +43,11 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentResultType.Probability, sectionResult.DetailedAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
+            Assert.IsFalse(sectionResult.UseManualAssemblyProbability);
+            Assert.IsNaN(sectionResult.ManualAssemblyProbability);
         }
 
         [Test]
@@ -85,6 +89,47 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void ManualAssemblyProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate test = () => result.ManualAssemblyProbability = newValue;
+
+            // Assert
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void ManualAssemblyProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            result.ManualAssemblyProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.ManualAssemblyProbability);
         }
     }
 }
