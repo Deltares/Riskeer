@@ -45,6 +45,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.IsNull(sectionResult.Calculation);
             Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, sectionResult.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentResultType.Probability, sectionResult.DetailedAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.AreSame(section, sectionResult.Section);
         }
