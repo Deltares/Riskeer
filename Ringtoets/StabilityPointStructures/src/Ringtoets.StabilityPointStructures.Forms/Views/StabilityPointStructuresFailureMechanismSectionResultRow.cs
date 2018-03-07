@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
@@ -39,6 +40,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     public class StabilityPointStructuresFailureMechanismSectionResultRow
         : FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>
     {
+        private readonly int simpleAssessmentResultIndex;
+        private readonly int detailedAssessmentResultIndex;
+        private readonly int detailedAssessmentProbabilityIndex;
+        private readonly int tailorMadeAssessmentResultIndex;
+        private readonly int tailorMadeAssessmentProbabilityIndex;
+        private readonly int simpleAssemblyCategoryGroupIndex;
+        private readonly int detailedAssemblyCategoryGroupIndex;
+        private readonly int tailorMadeAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyProbabilityIndex;
+        private readonly int manualAssemblyProbabilityIndex;
+
         private readonly StabilityPointStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
@@ -80,6 +93,20 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            simpleAssessmentResultIndex = constructionProperties.SimpleAssessmentResultIndex;
+            detailedAssessmentResultIndex = constructionProperties.DetailedAssessmentResultIndex;
+            detailedAssessmentProbabilityIndex = constructionProperties.DetailedAssessmentProbabilityIndex;
+            tailorMadeAssessmentResultIndex = constructionProperties.TailorMadeAssessmentResultIndex;
+            tailorMadeAssessmentProbabilityIndex = constructionProperties.TailorMadeAssessmentProbabilityIndex;
+            simpleAssemblyCategoryGroupIndex = constructionProperties.SimpleAssemblyCategoryGroupIndex;
+            detailedAssemblyCategoryGroupIndex = constructionProperties.DetailedAssemblyCategoryGroupIndex;
+            tailorMadeAssemblyCategoryGroupIndex = constructionProperties.TailorMadeAssemblyCategoryGroupIndex;
+            combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
+            combinedAssemblyProbabilityIndex = constructionProperties.CombinedAssemblyProbabilityIndex;
+            manualAssemblyProbabilityIndex = constructionProperties.ManualAssemblyProbabilityIndex;
+
+            CreateColumnStateDefinitions();
 
             Update();
         }
@@ -267,6 +294,36 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         public override void Update()
         {
             UpdateDerivedData();
+        }
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(simpleAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(detailedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(tailorMadeAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(combinedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(combinedAssemblyProbabilityIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(manualAssemblyProbabilityIndex, new DataGridViewColumnStateDefinition());
         }
 
         private void UpdateDerivedData()
