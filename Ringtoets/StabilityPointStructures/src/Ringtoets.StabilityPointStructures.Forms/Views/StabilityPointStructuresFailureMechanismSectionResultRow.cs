@@ -78,7 +78,23 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResult;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResult = value;
+                UpdateInternalData();
             }
         }
 
@@ -109,7 +125,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 

@@ -137,6 +137,36 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
+        public void DetailedAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                result, failureMechanism, assessmentSection);
+
+            // Call
+            row.DetailedAssessmentResult = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.DetailedAssessmentResult);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void DetailedAssessmentProbability_NoCalculationSet_ReturnNaN()
         {
             // Setup
