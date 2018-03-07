@@ -265,7 +265,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssemblyProbability;
                 bool newValue = !originalValue;
 
@@ -302,7 +302,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyProbability = value;
@@ -334,7 +334,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.ManualAssemblyProbability = value;
@@ -1149,7 +1149,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentProbability = value;
@@ -1181,7 +1181,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new ClosingStructuresFailureMechanismSectionResultRow(
-                    result, new ClosingStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.TailorMadeAssessmentProbability = value;

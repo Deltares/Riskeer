@@ -1112,7 +1112,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new HeightStructuresFailureMechanismSectionResultRow(
-                    result, new HeightStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentProbability = value;
@@ -1144,7 +1144,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new HeightStructuresFailureMechanismSectionResultRow(
-                    result, new HeightStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.TailorMadeAssessmentProbability = value;

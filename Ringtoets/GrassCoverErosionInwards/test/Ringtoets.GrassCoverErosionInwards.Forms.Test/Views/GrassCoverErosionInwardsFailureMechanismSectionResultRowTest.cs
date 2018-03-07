@@ -210,7 +210,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
-                    result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssemblyProbability;
                 bool newValue = !originalValue;
 
@@ -247,7 +247,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
-                    result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyProbability = value;
@@ -279,7 +279,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
-                    result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.ManualAssemblyProbability = value;
@@ -1108,7 +1108,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
-                    result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentProbability = value;
@@ -1140,7 +1140,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
-                    result, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
