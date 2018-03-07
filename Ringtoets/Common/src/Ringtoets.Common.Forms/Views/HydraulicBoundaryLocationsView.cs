@@ -33,35 +33,28 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Base view for <see cref="HydraulicBoundaryLocation"/> views which should be derived in 
+    /// Base view for <see cref="HydraulicBoundaryLocationCalculation"/> views which should be derived in
     /// order to get a consistent look and feel.
     /// </summary>
-    public abstract partial class HydraulicBoundaryLocationsView : LocationsView<HydraulicBoundaryLocation>
+    public abstract partial class HydraulicBoundaryLocationsView : LocationsView<HydraulicBoundaryLocationCalculation>
     {
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly ObservableList<HydraulicBoundaryLocation> locations;
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+        private readonly Observer calculationsObserver;
+        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationObserver;
+
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> calculations;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsView"/>.
         /// </summary>
-        /// <param name="locations">The locations to show in the view.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
+        /// <param name="calculations">The calculations to show in the view.</param>
+        /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
-                                                 Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
+        protected HydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
                                                  IAssessmentSection assessmentSection)
         {
-            if (locations == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(locations));
-            }
-
-            if (getCalculationFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getCalculationFunc));
+                throw new ArgumentNullException(nameof(calculations));
             }
 
             if (assessmentSection == null)
@@ -71,14 +64,13 @@ namespace Ringtoets.Common.Forms.Views
 
             AssessmentSection = assessmentSection;
 
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateDataGridViewDataSource);
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(HandleHydraulicBoundaryLocationCalculationUpdate, list => list);
+            calculationsObserver = new Observer(UpdateDataGridViewDataSource);
+            calculationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(HandleHydraulicBoundaryLocationCalculationUpdate, list => list);
 
-            this.locations = locations;
-            GetCalculationFunc = getCalculationFunc;
+            this.calculations = calculations;
 
-            hydraulicBoundaryLocationsObserver.Observable = locations;
-            hydraulicBoundaryLocationObserver.Observable = locations;
+            calculationsObserver.Observable = calculations;
+            calculationObserver.Observable = calculations;
 
             UpdateDataGridViewDataSource();
         }
@@ -90,16 +82,10 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
 
-        /// <summary>
-        /// Gets the <see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// based on <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        protected Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> GetCalculationFunc { get; }
-
         protected override void Dispose(bool disposing)
         {
-            hydraulicBoundaryLocationsObserver.Dispose();
-            hydraulicBoundaryLocationObserver.Dispose();
+            calculationsObserver.Dispose();
+            calculationObserver.Dispose();
 
             base.Dispose(disposing);
         }
@@ -107,6 +93,7 @@ namespace Ringtoets.Common.Forms.Views
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
+
             dataGridViewControl.AddCheckBoxColumn(nameof(HydraulicBoundaryLocationRow.IncludeIllustrationPoints),
                                                   RingtoetsCommonFormsResources.HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Name),
@@ -136,7 +123,7 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void SetDataSource()
         {
-            dataGridViewControl.SetDataSource(locations?.Select(CreateNewRow).ToArray());
+            dataGridViewControl.SetDataSource(calculations?.Select(CreateNewRow).ToArray());
         }
 
         protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()
