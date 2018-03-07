@@ -427,8 +427,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex], true);
             }
 
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex], simpleAssessmentSufficient);
-            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex], simpleAssessmentSufficient);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],simpleAssessmentSufficient);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
+                                                                  simpleAssessmentSufficient
+                                                                  || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult));
         }
 
         /// <summary>

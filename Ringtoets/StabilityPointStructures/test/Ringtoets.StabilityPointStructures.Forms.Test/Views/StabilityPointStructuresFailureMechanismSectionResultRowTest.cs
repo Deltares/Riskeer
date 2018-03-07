@@ -601,6 +601,42 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }
         }
 
+        [Test]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.None, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible, false)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.Probability, true)]
+        public void Constructor_WithTailorMadeAssessmentResultSet_ExpectedColumnStates(
+            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+            bool cellEnabled)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
+                                                                             cellEnabled);
+                mocks.VerifyAll();
+            }
+        }
+
         #endregion
 
         #region Registration
