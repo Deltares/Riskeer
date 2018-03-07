@@ -200,46 +200,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the indicator whether the combined assembly probability
-        /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        public bool UseManualAssemblyProbability
-        {
-            get
-            {
-                return SectionResult.UseManualAssemblyProbability;
-            }
-            set
-            {
-                SectionResult.UseManualAssemblyProbability = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the manually entered assembly probability.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
-        /// not in the range [0,1].</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double ManualAssemblyProbability
-        {
-            get
-            {
-                return SectionResult.ManualAssemblyProbability;
-            }
-            set
-            {
-                SectionResult.ManualAssemblyProbability = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
         public string SimpleAssemblyCategoryGroup
@@ -288,6 +248,46 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CombinedAssemblyProbability { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly probability
+        /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public bool UseManualAssemblyProbability
+        {
+            get
+            {
+                return SectionResult.UseManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.UseManualAssemblyProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the manually entered assembly probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
+        /// not in the range [0,1].</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double ManualAssemblyProbability
+        {
+            get
+            {
+                return SectionResult.ManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.ManualAssemblyProbability = value;
+                UpdateInternalData();
+            }
+        }
 
         /// <inheritdoc />
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
