@@ -49,7 +49,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.UseManualAssemblyProbability);
-            Assert.AreEqual(double.NaN, sectionResult.ManualAssemblyProbability);
+            Assert.IsNaN(sectionResult.ManualAssemblyProbability);
         }
 
         [Test]

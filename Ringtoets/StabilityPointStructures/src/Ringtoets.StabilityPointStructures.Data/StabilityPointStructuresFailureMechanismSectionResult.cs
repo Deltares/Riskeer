@@ -35,6 +35,7 @@ namespace Ringtoets.StabilityPointStructures.Data
     public class StabilityPointStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private double tailorMadeAssessmentProbability;
+        private double manualAssemblyProbability;
 
         /// <summary>
         /// Initializes a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
@@ -46,7 +47,8 @@ namespace Ringtoets.StabilityPointStructures.Data
             SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None;
             DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
             TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
-            tailorMadeAssessmentProbability = double.NaN;
+            TailorMadeAssessmentProbability = double.NaN;
+            ManualAssemblyProbability = double.NaN;
         }
 
         /// <summary>
@@ -88,6 +90,32 @@ namespace Ringtoets.StabilityPointStructures.Data
                                                       RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 tailorMadeAssessmentProbability = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly
+        /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
+        /// </summary>
+        public bool UseManualAssemblyProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when
+        /// <paramref name="value"/> is not in range [0,1].</exception>
+        public double ManualAssemblyProbability
+        {
+            get
+            {
+                return manualAssemblyProbability;
+            }
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                manualAssemblyProbability = value;
             }
         }
     }
