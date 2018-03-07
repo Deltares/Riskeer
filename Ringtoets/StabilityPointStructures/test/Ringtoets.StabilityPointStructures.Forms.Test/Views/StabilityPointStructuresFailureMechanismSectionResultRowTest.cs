@@ -106,11 +106,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void SimpleAssessmentResult_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged()
+        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -122,7 +125,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var newValue = new Random(21).NextEnumValue<SimpleAssessmentResultValidityOnlyType>();
 
             var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result,
-                                                                                   new StabilityPointStructuresFailureMechanism(),
+                                                                                   failureMechanism,
                                                                                    assessmentSection);
 
             // Call
