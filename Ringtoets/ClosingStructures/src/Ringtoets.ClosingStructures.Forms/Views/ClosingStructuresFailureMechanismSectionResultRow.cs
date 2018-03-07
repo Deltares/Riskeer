@@ -149,8 +149,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets the value representing the detailed assessment probability.
         /// </summary>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability
         {

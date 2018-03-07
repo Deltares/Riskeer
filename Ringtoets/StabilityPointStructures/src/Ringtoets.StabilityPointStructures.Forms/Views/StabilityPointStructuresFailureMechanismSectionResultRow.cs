@@ -70,6 +70,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult,
                                                                         StabilityPointStructuresFailureMechanism failureMechanism,
                                                                         IAssessmentSection assessmentSection,
@@ -114,6 +116,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult
         {
             get
@@ -130,6 +134,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the detailed assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResult
         {
             get
@@ -145,7 +151,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         /// <summary>
         /// Gets the value representing the detailed assessment probability.
-        /// </summary>
+        /// </summary>        
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability
         {
@@ -158,6 +164,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult
         {
             get
@@ -176,6 +184,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when 
         /// <paramref name="value"/> is outside of the valid ranges.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double TailorMadeAssessmentProbability
         {
@@ -291,6 +301,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             return SectionResult.Calculation;
         }
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public override void Update()
         {
             UpdateDerivedData();
@@ -429,6 +442,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Updates the column state definitions.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         private void UpdateColumnStateDefinitions()
         {
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);

@@ -148,8 +148,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <summary>
         /// Gets the value representing the result of the detailed assessment.
         /// </summary>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability
         {
