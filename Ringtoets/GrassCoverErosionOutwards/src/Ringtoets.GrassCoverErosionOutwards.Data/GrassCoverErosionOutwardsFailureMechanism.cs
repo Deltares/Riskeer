@@ -40,12 +40,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                                                              IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
         private readonly ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
-        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificSignalingNorm = new List<HydraulicBoundaryLocationCalculation>();
-        private readonly IList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificLowerLimitNorm = new List<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> class.
@@ -91,6 +91,72 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
+        /// <summary>
+        /// Gets the water level calculations corresponding to the mechanism specific factorized signaling norm.
+        /// </summary>
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
+        {
+            get
+            {
+                return waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm;
+            }
+        }
+
+        /// <summary>
+        /// Gets the water level calculations corresponding to the mechanism specific signaling norm.
+        /// </summary>
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificSignalingNorm
+        {
+            get
+            {
+                return waterLevelCalculationsForMechanismSpecificSignalingNorm;
+            }
+        }
+
+        /// <summary>
+        /// Gets the water level calculations corresponding to the mechanism specific lower limit norm.
+        /// </summary>
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
+        {
+            get
+            {
+                return waterLevelCalculationsForMechanismSpecificLowerLimitNorm;
+            }
+        }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the mechanism specific factorized signaling norm.
+        /// </summary>
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
+        {
+            get
+            {
+                return waveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm;
+            }
+        }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the mechanism specific signaling norm.
+        /// </summary>
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificSignalingNorm
+        {
+            get
+            {
+                return waveHeightCalculationsForMechanismSpecificSignalingNorm;
+            }
+        }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the mechanism specific lower limit norm.
+        /// </summary>
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+        {
+            get
+            {
+                return waveHeightCalculationsForMechanismSpecificLowerLimitNorm;
+            }
+        }
+
         public IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults
         {
             get
@@ -129,72 +195,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         {
             base.ClearAllSections();
             sectionResults.Clear();
-        }
-
-        /// <summary>
-        /// Gets the water level calculations corresponding to the mechanism specific factorized signaling norm.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the water level calculations corresponding to the mechanism specific signaling norm.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificSignalingNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForMechanismSpecificSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the water level calculations corresponding to the mechanism specific lower limit norm.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForMechanismSpecificLowerLimitNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the mechanism specific factorized signaling norm.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the mechanism specific signaling norm.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificSignalingNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForMechanismSpecificSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the mechanism specific lower limit norm.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForMechanismSpecificLowerLimitNorm;
-            }
         }
 
         private void ClearHydraulicBoundaryLocationCalculations()
