@@ -29,28 +29,17 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="HydraulicBoundaryLocation"/>.
+    /// This class represents a row of <see cref="HydraulicBoundaryLocationCalculation"/>.
     /// </summary>
-    public class HydraulicBoundaryLocationRow : CalculatableRow<HydraulicBoundaryLocation>
+    public class HydraulicBoundaryLocationRow : CalculatableRow<HydraulicBoundaryLocationCalculation>
     {
-        private readonly HydraulicBoundaryLocationCalculation calculation;
-
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationRow"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for this row.</param>
-        /// <param name="hydraulicBoundaryLocationCalculation">The calculation of the <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-            : base(hydraulicBoundaryLocation)
-        {
-            if (hydraulicBoundaryLocationCalculation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
-            }
-            calculation = hydraulicBoundaryLocationCalculation;
-        }
+        /// <param name="hydraulicBoundaryLocationCalculation">The <see cref="HydraulicBoundaryLocationCalculation"/> for this row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryLocationRow(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+            : base(hydraulicBoundaryLocationCalculation) {}
 
         /// <summary>
         /// Gets or sets the value indicating whether the illustration points need to be included.
@@ -59,11 +48,11 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return calculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+                return CalculatableObject.InputParameters.ShouldIllustrationPointsBeCalculated;
             }
             set
             {
-                calculation.InputParameters.ShouldIllustrationPointsBeCalculated = value;
+                CalculatableObject.InputParameters.ShouldIllustrationPointsBeCalculated = value;
                 CalculatableObject.NotifyObservers();
             }
         }
@@ -75,7 +64,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return CalculatableObject.Name;
+                return CalculatableObject.HydraulicBoundaryLocation.Name;
             }
         }
 
@@ -86,7 +75,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return CalculatableObject.Id;
+                return CalculatableObject.HydraulicBoundaryLocation.Id;
             }
         }
 
@@ -97,7 +86,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return CalculatableObject.Location;
+                return CalculatableObject.HydraulicBoundaryLocation.Location;
             }
         }
 
@@ -109,7 +98,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return calculation.Output?.Result ?? RoundedDouble.NaN;
+                return CalculatableObject.Output?.Result ?? RoundedDouble.NaN;
             }
         }
     }
