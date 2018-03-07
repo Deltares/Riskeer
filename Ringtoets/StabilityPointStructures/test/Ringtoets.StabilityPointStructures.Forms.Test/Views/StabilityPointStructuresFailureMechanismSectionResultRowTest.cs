@@ -106,6 +106,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(row.TailorMadeAssessmentProbability, result.TailorMadeAssessmentProbability);
+                Assert.AreEqual(result.UseManualAssemblyProbability, row.UseManualAssemblyProbability);
+                Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
 
                 TestHelper.AssertTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                     nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
@@ -133,7 +135,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
@@ -181,7 +183,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
@@ -220,6 +222,166 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual(expectedAssemblyDisplayName, row.CombinedAssemblyCategoryGroup);
                 Assert.IsNaN(row.CombinedAssemblyProbability);
 
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void UseManualAssemblyProbability_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection);
+                bool originalValue = result.UseManualAssemblyProbability;
+                bool newValue = !originalValue;
+
+                // Call
+                row.UseManualAssemblyProbability = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.UseManualAssemblyProbability);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(0.5)]
+        [TestCase(1e-6)]
+        [TestCase(double.NaN)]
+        public void ManualAssemblyProbability_ValidValue_NotifyObserversAndPropertyChanged(double value)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection);
+
+                // Call
+                row.ManualAssemblyProbability = value;
+
+                // Assert
+                Assert.AreEqual(value, row.ManualAssemblyProbability);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void ManualAssemblyProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection);
+
+                // Call
+                TestDelegate test = () => row.ManualAssemblyProbability = value;
+
+                // Assert
+                const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(result.Calculation);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+                // Call
+                StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
+
+                // Assert
+                Assert.IsNull(calculation);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = expectedCalculation
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+                // Call
+                StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
+
+                // Assert
+                Assert.AreSame(expectedCalculation, calculation);
                 mocks.VerifyAll();
             }
         }
@@ -495,65 +657,5 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         #endregion
-
-        [Test]
-        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
-
-            // Precondition
-            Assert.IsNull(result.Calculation);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
-
-                // Call
-                StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
-
-                // Assert
-                Assert.IsNull(calculation);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = expectedCalculation
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
-
-                // Call
-                StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
-
-                // Assert
-                Assert.AreSame(expectedCalculation, calculation);
-                mocks.VerifyAll();
-            }
-        }
     }
 }
