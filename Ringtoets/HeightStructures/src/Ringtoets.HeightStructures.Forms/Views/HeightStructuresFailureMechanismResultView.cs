@@ -21,15 +21,12 @@
 
 using System;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Builders;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Views
@@ -40,7 +37,18 @@ namespace Ringtoets.HeightStructures.Forms.Views
     public class HeightStructuresFailureMechanismResultView
         : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult, HeightStructuresFailureMechanismSectionResultRow, HeightStructuresFailureMechanism>
     {
-        private const int detailedAssessmentIndex = 3;
+        private const int simpleAssessmentResultIndex = 1;
+        private const int detailedAssessmentResultIndex = 2;
+        private const int detailedAssessmentProbabilityIndex = 3;
+        private const int tailorMadeAssessmentResultIndex = 4;
+        private const int tailorMadeAssessmentProbabilityIndex = 5;
+        private const int simpleAssemblyCategoryGroupIndex = 6;
+        private const int detailedAssemblyCategoryGroupIndex = 7;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 8;
+        private const int combinedAssemblyCategoryGroupIndex = 9;
+        private const int combinedAssemblyProbabilityIndex = 10;
+        private const int manualAssemblyProbabilityIndex = 12;
+
         private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
@@ -88,9 +96,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.CellFormatting -= ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
-
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
@@ -100,9 +105,24 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         protected override HeightStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult,
-                                                                        FailureMechanism,
-                                                                        assessmentSection);
+            return new HeightStructuresFailureMechanismSectionResultRow(
+                sectionResult,
+                FailureMechanism,
+                assessmentSection,
+                new HeightStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
+                    DetailedAssessmentProbabilityIndex = detailedAssessmentProbabilityIndex,
+                    TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
+                    TailorMadeAssessmentProbabilityIndex = tailorMadeAssessmentProbabilityIndex,
+                    SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
+                    TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
+                    CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
+                    CombinedAssemblyProbabilityIndex = combinedAssemblyProbabilityIndex,
+                    ManualAssemblyProbabilityIndex = manualAssemblyProbabilityIndex
+                });
         }
 
         protected override void AddDataGridColumns()
@@ -130,47 +150,34 @@ namespace Ringtoets.HeightStructures.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
-        }
 
-        protected override void BindEvents()
-        {
-            base.BindEvents();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
 
-            DataGridViewControl.CellFormatting += ShowAssessmentLayerErrors;
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-        }
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
 
-        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
-            {
-                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
-        }
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
-        private void ShowAssessmentLayerErrors(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex != detailedAssessmentIndex)
-            {
-                return;
-            }
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
 
-            HeightStructuresFailureMechanismSectionResultRow resultRow = GetDataAtRow(e.RowIndex);
-            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-            StructuresCalculation<HeightStructuresInput> normativeCalculation = resultRow.GetSectionResultCalculation();
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
-            FailureMechanismSectionResultRowHelper.SetDetailedAssessmentError(currentDataGridViewCell,
-                                                                              resultRow.SimpleAssessmentResult,
-                                                                              resultRow.DetailedAssessmentProbability,
-                                                                              normativeCalculation);
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
+                DataGridViewControl,
+                nameof(HeightStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
     }
 }

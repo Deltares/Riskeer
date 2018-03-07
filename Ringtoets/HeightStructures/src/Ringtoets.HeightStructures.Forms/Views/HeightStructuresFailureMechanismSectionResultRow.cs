@@ -21,8 +21,11 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Controls.DataGrid;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -35,8 +38,24 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// </summary>
     public class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>
     {
+        private readonly int simpleAssessmentResultIndex;
+        private readonly int detailedAssessmentResultIndex;
+        private readonly int detailedAssessmentProbabilityIndex;
+        private readonly int tailorMadeAssessmentResultIndex;
+        private readonly int tailorMadeAssessmentProbabilityIndex;
+        private readonly int simpleAssemblyCategoryGroupIndex;
+        private readonly int detailedAssemblyCategoryGroupIndex;
+        private readonly int tailorMadeAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyProbabilityIndex;
+        private readonly int manualAssemblyProbabilityIndex;
+
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
@@ -44,10 +63,13 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResult"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult,
                                                                   HeightStructuresFailureMechanism failureMechanism,
-                                                                  IAssessmentSection assessmentSection)
+                                                                  IAssessmentSection assessmentSection,
+                                                                  ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (failureMechanism == null)
@@ -60,8 +82,29 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            simpleAssessmentResultIndex = constructionProperties.SimpleAssessmentResultIndex;
+            detailedAssessmentResultIndex = constructionProperties.DetailedAssessmentResultIndex;
+            detailedAssessmentProbabilityIndex = constructionProperties.DetailedAssessmentProbabilityIndex;
+            tailorMadeAssessmentResultIndex = constructionProperties.TailorMadeAssessmentResultIndex;
+            tailorMadeAssessmentProbabilityIndex = constructionProperties.TailorMadeAssessmentProbabilityIndex;
+            simpleAssemblyCategoryGroupIndex = constructionProperties.SimpleAssemblyCategoryGroupIndex;
+            detailedAssemblyCategoryGroupIndex = constructionProperties.DetailedAssemblyCategoryGroupIndex;
+            tailorMadeAssemblyCategoryGroupIndex = constructionProperties.TailorMadeAssemblyCategoryGroupIndex;
+            combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
+            combinedAssemblyProbabilityIndex = constructionProperties.CombinedAssemblyProbabilityIndex;
+            manualAssemblyProbabilityIndex = constructionProperties.ManualAssemblyProbabilityIndex;
+
+            CreateColumnStateDefinitions();
+
+            Update();
         }
 
         /// <summary>
@@ -76,7 +119,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -92,12 +135,12 @@ namespace Ringtoets.HeightStructures.Forms.Views
             set
             {
                 SectionResult.DetailedAssessmentResult = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
         /// <summary>
-        /// Gets the value representing the detailed assessment probability.
+        /// Gets the value representing the result of the detailed assessment.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability
@@ -120,7 +163,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             set
             {
                 SectionResult.TailorMadeAssessmentResult = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
@@ -139,19 +182,342 @@ namespace Ringtoets.HeightStructures.Forms.Views
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
-        /// <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+        /// Gets the simple assembly category group.
         /// </summary>
-        /// <returns><c>null</c> if the wrapped section result does not have a calculation
-        /// set. Otherwise the calculation of the wrapped section result is returned.</returns>
-        public StructuresCalculation<HeightStructuresInput> GetSectionResultCalculation()
+        public string SimpleAssemblyCategoryGroup
         {
-            return SectionResult.Calculation;
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(simpleAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the detailed assembly category group.
+        /// </summary>
+        public string DetailedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(detailedAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the tailor made assembly category group.
+        /// </summary>
+        public string TailorMadeAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(tailorMadeAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the combined assembly category group.
+        /// </summary>
+        public string CombinedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the combined assembly probability.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double CombinedAssemblyProbability { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly probability
+        /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
+        /// </summary>
+        public bool UseManualAssemblyProbability
+        {
+            get
+            {
+                return SectionResult.UseManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.UseManualAssemblyProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the manually entered assembly probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
+        /// not in the range [0,1].</exception>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double ManualAssemblyProbability
+        {
+            get
+            {
+                return SectionResult.ManualAssemblyProbability;
+            }
+            set
+            {
+                SectionResult.ManualAssemblyProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        public override void Update()
+        {
+            UpdateDerivedData();
+            UpdateColumnDefinitionStates();
+            UpdateDetailedAssessmentProbabilityError();
+        }
+
+        private void UpdateDetailedAssessmentProbabilityError()
+        {
+            if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult)
+                || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
+                || UseManualAssemblyProbability)
+            {
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = string.Empty;
+            }
+            else
+            {
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentError(
+                    DetailedAssessmentProbability,
+                    SectionResult.Calculation);
+            }
+        }
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(simpleAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(detailedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(tailorMadeAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(combinedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(combinedAssemblyProbabilityIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(manualAssemblyProbabilityIndex, new DataGridViewColumnStateDefinition());
+        }
+
+        private void UpdateDerivedData()
+        {
+            ResetErrorTexts();
+            TryGetSimpleAssemblyCategoryGroup();
+            TryGetDetailedAssemblyCategoryGroup();
+            TryGetTailorMadeAssemblyCategoryGroup();
+            TryGetCombinedAssemblyCategoryGroup();
+        }
+
+        private void ResetErrorTexts()
+        {
+            ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = string.Empty;
+        }
+
+        private void TryGetSimpleAssemblyCategoryGroup()
+        {
+            try
+            {
+                simpleAssemblyCategoryGroup = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+            }
+            catch (AssemblyException e)
+            {
+                simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
+        }
+
+        private void TryGetDetailedAssemblyCategoryGroup()
+        {
+            try
+            {
+                detailedAssemblyCategoryGroup = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+            catch (AssemblyException e)
+            {
+                detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
+        }
+
+        private void TryGetTailorMadeAssemblyCategoryGroup()
+        {
+            try
+            {
+                tailorMadeAssemblyCategoryGroup = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
+            }
+            catch (AssemblyException e)
+            {
+                tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.Message;
+            }
+        }
+
+        private void TryGetCombinedAssemblyCategoryGroup()
+        {
+            try
+            {
+                FailureMechanismSectionAssembly combinedAssembly =
+                    HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                        SectionResult,
+                        failureMechanism,
+                        assessmentSection);
+
+                combinedAssemblyCategoryGroup = combinedAssembly.Group;
+                CombinedAssemblyProbability = combinedAssembly.Probability;
+            }
+            catch (AssemblyException e)
+            {
+                combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                CombinedAssemblyProbability = double.NaN;
+                ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = e.Message;
+            }
+        }
+
+        private void UpdateColumnDefinitionStates()
+        {
+            bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyProbability);
+            if (simpleAssessmentSufficient
+                || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
+                || UseManualAssemblyProbability)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex]);
+            }
+            else
+            {
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex], true);
+            }
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyProbability);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
+                                                                  simpleAssessmentSufficient
+                                                                  || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
+                                                                  || UseManualAssemblyProbability);
+
+            if (UseManualAssemblyProbability)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyProbabilityIndex]);
+            }
+            else
+            {
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex],
+                                                                                     simpleAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex],
+                                                                                     detailedAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex],
+                                                                                     tailorMadeAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex],
+                                                                                     combinedAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[combinedAssemblyProbabilityIndex], true);
+            }
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyProbabilityIndex], !UseManualAssemblyProbability);
+        }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Gets or sets the simple assessment result index.
+            /// </summary>
+            public int SimpleAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the detailed assessment result index.
+            /// </summary>
+            public int DetailedAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the detailed assessment probability index.
+            /// </summary>
+            public int DetailedAssessmentProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tailor made assessment result index.
+            /// </summary>
+            public int TailorMadeAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tailor made assessment probability index.
+            /// </summary>
+            public int TailorMadeAssessmentProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the simple assembly category group index.
+            /// </summary>
+            public int SimpleAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the detailed assembly category group index.
+            /// </summary>
+            public int DetailedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the tailor made assembly category group index.
+            /// </summary>
+            public int TailorMadeAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the combined assembly category group index.
+            /// </summary>
+            public int CombinedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the combined assembly probability index.
+            /// </summary>
+            public int CombinedAssemblyProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the manual assembly category group index.
+            /// </summary>
+            public int ManualAssemblyProbabilityIndex { internal get; set; }
         }
     }
 }

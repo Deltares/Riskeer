@@ -124,6 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("constructionProperties", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
