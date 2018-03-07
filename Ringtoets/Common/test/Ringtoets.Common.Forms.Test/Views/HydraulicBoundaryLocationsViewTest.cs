@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class HydraulicBoundaryLocationsViewTest
     {
-        private const int locationCalculateColumnIndex = 0;
+        private const int calculateColumnIndex = 0;
         private const int includeIllustrationPointsColumnIndex = 1;
         private const int locationNameColumnIndex = 2;
         private const int locationIdColumnIndex = 3;
@@ -60,37 +60,22 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_LocationsNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new TestHydraulicBoundaryLocationsView(null,
-                                                                             hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                              new ObservableTestAssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("locations", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                             null,
-                                                                             new ObservableTestAssessmentSectionStub());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getCalculationFunc", exception.ParamName);
+            Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                             hbl => new HydraulicBoundaryLocationCalculation(hbl),
+            TestDelegate call = () => new TestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                              null);
 
             // Assert
@@ -105,7 +90,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestHydraulicBoundaryLocationsView view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
 
             // Assert
-            Assert.IsInstanceOf<LocationsView<HydraulicBoundaryLocation>>(view);
+            Assert.IsInstanceOf<LocationsView<HydraulicBoundaryLocationCalculation>>(view);
             Assert.IsNull(view.Data);
         }
 
@@ -119,8 +104,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
             Assert.AreEqual(5, dataGridView.ColumnCount);
 
-            var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
-            Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
+            var calculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[calculateColumnIndex];
+            Assert.AreEqual("Berekenen", calculateColumn.HeaderText);
 
             var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[includeIllustrationPointsColumnIndex];
             Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
@@ -151,7 +136,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
@@ -159,7 +144,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             cells = rows[1].Cells;
             Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
@@ -167,7 +152,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             cells = rows[2].Cells;
             Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
@@ -182,7 +167,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
             DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+            rows[0].Cells[calculateColumnIndex].Value = true;
 
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
@@ -197,12 +182,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void GetIllustrationPointControlItems_ViewWithData_ReturnsExpectedControlItems()
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var locations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                hydraulicBoundaryLocation
-            };
-
             var topLevelIllustrationPoints = new[]
             {
                 new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
@@ -213,27 +192,22 @@ namespace Ringtoets.Common.Forms.Test.Views
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
             var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
-            var calculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 Output = output
             };
-
-            HydraulicBoundaryLocation getCalculationsCallArgument = null;
-
-            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView(locations, hbl =>
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                getCalculationsCallArgument = hbl;
+                calculation
+            };
 
-                return calculation;
-            });
+            TestHydraulicBoundaryLocationsView view = ShowTestHydraulicBoundaryLocationsView(calculations);
 
             // Call
             IEnumerable<IllustrationPointControlItem> actualControlItems =
                 view.PublicGetIllustrationPointControlItems();
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation, getCalculationsCallArgument);
-
             IEnumerable<IllustrationPointControlItem> expectedControlItems =
                 CreateControlItems(generalResult);
             CollectionAssert.AreEqual(expectedControlItems, actualControlItems,
@@ -257,16 +231,12 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private void ShowTestHydraulicBoundaryLocationsView()
         {
-            ShowTestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                   hbl => new HydraulicBoundaryLocationCalculation(hbl));
+            ShowTestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>());
         }
 
-        private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
-                                                                                          Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+        private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations)
         {
-            var view = new TestHydraulicBoundaryLocationsView(locations,
-                                                              getCalculationFunc,
-                                                              new ObservableTestAssessmentSectionStub());
+            var view = new TestHydraulicBoundaryLocationsView(calculations, new ObservableTestAssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -276,50 +246,35 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private TestHydraulicBoundaryLocationsView ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
         {
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
-
-            locations.AddRange(new[]
+            return ShowTestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
-                new HydraulicBoundaryLocation(2, "2", 2.0, 2.0),
-                new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
-            });
-
-            var calculations = new[]
-            {
-                new HydraulicBoundaryLocationCalculation(locations[0]),
-                new HydraulicBoundaryLocationCalculation(locations[1])
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(1.23)
                 },
-                new HydraulicBoundaryLocationCalculation(locations[2])
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
                 {
                     InputParameters =
                     {
                         ShouldIllustrationPointsBeCalculated = true
                     }
                 }
-            };
-
-            return ShowTestHydraulicBoundaryLocationsView(locations,
-                                                          hbl => calculations[locations.IndexOf(hbl)]);
+            });
         }
 
         private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
         {
-            public TestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
-                                                      Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
+            public TestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
                                                       IAssessmentSection assessmentSection)
-                : base(locations,
-                       getCalculationFunc,
-                       assessmentSection) {}
+                : base(calculations, assessmentSection) {}
 
             public IEnumerable<IllustrationPointControlItem> PublicGetIllustrationPointControlItems()
             {
                 return GetIllustrationPointControlItems();
             }
 
-            protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
+            protected override void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
             {
                 throw new NotImplementedException();
             }
