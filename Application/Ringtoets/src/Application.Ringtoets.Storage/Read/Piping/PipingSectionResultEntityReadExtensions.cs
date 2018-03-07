@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 throw new ArgumentNullException(nameof(sectionResult));
             }
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
+            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
         }
     }
 }

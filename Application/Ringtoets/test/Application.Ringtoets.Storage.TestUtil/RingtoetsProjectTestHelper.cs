@@ -1076,7 +1076,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (PipingFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+                sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
             }
         }
 

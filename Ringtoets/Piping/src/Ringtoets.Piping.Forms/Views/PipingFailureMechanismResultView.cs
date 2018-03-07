@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Views
                 RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
                 true);
             DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingFailureMechanismSectionResultRow.AssessmentLayerThree),
+                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentProbability),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
         }
 

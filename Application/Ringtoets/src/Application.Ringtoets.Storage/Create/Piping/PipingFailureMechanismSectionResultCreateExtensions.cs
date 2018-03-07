@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var pipingSectionResultEntity = new PipingSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
+                LayerThree = result.TailorMadeAssessmentProbability.ToNaNAsNull()
             };
 
             return pipingSectionResultEntity;

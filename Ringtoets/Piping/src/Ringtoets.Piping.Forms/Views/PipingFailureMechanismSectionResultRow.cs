@@ -50,9 +50,9 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         internal PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult,
-                                                      IEnumerable<PipingCalculationScenario> calculations,
-                                                      PipingFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection)
+                                                        IEnumerable<PipingCalculationScenario> calculations,
+                                                        PipingFailureMechanism failureMechanism,
+                                                        IAssessmentSection assessmentSection)
             : base(sectionResult)
         {
             if (calculations == null)
@@ -92,20 +92,20 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the value of the tailor made assessment of safety.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when 
         /// <paramref name="value"/> is outside of the valid ranges.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double AssessmentLayerThree
+        public double TailorMadeAssessmentProbability
         {
             get
             {
-                return SectionResult.AssessmentLayerThree;
+                return SectionResult.TailorMadeAssessmentProbability;
             }
             set
             {
-                SectionResult.AssessmentLayerThree = value;
+                SectionResult.TailorMadeAssessmentProbability = value;
             }
         }
 

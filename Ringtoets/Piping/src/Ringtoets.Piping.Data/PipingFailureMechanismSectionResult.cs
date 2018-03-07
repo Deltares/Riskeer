@@ -23,6 +23,7 @@ using System;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data
 {
@@ -32,7 +33,7 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
     {
-        private double assessmentLayerThree;
+        private double tailorMadeAssessmentProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
@@ -42,7 +43,7 @@ namespace Ringtoets.Piping.Data
         public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
-            assessmentLayerThree = double.NaN;
+            tailorMadeAssessmentProbability = double.NaN;
         }
 
         /// <summary>
@@ -51,20 +52,21 @@ namespace Ringtoets.Piping.Data
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the value of the tailor made assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
-        /// <paramref name="value"/> is outside of the valid ranges.</exception>
-        public double AssessmentLayerThree
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double TailorMadeAssessmentProbability
         {
             get
             {
-                return assessmentLayerThree;
+                return tailorMadeAssessmentProbability;
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null, true);
-                assessmentLayerThree = value;
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                tailorMadeAssessmentProbability = value;
             }
         }
     }

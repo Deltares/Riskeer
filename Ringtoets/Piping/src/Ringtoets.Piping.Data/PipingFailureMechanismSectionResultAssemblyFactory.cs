@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Piping.Data
 {
@@ -124,6 +125,120 @@ namespace Ringtoets.Piping.Data
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
                     categories,
                     failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Assembles the tailor made assessment result.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to
+        /// assemble the tailor made assembly for.</param>
+        /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssembly AssembleTailorMadeAssembly(
+            PipingFailureMechanismSectionResult failureMechanismSectionResult,
+            PipingFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
+                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
+                        assessmentSection.FailureMechanismContribution.SignalingNorm,
+                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                        failureMechanism.Contribution,
+                        failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanism.PipingProbabilityAssessmentInput.SectionLength));
+
+                return calculator.AssembleTailorMadeAssessment(
+                    TailorMadeAssessmentProbabilityCalculationResultType.Probability, //failureMechanismSectionResult.TailorMadeAssessmentResult,
+                    0.0, //failureMechanismSectionResult.TailorMadeAssessmentProbability,
+                    categories,
+                    failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Assembles the combined assembly.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to
+        /// combine the assemblies for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
+        /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssembly AssembleCombinedAssembly(
+            PipingFailureMechanismSectionResult failureMechanismSectionResult,
+            IEnumerable<PipingCalculationScenario> calculationScenarios,
+            PipingFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
+            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssembly(
+                failureMechanismSectionResult, calculationScenarios, failureMechanism, assessmentSection);
+            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssembly(
+                failureMechanismSectionResult, failureMechanism, assessmentSection);
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                return calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

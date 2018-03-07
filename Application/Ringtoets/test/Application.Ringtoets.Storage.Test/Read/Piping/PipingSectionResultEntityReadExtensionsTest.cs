@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.AreEqual(layerThree, sectionResult.TailorMadeAssessmentProbability, 1e-6);
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
+            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
         }
     }
 }

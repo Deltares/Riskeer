@@ -41,12 +41,12 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var random = new Random(21);
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
+            double tailorMadeAssessmentProbability = random.NextDouble();
 
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = assessmentLayerThreeResult
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability
             };
 
             // Call
@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
+            Assert.AreEqual(tailorMadeAssessmentProbability, result.LayerThree);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = RoundedDouble.NaN
+                TailorMadeAssessmentProbability = double.NaN
             };
 
             // Call
