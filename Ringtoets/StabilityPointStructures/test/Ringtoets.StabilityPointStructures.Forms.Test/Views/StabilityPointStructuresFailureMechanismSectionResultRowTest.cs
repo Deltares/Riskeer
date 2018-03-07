@@ -301,29 +301,5 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual(assessmentLayerThree, sectionResult.TailorMadeAssessmentProbability);
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void Update_Always_ThrowsNotImplementedException()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
-            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result,
-                                                                                   failureMechanism,
-                                                                                   assessmentSection);
-
-            // Call
-            TestDelegate call = () => row.Update();
-
-            // Assert
-            Assert.Throws<NotImplementedException>(call);
-            mocks.VerifyAll();
-        }
     }
 }

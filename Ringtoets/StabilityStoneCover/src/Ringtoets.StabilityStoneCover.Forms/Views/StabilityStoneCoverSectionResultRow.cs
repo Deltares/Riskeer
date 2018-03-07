@@ -91,9 +91,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             }
         }
 
-        public override void Update()
-        {
-            throw new NotImplementedException();
-        }
+        public override void Update() {}
     }
 }

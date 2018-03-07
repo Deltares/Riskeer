@@ -43,7 +43,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         internal WaveImpactAsphaltCoverFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
             : base(sectionResult) {}
-        
+
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
@@ -91,9 +91,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             }
         }
 
-        public override void Update()
-        {
-            throw new NotImplementedException();
-        }
+        public override void Update() {}
     }
 }

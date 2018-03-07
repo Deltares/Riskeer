@@ -117,20 +117,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Assert
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
         }
-
-        [Test]
-        public void Update_Always_ThrowsNotImplementedException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
-            var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
-
-            // Call
-            TestDelegate call = () => row.Update();
-
-            // Assert
-            Assert.Throws<NotImplementedException>(call);
-        }
     }
 }

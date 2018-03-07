@@ -220,30 +220,5 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void Update_Always_ThrowsNotImplementedException()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-            var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result,
-                                                                                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                failureMechanism,
-                                                                                assessmentSection);
-
-            // Call
-            TestDelegate call = () => row.Update();
-
-            // Assert
-            Assert.Throws<NotImplementedException>(call);
-            mocks.VerifyAll();
-        }
     }
 }
