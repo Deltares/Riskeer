@@ -465,60 +465,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new ClosingStructuresFailureMechanismSectionResult(section);
-
-            // Precondition
-            Assert.IsNull(result.Calculation);
-
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection, ConstructionProperties);
-
-            // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = row.GetSectionResultCalculation();
-
-            // Assert
-            Assert.IsNull(calculation);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var expectedCalculation = new StructuresCalculation<ClosingStructuresInput>();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new ClosingStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = expectedCalculation
-            };
-
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection, ConstructionProperties);
-
-            // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = row.GetSectionResultCalculation();
-
-            // Assert
-            Assert.AreSame(expectedCalculation, calculation);
-            mocks.VerifyAll();
-        }
-
         private static TestClosingStructuresCalculation CreateCalculationWithOutput()
         {
             return new TestClosingStructuresCalculation
@@ -737,8 +683,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, 
-                                                                                failureMechanism, 
+                var row = new ClosingStructuresFailureMechanismSectionResultRow(result,
+                                                                                failureMechanism,
                                                                                 assessmentSection,
                                                                                 ConstructionProperties);
 

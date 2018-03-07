@@ -26,7 +26,6 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -273,17 +272,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CombinedAssemblyProbability { get; private set; }
-
-        /// <summary>
-        /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
-        /// <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
-        /// </summary>
-        /// <returns><c>null</c> if the wrapped section result does not have a calculation
-        /// set. Otherwise the calculation of the wrapped section result is returned.</returns>
-        public StructuresCalculation<ClosingStructuresInput> GetSectionResultCalculation()
-        {
-            return SectionResult.Calculation;
-        }
 
         public override void Update()
         {
