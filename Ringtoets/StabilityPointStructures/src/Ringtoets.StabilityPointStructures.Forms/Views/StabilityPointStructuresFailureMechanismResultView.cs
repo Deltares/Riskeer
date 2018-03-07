@@ -131,6 +131,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
         }
     }
 }
