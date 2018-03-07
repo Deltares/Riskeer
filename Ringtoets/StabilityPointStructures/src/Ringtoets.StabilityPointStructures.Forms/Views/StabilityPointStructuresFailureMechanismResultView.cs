@@ -112,6 +112,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 DataGridViewControl,
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
+
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));

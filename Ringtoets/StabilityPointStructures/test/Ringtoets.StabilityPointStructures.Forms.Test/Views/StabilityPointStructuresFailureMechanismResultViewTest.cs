@@ -45,8 +45,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
-        private const int detailedAssessmentProbabilityIndex = 2;
-        private const int tailorMadeAssessmentProbabilityIndex = 3;
+        private const int detailedAssessmentResultIndex = 2;
+        private const int detailedAssessmentProbabilityIndex = 3;
+        private const int tailorMadeAssessmentProbabilityIndex = 4;
+        private const int columnCount = 5;
 
         private Form testForm;
 
@@ -110,20 +112,23 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Then
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(4, dataGridView.ColumnCount);
+                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
 
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak\r\nfaalkans", dataGridView.Columns[detailedAssessmentProbabilityIndex].HeaderText);
                 Assert.AreEqual("Toets op maat\r\nfaalkans", dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].HeaderText);
 
                 Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[simpleAssessmentResultIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[detailedAssessmentResultIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[detailedAssessmentProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].ReadOnly);
 
@@ -150,9 +155,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual(1, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, cells[simpleAssessmentResultIndex].Value);
+                Assert.AreEqual(DetailedAssessmentResultType.Probability, cells[detailedAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
             }

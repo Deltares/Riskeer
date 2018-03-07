@@ -105,6 +105,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
+        #region Registration
+
         [Test]
         public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
@@ -258,60 +260,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
-
-            // Precondition
-            Assert.IsNull(result.Calculation);
-
-            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
-
-            // Call
-            StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
-
-            // Assert
-            Assert.IsNull(calculation);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = expectedCalculation
-            };
-
-            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
-
-            // Call
-            StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
-
-            // Assert
-            Assert.AreSame(expectedCalculation, calculation);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void TailorMadeAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
@@ -400,6 +348,62 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Assert
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
+        [Test]
+        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            // Precondition
+            Assert.IsNull(result.Calculation);
+
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+            // Call
+            StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.IsNull(calculation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = expectedCalculation
+            };
+
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection);
+
+            // Call
+            StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
+
+            // Assert
+            Assert.AreSame(expectedCalculation, calculation);
             mocks.VerifyAll();
         }
     }
