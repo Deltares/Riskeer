@@ -100,7 +100,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <exception cref="ArgumentOutOfRangeException">Thrown when 
         /// <paramref name="value"/> is outside of the valid ranges.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double AssessmentLayerThree
+        public double TailorMadeAssessmentProbability
         {
             get
             {
@@ -109,6 +109,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
+                SectionResult.NotifyObservers();
             }
         }
 
