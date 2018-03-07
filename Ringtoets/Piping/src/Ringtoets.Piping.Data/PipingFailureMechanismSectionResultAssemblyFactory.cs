@@ -177,8 +177,8 @@ namespace Ringtoets.Piping.Data
                         failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanism.PipingProbabilityAssessmentInput.SectionLength));
 
                 return calculator.AssembleTailorMadeAssessment(
-                    TailorMadeAssessmentProbabilityCalculationResultType.Probability, //failureMechanismSectionResult.TailorMadeAssessmentResult,
-                    0.0, //failureMechanismSectionResult.TailorMadeAssessmentProbability,
+                    failureMechanismSectionResult.TailorMadeAssessmentResult,
+                    failureMechanismSectionResult.TailorMadeAssessmentProbability,
                     categories,
                     failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
             }
