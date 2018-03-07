@@ -296,7 +296,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
-            random.NextRoundedDouble(1.0, 10.0));
+                random.NextRoundedDouble(1.0, 10.0));
 
             // Assert
             Assert.AreEqual(0.0, assembly.Probability);
@@ -319,7 +319,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
-            random.NextRoundedDouble(1.0, 10.0));
+                random.NextRoundedDouble(1.0, 10.0));
 
             // Assert
             Assert.AreSame(calculator.DetailedAssessmentAssemblyOutput, assembly);
@@ -360,7 +360,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             TestDelegate test = () => calculator.AssembleDetailedAssessment(
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
-            random.NextRoundedDouble(1.0, 10.0));
+                random.NextRoundedDouble(1.0, 10.0));
 
             // Assert
             var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
@@ -529,6 +529,93 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0]);
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResultWithLengthEffect_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(
+                random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
+                random.NextDouble(),
+                new FailureMechanismSectionAssemblyCategory[0],
+                random.NextDouble());
+
+            // Assert
+            Assert.AreEqual(1.0, assembly.Probability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, assembly.Group);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResultWithLengthEffect_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                    random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+            };
+
+            // Call
+            FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(
+                random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
+                random.NextDouble(),
+                new FailureMechanismSectionAssemblyCategory[0],
+                random.NextDouble());
+
+            // Assert
+            Assert.AreSame(calculator.TailorMadeAssessmentAssemblyOutput, assembly);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResultWithLengthEffect_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            double probability = random.NextDouble();
+            double n = random.NextDouble();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
+
+            IEnumerable<FailureMechanismSectionAssemblyCategory> categoryInput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>();
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, categoryInput, n);
+
+            // Assert
+            Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
+            Assert.AreEqual(probability, calculator.TailorMadeAssessmentProbabilityInput);
+            Assert.AreEqual(n, calculator.TailorMadeAssessmentNInput);
+            Assert.AreSame(categoryInput, calculator.TailorMadeAssessmentCategoriesInput);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResultWithLengthEffect_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
+                random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>(),
+                random.NextDouble(),
+                new FailureMechanismSectionAssemblyCategory[0],
+                random.NextDouble());
 
             // Assert
             var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);

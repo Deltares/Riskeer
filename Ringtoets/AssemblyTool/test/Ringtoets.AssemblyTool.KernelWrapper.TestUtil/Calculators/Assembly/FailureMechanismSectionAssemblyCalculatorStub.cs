@@ -98,6 +98,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<FailureMechanismSectionAssemblyCategory> TailorMadeAssessmentCategoriesInput { get; private set; }
 
         /// <summary>
+        /// Gets the 'N' parameter input of the tailor made assessment calculation.
+        /// </summary>
+        public double TailorMadeAssessmentNInput { get; private set; }
+
+        /// <summary>
         /// Gets or sets the output of the combined assembly calculation.
         /// </summary>
         public FailureMechanismSectionAssembly CombinedAssemblyOutput { get; set; }
@@ -169,7 +174,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             SimpleAssessmentValidityOnlyInput = input;
 
-            return SimpleAssessmentAssemblyOutput ?? 
+            return SimpleAssessmentAssemblyOutput ??
                    (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
         }
 
@@ -220,7 +225,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             TailorMadeAssessmentProbabilityInput = probability;
             TailorMadeAssessmentCategoriesInput = categories;
 
-            return TailorMadeAssessmentAssemblyOutput ?? 
+            return TailorMadeAssessmentAssemblyOutput ??
                    (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
@@ -237,7 +242,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             TailorMadeAssessmentProbabilityInput = probability;
             TailorMadeAssessmentCategoriesInput = categories;
 
-            return TailorMadeAssessmentAssemblyOutput ?? 
+            return TailorMadeAssessmentAssemblyOutput ??
+                   (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+        }
+
+        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult, double probability, IEnumerable<FailureMechanismSectionAssemblyCategory> categories, double n)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            TailorMadeAssessmentProbabilityCalculationResultInput = tailorMadeAssessmentResult;
+            TailorMadeAssessmentProbabilityInput = probability;
+            TailorMadeAssessmentCategoriesInput = categories;
+            TailorMadeAssessmentNInput = n;
+
+            return TailorMadeAssessmentAssemblyOutput ??
                    (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
@@ -274,6 +295,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             {
                 CombinedAssemblyCategoryOutput = tailorMadeAssembly;
             }
+
             return CombinedAssemblyCategoryOutput.Value;
         }
     }

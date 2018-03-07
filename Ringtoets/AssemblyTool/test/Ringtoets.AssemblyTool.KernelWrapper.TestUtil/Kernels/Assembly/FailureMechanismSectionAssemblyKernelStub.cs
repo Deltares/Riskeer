@@ -59,6 +59,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public TailorMadeCalculationInputFromProbability TailorMadeCalculationInputFromProbabilityInput { get; private set; }
 
         /// <summary>
+        /// Gets the input used in <see cref="o:TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor)"/>.
+        /// </summary>
+        public TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating whether a calculation was called or not.
         /// </summary>
         public bool Calculated { get; private set; }
@@ -72,7 +77,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Gets or sets the failure mechanism section assembly category result.
         /// </summary>
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> FailureMechanismSectionAssemblyCategoryResult { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the failure mechanism section assembly category group.
         /// </summary>
@@ -205,7 +210,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor input)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor = input;
+            Calculated = true;
+            return FailureMechanismSectionAssemblyCategoryResult;
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup resultSimpleAssessment, FailureMechanismSectionCategoryGroup resultDetailedAssessment, FailureMechanismSectionCategoryGroup resultTailorMadeAssessment)
@@ -221,7 +233,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             Calculated = true;
             return FailureMechanismSectionAssemblyCategoryGroup;
-        }        
+        }
 
         public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult resultSimpleAssessment, FailureMechanismSectionAssemblyCategoryResult resultDetailedAssessment, FailureMechanismSectionAssemblyCategoryResult resultTailorMadeAssessment)
         {
