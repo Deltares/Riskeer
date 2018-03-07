@@ -117,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties(context.WrappedData)
             };
 
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationContext, GrassCoverErosionOutwardsWaveHeightCalculationProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationContext, GrassCoverErosionOutwardsWaveHeightCalculationProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationProperties(context.WrappedData)
             };
