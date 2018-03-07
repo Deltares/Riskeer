@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Forms.Views
             AssessmentSection = assessmentSection;
 
             hydraulicBoundaryLocationsObserver = new Observer(UpdateDataGridViewDataSource);
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(HandleHydraulicBoundaryLocationUpdate, list => list);
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(HandleHydraulicBoundaryLocationCalculationUpdate, list => list);
 
             this.locations = locations;
             GetCalculationFunc = getCalculationFunc;

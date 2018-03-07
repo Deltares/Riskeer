@@ -33,9 +33,9 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// Base view for selecting locations and starting calculation for said objects.
+    /// Base view for selecting and performing hydraulic boundary location calculations.
     /// </summary>
-    /// <typeparam name="T">The type of the location object.</typeparam>
+    /// <typeparam name="T">The type of the calculation objects.</typeparam>
     public abstract partial class LocationsView<T> : UserControl, ISelectionProvider, IView where T : class
     {
         private const int calculateColumnIndex = 0;
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Forms.Views
             suspendAllEvents = false;
 
             UpdateCalculateForSelectedButton();
-            ProvideLocationSelection();
+            ProvideCalculationSelection();
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Views
         protected abstract object CreateSelectedItemFromCurrentRow();
 
         /// <summary>
-        /// Sets the datasource on the <see cref="DataGridView"/>.
+        /// Sets the data source on the <see cref="DataGridView"/>.
         /// </summary>
         protected abstract void SetDataSource();
 
@@ -160,10 +160,10 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Handles the update of a hydraulic boundary location by refreshing the data grid view
+        /// Handles the update of a hydraulic boundary location calculation by refreshing the data grid view
         /// and updating the data of the illustration points control.
         /// </summary>
-        protected void HandleHydraulicBoundaryLocationUpdate()
+        protected void HandleHydraulicBoundaryLocationCalculationUpdate()
         {
             suspendAllEvents = true;
             dataGridViewControl.RefreshDataGridView();
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             if (illustrationPointsControl.Selection == null && Selection is SelectedTopLevelSubMechanismIllustrationPoint)
             {
-                ProvideLocationSelection();
+                ProvideCalculationSelection();
             }
         }
 
@@ -211,7 +211,7 @@ namespace Ringtoets.Common.Forms.Views
             SelectionChanged?.Invoke(this, new EventArgs());
         }
 
-        private void ProvideLocationSelection()
+        private void ProvideCalculationSelection()
         {
             Selection = CreateSelectedItemFromCurrentRow();
             OnSelectionChanged();
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.Forms.Views
             illustrationPointsControl.Data = GetIllustrationPointControlItems();
             suspendIllustrationPointsControlSelectionChanges = false;
 
-            ProvideLocationSelection();
+            ProvideCalculationSelection();
         }
 
         private void DataGridViewControlOnCellValueChanged(object sender, DataGridViewCellEventArgs e)
