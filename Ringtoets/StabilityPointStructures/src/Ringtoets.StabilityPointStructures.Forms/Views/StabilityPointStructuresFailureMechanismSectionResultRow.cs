@@ -294,6 +294,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         public override void Update()
         {
             UpdateDerivedData();
+            UpdateColumnStateDefinitions();
         }
 
         private void CreateColumnStateDefinitions()
@@ -409,6 +410,24 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
                 ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
                 ColumnStateDefinitions[combinedAssemblyProbabilityIndex].ErrorText = e.Message;
             }
+        }
+
+        private void UpdateColumnStateDefinitions()
+        {
+            bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex], simpleAssessmentSufficient);
+
+            if (simpleAssessmentSufficient)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex]);
+            }
+            else
+            {
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex], true);
+            }
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex], simpleAssessmentSufficient);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex], simpleAssessmentSufficient);
         }
 
         /// <summary>

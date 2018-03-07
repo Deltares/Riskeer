@@ -36,10 +36,12 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
@@ -507,6 +509,64 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 mocks.VerifyAll();
             }
         }
+
+        private static TestStabilityPointStructuresCalculation CreateCalculationWithOutput()
+        {
+            return new TestStabilityPointStructuresCalculation
+            {
+                Output = new TestStructuresOutput()
+            };
+        }
+
+        #region Column States
+
+        [Test]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.None, true)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, false)]
+        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, true)]
+        public void Constructor_WithSimpleAssessmentResultSet_ExpectedColumnStates(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
+                                                                                   bool cellsEnabled)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult,
+                Calculation = CreateCalculationWithOutput(),
+                TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
+                                                                             cellsEnabled,
+                                                                             true);
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex],
+                                                                             cellsEnabled);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
 
         #region Registration
 
