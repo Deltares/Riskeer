@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
@@ -39,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>(context);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationContext>(context);
             Assert.AreSame(hydraulicBoundaryLocationCalculation, context.WrappedData);
         }
     }

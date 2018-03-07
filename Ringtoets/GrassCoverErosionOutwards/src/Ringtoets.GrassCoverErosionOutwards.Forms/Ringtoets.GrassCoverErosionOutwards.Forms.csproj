@@ -17,7 +17,6 @@
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelper.cs" />
     <Compile Include="PresentationObjects\EmptyGrassCoverErosionOutwardsOutput.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryLocationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsInputContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationContext.cs" />

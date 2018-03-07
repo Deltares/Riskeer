@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -29,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a wave height calculation result for <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveHeightLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
+    public class GrassCoverErosionOutwardsWaveHeightLocationContext : HydraulicBoundaryLocationCalculationContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationContext"/>.
