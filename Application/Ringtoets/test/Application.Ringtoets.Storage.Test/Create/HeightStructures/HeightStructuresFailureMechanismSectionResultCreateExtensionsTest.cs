@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Setup
             var random = new Random(21);
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            RoundedDouble tailorMadeAssessmentProbability = random.NextRoundedDouble();
+            double tailorMadeAssessmentProbability = random.NextDouble();
 
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = RoundedDouble.NaN
+                TailorMadeAssessmentProbability = double.NaN
             };
 
             // Call

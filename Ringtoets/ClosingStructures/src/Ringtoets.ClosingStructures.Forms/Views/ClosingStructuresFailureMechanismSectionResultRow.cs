@@ -67,6 +67,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult,
                                                                  ClosingStructuresFailureMechanism failureMechanism,
                                                                  IAssessmentSection assessmentSection,
@@ -111,6 +113,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultType SimpleAssessmentResult
         {
             get
@@ -127,6 +131,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the detailed assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResult
         {
             get
@@ -143,6 +149,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets the value representing the detailed assessment probability.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability
         {
@@ -155,6 +163,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult
         {
             get
@@ -171,8 +181,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
-        /// <paramref name="value"/> is outside of the valid ranges.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
+        /// not in the range [0,1].</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double TailorMadeAssessmentProbability
         {
@@ -191,6 +203,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// Gets or sets the indicator whether the combined assembly probability
         /// should be overwritten by <see cref="ManualAssemblyProbability"/>.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public bool UseManualAssemblyProbability
         {
             get
@@ -209,6 +223,8 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double ManualAssemblyProbability
         {
@@ -273,6 +289,9 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double CombinedAssemblyProbability { get; private set; }
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public override void Update()
         {
             UpdateDerivedData();
@@ -411,6 +430,11 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Updates the column state definitions.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         private void UpdateColumnStateDefinitions()
         {
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);

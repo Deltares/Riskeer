@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.TailorMadeAssessmentProbability = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
+            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
 
             if (entity.HeightStructuresCalculationEntity != null)
             {

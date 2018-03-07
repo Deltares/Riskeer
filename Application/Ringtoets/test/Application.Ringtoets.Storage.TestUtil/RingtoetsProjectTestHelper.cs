@@ -886,7 +886,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (HeightStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.TailorMadeAssessmentProbability = (RoundedDouble) random.NextDouble();
+                sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
                 if (!firstSectionResultHasCalculation)
                 {
                     sectionResult.Calculation = calculation;
