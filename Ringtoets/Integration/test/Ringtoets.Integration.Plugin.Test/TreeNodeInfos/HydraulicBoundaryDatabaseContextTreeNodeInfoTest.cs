@@ -276,27 +276,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenNoDatabaseLinked_WhenOpeningValidFileFromContextMenu_ThenDatabaseLinkedObserversNotifiedAndLogMessagesAdded()
         {
             // Given
-            var hydraulicBoundaryDatabaseObserver = mocks.StrictMock<IObserver>();
-            hydraulicBoundaryDatabaseObserver.Expect(o => o.UpdateObserver());
-
-            var hydraulicBoundaryLocationsObserver = mocks.StrictMock<IObserver>();
-            hydraulicBoundaryLocationsObserver.Expect(o => o.UpdateObserver());
-
-            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
-            grassCoverErosionOutwardsLocationsObserver.Expect(o => o.UpdateObserver());
-
             string testFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            AttachObservers(assessmentSection, true);
+
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
-
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
-
-            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
-            hydraulicBoundaryLocations.Attach(hydraulicBoundaryLocationsObserver);
-            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -340,6 +327,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(testFile, assessmentSection.HydraulicBoundaryDatabase.FilePath);
                     Assert.AreEqual("Dutch coast South19-11-2015 12:0013", assessmentSection.HydraulicBoundaryDatabase.Version);
 
+                    ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+                    GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+
                     CollectionAssert.IsNotEmpty(hydraulicBoundaryLocations);
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -367,19 +357,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenNoDatabaseLinked_WhenOpeningInvalidFileFromContextMenu_ThenNoDatabaseLinkedNoObserversNotifiedAndLogMessagesAdded()
         {
             // Given
-            var hydraulicBoundaryDatabaseObserver = mocks.StrictMock<IObserver>();
-            var hydraulicBoundaryLocationsObserver = mocks.StrictMock<IObserver>();
-            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
-
             string testFile = Path.Combine(testDataPath, "empty.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            AttachObservers(assessmentSection);
+
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
-
-            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(hydraulicBoundaryLocationsObserver);
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -423,19 +408,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenNoDatabaseLinked_WhenOpeningValidFileWithoutHLCDFromContextMenu_ThenNoDatabaseLinkedNoObserversNotifiedAndLogMessagesAdded()
         {
             // Given
-            var hydraulicBoundaryDatabaseObserver = mocks.StrictMock<IObserver>();
-            var hydraulicBoundaryLocationsObserver = mocks.StrictMock<IObserver>();
-            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
-
             string testFile = Path.Combine(testDataPathNoHlcd, "HRD dutch coast south.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            AttachObservers(assessmentSection);
+
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                                         assessmentSection);
-
-            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(hydraulicBoundaryLocationsObserver);
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             using (var treeViewControl = new TreeViewControl())
             using (var plugin = new RingtoetsPlugin())
@@ -480,17 +460,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void GivenDatabaseLinked_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoObserversNotified()
         {
             // Given
-            var hydraulicBoundaryDatabaseObserver = mocks.StrictMock<IObserver>();
-            var hydraulicBoundaryLocationsObserver = mocks.StrictMock<IObserver>();
-            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
-
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
             }
+
+            AttachObservers(assessmentSection);
 
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
@@ -498,10 +477,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             grassCoverErosionOutwardsFailureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             grassCoverErosionOutwardsFailureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
-
-            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
-            hydraulicBoundaryLocations.Attach(hydraulicBoundaryLocationsObserver);
-            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             PipingOutput pipingOutput = PipingOutputTestFactory.Create();
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
@@ -601,6 +576,75 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public override void Setup()
         {
             mocks = new MockRepository();
+        }
+
+        private void AttachObservers(AssessmentSection assessmentSection, bool expectUpdateObserver = false)
+        {
+            var hydraulicBoundaryDatabaseObserver = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryLocationsObserver = mocks.StrictMock<IObserver>();
+
+            var waterLevelCalculationsForFactorizedSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var waterLevelCalculationsForSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var waterLevelCalculationsForLowerLimitNormObserver = mocks.StrictMock<IObserver>();
+            var waterLevelCalculationsForFactorizedLowerLimitNormObserver = mocks.StrictMock<IObserver>();
+            var waveHeightCalculationsForFactorizedSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var waveHeightCalculationsForSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var waveHeightCalculationsForLowerLimitNormObserver = mocks.StrictMock<IObserver>();
+            var waveHeightCalculationsForFactorizedLowerLimitNormObserver = mocks.StrictMock<IObserver>();
+
+            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
+
+            var waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var waterLevelCalculationsForMechanismSpecificSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver = mocks.StrictMock<IObserver>();
+            var waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var waveHeightCalculationsForMechanismSpecificSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver = mocks.StrictMock<IObserver>();
+
+            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(hydraulicBoundaryLocationsObserver);
+
+            assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Attach(waterLevelCalculationsForFactorizedSignalingNormObserver);
+            assessmentSection.WaterLevelCalculationsForSignalingNorm.Attach(waterLevelCalculationsForSignalingNormObserver);
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Attach(waterLevelCalculationsForLowerLimitNormObserver);
+            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Attach(waterLevelCalculationsForFactorizedLowerLimitNormObserver);
+            assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Attach(waveHeightCalculationsForFactorizedSignalingNormObserver);
+            assessmentSection.WaveHeightCalculationsForSignalingNorm.Attach(waveHeightCalculationsForSignalingNormObserver);
+            assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Attach(waveHeightCalculationsForLowerLimitNormObserver);
+            assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Attach(waveHeightCalculationsForFactorizedLowerLimitNormObserver);
+
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
+
+            assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Attach(waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver);
+            assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Attach(waterLevelCalculationsForMechanismSpecificSignalingNormObserver);
+            assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Attach(waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver);
+            assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Attach(waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver);
+            assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Attach(waveHeightCalculationsForMechanismSpecificSignalingNormObserver);
+            assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Attach(waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver);
+
+            if (expectUpdateObserver)
+            {
+                hydraulicBoundaryDatabaseObserver.Expect(o => o.UpdateObserver());
+                hydraulicBoundaryLocationsObserver.Expect(o => o.UpdateObserver());
+
+                waterLevelCalculationsForFactorizedSignalingNormObserver.Expect(o => o.UpdateObserver());
+                waterLevelCalculationsForSignalingNormObserver.Expect(o => o.UpdateObserver());
+                waterLevelCalculationsForLowerLimitNormObserver.Expect(o => o.UpdateObserver());
+                waterLevelCalculationsForFactorizedLowerLimitNormObserver.Expect(o => o.UpdateObserver());
+                waveHeightCalculationsForFactorizedSignalingNormObserver.Expect(o => o.UpdateObserver());
+                waveHeightCalculationsForSignalingNormObserver.Expect(o => o.UpdateObserver());
+                waveHeightCalculationsForLowerLimitNormObserver.Expect(o => o.UpdateObserver());
+                waveHeightCalculationsForFactorizedLowerLimitNormObserver.Expect(o => o.UpdateObserver());
+
+                grassCoverErosionOutwardsLocationsObserver.Expect(o => o.UpdateObserver());
+
+                waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver.Expect(o => o.UpdateObserver());
+                waterLevelCalculationsForMechanismSpecificSignalingNormObserver.Expect(o => o.UpdateObserver());
+                waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver.Expect(o => o.UpdateObserver());
+                waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver.Expect(o => o.UpdateObserver());
+                waveHeightCalculationsForMechanismSpecificSignalingNormObserver.Expect(o => o.UpdateObserver());
+                waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver.Expect(o => o.UpdateObserver());
+            }
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
