@@ -40,6 +40,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultAssemblyFactoryTest
     {
+        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection,
+                                                          StabilityPointStructuresFailureMechanism failureMechanism,
+                                                          AssemblyCategoriesCalculatorStub categoryCalculator)
+        {
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
+            Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
+        }
+
         #region Simple Assessment
 
         [Test]
@@ -185,12 +195,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void AssembleDetailedAssembly_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                DetailedAssessmentResult = new Random(21).NextEnumValue<DetailedAssessmentResultType>()
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -205,12 +219,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                     assessmentSection);
 
                 // Assert
+                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-                Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
-                Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
+                AssertCategoryCalculatorInput(assessmentSection, failureMechanism, categoryCalculator);
                 Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
                 mocks.VerifyAll();
             }
@@ -220,8 +232,9 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void AssembleDetailedAssembly_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
@@ -250,8 +263,9 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 

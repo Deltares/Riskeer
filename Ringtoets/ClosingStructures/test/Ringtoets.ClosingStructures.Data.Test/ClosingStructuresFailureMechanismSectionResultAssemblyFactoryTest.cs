@@ -196,8 +196,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AssembleDetailedAssembly_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
@@ -232,8 +233,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AssembleDetailedAssembly_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
@@ -262,8 +264,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
-            var mocks = new MockRepository();
             var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 

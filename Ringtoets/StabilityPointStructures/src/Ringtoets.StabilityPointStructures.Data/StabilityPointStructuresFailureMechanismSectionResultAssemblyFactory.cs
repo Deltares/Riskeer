@@ -114,7 +114,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                         failureMechanism.GeneralInput.N);
 
                 return calculator.AssembleDetailedAssessment(
-                    DetailedAssessmentResultType.Probability,
+                    failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                     categories);
             }
