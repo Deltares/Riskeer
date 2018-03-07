@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Forms.Views
                 return;
             }
 
-            PerformSelectedCalculations(GetSelectedCalculatableObjects);
+            PerformSelectedCalculations(GetSelectedCalculatableObjects());
         }
 
         protected override void SetDataSource()
