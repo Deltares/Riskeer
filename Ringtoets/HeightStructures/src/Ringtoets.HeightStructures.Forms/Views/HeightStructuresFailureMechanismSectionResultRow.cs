@@ -465,57 +465,57 @@ namespace Ringtoets.HeightStructures.Forms.Views
         public class ConstructionProperties
         {
             /// <summary>
-            /// Gets or sets the simple assessment result index.
+            /// Sets the simple assessment result index.
             /// </summary>
             public int SimpleAssessmentResultIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the detailed assessment result index.
+            /// Sets the detailed assessment result index.
             /// </summary>
             public int DetailedAssessmentResultIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the detailed assessment probability index.
+            /// Sets the detailed assessment probability index.
             /// </summary>
             public int DetailedAssessmentProbabilityIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the tailor made assessment result index.
+            /// Sets the tailor made assessment result index.
             /// </summary>
             public int TailorMadeAssessmentResultIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the tailor made assessment probability index.
+            /// Sets the tailor made assessment probability index.
             /// </summary>
             public int TailorMadeAssessmentProbabilityIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the simple assembly category group index.
+            /// Sets the simple assembly category group index.
             /// </summary>
             public int SimpleAssemblyCategoryGroupIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the detailed assembly category group index.
+            /// Sets the detailed assembly category group index.
             /// </summary>
             public int DetailedAssemblyCategoryGroupIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the tailor made assembly category group index.
+            /// Sets the tailor made assembly category group index.
             /// </summary>
             public int TailorMadeAssemblyCategoryGroupIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the combined assembly category group index.
+            /// Sets the combined assembly category group index.
             /// </summary>
             public int CombinedAssemblyCategoryGroupIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the combined assembly probability index.
+            /// Sets the combined assembly probability index.
             /// </summary>
             public int CombinedAssemblyProbabilityIndex { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the manual assembly category group index.
+            /// Sets the manual assembly category group index.
             /// </summary>
             public int ManualAssemblyProbabilityIndex { internal get; set; }
         }
