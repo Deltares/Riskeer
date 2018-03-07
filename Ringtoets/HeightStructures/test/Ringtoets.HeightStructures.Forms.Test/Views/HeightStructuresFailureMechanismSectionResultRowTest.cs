@@ -652,6 +652,271 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             }
         }
 
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = new TestHeightStructuresCalculation(),
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                Output = new TestStructuresOutput(double.NaN)
+            };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = calculation,
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void Constructor_SectionResultAndSuccessfulCalculation_DetailedAssessmentProbabilityNoError()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = CreateCalculationWithOutput()
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
+                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void Constructor_SectionResultWithManualAssemblyAndNotCalculated_DetailedAssessmentProbabilityNoError()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = new TestHeightStructuresCalculation(),
+                UseManualAssemblyProbability = true
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call 
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void Constructor_SectionResultWithDetailedAssessmentNotAssessedAndNotCalculated_DetailedAssessmentProbabilityNoError()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                Calculation = new TestHeightStructuresCalculation(),
+                DetailedAssessmentResult = DetailedAssessmentResultType.NotAssessed
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
+        public void Constructor_SectionResultAndAssessmentSimpleAssessmentSufficient_DetailedAssessmentProbabilityNoError(
+            HeightStructuresFailureMechanismSectionResult sectionResult)
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Assert
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
+                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        private static IEnumerable<TestCaseData> SimpleAssessmentResultIsSufficientVariousSectionResults()
+        {
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible
+            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultProbabilityNegligible");
+            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
+                Calculation = new StructuresCalculation<HeightStructuresInput>()
+            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultProbabilityNegligible");
+            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
+                Calculation = new StructuresCalculation<HeightStructuresInput>
+                {
+                    Output = new TestStructuresOutput(double.NaN)
+                }
+            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
+            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
+                Calculation = CreateCalculationWithOutput()
+            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
+
+            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable
+            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
+                Calculation = new StructuresCalculation<HeightStructuresInput>()
+            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
+                Calculation = new StructuresCalculation<HeightStructuresInput>
+                {
+                    Output = new TestStructuresOutput(double.NaN)
+                }
+            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
+                Calculation = CreateCalculationWithOutput()
+            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
+        }
+
         #endregion
 
         #region Registration
@@ -828,234 +1093,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Update_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultType simpleAssessmentResult)
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Call
-                resultRow.Update();
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.",
-                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Update_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultType simpleAssessmentResult)
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new StructuresCalculation<HeightStructuresInput>(),
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Call
-                resultRow.Update();
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.",
-                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Update_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultType simpleAssessmentResult)
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new TestStructuresOutput(double.NaN)
-            };
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation,
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Call
-                resultRow.Update();
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.",
-                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void Update_SectionResultAndSuccessfulCalculation_DetailedAssessmentProbabilityNoError()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = CreateCalculationWithOutput()
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Call
-                resultRow.Update();
-
-                // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
-                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void Update_SectionResultWithManualAssemblyAndNotCalculated_DetailedAssessmentProbabilityNoError()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new StructuresCalculation<HeightStructuresInput>(),
-                UseManualAssemblyProbability = true
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Call
-                resultRow.Update();
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void Update_SectionResultWithDetailedAssessmentNotAssessedAndNotCalculated_DetailedAssessmentProbabilityNoError()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new StructuresCalculation<HeightStructuresInput>(),
-                DetailedAssessmentResult = DetailedAssessmentResultType.NotAssessed
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Call
-                resultRow.Update();
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
-        public void Update_SectionResultAndAssessmentSimpleAssessmentSufficient_DetailedAssessmentProbabilityNoError(
-            HeightStructuresFailureMechanismSectionResult sectionResult)
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Call
-                resultRow.Update();
-
-                // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
-                Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void TailorMadeAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             // Setup
@@ -1154,57 +1191,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
                 mocks.VerifyAll();
             }
-        }
-
-        private static IEnumerable<TestCaseData> SimpleAssessmentResultIsSufficientVariousSectionResults()
-        {
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible
-            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultProbabilityNegligible");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                Calculation = new StructuresCalculation<HeightStructuresInput>()
-            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultProbabilityNegligible");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                Calculation = new StructuresCalculation<HeightStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                }
-            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                Calculation = CreateCalculationWithOutput()
-            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
-
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable
-            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultNotApplicable");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                Calculation = new StructuresCalculation<HeightStructuresInput>()
-            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultNotApplicable");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                Calculation = new StructuresCalculation<HeightStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                }
-            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultNotApplicable");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                Calculation = CreateCalculationWithOutput()
-            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
         }
 
         #endregion
