@@ -151,6 +151,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
+                DataGridViewControl,
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
     }
 }
