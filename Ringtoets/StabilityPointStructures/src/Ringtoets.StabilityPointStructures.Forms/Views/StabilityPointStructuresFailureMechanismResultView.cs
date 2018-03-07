@@ -143,6 +143,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
+                DataGridViewControl,
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
         }
     }
 }
