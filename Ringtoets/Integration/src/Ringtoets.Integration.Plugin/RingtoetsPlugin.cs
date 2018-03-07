@@ -337,7 +337,7 @@ namespace Ringtoets.Integration.Plugin
                     return new DesignWaterLevelCalculationsProperties(hydraulicBoundaryLocationCalculations);
                 }
             };
-            yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelCalculationProperties>
+            yield return new PropertyInfo<DesignWaterLevelCalculationContext, DesignWaterLevelCalculationProperties>
             {
                 CreateInstance = context => new DesignWaterLevelCalculationProperties(context.WrappedData)
             };

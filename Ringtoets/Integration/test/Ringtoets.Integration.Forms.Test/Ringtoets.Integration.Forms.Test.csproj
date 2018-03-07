@@ -37,7 +37,7 @@
     <Compile Include="BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
-    <Compile Include="PresentationObjects\DesignWaterLevelLocationContextTest.cs" />
+    <Compile Include="PresentationObjects\DesignWaterLevelCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsGroupContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />

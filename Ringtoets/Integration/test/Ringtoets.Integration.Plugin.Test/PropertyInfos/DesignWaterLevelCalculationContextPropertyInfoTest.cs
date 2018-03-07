@@ -33,7 +33,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class DesignWaterLevelLocationContextPropertyInfoTest
+    public class DesignWaterLevelCalculationContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DesignWaterLevelLocationContext), info.DataType);
+                Assert.AreEqual(typeof(DesignWaterLevelCalculationContext), info.DataType);
                 Assert.AreEqual(typeof(DesignWaterLevelCalculationProperties), info.PropertyObjectType);
             }
         }
@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
             };
 
-            var context = new DesignWaterLevelLocationContext(hydraulicBoundaryLocationCalculation);
+            var context = new DesignWaterLevelCalculationContext(hydraulicBoundaryLocationCalculation);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DesignWaterLevelLocationContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DesignWaterLevelCalculationContext));
         }
     }
 }
