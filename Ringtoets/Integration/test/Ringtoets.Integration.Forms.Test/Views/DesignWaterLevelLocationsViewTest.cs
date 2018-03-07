@@ -48,12 +48,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class DesignWaterLevelLocationsViewTest
     {
-        private const int locationCalculateColumnIndex = 0;
+        private const int calculateColumnIndex = 0;
         private const int includeIllustrationPointsColumnIndex = 1;
         private const int locationNameColumnIndex = 2;
         private const int locationIdColumnIndex = 3;
         private const int locationColumnIndex = 4;
-        private const int locationDesignWaterLevelColumnIndex = 5;
+        private const int designWaterLevelColumnIndex = 5;
 
         private Form testForm;
         private MockRepository mockRepository;
@@ -80,8 +80,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                        hbl => new HydraulicBoundaryLocationCalculation(hbl),
+            TestDelegate test = () => new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                         assessmentSection,
                                                                         null,
                                                                         "Category");
@@ -99,8 +98,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                hbl => new HydraulicBoundaryLocationCalculation(hbl),
+            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                 assessmentSection,
                                                                 () => 0.01,
                                                                 "Category"))
@@ -122,10 +120,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, 0.01, "Category", testForm);
 
             // Assert
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            DataGridView locationsDataGridView = GetCalculationsDataGridView();
             Assert.AreEqual(6, locationsDataGridView.ColumnCount);
 
-            var locationCalculateColumn = (DataGridViewCheckBoxColumn) locationsDataGridView.Columns[locationCalculateColumnIndex];
+            var locationCalculateColumn = (DataGridViewCheckBoxColumn) locationsDataGridView.Columns[calculateColumnIndex];
             Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
 
             var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) locationsDataGridView.Columns[includeIllustrationPointsColumnIndex];
@@ -140,7 +138,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var locationColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[locationColumnIndex];
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
-            var locationDesignWaterLevelColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[locationDesignWaterLevelColumnIndex];
+            var locationDesignWaterLevelColumn = (DataGridViewTextBoxColumn) locationsDataGridView.Columns[designWaterLevelColumnIndex];
             Assert.AreEqual("Toetspeil [m+NAP]", locationDesignWaterLevelColumn.HeaderText);
 
             var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
@@ -148,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithLocations_DataGridViewCorrectlyInitialized()
+        public void Constructor_WithCalculations_DataGridViewCorrectlyInitialized()
         {
             // Setup 
             var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
@@ -157,51 +155,51 @@ namespace Ringtoets.Integration.Forms.Test.Views
             ShowFullyConfiguredDesignWaterLevelLocationsView(testHydraulicBoundaryDatabase.Locations, testForm);
 
             // Assert
-            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetCalculationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             Assert.AreEqual(4, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(6, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("-", cells[locationDesignWaterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[designWaterLevelColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(6, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[designWaterLevelColumnIndex].FormattedValue);
 
             cells = rows[2].Cells;
             Assert.AreEqual(6, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("-", cells[locationDesignWaterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[designWaterLevelColumnIndex].FormattedValue);
 
             cells = rows[3].Cells;
             Assert.AreEqual(6, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("4", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("4", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(4, 4).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), cells[designWaterLevelColumnIndex].FormattedValue);
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryDatabaseLocationsUpdated_DataGridViewCorrectlyUpdated()
+        public void DesignWaterLevelLocationsView_CalculationsUpdated_DataGridViewCorrectlyUpdated()
         {
-            // Setup 
+            // Setup
             var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
             ObservableList<HydraulicBoundaryLocation> locations = testHydraulicBoundaryDatabase.Locations;
             ShowFullyConfiguredDesignWaterLevelLocationsView(locations, testForm);
@@ -220,7 +218,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             };
 
             // Precondition
-            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetCalculationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             Assert.AreEqual(4, rows.Count);
 
@@ -234,16 +232,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(1, rows.Count);
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(6, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[calculateColumnIndex].FormattedValue);
             Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(designWaterLevel, cells[locationDesignWaterLevelColumnIndex].Value);
+            Assert.AreEqual(designWaterLevel, cells[designWaterLevelColumnIndex].Value);
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryLocationUpdated_DataGridViewCorrectlyUpdated()
+        public void DesignWaterLevelLocationsView_CalculationUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
             var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
@@ -251,7 +249,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             ShowFullyConfiguredDesignWaterLevelLocationsView(locations, testForm);
 
             // Precondition
-            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetCalculationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
             DataGridViewCellCollection cells = rows[0].Cells;
             Assert.AreEqual(6, cells.Count);
@@ -268,7 +266,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryLocationUpdated_IllustrationPointsControlCorrectlyUpdated()
+        public void DesignWaterLevelLocationsView_CalculationUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
             var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
@@ -276,7 +274,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             ShowFullyConfiguredDesignWaterLevelLocationsView(locations, testForm);
 
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
-            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetCalculationsDataGridViewControl();
 
             locationsDataGridViewControl.SetCurrentCell(locationsDataGridViewControl.GetCell(2, 0));
 
@@ -309,9 +307,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(testHydraulicBoundaryDatabase.Locations, testForm);
 
-            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetCalculationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+            rows[0].Cells[calculateColumnIndex].Value = true;
 
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
@@ -338,9 +336,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var testHydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
             ShowFullyConfiguredDesignWaterLevelLocationsView(testHydraulicBoundaryDatabase.Locations, testForm);
 
-            DataGridViewControl locationsDataGridViewControl = GetLocationsDataGridViewControl();
+            DataGridViewControl locationsDataGridViewControl = GetCalculationsDataGridViewControl();
             DataGridViewRowCollection rows = locationsDataGridViewControl.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+            rows[0].Cells[calculateColumnIndex].Value = true;
 
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
@@ -391,9 +389,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, categoryBoundaryName, testForm);
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            DataGridView locationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+            rows[0].Cells[calculateColumnIndex].Value = true;
 
             view.CalculationGuiService = guiService;
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
@@ -456,9 +454,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, categoryBoundaryName, testForm);
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            DataGridView locationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+            rows[0].Cells[calculateColumnIndex].Value = true;
 
             view.CalculationGuiService = guiService;
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
@@ -520,9 +518,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             DesignWaterLevelLocationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryDatabase.Locations, assessmentSection, norm, categoryBoundaryName, testForm);
-            DataGridView locationsDataGridView = GetLocationsDataGridView();
+            DataGridView locationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = locationsDataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+            rows[0].Cells[calculateColumnIndex].Value = true;
 
             view.CalculationGuiService = guiService;
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
@@ -541,12 +539,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreSame(hydraulicBoundaryDatabase.Locations.First(), performedCalculations.First().HydraulicBoundaryLocation);
         }
 
-        private DataGridView GetLocationsDataGridView()
+        private DataGridView GetCalculationsDataGridView()
         {
             return ControlTestHelper.GetDataGridView(testForm, "DataGridView");
         }
 
-        private DataGridViewControl GetLocationsDataGridViewControl()
+        private DataGridViewControl GetCalculationsDataGridViewControl()
         {
             return ControlTestHelper.GetDataGridViewControl(testForm, "DataGridViewControl");
         }
@@ -661,7 +659,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 get
                 {
-                    return locationDesignWaterLevelColumnIndex;
+                    return designWaterLevelColumnIndex;
                 }
             }
 
