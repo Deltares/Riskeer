@@ -44,6 +44,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None;
+            DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
             tailorMadeAssessmentProbability = double.NaN;
         }
 
@@ -57,6 +58,11 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the tailor made assessment of safety
