@@ -23,9 +23,9 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.Test.PresentationObjects
+namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class HydraulicBoundaryLocationCalculationContextTest
