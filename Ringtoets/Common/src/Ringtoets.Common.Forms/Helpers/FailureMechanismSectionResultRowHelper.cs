@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
@@ -40,63 +39,6 @@ namespace Ringtoets.Common.Forms.Helpers
     /// </summary>
     public static class FailureMechanismSectionResultRowHelper
     {
-        /// <summary>
-        /// Sets the <see cref="DataGridViewCell.ErrorText"/> when the detailed assessment fails.
-        /// </summary>
-        /// <param name="dataGridViewCell">The current data grid view cell.</param>
-        /// <param name="simpleAssessmentResult">The value representing the simple assessment result type.</param>
-        /// <param name="detailedAssessmentProbability">The value representing the probability of the detailed assessment.</param>
-        /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
-        /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
-        public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
-                                                      SimpleAssessmentResultType simpleAssessmentResult,
-                                                      double detailedAssessmentProbability,
-                                                      ICalculation normativeCalculation)
-        {
-            if (dataGridViewCell == null)
-            {
-                throw new ArgumentNullException(nameof(dataGridViewCell));
-            }
-
-            if (simpleAssessmentResult == SimpleAssessmentResultType.NotApplicable
-                || simpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible)
-            {
-                dataGridViewCell.ErrorText = string.Empty;
-                return;
-            }
-
-            dataGridViewCell.ErrorText = GetDetailedAssessmentError(detailedAssessmentProbability, normativeCalculation);
-        }
-
-        /// <summary>
-        /// Sets the <see cref="DataGridViewCell.ErrorText"/> when the detailed assessment fails.
-        /// </summary>
-        /// <param name="dataGridViewCell">The current data grid view cell.</param>
-        /// <param name="simpleAssessmentResult">The value representing the simple assessment result.</param>
-        /// <param name="detailedAssessmentProbability">The value representing the probability of the detailed assessment.</param>
-        /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
-        /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewCell"/> is <c>null</c>.</exception>
-        public static void SetDetailedAssessmentError(DataGridViewCell dataGridViewCell,
-                                                      SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
-                                                      double detailedAssessmentProbability,
-                                                      ICalculation normativeCalculation)
-        {
-            if (dataGridViewCell == null)
-            {
-                throw new ArgumentNullException(nameof(dataGridViewCell));
-            }
-
-            if (simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable)
-            {
-                dataGridViewCell.ErrorText = string.Empty;
-                return;
-            }
-
-            dataGridViewCell.ErrorText = GetDetailedAssessmentError(detailedAssessmentProbability, normativeCalculation);
-        }
-
         /// <summary>
         /// Gets the error text to display when the detailed assessment fails.
         /// </summary>

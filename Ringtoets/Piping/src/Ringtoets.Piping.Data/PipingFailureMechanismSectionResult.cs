@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Data
         public bool UseManualAssemblyProbability { get; set; }
 
         /// <summary>
-        /// Gets or sets the manually selected assembly category group.
+        /// Gets or sets the manually entered assembly probability.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double ManualAssemblyProbability

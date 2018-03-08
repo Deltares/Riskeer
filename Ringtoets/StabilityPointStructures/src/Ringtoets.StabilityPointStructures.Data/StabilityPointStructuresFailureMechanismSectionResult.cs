@@ -100,7 +100,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         public bool UseManualAssemblyProbability { get; set; }
 
         /// <summary>
-        /// Gets or sets the manually selected assembly category group.
+        /// Gets or sets the manually set assembly probability.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when
         /// <paramref name="value"/> is not in range [0,1].</exception>
