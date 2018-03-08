@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -37,7 +36,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
-    /// View for presenting and calculating design water level calculations for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+    /// View for presenting and performing design water level calculations for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
@@ -48,17 +47,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsView"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism that the locations belong to.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
-        /// <param name="assessmentSection">The assessment section that the locations belong to.</param>
+        /// <param name="failureMechanism">The failure mechanism that the calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section that the calculations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to derive a mechanism specific norm from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsDesignWaterLevelLocationsView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                      Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                                                       IAssessmentSection assessmentSection,
                                                                       Func<double> getNormFunc)
-            : base(failureMechanism?.HydraulicBoundaryLocations, getCalculationFunc, assessmentSection)
+            : base(failureMechanism?.HydraulicBoundaryLocations, assessmentSection)
         {
             if (getNormFunc == null)
             {
@@ -78,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         /// <summary>
         /// Gets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
-        /// hydraulic boundary locations are shown.
+        /// hydraulic boundary location calculations are shown.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
 
@@ -101,11 +97,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
 
             return currentRow != null
-                       ? new GrassCoverErosionOutwardsDesignWaterLevelCalculationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject.DesignWaterLevelCalculation1)
+                       ? new GrassCoverErosionOutwardsDesignWaterLevelCalculationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject)
                        : null;
         }
 
-        protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
+        protected override void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
                 getNormFunc(),
@@ -114,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
             CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                             locations.Select(l => GetCalculationFunc(l)),
+                                                             calculations,
                                                              mechanismSpecificNorm,
                                                              messageProvider);
         }
