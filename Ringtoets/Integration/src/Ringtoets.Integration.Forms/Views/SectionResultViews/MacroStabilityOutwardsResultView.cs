@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssessmentResult));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentResult));
 

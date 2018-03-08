@@ -230,10 +230,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         #region Detailed Assessment
 
         [Test]
-        public void AddDetailedAssessmentResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddDetailedAssessmentProbabilityOnlyResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(null, "property");
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -241,10 +241,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddDetailedAssessmentResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddDetailedAssessmentProbabilityOnlyResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(new DataGridViewControl(), null);
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -252,7 +252,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddDetailedAssessmentResultColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddDetailedAssessmentProbabilityOnlyResultColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -266,7 +266,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);

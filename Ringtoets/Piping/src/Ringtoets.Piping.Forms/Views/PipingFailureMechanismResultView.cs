@@ -140,7 +140,7 @@ namespace Ringtoets.Piping.Forms.Views
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentResult));
 

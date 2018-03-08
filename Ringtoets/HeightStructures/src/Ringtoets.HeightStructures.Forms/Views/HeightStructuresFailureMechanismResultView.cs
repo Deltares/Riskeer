@@ -135,7 +135,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
 

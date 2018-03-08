@@ -134,7 +134,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 DataGridViewControl,
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
                 nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
 
