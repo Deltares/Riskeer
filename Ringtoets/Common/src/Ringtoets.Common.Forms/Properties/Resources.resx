@@ -1378,4 +1378,8 @@ Cat. IIIv - IVv</value>
     <value>Gedetailleerde toets per vak
 Cat. IVv - Vv</value>
   </data>
+  <data name="FailureMechanismResultView_DetailedAssessmentResultForFactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>Gedetailleerde toets per vak
+Cat. Vv - VIv</value>
+  </data>
 </root>
