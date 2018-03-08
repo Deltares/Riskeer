@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -122,6 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                             failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength));
 
                 return calculator.AssembleDetailedAssessment(
+                    DetailedAssessmentResultType.Probability,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
                     categories,
                     failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));

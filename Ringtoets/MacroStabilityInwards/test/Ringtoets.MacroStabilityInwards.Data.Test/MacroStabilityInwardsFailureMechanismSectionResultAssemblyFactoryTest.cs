@@ -229,7 +229,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                
+
                 MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
                     sectionResult,
                     calculationScenarios,
@@ -237,12 +237,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                     assessmentSection);
 
                 // Assert
+                Assert.AreEqual(DetailedAssessmentResultType.Probability, calculator.DetailedAssessmentResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
                                     calculationScenarios,
                                     failureMechanism,
                                     assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
-                Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length), 
+                Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
                                 calculator.DetailedAssessmentNInput);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
@@ -250,7 +251,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
                                     failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
                                 categoryCalculator.N);
-                Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);                
+                Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
                 mocks.VerifyAll();
             }
         }

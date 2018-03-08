@@ -294,6 +294,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
                 random.NextRoundedDouble(1.0, 10.0));
@@ -317,6 +318,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
                 random.NextRoundedDouble(1.0, 10.0));
@@ -332,14 +334,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             var random = new Random(39);
             double probability = random.NextDouble();
             double n = random.NextRoundedDouble(1.0, 10.0);
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
 
             IEnumerable<FailureMechanismSectionAssemblyCategory> categoriesInput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>();
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
-            calculator.AssembleDetailedAssessment(probability, categoriesInput, n);
+            calculator.AssembleDetailedAssessment(detailedAssessmentResult, probability, categoriesInput, n);
 
             // Assert
+            Assert.AreEqual(detailedAssessmentResult, calculator.DetailedAssessmentResultInput);
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
             Assert.AreEqual(n, calculator.DetailedAssessmentNInput);
 
@@ -358,6 +362,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
                 random.NextRoundedDouble(1.0, 10.0));

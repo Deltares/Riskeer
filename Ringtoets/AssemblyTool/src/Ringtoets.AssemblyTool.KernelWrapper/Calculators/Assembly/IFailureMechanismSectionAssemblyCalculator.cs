@@ -70,13 +70,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
+        /// <param name="detailedAssessmentResult">The detailed assessment result.</param>
         /// <param name="probability">The calculated probability.</param>
         /// <param name="categories">The collection of categories for this failure mechanism section.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
-        FailureMechanismSectionAssembly AssembleDetailedAssessment(double probability,
+        FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult,
+                                                                   double probability,
                                                                    IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
                                                                    double n);
 

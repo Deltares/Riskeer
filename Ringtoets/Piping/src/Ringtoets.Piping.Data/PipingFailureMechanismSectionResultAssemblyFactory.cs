@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Piping.Data
 {
@@ -122,6 +121,7 @@ namespace Ringtoets.Piping.Data
                         failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanism.PipingProbabilityAssessmentInput.SectionLength));
 
                 return calculator.AssembleDetailedAssessment(
+                    failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
                     categories,
                     failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
