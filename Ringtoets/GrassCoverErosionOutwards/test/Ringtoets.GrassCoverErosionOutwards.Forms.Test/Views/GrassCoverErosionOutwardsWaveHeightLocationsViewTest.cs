@@ -698,7 +698,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [TestFixture]
-        private class ViewSynchronizationTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocation>
+        private class ViewSynchronizationTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocationCalculation>
         {
             protected override int OutputColumnIndex
             {
@@ -708,12 +708,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             }
 
-            protected override object GetCalculationSelection(LocationsView<HydraulicBoundaryLocation> view, object selectedRowObject)
+            protected override object GetCalculationSelection(LocationsView<HydraulicBoundaryLocationCalculation> view, object selectedRowObject)
             {
-                return new GrassCoverErosionOutwardsWaveHeightCalculationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject.WaveHeightCalculation1);
+                return new GrassCoverErosionOutwardsWaveHeightCalculationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
             }
 
-            protected override LocationsView<HydraulicBoundaryLocation> ShowFullyConfiguredCalculationsView(Form form)
+            protected override LocationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
                 return ShowFullyConfiguredWaveHeightLocationsView(new ObservableTestAssessmentSectionStub(), form);
             }
@@ -721,11 +721,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             protected override ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<HydraulicBoundaryLocation> view)
             {
                 return ((GrassCoverErosionOutwardsWaveHeightLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
-            }
-
-            protected override HydraulicBoundaryLocationCalculation GetCalculationForLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-            {
-                return hydraulicBoundaryLocation.WaveHeightCalculation1;
             }
         }
     }
