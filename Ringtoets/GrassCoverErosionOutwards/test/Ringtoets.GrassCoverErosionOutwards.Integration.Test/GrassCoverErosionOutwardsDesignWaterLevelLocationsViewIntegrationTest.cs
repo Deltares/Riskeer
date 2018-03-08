@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -35,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
     [TestFixture]
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewIntegrationTest
     {
-        private const int locationCalculateColumnIndex = 0;
+        private const int calculateColumnIndex = 0;
 
         private Form testForm;
 
@@ -67,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true).First();
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                rows[0].Cells[calculateColumnIndex].Value = true;
             }
 
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
@@ -98,27 +99,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             {
                 Contribution = 5
             };
-            failureMechanism.HydraulicBoundaryLocations.AddRange(new[]
-            {
-                new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
-                new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
-                {
-                    DesignWaterLevelCalculation1 =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(1.23)
-                    }
-                },
-                new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
-                {
-                    WaveHeightCalculation1 =
-                    {
-                        Output = new TestHydraulicBoundaryLocationOutput(2.45)
-                    }
-                }
-            });
 
-            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
-                                                                                  hbl => hbl.DesignWaterLevelCalculation1,
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                },
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(2.45)
+                }
+            };
+
+            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(calculations,
+                                                                                  failureMechanism,
                                                                                   new AssessmentSection(AssessmentSectionComposition.Dike),
                                                                                   () => 0.01);
 
