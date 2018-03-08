@@ -552,77 +552,83 @@ namespace Ringtoets.Integration.Data.Test
 
         private static void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
         {
-            double[] contributions = GetContributionsArray(composition);
+            Tuple<double, bool>[] contributionTuples = GetContributionsTuples(composition).ToArray();
+            double[] contributions = contributionTuples.Select(tuple => tuple.Item1).ToArray();
 
             Assert.AreEqual(contributions[0], assessmentSection.Piping.Contribution);
             Assert.AreEqual(contributions[1], assessmentSection.GrassCoverErosionInwards.Contribution);
             Assert.AreEqual(contributions[2], assessmentSection.MacroStabilityInwards.Contribution);
-            Assert.AreEqual(contributions[3], assessmentSection.StabilityStoneCover.Contribution);
-            Assert.AreEqual(contributions[4], assessmentSection.WaveImpactAsphaltCover.Contribution);
-            Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutwards.Contribution);
-            Assert.AreEqual(contributions[6], assessmentSection.HeightStructures.Contribution);
-            Assert.AreEqual(contributions[7], assessmentSection.ClosingStructures.Contribution);
-            Assert.AreEqual(contributions[8], assessmentSection.PipingStructure.Contribution);
-            Assert.AreEqual(contributions[9], assessmentSection.StabilityPointStructures.Contribution);
-            Assert.AreEqual(contributions[10], assessmentSection.DuneErosion.Contribution);
+            Assert.AreEqual(contributions[3], assessmentSection.MacroStabilityOutwards.Contribution);
+            Assert.AreEqual(contributions[4], assessmentSection.StabilityStoneCover.Contribution);
+            Assert.AreEqual(contributions[5], assessmentSection.WaveImpactAsphaltCover.Contribution);
+            Assert.AreEqual(contributions[6], assessmentSection.GrassCoverErosionOutwards.Contribution);
+            Assert.AreEqual(contributions[7], assessmentSection.HeightStructures.Contribution);
+            Assert.AreEqual(contributions[8], assessmentSection.ClosingStructures.Contribution);
+            Assert.AreEqual(contributions[9], assessmentSection.PipingStructure.Contribution);
+            Assert.AreEqual(contributions[10], assessmentSection.StabilityPointStructures.Contribution);
+            Assert.AreEqual(contributions[11], assessmentSection.DuneErosion.Contribution);
 
-            CollectionAssert.AreEqual(contributions, assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
+            CollectionAssert.AreEqual(contributionTuples.Where(tuple => tuple.Item2).Select(tuple => tuple.Item1),
+                                      assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
         }
 
-        private static double[] GetContributionsArray(AssessmentSectionComposition composition)
+        private static IEnumerable<Tuple<double, bool>> GetContributionsTuples(AssessmentSectionComposition composition)
         {
-            double[] contributions = null;
+            Tuple<double, bool>[] contributions = null;
             switch (composition)
             {
                 case AssessmentSectionComposition.Dike:
-                    contributions = new double[]
+                    contributions = new[]
                     {
-                        24,
-                        24,
-                        4,
-                        5,
-                        5,
-                        5,
-                        24,
-                        4,
-                        2,
-                        2,
-                        0,
-                        30
+                        new Tuple<double, bool>(24, true),
+                        new Tuple<double, bool>(24, true),
+                        new Tuple<double, bool>(4, true),
+                        new Tuple<double, bool>(4, false),
+                        new Tuple<double, bool>(5, true),
+                        new Tuple<double, bool>(5, true),
+                        new Tuple<double, bool>(5, true),
+                        new Tuple<double, bool>(24, true),
+                        new Tuple<double, bool>(4, true),
+                        new Tuple<double, bool>(2, true),
+                        new Tuple<double, bool>(2, true),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(30, true)
                     };
                     break;
                 case AssessmentSectionComposition.Dune:
-                    contributions = new double[]
+                    contributions = new[]
                     {
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        70,
-                        30
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(0, false),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(0, true),
+                        new Tuple<double, bool>(70, true),
+                        new Tuple<double, bool>(30, true)
                     };
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
-                    contributions = new double[]
+                    contributions = new[]
                     {
-                        24,
-                        24,
-                        4,
-                        5,
-                        5,
-                        5,
-                        24,
-                        4,
-                        2,
-                        2,
-                        10,
-                        20
+                        new Tuple<double, bool>(24, true),
+                        new Tuple<double, bool>(24, true),
+                        new Tuple<double, bool>(4, true),
+                        new Tuple<double, bool>(4, false),
+                        new Tuple<double, bool>(5, true),
+                        new Tuple<double, bool>(5, true),
+                        new Tuple<double, bool>(5, true),
+                        new Tuple<double, bool>(24, true),
+                        new Tuple<double, bool>(4, true),
+                        new Tuple<double, bool>(2, true),
+                        new Tuple<double, bool>(2, true),
+                        new Tuple<double, bool>(10, true),
+                        new Tuple<double, bool>(20, true)
                     };
                     break;
                 default:

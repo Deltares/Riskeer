@@ -367,6 +367,7 @@ namespace Ringtoets.Integration.Data
                     Piping.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacroStabilityInwards.Contribution = 4;
+                    MacroStabilityOutwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
                     WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
@@ -381,6 +382,7 @@ namespace Ringtoets.Integration.Data
                     Piping.Contribution = 0;
                     GrassCoverErosionInwards.Contribution = 0;
                     MacroStabilityInwards.Contribution = 0;
+                    MacroStabilityOutwards.Contribution = 0;
                     StabilityStoneCover.Contribution = 0;
                     WaveImpactAsphaltCover.Contribution = 0;
                     GrassCoverErosionOutwards.Contribution = 0;
@@ -395,6 +397,7 @@ namespace Ringtoets.Integration.Data
                     Piping.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacroStabilityInwards.Contribution = 4;
+                    MacroStabilityOutwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
                     WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
