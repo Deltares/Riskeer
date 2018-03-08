@@ -61,7 +61,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="ClosingStructuresFailureMechanismSectionResult"/> to wrap
-        ///     so that it can be displayed as a row.</param>
+        /// so that it can be displayed as a row.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of

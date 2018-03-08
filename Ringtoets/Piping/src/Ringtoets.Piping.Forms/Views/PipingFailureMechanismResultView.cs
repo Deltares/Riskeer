@@ -21,16 +21,12 @@
 
 using System;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -40,8 +36,18 @@ namespace Ringtoets.Piping.Forms.Views
     public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult,
         PipingFailureMechanismSectionResultRow, PipingFailureMechanism>
     {
-        private const int detailedAssessmentIndex = 2;
-        private const double tolerance = 1e-6;
+        private const int simpleAssessmentResultIndex = 1;
+        private const int detailedAssessmentResultIndex = 2;
+        private const int detailedAssessmentProbabilityIndex = 3;
+        private const int tailorMadeAssessmentResultIndex = 4;
+        private const int tailorMadeAssessmentProbabilityIndex = 5;
+        private const int simpleAssemblyCategoryGroupIndex = 6;
+        private const int detailedAssemblyCategoryGroupIndex = 7;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 8;
+        private const int combinedAssemblyCategoryGroupIndex = 9;
+        private const int combinedAssemblyProbabilityIndex = 10;
+        private const int manualAssemblyProbabilityIndex = 12;
+
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -68,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Views
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
             {
                 Observable = failureMechanism
-            };            
+            };
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -93,9 +99,6 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            DataGridViewControl.CellFormatting -= ShowDetailedAssessmentErrors;
-            DataGridViewControl.CellFormatting -= DisableIrrelevantFieldsFormatting;
-
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
@@ -106,115 +109,80 @@ namespace Ringtoets.Piping.Forms.Views
 
         protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
-            return new PipingFailureMechanismSectionResultRow(sectionResult, FailureMechanism.Calculations.Cast<PipingCalculationScenario>(),
-                                                              FailureMechanism, assessmentSection);
+            return new PipingFailureMechanismSectionResultRow(
+                sectionResult,
+                FailureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                FailureMechanism,
+                assessmentSection,
+                new PipingFailureMechanismSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
+                    DetailedAssessmentProbabilityIndex = detailedAssessmentProbabilityIndex,
+                    TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
+                    TailorMadeAssessmentProbabilityIndex = tailorMadeAssessmentProbabilityIndex,
+                    SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
+                    TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
+                    CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
+                    CombinedAssemblyProbabilityIndex = combinedAssemblyProbabilityIndex,
+                    ManualAssemblyProbabilityIndex = manualAssemblyProbabilityIndex
+                });
         }
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingFailureMechanismSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentResult));
 
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
-                true);
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentProbability),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.UseManualAssemblyProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
-
-        protected override void BindEvents()
-        {
-            base.BindEvents();
-
-            DataGridViewControl.CellFormatting += ShowDetailedAssessmentErrors;
-            DataGridViewControl.CellFormatting += DisableIrrelevantFieldsFormatting;
-        }
-
-        #region Event handling
-
-        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
-            {
-                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
-        }
-
-        private void ShowDetailedAssessmentErrors(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex != detailedAssessmentIndex)
-            {
-                return;
-            }
-
-            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-
-            PipingFailureMechanismSectionResultRow resultRow = GetDataAtRow(e.RowIndex);
-            PipingFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
-            if (rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible
-                || rowObject.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
-            {
-                currentDataGridViewCell.ErrorText = string.Empty;
-                return;
-            }
-
-            PipingCalculationScenario[] relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).ToArray();
-            bool relevantScenarioAvailable = relevantScenarios.Length != 0;
-
-            if (!relevantScenarioAvailable)
-            {
-                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set;
-                return;
-            }
-
-            if (Math.Abs(rowObject.GetTotalContribution(relevantScenarios) - 1.0) > tolerance)
-            {
-                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
-                return;
-            }
-
-            CalculationScenarioStatus calculationScenarioStatus = rowObject.GetCalculationScenarioStatus(relevantScenarios);
-            if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
-            {
-                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
-                return;
-            }
-
-            if (double.IsNaN(resultRow.DetailedAssessmentProbability))
-            {
-                currentDataGridViewCell.ErrorText = RingtoetsCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
-                return;
-            }
-
-            currentDataGridViewCell.ErrorText = string.Empty;
-        }
-
-        #endregion
     }
 }

@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Integration.Test
     [TestFixture]
     public class PipingFailureMechanismResultViewIntegrationTest
     {
-        private const int detailedAssessmentIndex = 2;
+        private const int detailedAssessmentIndex = 3;
 
         [Test]
         [SetCulture("nl-NL")]
