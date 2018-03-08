@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         private Form testForm;
 
         /// <summary>
-        /// Gets the index of the column containing the calculations output.
+        /// Gets the index of the column containing the calculation output.
         /// </summary>
         protected abstract int OutputColumnIndex { get; }
 
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <list type="bullet">
         /// <item>Row 1: calculation without output</item>
         /// <item>Row 2: calculation with output not containing a general result</item>
-        /// <item>Row 3: calculation with the flag for parsing the general result set to true</item>
+        /// <item>Row 3: calculation with the flag for reading the general result set to true</item>
         /// <item>Row 4: calculation with output containing a general result with two top level illustration points</item>
         /// </list>
         /// </remarks>
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <returns>An <see cref="ObservableList{T}"/> of calculations.</returns>
         protected abstract ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(LocationsView<T> view);
 
-        private void ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(LocationsView<T> view)
+        private void ReplaceCalculationsAndNotifyObservers(LocationsView<T> view)
         {
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             });
         }
 
-        private void AddCalculationOutputAndNotifyObservers(LocationsView<T> view)
+        private void SetCalculationOutputAndNotifyObservers(LocationsView<T> view)
         {
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
@@ -157,7 +157,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingLocationWithoutGeneralResult_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
+        public void GivenFullyConfiguredView_WhenSelectingCalculationWithoutGeneralResult_ThenIllustrationPointsControlDataSetToEmptyEnumeration()
         {
             // Given
             ShowFullyConfiguredCalculationsView(testForm);
@@ -173,7 +173,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingLocationWithGeneralResult_ThenGeneralResultSetOnIllustrationPointsControlData()
+        public void GivenFullyConfiguredView_WhenSelectingCalculationWithGeneralResult_ThenGeneralResultSetOnIllustrationPointsControlData()
         {
             // Given
             ShowFullyConfiguredCalculationsView(testForm);
@@ -195,15 +195,15 @@ namespace Ringtoets.Common.Forms.TestUtil
             LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
-            DataGridViewRowCollection locationsDataGridViewRows = calculationsDataGridView.Rows;
-            calculationsDataGridView.CurrentCell = locationsDataGridViewRows[3].Cells[0];
+            DataGridViewRowCollection dataGridViewRows = calculationsDataGridView.Rows;
+            calculationsDataGridView.CurrentCell = dataGridViewRows[3].Cells[0];
 
             // Precondition
-            Assert.AreEqual(4, locationsDataGridViewRows.Count);
-            Assert.AreEqual("-", locationsDataGridViewRows[0].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreNotEqual("-", locationsDataGridViewRows[1].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", locationsDataGridViewRows[2].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreNotEqual("-", locationsDataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual(4, dataGridViewRows.Count);
+            Assert.AreEqual("-", dataGridViewRows[0].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreNotEqual("-", dataGridViewRows[1].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", dataGridViewRows[2].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreNotEqual("-", dataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
             Assert.AreEqual(2, GetIllustrationPointsControl().Data.Count());
 
             var refreshed = false;
@@ -214,11 +214,11 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             // Then
             Assert.IsTrue(refreshed);
-            Assert.AreEqual(4, locationsDataGridViewRows.Count);
-            Assert.AreEqual("-", locationsDataGridViewRows[0].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", locationsDataGridViewRows[1].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", locationsDataGridViewRows[2].Cells[OutputColumnIndex].FormattedValue);
-            Assert.AreEqual("-", locationsDataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual(4, dataGridViewRows.Count);
+            Assert.AreEqual("-", dataGridViewRows[0].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", dataGridViewRows[1].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", dataGridViewRows[2].Cells[OutputColumnIndex].FormattedValue);
+            Assert.AreEqual("-", dataGridViewRows[3].Cells[OutputColumnIndex].FormattedValue);
             CollectionAssert.IsEmpty(GetIllustrationPointsControl().Data);
         }
 
@@ -227,7 +227,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         #region Selection synchronization
 
         [Test]
-        public void GivenFullyConfiguredView_WhenSelectingLocation_ThenSelectionUpdated()
+        public void GivenFullyConfiguredView_WhenSelectingCalculation_ThenSelectionUpdated()
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
@@ -244,7 +244,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFullyConfiguredViewWithLocationSelection_WhenDatabaseReplaced_ThenSelectionUpdated()
+        public void GivenFullyConfiguredViewWithCalculationSelection_WhenCalculationsReplaced_ThenSelectionUpdated()
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
@@ -258,7 +258,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual(GetCalculationSelection(view, currentCalculationRow.DataBoundItem), view.Selection);
 
             // When
-            ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(view);
+            ReplaceCalculationsAndNotifyObservers(view);
 
             // Then
             currentCalculationRow = GetCalculationsDataGridViewControl().CurrentRow;
@@ -267,7 +267,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputCleared_ThenSelectionPreserved()
+        public void GivenFullyConfiguredViewWithCalculationSelection_WhenOutputCleared_ThenSelectionPreserved()
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
@@ -290,7 +290,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFullyConfiguredViewWithLocationSelection_WhenOutputUpdated_ThenSelectionPreserved()
+        public void GivenFullyConfiguredViewWithCalculationSelection_WhenOutputUpdated_ThenSelectionPreserved()
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
@@ -304,7 +304,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual(GetCalculationSelection(view, currentCalculationRow.DataBoundItem), view.Selection);
 
             // When
-            AddCalculationOutputAndNotifyObservers(view);
+            SetCalculationOutputAndNotifyObservers(view);
 
             // Then
             currentCalculationRow = GetCalculationsDataGridViewControl().CurrentRow;
@@ -330,7 +330,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenDatabaseReplaced_ThenSelectionSetToLocation()
+        public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenCalculationsReplaced_ThenSelectionSetToCalculation()
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
@@ -346,7 +346,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             AssertIllustrationPointControlSelection(view.Selection);
 
             // When
-            ReplaceHydraulicBoundaryDatabaseAndNotifyObservers(view);
+            ReplaceCalculationsAndNotifyObservers(view);
 
             // Then
             Assert.AreEqual(0, calculationsDataGridView.CurrentRow?.Index);
@@ -354,7 +354,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputCleared_ThenSelectionSetToLocation()
+        public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputCleared_ThenSelectionSetToCalculation()
         {
             // Given
             LocationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
@@ -394,7 +394,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             AssertIllustrationPointControlSelection(view.Selection);
 
             // When
-            AddCalculationOutputAndNotifyObservers(view);
+            SetCalculationOutputAndNotifyObservers(view);
 
             // Then
             Assert.AreEqual(3, calculationsDataGridView.CurrentRow?.Index);
