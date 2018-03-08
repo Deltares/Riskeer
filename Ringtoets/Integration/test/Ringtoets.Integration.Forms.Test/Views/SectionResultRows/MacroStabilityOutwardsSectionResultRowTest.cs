@@ -517,6 +517,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
         [Test]
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible, false)]
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient, false)]
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, false)]
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient, false)]
