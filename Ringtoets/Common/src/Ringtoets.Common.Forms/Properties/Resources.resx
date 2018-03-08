@@ -1374,4 +1374,8 @@ Cat. IIv - IIIv</value>
     <value>Gedetailleerde toets per vak
 Cat. IIIv - IVv</value>
   </data>
+  <data name="FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>Gedetailleerde toets per vak
+Cat. IVv - Vv</value>
+  </data>
 </root>

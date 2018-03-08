@@ -1498,6 +1498,16 @@ namespace Ringtoets.Common.Forms.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Gedetailleerde toets per vak
+        ///Cat. IVv - Vv.
+        /// </summary>
+        public static string FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gedetailleerde toets per vak
         ///Cat. IIIv - IVv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName {

@@ -252,6 +252,20 @@ namespace Ringtoets.Common.Forms.Builders
                 Resources.FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName);
         }
 
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
+        /// for the lower limit norm category (IVv - Vv).
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddDetailedAssessmentResultForLowerLimitNormColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            AddDetailedAssessmentResultColumn(dataGridViewControl, dataPropertyName,
+                                              Resources.FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName);
+        }
+
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
         /// <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>.
