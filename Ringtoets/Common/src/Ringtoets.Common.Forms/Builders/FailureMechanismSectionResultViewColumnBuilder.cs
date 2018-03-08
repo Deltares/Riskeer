@@ -214,6 +214,19 @@ namespace Ringtoets.Common.Forms.Builders
         }
 
         /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
+        /// for the factorized signaling norm.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddDetailedAssessmentResultForFactorizedSignalingNormColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            AddDetailedAssessmentResultColumn(dataGridViewControl, dataPropertyName,
+                Resources.FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName);
+        }
+
+        /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
         /// <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>.
         /// </summary>
@@ -308,6 +321,37 @@ namespace Ringtoets.Common.Forms.Builders
         {
             AddSelectableAssemblyCategoryGroupColumn(dataGridViewControl, dataPropertyName,
                                                      Resources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <param name="headerText">The header text of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewControl"/>
+        /// or <paramref name="dataPropertyName"/> is <c>null</c>.</exception>
+        private static void AddDetailedAssessmentResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName, string headerText)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> dataSource =
+                CreateEnumDisplayWrappers<DetailedAssessmentResultType>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                headerText,
+                dataSource,
+                nameof(EnumDisplayWrapper<DetailedAssessmentResultType>.Value),
+                nameof(EnumDisplayWrapper<DetailedAssessmentResultType>.DisplayName));
         }
 
         #endregion

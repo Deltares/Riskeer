@@ -1362,4 +1362,8 @@ Pf = {1}</value>
   <data name="ReferenceLine_Length_Rounded_Description" xml:space="preserve">
     <value>Totale lengte van het traject in meters (afgerond).</value>
   </data>
+  <data name="FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName" xml:space="preserve">
+    <value>Gedetailleerde toets per vak
+Cat. Iv - IIv</value>
+  </data>
 </root>
