@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         protected abstract int OutputColumnIndex { get; }
 
         [SetUp]
-        public void Setup()
+        public virtual void Setup()
         {
             testForm = new Form();
         }

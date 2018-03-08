@@ -655,7 +655,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [TestFixture]
         private class ViewSynchronizationTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocationCalculation>
         {
-            private readonly ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
+            private ObservableList<HydraulicBoundaryLocationCalculation> calculations;
+
+            public override void Setup()
+            {
+                calculations = GetTestHydraulicBoundaryLocationCalculations();
+
+                base.Setup();
+            }
 
             protected override int OutputColumnIndex
             {
