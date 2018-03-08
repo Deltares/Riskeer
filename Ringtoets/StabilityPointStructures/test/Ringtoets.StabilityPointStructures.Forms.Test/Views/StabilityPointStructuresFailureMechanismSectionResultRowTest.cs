@@ -449,68 +449,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void GetSectionResultCalculation_NoCalculationSetOnSectionResult_ReturnNull()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
-
-            // Precondition
-            Assert.IsNull(result.Calculation);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                       ConstructionProperties);
-
-                // Call
-                StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
-
-                // Assert
-                Assert.IsNull(calculation);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void GetSectionResultCalculation_WithCalculationSetOnSectionResult_ReturnCalculation()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = expectedCalculation
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                       ConstructionProperties);
-
-                // Call
-                StructuresCalculation<StabilityPointStructuresInput> calculation = row.GetSectionResultCalculation();
-
-                // Assert
-                Assert.AreSame(expectedCalculation, calculation);
-                mocks.VerifyAll();
-            }
-        }
-
         private static TestStabilityPointStructuresCalculation CreateCalculationWithOutput()
         {
             return new TestStabilityPointStructuresCalculation

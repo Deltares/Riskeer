@@ -290,17 +290,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="StructuresCalculation{T}"/> of the wrapped
-        /// <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
-        /// </summary>
-        /// <returns><c>null</c> if the wrapped section result does not have a calculation
-        /// set. Otherwise the calculation of the wrapped section result is returned.</returns>
-        public StructuresCalculation<StabilityPointStructuresInput> GetSectionResultCalculation()
-        {
-            return SectionResult.Calculation;
-        }
-
         /// <inheritdoc />
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
