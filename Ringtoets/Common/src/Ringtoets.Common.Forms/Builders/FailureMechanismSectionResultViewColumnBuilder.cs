@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Primitives;
@@ -67,6 +66,38 @@ namespace Ringtoets.Common.Forms.Builders
                        .OfType<T>()
                        .Select(e => new EnumDisplayWrapper<T>(e))
                        .ToArray();
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the selectable
+        /// failure mechanism section assembly category group.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <param name="headerText">The header text of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewControl"/>
+        /// or <paramref name="dataPropertyName"/> is <c>null</c>.</exception>
+        private static void AddSelectableAssemblyCategoryGroupColumn(DataGridViewControl dataGridViewControl, string dataPropertyName, string headerText)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>> dataSource =
+                CreateEnumDisplayWrappers<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                headerText,
+                dataSource,
+                nameof(EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>.Value),
+                nameof(EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>.DisplayName));
         }
 
         #region Assessment
@@ -427,24 +458,8 @@ namespace Ringtoets.Common.Forms.Builders
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void AddManualAssemblyCategoryGroupColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
-            if (dataGridViewControl == null)
-            {
-                throw new ArgumentNullException(nameof(dataGridViewControl));
-            }
-
-            if (dataPropertyName == null)
-            {
-                throw new ArgumentNullException(nameof(dataPropertyName));
-            }
-
-            IEnumerable<EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>> dataSource = CreateEnumDisplayWrappers<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
-
-            dataGridViewControl.AddComboBoxColumn(
-                dataPropertyName,
-                Resources.FailureMechanismResultView_ManualAssembly_DisplayName,
-                dataSource,
-                nameof(EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>.Value),
-                nameof(EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>.DisplayName));
+            AddSelectableAssemblyCategoryGroupColumn(dataGridViewControl, dataPropertyName,
+                                                     Resources.FailureMechanismResultView_ManualAssembly_DisplayName);
         }
 
         /// <summary>
