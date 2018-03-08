@@ -21,7 +21,7 @@
     </Compile>
     <Compile Include="DetailedAssessmentProbabilityOnlyResultType.cs" />
     <Compile Include="SimpleAssessmentResultType.cs" />
-    <Compile Include="SimpleAssessmentResultValidityOnlyType.cs" />
+    <Compile Include="SimpleAssessmentValidityOnlyResultType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

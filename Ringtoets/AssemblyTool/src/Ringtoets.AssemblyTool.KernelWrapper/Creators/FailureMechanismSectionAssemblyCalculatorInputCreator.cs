@@ -75,28 +75,28 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="SimpleCalculationResultValidityOnly"/> based on the given <paramref name="input"/>.
         /// </summary>
-        /// <param name="input">The <see cref="SimpleAssessmentResultValidityOnlyType"/> to create the result for.</param>
+        /// <param name="input">The <see cref="SimpleAssessmentValidityOnlyResultType"/> to create the result for.</param>
         /// <returns>The created <see cref="SimpleCalculationResultValidityOnly"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SimpleAssessmentResultValidityOnlyType"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SimpleAssessmentValidityOnlyResultType"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="SimpleAssessmentResultValidityOnlyType"/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="SimpleAssessmentValidityOnlyResultType"/>
         /// is a valid value, but unsupported.</exception>
-        public static SimpleCalculationResultValidityOnly CreateSimpleCalculationResultValidityOnly(SimpleAssessmentResultValidityOnlyType input)
+        public static SimpleCalculationResultValidityOnly CreateSimpleCalculationResultValidityOnly(SimpleAssessmentValidityOnlyResultType input)
         {
-            if (!Enum.IsDefined(typeof(SimpleAssessmentResultValidityOnlyType), input))
+            if (!Enum.IsDefined(typeof(SimpleAssessmentValidityOnlyResultType), input))
             {
                 throw new InvalidEnumArgumentException(nameof(input),
                                                        (int) input,
-                                                       typeof(SimpleAssessmentResultValidityOnlyType));
+                                                       typeof(SimpleAssessmentValidityOnlyResultType));
             }
 
             switch (input)
             {
-                case SimpleAssessmentResultValidityOnlyType.None:
+                case SimpleAssessmentValidityOnlyResultType.None:
                     return SimpleCalculationResultValidityOnly.None;
-                case SimpleAssessmentResultValidityOnlyType.NotApplicable:
+                case SimpleAssessmentValidityOnlyResultType.NotApplicable:
                     return SimpleCalculationResultValidityOnly.NVT;
-                case SimpleAssessmentResultValidityOnlyType.Applicable:
+                case SimpleAssessmentValidityOnlyResultType.Applicable:
                     return SimpleCalculationResultValidityOnly.WVT;
                 default:
                     throw new NotSupportedException();

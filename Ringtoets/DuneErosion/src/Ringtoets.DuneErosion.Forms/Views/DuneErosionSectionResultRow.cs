@@ -46,7 +46,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
-        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult
+        public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult
         {
             get
             {

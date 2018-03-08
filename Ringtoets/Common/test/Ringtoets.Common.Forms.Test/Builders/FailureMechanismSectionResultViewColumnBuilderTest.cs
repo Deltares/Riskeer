@@ -219,9 +219,9 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                IEnumerable<EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>> expectedDataSource =
-                    CreateExpectedEnumDisplayWrappers<SimpleAssessmentResultValidityOnlyType>();
-                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[]) columnData.DataSource);
+                IEnumerable<EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>> expectedDataSource =
+                    CreateExpectedEnumDisplayWrappers<SimpleAssessmentValidityOnlyResultType>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>[]) columnData.DataSource);
             }
         }
 

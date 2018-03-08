@@ -275,7 +275,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable;
+                row.SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable;
 
                 // Then
                 string expectedAssemblyDisplayName = FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(FailureMechanismSectionAssemblyCategoryGroup.None);
@@ -336,7 +336,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = false;
-                row.SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable;
+                row.SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable;
 
                 // Then
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex].ErrorText);
@@ -460,10 +460,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         #region Column States
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None, true)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, false)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, true)]
-        public void Constructor_WithSimpleAssessmentResultSet_ExpectedColumnStates(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None, true)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.NotApplicable, false)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable, true)]
+        public void Constructor_WithSimpleAssessmentResultSet_ExpectedColumnStates(SimpleAssessmentValidityOnlyResultType simpleAssessmentResult,
                                                                                    bool cellsEnabled)
         {
             // Setup
@@ -688,10 +688,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
         public void Constructor_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -720,10 +720,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
         public void Constructor_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -753,10 +753,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
         public void Constructor_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -907,16 +907,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable
             }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultNotApplicable");
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
             }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultNotApplicable");
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 Calculation = new StructuresCalculation<StabilityPointStructuresInput>
                 {
                     Output = new TestStructuresOutput(double.NaN)
@@ -924,7 +924,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultNotApplicable");
             yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 Calculation = CreateCalculationWithOutput()
             }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
         }
@@ -950,7 +950,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var newValue = new Random(21).NextEnumValue<SimpleAssessmentResultValidityOnlyType>();
+            var newValue = new Random(21).NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

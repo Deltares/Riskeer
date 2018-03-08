@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
-        /// <see cref="SimpleAssessmentResultValidityOnlyType"/>.
+        /// <see cref="SimpleAssessmentValidityOnlyResultType"/>.
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
@@ -119,14 +119,14 @@ namespace Ringtoets.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            IEnumerable<EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>> dataSource = CreateEnumDisplayWrappers<SimpleAssessmentResultValidityOnlyType>();
+            IEnumerable<EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>> dataSource = CreateEnumDisplayWrappers<SimpleAssessmentValidityOnlyResultType>();
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
                 Resources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
                 dataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
+                nameof(EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>.DisplayName));
         }
 
         /// <summary>

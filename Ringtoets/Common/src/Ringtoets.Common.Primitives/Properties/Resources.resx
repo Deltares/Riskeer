@@ -135,7 +135,7 @@
   <data name="AssessmentResultType_ProbabilityNegligible" xml:space="preserve">
     <value>FV</value>
   </data>
-  <data name="SimpleAssessmentResultValidityOnlyType_Applicable" xml:space="preserve">
+  <data name="SimpleAssessmentValidityOnlyResultType_Applicable" xml:space="preserve">
     <value>WVT</value>
   </data>
   <data name="AssessmentResultType_Insufficient" xml:space="preserve">

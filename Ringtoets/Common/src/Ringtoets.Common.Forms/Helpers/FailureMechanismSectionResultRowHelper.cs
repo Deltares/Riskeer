@@ -86,9 +86,9 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="simpleAssessmentResult">The simple assessment result to check.</param>
         /// <returns><c>true</c> when the simple assessment is <see cref="SimpleAssessmentResultType.NotApplicable"/>, 
         /// <c>false</c> otherwise.</returns>
-        public static bool SimpleAssessmentIsSufficient(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+        public static bool SimpleAssessmentIsSufficient(SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
-            return simpleAssessmentResult == SimpleAssessmentResultValidityOnlyType.NotApplicable;
+            return simpleAssessmentResult == SimpleAssessmentValidityOnlyResultType.NotApplicable;
         }
 
         /// <summary>

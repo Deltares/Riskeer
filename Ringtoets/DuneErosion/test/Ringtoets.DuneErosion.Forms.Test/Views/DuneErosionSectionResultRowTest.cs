@@ -68,7 +68,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             var random = new Random(39);
-            var newValue = random.NextEnumValue<SimpleAssessmentResultValidityOnlyType>();
+            var newValue = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new DuneErosionFailureMechanismSectionResult(section);

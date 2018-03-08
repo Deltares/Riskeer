@@ -98,19 +98,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var random = new Random(21);
             var result1 = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
@@ -167,10 +167,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
         public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesSimpleAssessmentAndListenersNotified_ThenRowsForSectionBecomesDisabled(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -196,7 +196,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 form.Show();
 
                 // When
-                result.SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable;
+                result.SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable;
                 result.NotifyObservers();
 
                 // Then

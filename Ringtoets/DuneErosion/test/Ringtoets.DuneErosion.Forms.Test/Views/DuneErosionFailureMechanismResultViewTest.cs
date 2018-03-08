@@ -98,21 +98,21 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var result1 = new DuneErosionFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result2 = new DuneErosionFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
             var result3 = new DuneErosionFailureMechanismSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };

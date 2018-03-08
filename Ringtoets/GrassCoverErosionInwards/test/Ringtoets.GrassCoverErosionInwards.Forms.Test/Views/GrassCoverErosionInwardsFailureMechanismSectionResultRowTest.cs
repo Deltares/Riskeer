@@ -337,7 +337,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable;
+                row.SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable;
 
                 // Then
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(FailureMechanismSectionAssemblyCategoryGroup.None),
@@ -401,7 +401,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = false;
-                row.SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.Applicable;
+                row.SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable;
 
                 // Then
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex].ErrorText);
@@ -427,10 +427,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         #region Column States
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None, true)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, false)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, true)]
-        public void Constructor_WithSimpleAssessment_ExpectedColumnStates(SimpleAssessmentResultValidityOnlyType simpleAssessmentResult,
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None, true)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.NotApplicable, false)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable, true)]
+        public void Constructor_WithSimpleAssessment_ExpectedColumnStates(SimpleAssessmentValidityOnlyResultType simpleAssessmentResult,
                                                                           bool cellsEnabled)
         {
             // Setup
@@ -653,10 +653,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
         public void Constructor_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -685,10 +685,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
         public void Constructor_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -718,10 +718,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
         public void Constructor_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult)
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -874,16 +874,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable
             }).SetName("SectionWithoutCalculation");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 Calculation = new GrassCoverErosionInwardsCalculation()
             }).SetName("SectionWithCalculationNoOutput");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 Calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
@@ -893,7 +893,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             }).SetName("SectionWithInvalidCalculationOutput");
             yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 Calculation = CreateCalculationWithOutput()
             }).SetName("SectionWithValidCalculationOutput");
         }
@@ -915,7 +915,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             var random = new Random(39);
-            var newValue = random.NextEnumValue<SimpleAssessmentResultValidityOnlyType>();
+            var newValue = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);

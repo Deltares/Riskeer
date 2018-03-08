@@ -26,41 +26,41 @@ using NUnit.Framework;
 namespace Ringtoets.Common.Primitives.Test
 {
     [TestFixture]
-    public class SimpleAssessmentResultValidityOnlyTypeTest : EnumWithDisplayNameTestFixture<SimpleAssessmentResultValidityOnlyType>
+    public class SimpleAssessmentValidityOnlyResultTypeTest : EnumWithDisplayNameTestFixture<SimpleAssessmentValidityOnlyResultType>
     {
-        protected override IDictionary<SimpleAssessmentResultValidityOnlyType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<SimpleAssessmentValidityOnlyResultType, byte> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<SimpleAssessmentResultValidityOnlyType, byte>
+                return new Dictionary<SimpleAssessmentValidityOnlyResultType, byte>
                 {
                     {
-                        SimpleAssessmentResultValidityOnlyType.None, 1
+                        SimpleAssessmentValidityOnlyResultType.None, 1
                     },
                     {
-                        SimpleAssessmentResultValidityOnlyType.NotApplicable, 2
+                        SimpleAssessmentValidityOnlyResultType.NotApplicable, 2
                     },
                     {
-                        SimpleAssessmentResultValidityOnlyType.Applicable, 3
+                        SimpleAssessmentValidityOnlyResultType.Applicable, 3
                     }
                 };
             }
         }
 
-        protected override IDictionary<SimpleAssessmentResultValidityOnlyType, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<SimpleAssessmentValidityOnlyResultType, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<SimpleAssessmentResultValidityOnlyType, string>
+                return new Dictionary<SimpleAssessmentValidityOnlyResultType, string>
                 {
                     {
-                        SimpleAssessmentResultValidityOnlyType.None, "<selecteer>"
+                        SimpleAssessmentValidityOnlyResultType.None, "<selecteer>"
                     },
                     {
-                        SimpleAssessmentResultValidityOnlyType.NotApplicable, "NVT"
+                        SimpleAssessmentValidityOnlyResultType.NotApplicable, "NVT"
                     },
                     {
-                        SimpleAssessmentResultValidityOnlyType.Applicable, "WVT"
+                        SimpleAssessmentValidityOnlyResultType.Applicable, "WVT"
                     }
                 };
             }

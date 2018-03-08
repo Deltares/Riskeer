@@ -156,9 +156,9 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to WVT.
         /// </summary>
-        internal static string SimpleAssessmentResultValidityOnlyType_Applicable {
+        internal static string SimpleAssessmentValidityOnlyResultType_Applicable {
             get {
-                return ResourceManager.GetString("SimpleAssessmentResultValidityOnlyType_Applicable", resourceCulture);
+                return ResourceManager.GetString("SimpleAssessmentValidityOnlyResultType_Applicable", resourceCulture);
             }
         }
     }

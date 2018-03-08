@@ -67,18 +67,18 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 RingtoetsCommonFormsResources.Section_DisplayName,
                 true);
 
-            EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultValidityOnlyType))
-                    .OfType<SimpleAssessmentResultValidityOnlyType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>(sa))
+            EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>[] simpleAssessmentDataSource =
+                Enum.GetValues(typeof(SimpleAssessmentValidityOnlyResultType))
+                    .OfType<SimpleAssessmentValidityOnlyResultType>()
+                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>(sa))
                     .ToArray();
 
             DataGridViewControl.AddComboBoxColumn(
                 nameof(DuneErosionSectionResultRow.SimpleAssessmentResult),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
                 simpleAssessmentDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultValidityOnlyType>.DisplayName));
+                nameof(EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>.Value),
+                nameof(EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>.DisplayName));
 
             EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
                 Enum.GetValues(typeof(AssessmentLayerTwoAResult))
@@ -108,7 +108,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
             {
-                SimpleAssessmentResultValidityOnlyType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
+                SimpleAssessmentValidityOnlyResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
                 if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
                 {
                     DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);

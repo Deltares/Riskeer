@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the input of the simple assessment validity only calculation.
         /// </summary>
-        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentValidityOnlyInput { get; private set; }
+        public SimpleAssessmentValidityOnlyResultType SimpleAssessmentValidityOnlyInput { get; private set; }
 
         /// <summary>
         /// Gets or sets the output of the detailed assessment calculation.
@@ -165,7 +165,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                    (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.Iv));
         }
 
-        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType input)
+        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType input)
         {
             if (ThrowExceptionOnCalculate)
             {

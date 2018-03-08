@@ -68,19 +68,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateSimpleCalculationResultValidityOnly_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResultValidityOnly((SimpleAssessmentResultValidityOnlyType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResultValidityOnly((SimpleAssessmentValidityOnlyResultType) 99);
 
             // Assert
-            const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultValidityOnlyType'.";
+            const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentValidityOnlyResultType'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None, SimpleCalculationResultValidityOnly.None)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, SimpleCalculationResultValidityOnly.NVT)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, SimpleCalculationResultValidityOnly.WVT)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None, SimpleCalculationResultValidityOnly.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.NotApplicable, SimpleCalculationResultValidityOnly.NVT)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable, SimpleCalculationResultValidityOnly.WVT)]
         public void CreateSimpleCalculationResultValidityOnly_ValidData_ReturnSimpleCalculationResultValidityOnly(
-            SimpleAssessmentResultValidityOnlyType originalResult,
+            SimpleAssessmentValidityOnlyResultType originalResult,
             SimpleCalculationResultValidityOnly expectedResult)
         {
             // Call

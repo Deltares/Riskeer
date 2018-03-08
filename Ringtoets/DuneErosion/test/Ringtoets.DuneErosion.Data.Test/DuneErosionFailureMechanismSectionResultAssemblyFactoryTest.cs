@@ -56,7 +56,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new DuneErosionFailureMechanismSectionResult(failureMechanismSection)
             {
-                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultValidityOnlyType>()
+                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())

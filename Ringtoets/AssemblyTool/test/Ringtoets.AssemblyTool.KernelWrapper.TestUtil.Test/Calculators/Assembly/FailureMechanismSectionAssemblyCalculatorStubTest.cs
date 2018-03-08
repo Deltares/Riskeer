@@ -43,7 +43,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculator>(calculator);
             Assert.AreEqual((SimpleAssessmentResultType) 0, calculator.SimpleAssessmentInput);
-            Assert.AreEqual((SimpleAssessmentResultValidityOnlyType) 0, calculator.SimpleAssessmentValidityOnlyInput);
+            Assert.AreEqual((SimpleAssessmentValidityOnlyResultType) 0, calculator.SimpleAssessmentValidityOnlyInput);
             Assert.IsNull(calculator.SimpleAssessmentAssemblyOutput);
 
             Assert.IsNull(calculator.DetailedAssessmentCategoriesInput);
@@ -141,7 +141,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
-            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.None);
+            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType.None);
 
             // Assert
             Assert.AreEqual(1, assembly.Probability);
@@ -161,7 +161,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             };
 
             // Call
-            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentResultValidityOnlyType.None);
+            FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType.None);
 
             // Assert
             Assert.AreSame(calculator.SimpleAssessmentAssemblyOutput, assembly);
@@ -171,7 +171,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         public void AssembleSimpleAssessmentValidityOnly_ThrowExceptionOnCalculateFalse_SetsInput()
         {
             // Setup
-            const SimpleAssessmentResultValidityOnlyType input = SimpleAssessmentResultValidityOnlyType.None;
+            const SimpleAssessmentValidityOnlyResultType input = SimpleAssessmentValidityOnlyResultType.None;
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
@@ -191,7 +191,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             };
 
             // Call
-            TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultValidityOnlyType) 0);
+            TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentValidityOnlyResultType) 0);
 
             // Assert
             var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);

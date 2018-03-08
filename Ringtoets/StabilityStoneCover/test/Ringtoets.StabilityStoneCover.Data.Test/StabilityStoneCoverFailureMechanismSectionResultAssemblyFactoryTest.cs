@@ -56,7 +56,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(failureMechanismSection)
             {
-                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultValidityOnlyType>()
+                SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())

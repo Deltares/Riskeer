@@ -70,11 +70,11 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.None, false)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.Applicable, false)]
-        [TestCase(SimpleAssessmentResultValidityOnlyType.NotApplicable, true)]
-        public void SimpleAssessmentIsSufficient_WithSimpleAssessmentResultValidityOnlyType_ReturnsExpectedResult(
-            SimpleAssessmentResultValidityOnlyType simpleAssessmentResult, bool expectedSufficiency)
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None, false)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable, false)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.NotApplicable, true)]
+        public void SimpleAssessmentIsSufficient_WithSimpleAssessmentValidityOnlyResultType_ReturnsExpectedResult(
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult, bool expectedSufficiency)
         {
             // Call
             bool isSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult);

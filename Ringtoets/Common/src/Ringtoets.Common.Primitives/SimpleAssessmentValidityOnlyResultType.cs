@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Primitives
     /// This enum defines the possible result types for a simple assessment 
     /// on a failure mechanism section in case there is only a relevance check.
     /// </summary>
-    public enum SimpleAssessmentResultValidityOnlyType
+    public enum SimpleAssessmentValidityOnlyResultType
     {
         /// <summary>
         /// No option has been selected for this failure
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Primitives
         /// <summary>
         /// The failure mechanism section is applicable.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentResultValidityOnlyType_Applicable))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SimpleAssessmentValidityOnlyResultType_Applicable))]
         Applicable = 3
     }
 }

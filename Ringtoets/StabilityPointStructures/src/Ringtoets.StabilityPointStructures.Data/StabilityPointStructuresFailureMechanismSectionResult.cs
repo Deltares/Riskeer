@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            SimpleAssessmentResult = SimpleAssessmentResultValidityOnlyType.None;
+            SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None;
             DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.Probability;
             TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
             TailorMadeAssessmentProbability = double.NaN;
@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets or sets the simple assessment result.
         /// </summary>
-        public SimpleAssessmentResultValidityOnlyType SimpleAssessmentResult { get; set; }
+        public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the detailed assessment result.
