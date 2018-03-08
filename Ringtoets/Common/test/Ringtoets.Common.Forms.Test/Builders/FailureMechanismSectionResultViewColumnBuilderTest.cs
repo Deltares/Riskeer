@@ -172,10 +172,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddSimpleAssessmentResultValidityOnlyColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddSimpleAssessmentValidityOnlyResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultValidityOnlyColumn(null, "property");
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -183,10 +183,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddSimpleAssessmentResultValidityOnlyColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddSimpleAssessmentValidityOnlyResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultValidityOnlyColumn(new DataGridViewControl(), null);
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -194,7 +194,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddSimpleAssessmentResultValidityOnlyColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddSimpleAssessmentValidityOnlyResultColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultValidityOnlyColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);

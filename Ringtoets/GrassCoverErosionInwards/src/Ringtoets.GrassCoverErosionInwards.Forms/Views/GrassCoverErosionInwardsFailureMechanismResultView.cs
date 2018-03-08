@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.Name));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultValidityOnlyColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
