@@ -166,8 +166,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, context) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(context.FailureMechanism,
-                                                                                                       hbl => hbl.DesignWaterLevelCalculation1,
+                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(GetHydraulicBoundaryLocationCalculations(context.FailureMechanism.HydraulicBoundaryLocations,
+                                                                                                                                                hbl => hbl.DesignWaterLevelCalculation1),
+                                                                                                       context.FailureMechanism,
                                                                                                        context.AssessmentSection,
                                                                                                        () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
@@ -183,8 +184,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseGrassCoverErosionOutwardsLocationsViewForData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsView(context.FailureMechanism,
-                                                                                                 hbl => hbl.WaveHeightCalculation1,
+                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightLocationsView(GetHydraulicBoundaryLocationCalculations(context.FailureMechanism.HydraulicBoundaryLocations,
+                                                                                                                                          hbl => hbl.WaveHeightCalculation1),
+                                                                                                 context.FailureMechanism,
                                                                                                  context.AssessmentSection,
                                                                                                  () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
@@ -345,6 +347,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         private static RoundedDouble GetAssessmentLevel(ICalculation<WaveConditionsInput> calculation)
         {
             return calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
+        }
+
+        private static ObservableList<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                                                                     Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+        {
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
+            hydraulicBoundaryLocationCalculations.AddRange(hydraulicBoundaryLocations.Select(getCalculationFunc));
+
+            return hydraulicBoundaryLocationCalculations;
         }
 
         #region ViewInfos
