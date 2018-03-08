@@ -26,35 +26,35 @@ using NUnit.Framework;
 namespace Ringtoets.Common.Primitives.Test
 {
     [TestFixture]
-    public class DetailedAssessmentResultTypeTest : EnumWithDisplayNameTestFixture<DetailedAssessmentResultType>
+    public class DetailedAssessmentProbabilityOnlyResultTypeTest : EnumWithDisplayNameTestFixture<DetailedAssessmentProbabilityOnlyResultType>
     {
-        protected override IDictionary<DetailedAssessmentResultType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<DetailedAssessmentProbabilityOnlyResultType, byte> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<DetailedAssessmentResultType, byte>
+                return new Dictionary<DetailedAssessmentProbabilityOnlyResultType, byte>
                 {
                     {
-                        DetailedAssessmentResultType.Probability, 1
+                        DetailedAssessmentProbabilityOnlyResultType.Probability, 1
                     },
                     {
-                        DetailedAssessmentResultType.NotAssessed, 2
+                        DetailedAssessmentProbabilityOnlyResultType.NotAssessed, 2
                     }
                 };
             }
         }
 
-        protected override IDictionary<DetailedAssessmentResultType, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<DetailedAssessmentProbabilityOnlyResultType, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<DetailedAssessmentResultType, string>
+                return new Dictionary<DetailedAssessmentProbabilityOnlyResultType, string>
                 {
                     {
-                        DetailedAssessmentResultType.Probability, "Faalkans"
+                        DetailedAssessmentProbabilityOnlyResultType.Probability, "Faalkans"
                     },
                     {
-                        DetailedAssessmentResultType.NotAssessed, "NGO"
+                        DetailedAssessmentProbabilityOnlyResultType.NotAssessed, "NGO"
                     }
                 };
             }

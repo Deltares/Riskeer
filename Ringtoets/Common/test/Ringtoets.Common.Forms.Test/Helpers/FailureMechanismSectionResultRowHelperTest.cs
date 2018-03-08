@@ -84,10 +84,10 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
-        [TestCase(DetailedAssessmentResultType.Probability, true)]
-        public void DetailedAssessmentResultIsProbability_WithDetailedAssessmentResultType_ReturnsExpectedResult(
-            DetailedAssessmentResultType detailedAssessmentResult, bool expectedIsProbability)
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.NotAssessed, false)]
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.Probability, true)]
+        public void DetailedAssessmentResultIsProbability_WithDetailedAssessmentProbabilityOnlyResultType_ReturnsExpectedResult(
+            DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult, bool expectedIsProbability)
         {
             // Call
             bool isProbability = FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(detailedAssessmentResult);

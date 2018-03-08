@@ -131,7 +131,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
-        /// <see cref="DetailedAssessmentResultType"/>.
+        /// <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
@@ -148,14 +148,14 @@ namespace Ringtoets.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            IEnumerable<EnumDisplayWrapper<DetailedAssessmentResultType>> dataSource = CreateEnumDisplayWrappers<DetailedAssessmentResultType>();
+            IEnumerable<EnumDisplayWrapper<DetailedAssessmentProbabilityOnlyResultType>> dataSource = CreateEnumDisplayWrappers<DetailedAssessmentProbabilityOnlyResultType>();
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
                 Resources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
                 dataSource,
-                nameof(EnumDisplayWrapper<DetailedAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<DetailedAssessmentResultType>.DisplayName));
+                nameof(EnumDisplayWrapper<DetailedAssessmentProbabilityOnlyResultType>.Value),
+                nameof(EnumDisplayWrapper<DetailedAssessmentProbabilityOnlyResultType>.DisplayName));
         }
 
         /// <summary>

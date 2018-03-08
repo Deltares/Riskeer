@@ -237,7 +237,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                     assessmentSection);
 
                 // Assert
-                Assert.AreEqual(DetailedAssessmentResultType.Probability, calculator.DetailedAssessmentResultInput);
+                Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
                                     calculationScenarios,
                                     failureMechanism,

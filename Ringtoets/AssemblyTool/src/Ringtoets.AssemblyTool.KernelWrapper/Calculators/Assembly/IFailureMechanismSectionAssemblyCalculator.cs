@@ -53,17 +53,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
-        /// <param name="detailedAssessmentResult">The detailed assessment result.</param>
+        /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
         /// <param name="probability">The calculated probability.</param>
         /// <param name="categories">The collection of categories for this failure mechanism section.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="detailedAssessmentResult"/> is
-        /// an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
+        /// an invalid <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="detailedAssessmentResult"/> contains
-        /// a valid but unsupported <see cref="DetailedAssessmentResultType"/>.</exception>
+        /// a valid but unsupported <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
-        FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult,
+        FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                    double probability,
                                                                    IEnumerable<FailureMechanismSectionAssemblyCategory> categories);
 
@@ -77,7 +77,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
-        FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult,
+        FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                    double probability,
                                                                    IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
                                                                    double n);
@@ -85,7 +85,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.
         /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result.</param>
+        /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>
+        /// to assemble for.</param>
         /// <param name="probability">The calculated probability.</param>
         /// <param name="categories">The collection of categories for this failure mechanism section.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
@@ -98,7 +99,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.
         /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result.</param>
+        /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>
+        /// to assemble for.</param>
         /// <param name="probability">The calculated probability.</param>
         /// <param name="categories">The collection of categories for this failure mechanism section.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>

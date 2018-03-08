@@ -204,7 +204,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                DetailedAssessmentResult = new Random(21).NextEnumValue<DetailedAssessmentResultType>()
+                DetailedAssessmentResult = new Random(21).NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -220,7 +220,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     assessmentSection);
 
                 // Assert
-                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
                 AssertCategoryCalculatorInput(assessmentSection, failureMechanism, categoryCalculator);

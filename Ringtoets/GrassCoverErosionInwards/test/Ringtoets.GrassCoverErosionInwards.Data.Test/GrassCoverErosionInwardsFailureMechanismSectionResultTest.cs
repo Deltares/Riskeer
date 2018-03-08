@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentResultValidityOnlyType.None, result.SimpleAssessmentResult);
-            Assert.AreEqual(DetailedAssessmentResultType.Probability, result.DetailedAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, result.DetailedAssessmentResult);
             Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsNaN(result.TailorMadeAssessmentProbability);
             Assert.IsFalse(result.UseManualAssemblyProbability);

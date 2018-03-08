@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Primitives
     /// This enum defines the possible result types for a detailed assessment 
     /// on a failure mechanism section.
     /// </summary>
-    public enum DetailedAssessmentResultType
+    public enum DetailedAssessmentProbabilityOnlyResultType
     {
         /// <summary>
         /// The calculated probability for this failure

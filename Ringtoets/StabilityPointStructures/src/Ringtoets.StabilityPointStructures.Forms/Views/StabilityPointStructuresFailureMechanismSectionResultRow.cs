@@ -135,7 +135,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public DetailedAssessmentResultType DetailedAssessmentResult
+        public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentResult
         {
             get
             {

@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
-            Assert.AreEqual(DetailedAssessmentResultType.Probability, result.DetailedAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, result.DetailedAssessmentResult);
             Assert.IsNaN(result.DetailedAssessmentProbability);
             Assert.AreEqual(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsNaN(result.TailorMadeAssessmentProbability);

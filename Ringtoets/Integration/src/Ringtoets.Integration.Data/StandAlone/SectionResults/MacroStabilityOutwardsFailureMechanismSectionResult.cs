@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         public MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
-            DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
+            DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.Probability;
             DetailedAssessmentProbability = double.NaN;
             TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None;
             TailorMadeAssessmentProbability = double.NaN;
@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Gets or sets the detailed assessment result.
         /// </summary>
-        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
+        public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the tailor made assessment result.

@@ -251,7 +251,7 @@ namespace Ringtoets.Piping.Data.Test
                     assessmentSection);
 
                 // Assert
-                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
                                     calculationScenarios,
                                     failureMechanism,

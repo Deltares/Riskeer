@@ -19,7 +19,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="DetailedAssessmentResultType.cs" />
+    <Compile Include="DetailedAssessmentProbabilityOnlyResultType.cs" />
     <Compile Include="SimpleAssessmentResultType.cs" />
     <Compile Include="SimpleAssessmentResultValidityOnlyType.cs" />
   </ItemGroup>

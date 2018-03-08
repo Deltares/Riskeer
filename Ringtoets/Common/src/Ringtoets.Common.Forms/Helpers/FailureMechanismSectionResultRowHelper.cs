@@ -93,14 +93,14 @@ namespace Ringtoets.Common.Forms.Helpers
 
         /// <summary>
         /// Helper method that determines whether the detailed assessment
-        /// is <see cref="DetailedAssessmentResultType.Probability"/>.
+        /// is <see cref="DetailedAssessmentProbabilityOnlyResultType.Probability"/>.
         /// </summary>
         /// <param name="detailedAssessmentResult">The detailed assessment result to check.</param>
         /// <returns><c>true</c> when the detailed assessment is
-        /// <see cref="DetailedAssessmentResultType.Probability"/>, <c>false</c> otherwise.</returns>
-        public static bool DetailedAssessmentResultIsProbability(DetailedAssessmentResultType detailedAssessmentResult)
+        /// <see cref="DetailedAssessmentProbabilityOnlyResultType.Probability"/>, <c>false</c> otherwise.</returns>
+        public static bool DetailedAssessmentResultIsProbability(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult)
         {
-            return detailedAssessmentResult == DetailedAssessmentResultType.Probability;
+            return detailedAssessmentResult == DetailedAssessmentProbabilityOnlyResultType.Probability;
         }
 
         /// <summary>

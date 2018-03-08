@@ -44,7 +44,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.IsNull(sectionResult.Calculation);
             Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
-            Assert.AreEqual(DetailedAssessmentResultType.Probability, sectionResult.DetailedAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, sectionResult.DetailedAssessmentResult);
             Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.AreSame(section, sectionResult.Section);

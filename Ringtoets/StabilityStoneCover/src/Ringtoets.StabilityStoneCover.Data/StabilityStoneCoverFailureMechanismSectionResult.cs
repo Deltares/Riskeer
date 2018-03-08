@@ -55,7 +55,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>

@@ -49,7 +49,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.IsNull(calculator.DetailedAssessmentCategoriesInput);
             Assert.AreEqual(0.0, calculator.DetailedAssessmentNInput);
             Assert.AreEqual(0.0, calculator.DetailedAssessmentProbabilityInput);
-            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssessmentResultInput);
+            Assert.AreEqual((DetailedAssessmentProbabilityOnlyResultType) 0, calculator.DetailedAssessmentProbabilityOnlyResultInput);
             Assert.IsNull(calculator.DetailedAssessmentAssemblyOutput);
 
             Assert.IsNull(calculator.TailorMadeAssessmentCategoriesInput);
@@ -212,7 +212,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
-                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0]);
 
@@ -235,7 +235,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
-                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0]);
 
@@ -249,7 +249,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
 
             IEnumerable<FailureMechanismSectionAssemblyCategory> categoryInput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>();
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
@@ -258,7 +258,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             calculator.AssembleDetailedAssessment(detailedAssessmentResult, probability, categoryInput);
 
             // Assert
-            Assert.AreEqual(detailedAssessmentResult, calculator.DetailedAssessmentResultInput);
+            Assert.AreEqual(detailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
             Assert.AreSame(categoryInput, calculator.DetailedAssessmentCategoriesInput);
         }
@@ -275,7 +275,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             TestDelegate test = () => calculator.AssembleDetailedAssessment(
-                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0]);
 
@@ -294,7 +294,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
-                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
                 random.NextRoundedDouble(1.0, 10.0));
@@ -318,7 +318,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
-                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
                 random.NextRoundedDouble(1.0, 10.0));
@@ -334,7 +334,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             var random = new Random(39);
             double probability = random.NextDouble();
             double n = random.NextRoundedDouble(1.0, 10.0);
-            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
 
             IEnumerable<FailureMechanismSectionAssemblyCategory> categoriesInput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>();
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
@@ -343,7 +343,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             calculator.AssembleDetailedAssessment(detailedAssessmentResult, probability, categoriesInput, n);
 
             // Assert
-            Assert.AreEqual(detailedAssessmentResult, calculator.DetailedAssessmentResultInput);
+            Assert.AreEqual(detailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
             Assert.AreEqual(n, calculator.DetailedAssessmentNInput);
 
@@ -362,7 +362,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             TestDelegate test = () => calculator.AssembleDetailedAssessment(
-                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>(),
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
                 random.NextRoundedDouble(1.0, 10.0));

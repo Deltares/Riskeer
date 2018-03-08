@@ -482,9 +482,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         }
 
         [Test]
-        [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
-        [TestCase(DetailedAssessmentResultType.Probability, true)]
-        public void Constructor_WithDetailedAssessmentResultSet_ExpectedColumnStates(DetailedAssessmentResultType detailedAssessmentResult,
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.NotAssessed, false)]
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.Probability, true)]
+        public void Constructor_WithDetailedAssessmentResultSet_ExpectedColumnStates(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                                      bool cellEnabled)
         {
             // Setup
@@ -710,7 +710,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             var random = new Random(39);
-            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+            var newValue = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);

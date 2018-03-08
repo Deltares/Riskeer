@@ -55,20 +55,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult,
+        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                           double probability,
                                                                           IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
         {
-            if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
+            if (!Enum.IsDefined(typeof(DetailedAssessmentProbabilityOnlyResultType), detailedAssessmentResult))
             {
                 throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
                                                        (int) detailedAssessmentResult,
-                                                       typeof(DetailedAssessmentResultType));
+                                                       typeof(DetailedAssessmentProbabilityOnlyResultType));
             }
 
             switch (detailedAssessmentResult)
             {
-                case DetailedAssessmentResultType.Probability:
+                case DetailedAssessmentProbabilityOnlyResultType.Probability:
                     try
                     {
                         IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
@@ -82,7 +82,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     {
                         throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
                     }
-                case DetailedAssessmentResultType.NotAssessed:
+                case DetailedAssessmentProbabilityOnlyResultType.NotAssessed:
                     return FailureMechanismSectionAssemblyCreator.Create(new FailureMechanismSectionAssemblyCategoryResult(
                                                                              FailureMechanismSectionCategoryGroup.VIIv,
                                                                              new Probability(0.0)));
@@ -123,21 +123,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult,
+        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                           double probability,
                                                                           IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
                                                                           double n)
         {
-            if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
+            if (!Enum.IsDefined(typeof(DetailedAssessmentProbabilityOnlyResultType), detailedAssessmentResult))
             {
                 throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
                                                        (int) detailedAssessmentResult,
-                                                       typeof(DetailedAssessmentResultType));
+                                                       typeof(DetailedAssessmentProbabilityOnlyResultType));
             }
 
             switch (detailedAssessmentResult)
             {
-                case DetailedAssessmentResultType.Probability:
+                case DetailedAssessmentProbabilityOnlyResultType.Probability:
                     try
                     {
                         IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
@@ -152,7 +152,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     {
                         throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
                     }
-                case DetailedAssessmentResultType.NotAssessed:
+                case DetailedAssessmentProbabilityOnlyResultType.NotAssessed:
                     return FailureMechanismSectionAssemblyCreator.Create(new FailureMechanismSectionAssemblyCategoryResult(
                                                                              FailureMechanismSectionCategoryGroup.VIIv,
                                                                              new Probability(0.0)));

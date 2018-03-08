@@ -524,9 +524,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(DetailedAssessmentResultType.NotAssessed, false)]
-        [TestCase(DetailedAssessmentResultType.Probability, true)]
-        public void Constructor_WithDetailedAssessmentResultSet_ExpectedColumnStates(DetailedAssessmentResultType detailedAssessmentResult,
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.NotAssessed, false)]
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.Probability, true)]
+        public void Constructor_WithDetailedAssessmentResultSet_ExpectedColumnStates(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                                      bool cellEnabled)
         {
             // Setup
@@ -878,7 +878,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = new TestClosingStructuresCalculation(),
-                DetailedAssessmentResult = DetailedAssessmentResultType.NotAssessed
+                DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1022,7 +1022,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             var random = new Random(39);
-            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+            var newValue = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section);

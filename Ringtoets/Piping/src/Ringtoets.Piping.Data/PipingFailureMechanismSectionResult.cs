@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Data
         public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
-            DetailedAssessmentResult = DetailedAssessmentResultType.Probability;
+            DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.Probability;
             TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
             TailorMadeAssessmentProbability = double.NaN;
             ManualAssemblyProbability = double.NaN;
@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the detailed assessment result.
         /// </summary>
-        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
+        public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the tailor made assessment result.

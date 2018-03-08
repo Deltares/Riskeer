@@ -123,7 +123,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                             failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength));
 
                 return calculator.AssembleDetailedAssessment(
-                    DetailedAssessmentResultType.Probability,
+                    DetailedAssessmentProbabilityOnlyResultType.Probability,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
                     categories,
                     failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));

@@ -204,7 +204,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                DetailedAssessmentResult = new Random(39).NextEnumValue<DetailedAssessmentResultType>()
+                DetailedAssessmentResult = new Random(39).NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -222,7 +222,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
-                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
                 Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
                 mocks.VerifyAll();
