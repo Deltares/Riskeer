@@ -53,10 +53,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to derive a mechanism specific norm from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveHeightLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                 IAssessmentSection assessmentSection,
                                                                 Func<double> getNormFunc)
-            : base(failureMechanism?.HydraulicBoundaryLocations, assessmentSection)
+            : base(calculations, assessmentSection)
         {
             if (getNormFunc == null)
             {
