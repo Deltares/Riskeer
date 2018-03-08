@@ -328,14 +328,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelCalculationsProperties>
             {
-                CreateInstance = context =>
-                {
-                    var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
-
-                    hydraulicBoundaryLocationCalculations.AddRange(context.WrappedData.Select(loc => context.GetCalculationFunc(loc)));
-
-                    return new DesignWaterLevelCalculationsProperties(hydraulicBoundaryLocationCalculations);
-                }
+                CreateInstance = context => new DesignWaterLevelCalculationsProperties(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc))
             };
             yield return new PropertyInfo<DesignWaterLevelCalculationContext, DesignWaterLevelCalculationProperties>
             {
@@ -343,14 +336,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightCalculationsProperties>
             {
-                CreateInstance = context =>
-                {
-                    var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
-
-                    hydraulicBoundaryLocationCalculations.AddRange(context.WrappedData.Select(loc => context.GetCalculationFunc(loc)));
-
-                    return new WaveHeightCalculationsProperties(hydraulicBoundaryLocationCalculations);
-                }
+                CreateInstance = context => new WaveHeightCalculationsProperties(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc))
             };
             yield return new PropertyInfo<WaveHeightCalculationContext, WaveHeightCalculationProperties>
             {
@@ -415,8 +401,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                CreateInstance = context => new DesignWaterLevelLocationsView(context.WrappedData,
-                                                                              context.GetCalculationFunc,
+                CreateInstance = context => new DesignWaterLevelLocationsView(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc),
                                                                               context.AssessmentSection,
                                                                               context.GetNormFunc,
                                                                               context.CategoryBoundaryName),
@@ -429,8 +414,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                CreateInstance = context => new WaveHeightLocationsView(context.WrappedData,
-                                                                        context.GetCalculationFunc,
+                CreateInstance = context => new WaveHeightLocationsView(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc),
                                                                         context.AssessmentSection,
                                                                         context.GetNormFunc,
                                                                         context.CategoryBoundaryName),
@@ -981,6 +965,16 @@ namespace Ringtoets.Integration.Plugin
                         validationProblem);
                 }
             }
+        }
+
+        private static ObservableList<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                                                                     Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+        {
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
+            hydraulicBoundaryLocationCalculations.AddRange(hydraulicBoundaryLocations.Select(getCalculationFunc));
+
+            return hydraulicBoundaryLocationCalculations;
         }
 
         #region PropertyInfos
