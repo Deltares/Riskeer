@@ -204,6 +204,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [Test]
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, false)]
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed, false)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible, false)]
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, true)]
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient, false)]
         [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient, false)]

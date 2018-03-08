@@ -38,16 +38,19 @@ namespace Ringtoets.Common.Primitives.Test
                         TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, 1
                     },
                     {
-                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, 2
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible, 2
                     },
                     {
-                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient, 3
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, 3
                     },
                     {
-                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient, 4
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient, 4
                     },
                     {
-                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed, 5
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient, 5
+                    },
+                    {
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed, 6
                     }
                 };
             }
@@ -61,6 +64,9 @@ namespace Ringtoets.Common.Primitives.Test
                 {
                     {
                         TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, "<selecteer>"
+                    },
+                    {
+                        TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible, "FV"
                     },
                     {
                         TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, "Faalkans"

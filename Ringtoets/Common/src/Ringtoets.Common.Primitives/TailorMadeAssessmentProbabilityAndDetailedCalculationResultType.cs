@@ -39,31 +39,38 @@ namespace Ringtoets.Common.Primitives
         None = 1,
 
         /// <summary>
+        /// The probability of failure for the failure mechanism
+        /// section is negligible.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_ProbabilityNegligible))]
+        ProbabilityNegligible = 2,
+
+        /// <summary>
         /// The calculated probability for this failure
         /// mechanism section has to be entered.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Probability))]
-        Probability = 2,
+        Probability = 3,
 
         /// <summary>
         /// The assessment for this failure mechanism
         /// section was sufficient.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Sufficient))]
-        Sufficient = 3,
+        Sufficient = 4,
 
         /// <summary>
         /// The assessment for this failure mechanism
         /// section was insufficient.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Insufficient))]
-        Insufficient = 4,
+        Insufficient = 5,
 
         /// <summary>
         /// No assessment has been performed for this failure
         /// mechanism section.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_NotAssessed))]
-        NotAssessed = 5
+        NotAssessed = 6
     }
 }
