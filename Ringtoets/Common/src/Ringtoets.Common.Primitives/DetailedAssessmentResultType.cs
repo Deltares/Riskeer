@@ -26,23 +26,36 @@ namespace Ringtoets.Common.Primitives
 {
     /// <summary>
     /// This enum defines the possible result types for a detailed assessment 
-    /// on a failure mechanism section in case there is only a probability option.
+    /// on a failure mechanism section.
     /// </summary>
-    public enum DetailedAssessmentProbabilityOnlyResultType
+    public enum DetailedAssessmentResultType
     {
         /// <summary>
-        /// The calculated probability for this failure
-        /// mechanism section has to be entered.
+        /// No option has been selected for this failure
+        /// mechanism section.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Probability))]
-        Probability = 1,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_None))]
+        None = 1,
+
+        /// <summary>
+        /// The assessment for this failure mechanism
+        /// section was sufficient.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Sufficient))]
+        Sufficient = 2,
+
+        /// <summary>
+        /// The assessment for this failure mechanism
+        /// section was insufficient.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_Insufficient))]
+        Insufficient = 3,
 
         /// <summary>
         /// No assessment has been performed for this failure
         /// mechanism section.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentResultType_NotAssessed))]
-        NotAssessed = 2
-        
+        NotAssessed = 4
     }
 }

@@ -11,6 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DetailedAssessmentResultType.cs" />
     <Compile Include="TailorMadeAssessmentProbabilityCalculationResultType.cs" />
     <Compile Include="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
