@@ -47,14 +47,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsView"/>.
         /// </summary>
+        /// <param name="calculations">The calculations to show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism that the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section that the calculations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to derive a mechanism specific norm from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationsView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+                                                                      GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                       IAssessmentSection assessmentSection,
                                                                       Func<double> getNormFunc)
-            : base(failureMechanism?.HydraulicBoundaryLocations, assessmentSection)
+            : base(calculations, assessmentSection)
         {
             if (getNormFunc == null)
             {
