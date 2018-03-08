@@ -139,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection, 0.01, testForm);
+            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, testForm);
 
             // Assert
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -624,7 +624,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                 });
         }
 
-        private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocation> locations,
+        private static GrassCoverErosionOutwardsDesignWaterLevelLocationsView ShowDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
                                                                                                                 IAssessmentSection assessmentSection,
                                                                                                                 double norm,
                                                                                                                 Form form)
@@ -633,10 +633,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 Contribution = 10
             };
-            failureMechanism.HydraulicBoundaryLocations.AddRange(locations);
 
-            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(failureMechanism,
-                                                                                  hbl => hbl.DesignWaterLevelCalculation1,
+            var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(calculations,
+                                                                                  failureMechanism,
                                                                                   assessmentSection,
                                                                                   () => norm);
 
@@ -656,6 +655,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                                                                                                                double norm,
                                                                                                                                Form form)
         {
+            return ShowDesignWaterLevelLocationsView(GetTestHydraulicBoundaryLocationCalculations(), assessmentSection, norm, form);
+        }
+
+        private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()
+        {
             var topLevelIllustrationPoints = new[]
             {
                 new TopLevelSubMechanismIllustrationPoint(WindDirectionTestFactory.CreateTestWindDirection(),
@@ -667,42 +671,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             };
 
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            var output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult);
 
-            var locations = new ObservableList<HydraulicBoundaryLocation>
+            return new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                new HydraulicBoundaryLocation(1, "1", 1.0, 1.0),
-                new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
                 {
-                    DesignWaterLevelCalculation1 =
+                    Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                },
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
+                {
+                    InputParameters =
                     {
-                        Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                        ShouldIllustrationPointsBeCalculated = true
                     }
                 },
-                new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
+                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0))
                 {
-                    DesignWaterLevelCalculation1 =
+                    InputParameters =
                     {
-                        InputParameters =
-                        {
-                            ShouldIllustrationPointsBeCalculated = true
-                        }
-                    }
-                },
-                new HydraulicBoundaryLocation(4, "4", 4.0, 4.0)
-                {
-                    DesignWaterLevelCalculation1 =
-                    {
-                        InputParameters =
-                        {
-                            ShouldIllustrationPointsBeCalculated = true
-                        },
-                        Output = output
-                    }
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult)
                 }
             };
-
-            return ShowDesignWaterLevelLocationsView(locations, assessmentSection, norm, form);
         }
 
         [TestFixture]
