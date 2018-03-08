@@ -427,10 +427,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddDetailedAssessmentResultForLowerLimitNormColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(null, "property");
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -438,10 +438,10 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddDetailedAssessmentResultForLowerLimitNormColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(new DataGridViewControl(), null);
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -449,7 +449,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddDetailedAssessmentResultForLowerLimitNormColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -463,7 +463,7 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);

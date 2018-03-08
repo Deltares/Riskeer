@@ -191,7 +191,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed
-        /// assessment probability.
+        /// assessment probability (Iv - IIv).
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
@@ -215,7 +215,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
-        /// for the factorized signaling norm category.
+        /// for the factorized signaling norm category (IIv - IIIv).
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
@@ -241,15 +241,15 @@ namespace Ringtoets.Common.Forms.Builders
         
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
-        /// for the lower limit norm category.
+        /// for the lower limit norm category (IIIv - IVv).
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddDetailedAssessmentResultForLowerLimitNormColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             AddDetailedAssessmentResultColumn(dataGridViewControl, dataPropertyName,
-                Resources.FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName);
+                Resources.FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName);
         }
 
         /// <summary>
