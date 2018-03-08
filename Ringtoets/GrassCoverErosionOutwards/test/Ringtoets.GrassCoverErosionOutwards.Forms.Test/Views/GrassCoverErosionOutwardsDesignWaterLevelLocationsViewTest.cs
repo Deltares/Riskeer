@@ -700,6 +700,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         [TestFixture]
         private class ViewSynchronizationTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocationCalculation>
         {
+            private readonly ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
+
             protected override int OutputColumnIndex
             {
                 get
@@ -715,12 +717,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override LocationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
-                return ShowFullyConfiguredDesignWaterLevelLocationsView(new ObservableTestAssessmentSectionStub(), form);
+                return ShowDesignWaterLevelLocationsView(calculations, new ObservableTestAssessmentSectionStub(), 0.01, form);
             }
 
-            protected override ObservableList<HydraulicBoundaryLocation> GetLocationsInView(LocationsView<HydraulicBoundaryLocation> view)
+            protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(LocationsView<HydraulicBoundaryLocationCalculation> view)
             {
-                return ((GrassCoverErosionOutwardsDesignWaterLevelLocationsView) view).FailureMechanism.HydraulicBoundaryLocations;
+                return calculations;
             }
         }
     }
