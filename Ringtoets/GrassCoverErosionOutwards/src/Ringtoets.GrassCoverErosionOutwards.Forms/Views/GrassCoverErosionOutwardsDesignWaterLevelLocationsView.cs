@@ -58,6 +58,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                                                                       Func<double> getNormFunc)
             : base(calculations, assessmentSection)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             if (getNormFunc == null)
             {
                 throw new ArgumentNullException(nameof(getNormFunc));
