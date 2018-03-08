@@ -215,7 +215,7 @@ namespace Ringtoets.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
-        /// for the factorized signaling norm.
+        /// for the factorized signaling norm category.
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
@@ -224,6 +224,19 @@ namespace Ringtoets.Common.Forms.Builders
         {
             AddDetailedAssessmentResultColumn(dataGridViewControl, dataPropertyName,
                 Resources.FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName);
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
+        /// for the signaling norm category.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddDetailedAssessmentResultForSignalingNormColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            AddDetailedAssessmentResultColumn(dataGridViewControl, dataPropertyName,
+                Resources.FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName);
         }
 
         /// <summary>

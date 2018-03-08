@@ -378,6 +378,54 @@ namespace Ringtoets.Common.Forms.Test.Builders
             }
         }
 
+        [Test]
+        public void AddDetailedAssessmentResultForSignalingNormColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddDetailedAssessmentResultForSignalingNormColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddDetailedAssessmentResultForSignalingNormColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. IIv - IIIv", columnData.HeaderText);
+            }
+        }
+
         #endregion
 
         #region Tailor Made Assessment

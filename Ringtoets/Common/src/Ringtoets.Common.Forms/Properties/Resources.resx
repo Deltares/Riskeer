@@ -1366,4 +1366,8 @@ Pf = {1}</value>
     <value>Gedetailleerde toets per vak
 Cat. Iv - IIv</value>
   </data>
+  <data name="FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName" xml:space="preserve">
+    <value>Gedetailleerde toets per vak
+Cat. IIv - IIIv</value>
+  </data>
 </root>
