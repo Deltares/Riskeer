@@ -297,6 +297,19 @@ namespace Ringtoets.Common.Forms.Builders
                 Resources.FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName);
         }
 
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the tailor made
+        /// category group.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddTailorMadeAssessmentCategoryGroupColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            AddSelectableAssemblyCategoryGroupColumn(dataGridViewControl, dataPropertyName,
+                                                     Resources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
+        }
+
         #endregion
 
         #region Assembly Category Group

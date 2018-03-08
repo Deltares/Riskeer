@@ -494,6 +494,60 @@ namespace Ringtoets.Common.Forms.Test.Builders
             }
         }
 
+        [Test]
+        public void AddTailorMadeAssessmentCategoryGroupColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentCategoryGroupColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTailorMadeAssessmentCategoryGroupColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewComboBoxColumn)dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Toets op maat", columnData.HeaderText);
+                Assert.AreEqual("Value", columnData.ValueMember);
+                Assert.AreEqual("DisplayName", columnData.DisplayMember);
+
+                IEnumerable<EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>> expectedDataSource =
+                    CreateExpectedEnumDisplayWrappers<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>[])columnData.DataSource);
+            }
+        }
+
         #endregion
 
         #region Assessment Assembly
