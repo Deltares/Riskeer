@@ -174,7 +174,7 @@
       <DependentUpon>FailureMechanismView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FailureMechanismSectionResultRow.cs" />
-    <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
+    <Compile Include="Views\HydraulicBoundaryLocationCalculationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryCalculationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>

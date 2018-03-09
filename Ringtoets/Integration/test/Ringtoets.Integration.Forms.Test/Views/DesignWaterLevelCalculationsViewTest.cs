@@ -674,7 +674,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             protected override object GetCalculationSelection(CalculationsView<HydraulicBoundaryLocationCalculation> view, object selectedRowObject)
             {
-                return new DesignWaterLevelCalculationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
+                return new DesignWaterLevelCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject);
             }
 
             protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)

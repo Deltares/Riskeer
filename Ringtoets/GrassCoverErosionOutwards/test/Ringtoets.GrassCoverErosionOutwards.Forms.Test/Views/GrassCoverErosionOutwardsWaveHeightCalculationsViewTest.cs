@@ -717,7 +717,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override object GetCalculationSelection(CalculationsView<HydraulicBoundaryLocationCalculation> view, object selectedRowObject)
             {
-                return new GrassCoverErosionOutwardsWaveHeightCalculationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
+                return new GrassCoverErosionOutwardsWaveHeightCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject);
             }
 
             protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)

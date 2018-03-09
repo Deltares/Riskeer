@@ -94,13 +94,13 @@ namespace Ringtoets.Common.Forms.Views
         {
             base.InitializeDataGridView();
 
-            dataGridViewControl.AddCheckBoxColumn(nameof(HydraulicBoundaryLocationRow.IncludeIllustrationPoints),
+            dataGridViewControl.AddCheckBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.IncludeIllustrationPoints),
                                                   RingtoetsCommonFormsResources.HydraulicBoundaryLocationCalculationInput_IncludeIllustrationPoints_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Name),
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Name),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Id),
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Id),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Location),
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Location),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName);
         }
 
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Forms.Views
                 return Enumerable.Empty<IllustrationPointControlItem>();
             }
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject;
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = ((HydraulicBoundaryLocationCalculationRow) currentRow.DataBoundItem).CalculatableObject;
 
             HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = hydraulicBoundaryLocationCalculation.Output;
             if (hydraulicBoundaryLocationCalculation.HasOutput
@@ -160,9 +160,9 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <param name="calculation">The calculation for which to create a new row.</param>
         /// <returns>The newly created row.</returns>
-        private HydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation)
+        private HydraulicBoundaryLocationCalculationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation)
         {
-            return new HydraulicBoundaryLocationRow(calculation);
+            return new HydraulicBoundaryLocationCalculationRow(calculation);
         }
     }
 }

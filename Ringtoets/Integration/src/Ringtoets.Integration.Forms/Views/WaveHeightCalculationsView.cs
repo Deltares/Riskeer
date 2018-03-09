@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (currentRow != null)
             {
-                return new WaveHeightCalculationContext(((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).CalculatableObject);
+                return new WaveHeightCalculationContext(((HydraulicBoundaryLocationCalculationRow) currentRow.DataBoundItem).CalculatableObject);
             }
 
             return null;
@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Views
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationRow.Result),
+            dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Result),
                                                  Resources.HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName);
         }
     }
