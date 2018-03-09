@@ -53,6 +53,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public FailureMechanismSectionAssembly DetailedAssessmentAssemblyOutput { get; set; }
 
         /// <summary>
+        /// Gets or sets the group output of the detailed assessment calculation.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup? DetailedAssessmentAssemblyGroupOutput { get; set; }
+
+        /// <summary>
         /// Gets the result type of the detailed assessment calculation.
         /// </summary>
         public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentProbabilityOnlyResultInput { get; private set; }
@@ -71,7 +76,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// Gets the 'N' parameter input of the detailed assessment calculation.
         /// </summary>
         public double DetailedAssessmentNInput { get; private set; }
+        
+        /// <summary>
+        /// Gets the detailed assessment result input for cat Iv - IIv.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssesmentResultForFactorizedSignalingNormInput { get; private set; }
 
+        /// <summary>
+        /// Gets the detailed assessment result input for cat IIv - IIIv.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssesmentResultForSignalingNormInput { get; private set; }
+
+        /// <summary>
+        /// Gets the detailed assessment result input for cat IIIv - IVv.
+        /// </summary>public DetailedAssessmentResultType DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
+        public DetailedAssessmentResultType DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
+
+
+        /// <summary>
+        /// Gets the detailed assessment result input for cat IVv - Vv.
+        /// </summary>public DetailedAssessmentResultType DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
+        public DetailedAssessmentResultType DetailedAssesmentResultForLowerLimitNormInput { get; private set; }
+
+        /// <summary>
+        /// Gets the detailed assessment result input for cat Vv - VIv.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssesmentResultForFactorizedLowerLimitNormInput { get; private set; }
+        
         /// <summary>
         /// Gets or sets the output of the tailor made assessment calculation.
         /// </summary>
@@ -212,6 +243,32 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             return DetailedAssessmentAssemblyOutput ??
                    (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+        }
+
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
+            DetailedAssessmentResultType detailedAssesmentResultForFactorizedSignalingNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForSignalingNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForFactorizedLowerLimitNorm)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            DetailedAssesmentResultForFactorizedSignalingNormInput = detailedAssesmentResultForFactorizedSignalingNorm;
+            DetailedAssesmentResultForSignalingNormInput = detailedAssesmentResultForSignalingNorm;
+            DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput = detailedAssesmentResultForMechanismSpecificLowerLimitNorm;
+            DetailedAssesmentResultForLowerLimitNormInput = detailedAssesmentResultForLowerLimitNorm;
+            DetailedAssesmentResultForFactorizedLowerLimitNormInput = detailedAssesmentResultForFactorizedLowerLimitNorm;
+
+            if (DetailedAssessmentAssemblyGroupOutput == null)
+            {
+                DetailedAssessmentAssemblyGroupOutput = FailureMechanismSectionAssemblyCategoryGroup.IIv;
+            }
+
+            return DetailedAssessmentAssemblyGroupOutput.Value;
         }
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,

@@ -52,6 +52,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual((DetailedAssessmentProbabilityOnlyResultType) 0, calculator.DetailedAssessmentProbabilityOnlyResultInput);
             Assert.IsNull(calculator.DetailedAssessmentAssemblyOutput);
 
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForFactorizedSignalingNormInput);
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForSignalingNormInput);
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput);
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForLowerLimitNormInput);
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForFactorizedLowerLimitNormInput);
+            Assert.IsNull(calculator.DetailedAssessmentAssemblyGroupOutput);
+
             Assert.IsNull(calculator.TailorMadeAssessmentCategoriesInput);
             Assert.AreEqual(0.0, calculator.TailorMadeAssessmentProbabilityInput);
 
@@ -366,6 +373,100 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 random.NextDouble(),
                 new FailureMechanismSectionAssemblyCategory[0],
                 random.NextRoundedDouble(1.0, 10.0));
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithCategoryResults_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>());
+
+            // Assert
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, assembly);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithCategoryResults_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                DetailedAssessmentAssemblyGroupOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+            };
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>());
+
+
+            // Assert
+            Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, assembly);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithCategoryResults_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            var detailedAssesmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssesmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssesmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssesmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssesmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleDetailedAssessment(detailedAssesmentResultForFactorizedSignalingNorm,
+                                                  detailedAssesmentResultForSignalingNorm,
+                                                  detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
+                                                  detailedAssesmentResultForLowerLimitNorm,
+                                                  detailedAssesmentResultForFactorizedLowerLimitNorm);
+
+            // Assert
+            Assert.AreEqual(detailedAssesmentResultForFactorizedSignalingNorm, calculator.DetailedAssesmentResultForFactorizedSignalingNormInput);
+            Assert.AreEqual(detailedAssesmentResultForSignalingNorm, calculator.DetailedAssesmentResultForSignalingNormInput);
+            Assert.AreEqual(detailedAssesmentResultForMechanismSpecificLowerLimitNorm, calculator.DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput);
+            Assert.AreEqual(detailedAssesmentResultForLowerLimitNorm, calculator.DetailedAssesmentResultForLowerLimitNormInput);
+            Assert.AreEqual(detailedAssesmentResultForFactorizedLowerLimitNorm, calculator.DetailedAssesmentResultForFactorizedLowerLimitNormInput);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithCategoryResults_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleDetailedAssessment(
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>(),
+                random.NextEnumValue<DetailedAssessmentResultType>());
 
             // Assert
             var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
