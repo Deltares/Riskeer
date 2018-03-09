@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
     /// </summary>
     public static class MacroStabilityInwardsInputValidator
     {
-        private const double tolerance = 0.05;
+        private const double withinSurfaceLineLevelLimit = 0.05;
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="inputParameters"/>.
@@ -136,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
             double layerTop = soilProfile1D.Layers.Max(l => l.Top);
             double surfaceLineTop = inputParameters.SurfaceLine.LocalGeometry.Max(p => p.Y);
 
-            return layerTop + tolerance >= surfaceLineTop;
+            return layerTop + withinSurfaceLineLevelLimit >= surfaceLineTop;
         }
 
         private static bool ValidateSurfaceLineIsNearSoilProfile(MacroStabilityInwardsInput inputParameters,
@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 }
 
                 double maxYCoordinate = intersectingCoordinates.Select(p => p.Y).Max();
-                if (Math.Abs(surfaceLinePoint.Y - maxYCoordinate) > tolerance)
+                if (Math.Abs(surfaceLinePoint.Y - maxYCoordinate) - withinSurfaceLineLevelLimit >= 1e-5)
                 {
                     return false;
                 }
@@ -172,29 +172,29 @@ namespace Ringtoets.MacroStabilityInwards.Service
             IEnumerable<double> surfaceLineXCoordinates = surfaceLinePoints.Select(p => p.X).ToArray();
             IEnumerable<double> soilProfileXCoordinates = GetSoilProfile2DXCoordinates(soilProfile2D).ToArray();
 
-            double maxXCoordinate = surfaceLineXCoordinates.Max() < soilProfileXCoordinates.Max()
-                                        ? surfaceLineXCoordinates.Max()
-                                        : soilProfileXCoordinates.Max();
+            double maximumXCoordinateSurfaceLine = surfaceLineXCoordinates.Max();
+            double maximumXCoordinateSoilProfile = soilProfileXCoordinates.Max();
+            double maxXCoordinate = Math.Min(maximumXCoordinateSoilProfile, maximumXCoordinateSurfaceLine);
 
             var xCoordinates = new List<double>();
-            double x = surfaceLineXCoordinates.Min() < soilProfileXCoordinates.Min()
-                           ? surfaceLineXCoordinates.Min()
-                           : soilProfileXCoordinates.Min();
+            double minimumXCoordinateSurfaceLine = surfaceLineXCoordinates.Min();
+            double minimumXCoordinateSoilProfile = soilProfileXCoordinates.Min();
+            double x = Math.Max(minimumXCoordinateSoilProfile, minimumXCoordinateSurfaceLine);
             while (x < maxXCoordinate)
             {
                 xCoordinates.Add(x);
-                x += tolerance;
+                x += withinSurfaceLineLevelLimit;
             }
+            xCoordinates.Add(maxXCoordinate);
 
             return xCoordinates;
         }
 
         private static IEnumerable<IEnumerable<Segment2D>> GetLayerPolygons(MacroStabilityInwardsSoilProfile2D soilProfile2D)
         {
-            IEnumerable<IEnumerable<Segment2D>> layerPolygons = soilProfile2D.Layers
-                                                                             .Select(l => Math2D.ConvertPointsToPolygonSegments(l.OuterRing.Points))
-                                                                             .ToArray();
-            return layerPolygons;
+            return soilProfile2D.Layers
+                                .Select(l => Math2D.ConvertPointsToPolygonSegments(l.OuterRing.Points))
+                                .ToArray();
         }
 
         private static IEnumerable<double> GetSoilProfile2DXCoordinates(MacroStabilityInwardsSoilProfile2D soilProfile2D)
