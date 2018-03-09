@@ -65,6 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityOutwardsFailureMechanism>>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput;
@@ -94,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect parameters";
@@ -113,34 +114,41 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertyDescriptor contributionProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategory,
+                                                                            "Faalkansbijdrage [%]",
+                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            PropertyDescriptor aProperty = dynamicProperties[3];
+            PropertyDescriptor aProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
                                                                             lengthEffectCategory,
                                                                             "a [-]",
                                                                             "De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.");
 
-            PropertyDescriptor bProperty = dynamicProperties[4];
+            PropertyDescriptor bProperty = dynamicProperties[5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
                                                                             lengthEffectCategory,
                                                                             "b [m]",
                                                                             "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
                                                                             true);
 
-            PropertyDescriptor sectionLengthProperty = dynamicProperties[5];
+            PropertyDescriptor sectionLengthProperty = dynamicProperties[6];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLengthProperty,
                                                                             lengthEffectCategory,
                                                                             "Lengte* [m]",
                                                                             "Totale lengte van het traject in meters (afgerond).",
                                                                             true);
 
-            PropertyDescriptor nProperty = dynamicProperties[6];
+            PropertyDescriptor nProperty = dynamicProperties[7];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N* [-]",
@@ -257,6 +265,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
