@@ -876,6 +876,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
         private static IEnumerable<TestCaseData> SurfaceLineOnMacroStabilityInwardsSoilProfile2D()
         {
+            const double withinSurfaceLineLimit = 0.05;
+
             yield return new TestCaseData(
                     new MacroStabilityInwardsSoilProfile2D(
                         "profile",
@@ -909,7 +911,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                             })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
-                                new Point2D(0.0, 10 + 0.05),
+                                new Point2D(0.0, 10 + withinSurfaceLineLimit),
                                 new Point2D(0.1, 20)
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
@@ -928,7 +930,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                             })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
-                                new Point2D(0.0, 10.0 - 0.05),
+                                new Point2D(0.0, 10.0 - withinSurfaceLineLimit),
                                 new Point2D(0.1, 20)
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
@@ -988,9 +990,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                         {
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
-                                new Point2D(0.0, 10.0 + 0.05),
-                                new Point2D(0.1, 20.0 + 0.05),
-                                new Point2D(0.2, 10.0 + 0.05)
+                                new Point2D(0.0, 10.0 + withinSurfaceLineLimit),
+                                new Point2D(0.1, 20.0 + withinSurfaceLineLimit),
+                                new Point2D(0.2, 10.0 + withinSurfaceLineLimit)
                             })),
                             new MacroStabilityInwardsSoilLayer2D(new Ring(new[]
                             {
@@ -1034,7 +1036,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.25, 10)
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
-                .SetName("Max X soilLayer larger than surface line");
+                .SetName("Max X soilLayer larger than surfaceline");
 
             yield return new TestCaseData(
                     new MacroStabilityInwardsSoilProfile2D(
@@ -1049,7 +1051,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                 new Point2D(0.2, 10)
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
-                .SetName("Min X soilLayer smaller than surface line");
+                .SetName("Min X soilLayer smaller than surfaceline");
         }
     }
 }
