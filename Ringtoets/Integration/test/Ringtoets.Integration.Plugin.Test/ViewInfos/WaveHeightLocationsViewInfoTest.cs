@@ -48,8 +48,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class WaveHeightLocationsViewInfoTest
     {
-        private const int locationCalculateColumnIndex = 0;
-        private const int locationWaveHeightColumnIndex = 5;
+        private const int calculateColumnIndex = 0;
+        private const int waveHeightColumnIndex = 5;
 
         private RingtoetsPlugin plugin;
         private ViewInfo info;
@@ -196,8 +196,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
                 DataGridViewRowCollection rows = locationsDataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
-                Assert.AreEqual(hydraulicBoundaryLocationCalculations[0].Output.Result.ToString(), rows[0].Cells[locationWaveHeightColumnIndex].FormattedValue);
-                Assert.AreEqual(hydraulicBoundaryLocationCalculations[1].Output.Result.ToString(), rows[1].Cells[locationWaveHeightColumnIndex].FormattedValue);
+                Assert.AreEqual(hydraulicBoundaryLocationCalculations[0].Output.Result.ToString(), rows[0].Cells[waveHeightColumnIndex].FormattedValue);
+                Assert.AreEqual(hydraulicBoundaryLocationCalculations[1].Output.Result.ToString(), rows[1].Cells[waveHeightColumnIndex].FormattedValue);
             }
         }
 
@@ -248,7 +248,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
                 DataGridViewRowCollection rows = locationsDataGridView.Rows;
-                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                rows[0].Cells[calculateColumnIndex].Value = true;
 
                 view.CalculationGuiService = guiService;
                 var button = new ButtonTester("CalculateForSelectedButton", testForm);

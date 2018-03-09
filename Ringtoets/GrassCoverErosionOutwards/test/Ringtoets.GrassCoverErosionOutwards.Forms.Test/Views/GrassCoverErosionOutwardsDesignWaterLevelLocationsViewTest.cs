@@ -145,8 +145,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             Assert.AreEqual(6, calculationsDataGridView.ColumnCount);
 
-            var locationCalculateColumn = (DataGridViewCheckBoxColumn) calculationsDataGridView.Columns[calculateColumnIndex];
-            Assert.AreEqual("Berekenen", locationCalculateColumn.HeaderText);
+            var calculateColumn = (DataGridViewCheckBoxColumn) calculationsDataGridView.Columns[calculateColumnIndex];
+            Assert.AreEqual("Berekenen", calculateColumn.HeaderText);
 
             var includeIllustrationPointsColumn = (DataGridViewCheckBoxColumn) calculationsDataGridView.Columns[includeIllustrationPointsColumnIndex];
             Assert.AreEqual("Illustratiepunten inlezen", includeIllustrationPointsColumn.HeaderText);
@@ -160,8 +160,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var locationColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[locationColumnIndex];
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
-            var locationDesignWaterLevelColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[designWaterLevelColumnIndex];
-            Assert.AreEqual("Waterstand bij doorsnede-eis [m+NAP]", locationDesignWaterLevelColumn.HeaderText);
+            var designWaterLevelColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[designWaterLevelColumnIndex];
+            Assert.AreEqual("Waterstand bij doorsnede-eis [m+NAP]", designWaterLevelColumn.HeaderText);
 
             var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);

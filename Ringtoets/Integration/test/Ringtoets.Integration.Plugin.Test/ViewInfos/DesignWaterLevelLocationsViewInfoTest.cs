@@ -48,8 +48,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class DesignWaterLevelLocationsViewInfoTest
     {
-        private const int locationCalculateColumnIndex = 0;
-        private const int locationDesignWaterLevelColumnIndex = 5;
+        private const int calculateColumnIndex = 0;
+        private const int designWaterLevelColumnIndex = 5;
 
         private RingtoetsPlugin plugin;
         private ViewInfo info;
@@ -195,8 +195,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
                 DataGridViewRowCollection rows = locationsDataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
-                Assert.AreEqual(hydraulicBoundaryLocationCalculations[0].Output.Result.ToString(), rows[0].Cells[locationDesignWaterLevelColumnIndex].FormattedValue);
-                Assert.AreEqual(hydraulicBoundaryLocationCalculations[1].Output.Result.ToString(), rows[1].Cells[locationDesignWaterLevelColumnIndex].FormattedValue);
+                Assert.AreEqual(hydraulicBoundaryLocationCalculations[0].Output.Result.ToString(), rows[0].Cells[designWaterLevelColumnIndex].FormattedValue);
+                Assert.AreEqual(hydraulicBoundaryLocationCalculations[1].Output.Result.ToString(), rows[1].Cells[designWaterLevelColumnIndex].FormattedValue);
             }
         }
 
@@ -247,7 +247,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
                 DataGridViewRowCollection rows = locationsDataGridView.Rows;
-                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                rows[0].Cells[calculateColumnIndex].Value = true;
 
                 view.CalculationGuiService = guiService;
                 var button = new ButtonTester("CalculateForSelectedButton", testForm);
