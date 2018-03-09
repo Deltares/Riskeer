@@ -653,7 +653,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [TestFixture]
-        public class ViewSynchronizationTest : LocationsViewSynchronizationTester<HydraulicBoundaryLocationCalculation>
+        public class ViewSynchronizationTest : CalculationsViewSynchronizationTester<HydraulicBoundaryLocationCalculation>
         {
             private ObservableList<HydraulicBoundaryLocationCalculation> calculations;
 

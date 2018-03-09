@@ -18,7 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FailureMechanismSectionResultRowTestHelper.cs" />
-    <Compile Include="LocationsViewSynchronizationTester.cs" />
+    <Compile Include="CalculationsViewSynchronizationTester.cs" />
     <Compile Include="MapFeaturesTestHelper.cs" />
     <Compile Include="SetPropertyValueAfterConfirmationParameterTester.cs" />
     <Compile Include="ControlTestHelper.cs" />

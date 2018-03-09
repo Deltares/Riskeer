@@ -24,8 +24,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GrassCoverErosionOutwardsWaveHeightLocationsViewIntegrationTest.cs" />
-    <Compile Include="GrassCoverErosionOutwardsDesignWaterLevelLocationsViewIntegrationTest.cs" />
+    <Compile Include="GrassCoverErosionOutwardsWaveHeightCalculationsViewIntegrationTest.cs" />
+    <Compile Include="GrassCoverErosionOutwardsDesignWaterLevelCalculationsViewIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationActivityIntegrationTest.cs" />
   </ItemGroup>

@@ -99,7 +99,7 @@
     <Compile Include="ViewInfos\FailureMechanismSectionsViewInfoTest.cs" />
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
-    <Compile Include="ViewInfos\DesignWaterLevelLocationsViewInfoTest.cs" />
+    <Compile Include="ViewInfos\DesignWaterLevelCalculationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\GeneralResultFaultTreeIllustrationPointViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\TechnicalInnovationResultViewInfoTest.cs" />
@@ -109,7 +109,7 @@
     <Compile Include="ViewInfos\GrassCoverSlipOffInwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaterPressureAsphaltCoverResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaveConditionsInputViewInfoTest.cs" />
-    <Compile Include="ViewInfos\WaveHeightLocationsViewInfoTest.cs" />
+    <Compile Include="ViewInfos\WaveHeightCalculationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityOutwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\StrengthStabilityLengthwiseConstructionResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismContributionViewInfoTest.cs" />

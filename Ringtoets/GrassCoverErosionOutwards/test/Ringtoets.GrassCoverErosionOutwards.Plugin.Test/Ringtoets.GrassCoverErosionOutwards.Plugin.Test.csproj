@@ -49,8 +49,8 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveHeightLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsFailureMechanismViewInfoTest.cs" />
-    <Compile Include="ViewInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest.cs" />
-    <Compile Include="ViewInfos\GrassCoverErosionOutwardsWaveHeightLocationsViewInfoTest.cs" />
+    <Compile Include="ViewInfos\GrassCoverErosionOutwardsDesignWaterLevelCalculationsViewInfoTest.cs" />
+    <Compile Include="ViewInfos\GrassCoverErosionOutwardsWaveHeightCalculationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsFailureMechanismResultViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
