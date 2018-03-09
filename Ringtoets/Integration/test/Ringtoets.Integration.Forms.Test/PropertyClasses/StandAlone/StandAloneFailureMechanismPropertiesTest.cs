@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
@@ -46,12 +45,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        public void Constructor_WithFailureMechanism_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ExpectedValues(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
+            var failureMechanism = new TestFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
 
             // Call
             var properties = new StandAloneFailureMechanismProperties(failureMechanism);
@@ -59,7 +61,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
-            mocks.VerifyAll();
+            Assert.AreEqual(failureMechanism.Name, properties.Name);
+            Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual("Overig (30)", properties.Contribution);
+            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
         }
 
         [Test]
@@ -83,14 +88,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool isRelevant)
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism
             {
-                IsRelevant = isRelevant
+                IsRelevant = true
             };
 
             // Call
@@ -100,7 +103,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
             const string generalCategory = "Algemeen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -116,12 +119,81 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
+            PropertyDescriptor contributionProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategory,
+                                                                            "Faalkansbijdrage [%]",
+                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            // Call
+            var properties = new StandAloneFailureMechanismProperties(failureMechanism);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor labelProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
             PropertyDescriptor isRelevantProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
+            var properties = new StandAloneFailureMechanismProperties(failureMechanism);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }

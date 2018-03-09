@@ -751,6 +751,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overig (30).
+        /// </summary>
+        public static string StandAloneFailureMechanismProperties_Contribution_Other {
+            get {
+                return ResourceManager.GetString("StandAloneFailureMechanismProperties_Contribution_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alles be&amp;rekenen.
         /// </summary>
         public static string WaveHeight_Calculate_All {
