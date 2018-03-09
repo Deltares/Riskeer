@@ -58,7 +58,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
-            return nameof(A).Equals(propertyName)
+            return nameof(Contribution).Equals(propertyName)
+                   || nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
                    || nameof(SectionLength).Equals(propertyName)
                    || nameof(N).Equals(propertyName);
@@ -90,7 +91,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
+            }
+        }
+
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
