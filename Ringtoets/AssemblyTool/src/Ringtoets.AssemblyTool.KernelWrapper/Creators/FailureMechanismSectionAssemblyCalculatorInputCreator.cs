@@ -195,6 +195,39 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
+        /// Creates <see cref="DetailedCategoryBoundariesCalculationResult"/> based on the given parameters.
+        /// </summary>
+        /// <param name="detailedAssesmentResultForFactorizedSignalingNorm">The detailed assessment result
+        /// for category Iv - IIv.</param>
+        /// <param name="detailedAssesmentResultForSignalingNorm">The detailed assessment result for category
+        /// IIv - IIIv.</param>
+        /// <param name="detailedAssesmentResultForMechanismSpecificLowerLimitNorm">The detailed assessment
+        /// result  for category IIIv - IVv.</param>
+        /// <param name="detailedAssesmentResultForLowerLimitNorm">The detailed assessment result for category
+        /// IVv - Vv.</param>
+        /// <param name="detailedAssesmentResultForFactorizedLowerLimitNorm">The detailed assessment result
+        /// for category Vv - VIv.</param>
+        /// <returns>The created <see cref="DetailedCategoryBoundariesCalculationResult"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when any parameter is an invalid
+        /// <see cref="DetailedAssessmentResultType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when any parameter is a valid but unsupported
+        /// <see cref="DetailedAssessmentResultType"/>.</exception>
+        public static DetailedCategoryBoundariesCalculationResult CreateDetailedCalculationInputFromCategoryResults(
+            DetailedAssessmentResultType detailedAssesmentResultForFactorizedSignalingNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForSignalingNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForFactorizedLowerLimitNorm)
+        {
+            return new DetailedCategoryBoundariesCalculationResult(
+                ConvertDetailedAssessmentResultType(detailedAssesmentResultForFactorizedSignalingNorm),
+                ConvertDetailedAssessmentResultType(detailedAssesmentResultForSignalingNorm),
+                ConvertDetailedAssessmentResultType(detailedAssesmentResultForMechanismSpecificLowerLimitNorm),
+                ConvertDetailedAssessmentResultType(detailedAssesmentResultForLowerLimitNorm),
+                ConvertDetailedAssessmentResultType(detailedAssesmentResultForFactorizedLowerLimitNorm));
+        }
+
+        /// <summary>
         /// Creates <see cref="TailorMadeCalculationInputFromProbability"/> based on the given parameters.
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create
@@ -362,6 +395,39 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 default:
                     throw new NotSupportedException();
             }
+        }
+
+        /// <summary>
+        /// Converts a <see cref="DetailedAssessmentResultType"/> into <see cref="DetailedCalculationResult"/>.
+        /// </summary>
+        /// <param name="detailedAssessmentResult">The detailed assessment result to convert.</param>
+        /// <returns>The converted detailed calculation result.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is a valid but unsupported <see cref="DetailedAssessmentResultType"/>.</exception>
+        private static DetailedCalculationResult ConvertDetailedAssessmentResultType(DetailedAssessmentResultType detailedAssessmentResult)
+        {
+            if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
+            {
+                throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
+                                                       (int) detailedAssessmentResult,
+                                                       typeof(DetailedAssessmentResultType));
+            }
+
+            switch (detailedAssessmentResult)
+                {
+                    case DetailedAssessmentResultType.None:
+                        return DetailedCalculationResult.None;
+                    case DetailedAssessmentResultType.Sufficient:
+                        return DetailedCalculationResult.V;
+                    case DetailedAssessmentResultType.Insufficient:
+                        return DetailedCalculationResult.VN;
+                    case DetailedAssessmentResultType.NotAssessed:
+                        return DetailedCalculationResult.NGO;
+                    default:
+                        throw new NotSupportedException();
+                }
         }
     }
 }

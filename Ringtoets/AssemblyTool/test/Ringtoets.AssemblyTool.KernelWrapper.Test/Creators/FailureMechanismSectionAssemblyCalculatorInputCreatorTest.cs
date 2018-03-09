@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using AssemblyTool.Kernel.Assembly.CalculatorInput;
@@ -336,6 +337,105 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Assert
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(InvalidDetailedAssessmentCategoryResults))]
+        public void CreateDetailedCalculationInputFromCategoryResults_InvalidEnumInput_ThrowInvalidEnumerArgumentException(
+            DetailedAssessmentResultType detailedAssesmentResultForFactorizedSignalingNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForSignalingNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForFactorizedLowerLimitNorm)
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromCategoryResults(
+                detailedAssesmentResultForFactorizedSignalingNorm,
+                detailedAssesmentResultForSignalingNorm,
+                detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
+                detailedAssesmentResultForLowerLimitNorm,
+                detailedAssesmentResultForFactorizedLowerLimitNorm);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'detailedAssessmentResult' (99) is invalid for Enum type '{nameof(DetailedAssessmentResultType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void CreateDetailedCalculationInputFromCategoryResults_ValidInput_ReturnsDetailedCategoryBoundariesCalculationResult()
+        {
+            // Setup
+            var random = new Random(39);
+            var detailedAssesmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssesmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssesmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssesmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssesmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            // Call
+            DetailedCategoryBoundariesCalculationResult result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromCategoryResults(
+                detailedAssesmentResultForFactorizedSignalingNorm,
+                detailedAssesmentResultForSignalingNorm,
+                detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
+                detailedAssesmentResultForLowerLimitNorm,
+                detailedAssesmentResultForFactorizedLowerLimitNorm);
+
+            // Assert
+            Assert.AreEqual(result.ResultItoII, GetDetailedCalculationResult(detailedAssesmentResultForFactorizedSignalingNorm));
+            Assert.AreEqual(result.ResultIItoIII, GetDetailedCalculationResult(detailedAssesmentResultForSignalingNorm));
+            Assert.AreEqual(result.ResultIIItoIV, GetDetailedCalculationResult(detailedAssesmentResultForMechanismSpecificLowerLimitNorm));
+            Assert.AreEqual(result.ResultIVtoV, GetDetailedCalculationResult(detailedAssesmentResultForLowerLimitNorm));
+            Assert.AreEqual(result.ResultVtoVI, GetDetailedCalculationResult(detailedAssesmentResultForFactorizedLowerLimitNorm));
+        }
+
+        private static IEnumerable<TestCaseData> InvalidDetailedAssessmentCategoryResults
+        {
+            get
+            {
+                var random = new Random(39);
+                yield return new TestCaseData((DetailedAssessmentResultType) 99,
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>());
+                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              (DetailedAssessmentResultType) 99,
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>());
+                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              (DetailedAssessmentResultType) 99,
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>());
+                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              (DetailedAssessmentResultType) 99,
+                                              random.NextEnumValue<DetailedAssessmentResultType>());
+                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              (DetailedAssessmentResultType) 99);
+            }
+        }
+
+        private static DetailedCalculationResult GetDetailedCalculationResult(DetailedAssessmentResultType detailedAssessmentResult)
+        {
+            switch (detailedAssessmentResult)
+            {
+                case DetailedAssessmentResultType.None:
+                    return DetailedCalculationResult.None;
+                case DetailedAssessmentResultType.Sufficient:
+                    return DetailedCalculationResult.V;
+                case DetailedAssessmentResultType.Insufficient:
+                    return DetailedCalculationResult.VN;
+                case DetailedAssessmentResultType.NotAssessed:
+                    return DetailedCalculationResult.NGO;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         #endregion
