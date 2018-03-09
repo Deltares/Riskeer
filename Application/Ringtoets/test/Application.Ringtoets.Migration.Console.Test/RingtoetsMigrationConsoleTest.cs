@@ -32,6 +32,7 @@ using Ringtoets.Common.Util;
 namespace Application.Ringtoets.Migration.Console.Test
 {
     [TestFixture]
+    [Explicit("Migration Console tests are disabled.")]
     public class RingtoetsMigrationConsoleTest
     {
         private TestEnvironmentControl environmentControl;
