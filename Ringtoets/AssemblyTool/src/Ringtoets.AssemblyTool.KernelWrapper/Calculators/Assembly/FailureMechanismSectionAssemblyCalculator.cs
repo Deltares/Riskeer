@@ -25,6 +25,7 @@ using System.ComponentModel;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.Data;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
+using AssemblyTool.Kernel.Data.CalculationResults;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
@@ -158,6 +159,32 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                                                                              new Probability(0.0)));
                 default:
                     throw new NotSupportedException();
+            }
+        }
+
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
+            DetailedAssessmentResultType detailedAssesmentResultForFactorizedSignalingNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForSignalingNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssesmentResultForFactorizedLowerLimitNorm)
+        {
+            try
+            {
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                CalculationOutput<FailureMechanismSectionCategoryGroup> output = kernel.DetailedAssessmentDirectFailureMechanisms(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromCategoryResults(
+                        detailedAssesmentResultForFactorizedSignalingNorm,
+                        detailedAssesmentResultForSignalingNorm,
+                        detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
+                        detailedAssesmentResultForLowerLimitNorm,
+                        detailedAssesmentResultForFactorizedLowerLimitNorm));
+
+                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
             }
         }
 
