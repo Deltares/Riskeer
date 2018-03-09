@@ -161,16 +161,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new ViewInfo<
                 GrassCoverErosionOutwardsDesignWaterLevelLocationsContext,
                 IEnumerable<HydraulicBoundaryLocation>,
-                GrassCoverErosionOutwardsDesignWaterLevelLocationsView>
+                GrassCoverErosionOutwardsDesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelLocationsView(GetHydraulicBoundaryLocationCalculations(context.FailureMechanism.HydraulicBoundaryLocations,
-                                                                                                                                                hbl => hbl.DesignWaterLevelCalculation1),
-                                                                                                       context.FailureMechanism,
-                                                                                                       context.AssessmentSection,
-                                                                                                       () => context.AssessmentSection.FailureMechanismContribution.Norm),
+                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(GetHydraulicBoundaryLocationCalculations(context.FailureMechanism.HydraulicBoundaryLocations,
+                                                                                                                                                   hbl => hbl.DesignWaterLevelCalculation1),
+                                                                                                          context.FailureMechanism,
+                                                                                                          context.AssessmentSection,
+                                                                                                          () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
                 CloseForData = CloseDesignWaterLevelLocationsViewForData
             };
@@ -414,7 +414,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region CloseDesignWaterLevelLocationsViewForData
 
-        private static bool CloseDesignWaterLevelLocationsViewForData(GrassCoverErosionOutwardsDesignWaterLevelLocationsView view, object dataToCloseFor)
+        private static bool CloseDesignWaterLevelLocationsViewForData(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view, object dataToCloseFor)
         {
             return CloseHydraulicBoundaryLocationsViewForData(view.AssessmentSection, dataToCloseFor);
         }

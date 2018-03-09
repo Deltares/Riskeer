@@ -76,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext),
                     typeof(IEnumerable<HydraulicBoundaryLocation>),
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
+                    typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
