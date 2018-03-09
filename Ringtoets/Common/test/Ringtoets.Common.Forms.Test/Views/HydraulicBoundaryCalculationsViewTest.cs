@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup & Call
-            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
+            TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             // Assert
             Assert.IsInstanceOf<CalculationsView<HydraulicBoundaryLocationCalculation>>(view);
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowTestHydraulicBoundaryLocationsView();
+            ShowTestHydraulicBoundaryCalculationsView();
 
             // Assert
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
@@ -124,10 +124,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void HydraulicBoundaryLocationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
+        public void HydraulicBoundaryCalculationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
+            ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             // Assert
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
+            ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             DataGridView dataGridView = ControlTestHelper.GetDataGridView(testForm, "dataGridView");
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -201,7 +201,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 calculation
             };
 
-            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryLocationsView(calculations);
+            TestHydraulicBoundaryCalculationsView view = ShowTestHydraulicBoundaryCalculationsView(calculations);
 
             // Call
             IEnumerable<IllustrationPointControlItem> actualControlItems =
@@ -229,12 +229,12 @@ namespace Ringtoets.Common.Forms.Test.Views
                                 });
         }
 
-        private void ShowTestHydraulicBoundaryLocationsView()
+        private void ShowTestHydraulicBoundaryCalculationsView()
         {
-            ShowTestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>());
         }
 
-        private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations)
+        private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations)
         {
             var view = new TestHydraulicBoundaryCalculationsView(calculations, new ObservableTestAssessmentSectionStub());
 
@@ -244,9 +244,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             return view;
         }
 
-        private TestHydraulicBoundaryCalculationsView ShowFullyConfiguredTestHydraulicBoundaryLocationsView()
+        private TestHydraulicBoundaryCalculationsView ShowFullyConfiguredTestHydraulicBoundaryCalculationsView()
         {
-            return ShowTestHydraulicBoundaryLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>
+            return ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))

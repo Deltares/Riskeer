@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                                           context.AssessmentSection,
                                                                                                           () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
-                CloseForData = CloseDesignWaterLevelLocationsViewForData
+                CloseForData = CloseDesignWaterLevelCalculationsViewForData
             };
 
             yield return new ViewInfo<
@@ -182,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 GetViewName = (view, context) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseGrassCoverErosionOutwardsLocationsViewForData,
+                CloseForData = CloseGrassCoverErosionOutwardsCalculationsViewForData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationsView(GetHydraulicBoundaryLocationCalculations(context.FailureMechanism.HydraulicBoundaryLocations,
                                                                                                                                              hbl => hbl.WaveHeightCalculation1),
@@ -405,24 +405,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsWaveHeightCalculationsView
 
-        private static bool CloseGrassCoverErosionOutwardsLocationsViewForData(GrassCoverErosionOutwardsWaveHeightCalculationsView view, object dataToCloseFor)
+        private static bool CloseGrassCoverErosionOutwardsCalculationsViewForData(GrassCoverErosionOutwardsWaveHeightCalculationsView view, object dataToCloseFor)
         {
-            return CloseHydraulicBoundaryLocationsViewForData(view.AssessmentSection, dataToCloseFor);
+            return CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, dataToCloseFor);
         }
 
         #endregion
 
-        #region CloseDesignWaterLevelLocationsViewForData
+        #region GrassCoverErosionOutwardsDesignWaterLevelCalculationsView
 
-        private static bool CloseDesignWaterLevelLocationsViewForData(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view, object dataToCloseFor)
+        private static bool CloseDesignWaterLevelCalculationsViewForData(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view, object dataToCloseFor)
         {
-            return CloseHydraulicBoundaryLocationsViewForData(view.AssessmentSection, dataToCloseFor);
+            return CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, dataToCloseFor);
         }
 
         #endregion
 
-        private static bool CloseHydraulicBoundaryLocationsViewForData(IAssessmentSection viewAssessmentSection,
-                                                                       object dataToCloseFor)
+        private static bool CloseHydraulicBoundaryCalculationsViewForData(IAssessmentSection viewAssessmentSection,
+                                                                          object dataToCloseFor)
         {
             GrassCoverErosionOutwardsFailureMechanism viewFailureMechanism = viewAssessmentSection.GetFailureMechanisms()
                                                                                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
