@@ -395,16 +395,16 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.AssessmentSection = context.Parent
             };
 
-            yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelLocationsView>
+            yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                CreateInstance = context => new DesignWaterLevelLocationsView(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc),
-                                                                              context.AssessmentSection,
-                                                                              context.GetNormFunc,
-                                                                              context.CategoryBoundaryName),
+                CreateInstance = context => new DesignWaterLevelCalculationsView(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc),
+                                                                                 context.AssessmentSection,
+                                                                                 context.GetNormFunc,
+                                                                                 context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 

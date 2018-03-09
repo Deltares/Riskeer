@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         protected HydraulicBoundaryCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
-                                                 IAssessmentSection assessmentSection)
+                                                    IAssessmentSection assessmentSection)
         {
             if (calculations == null)
             {

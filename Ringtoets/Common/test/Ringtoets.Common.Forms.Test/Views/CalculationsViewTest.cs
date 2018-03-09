@@ -354,9 +354,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             protected override void CalculateForSelectedRows()
             {
                 ObjectsToCalculate = GetCalculatableRows()
-                    .Where(r => r.ShouldCalculate)
-                    .Cast<TestCalculatableRow>()
-                    .Select(row => row.CalculatableObject);
+                                     .Where(r => r.ShouldCalculate)
+                                     .Cast<TestCalculatableRow>()
+                                     .Select(row => row.CalculatableObject);
             }
 
             protected override IEnumerable<IllustrationPointControlItem> GetIllustrationPointControlItems()

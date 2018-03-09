@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                "Category");
 
             // Call
-            var view = (DesignWaterLevelLocationsView) info.CreateInstance(context);
+            var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
 
             // Assert
             Assert.AreSame(assessmentSection, view.AssessmentSection);
@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                "Category");
 
             // Call
-            var view = (DesignWaterLevelLocationsView) info.CreateInstance(context);
+            var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
 
             // Assert
             using (var testForm = new Form())
@@ -236,7 +236,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mockRepository.ReplayAll();
 
             // Call
-            var view = (DesignWaterLevelLocationsView) info.CreateInstance(context);
+            var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
 
             // Assert
             using (var testForm = new Form())
@@ -289,10 +289,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                getCalculationFunc,
                                                                categoryBoundaryName);
 
-            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                new ObservableTestAssessmentSectionStub(),
-                                                                getNormFunc,
-                                                                categoryBoundaryName))
+            using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                   new ObservableTestAssessmentSectionStub(),
+                                                                   getNormFunc,
+                                                                   categoryBoundaryName))
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
@@ -316,10 +316,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                assessmentSection,
-                                                                () => 0.01,
-                                                                "Category"))
+            using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                   assessmentSection,
+                                                                   () => 0.01,
+                                                                   "Category"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -336,10 +336,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSectionA = new ObservableTestAssessmentSectionStub();
             var assessmentSectionB = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                assessmentSectionA,
-                                                                () => 0.01,
-                                                                "Category"))
+            using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                   assessmentSectionA,
+                                                                   () => 0.01,
+                                                                   "Category"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
@@ -355,10 +355,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSectionA = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new DesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                assessmentSectionA,
-                                                                () => 0.01,
-                                                                "Category"))
+            using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                   assessmentSectionA,
+                                                                   () => 0.01,
+                                                                   "Category"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
@@ -370,7 +370,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
         private static ViewInfo GetViewInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelLocationsView));
+            return plugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelCalculationsView));
         }
     }
 }

@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Call
             TestDelegate call = () => new TestHydraulicBoundaryCalculationsView(null,
-                                                                             new ObservableTestAssessmentSectionStub());
+                                                                                new ObservableTestAssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Call
             TestDelegate call = () => new TestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                             null);
+                                                                                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -266,7 +266,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private sealed class TestHydraulicBoundaryCalculationsView : HydraulicBoundaryCalculationsView
         {
             public TestHydraulicBoundaryCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
-                                                      IAssessmentSection assessmentSection)
+                                                         IAssessmentSection assessmentSection)
                 : base(calculations, assessmentSection) {}
 
             public IEnumerable<IllustrationPointControlItem> PublicGetIllustrationPointControlItems()
