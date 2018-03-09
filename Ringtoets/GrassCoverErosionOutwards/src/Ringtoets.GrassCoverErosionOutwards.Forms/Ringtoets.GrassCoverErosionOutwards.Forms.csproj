@@ -53,7 +53,7 @@
     </Compile>
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsWaveConditionsInputViewStyle.cs" />
-    <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightLocationsView.cs">
+    <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightCalculationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Factories\GrassCoverErosionOutwardsMapDataFeaturesFactory.cs" />

@@ -49,7 +49,7 @@
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsWaveConditionsInputViewStyleTest.cs" />
-    <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightLocationsViewTest.cs" />
+    <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightCalculationsViewTest.cs" />
     <Compile Include="Factories\GrassCoverErosionOutwardsMapDataFeaturesFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -62,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                                                                     string expectedErrorMessage)
         {
             // Given
-            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            GrassCoverErosionOutwardsWaveHeightCalculationsView view = ShowFullyConfiguredWaveHeightLocationsView();
 
             if (rowSelected)
             {
@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }
 
-        private GrassCoverErosionOutwardsWaveHeightLocationsView ShowFullyConfiguredWaveHeightLocationsView()
+        private GrassCoverErosionOutwardsWaveHeightCalculationsView ShowFullyConfiguredWaveHeightLocationsView()
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -113,10 +113,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 }
             };
 
-            var view = new GrassCoverErosionOutwardsWaveHeightLocationsView(calculations,
-                                                                            failureMechanism,
-                                                                            new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                                            () => 0.01);
+            var view = new GrassCoverErosionOutwardsWaveHeightCalculationsView(calculations,
+                                                                               failureMechanism,
+                                                                               new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                                               () => 0.01);
 
             testForm.Controls.Add(view);
             testForm.Show();

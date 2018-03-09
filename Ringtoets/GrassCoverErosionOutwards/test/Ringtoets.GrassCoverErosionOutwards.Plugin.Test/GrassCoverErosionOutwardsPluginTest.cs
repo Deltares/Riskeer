@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext),
                     typeof(IEnumerable<HydraulicBoundaryLocation>),
-                    typeof(GrassCoverErosionOutwardsWaveHeightLocationsView));
+                    typeof(GrassCoverErosionOutwardsWaveHeightCalculationsView));
             }
         }
 
