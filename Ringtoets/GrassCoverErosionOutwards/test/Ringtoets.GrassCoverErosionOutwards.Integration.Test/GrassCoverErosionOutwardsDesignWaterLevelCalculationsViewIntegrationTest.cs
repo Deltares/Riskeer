@@ -57,12 +57,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_ContributionChanged_SyncedAccordingly(true, false, message)")]
         [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_ContributionChanged_SyncedAccordingly(false, true, message)")]
         [TestCase(true, true, "", TestName = "CalculateButton_ContributionChanged_SyncedAccordingly(true, true, message)")]
-        public void GivenDesignWaterLevelLocationsView_WhenFailureMechanismContributionChanged_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
-                                                                                                                                          bool contributionAfterChangeNotZero,
-                                                                                                                                          string expectedErrorMessage)
+        public void GivenDesignWaterLevelCalculationsView_WhenFailureMechanismContributionChanged_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
+                                                                                                                                             bool contributionAfterChangeNotZero,
+                                                                                                                                             string expectedErrorMessage)
         {
             // Given
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
+            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelCalculationsView();
 
             if (rowSelected)
             {
@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }
 
-        private GrassCoverErosionOutwardsDesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelLocationsView()
+        private GrassCoverErosionOutwardsDesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView()
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {

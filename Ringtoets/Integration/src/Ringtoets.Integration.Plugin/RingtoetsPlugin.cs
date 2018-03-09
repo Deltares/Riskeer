@@ -400,7 +400,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseHydraulicBoundaryLocationsViewForData,
+                CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
                 CreateInstance = context => new DesignWaterLevelCalculationsView(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc),
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
@@ -413,7 +413,7 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (view, context) => $"{RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseHydraulicBoundaryLocationsViewForData,
+                CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
                 CreateInstance = context => new WaveHeightCalculationsView(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc),
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
@@ -1074,7 +1074,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region HydraulicBoundaryCalculationsView ViewInfo
 
-        private static bool CloseHydraulicBoundaryLocationsViewForData(HydraulicBoundaryCalculationsView view, object dataToCloseFor)
+        private static bool CloseHydraulicBoundaryCalculationsViewForData(HydraulicBoundaryCalculationsView view, object dataToCloseFor)
         {
             IAssessmentSection viewData = view.AssessmentSection;
             var assessmentSection = dataToCloseFor as IAssessmentSection;

@@ -139,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, testForm);
+            ShowDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, testForm);
 
             // Assert
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -168,14 +168,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
+        public void DesignWaterLevelCalculationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
-            ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
+            ShowFullyConfiguredDesignWaterLevelCalculationsView(assessmentSection, testForm);
 
             // Assert
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
@@ -220,7 +220,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryLocationsUpdated_DataGridViewCorrectlyUpdated()
+        public void DesignWaterLevelCalculationsView_HydraulicBoundaryLocationsUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
@@ -228,7 +228,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowDesignWaterLevelLocationsView(calculations, assessmentSection, 0.01, testForm);
+            ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, testForm);
 
             // Precondition
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -267,7 +267,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_HydraulicBoundaryLocationUpdated_IllustrationPointsControlCorrectlyUpdated()
+        public void DesignWaterLevelCalculationsView_HydraulicBoundaryLocationUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
@@ -275,7 +275,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowDesignWaterLevelLocationsView(calculations, assessmentSection, 0.01, testForm);
+            ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
 
@@ -323,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelLocationsView(calculations, assessmentSection, 0.01, testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             object dataGridViewSource = calculationsDataGridView.DataSource;
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
@@ -351,7 +351,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
-            ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
+            ShowFullyConfiguredDesignWaterLevelCalculationsView(assessmentSection, testForm);
 
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
             DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
@@ -371,15 +371,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, false, message)")]
         [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
         [TestCase(true, true, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
-        public void GivenDesignWaterLevelLocationsView_WhenSpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
-                                                                                                                                                                          bool contributionNotZero,
-                                                                                                                                                                          string expectedErrorMessage)
+        public void GivenDesignWaterLevelCalculationsView_WhenSpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
+                                                                                                                                                                             bool contributionNotZero,
+                                                                                                                                                                             string expectedErrorMessage)
         {
             // Given
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(assessmentSection, testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelCalculationsView(assessmentSection, testForm);
             if (!contributionNotZero)
             {
                 view.FailureMechanism.Contribution = 0;
@@ -438,7 +438,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelLocationsView(calculations, assessmentSection, norm, testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, norm, testForm);
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
@@ -506,7 +506,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelLocationsView(calculations, assessmentSection, norm, testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, norm, testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -573,7 +573,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelLocationsView(calculations, assessmentSection, norm, testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, norm, testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -629,10 +629,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                 });
         }
 
-        private static GrassCoverErosionOutwardsDesignWaterLevelCalculationsView ShowDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
-                                                                                                                   IAssessmentSection assessmentSection,
-                                                                                                                   double norm,
-                                                                                                                   Form form)
+        private static GrassCoverErosionOutwardsDesignWaterLevelCalculationsView ShowDesignWaterLevelCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                                                      IAssessmentSection assessmentSection,
+                                                                                                                      double norm,
+                                                                                                                      Form form)
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -650,10 +650,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             return view;
         }
 
-        private static GrassCoverErosionOutwardsDesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelLocationsView(IAssessmentSection assessmentSection,
-                                                                                                                                  Form form)
+        private static GrassCoverErosionOutwardsDesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView(IAssessmentSection assessmentSection,
+                                                                                                                                     Form form)
         {
-            return ShowDesignWaterLevelLocationsView(GetTestHydraulicBoundaryLocationCalculations(), assessmentSection, 0.01, form);
+            return ShowDesignWaterLevelCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), assessmentSection, 0.01, form);
         }
 
         private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()
@@ -722,7 +722,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
-                return ShowDesignWaterLevelLocationsView(calculations, new ObservableTestAssessmentSectionStub(), 0.01, form);
+                return ShowDesignWaterLevelCalculationsView(calculations, new ObservableTestAssessmentSectionStub(), 0.01, form);
             }
 
             protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(CalculationsView<HydraulicBoundaryLocationCalculation> view)

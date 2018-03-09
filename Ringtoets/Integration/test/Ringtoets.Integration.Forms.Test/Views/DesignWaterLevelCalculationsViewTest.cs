@@ -117,11 +117,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelLocationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                              assessmentSection,
-                                              0.01,
-                                              "Category",
-                                              testForm);
+            ShowDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                 assessmentSection,
+                                                 0.01,
+                                                 "Category",
+                                                 testForm);
 
             // Assert
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_WithCalculations_DataGridViewCorrectlyInitialized()
         {
             // Call
-            ShowFullyConfiguredDesignWaterLevelLocationsView(GetTestHydraulicBoundaryLocationCalculations(), testForm);
+            ShowFullyConfiguredDesignWaterLevelCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), testForm);
 
             // Assert
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
@@ -198,12 +198,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_CalculationsUpdated_DataGridViewCorrectlyUpdated()
+        public void DesignWaterLevelCalculationsView_CalculationsUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
             ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowFullyConfiguredDesignWaterLevelLocationsView(hydraulicBoundaryLocationCalculations, testForm);
+            ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
             const double designWaterLevel = 10.23;
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0))
@@ -239,12 +239,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_CalculationUpdated_DataGridViewCorrectlyUpdated()
+        public void DesignWaterLevelCalculationsView_CalculationUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
             ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowFullyConfiguredDesignWaterLevelLocationsView(hydraulicBoundaryLocationCalculations, testForm);
+            ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
             // Precondition
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
@@ -264,12 +264,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DesignWaterLevelLocationsView_CalculationUpdated_IllustrationPointsControlCorrectlyUpdated()
+        public void DesignWaterLevelCalculationsView_CalculationUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
             ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowFullyConfiguredDesignWaterLevelLocationsView(hydraulicBoundaryLocationCalculations, testForm);
+            ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
@@ -304,7 +304,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            DesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView(hydraulicBoundaryLocationCalculations, testForm);
+            DesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
             DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
@@ -332,7 +332,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            ShowFullyConfiguredDesignWaterLevelLocationsView(GetTestHydraulicBoundaryLocationCalculations(), testForm);
+            ShowFullyConfiguredDesignWaterLevelCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), testForm);
 
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
             DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
@@ -388,11 +388,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            DesignWaterLevelCalculationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryLocationCalculations,
-                                                                                      assessmentSection,
-                                                                                      norm,
-                                                                                      categoryBoundaryName,
-                                                                                      testForm);
+            DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
+                                                                                         assessmentSection,
+                                                                                         norm,
+                                                                                         categoryBoundaryName,
+                                                                                         testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
@@ -460,11 +460,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            DesignWaterLevelCalculationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryLocationCalculations,
-                                                                                      assessmentSection,
-                                                                                      norm,
-                                                                                      categoryBoundaryName,
-                                                                                      testForm);
+            DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
+                                                                                         assessmentSection,
+                                                                                         norm,
+                                                                                         categoryBoundaryName,
+                                                                                         testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
@@ -531,11 +531,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            DesignWaterLevelCalculationsView view = ShowDesignWaterLevelLocationsView(hydraulicBoundaryLocationCalculations,
-                                                                                      assessmentSection,
-                                                                                      norm,
-                                                                                      categoryBoundaryName,
-                                                                                      testForm);
+            DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
+                                                                                         assessmentSection,
+                                                                                         norm,
+                                                                                         categoryBoundaryName,
+                                                                                         testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
@@ -588,11 +588,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                 });
         }
 
-        private static DesignWaterLevelCalculationsView ShowDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
-                                                                                          IAssessmentSection assessmentSection,
-                                                                                          double norm,
-                                                                                          string categoryBoundaryName,
-                                                                                          Form form)
+        private static DesignWaterLevelCalculationsView ShowDesignWaterLevelCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                             IAssessmentSection assessmentSection,
+                                                                                             double norm,
+                                                                                             string categoryBoundaryName,
+                                                                                             Form form)
         {
             var view = new DesignWaterLevelCalculationsView(calculations,
                                                             assessmentSection,
@@ -605,12 +605,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return view;
         }
 
-        private static DesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelLocationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
-                                                                                                         Form form)
+        private static DesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                                            Form form)
         {
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            return ShowDesignWaterLevelLocationsView(calculations, assessmentSection, 0.01, "Category", form);
+            return ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "Category", form);
         }
 
         private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()
@@ -679,7 +679,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
-                return ShowFullyConfiguredDesignWaterLevelLocationsView(calculations, form);
+                return ShowFullyConfiguredDesignWaterLevelCalculationsView(calculations, form);
             }
 
             protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(CalculationsView<HydraulicBoundaryLocationCalculation> view)
