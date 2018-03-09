@@ -346,7 +346,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment((TailorMadeAssessmentProbabilityCalculationResultType) 99,
                                                                                   random.NextDouble(),
-                                                                                  categories);
+                                                                                  categories,
+                                                                                  random.NextDouble());
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
@@ -376,7 +377,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                                                                                   random.NextDouble(),
-                                                                                  categories);
+                                                                                  categories,
+                                                                                  random.NextDouble());
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
@@ -995,7 +997,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleDetailedAssessmentWithLengthEffect_WithInvalidEnumInput_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleDetailedAssessmentWithLengthEffect_WithInvalidEnumCategoryInput_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(39);

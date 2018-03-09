@@ -121,9 +121,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             // Call
             TestDelegate call = () => new StabilityPointStructuresFailureMechanismSectionResultRow(result,
-                                                                                            new StabilityPointStructuresFailureMechanism(),
-                                                                                            assessmentSection,
-                                                                                            null);
+                                                                                                   new StabilityPointStructuresFailureMechanism(),
+                                                                                                   assessmentSection,
+                                                                                                   null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -293,7 +293,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ExpectedColumnStates()
         {
             // Given
-            var random = new Random(39);
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mocks = new MockRepository();
@@ -305,24 +304,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                ConstructionProperties);
+                                                                                       ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -657,7 +644,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 var assemblyOutput = new FailureMechanismSectionAssembly(0, assemblyCategoryGroup);
                 calculator.SimpleAssessmentAssemblyOutput = assemblyOutput;
@@ -667,9 +654,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 // Call
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result,
-                                                                                failureMechanism,
-                                                                                assessmentSection,
-                                                                                ConstructionProperties);
+                                                                                       failureMechanism,
+                                                                                       assessmentSection,
+                                                                                       ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -905,7 +892,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         {
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
-           yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable
             }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultNotApplicable");

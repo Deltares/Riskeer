@@ -359,7 +359,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ExpectedColumnStates()
         {
             // Given
-            var random = new Random(39);
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mocks = new MockRepository();
@@ -374,18 +373,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 var row = new HeightStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
                                                                                ConstructionProperties);

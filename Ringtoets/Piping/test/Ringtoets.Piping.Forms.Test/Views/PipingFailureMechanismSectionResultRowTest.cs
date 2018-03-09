@@ -451,7 +451,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ExpectedColumnStates()
         {
             // Given
-            var random = new Random(39);
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
@@ -466,18 +465,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
-                    random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 var row = new PipingFailureMechanismSectionResultRow(result,
                                                                      Enumerable.Empty<PipingCalculationScenario>(),
@@ -855,7 +842,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(
                 section);
-            calculationScenario.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
+            calculationScenario.Output = PipingOutputTestFactory.Create(double.NaN, double.NaN, double.NaN);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -934,9 +921,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            PipingCalculationScenario calculationScenario = PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(
-                section);
-
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
@@ -944,7 +928,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     sectionResult,
                     new[]
                     {
-                        calculationScenario
+                        PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section)
                     },
                     failureMechanism,
                     assessmentSection,
@@ -1072,13 +1056,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
+            PipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            if (status == CalculationScenarioStatus.Failed)
+            {
+                scenario.Output = PipingOutputTestFactory.Create(double.NaN, double.NaN, double.NaN);
+            }
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var resultRow = new PipingFailureMechanismSectionResultRow(
                     sectionResult,
                     new[]
                     {
-                        PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section)
+                        scenario
                     },
                     failureMechanism,
                     assessmentSection,
