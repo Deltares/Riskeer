@@ -1072,9 +1072,9 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region HydraulicBoundaryLocationsView ViewInfo
+        #region HydraulicBoundaryCalculationsView ViewInfo
 
-        private static bool CloseHydraulicBoundaryLocationsViewForData(HydraulicBoundaryLocationsView view, object dataToCloseFor)
+        private static bool CloseHydraulicBoundaryLocationsViewForData(HydraulicBoundaryCalculationsView view, object dataToCloseFor)
         {
             IAssessmentSection viewData = view.AssessmentSection;
             var assessmentSection = dataToCloseFor as IAssessmentSection;

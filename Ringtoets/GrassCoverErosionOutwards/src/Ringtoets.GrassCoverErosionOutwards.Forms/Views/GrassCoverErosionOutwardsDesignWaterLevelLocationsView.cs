@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// <summary>
     /// View for presenting and performing design water level calculations for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsView : HydraulicBoundaryCalculationsView
     {
         private readonly GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider messageProvider;
         private readonly Observer failureMechanismObserver;

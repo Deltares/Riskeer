@@ -138,7 +138,7 @@
     <Compile Include="Helpers\FailureMechanismSectionResultRowHelperTest.cs" />
     <Compile Include="Views\FailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRowTest.cs" />
-    <Compile Include="Views\HydraulicBoundaryLocationsViewTest.cs" />
+    <Compile Include="Views\HydraulicBoundaryCalculationsViewTest.cs" />
     <Compile Include="Factories\RingtoetsChartDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapControlTest.cs" />
     <Compile Include="Factories\RingtoetsMapDataFactoryTest.cs" />

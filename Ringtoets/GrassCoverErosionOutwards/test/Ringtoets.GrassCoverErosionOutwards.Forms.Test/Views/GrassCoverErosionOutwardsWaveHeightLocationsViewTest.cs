@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                                                                    () => 0.01))
             {
                 // Assert
-                Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
+                Assert.IsInstanceOf<HydraulicBoundaryCalculationsView>(view);
                 Assert.IsNull(view.Data);
             }
         }

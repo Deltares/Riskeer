@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// View for presenting and performing design water level calculations.
     /// </summary>
-    public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
+    public partial class DesignWaterLevelLocationsView : HydraulicBoundaryCalculationsView
     {
         private readonly Func<double> getNormFunc;
         private readonly DesignWaterLevelCalculationMessageProvider messageProvider;

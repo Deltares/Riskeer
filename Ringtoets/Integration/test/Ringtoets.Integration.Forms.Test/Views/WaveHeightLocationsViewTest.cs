@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                           "Category"))
             {
                 // Assert
-                Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
+                Assert.IsInstanceOf<HydraulicBoundaryCalculationsView>(view);
                 Assert.IsNull(view.Data);
             }
         }

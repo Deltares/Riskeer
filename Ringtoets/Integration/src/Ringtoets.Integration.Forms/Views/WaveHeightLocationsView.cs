@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// View for presenting and performing wave height calculations.
     /// </summary>
-    public partial class WaveHeightLocationsView : HydraulicBoundaryLocationsView
+    public partial class WaveHeightLocationsView : HydraulicBoundaryCalculationsView
     {
         private readonly Func<double> getNormFunc;
         private readonly WaveHeightCalculationMessageProvider messageProvider;
