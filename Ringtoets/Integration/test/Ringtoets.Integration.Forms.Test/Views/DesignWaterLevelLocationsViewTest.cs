@@ -672,17 +672,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 }
             }
 
-            protected override object GetCalculationSelection(LocationsView<HydraulicBoundaryLocationCalculation> view, object selectedRowObject)
+            protected override object GetCalculationSelection(CalculationsView<HydraulicBoundaryLocationCalculation> view, object selectedRowObject)
             {
                 return new DesignWaterLevelCalculationContext(((HydraulicBoundaryLocationRow) selectedRowObject).CalculatableObject);
             }
 
-            protected override LocationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
+            protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
                 return ShowFullyConfiguredDesignWaterLevelLocationsView(calculations, form);
             }
 
-            protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(LocationsView<HydraulicBoundaryLocationCalculation> view)
+            protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(CalculationsView<HydraulicBoundaryLocationCalculation> view)
             {
                 return calculations;
             }

@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.Views
     /// Base view for <see cref="HydraulicBoundaryLocationCalculation"/> views which should be derived in
     /// order to get a consistent look and feel.
     /// </summary>
-    public abstract partial class HydraulicBoundaryLocationsView : LocationsView<HydraulicBoundaryLocationCalculation>
+    public abstract partial class HydraulicBoundaryLocationsView : CalculationsView<HydraulicBoundaryLocationCalculation>
     {
         private readonly Observer calculationsObserver;
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationObserver;

@@ -161,11 +161,11 @@
     <Compile Include="Views\IllustrationPointsTableControl.Designer.cs">
       <DependentUpon>IllustrationPointsTableControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\LocationsView.cs">
+    <Compile Include="Views\CalculationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\LocationsView.Designer.cs">
-      <DependentUpon>LocationsView.cs</DependentUpon>
+    <Compile Include="Views\CalculationsView.Designer.cs">
+      <DependentUpon>CalculationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FailureMechanismView.cs">
       <SubType>UserControl</SubType>
@@ -242,8 +242,8 @@
     <EmbeddedResource Include="Views\IllustrationPointsTableControl.resx">
       <DependentUpon>IllustrationPointsTableControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\LocationsView.resx">
-      <DependentUpon>LocationsView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\CalculationsView.resx">
+      <DependentUpon>CalculationsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismView.resx">
       <DependentUpon>FailureMechanismView.cs</DependentUpon>
