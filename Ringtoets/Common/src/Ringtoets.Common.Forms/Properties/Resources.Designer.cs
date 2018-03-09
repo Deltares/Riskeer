@@ -1175,6 +1175,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject..
+        /// </summary>
+        public static string FailureMechanism_Contribution_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Contribution_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkansbijdrage [%].
+        /// </summary>
+        public static string FailureMechanism_Contribution_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Contribution_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekeningen om uit te voeren..
         /// </summary>
         public static string FailureMechanism_CreateCalculateAllItem_No_calculations_to_run {
