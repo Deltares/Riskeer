@@ -374,13 +374,13 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(DesignWaterLevelLocationsContext),
-                    typeof(IEnumerable<HydraulicBoundaryLocation>),
+                    typeof(IEnumerable<HydraulicBoundaryLocationCalculation>),
                     typeof(DesignWaterLevelCalculationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveHeightLocationsContext),
-                    typeof(IEnumerable<HydraulicBoundaryLocation>),
+                    typeof(IEnumerable<HydraulicBoundaryLocationCalculation>),
                     typeof(WaveHeightCalculationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
