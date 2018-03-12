@@ -360,6 +360,49 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
+        /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="TailorMadeCategoryCalculationResult"/>.
+        /// </summary>
+        /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>
+        /// <returns>A <see cref="TailorMadeCategoryCalculationResult"/> based on <paramref name="category"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
+        /// is a valid value, but unsupported.</exception>
+        public static TailorMadeCategoryCalculationResult ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+            FailureMechanismSectionAssemblyCategoryGroup category)
+        {
+            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
+            {
+                throw new InvalidEnumArgumentException(nameof(category),
+                                                       (int)category,
+                                                       typeof(FailureMechanismSectionAssemblyCategoryGroup));
+            }
+
+            switch (category)
+            {
+                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
+                    return TailorMadeCategoryCalculationResult.FV;
+                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
+                    return TailorMadeCategoryCalculationResult.IIv;
+                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
+                    return TailorMadeCategoryCalculationResult.IIIv;
+                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
+                    return TailorMadeCategoryCalculationResult.IVv;
+                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
+                    return TailorMadeCategoryCalculationResult.Vv;
+                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
+                    return TailorMadeCategoryCalculationResult.VIv;
+                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
+                    return TailorMadeCategoryCalculationResult.NGO;
+                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
+                case FailureMechanismSectionAssemblyCategoryGroup.None:
+                    return TailorMadeCategoryCalculationResult.None;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
         /// Converts a <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/> and the given
         /// <paramref name="probability"/> to a <see cref="TailorMadeProbabilityCalculationResult"/>.
         /// </summary>

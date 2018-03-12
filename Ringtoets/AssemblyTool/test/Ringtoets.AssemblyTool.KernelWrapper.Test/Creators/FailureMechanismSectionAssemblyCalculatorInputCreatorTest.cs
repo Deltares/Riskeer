@@ -773,6 +773,40 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(upperBoundary, actualCategory.UpperBoundary);
         }
 
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, TailorMadeCategoryCalculationResult.None)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, TailorMadeCategoryCalculationResult.None)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, TailorMadeCategoryCalculationResult.FV)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, TailorMadeCategoryCalculationResult.IIv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIIv, TailorMadeCategoryCalculationResult.IIIv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IVv, TailorMadeCategoryCalculationResult.IVv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, TailorMadeCategoryCalculationResult.Vv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, TailorMadeCategoryCalculationResult.VIv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, TailorMadeCategoryCalculationResult.NGO)]
+        public void ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup_ValidGroup_ReturnFailureMechanismSectionCategoryGroup(
+            FailureMechanismSectionAssemblyCategoryGroup originalGroup,
+            TailorMadeCategoryCalculationResult expectedGroup)
+        {
+            // Call
+            TailorMadeCategoryCalculationResult actualGroup = FailureMechanismSectionAssemblyCalculatorInputCreator.ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+                originalGroup);
+
+            // Assert
+            Assert.AreEqual(expectedGroup, actualGroup);
+        }
+
+        [Test]
+        public void ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup_InvalidGroup_ThrowInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+                (FailureMechanismSectionAssemblyCategoryGroup) 99);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
         #endregion
     }
 }
