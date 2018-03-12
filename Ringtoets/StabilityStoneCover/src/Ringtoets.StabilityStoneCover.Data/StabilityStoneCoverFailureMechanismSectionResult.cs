@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
 
@@ -46,6 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Data
             DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForLowerLimitNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForFactorizedLowerLimitNorm = DetailedAssessmentResultType.None;
+            TailorMaderAssessmentResult = FailureMechanismSectionAssemblyCategoryGroup.None;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
 
@@ -83,6 +85,11 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// for the factorized signaling norm (Cat Vv- VIv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tailor made assessment result.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup TailorMaderAssessmentResult { get; set; }
         
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
