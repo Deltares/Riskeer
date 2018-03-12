@@ -607,16 +607,71 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TailorMadeAssessmentDirectFailureMechanismsWithCategories_Always_ThrowNotImplementedException()
+        public void TailorMadeAssessmentDirectFailureMechanismsWithCategories_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
+            var random = new Random(39);
+            var result = random.NextEnumValue<TailorMadeCategoryCalculationResult>();
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
             // Call
-            TestDelegate test = () => kernel.TailorMadeAssessmentDirectFailureMechanisms((TailorMadeCategoryCalculationResult) 0);
+            kernel.TailorMadeAssessmentDirectFailureMechanisms(result);
 
             // Assert
-            Assert.Throws<NotImplementedException>(test);
+            Assert.AreEqual(result, kernel.TailorMadeCalculationInputFromCategoryResultInput);
+        }
+
+        [Test]
+        public void TailorMadeAssessmentDirectFailureMechanismsWithCategories_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        {
+            // Setup
+            var random = new Random(39);
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TailorMadeAssessmentDirectFailureMechanisms(random.NextEnumValue<TailorMadeCategoryCalculationResult>());
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.TailorMadeCalculationInputFromProbabilityInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryResult);
+        }
+
+        [Test]
+        public void TailorMadeAssessmentDirectFailureMechanismsWithCategories_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = new TailorMadeCalculationInputFromProbability(
+                new TailorMadeProbabilityCalculationResult(new Probability(random.NextDouble())),
+                new[]
+                {
+                    new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(),
+                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
+                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
+                });
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TailorMadeAssessmentDirectFailureMechanisms(input);
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.TailorMadeCalculationInputFromProbabilityInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryResult);
         }
 
         [Test]
