@@ -134,6 +134,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double TailorMadeAssessmentNInput { get; private set; }
 
         /// <summary>
+        /// Gets the category group input of the tailor made assessment calculation.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResultInput { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the output of the tailor made assembly calculation.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup? TailorMadeAssemblyCategoryOutput { get; set; }
+
+        /// <summary>
         /// Gets or sets the output of the combined assembly calculation.
         /// </summary>
         public FailureMechanismSectionAssembly CombinedAssemblyOutput { get; set; }
@@ -322,6 +332,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             return TailorMadeAssessmentAssemblyOutput ??
                    (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+        }
+
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssessmentResult)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            TailorMadeAssessmentResultInput = tailorMadeAssessmentResult;
+
+            if (TailorMadeAssemblyCategoryOutput == null)
+            {
+                TailorMadeAssemblyCategoryOutput = FailureMechanismSectionAssemblyCategoryGroup.Iv;
+            }
+
+            return TailorMadeAssemblyCategoryOutput.Value;
         }
 
         public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
