@@ -25,7 +25,6 @@ using System.ComponentModel;
 using AssemblyTool.Kernel;
 using AssemblyTool.Kernel.Data;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
-using AssemblyTool.Kernel.Data.CalculationResults;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
