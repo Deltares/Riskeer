@@ -43,24 +43,21 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
             Func<double> getNormFunc = () => 0.01;
-            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => null;
             const string categoryBoundaryName = "Test name";
 
             // Call
-            var presentationObject = new WaveHeightLocationsContext(locations,
+            var presentationObject = new WaveHeightLocationsContext(calculations,
                                                                     assessmentSection,
                                                                     getNormFunc,
-                                                                    getCalculationFunc,
                                                                     categoryBoundaryName);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
-            Assert.AreSame(locations, presentationObject.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>>(presentationObject);
+            Assert.AreSame(calculations, presentationObject.WrappedData);
             Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
             Assert.AreSame(getNormFunc, presentationObject.GetNormFunc);
-            Assert.AreSame(getCalculationFunc, presentationObject.GetCalculationFunc);
             Assert.AreEqual(categoryBoundaryName, presentationObject.CategoryBoundaryName);
             mockRepository.VerifyAll();
         }
@@ -69,10 +66,9 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                      null,
                                                                      () => 0.01,
-                                                                     hbl => null,
                                                                      "Test name");
 
             // Assert
@@ -89,35 +85,14 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                      assessmentSection,
                                                                      null,
-                                                                     hbl => null,
                                                                      "Test name");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("getNormFunc", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                     assessmentSection,
-                                                                     () => 0.01,
-                                                                     null,
-                                                                     "Test name");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getCalculationFunc", exception.ParamName);
         }
 
         [Test]
@@ -129,10 +104,9 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                      assessmentSection,
                                                                      () => 0.01,
-                                                                     hbl => null,
                                                                      null);
 
             // Assert
@@ -149,10 +123,9 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            TestDelegate call = () => new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                      assessmentSection,
                                                                      () => 0.01,
-                                                                     hbl => null,
                                                                      string.Empty);
 
             // Assert
@@ -167,8 +140,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             private static readonly MockRepository mocks = new MockRepository();
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             private static readonly Func<double> getNormFunc = () => 0.01;
-            private static readonly ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
-            private static readonly Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => null;
+            private static readonly ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
             private static readonly string categoryBoundaryName = "Test name";
 
             [SetUp]
@@ -185,28 +157,25 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
             protected override WaveHeightLocationsContext CreateObject()
             {
-                return new WaveHeightLocationsContext(hydraulicBoundaryLocations,
+                return new WaveHeightLocationsContext(hydraulicBoundaryLocationCalculations,
                                                       assessmentSection,
                                                       getNormFunc,
-                                                      getCalculationFunc,
                                                       categoryBoundaryName);
             }
 
             protected override DerivedWaveHeightLocationsContext CreateDerivedObject()
             {
-                return new DerivedWaveHeightLocationsContext(hydraulicBoundaryLocations,
+                return new DerivedWaveHeightLocationsContext(hydraulicBoundaryLocationCalculations,
                                                              assessmentSection,
                                                              getNormFunc,
-                                                             getCalculationFunc,
                                                              categoryBoundaryName);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new WaveHeightLocationsContext(hydraulicBoundaryLocations,
+                yield return new TestCaseData(new WaveHeightLocationsContext(hydraulicBoundaryLocationCalculations,
                                                                              assessmentSection,
                                                                              getNormFunc,
-                                                                             getCalculationFunc,
                                                                              "Other"))
                     .SetName("CategoryBoundaryName");
             }
@@ -214,15 +183,13 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
         private class DerivedWaveHeightLocationsContext : WaveHeightLocationsContext
         {
-            public DerivedWaveHeightLocationsContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
+            public DerivedWaveHeightLocationsContext(ObservableList<HydraulicBoundaryLocationCalculation> wrappedData,
                                                      IAssessmentSection assessmentSection,
                                                      Func<double> getNormFunc,
-                                                     Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                                      string categoryBoundaryName)
                 : base(wrappedData,
                        assessmentSection,
                        getNormFunc,
-                       getCalculationFunc,
                        categoryBoundaryName) {}
         }
     }

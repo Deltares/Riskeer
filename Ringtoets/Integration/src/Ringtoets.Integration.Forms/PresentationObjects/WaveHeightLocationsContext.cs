@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a wave height calculation result.
     /// </summary>
-    public class WaveHeightLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+    public class WaveHeightLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightLocationsContext"/>.
@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// </summary>
         public string CategoryBoundaryName { get; }
 
-        public override bool Equals(WrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>> other)
+        public override bool Equals(WrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>> other)
         {
             return base.Equals(other)
                    && other is WaveHeightLocationsContext
