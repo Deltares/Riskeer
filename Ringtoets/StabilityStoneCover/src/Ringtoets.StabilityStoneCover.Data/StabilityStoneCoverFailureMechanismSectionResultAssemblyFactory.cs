@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(
             StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
@@ -57,7 +57,7 @@ namespace Ringtoets.StabilityStoneCover.Data
 
             try
             {
-                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult);
+                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult).Group;
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
