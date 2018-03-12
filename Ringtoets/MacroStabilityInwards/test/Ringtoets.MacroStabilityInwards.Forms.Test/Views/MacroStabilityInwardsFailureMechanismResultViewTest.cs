@@ -480,46 +480,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated()
-        {
-            // Given
-            MacroStabilityInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
-            MacroStabilityInwardsCalculationScenario calculationScenario1 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(
-                0.1,
-                failureMechanism.Sections.First());
-            calculationScenario1.Contribution = (RoundedDouble) 0.6;
-            MacroStabilityInwardsCalculationScenario calculationScenario2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(
-                0.2,
-                failureMechanism.Sections.First());
-            calculationScenario2.Contribution = (RoundedDouble) 0.4;
-            failureMechanism.CalculationsGroup.Children.Add(calculationScenario1);
-            failureMechanism.CalculationsGroup.Children.Add(calculationScenario2);
-
-            using (ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                MacroStabilityInwardsFailureMechanismSectionResultRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                                                        .Select(r => r.DataBoundItem)
-                                                                                                        .Cast<MacroStabilityInwardsFailureMechanismSectionResultRow>()
-                                                                                                        .ToArray();
-
-                // When
-                failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A = 0.01;
-                failureMechanism.NotifyObservers();
-
-                // Then
-                MacroStabilityInwardsFailureMechanismSectionResultRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                                                  .Select(r => r.DataBoundItem)
-                                                                                                  .Cast<MacroStabilityInwardsFailureMechanismSectionResultRow>()
-                                                                                                  .ToArray();
-
-                CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
-            }
-        }
-
         private static MacroStabilityInwardsFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

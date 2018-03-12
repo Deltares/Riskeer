@@ -45,7 +45,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private readonly Observer failureMechanismObserver;
         private readonly IAssessmentSection assessmentSection;
 
         /// <inheritdoc />
@@ -63,11 +62,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
-            {
-                Observable = failureMechanism
-            };
 
             this.assessmentSection = assessmentSection;
 
@@ -101,7 +95,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
-            failureMechanismObserver.Dispose();
 
             base.Dispose(disposing);
         }

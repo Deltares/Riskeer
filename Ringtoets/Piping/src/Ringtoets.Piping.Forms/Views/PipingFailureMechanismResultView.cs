@@ -52,7 +52,6 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly IAssessmentSection assessmentSection;
-        private readonly Observer failureMechanismObserver;
 
         /// <inheritdoc />
         /// <summary>
@@ -70,11 +69,6 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             this.assessmentSection = assessmentSection;
-
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
-            {
-                Observable = failureMechanism
-            };
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -102,7 +96,6 @@ namespace Ringtoets.Piping.Forms.Views
             calculationInputObserver.Dispose();
             calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
-            failureMechanismObserver.Dispose();
 
             base.Dispose(disposing);
         }

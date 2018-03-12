@@ -20,22 +20,17 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -201,53 +196,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("1/1", cells[combinedAssemblyProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useManualAssemblyProbabilityIndex].Value);
                 Assert.AreEqual("-", cells[manualAssemblyProbabilityIndex].FormattedValue);
-            }
-        }
-
-        [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObserver_ThenViewUpdated()
-        {
-            // Given
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
-            PipingCalculationScenario calculationScenario1 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(
-                pipingFailureMechanism.Sections.First());
-            PipingCalculationScenario calculationScenario2 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(
-                pipingFailureMechanism.Sections.First());
-            pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario1);
-            pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario2);
-
-            using (ShowFailureMechanismResultsView(pipingFailureMechanism, pipingFailureMechanism.SectionResults))
-            {
-                var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView) gridTester.TheObject;
-
-                PipingFailureMechanismSectionResultRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                                         .Select(r => r.DataBoundItem)
-                                                                                         .Cast<PipingFailureMechanismSectionResultRow>()
-                                                                                         .ToArray();
-
-                // When
-                pipingFailureMechanism.PipingProbabilityAssessmentInput.A = 0.01;
-                pipingFailureMechanism.NotifyObservers();
-
-                // Then
-                PipingFailureMechanismSectionResultRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                                   .Select(r => r.DataBoundItem)
-                                                                                   .Cast<PipingFailureMechanismSectionResultRow>()
-                                                                                   .ToArray();
-
-                CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
             }
         }
 
