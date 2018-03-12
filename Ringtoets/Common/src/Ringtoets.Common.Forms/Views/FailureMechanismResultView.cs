@@ -44,9 +44,12 @@ namespace Ringtoets.Common.Forms.Views
         where TFailureMechanism : IFailureMechanism
     {
         protected const int SimpleAssessmentColumnIndex = 1;
-        private readonly Observer failureMechanismSectionResultObserver;
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
+
+        private readonly Observer failureMechanismObserver;
+        private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
+
         private IEnumerable<TSectionResultRow> sectionResultRows;
         private bool rowUpdating;
 
@@ -73,6 +76,12 @@ namespace Ringtoets.Common.Forms.Views
 
             FailureMechanism = failureMechanism;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
+
+            failureMechanismObserver = new Observer(UpdateSectionResultRows)
+            {
+                Observable = failureMechanism
+            };
+
             failureMechanismSectionResultObserver = new Observer(UpdateDataGridViewDataSource)
             {
                 Observable = failureMechanismSectionResults
@@ -115,6 +124,7 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            failureMechanismObserver.Dispose();
             failureMechanismSectionResultObserver.Dispose();
             failureMechanismSectionResultsObserver.Dispose();
 

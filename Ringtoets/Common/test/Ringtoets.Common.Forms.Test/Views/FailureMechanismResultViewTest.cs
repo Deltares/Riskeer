@@ -118,6 +118,34 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewInvalidated()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            {
+                var invalidated = false;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+
+                // Precondition
+                Assert.IsFalse(invalidated);
+
+                // When
+                view.FailureMechanism.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(invalidated);
+            }
+        }
+
+        [Test]
         public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdated_ThenObserverNotified()
         {
             // Given
