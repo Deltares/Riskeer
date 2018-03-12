@@ -225,10 +225,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
 
-            var nodeData = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+            var nodeData = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                           assessmentSection,
                                                           () => 0.01,
-                                                          hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                           "Category");
 
             using (var treeViewControl = new TreeViewControl())
@@ -274,10 +273,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var nodeData = new WaveHeightLocationsContext(hydraulicBoundaryDatabase.Locations,
+            var nodeData = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                           assessmentSection,
                                                           () => 0.01,
-                                                          hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                           "Category");
 
             using (var treeViewControl = new TreeViewControl())
@@ -315,24 +313,25 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation
-                    },
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
                 }
             };
 
             Func<double> getNormFunc = () => 0.01;
-            var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            };
+
+            var context = new WaveHeightLocationsContext(hydraulicBoundaryLocationCalculations,
                                                          assessmentSection,
                                                          getNormFunc,
-                                                         hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                          "Category");
 
             using (var treeViewControl = new TreeViewControl())
@@ -384,15 +383,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation
-                    },
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
                     CanUsePreprocessor = true,
                     UsePreprocessor = true,
@@ -401,10 +395,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             };
 
             Func<double> getNormFunc = () => 0.01;
-            var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            };
+
+            var context = new WaveHeightLocationsContext(hydraulicBoundaryLocationCalculations,
                                                          assessmentSection,
                                                          getNormFunc,
-                                                         hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                          "Category");
 
             using (var treeViewControl = new TreeViewControl())
@@ -455,15 +455,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation
-                    },
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
                     CanUsePreprocessor = true,
                     UsePreprocessor = false,
@@ -472,10 +467,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             };
 
             Func<double> getNormFunc = () => 0.01;
-            var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            };
+
+            var context = new WaveHeightLocationsContext(hydraulicBoundaryLocationCalculations,
                                                          assessmentSection,
                                                          getNormFunc,
-                                                         hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                          "Category");
 
             using (var treeViewControl = new TreeViewControl())
@@ -527,26 +528,26 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             // Given
             const string locationName = "locationName";
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation
-                    },
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
                 },
                 Id = string.Empty
             };
 
             const string categoryBoundaryName = "Category";
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
-            var context = new WaveHeightLocationsContext(assessmentSection.HydraulicBoundaryDatabase.Locations,
+
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName"));
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                hydraulicBoundaryLocationCalculation
+            };
+
+            var context = new WaveHeightLocationsContext(hydraulicBoundaryLocationCalculations,
                                                          assessmentSection,
                                                          () => 0.01,
-                                                         hbl => hydraulicBoundaryLocationCalculation,
                                                          categoryBoundaryName);
 
             using (var treeViewControl = new TreeViewControl())
