@@ -64,5 +64,41 @@ namespace Ringtoets.StabilityStoneCover.Data
                 throw new AssemblyException(e.Message, e);
             }
         }
+
+        /// <summary>
+        /// Assembles the detailed assessment results.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to assemble the 
+        /// detailed assembly results for.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
+            StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                return calculator.AssembleDetailedAssessment(failureMechanismSectionResult.DetailedAssessmentResultForFactorizedSignalingNorm,
+                                                             failureMechanismSectionResult.DetailedAssessmentResultForSignalingNorm,
+                                                             failureMechanismSectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+                                                             failureMechanismSectionResult.DetailedAssessmentResultForLowerLimitNorm,
+                                                             failureMechanismSectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
     }
 }
