@@ -41,6 +41,11 @@ namespace Ringtoets.StabilityStoneCover.Data
         public StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None;
+            DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.None;
+            DetailedAssessmentResultForSignalingNorm = DetailedAssessmentResultType.None;
+            DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = DetailedAssessmentResultType.None;
+            DetailedAssessmentResultForLowerLimitNorm = DetailedAssessmentResultType.None;
+            DetailedAssessmentResultForFactorizedLowerLimitNorm = DetailedAssessmentResultType.None;
             AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
@@ -50,6 +55,36 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// </summary>
         public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized signaling norm (Cat Iv- IIv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNorm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized signaling norm (Cat IIv- IIIv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNorm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized signaling norm (Cat IIIv- IVv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNorm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized signaling norm (Cat IVv- Vv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNorm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized signaling norm (Cat Vv- VIv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm { get; set; }
+        
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which
         /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
