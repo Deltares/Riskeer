@@ -328,7 +328,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelCalculationsProperties>
             {
-                CreateInstance = context => new DesignWaterLevelCalculationsProperties(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc))
+                CreateInstance = context => new DesignWaterLevelCalculationsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<DesignWaterLevelCalculationContext, DesignWaterLevelCalculationProperties>
             {
@@ -336,7 +336,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightCalculationsProperties>
             {
-                CreateInstance = context => new WaveHeightCalculationsProperties(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc))
+                CreateInstance = context => new WaveHeightCalculationsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<WaveHeightCalculationContext, WaveHeightCalculationProperties>
             {
@@ -395,26 +395,26 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.AssessmentSection = context.Parent
             };
 
-            yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelCalculationsView>
+            yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
-                CreateInstance = context => new DesignWaterLevelCalculationsView(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc),
+                CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
-            yield return new ViewInfo<WaveHeightLocationsContext, IEnumerable<HydraulicBoundaryLocation>, WaveHeightCalculationsView>
+            yield return new ViewInfo<WaveHeightLocationsContext, IEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
             {
                 GetViewName = (view, context) => $"{RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
-                CreateInstance = context => new WaveHeightCalculationsView(GetHydraulicBoundaryLocationCalculations(context.WrappedData, context.GetCalculationFunc),
+                CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData,
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
@@ -1752,7 +1752,7 @@ namespace Ringtoets.Integration.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                               assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                              assessmentSection.HydraulicBoundaryDatabase.Locations.Select(l => nodeData.GetCalculationFunc(l)),
+                                                                                              nodeData.WrappedData,
                                                                                               nodeData.GetNormFunc(),
                                                                                               new DesignWaterLevelCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
@@ -1784,7 +1784,7 @@ namespace Ringtoets.Integration.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                        assessmentSection.HydraulicBoundaryDatabase.Locations.Select(l => nodeData.GetCalculationFunc(l)),
+                                                                                        nodeData.WrappedData,
                                                                                         nodeData.GetNormFunc(),
                                                                                         new WaveHeightCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
@@ -1962,25 +1962,21 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new DesignWaterLevelLocationsContext(context.WrappedData,
+                new DesignWaterLevelLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation1),
                                                      context.AssessmentSection,
                                                      () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
-                                                     hbl => hbl.DesignWaterLevelCalculation1,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
-                new DesignWaterLevelLocationsContext(context.WrappedData,
+                new DesignWaterLevelLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation2),
                                                      context.AssessmentSection,
                                                      () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
-                                                     hbl => hbl.DesignWaterLevelCalculation2,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
-                new DesignWaterLevelLocationsContext(context.WrappedData,
+                new DesignWaterLevelLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation3),
                                                      context.AssessmentSection,
                                                      () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
-                                                     hbl => hbl.DesignWaterLevelCalculation3,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
-                new DesignWaterLevelLocationsContext(context.WrappedData,
+                new DesignWaterLevelLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation4),
                                                      context.AssessmentSection,
                                                      () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
-                                                     hbl => hbl.DesignWaterLevelCalculation4,
                                                      RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
             };
         }
@@ -1989,25 +1985,21 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new WaveHeightLocationsContext(context.WrappedData,
+                new WaveHeightLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation1),
                                                context.AssessmentSection,
                                                () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
-                                               hbl => hbl.WaveHeightCalculation1,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
-                new WaveHeightLocationsContext(context.WrappedData,
+                new WaveHeightLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation2),
                                                context.AssessmentSection,
                                                () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
-                                               hbl => hbl.WaveHeightCalculation2,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
-                new WaveHeightLocationsContext(context.WrappedData,
+                new WaveHeightLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation3),
                                                context.AssessmentSection,
                                                () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
-                                               hbl => hbl.WaveHeightCalculation3,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
-                new WaveHeightLocationsContext(context.WrappedData,
+                new WaveHeightLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation4),
                                                context.AssessmentSection,
                                                () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
-                                               hbl => hbl.WaveHeightCalculation4,
                                                RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
             };
         }
