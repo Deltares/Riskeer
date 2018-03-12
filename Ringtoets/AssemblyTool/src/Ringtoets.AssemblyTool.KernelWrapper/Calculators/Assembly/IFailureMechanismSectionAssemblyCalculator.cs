@@ -148,6 +148,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                                                                      double n);
 
         /// <summary>
+        /// Assembles the tailor made assessment based on the input parameters.
+        /// </summary>
+        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssessmentResult);
+
+        /// <summary>
         /// Assembles the combined assembly based on the input parameters.
         /// </summary>
         /// <param name="simpleAssembly">The simple assembly.</param>
