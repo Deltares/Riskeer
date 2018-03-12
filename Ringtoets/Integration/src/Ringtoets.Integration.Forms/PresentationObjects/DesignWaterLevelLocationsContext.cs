@@ -28,27 +28,24 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
+    /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a design water level calculation result.
     /// </summary>
-    public class DesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+    public class DesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationsContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The locations that the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
+        /// <param name="wrappedData">The calculations that the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for obtaining the norm to use during calculations.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// based on <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="assessmentSection"/>,
-        /// <paramref name="getNormFunc"/> or <paramref name="getCalculationFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="assessmentSection"/> or
+        /// <paramref name="getNormFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        public DesignWaterLevelLocationsContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
+        public DesignWaterLevelLocationsContext(ObservableList<HydraulicBoundaryLocationCalculation> wrappedData,
                                                 IAssessmentSection assessmentSection,
                                                 Func<double> getNormFunc,
-                                                Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc,
                                                 string categoryBoundaryName)
             : base(wrappedData)
         {
@@ -62,11 +59,6 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(getNormFunc));
             }
 
-            if (getCalculationFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getCalculationFunc));
-            }
-
             if (string.IsNullOrEmpty(categoryBoundaryName))
             {
                 throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
@@ -74,7 +66,6 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
 
             AssessmentSection = assessmentSection;
             GetNormFunc = getNormFunc;
-            GetCalculationFunc = getCalculationFunc;
             CategoryBoundaryName = categoryBoundaryName;
         }
 
@@ -89,17 +80,11 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         public Func<double> GetNormFunc { get; }
 
         /// <summary>
-        /// Gets the <see cref="Func{T,TResult}"/> for obtaining a <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// based on <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> GetCalculationFunc { get; }
-
-        /// <summary>
         /// Gets the name of the category boundary.
         /// </summary>
         public string CategoryBoundaryName { get; }
 
-        public override bool Equals(WrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>> other)
+        public override bool Equals(WrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>> other)
         {
             return base.Equals(other)
                    && other is DesignWaterLevelLocationsContext
