@@ -62,28 +62,21 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
             var random = new Random();
 
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            var hydraulicBoundaryLocationCalculations = new[]
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocations[0])
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
                 },
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocations[1])
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
                 }
             };
 
-            var context = new DesignWaterLevelLocationsContext(hydraulicBoundaryLocations,
+            var context = new DesignWaterLevelLocationsContext(hydraulicBoundaryLocationCalculations,
                                                                assessmentSection,
                                                                () => 0.01,
-                                                               hbl => hydraulicBoundaryLocationCalculations.First(hblc => ReferenceEquals(hblc.HydraulicBoundaryLocation, hbl)),
                                                                "Category");
 
             using (var plugin = new RingtoetsPlugin())
@@ -95,10 +88,9 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
+                Assert.AreSame(hydraulicBoundaryLocationCalculations, objectProperties.Data);
                 DesignWaterLevelCalculationProperties[] calculationProperties = ((DesignWaterLevelCalculationsProperties) objectProperties).Calculations;
-                CollectionAssert.AreEqual(hydraulicBoundaryLocations, calculationProperties.Select(p => p.Data));
-                CollectionAssert.AreEqual(hydraulicBoundaryLocationCalculations.Select(c => c.Output.Result), calculationProperties.Select(p => p.DesignWaterLevel));
+                CollectionAssert.AreEqual(hydraulicBoundaryLocationCalculations, calculationProperties.Select(p => p.Data));
             }
 
             mockRepository.VerifyAll();
