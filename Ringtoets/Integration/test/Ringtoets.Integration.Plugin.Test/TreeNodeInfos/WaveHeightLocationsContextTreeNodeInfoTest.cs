@@ -96,10 +96,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             mockRepository.ReplayAll();
 
             const string categoryBoundaryName = "Category";
-            var context = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var context = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                          assessmentSection,
                                                          () => 0.01,
-                                                         hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                          categoryBoundaryName);
 
             // Setup
@@ -150,10 +149,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
-            var nodeData = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var nodeData = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                           assessmentSection,
                                                           () => 0.01,
-                                                          hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                           "Category");
 
             using (var treeViewControl = new TreeViewControl())
@@ -185,10 +183,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
 
-            var nodeData = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var nodeData = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                           assessmentSection,
                                                           () => 0.01,
-                                                          hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                           "Category");
 
             using (var treeViewControl = new TreeViewControl())

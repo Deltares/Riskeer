@@ -73,10 +73,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             const string categoryBoundaryName = "Category";
 
-            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                new ObservableTestAssessmentSectionStub(),
                                                                () => 0.01,
-                                                               hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                categoryBoundaryName);
 
             // Call
@@ -93,7 +92,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Type viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocation>), viewDataType);
+            Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocationCalculation>), viewDataType);
         }
 
         [Test]
@@ -117,22 +116,22 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsHydraulicBoundaryLocations()
+        public void GetViewData_Always_ReturnsHydraulicBoundaryLocationCalculations()
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            ObservableList<HydraulicBoundaryLocation> locations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            var context = new DesignWaterLevelLocationsContext(locations,
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
+            var context = new DesignWaterLevelLocationsContext(calculations,
                                                                assessmentSection,
                                                                () => 0.01,
-                                                               hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                "Category");
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(locations, viewData);
+            Assert.AreSame(calculations, viewData);
         }
 
         [Test]
@@ -140,10 +139,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(),
+            var context = new DesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                assessmentSection,
                                                                () => 0.01,
-                                                               hbl => new HydraulicBoundaryLocationCalculation(hbl),
                                                                "Category");
 
             // Call
@@ -159,28 +157,21 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var random = new Random();
 
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            var hydraulicBoundaryLocationCalculations = new[]
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocations[0])
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
                 },
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocations[1])
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
                 }
             };
 
-            var context = new DesignWaterLevelLocationsContext(hydraulicBoundaryLocations,
+            var context = new DesignWaterLevelLocationsContext(hydraulicBoundaryLocationCalculations,
                                                                new ObservableTestAssessmentSectionStub(),
                                                                () => 0.01,
-                                                               hbl => hydraulicBoundaryLocationCalculations.First(hblc => ReferenceEquals(hblc.HydraulicBoundaryLocation, hbl)),
                                                                "Category");
 
             // Call
@@ -192,8 +183,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 testForm.Controls.Add(view);
                 testForm.Show();
 
-                DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
-                DataGridViewRowCollection rows = locationsDataGridView.Rows;
+                DataGridView calculationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
+                DataGridViewRowCollection rows = calculationsDataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
                 Assert.AreEqual(hydraulicBoundaryLocationCalculations[0].Output.Result.ToString(), rows[0].Cells[designWaterLevelColumnIndex].FormattedValue);
                 Assert.AreEqual(hydraulicBoundaryLocationCalculations[1].Output.Result.ToString(), rows[1].Cells[designWaterLevelColumnIndex].FormattedValue);
@@ -206,19 +197,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             Func<double> getNormFunc = () => 0.01;
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocation
+                hydraulicBoundaryLocationCalculation
             };
 
-            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => hydraulicBoundaryLocationCalculation;
-
-            var context = new DesignWaterLevelLocationsContext(hydraulicBoundaryLocations,
+            var context = new DesignWaterLevelLocationsContext(hydraulicBoundaryLocationCalculations,
                                                                new ObservableTestAssessmentSectionStub(),
                                                                getNormFunc,
-                                                               getCalculationFunc,
                                                                "Category");
 
             var mockRepository = new MockRepository();
@@ -245,8 +232,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 testForm.Controls.Add(view);
                 testForm.Show();
 
-                DataGridView locationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
-                DataGridViewRowCollection rows = locationsDataGridView.Rows;
+                DataGridView calculationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
+                DataGridViewRowCollection rows = calculationsDataGridView.Rows;
                 rows[0].Cells[calculateColumnIndex].Value = true;
 
                 view.CalculationGuiService = guiService;
@@ -277,16 +264,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             Func<double> getNormFunc = () => 0.01;
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             const string categoryBoundaryName = "Category";
 
-            Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc = hbl => new HydraulicBoundaryLocationCalculation(hbl);
-
-            var context = new DesignWaterLevelLocationsContext(locations,
+            var context = new DesignWaterLevelLocationsContext(calculations,
                                                                assessmentSection,
                                                                getNormFunc,
-                                                               getCalculationFunc,
                                                                categoryBoundaryName);
 
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
