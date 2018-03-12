@@ -51,7 +51,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<StabilityStoneCoverSectionResultRow,
@@ -82,22 +81,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
-            var row = new StabilityStoneCoverSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoA = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
         }
 
         [Test]

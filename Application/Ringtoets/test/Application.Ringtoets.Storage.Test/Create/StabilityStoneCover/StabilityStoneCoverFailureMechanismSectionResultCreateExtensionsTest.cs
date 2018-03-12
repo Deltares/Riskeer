@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = random.NextEnumValue<AssessmentLayerOneState>(),
-                AssessmentLayerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>(),
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
 
@@ -53,7 +52,6 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
 
             // Assert
             Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerOne), result.LayerOne);
-            Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerTwoA), result.LayerTwoA);
             Assert.AreEqual(sectionResult.AssessmentLayerThree, result.LayerThree,
                             sectionResult.AssessmentLayerThree.GetAccuracy());
         }

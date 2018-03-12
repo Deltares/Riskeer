@@ -1842,7 +1842,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 StabilityStoneCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
                 StabilityStoneCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
-                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
             }
         }

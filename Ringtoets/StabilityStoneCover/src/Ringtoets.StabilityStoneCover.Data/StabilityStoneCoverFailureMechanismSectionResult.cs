@@ -46,7 +46,6 @@ namespace Ringtoets.StabilityStoneCover.Data
             DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForLowerLimitNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForFactorizedLowerLimitNorm = DetailedAssessmentResultType.None;
-            AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
             AssessmentLayerThree = RoundedDouble.NaN;
         }
 
@@ -84,12 +83,6 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// for the factorized signaling norm (Cat Vv- VIv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which
-        /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
-        /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
         
         /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.

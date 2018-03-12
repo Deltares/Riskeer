@@ -67,11 +67,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerTwoA = value;
+                return AssessmentLayerTwoAResult.Successful;
             }
         }
 
