@@ -557,7 +557,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             IEnumerable<IObservable> affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            IEnumerable<IObservable> expectedAffectedObjects = GetExpectedAffectedObjects(assessmentSection, oldComposition, newComposition);
+            IEnumerable<IObservable> expectedAffectedObjects = new List<IObservable>(assessmentSection.GetFailureMechanisms())
+            {
+                assessmentSection
+            };
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
             mocks.VerifyAll();
@@ -590,40 +593,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        private static IEnumerable<IObservable> GetExpectedAffectedObjects(AssessmentSection assessmentSection,
-                                                                           AssessmentSectionComposition oldComposition,
-                                                                           AssessmentSectionComposition newComposition)
-        {
-            var expectedAffectedObjects = new List<IObservable>
-            {
-                assessmentSection
-            };
-
-            if (newComposition == AssessmentSectionComposition.Dune || oldComposition == AssessmentSectionComposition.Dune)
-            {
-                expectedAffectedObjects.AddRange(new IFailureMechanism[]
-                {
-                    assessmentSection.Piping,
-                    assessmentSection.GrassCoverErosionInwards,
-                    assessmentSection.GrassCoverErosionOutwards,
-                    assessmentSection.ClosingStructures,
-                    assessmentSection.HeightStructures,
-                    assessmentSection.StabilityPointStructures,
-                    assessmentSection.StabilityStoneCover,
-                    assessmentSection.WaveImpactAsphaltCover,
-                    assessmentSection.PipingStructure,
-                    assessmentSection.MacroStabilityInwards
-                });
-            }
-
-            if (newComposition == AssessmentSectionComposition.Dike || oldComposition == AssessmentSectionComposition.Dike)
-            {
-                expectedAffectedObjects.Add(assessmentSection.DuneErosion);
-            }
-
-            return expectedAffectedObjects.ToArray();
         }
 
         /// <summary>

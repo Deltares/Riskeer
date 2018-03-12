@@ -89,6 +89,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 assessmentSection.ChangeComposition(newComposition);
 
                 affectedObjects.Add(assessmentSection);
+                affectedObjects.AddRange(assessmentSection.GetFailureMechanisms());
 
                 IFailureMechanism[] failureMechanismsToClearOutputFor = GetFailureMechanismsToClearOutputFor(assessmentSection, oldFailureMechanismContributions).ToArray();
 
@@ -104,10 +105,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
                 affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(failureMechanismsToClearOutputFor));
 
-                IFailureMechanism[] failureMechanismsWithRelevancyUpdated = GetFailureMechanismsWithRelevancyUpdated(oldFailureMechanismRelevancies).ToArray();
-                affectedObjects.AddRange(failureMechanismsWithRelevancyUpdated);
-
-                CloseViewsForIrrelevantFailureMechanisms(failureMechanismsWithRelevancyUpdated);
+                CloseViewsForIrrelevantFailureMechanisms(GetFailureMechanismsWithRelevancyUpdated(oldFailureMechanismRelevancies));
             }
             return affectedObjects;
         }
