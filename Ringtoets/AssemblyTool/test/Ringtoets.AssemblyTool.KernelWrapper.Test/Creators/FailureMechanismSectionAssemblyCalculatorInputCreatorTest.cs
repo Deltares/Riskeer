@@ -783,12 +783,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, TailorMadeCategoryCalculationResult.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, TailorMadeCategoryCalculationResult.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, TailorMadeCategoryCalculationResult.NGO)]
-        public void ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup_ValidGroup_ReturnFailureMechanismSectionCategoryGroup(
+        public void ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup_ValidGroup_ReturnFailureMechanismSectionCategoryGroup(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
             TailorMadeCategoryCalculationResult expectedGroup)
         {
             // Call
-            TailorMadeCategoryCalculationResult actualGroup = FailureMechanismSectionAssemblyCalculatorInputCreator.ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+            TailorMadeCategoryCalculationResult actualGroup = FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
                 originalGroup);
 
             // Assert
@@ -796,10 +796,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup_InvalidGroup_ThrowInvalidEnumArgumentException()
+        public void ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup_InvalidGroup_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
                 (FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert

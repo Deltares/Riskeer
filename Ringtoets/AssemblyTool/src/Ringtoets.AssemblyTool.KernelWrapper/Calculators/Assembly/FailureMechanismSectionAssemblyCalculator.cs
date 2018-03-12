@@ -246,7 +246,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 CalculationOutput<FailureMechanismSectionCategoryGroup> output = kernel.TailorMadeAssessmentDirectFailureMechanisms(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConverTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
                         tailorMadeAssessmentResult));
                 return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
             }
