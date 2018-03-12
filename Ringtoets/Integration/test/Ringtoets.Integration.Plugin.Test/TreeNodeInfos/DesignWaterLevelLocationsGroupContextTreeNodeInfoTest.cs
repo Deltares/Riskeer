@@ -33,7 +33,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -180,25 +179,22 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 DesignWaterLevelLocationsContext[] locationsContexts = childNodeObjects.OfType<DesignWaterLevelLocationsContext>().ToArray();
                 Assert.AreEqual(4, locationsContexts.Length);
 
-                Assert.IsTrue(locationsContexts.All(c => ReferenceEquals(locations, c.WrappedData)));
                 Assert.IsTrue(locationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
 
-                var testLocation = new TestHydraulicBoundaryLocation();
-
                 Assert.AreEqual("Categorie A+->A", locationsContexts[0].CategoryBoundaryName);
-                Assert.AreSame(testLocation.DesignWaterLevelCalculation1, locationsContexts[0].GetCalculationFunc(testLocation));
+                CollectionAssert.AreEqual(locations.Select(loc => loc.DesignWaterLevelCalculation1), locationsContexts[0].WrappedData);
                 Assert.AreEqual(signalingNorm / 30, locationsContexts[0].GetNormFunc());
 
                 Assert.AreEqual("Categorie A->B", locationsContexts[1].CategoryBoundaryName);
-                Assert.AreSame(testLocation.DesignWaterLevelCalculation2, locationsContexts[1].GetCalculationFunc(testLocation));
+                CollectionAssert.AreEqual(locations.Select(loc => loc.DesignWaterLevelCalculation2), locationsContexts[1].WrappedData);
                 Assert.AreEqual(signalingNorm, locationsContexts[1].GetNormFunc());
 
                 Assert.AreEqual("Categorie B->C", locationsContexts[2].CategoryBoundaryName);
-                Assert.AreSame(testLocation.DesignWaterLevelCalculation3, locationsContexts[2].GetCalculationFunc(testLocation));
+                CollectionAssert.AreEqual(locations.Select(loc => loc.DesignWaterLevelCalculation3), locationsContexts[2].WrappedData);
                 Assert.AreEqual(lowerLimitNorm, locationsContexts[2].GetNormFunc());
 
                 Assert.AreEqual("Categorie C->D", locationsContexts[3].CategoryBoundaryName);
-                Assert.AreSame(testLocation.DesignWaterLevelCalculation4, locationsContexts[3].GetCalculationFunc(testLocation));
+                CollectionAssert.AreEqual(locations.Select(loc => loc.DesignWaterLevelCalculation4), locationsContexts[3].WrappedData);
                 Assert.AreEqual(lowerLimitNorm * 30, locationsContexts[3].GetNormFunc());
             }
 

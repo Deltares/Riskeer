@@ -181,25 +181,22 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 WaveHeightLocationsContext[] locationsContexts = childNodeObjects.OfType<WaveHeightLocationsContext>().ToArray();
                 Assert.AreEqual(4, locationsContexts.Length);
 
-                Assert.IsTrue(locationsContexts.All(c => ReferenceEquals(locations, c.WrappedData)));
                 Assert.IsTrue(locationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
 
-                var testLocation = new TestHydraulicBoundaryLocation();
-
                 Assert.AreEqual("Categorie A+->A", locationsContexts[0].CategoryBoundaryName);
-                Assert.AreSame(testLocation.WaveHeightCalculation1, locationsContexts[0].GetCalculationFunc(testLocation));
+                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation1), locationsContexts[0].WrappedData);
                 Assert.AreEqual(signalingNorm / 30, locationsContexts[0].GetNormFunc());
 
                 Assert.AreEqual("Categorie A->B", locationsContexts[1].CategoryBoundaryName);
-                Assert.AreSame(testLocation.WaveHeightCalculation2, locationsContexts[1].GetCalculationFunc(testLocation));
+                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation2), locationsContexts[1].WrappedData);
                 Assert.AreEqual(signalingNorm, locationsContexts[1].GetNormFunc());
 
                 Assert.AreEqual("Categorie B->C", locationsContexts[2].CategoryBoundaryName);
-                Assert.AreSame(testLocation.WaveHeightCalculation3, locationsContexts[2].GetCalculationFunc(testLocation));
+                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation3), locationsContexts[2].WrappedData);
                 Assert.AreEqual(lowerLimitNorm, locationsContexts[2].GetNormFunc());
 
                 Assert.AreEqual("Categorie C->D", locationsContexts[3].CategoryBoundaryName);
-                Assert.AreSame(testLocation.WaveHeightCalculation4, locationsContexts[3].GetCalculationFunc(testLocation));
+                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation4), locationsContexts[3].WrappedData);
                 Assert.AreEqual(lowerLimitNorm * 30, locationsContexts[3].GetNormFunc());
             }
 
