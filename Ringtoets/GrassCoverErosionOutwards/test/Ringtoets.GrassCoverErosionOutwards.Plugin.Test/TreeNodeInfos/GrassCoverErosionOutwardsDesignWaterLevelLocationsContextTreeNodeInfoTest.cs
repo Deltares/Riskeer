@@ -379,11 +379,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism, mockRepository, filePath);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocationCalculation
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             }, assessmentSection, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
@@ -437,7 +436,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Contribution = 5
             };
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mockRepository, filePath);
 
@@ -445,9 +443,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
 
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocation
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             }, assessmentSection, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
@@ -508,11 +508,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocationCalculation
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             }, assessmentSection, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
@@ -567,9 +566,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocation
+                hydraulicBoundaryLocationCalculation
             }, assessmentSection, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
@@ -613,7 +614,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual($"Waterstand bij doorsnede-eis berekenen voor locatie '{hydraulicBoundaryLocation.Name}' is gelukt.", msgs[7]);
                         });
 
-                        HydraulicBoundaryLocationOutput output = hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output;
+                        HydraulicBoundaryLocationOutput output = hydraulicBoundaryLocationCalculation.Output;
                         Assert.AreEqual(0, output.Result, output.Result.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
                     }

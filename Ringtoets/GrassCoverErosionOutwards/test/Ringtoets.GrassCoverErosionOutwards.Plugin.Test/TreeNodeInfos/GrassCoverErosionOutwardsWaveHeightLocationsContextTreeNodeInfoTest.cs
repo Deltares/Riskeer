@@ -374,11 +374,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
-            HydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations[0]);
 
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
+                hydraulicBoundaryLocationCalculation
             }, assessmentSection, new GrassCoverErosionOutwardsFailureMechanism());
 
             using (var treeViewControl = new TreeViewControl())
@@ -408,7 +408,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Then
-                        Assert.IsNull(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculation1.Output);
+                        Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
                     }
                 }
             }
@@ -431,11 +431,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism, mockRepository, filePath);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocationCalculation
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             }, assessmentSection, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
@@ -497,11 +496,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocationCalculation
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             }, assessmentSection, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
@@ -554,7 +552,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Contribution = 5
             };
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mockRepository, filePath);
 
@@ -562,9 +559,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocation
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             }, assessmentSection, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
