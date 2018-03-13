@@ -64,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(result.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                                                                     failureMechanism, assessmentSection),
                             row.DetailedAssessmentProbability);
-            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
+            Assert.AreEqual(row.AssessmentLayerThree, result.TailorMadeAssessmentProbability);
 
             TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability));
@@ -217,7 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             row.AssessmentLayerThree = assessmentLayerThree;
 
             // Assert
-            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(assessmentLayerThree, sectionResult.TailorMadeAssessmentProbability);
             mocks.VerifyAll();
         }
     }

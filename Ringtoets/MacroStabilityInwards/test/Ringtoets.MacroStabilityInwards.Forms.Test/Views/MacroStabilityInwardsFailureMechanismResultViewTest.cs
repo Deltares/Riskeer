@@ -267,7 +267,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-                Assert.AreEqual(newValue, failureMechanism.SectionResults.First().AssessmentLayerThree);
+                Assert.AreEqual(newValue, failureMechanism.SectionResults.First().TailorMadeAssessmentProbability);
             }
         }
 

@@ -44,45 +44,93 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, sectionResult.DetailedAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
+            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
+            Assert.IsFalse(sectionResult.UseManualAssemblyProbability);
+            Assert.IsNaN(sectionResult.ManualAssemblyProbability);
         }
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(1.1)]
-        [TestCase(-0.1)]
-        public void AssessmentLayerThree_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void TailorMadeAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => sectionResult.AssessmentLayerThree = invalidValue;
+            TestDelegate test = () => result.TailorMadeAssessmentProbability = newValue;
 
             // Assert
-            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
         }
 
         [Test]
-        [TestCase(double.NaN)]
         [TestCase(0)]
-        [TestCase(1)]
+        [TestCase(1e-6)]
         [TestCase(0.5)]
-        public void AssessmentLayerThree_SetValidValue_SetsValue(double validValue)
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void TailorMadeAssessmentProbability_ValidValue_NewValueSet(double newValue)
         {
             // Setup
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            sectionResult.AssessmentLayerThree = validValue;
+            result.TailorMadeAssessmentProbability = newValue;
 
             // Assert
-            Assert.AreEqual(validValue, sectionResult.AssessmentLayerThree);
+            Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void ManualAssemblyProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate test = () => result.ManualAssemblyProbability = newValue;
+
+            // Assert
+            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void ManualAssemblyProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            result.ManualAssemblyProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.ManualAssemblyProbability);
         }
     }
 }

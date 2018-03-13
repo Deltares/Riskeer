@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.AssessmentLayerThree = entity.LayerThree.ToNullAsNaN();
+            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
         }
     }
 }

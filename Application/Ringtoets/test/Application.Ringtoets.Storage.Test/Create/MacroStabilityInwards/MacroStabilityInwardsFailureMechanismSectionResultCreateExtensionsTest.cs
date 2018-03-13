@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = assessmentLayerThreeResult
+                TailorMadeAssessmentProbability = assessmentLayerThreeResult
             };
 
             // Call
@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = RoundedDouble.NaN
+                TailorMadeAssessmentProbability = double.NaN
             };
 
             // Call
