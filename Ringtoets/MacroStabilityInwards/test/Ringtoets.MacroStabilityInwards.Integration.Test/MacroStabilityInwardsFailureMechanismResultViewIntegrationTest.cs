@@ -40,7 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismResultViewIntegrationTest
     {
-        private const int detailedAssessmentIndex = 2;
+        private const int detailedAssessmentIndex = 3;
 
         [Test]
         public void FailureMechanismResultView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()

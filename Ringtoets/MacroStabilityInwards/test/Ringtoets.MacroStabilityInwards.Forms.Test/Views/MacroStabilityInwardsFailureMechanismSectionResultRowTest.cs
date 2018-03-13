@@ -757,7 +757,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario calculationScenario =
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
             calculationScenario.Contribution = (RoundedDouble) 0.3;
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -840,8 +841,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(
-                section);
+            MacroStabilityInwardsCalculationScenario calculationScenario =
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
             calculationScenario.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1056,7 +1057,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
-            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            MacroStabilityInwardsCalculationScenario scenario =
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
             if (status == CalculationScenarioStatus.Failed)
             {
                 scenario.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
