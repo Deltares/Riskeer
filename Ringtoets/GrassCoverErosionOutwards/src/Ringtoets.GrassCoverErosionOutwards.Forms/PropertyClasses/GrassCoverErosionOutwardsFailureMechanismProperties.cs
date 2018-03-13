@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         #region Length effect parameters
 
         [DynamicVisible]
-        [PropertyOrder(4)]
+        [PropertyOrder(5)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
@@ -111,7 +111,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
-            return nameof(A).Equals(propertyName)
+            return nameof(Contribution).Equals(propertyName)
+                   || nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
                    || nameof(C).Equals(propertyName)
                    || nameof(N).Equals(propertyName);
@@ -143,7 +144,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
+            }
+        }
+
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
@@ -160,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         #region Model settings
 
         [DynamicVisible]
-        [PropertyOrder(5)]
+        [PropertyOrder(6)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_A_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_A_Description))]
@@ -173,7 +187,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(6)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_B_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_B_Description))]
@@ -186,7 +200,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(7)]
+        [PropertyOrder(8)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_C_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_C_Description))]

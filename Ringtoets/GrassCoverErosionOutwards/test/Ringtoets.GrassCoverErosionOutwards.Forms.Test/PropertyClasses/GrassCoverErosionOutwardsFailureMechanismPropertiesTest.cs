@@ -32,6 +32,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
@@ -40,11 +41,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int isRelevantPropertyIndex = 2;
-        private const int nPropertyIndex = 3;
-        private const int aPropertyIndex = 4;
-        private const int bPropertyIndex = 5;
-        private const int cPropertyIndex = 6;
+        private const int contributionPropertyIndex = 2;
+        private const int isRelevantPropertyIndex = 3;
+        private const int nPropertyIndex = 4;
+        private const int aPropertyIndex = 5;
+        private const int bPropertyIndex = 6;
+        private const int cPropertyIndex = 7;
 
         [Test]
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
@@ -94,12 +96,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
-            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie buitentalud", properties.Name);
-            Assert.AreEqual("GEBU", properties.Code);
+            Assert.AreEqual(failureMechanism.Name, properties.Name);
+            Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
-            Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.A, properties.A);
-            Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.B, properties.B);
-            Assert.AreEqual(failureMechanism.GeneralInput.GeneralWaveConditionsInput.C, properties.C);
+
+            GeneralWaveConditionsInput generalWaveConditionsInput = failureMechanism.GeneralInput.GeneralWaveConditionsInput;
+            Assert.AreEqual(generalWaveConditionsInput.A, properties.A);
+            Assert.AreEqual(generalWaveConditionsInput.B, properties.B);
+            Assert.AreEqual(generalWaveConditionsInput.C, properties.C);
             Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N, properties.N.GetAccuracy());
         }
 
@@ -121,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string modelSettingsCategory = "Modelinstellingen";
@@ -138,6 +143,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategory,
+                                                                            "Faalkansbijdrage [%]",
+                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
             PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
@@ -213,7 +225,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
@@ -308,6 +320,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
