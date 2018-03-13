@@ -37,7 +37,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
     public class StabilityStoneCoverResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int simpleAssessmentIndex = 1;
+        private const int simpleAssessmentResultIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
         private const int columnCount = 4;
@@ -79,11 +79,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
 
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
+                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -123,7 +123,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result.SimpleAssessmentResult, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(result.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
