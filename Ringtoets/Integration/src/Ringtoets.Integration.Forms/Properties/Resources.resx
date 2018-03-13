@@ -240,7 +240,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="DesignWaterLevelCalculationsContext_DisplayName" xml:space="preserve">
     <value>Toetspeilen</value>
   </data>
-  <data name="WaveHeightLocationsContext_DisplayName" xml:space="preserve">
+  <data name="WaveHeightCalculationsContext_DisplayName" xml:space="preserve">
     <value>Golfhoogtes</value>
   </data>
   <data name="WaveHeight_Calculate_All" xml:space="preserve">

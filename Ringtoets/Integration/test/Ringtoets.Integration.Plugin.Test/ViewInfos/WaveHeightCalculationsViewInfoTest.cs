@@ -68,15 +68,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithWaveHeightLocationsContext_ReturnsViewNameContainingCategoryBoundaryName()
+        public void GetViewName_WithWaveHeightCalculationsContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
             // Setup
             const string categoryBoundaryName = "Category";
 
-            var context = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                         new ObservableTestAssessmentSectionStub(),
-                                                         () => 0.01,
-                                                         categoryBoundaryName);
+            var context = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                            new ObservableTestAssessmentSectionStub(),
+                                                            () => 0.01,
+                                                            categoryBoundaryName);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Type dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(WaveHeightLocationsContext), dataType);
+            Assert.AreEqual(typeof(WaveHeightCalculationsContext), dataType);
         }
 
         [Test]
@@ -122,10 +122,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
-            var context = new WaveHeightLocationsContext(calculations,
-                                                         assessmentSection,
-                                                         () => 0.01,
-                                                         "Category");
+            var context = new WaveHeightCalculationsContext(calculations,
+                                                            assessmentSection,
+                                                            () => 0.01,
+                                                            "Category");
 
             // Call
             object viewData = info.GetViewData(context);
@@ -139,10 +139,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var context = new WaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                         assessmentSection,
-                                                         () => 0.01,
-                                                         "Category");
+            var context = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                            assessmentSection,
+                                                            () => 0.01,
+                                                            "Category");
 
             // Call
             var view = (WaveHeightCalculationsView) info.CreateInstance(context);
@@ -169,10 +169,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 }
             };
 
-            var context = new WaveHeightLocationsContext(hydraulicBoundaryLocationCalculations,
-                                                         new ObservableTestAssessmentSectionStub(),
-                                                         () => 0.01,
-                                                         "Category");
+            var context = new WaveHeightCalculationsContext(hydraulicBoundaryLocationCalculations,
+                                                            new ObservableTestAssessmentSectionStub(),
+                                                            () => 0.01,
+                                                            "Category");
 
             // Call
             var view = (WaveHeightCalculationsView) info.CreateInstance(context);
@@ -203,10 +203,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 hydraulicBoundaryLocationCalculation
             };
 
-            var context = new WaveHeightLocationsContext(hydraulicBoundaryLocationCalculations,
-                                                         new ObservableTestAssessmentSectionStub(),
-                                                         getNormFunc,
-                                                         "Category");
+            var context = new WaveHeightCalculationsContext(hydraulicBoundaryLocationCalculations,
+                                                            new ObservableTestAssessmentSectionStub(),
+                                                            getNormFunc,
+                                                            "Category");
 
             var mockRepository = new MockRepository();
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
@@ -269,10 +269,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             const string categoryBoundaryName = "Category";
 
-            var context = new WaveHeightLocationsContext(calculations,
-                                                         assessmentSection,
-                                                         getNormFunc,
-                                                         categoryBoundaryName);
+            var context = new WaveHeightCalculationsContext(calculations,
+                                                            assessmentSection,
+                                                            getNormFunc,
+                                                            categoryBoundaryName);
 
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,

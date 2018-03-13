@@ -177,26 +177,26 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(4, childNodeObjects.Length);
 
-                WaveHeightLocationsContext[] locationsContexts = childNodeObjects.OfType<WaveHeightLocationsContext>().ToArray();
-                Assert.AreEqual(4, locationsContexts.Length);
+                WaveHeightCalculationsContext[] calculationsContexts = childNodeObjects.OfType<WaveHeightCalculationsContext>().ToArray();
+                Assert.AreEqual(4, calculationsContexts.Length);
 
-                Assert.IsTrue(locationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
+                Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
 
-                Assert.AreEqual("Categorie A+->A", locationsContexts[0].CategoryBoundaryName);
-                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation1), locationsContexts[0].WrappedData);
-                Assert.AreEqual(signalingNorm / 30, locationsContexts[0].GetNormFunc());
+                Assert.AreEqual("Categorie A+->A", calculationsContexts[0].CategoryBoundaryName);
+                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation1), calculationsContexts[0].WrappedData);
+                Assert.AreEqual(signalingNorm / 30, calculationsContexts[0].GetNormFunc());
 
-                Assert.AreEqual("Categorie A->B", locationsContexts[1].CategoryBoundaryName);
-                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation2), locationsContexts[1].WrappedData);
-                Assert.AreEqual(signalingNorm, locationsContexts[1].GetNormFunc());
+                Assert.AreEqual("Categorie A->B", calculationsContexts[1].CategoryBoundaryName);
+                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation2), calculationsContexts[1].WrappedData);
+                Assert.AreEqual(signalingNorm, calculationsContexts[1].GetNormFunc());
 
-                Assert.AreEqual("Categorie B->C", locationsContexts[2].CategoryBoundaryName);
-                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation3), locationsContexts[2].WrappedData);
-                Assert.AreEqual(lowerLimitNorm, locationsContexts[2].GetNormFunc());
+                Assert.AreEqual("Categorie B->C", calculationsContexts[2].CategoryBoundaryName);
+                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation3), calculationsContexts[2].WrappedData);
+                Assert.AreEqual(lowerLimitNorm, calculationsContexts[2].GetNormFunc());
 
-                Assert.AreEqual("Categorie C->D", locationsContexts[3].CategoryBoundaryName);
-                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation4), locationsContexts[3].WrappedData);
-                Assert.AreEqual(lowerLimitNorm * 30, locationsContexts[3].GetNormFunc());
+                Assert.AreEqual("Categorie C->D", calculationsContexts[3].CategoryBoundaryName);
+                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation4), calculationsContexts[3].WrappedData);
+                Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[3].GetNormFunc());
             }
 
             mocks.VerifyAll();

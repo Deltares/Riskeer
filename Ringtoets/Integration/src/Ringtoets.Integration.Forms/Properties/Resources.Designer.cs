@@ -780,9 +780,9 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogtes.
         /// </summary>
-        public static string WaveHeightLocationsContext_DisplayName {
+        public static string WaveHeightCalculationsContext_DisplayName {
             get {
-                return ResourceManager.GetString("WaveHeightLocationsContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationsContext_DisplayName", resourceCulture);
             }
         }
     }
