@@ -61,6 +61,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                 DataGridViewControl,
                 nameof(StabilityStoneCoverSectionResultRow.SimpleAssessmentResult));
 
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedSignalingNormColumn(
+                DataGridViewControl,
+                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForFactorizedSignalingNorm));
+
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
