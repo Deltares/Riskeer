@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     context.WrappedData,
                     new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext, GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties(context.WrappedData)
             };
@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
 
             yield return new ViewInfo<
-                GrassCoverErosionOutwardsDesignWaterLevelLocationsContext,
+                GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext,
                 IEnumerable<HydraulicBoundaryLocationCalculation>,
                 GrassCoverErosionOutwardsDesignWaterLevelCalculationsView>
             {
@@ -220,7 +220,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                            : Color.FromKnownColor(KnownColor.GrayText)
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext>
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
             {
                 Text = context => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -521,9 +521,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = hydraulicBoundariesGroupContext.FailureMechanism;
             return new object[]
             {
-                new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(GetHydraulicBoundaryLocationCalculations(locations, hbl => hbl.DesignWaterLevelCalculation1),
-                                                                              assessmentSection,
-                                                                              failureMechanism),
+                new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(locations, hbl => hbl.DesignWaterLevelCalculation1),
+                                                                                 assessmentSection,
+                                                                                 failureMechanism),
                 new GrassCoverErosionOutwardsWaveHeightLocationsContext(GetHydraulicBoundaryLocationCalculations(locations, hbl => hbl.WaveHeightCalculation1),
                                                                         assessmentSection,
                                                                         failureMechanism),
@@ -536,9 +536,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #endregion
 
-        #region GrassCoverErosionOutwardsDesignWaterLevelLocationsContext TreeNodeInfo
+        #region GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext TreeNodeInfo
 
-        private ContextMenuStrip GrassCoverErosionOutwardsDesignWaterLevelLocationsContextMenuStrip(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip GrassCoverErosionOutwardsDesignWaterLevelLocationsContextMenuStrip(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,

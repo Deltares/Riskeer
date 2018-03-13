@@ -27,7 +27,7 @@
     <Compile Include="PresentationObjects\HydraulicBoundariesGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelLocationsContext.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

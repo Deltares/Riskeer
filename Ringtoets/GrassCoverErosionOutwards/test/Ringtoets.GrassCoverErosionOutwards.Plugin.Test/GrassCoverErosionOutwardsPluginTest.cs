@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext),
+                    typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext),
                     typeof(IEnumerable<HydraulicBoundaryLocationCalculation>),
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView));
 
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundariesGroupContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationContext)));
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext),
+                    typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext),
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(

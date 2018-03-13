@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView));
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext), info.DataType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext), info.DataType);
                 Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocationCalculation>), info.ViewDataType);
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView), info.ViewType);
             }
@@ -76,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 ViewInfo info = GetInfo(plugin);
 
                 // Call
-                object calculations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
+                object calculations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                                                            expectedCalculations,
                                                            assessmentSection,
                                                            new GrassCoverErosionOutwardsFailureMechanism()));
@@ -104,9 +104,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-                var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                            assessmentSection,
-                                                                                            grassCoverErosionOutwardsFailureMechanism);
+                var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                               assessmentSection,
+                                                                                               grassCoverErosionOutwardsFailureMechanism);
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -169,9 +169,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-                var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                         assessmentSection,
-                                                                                         grassCoverErosionOutwardsFailureMechanism);
+                var data = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                            assessmentSection,
+                                                                                            grassCoverErosionOutwardsFailureMechanism);
 
                 plugin.Gui = gui;
                 plugin.Activate();
