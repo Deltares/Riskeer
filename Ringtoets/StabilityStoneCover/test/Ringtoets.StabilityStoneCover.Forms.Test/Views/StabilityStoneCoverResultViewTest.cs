@@ -38,8 +38,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private const int detailedAssessmentResultForFactorizedSignalingNormIndex = 2;
         private const int detailedAssessmentResultForSignalingNormIndex = 3;
         private const int detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex = 4;
-        private const int assessmentLayerThreeIndex = 5;
-        private const int columnCount = 6;
+        private const int detailedAssessmentResultForLowerLimitNormIndex = 5;
+        private const int assessmentLayerThreeIndex = 6;
+        private const int columnCount = 7;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -82,12 +83,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultForLowerLimitNormIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. Iv - IIv", dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. IIv - IIIv", dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. IIIv - IVv", dataGridView.Columns[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. IVv - Vv", dataGridView.Columns[detailedAssessmentResultForLowerLimitNormIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
@@ -122,6 +125,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedSignalingNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForSignalingNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].Value);
+                Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForLowerLimitNormIndex].Value);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }

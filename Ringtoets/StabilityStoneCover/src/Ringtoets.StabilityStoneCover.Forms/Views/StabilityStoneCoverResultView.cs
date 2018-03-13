@@ -73,6 +73,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                 DataGridViewControl,
                 nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
 
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(
+                DataGridViewControl,
+                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForLowerLimitNorm));
+
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
