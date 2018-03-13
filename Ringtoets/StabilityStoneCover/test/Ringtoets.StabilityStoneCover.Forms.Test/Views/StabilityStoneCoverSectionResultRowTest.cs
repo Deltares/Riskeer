@@ -54,6 +54,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             Assert.AreEqual(result.DetailedAssessmentResultForFactorizedSignalingNorm, row.DetailedAssessmentResultForFactorizedSignalingNorm);
             Assert.AreEqual(result.DetailedAssessmentResultForSignalingNorm, row.DetailedAssessmentResultForSignalingNorm);
             Assert.AreEqual(result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, row.DetailedAssessmentResultForSignalingNorm);
+            Assert.AreEqual(result.DetailedAssessmentResultForLowerLimitNorm, row.DetailedAssessmentResultForLowerLimitNorm);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<StabilityStoneCoverSectionResultRow,
@@ -161,6 +162,32 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void DetailedAssessmentResultForLowerLimitNorm_SetNewvalue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new StabilityStoneCoverSectionResultRow(result);
+
+            // Call
+            row.DetailedAssessmentResultForLowerLimitNorm = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.DetailedAssessmentResultForLowerLimitNorm);
             mocks.VerifyAll();
         }
 

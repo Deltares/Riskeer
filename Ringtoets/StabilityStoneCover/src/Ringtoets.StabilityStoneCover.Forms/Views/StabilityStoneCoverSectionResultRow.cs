@@ -112,6 +112,23 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         }
 
         /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the signaling norm (Cat IVv - Vv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForLowerLimitNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForLowerLimitNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
         /// Gets the assessment layer two a of the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA
