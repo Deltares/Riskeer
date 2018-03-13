@@ -380,7 +380,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                detailedAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -396,7 +396,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                tailorMadeAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -413,7 +413,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         failureMechanism,
                         assessmentSection);

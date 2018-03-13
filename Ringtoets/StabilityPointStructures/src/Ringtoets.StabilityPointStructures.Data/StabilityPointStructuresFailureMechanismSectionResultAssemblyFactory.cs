@@ -79,7 +79,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleDetailedAssembly(
+        public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -134,9 +134,10 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleTailorMadeAssembly(StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
-                                                                                 StabilityPointStructuresFailureMechanism failureMechanism,
-                                                                                 IAssessmentSection assessmentSection)
+        public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
+            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            StabilityPointStructuresFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -188,9 +189,10 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleCombinedAssembly(StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
-                                                                               StabilityPointStructuresFailureMechanism failureMechanism,
-                                                                               IAssessmentSection assessmentSection)
+        public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
+            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            StabilityPointStructuresFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -208,8 +210,8 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
 
             FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
-            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssembly(failureMechanismSectionResult, failureMechanism, assessmentSection);
-            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssembly(failureMechanismSectionResult, failureMechanism, assessmentSection);
+            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection);
+            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection);
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismSectionAssemblyCalculator calculator =
