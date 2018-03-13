@@ -89,11 +89,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. Iv - IIv", dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. IIv - IIIv", dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. IIIv - IVv", dataGridView.Columns[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. IVv - Vv", dataGridView.Columns[detailedAssessmentResultForLowerLimitNormIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak\r\nCat. Vv - VIv", dataGridView.Columns[detailedAssessmentResultForFactorizedLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Iv - IIv", dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IIv - IIIv", dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IIIv - IVv", dataGridView.Columns[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IVv - Vv", dataGridView.Columns[detailedAssessmentResultForLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Vv - VIv", dataGridView.Columns[detailedAssessmentResultForFactorizedLowerLimitNormIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);

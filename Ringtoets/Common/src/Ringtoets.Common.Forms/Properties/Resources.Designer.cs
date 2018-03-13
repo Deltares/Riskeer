@@ -1504,7 +1504,8 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets per vak
+        ///   Looks up a localized string similar to Gedetailleerde toets
+        ///per vak
         ///Cat. Vv - VIv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForFactorizedLowerLimitNorm_DisplayName {
@@ -1515,7 +1516,8 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets per vak
+        ///   Looks up a localized string similar to Gedetailleerde toets
+        ///per vak
         ///Cat. Iv - IIv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName {
@@ -1526,7 +1528,8 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets per vak
+        ///   Looks up a localized string similar to Gedetailleerde toets
+        ///per vak
         ///Cat. IVv - Vv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName {
@@ -1536,7 +1539,8 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets per vak
+        ///   Looks up a localized string similar to Gedetailleerde toets
+        ///per vak
         ///Cat. IIIv - IVv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName {
@@ -1547,7 +1551,8 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets per vak
+        ///   Looks up a localized string similar to Gedetailleerde toets
+        ///per vak
         ///Cat. IIv - IIIv.
         /// </summary>
         public static string FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName {
