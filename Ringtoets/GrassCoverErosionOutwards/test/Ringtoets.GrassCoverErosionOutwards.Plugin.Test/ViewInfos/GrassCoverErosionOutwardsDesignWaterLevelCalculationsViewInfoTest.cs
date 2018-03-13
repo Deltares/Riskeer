@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView));
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext), info.DataType);
-                Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocation>), info.ViewDataType);
+                Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocationCalculation>), info.ViewDataType);
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView), info.ViewType);
             }
         }
@@ -69,20 +69,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var expectedLocations = new ObservableList<HydraulicBoundaryLocation>();
+            var expectedCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
 
                 // Call
-                object locations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                                                        expectedLocations,
-                                                        assessmentSection,
-                                                        new GrassCoverErosionOutwardsFailureMechanism()));
+                object calculations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
+                                                           expectedCalculations,
+                                                           assessmentSection,
+                                                           new GrassCoverErosionOutwardsFailureMechanism()));
 
                 // Assert
-                Assert.AreSame(locations, expectedLocations);
+                Assert.AreSame(calculations, expectedCalculations);
             }
 
             mockRepository.VerifyAll();
@@ -104,10 +104,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-                var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                    new ObservableList<HydraulicBoundaryLocation>(),
-                    assessmentSection,
-                    grassCoverErosionOutwardsFailureMechanism);
+                var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                            assessmentSection,
+                                                                                            grassCoverErosionOutwardsFailureMechanism);
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -170,10 +169,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-                var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                    new ObservableList<HydraulicBoundaryLocation>(),
-                    assessmentSection,
-                    grassCoverErosionOutwardsFailureMechanism);
+                var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                         assessmentSection,
+                                                                                         grassCoverErosionOutwardsFailureMechanism);
 
                 plugin.Gui = gui;
                 plugin.Activate();
