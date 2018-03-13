@@ -82,13 +82,13 @@ namespace Ringtoets.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Calculates the required probability of the piping failure mechanism for the complete assessment section.
+        /// Calculates the required probability of the macro stability inwards failure mechanism for the complete assessment section.
         /// </summary>
         /// <param name="constantA">The constant a.</param>
         /// <param name="constantB">The constant b.</param>
         /// <param name="sectionLength">The length of the assessment section.</param>
         /// <param name="norm">The norm.</param>
-        /// <param name="contribution">The contribution of piping to the total failure.</param>
+        /// <param name="contribution">The contribution of macro stability inwards to the total failure.</param>
         /// <returns>A value representing the required probability.</returns>
         private static double CalculateRequiredProbability(double constantA, double constantB, double sectionLength, double norm, double contribution)
         {

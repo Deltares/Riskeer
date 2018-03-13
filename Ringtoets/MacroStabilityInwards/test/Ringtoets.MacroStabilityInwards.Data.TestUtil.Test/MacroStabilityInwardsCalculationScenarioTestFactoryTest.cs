@@ -36,7 +36,40 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
     public class MacroStabilityInwardsCalculationScenarioTestFactoryTest
     {
         [Test]
-        public void CreateMacroStabilityInwardsCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        public void CreateMacroStabilityInwardsCalculationScenariot_SectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("section", paramName);
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsCalculationScenario_WithSection_CreatesCalculationWithOutputSet()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            // Call
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
+
+            // Assert
+            Assert.IsTrue(scenario.IsRelevant);
+
+            MacroStabilityInwardsOutput output = scenario.Output;
+            Assert.IsNotNull(output);
+            Assert.IsTrue(IsValidDouble(output.FactorOfStability));
+            Assert.IsTrue(IsValidDouble(output.ZValue));
+            Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMax));
+            Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMin));
+            Assert.IsNotNull(output.SlidingCurve);
+            Assert.IsNotNull(output.SlipPlane);
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(double.NaN, null);
@@ -66,7 +99,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput_WithNoSection_ThrowsArgumentNullException()
+        public void CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput_SectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(null);
@@ -92,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateIrrelevantMacroStabilityInwardsCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        public void CreateIrrelevantMacroStabilityInwardsCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(null);
@@ -118,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateNotCalculatedMacroStabilityInwardsCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        public void CreateNotCalculatedMacroStabilityInwardsCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(null);

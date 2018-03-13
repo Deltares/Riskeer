@@ -41,6 +41,20 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <summary>
         /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
         /// </summary>
+        /// <param name="section">The section for which an intersection will be created.</param>
+        /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
+        public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenario(FailureMechanismSection section)
+        {
+            MacroStabilityInwardsCalculationScenario scenario = CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            scenario.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
+            return scenario;
+        }
+
+        /// <summary>
+        /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
+        /// </summary>
         /// <param name="factorOfStability">The value for <see cref="MacroStabilityInwardsOutput.FactorOfStability"/>.</param>
         /// <param name="section">The section for which an intersection will be created.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
