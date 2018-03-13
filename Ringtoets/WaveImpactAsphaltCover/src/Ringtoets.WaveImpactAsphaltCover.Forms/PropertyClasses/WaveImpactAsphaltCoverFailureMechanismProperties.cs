@@ -58,12 +58,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
             {
                 return false;
             }
+
             return true;
         }
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
-            return nameof(A).Equals(propertyName)
+            return nameof(Contribution).Equals(propertyName)
+                   || nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
                    || nameof(C).Equals(propertyName)
                    || nameof(SectionLength).Equals(propertyName)
@@ -97,7 +99,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
+            }
+        }
+
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
@@ -114,7 +129,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         #region Length effect parameters
 
         [DynamicVisible]
-        [PropertyOrder(4)]
+        [PropertyOrder(5)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
@@ -127,7 +142,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(5)]
+        [PropertyOrder(6)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_Description))]
@@ -145,7 +160,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(6)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_Description))]
@@ -162,7 +177,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         #region Model settings
 
         [DynamicVisible]
-        [PropertyOrder(7)]
+        [PropertyOrder(8)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_A_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_A_Description))]
@@ -175,7 +190,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(8)]
+        [PropertyOrder(9)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_B_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_B_Description))]
@@ -188,7 +203,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(9)]
+        [PropertyOrder(10)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_C_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), nameof(RingtoetsRevetmentFormsResources.GeneralWaveConditionsInput_C_Description))]

@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 
@@ -64,19 +65,24 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
-            Assert.AreEqual(failureMechanism.GeneralInput.A, properties.A);
-            Assert.AreEqual(failureMechanism.GeneralInput.B, properties.B);
-            Assert.AreEqual(failureMechanism.GeneralInput.C, properties.C);
-            Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL, properties.DeltaL);
+
+            GeneralWaveConditionsInput generalWaveConditionsInput = failureMechanism.GeneralInput;
+            Assert.AreEqual(generalWaveConditionsInput.A, properties.A);
+            Assert.AreEqual(generalWaveConditionsInput.B, properties.B);
+            Assert.AreEqual(generalWaveConditionsInput.C, properties.C);
+
+            GeneralWaveImpactAsphaltCoverInput generalWaveImpactAsphaltCoverInput = failureMechanism.GeneralWaveImpactAsphaltCoverInput;
+            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.DeltaL, properties.DeltaL);
 
             Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.SectionLength,
+            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.SectionLength,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
 
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.N,
+            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
         }
@@ -93,7 +99,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect parameters";
@@ -112,28 +118,35 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
                                                                             true);
+            
+            PropertyDescriptor contributionProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategory,
+                                                                            "Faalkansbijdrage [%]",
+                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
+                                                                            true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            PropertyDescriptor sectionLength = dynamicProperties[3];
+            PropertyDescriptor sectionLength = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLength,
                                                                             lengthEffectCategory,
                                                                             "Lengte* [m]",
                                                                             "Totale lengte van het traject in meters (afgerond).",
                                                                             true);
 
-            PropertyDescriptor deltaLProperty = dynamicProperties[4];
+            PropertyDescriptor deltaLProperty = dynamicProperties[5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(deltaLProperty,
                                                                             lengthEffectCategory,
                                                                             "ΔL [m]",
                                                                             "Lengte van onafhankelijke dijkstrekkingen voor dit toetsspoor.");
 
-            PropertyDescriptor nProperty = dynamicProperties[5];
+            PropertyDescriptor nProperty = dynamicProperties[6];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N* [-]",
@@ -141,21 +154,21 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             "mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
-            PropertyDescriptor aProperty = dynamicProperties[6];
+            PropertyDescriptor aProperty = dynamicProperties[7];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
                                                                             modelSettingsCategory,
                                                                             "a",
                                                                             "De waarde van de parameter 'a' in de berekening voor golf condities.",
                                                                             true);
 
-            PropertyDescriptor bProperty = dynamicProperties[7];
+            PropertyDescriptor bProperty = dynamicProperties[8];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
                                                                             modelSettingsCategory,
                                                                             "b",
                                                                             "De waarde van de parameter 'b' in de berekening voor golf condities.",
                                                                             true);
 
-            PropertyDescriptor cProperty = dynamicProperties[8];
+            PropertyDescriptor cProperty = dynamicProperties[9];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
                                                                             modelSettingsCategory,
                                                                             "c",
@@ -274,6 +287,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.DeltaL)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
