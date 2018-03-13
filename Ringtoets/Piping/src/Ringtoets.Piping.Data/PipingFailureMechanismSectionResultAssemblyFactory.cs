@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleDetailedAssembly(
+        public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             PipingFailureMechanismSectionResult failureMechanismSectionResult,
             IEnumerable<PipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleTailorMadeAssembly(
+        public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
             PipingFailureMechanismSectionResult failureMechanismSectionResult,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleCombinedAssembly(
+        public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
             PipingFailureMechanismSectionResult failureMechanismSectionResult,
             IEnumerable<PipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
@@ -227,9 +227,9 @@ namespace Ringtoets.Piping.Data
             }
 
             FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
-            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssembly(
+            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssessment(
                 failureMechanismSectionResult, calculationScenarios, failureMechanism, assessmentSection);
-            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssembly(
+            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssessment(
                 failureMechanismSectionResult, failureMechanism, assessmentSection);
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;

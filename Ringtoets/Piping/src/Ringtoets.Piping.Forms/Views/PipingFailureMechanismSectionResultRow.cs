@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                detailedAssemblyCategoryGroup = PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
                     calculations,
                     failureMechanism,
@@ -435,7 +435,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                tailorMadeAssemblyCategoryGroup = PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -452,7 +452,7 @@ namespace Ringtoets.Piping.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         calculations,
                         failureMechanism,

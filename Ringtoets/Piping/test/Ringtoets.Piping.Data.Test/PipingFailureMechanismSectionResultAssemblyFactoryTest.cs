@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Data.Test
                             categoryCalculator.N);
         }
 
-        #region Simple Assessment
+        #region Simple Assembly
 
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
@@ -140,10 +140,10 @@ namespace Ringtoets.Piping.Data.Test
 
         #endregion
 
-        #region Detailed Assessment
+        #region Detailed Assembly
 
         [Test]
-        public void AssembleDetailedAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 null,
                 Enumerable.Empty<PipingCalculationScenario>(),
                 new PipingFailureMechanism(),
@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_CalculationScenariosNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -172,7 +172,7 @@ namespace Ringtoets.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 new PipingFailureMechanism(),
@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -193,7 +193,7 @@ namespace Ringtoets.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<PipingCalculationScenario>(),
                 null,
@@ -206,10 +206,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<PipingCalculationScenario>(),
                 new PipingFailureMechanism(),
@@ -221,7 +221,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleDetailedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -244,7 +244,7 @@ namespace Ringtoets.Piping.Data.Test
 
                 // Call
 
-                PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     calculationScenarios,
                     failureMechanism,
@@ -266,7 +266,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleDetailedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -284,7 +284,7 @@ namespace Ringtoets.Piping.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
                         new[]
                         {
@@ -301,7 +301,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleDetailedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -319,7 +319,7 @@ namespace Ringtoets.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     new[]
                     {
@@ -339,10 +339,10 @@ namespace Ringtoets.Piping.Data.Test
 
         #endregion
 
-        #region Tailor Made Assessment
+        #region Tailor Made Assembly
 
         [Test]
-        public void AssembleTailorMadeAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -350,7 +350,7 @@ namespace Ringtoets.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                 null,
                 new PipingFailureMechanism(),
                 assessmentSection);
@@ -362,7 +362,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleTailorMadeAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
@@ -382,10 +382,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleTailorMadeAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new PipingFailureMechanism(),
                 null);
@@ -396,7 +396,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleTailorMadeAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -414,7 +414,7 @@ namespace Ringtoets.Piping.Data.Test
                 AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -431,7 +431,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleTailorMadeAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -449,7 +449,7 @@ namespace Ringtoets.Piping.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                    PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
@@ -462,7 +462,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleTailorMadeAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -480,7 +480,7 @@ namespace Ringtoets.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     new PipingFailureMechanism(),
                     assessmentSection);
@@ -499,7 +499,7 @@ namespace Ringtoets.Piping.Data.Test
         #region Combined Assembly
 
         [Test]
-        public void AssembleCombinedAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -507,7 +507,7 @@ namespace Ringtoets.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 null,
                 Enumerable.Empty<PipingCalculationScenario>(),
                 new PipingFailureMechanism(),
@@ -520,7 +520,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_CalculationScenariosNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -528,7 +528,7 @@ namespace Ringtoets.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 new PipingFailureMechanism(),
@@ -541,7 +541,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -549,7 +549,7 @@ namespace Ringtoets.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<PipingCalculationScenario>(),
                 null,
@@ -562,10 +562,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<PipingCalculationScenario>(),
                 new PipingFailureMechanism(),
@@ -577,7 +577,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -594,7 +594,7 @@ namespace Ringtoets.Piping.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
@@ -603,12 +603,12 @@ namespace Ringtoets.Piping.Data.Test
                 // Assert
                 FailureMechanismSectionAssembly expectedSimpleAssembly = PipingFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(
                     sectionResult);
-                FailureMechanismSectionAssembly expectedDetailedAssembly = PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                FailureMechanismSectionAssembly expectedDetailedAssembly = PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
-                FailureMechanismSectionAssembly expectedTailorMadeAssembly = PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                FailureMechanismSectionAssembly expectedTailorMadeAssembly = PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -621,7 +621,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleCombinedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -639,7 +639,7 @@ namespace Ringtoets.Piping.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                         sectionResult,
                         Enumerable.Empty<PipingCalculationScenario>(),
                         failureMechanism,
@@ -653,7 +653,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleCombinedAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -671,7 +671,7 @@ namespace Ringtoets.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     Enumerable.Empty<PipingCalculationScenario>(),
                     new PipingFailureMechanism(),
