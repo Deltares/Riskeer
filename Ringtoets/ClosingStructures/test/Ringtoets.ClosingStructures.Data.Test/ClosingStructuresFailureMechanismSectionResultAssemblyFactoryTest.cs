@@ -51,7 +51,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
         }
 
-        #region Simple Assessment
+        #region Simple Assembly
 
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
@@ -136,10 +136,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
         #endregion
 
-        #region Detailed Assessment
+        #region Detailed Assembly
 
         [Test]
-        public void AssembleDetailedAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -147,7 +147,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 null,
                 new ClosingStructuresFailureMechanism(),
                 assessmentSection);
@@ -159,7 +159,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -167,7 +167,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
@@ -179,10 +179,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ClosingStructuresFailureMechanism(),
                 null);
@@ -193,7 +193,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleDetailedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -214,7 +214,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -230,7 +230,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleDetailedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -248,7 +248,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
                         new ClosingStructuresFailureMechanism(),
                         assessmentSection);
@@ -261,7 +261,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleDetailedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -279,7 +279,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     new ClosingStructuresFailureMechanism(),
                     assessmentSection);
@@ -295,10 +295,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
         #endregion
 
-        #region Tailor made Assessment
+        #region Tailor made Assembly
 
         [Test]
-        public void AssembleTailorMadeAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -306,7 +306,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                 null,
                 new ClosingStructuresFailureMechanism(),
                 assessmentSection);
@@ -318,7 +318,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleTailorMadeAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -326,7 +326,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
@@ -338,10 +338,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleTailorMadeAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ClosingStructuresFailureMechanism(),
                 null);
@@ -352,7 +352,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleTailorMadeAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -370,7 +370,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -385,7 +385,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleTailorMadeAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -403,7 +403,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                    ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
@@ -416,7 +416,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleTailorMadeAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -434,7 +434,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     new ClosingStructuresFailureMechanism(),
                     assessmentSection);
@@ -453,7 +453,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         #region Combined Assembly
 
         [Test]
-        public void AssembleCombinedAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -461,7 +461,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 null,
                 new ClosingStructuresFailureMechanism(),
                 assessmentSection);
@@ -473,7 +473,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -481,7 +481,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
@@ -493,10 +493,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ClosingStructuresFailureMechanism(),
                 null);
@@ -507,7 +507,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -524,7 +524,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -532,11 +532,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 // Assert
                 FailureMechanismSectionAssembly expectedSimpleAssembly = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(
                     sectionResult);
-                FailureMechanismSectionAssembly expectedDetailedAssembly = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                FailureMechanismSectionAssembly expectedDetailedAssembly = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
-                FailureMechanismSectionAssembly expectedTailorMadeAssembly = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                FailureMechanismSectionAssembly expectedTailorMadeAssembly = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -549,7 +549,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleCombinedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -567,7 +567,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
@@ -580,7 +580,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleCombinedAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -598,7 +598,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     new ClosingStructuresFailureMechanism(),
                     assessmentSection);
