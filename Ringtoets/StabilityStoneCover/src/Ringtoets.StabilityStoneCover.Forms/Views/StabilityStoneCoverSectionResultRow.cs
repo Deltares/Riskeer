@@ -56,7 +56,24 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized signaling norm (Cat Iv- IIv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForFactorizedSignalingNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = value;
+                UpdateInternalData();
             }
         }
 
