@@ -125,7 +125,7 @@ namespace Ringtoets.StabilityStoneCover.Data
 
             try
             {
-                return calculator.AssembleTailorMadeAssessment(failureMechanismSectionResult.TailorMaderAssessmentResult);
+                return calculator.AssembleTailorMadeAssessment(failureMechanismSectionResult.TailorMadeAssessmentResult);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
