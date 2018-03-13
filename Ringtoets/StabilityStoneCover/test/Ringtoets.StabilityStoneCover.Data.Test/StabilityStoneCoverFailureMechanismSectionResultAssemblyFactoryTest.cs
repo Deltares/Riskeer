@@ -300,7 +300,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         #region Combined Assembly
 
         [Test]
-        public void AssembleCombinedAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
@@ -312,7 +312,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -341,7 +341,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleCombinedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -363,7 +363,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleCombinedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
