@@ -28,7 +28,6 @@ using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
-using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -80,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleDetailedAssembly(
+        public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -135,7 +134,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleTailorMadeAssembly(
+        public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
             GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -190,7 +189,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleCombinedAssembly(
+        public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
             GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -211,9 +210,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
 
             FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
-            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssembly(
+            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssessment(
                 failureMechanismSectionResult, failureMechanism, assessmentSection);
-            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssembly(
+            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssessment(
                 failureMechanismSectionResult, failureMechanism, assessmentSection);
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;

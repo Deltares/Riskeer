@@ -379,7 +379,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                detailedAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -395,7 +395,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                tailorMadeAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -412,7 +412,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         failureMechanism,
                         assessmentSection);
