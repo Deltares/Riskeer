@@ -38,11 +38,12 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int isRelevantPropertyIndex = 3;
-        private const int gravitationalAccelerationPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int modelFactorOvertoppingFlowPropertyIndex = 6;
-        private const int modelFactorStorageVolumePropertyIndex = 7;
+        private const int contributionPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 4;
+        private const int gravitationalAccelerationPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 7;
+        private const int modelFactorStorageVolumePropertyIndex = 8;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismProperties"/>.
@@ -90,7 +91,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
-            return nameof(N).Equals(propertyName)
+            return nameof(Contribution).Equals(propertyName)
+                   || nameof(N).Equals(propertyName)
                    || nameof(GravitationalAcceleration).Equals(propertyName)
                    || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
                    || nameof(ModelFactorStorageVolume).Equals(propertyName);
@@ -119,6 +121,19 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             get
             {
                 return data.Code;
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(contributionPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
             }
         }
 

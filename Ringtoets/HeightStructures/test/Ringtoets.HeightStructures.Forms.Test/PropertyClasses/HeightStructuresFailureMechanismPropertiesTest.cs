@@ -38,11 +38,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int isRelevantPropertyIndex = 2;
-        private const int gravitationalAccelerationPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
-        private const int modelFactorOvertoppingFlowPropertyIndex = 5;
-        private const int modelFactorStorageVolumePropertyIndex = 6;
+        private const int contributionPropertyIndex = 2;
+        private const int isRelevantPropertyIndex = 3;
+        private const int gravitationalAccelerationPropertyIndex = 4;
+        private const int nPropertyIndex = 5;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 6;
+        private const int modelFactorStorageVolumePropertyIndex = 7;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -72,13 +73,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HeightStructuresFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
-
-            Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", properties.Name);
-            Assert.AreEqual("HTKW", properties.Code);
+            Assert.AreEqual(failureMechanism.Name, properties.Name);
+            Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
-
             Assert.AreEqual(generalInput.N, properties.N);
             Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.Mean, properties.ModelFactorOvertoppingFlow.Mean);
@@ -104,7 +104,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -118,6 +118,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategory,
+                                                                            "Faalkansbijdrage [%]",
+                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
             PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
@@ -187,7 +194,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
@@ -263,6 +270,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
