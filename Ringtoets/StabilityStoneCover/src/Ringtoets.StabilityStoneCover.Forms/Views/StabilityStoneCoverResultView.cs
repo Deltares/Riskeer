@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
@@ -52,10 +53,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(StabilityStoneCoverSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(StabilityStoneCoverSectionResultRow.Name));
 
             EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>[] simpleAssessmentDataSource =
                 Enum.GetValues(typeof(SimpleAssessmentValidityOnlyResultType))
