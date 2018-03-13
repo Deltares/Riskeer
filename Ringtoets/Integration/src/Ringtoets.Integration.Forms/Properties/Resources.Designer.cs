@@ -444,6 +444,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overig (30).
+        /// </summary>
+        public static string FailureMechanismProperties_Contribution_Other {
+            get {
+                return ResourceManager.GetString("FailureMechanismProperties_Contribution_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Koppel aan database....
         /// </summary>
         public static string HydraulicBoundaryDatabase_Connect {
@@ -747,15 +756,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string SignalingNorm_DisplayName {
             get {
                 return ResourceManager.GetString("SignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overig (30).
-        /// </summary>
-        public static string StandAloneFailureMechanismProperties_Contribution_Other {
-            get {
-                return ResourceManager.GetString("StandAloneFailureMechanismProperties_Contribution_Other", resourceCulture);
             }
         }
         

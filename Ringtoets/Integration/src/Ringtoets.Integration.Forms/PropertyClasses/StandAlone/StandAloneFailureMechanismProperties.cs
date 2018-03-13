@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
         {
             get
             {
-                return Resources.StandAloneFailureMechanismProperties_Contribution_Other;
+                return Resources.FailureMechanismProperties_Contribution_Other;
             }
         }
 
