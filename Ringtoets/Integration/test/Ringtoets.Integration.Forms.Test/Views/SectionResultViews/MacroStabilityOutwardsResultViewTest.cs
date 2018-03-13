@@ -25,7 +25,6 @@ using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -151,7 +150,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[useManualAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[manualAssemblyCategoryGroupIndex].ReadOnly);
-                                        
+
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
                 mocks.VerifyAll();
@@ -176,7 +175,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             {
                 form.Controls.Add(view);
                 form.Show();
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);

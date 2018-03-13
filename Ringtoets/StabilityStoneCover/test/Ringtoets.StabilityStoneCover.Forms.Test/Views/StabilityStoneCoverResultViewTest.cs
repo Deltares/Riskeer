@@ -22,11 +22,9 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -42,6 +40,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private const int simpleAssessmentIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
+        private const int columnCount = 4;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -61,10 +60,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
             using (var form = new Form())
             using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
@@ -76,8 +76,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(4, dataGridView.ColumnCount);
+                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
 
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
@@ -92,30 +93,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         }
 
         [Test]
-        public void StabilityStoneCoverFailureMechanismResultView_WithStabilityStoneCoverFailureMechanismSectionResultAssigned_SectionsAddedAsRows()
+        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
             var random = new Random(21);
-            var result1 = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
+            var result = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
             {
                 SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None,
                 AssessmentLayerThree = random.NextRoundedDouble()
             };
-            var result2 = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
-                AssessmentLayerThree = random.NextRoundedDouble()
-            };
-            var result3 = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable,
-                AssessmentLayerThree = random.NextRoundedDouble()
-            };
             var sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>
             {
-                result1,
-                result2,
-                result3
+                result
             };
 
             // Call
@@ -129,77 +118,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(3, rows.Count);
-
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
-
-                cells = rows[1].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-
-                cells = rows[2].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
-        public void GivenFormWithSimpleFailureMechanismResultView_WhenSectionPassesSimpleAssessmentAndListenersNotified_ThenRowsForSectionBecomesDisabled(
-            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
-        {
-            // Given
-            var section = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0, 0)
-            });
-            var random = new Random(21);
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = simpleAssessmentResult,
-                AssessmentLayerThree = random.NextRoundedDouble()
-            };
-            var sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>
-            {
-                result
-            };
-
-            using (var form = new Form())
-            using (var view = new StabilityStoneCoverResultView(sectionResults, new StabilityStoneCoverFailureMechanism()))
-            {
-                form.Controls.Add(view);
-                form.Show();
-
-                // When
-                result.SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable;
-                result.NotifyObservers();
-
-                // Then
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
+                Assert.AreEqual(columnCount, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
+                Assert.AreEqual(result.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
     }
