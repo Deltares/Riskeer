@@ -29,7 +29,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
+    /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a design water level calculation result for a given norm.
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
@@ -37,26 +37,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsContext"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations for this context.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which the 
+        /// <param name="calculations">The hydraulic boundary location calculations for this context.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which the
         /// <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsContext"/> belongs to.</param>
         /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism within
         /// the <paramref name="assessmentSection"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-            IAssessmentSection assessmentSection,
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-            : base(hydraulicBoundaryLocations)
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+                                                                         IAssessmentSection assessmentSection,
+                                                                         GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+            : base(calculations)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             AssessmentSection = assessmentSection;
             FailureMechanism = failureMechanism;
         }
