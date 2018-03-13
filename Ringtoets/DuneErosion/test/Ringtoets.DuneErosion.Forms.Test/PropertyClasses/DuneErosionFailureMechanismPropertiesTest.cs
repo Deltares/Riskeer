@@ -40,18 +40,24 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int isRelevantPropertyIndex = 2;
-        private const int nPropertyIndex = 3;
+        private const int contributionPropertyIndex = 2;
+        private const int isRelevantPropertyIndex = 3;
+        private const int nPropertyIndex = 4;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ExpectedValues(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
 
             // Call
             var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
@@ -59,6 +65,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<DuneErosionFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
+            Assert.AreEqual(failureMechanism.Name, properties.Name);
+            Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
+
+            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
             mocks.VerifyAll();
         }
 
@@ -111,7 +123,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectParameterCategory = "Lengte-effect parameters";
@@ -128,6 +140,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategory,
+                                                                            "Faalkansbijdrage [%]",
+                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
             PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
@@ -181,49 +200,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Data_SetNewFailureMechanismContext_ReturnCorrectPropertyValues(bool isRelevant)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
-            mocks.ReplayAll();
-
-            var originalFailureMechanism = new DuneErosionFailureMechanism
-            {
-                IsRelevant = !isRelevant,
-                GeneralInput =
-                {
-                    N = (RoundedDouble) 1.1
-                }
-            };
-
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                IsRelevant = isRelevant
-            };
-
-            var properties = new DuneErosionFailureMechanismProperties(originalFailureMechanism, changeHandler);
-
-            // Call
-            properties.Data = failureMechanism;
-
-            // Assert
-            Assert.AreEqual("Duinwaterkering - Duinafslag", properties.Name);
-            Assert.AreEqual("DA", properties.Code);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
             mocks.VerifyAll();
         }
 
@@ -314,6 +296,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));

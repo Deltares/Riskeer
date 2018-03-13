@@ -39,8 +39,9 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int isRelevantPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
+        private const int contributionPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 4;
+        private const int nPropertyIndex = 5;
         private readonly IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler;
 
         /// <summary>
@@ -111,7 +112,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
-            return nameof(N).Equals(propertyName);
+            return nameof(Contribution).Equals(propertyName) || nameof(N).Equals(propertyName);
         }
 
         #region General
@@ -137,6 +138,19 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             get
             {
                 return data.Code;
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(contributionPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
             }
         }
 
