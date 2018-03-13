@@ -188,12 +188,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(3, children.Length);
             var waterLevelHydraulicBoundaryLocationsContext = (GrassCoverErosionOutwardsDesignWaterLevelLocationsContext) children[0];
-            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, waterLevelHydraulicBoundaryLocationsContext.WrappedData);
+            CollectionAssert.AreEqual(failureMechanism.HydraulicBoundaryLocations.Select(hbl => hbl.DesignWaterLevelCalculation1), waterLevelHydraulicBoundaryLocationsContext.WrappedData);
             Assert.AreSame(failureMechanism, waterLevelHydraulicBoundaryLocationsContext.FailureMechanism);
             Assert.AreSame(assessmentSection, waterLevelHydraulicBoundaryLocationsContext.AssessmentSection);
 
             var waveHeightHydraulicBoundaryLocationsContext = (GrassCoverErosionOutwardsWaveHeightLocationsContext) children[1];
-            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, waveHeightHydraulicBoundaryLocationsContext.WrappedData);
+            CollectionAssert.AreEqual(failureMechanism.HydraulicBoundaryLocations.Select(hbl => hbl.WaveHeightCalculation1), waveHeightHydraulicBoundaryLocationsContext.WrappedData);
             Assert.AreSame(failureMechanism, waveHeightHydraulicBoundaryLocationsContext.FailureMechanism);
             Assert.AreSame(assessmentSection, waveHeightHydraulicBoundaryLocationsContext.AssessmentSection);
 
