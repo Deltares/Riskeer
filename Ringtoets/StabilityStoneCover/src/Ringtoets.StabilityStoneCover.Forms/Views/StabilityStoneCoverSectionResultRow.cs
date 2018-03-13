@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -141,6 +142,22 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             set
             {
                 SectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the tailor made assessment result.
+        /// </summary>
+        public SelectableFailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResult
+        {
+            get
+            {
+                return SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(SectionResult.TailorMadeAssessmentResult);
+            }
+            set
+            {
+                SectionResult.TailorMadeAssessmentResult = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(value);
                 UpdateInternalData();
             }
         }
