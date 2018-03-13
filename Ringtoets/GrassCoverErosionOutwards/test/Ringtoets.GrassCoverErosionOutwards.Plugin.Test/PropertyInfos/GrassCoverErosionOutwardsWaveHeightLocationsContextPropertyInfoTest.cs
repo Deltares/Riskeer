@@ -52,17 +52,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_WithContext_SetsHydraulicBoundaryLocationsAsData()
+        public void CreateInstance_WithContext_SetsHydraulicBoundaryLocationCalculationsAsData()
         {
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                hydraulicBoundaryLocations, assessmentSection, new GrassCoverErosionOutwardsFailureMechanism());
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(calculations,
+                                                                                  assessmentSection,
+                                                                                  new GrassCoverErosionOutwardsFailureMechanism());
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -73,8 +74,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightCalculationsProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryLocations, objectProperties.Data);
+                Assert.AreSame(calculations, objectProperties.Data);
             }
+
             mockRepository.VerifyAll();
         }
 
