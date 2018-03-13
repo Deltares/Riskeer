@@ -146,17 +146,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         }
 
         /// <summary>
-        /// Gets the assessment layer two a of the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
-        /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA
-        {
-            get
-            {
-                return AssessmentLayerTwoAResult.Successful;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
