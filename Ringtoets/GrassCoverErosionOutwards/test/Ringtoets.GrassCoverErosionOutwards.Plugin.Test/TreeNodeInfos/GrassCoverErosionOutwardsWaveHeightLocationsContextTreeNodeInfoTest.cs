@@ -99,8 +99,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                assessmentSection,
-                new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                  assessmentSection,
+                                                                                  new GrassCoverErosionOutwardsFailureMechanism());
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -111,6 +111,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Golfhoogtes bij doorsnede-eis", nodeText);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -121,8 +122,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                assessmentSection,
-                new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                  assessmentSection,
+                                                                                  new GrassCoverErosionOutwardsFailureMechanism());
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -133,6 +134,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, icon);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -148,8 +150,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                        assessmentSection,
-                        new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                          assessmentSection,
+                                                                                          new GrassCoverErosionOutwardsFailureMechanism());
 
                     var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
                     using (mockRepository.Ordered())
@@ -199,11 +201,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                        assessmentSection,
-                        new GrassCoverErosionOutwardsFailureMechanism
-                        {
-                            Contribution = 5
-                        });
+                                                                                          assessmentSection,
+                                                                                          new GrassCoverErosionOutwardsFailureMechanism
+                                                                                          {
+                                                                                              Contribution = 5
+                                                                                          });
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -233,6 +235,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -261,8 +264,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                        assessmentSection,
-                        new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                          assessmentSection,
+                                                                                          new GrassCoverErosionOutwardsFailureMechanism());
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -292,6 +295,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -320,11 +324,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                        assessmentSection,
-                        new GrassCoverErosionOutwardsFailureMechanism
-                        {
-                            Contribution = 5
-                        });
+                                                                                          assessmentSection,
+                                                                                          new GrassCoverErosionOutwardsFailureMechanism
+                                                                                          {
+                                                                                              Contribution = 5
+                                                                                          });
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -353,6 +357,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -365,10 +370,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 Contribution = 5
             };
+
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mockRepository, Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"));
 
             HydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
@@ -405,6 +412,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -419,13 +427,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Contribution = 5
             };
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mockRepository, filePath);
 
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocation
+                hydraulicBoundaryLocationCalculation
             }, assessmentSection, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
@@ -463,6 +473,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -478,7 +489,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Contribution = 5
             };
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
                 failureMechanism, mockRepository, filePath);
 
@@ -486,9 +496,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
 
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                hydraulicBoundaryLocation
+                hydraulicBoundaryLocationCalculation
             }, assessmentSection, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
@@ -526,6 +539,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -588,6 +602,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mockRepository.VerifyAll();
         }
 
