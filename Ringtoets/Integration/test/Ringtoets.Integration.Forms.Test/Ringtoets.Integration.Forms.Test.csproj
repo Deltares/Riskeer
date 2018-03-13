@@ -47,7 +47,7 @@
     <Compile Include="PropertyClasses\ReferenceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\BackgroundDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesIntegrationTest.cs" />
-    <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />
+    <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContextTest.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationContextTest.cs" />

@@ -326,7 +326,7 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = context => new CalculationGroupContextProperties(context)
             };
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
-            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelCalculationsProperties>
+            yield return new PropertyInfo<DesignWaterLevelCalculationsContext, DesignWaterLevelCalculationsProperties>
             {
                 CreateInstance = context => new DesignWaterLevelCalculationsProperties(context.WrappedData)
             };
@@ -395,7 +395,7 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.AssessmentSection = context.Parent
             };
 
-            yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
+            yield return new ViewInfo<DesignWaterLevelCalculationsContext, IEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
@@ -766,7 +766,7 @@ namespace Ringtoets.Integration.Plugin
                 ChildNodeObjects = DesignWaterLevelLocationsGroupContextChildNodeObjects
             };
 
-            yield return new TreeNodeInfo<DesignWaterLevelLocationsContext>
+            yield return new TreeNodeInfo<DesignWaterLevelCalculationsContext>
             {
                 Text = context => context.CategoryBoundaryName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -1736,7 +1736,7 @@ namespace Ringtoets.Integration.Plugin
             return new object[0];
         }
 
-        private ContextMenuStrip DesignWaterLevelLocationsContextMenuStrip(DesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip DesignWaterLevelLocationsContextMenuStrip(DesignWaterLevelCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.DesignWaterLevel_Calculate_All,
@@ -1962,22 +1962,22 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new DesignWaterLevelLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation1),
-                                                     context.AssessmentSection,
-                                                     () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
-                                                     RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
-                new DesignWaterLevelLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation2),
-                                                     context.AssessmentSection,
-                                                     () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
-                                                     RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
-                new DesignWaterLevelLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation3),
-                                                     context.AssessmentSection,
-                                                     () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
-                                                     RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
-                new DesignWaterLevelLocationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation4),
-                                                     context.AssessmentSection,
-                                                     () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
-                                                     RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
+                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation1),
+                                                        context.AssessmentSection,
+                                                        () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
+                                                        RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
+                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation2),
+                                                        context.AssessmentSection,
+                                                        () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
+                                                        RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
+                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation3),
+                                                        context.AssessmentSection,
+                                                        () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
+                                                        RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
+                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation4),
+                                                        context.AssessmentSection,
+                                                        () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
+                                                        RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
             };
         }
 

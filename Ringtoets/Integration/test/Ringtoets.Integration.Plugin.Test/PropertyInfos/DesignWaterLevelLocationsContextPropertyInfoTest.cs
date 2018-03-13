@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DesignWaterLevelLocationsContext), info.DataType);
+                Assert.AreEqual(typeof(DesignWaterLevelCalculationsContext), info.DataType);
                 Assert.AreEqual(typeof(DesignWaterLevelCalculationsProperties), info.PropertyObjectType);
             }
         }
@@ -74,10 +74,10 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 }
             };
 
-            var context = new DesignWaterLevelLocationsContext(hydraulicBoundaryLocationCalculations,
-                                                               assessmentSection,
-                                                               () => 0.01,
-                                                               "Category");
+            var context = new DesignWaterLevelCalculationsContext(hydraulicBoundaryLocationCalculations,
+                                                                  assessmentSection,
+                                                                  () => 0.01,
+                                                                  "Category");
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DesignWaterLevelLocationsContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DesignWaterLevelCalculationsContext));
         }
     }
 }
