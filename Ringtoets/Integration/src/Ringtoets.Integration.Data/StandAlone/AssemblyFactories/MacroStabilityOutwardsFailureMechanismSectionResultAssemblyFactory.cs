@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssembly(
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
             MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssembly(
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
             MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -193,7 +193,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssembly(
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssessment(
             MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -214,9 +214,9 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             }
 
             FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
-            FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = AssembleDetailedAssembly(
+            FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = AssembleDetailedAssessment(
                 failureMechanismSectionResult, failureMechanism, assessmentSection);
-            FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly = AssembleTailorMadeAssembly(
+            FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly = AssembleTailorMadeAssessment(
                 failureMechanismSectionResult, failureMechanism, assessmentSection);
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
