@@ -43,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
-        #region Simple Assessment
+        #region Simple Assembly
 
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
@@ -127,10 +127,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
         #endregion
 
-        #region Detailed Assessment
+        #region Detailed Assembly
 
         [Test]
-        public void AssembleDetailedAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -138,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 null,
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 new MacroStabilityInwardsFailureMechanism(),
@@ -151,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_CalculationScenariosNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -159,7 +159,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 new MacroStabilityInwardsFailureMechanism(),
@@ -172,7 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -180,7 +180,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 null,
@@ -193,10 +193,10 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 new MacroStabilityInwardsFailureMechanism(),
@@ -208,7 +208,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleDetailedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var mocks = new MockRepository();
@@ -230,7 +230,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
                 // Call
 
-                MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     calculationScenarios,
                     failureMechanism,
@@ -257,7 +257,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleDetailedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var mocks = new MockRepository();
@@ -274,7 +274,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
                         new[]
                         {
@@ -291,7 +291,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleDetailedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -308,7 +308,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     new[]
                     {

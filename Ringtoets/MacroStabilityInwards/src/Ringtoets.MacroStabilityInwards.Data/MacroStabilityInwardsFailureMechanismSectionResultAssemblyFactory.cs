@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleDetailedAssembly(
+        public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult,
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
             MacroStabilityInwardsFailureMechanism failureMechanism,
