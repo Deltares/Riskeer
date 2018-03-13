@@ -79,7 +79,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleDetailedAssembly(
+        public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -134,7 +134,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleTailorMadeAssembly(
+        public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
             HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -189,7 +189,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleCombinedAssembly(
+        public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
             HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -210,9 +210,9 @@ namespace Ringtoets.HeightStructures.Data
             }
 
             FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
-            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssembly(
+            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssessment(
                 failureMechanismSectionResult, failureMechanism, assessmentSection);
-            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssembly(
+            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssessment(
                 failureMechanismSectionResult, failureMechanism, assessmentSection);
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;

@@ -51,7 +51,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
         }
 
-        #region Simple Assessment
+        #region Simple Assembly
 
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
@@ -136,10 +136,10 @@ namespace Ringtoets.HeightStructures.Data.Test
 
         #endregion
 
-        #region Detailed Assessment
+        #region Detailed Assembly
 
         [Test]
-        public void AssembleDetailedAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -147,7 +147,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 null,
                 new HeightStructuresFailureMechanism(),
                 assessmentSection);
@@ -159,7 +159,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -167,7 +167,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
@@ -179,10 +179,10 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new HeightStructuresFailureMechanism(),
                 null);
@@ -193,7 +193,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleDetailedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -214,7 +214,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -230,7 +230,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleDetailedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -248,7 +248,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                    HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
                         new HeightStructuresFailureMechanism(),
                         assessmentSection);
@@ -261,7 +261,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleDetailedAssembly_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        public void AssembleDetailedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -279,7 +279,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     new HeightStructuresFailureMechanism(),
                     assessmentSection);
@@ -295,10 +295,10 @@ namespace Ringtoets.HeightStructures.Data.Test
 
         #endregion
 
-        #region Tailor Made Assessment
+        #region Tailor Made Assembly
 
         [Test]
-        public void AssembleTailorMadeAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -306,7 +306,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                 null,
                 new HeightStructuresFailureMechanism(),
                 assessmentSection);
@@ -318,7 +318,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleTailorMadeAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -326,7 +326,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
@@ -338,10 +338,10 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleTailorMadeAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new HeightStructuresFailureMechanism(),
                 null);
@@ -352,7 +352,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleTailorMadeAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -370,7 +370,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -385,7 +385,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleTailorMadeAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -403,7 +403,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                    HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
@@ -416,7 +416,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleTailorMadeAssembly_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleTailorMadeAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -434,7 +434,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     new HeightStructuresFailureMechanism(),
                     assessmentSection);
@@ -453,7 +453,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         #region Combined Assembly
 
         [Test]
-        public void AssembleCombinedAssembly_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -461,7 +461,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 null,
                 new HeightStructuresFailureMechanism(),
                 assessmentSection);
@@ -473,7 +473,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_FailureMechanismNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -481,7 +481,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
@@ -493,10 +493,10 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new HeightStructuresFailureMechanism(),
                 null);
@@ -507,7 +507,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_WithInput_SetsInputOnCalculator()
+        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -520,11 +520,11 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -532,11 +532,11 @@ namespace Ringtoets.HeightStructures.Data.Test
                 // Assert
                 FailureMechanismSectionAssembly expectedSimpleAssembly = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(
                     sectionResult);
-                FailureMechanismSectionAssembly expectedDetailedAssembly = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssembly(
+                FailureMechanismSectionAssembly expectedDetailedAssembly = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
-                FailureMechanismSectionAssembly expectedTailorMadeAssembly = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssembly(
+                FailureMechanismSectionAssembly expectedTailorMadeAssembly = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -549,7 +549,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_AssemblyRan_ReturnsOutput()
+        public void AssembleCombinedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -562,12 +562,12 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
-                    HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                    HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
@@ -580,7 +580,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssembly_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleCombinedAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -593,12 +593,12 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssembly(
+                TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     new HeightStructuresFailureMechanism(),
                     assessmentSection);
