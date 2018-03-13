@@ -49,7 +49,6 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }
     }
 }

@@ -60,10 +60,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             Assert.AreEqual(result.DetailedAssessmentResultForFactorizedLowerLimitNorm, row.DetailedAssessmentResultForFactorizedLowerLimitNorm);
             Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.TailorMadeAssessmentResult),
                             row.TailorMadeAssessmentResult);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
-            TestHelper.AssertTypeConverter<StabilityStoneCoverSectionResultRow,
-                NoValueRoundedDoubleConverter>(nameof(StabilityStoneCoverSectionResultRow.AssessmentLayerThree));
         }
 
         #region Registration
@@ -249,23 +245,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(newValue);
             Assert.AreEqual(expectedCategoryGroup, result.TailorMadeAssessmentResult);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            double newValue = random.NextDouble();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
-            var row = new StabilityStoneCoverSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
 
         #endregion

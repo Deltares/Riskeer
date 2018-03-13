@@ -40,8 +40,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
         {
             var sectionResultEntity = new StabilityStoneCoverSectionResultEntity
             {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
+                LayerOne = Convert.ToByte(result.AssessmentLayerOne)
             };
 
             return sectionResultEntity;

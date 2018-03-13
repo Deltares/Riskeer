@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
@@ -48,7 +47,6 @@ namespace Ringtoets.StabilityStoneCover.Data
             DetailedAssessmentResultForLowerLimitNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForFactorizedLowerLimitNorm = DetailedAssessmentResultType.None;
             TailorMadeAssessmentResult = FailureMechanismSectionAssemblyCategoryGroup.None;
-            AssessmentLayerThree = RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -90,10 +88,5 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// Gets or sets the tailor made assessment result.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResult { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }

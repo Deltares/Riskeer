@@ -50,27 +50,6 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForLowerLimitNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedLowerLimitNorm);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.TailorMadeAssessmentResult);
-            Assert.IsNaN(result.AssessmentLayerThree);
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(5)]
-        [TestCase(0.5)]
-        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
-
-            // Call
-            result.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree,
-                            result.AssessmentLayerThree.GetAccuracy());
         }
     }
 }

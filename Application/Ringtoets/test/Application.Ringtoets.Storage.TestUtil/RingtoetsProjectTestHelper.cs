@@ -1971,7 +1971,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (StabilityStoneCoverFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 

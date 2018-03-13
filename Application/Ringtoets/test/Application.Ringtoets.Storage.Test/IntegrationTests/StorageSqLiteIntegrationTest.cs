@@ -1832,18 +1832,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> expectedSectionResults,
                                                                  IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> actualSectionResults)
         {
-            StabilityStoneCoverFailureMechanismSectionResult[] expectedSectionResultsArray = expectedSectionResults.ToArray();
-            StabilityStoneCoverFailureMechanismSectionResult[] actualSectionResultsArray = actualSectionResults.ToArray();
-
-            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
-
-            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
-            {
-                StabilityStoneCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                StabilityStoneCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
-
-                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
-            }
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
+                                     });
         }
 
         private static void AssertStabilityStoneCoverWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation,
