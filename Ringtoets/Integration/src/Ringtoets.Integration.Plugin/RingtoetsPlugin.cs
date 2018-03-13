@@ -397,7 +397,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<DesignWaterLevelCalculationsContext, IEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName} - {context.CategoryBoundaryName}",
+                GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelCalculationsContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
@@ -760,7 +760,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<DesignWaterLevelLocationsGroupContext>
             {
-                Text = context => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
+                Text = context => RingtoetsFormsResources.DesignWaterLevelCalculationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = DesignWaterLevelLocationsGroupContextMenuStrip,
                 ChildNodeObjects = DesignWaterLevelLocationsGroupContextChildNodeObjects
@@ -770,7 +770,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => context.CategoryBoundaryName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = DesignWaterLevelLocationsContextMenuStrip
+                ContextMenuStrip = DesignWaterLevelCalculationsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<WaveHeightLocationsGroupContext>
@@ -1736,7 +1736,7 @@ namespace Ringtoets.Integration.Plugin
             return new object[0];
         }
 
-        private ContextMenuStrip DesignWaterLevelLocationsContextMenuStrip(DesignWaterLevelCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip DesignWaterLevelCalculationsContextMenuStrip(DesignWaterLevelCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.DesignWaterLevel_Calculate_All,

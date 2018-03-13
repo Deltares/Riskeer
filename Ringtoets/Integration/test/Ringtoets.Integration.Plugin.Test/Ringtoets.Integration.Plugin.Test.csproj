@@ -51,7 +51,7 @@
     <Compile Include="PropertyInfos\BackgroundDataPropertyInfoTest .cs" />
     <Compile Include="PropertyInfos\WaveHeightCalculationContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\DesignWaterLevelCalculationContextPropertyInfoTest.cs" />
-    <Compile Include="PropertyInfos\DesignWaterLevelLocationsContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\DesignWaterLevelCalculationsContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FailureMechanismContributionContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FailureMechanismSectionsPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FaultTreeIllustrationPointContextPropertyInfoTest.cs" />
@@ -71,7 +71,7 @@
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DesignWaterLevelLocationsGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\DesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\DesignWaterLevelCalculationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingStructureFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacroStabilityOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />

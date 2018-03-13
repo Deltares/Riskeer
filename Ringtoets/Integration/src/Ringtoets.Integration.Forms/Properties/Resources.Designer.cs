@@ -390,9 +390,9 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Toetspeilen.
         /// </summary>
-        public static string DesignWaterLevelLocationsContext_DisplayName {
+        public static string DesignWaterLevelCalculationsContext_DisplayName {
             get {
-                return ResourceManager.GetString("DesignWaterLevelLocationsContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("DesignWaterLevelCalculationsContext_DisplayName", resourceCulture);
             }
         }
         

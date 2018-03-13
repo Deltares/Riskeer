@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class DesignWaterLevelLocationsContextEqualsTest
+        private class DesignWaterLevelCalculationsContextEqualsTest
             : EqualsTestFixture<DesignWaterLevelCalculationsContext, DerivedDesignWaterLevelCalculationsContext>
         {
             private static readonly MockRepository mocks = new MockRepository();

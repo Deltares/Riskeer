@@ -237,7 +237,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AddAssessmentSection_DisplayName" xml:space="preserve">
     <value>T&amp;raject toevoegen...</value>
   </data>
-  <data name="DesignWaterLevelLocationsContext_DisplayName" xml:space="preserve">
+  <data name="DesignWaterLevelCalculationsContext_DisplayName" xml:space="preserve">
     <value>Toetspeilen</value>
   </data>
   <data name="WaveHeightLocationsContext_DisplayName" xml:space="preserve">

@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithDesignWaterLevelLocationsContext_ReturnsViewNameContainingCategoryBoundaryName()
+        public void GetViewName_WithDesignWaterLevelCalculationsContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
             // Setup
             const string categoryBoundaryName = "Category";
