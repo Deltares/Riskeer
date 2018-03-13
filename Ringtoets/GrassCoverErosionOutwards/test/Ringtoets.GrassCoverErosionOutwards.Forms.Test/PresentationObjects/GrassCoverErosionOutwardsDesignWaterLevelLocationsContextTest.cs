@@ -35,33 +35,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextTest
     {
         [Test]
-        public void Constructor_GrassCoverErosionOutwardsHydraulicBoundaryLocationsIsNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(null, assessmentSection, failureMechanism);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, null, failureMechanism);
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(calculations, null, failureMechanism);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -69,17 +50,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_GrassCoverErosionOutwardsFailureMechanismsIsNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection, null);
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(calculations, assessmentSection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -88,23 +69,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            var presentationObject = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection, failureMechanism);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(calculations, assessmentSection, failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
-            Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
-            Assert.AreSame(locations, presentationObject.WrappedData);
-            Assert.AreSame(failureMechanism, presentationObject.FailureMechanism);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>>(context);
+            Assert.AreSame(calculations, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
             mockRepository.VerifyAll();
         }
     }
