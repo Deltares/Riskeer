@@ -62,7 +62,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the factorized signaling norm (Cat Iv- IIv).
+        /// for the factorized signaling norm (Cat Iv - IIv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNorm
         {
@@ -73,6 +73,23 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             set
             {
                 SectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the signaling norm (Cat IIv - IIIv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForSignalingNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForSignalingNorm = value;
                 UpdateInternalData();
             }
         }
