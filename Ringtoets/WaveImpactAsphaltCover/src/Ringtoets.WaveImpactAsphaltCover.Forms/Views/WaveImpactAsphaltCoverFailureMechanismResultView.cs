@@ -53,7 +53,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                                                                 WaveImpactAsphaltCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
+        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
+            WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
             return new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(
                 sectionResult,

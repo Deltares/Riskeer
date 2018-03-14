@@ -69,7 +69,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the mechanism specific lower limit norm (Cat IIIv - IVv).
+        /// for the failure mechanism specific lower limit norm (Cat IIIv - IVv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNorm { get; set; }
 

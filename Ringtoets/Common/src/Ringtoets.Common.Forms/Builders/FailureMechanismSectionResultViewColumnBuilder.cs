@@ -241,7 +241,7 @@ namespace Ringtoets.Common.Forms.Builders
         
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
-        /// for the mechanism specific lower limit norm category (IIIv - IVv).
+        /// for the failure mechanism specific lower limit norm category (IIIv - IVv).
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
