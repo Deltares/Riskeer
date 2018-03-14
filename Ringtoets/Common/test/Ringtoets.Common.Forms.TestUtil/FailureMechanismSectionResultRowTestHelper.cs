@@ -121,5 +121,18 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual(readOnly, columnStateDefinition.ReadOnly);
             Assert.AreEqual(string.Empty, columnStateDefinition.ErrorText);
         }
+
+        /// <summary>
+        /// Asserts that the column state definition is added and not null.
+        /// </summary>
+        /// <param name="columnStateDefinitions">The column state definitions to assert.</param>
+        /// <param name="index">The index to assert for.</param>
+        /// <exception cref="AssertionException">Thrown when the index is not added to the <paramref cref="columnStateDefinitions"/>
+        /// or the column state definition is <c>null</c>.</exception>
+        public static void AssertColumnStateDefinition(IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions, int index)
+        {
+            Assert.IsTrue(columnStateDefinitions.ContainsKey(index));
+            Assert.IsNotNull(columnStateDefinitions[index]);
+        }
     }
 }
