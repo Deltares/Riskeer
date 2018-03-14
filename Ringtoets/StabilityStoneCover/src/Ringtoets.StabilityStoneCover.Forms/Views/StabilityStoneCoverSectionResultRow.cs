@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Base.Data;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
@@ -37,13 +36,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     /// </summary>
     public class StabilityStoneCoverSectionResultRow : FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResult>
     {
+        private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
+
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>
         /// to wrap so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult) 
+            : base(sectionResult)
+        {
+            Update();
+        }
 
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
@@ -162,6 +167,37 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             }
         }
 
-        public override void Update() {}
+        /// <summary>
+        /// Gets the simple assembly category group.
+        /// </summary>
+        public string SimpleAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(simpleAssemblyCategoryGroup);
+            }
+        }
+
+        public override void Update()
+        {
+            UpdateDerivedData();
+        }
+
+        private void UpdateDerivedData()
+        {
+            TryGetSimpleAssemblyCategoryGroup();
+        }
+
+        private void TryGetSimpleAssemblyCategoryGroup()
+        {
+            try
+            {
+                simpleAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+            }
+            catch (AssemblyException e)
+            {
+                simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
     }
 }

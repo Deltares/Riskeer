@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Forms;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -111,13 +112,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             // Call
             using (var form = new Form())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 form.Controls.Add(view);
                 form.Show();
 
                 // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
