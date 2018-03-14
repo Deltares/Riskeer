@@ -75,9 +75,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new WaveHeightCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
-
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(10, dynamicProperties.Count);
 
@@ -168,9 +165,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new WaveHeightCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
-
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(14, dynamicProperties.Count);
 
@@ -253,7 +247,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationCalculationProperties.AlphaValues));
             PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesIndex];
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
@@ -262,7 +255,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationCalculationProperties.Durations));
             PropertyDescriptor durationsProperty = dynamicProperties[durationsIndex];
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
@@ -271,7 +263,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, ExpandableArrayConverter>(nameof(HydraulicBoundaryLocationCalculationProperties.IllustrationPoints));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[illustrationPointsIndex],
                                                                             illustrationPointsCategory,
                                                                             "Illustratiepunten",

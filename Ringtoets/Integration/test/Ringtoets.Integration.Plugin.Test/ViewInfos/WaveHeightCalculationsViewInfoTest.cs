@@ -242,7 +242,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 button.Click();
 
                 Assert.AreEqual(getNormFunc(), actualNormValue);
-                Assert.AreSame(hydraulicBoundaryLocationCalculation, performedCalculations.First());
+                Assert.AreSame(hydraulicBoundaryLocationCalculation, performedCalculations.Single());
             }
 
             mockRepository.VerifyAll();

@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -33,6 +34,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
@@ -64,6 +66,37 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_ExpectedProperties()
+        {
+            // Setup
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            // Call
+            var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation);
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryLocationCalculation>>(properties);
+
+            Assert.IsInstanceOf<ExpandableObjectConverter>(TypeDescriptor.GetConverter(properties, true));
+
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoProbabilityValueDoubleConverter>(
+                nameof(HydraulicBoundaryLocationCalculationProperties.TargetProbability));
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoValueRoundedDoubleConverter>(
+                nameof(HydraulicBoundaryLocationCalculationProperties.TargetReliability));
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoProbabilityValueDoubleConverter>(
+                nameof(HydraulicBoundaryLocationCalculationProperties.CalculatedProbability));
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoValueRoundedDoubleConverter>(
+                nameof(HydraulicBoundaryLocationCalculationProperties.CalculatedReliability));
+
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(
+                nameof(HydraulicBoundaryLocationCalculationProperties.AlphaValues));
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(
+                nameof(HydraulicBoundaryLocationCalculationProperties.Durations));
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, ExpandableArrayConverter>(
+                nameof(HydraulicBoundaryLocationCalculationProperties.IllustrationPoints));
+        }
+
+        [Test]
         public void Constructor_WithoutGeneralIllustrationPointsResult_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
@@ -73,9 +106,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
-
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(8, dynamicProperties.Count);
 
@@ -152,9 +182,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new TestHydraulicBoundaryLocationCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
-
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(12, dynamicProperties.Count);
 
@@ -223,7 +250,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationCalculationProperties.AlphaValues));
             PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesIndex];
             Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
@@ -232,7 +258,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(nameof(HydraulicBoundaryLocationCalculationProperties.Durations));
             PropertyDescriptor durationsProperty = dynamicProperties[durationsIndex];
             Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
@@ -241,7 +266,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Tijdsduren waarop de stochasten betrekking hebben.",
                                                                             true);
 
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, ExpandableArrayConverter>(nameof(HydraulicBoundaryLocationCalculationProperties.IllustrationPoints));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[illustrationPointsIndex],
                                                                             illustrationPointsCategory,
                                                                             "Illustratiepunten",
