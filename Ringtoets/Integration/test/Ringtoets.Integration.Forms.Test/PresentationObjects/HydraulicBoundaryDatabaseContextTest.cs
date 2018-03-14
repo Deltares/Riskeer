@@ -39,12 +39,12 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(presentationObject);
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, presentationObject.WrappedData);
-            Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(context);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
         }
 
         [Test]

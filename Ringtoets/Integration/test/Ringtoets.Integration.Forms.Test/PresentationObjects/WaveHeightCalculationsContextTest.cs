@@ -48,17 +48,17 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             const string categoryBoundaryName = "Test name";
 
             // Call
-            var presentationObject = new WaveHeightCalculationsContext(calculations,
-                                                                       assessmentSection,
-                                                                       getNormFunc,
-                                                                       categoryBoundaryName);
+            var context = new WaveHeightCalculationsContext(calculations,
+                                                            assessmentSection,
+                                                            getNormFunc,
+                                                            categoryBoundaryName);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>>(presentationObject);
-            Assert.AreSame(calculations, presentationObject.WrappedData);
-            Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
-            Assert.AreSame(getNormFunc, presentationObject.GetNormFunc);
-            Assert.AreEqual(categoryBoundaryName, presentationObject.CategoryBoundaryName);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>>(context);
+            Assert.AreSame(calculations, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(getNormFunc, context.GetNormFunc);
+            Assert.AreEqual(categoryBoundaryName, context.CategoryBoundaryName);
             mockRepository.VerifyAll();
         }
 

@@ -29,18 +29,18 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure multiple enumerations of <see cref="HydraulicBoundaryLocation"/> 
-    /// with a design water level calculation result.
+    /// with a wave height calculation result.
     /// </summary>
-    public class DesignWaterLevelLocationsGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+    public class WaveHeightCalculationsGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelLocationsGroupContext"/>.
+        /// Creates a new instance of <see cref="WaveHeightCalculationsGroupContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The locations that the <see cref="DesignWaterLevelLocationsGroupContext"/> belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="DesignWaterLevelLocationsGroupContext"/> belongs to.</param>
+        /// <param name="wrappedData">The locations that the <see cref="WaveHeightCalculationsGroupContext"/> belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="WaveHeightCalculationsGroupContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DesignWaterLevelLocationsGroupContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
-                                                     IAssessmentSection assessmentSection)
+        public WaveHeightCalculationsGroupContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
+                                                  IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (assessmentSection == null)

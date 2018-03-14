@@ -39,7 +39,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class WaveHeightLocationsGroupContextTreeNodeInfoTest : NUnitFormTest
+    public class WaveHeightCalculationsGroupContextTreeNodeInfoTest : NUnitFormTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -119,8 +119,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
-            var nodeData = new WaveHeightLocationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
-                                                               assessmentSection);
+            var nodeData = new WaveHeightCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                  assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -165,14 +165,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
-            var locationsGroupContext = new WaveHeightLocationsGroupContext(locations, assessmentSection);
+            var calculationsGroupContext = new WaveHeightCalculationsGroupContext(locations, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                object[] childNodeObjects = info.ChildNodeObjects(locationsGroupContext);
+                object[] childNodeObjects = info.ChildNodeObjects(calculationsGroupContext);
 
                 // Assert
                 Assert.AreEqual(4, childNodeObjects.Length);
@@ -204,7 +204,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveHeightLocationsGroupContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveHeightCalculationsGroupContext));
         }
     }
 }

@@ -31,7 +31,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class DesignWaterLevelLocationsGroupContextTest
+    public class DesignWaterLevelCalculationsGroupContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -44,12 +44,12 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
-            var presentationObject = new DesignWaterLevelLocationsGroupContext(locations, assessmentSection);
+            var context = new DesignWaterLevelCalculationsGroupContext(locations, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
-            Assert.AreSame(locations, presentationObject.WrappedData);
-            Assert.AreSame(assessmentSection, presentationObject.AssessmentSection);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(context);
+            Assert.AreSame(locations, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
         }
 
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DesignWaterLevelLocationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(), null);
+            TestDelegate call = () => new DesignWaterLevelCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -758,12 +758,12 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<DesignWaterLevelLocationsGroupContext>
+            yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>
             {
                 Text = context => RingtoetsFormsResources.DesignWaterLevelCalculationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ContextMenuStrip = DesignWaterLevelLocationsGroupContextMenuStrip,
-                ChildNodeObjects = DesignWaterLevelLocationsGroupContextChildNodeObjects
+                ContextMenuStrip = DesignWaterLevelCalculationsGroupContextMenuStrip,
+                ChildNodeObjects = DesignWaterLevelCalculationsGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsContext>
@@ -773,12 +773,12 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = DesignWaterLevelCalculationsContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<WaveHeightLocationsGroupContext>
+            yield return new TreeNodeInfo<WaveHeightCalculationsGroupContext>
             {
                 Text = context => RingtoetsFormsResources.WaveHeightCalculationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ContextMenuStrip = WaveHeightLocationsGroupContextMenuStrip,
-                ChildNodeObjects = WaveHeightLocationsGroupContextChildNodeObjects
+                ContextMenuStrip = WaveHeightCalculationsGroupContextMenuStrip,
+                ChildNodeObjects = WaveHeightCalculationsGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<WaveHeightCalculationsContext>
@@ -1726,10 +1726,10 @@ namespace Ringtoets.Integration.Plugin
             {
                 return new object[]
                 {
-                    new DesignWaterLevelLocationsGroupContext(nodeData.WrappedData.Locations,
-                                                              nodeData.AssessmentSection),
-                    new WaveHeightLocationsGroupContext(nodeData.WrappedData.Locations,
-                                                        nodeData.AssessmentSection)
+                    new DesignWaterLevelCalculationsGroupContext(nodeData.WrappedData.Locations,
+                                                                 nodeData.AssessmentSection),
+                    new WaveHeightCalculationsGroupContext(nodeData.WrappedData.Locations,
+                                                           nodeData.AssessmentSection)
                 };
             }
 
@@ -1942,7 +1942,7 @@ namespace Ringtoets.Integration.Plugin
             log.Info(RingtoetsFormsResources.Calculations_Cleared);
         }
 
-        private ContextMenuStrip DesignWaterLevelLocationsGroupContextMenuStrip(DesignWaterLevelLocationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip DesignWaterLevelCalculationsGroupContextMenuStrip(DesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddCollapseAllItem()
@@ -1950,7 +1950,7 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private ContextMenuStrip WaveHeightLocationsGroupContextMenuStrip(WaveHeightLocationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip WaveHeightCalculationsGroupContextMenuStrip(WaveHeightCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddCollapseAllItem()
@@ -1958,7 +1958,7 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private static object[] DesignWaterLevelLocationsGroupContextChildNodeObjects(DesignWaterLevelLocationsGroupContext context)
+        private static object[] DesignWaterLevelCalculationsGroupContextChildNodeObjects(DesignWaterLevelCalculationsGroupContext context)
         {
             return new object[]
             {
@@ -1981,7 +1981,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static object[] WaveHeightLocationsGroupContextChildNodeObjects(WaveHeightLocationsGroupContext context)
+        private static object[] WaveHeightCalculationsGroupContextChildNodeObjects(WaveHeightCalculationsGroupContext context)
         {
             return new object[]
             {

@@ -39,7 +39,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class DesignWaterLevelLocationsGroupContextTreeNodeInfoTest : NUnitFormTest
+    public class DesignWaterLevelCalculationsGroupContextTreeNodeInfoTest : NUnitFormTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -118,8 +118,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
-            var nodeData = new DesignWaterLevelLocationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                     assessmentSection);
+            var nodeData = new DesignWaterLevelCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -164,14 +164,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
-            var locationsGroupContext = new DesignWaterLevelLocationsGroupContext(locations, assessmentSection);
+            var calculationsGroupContext = new DesignWaterLevelCalculationsGroupContext(locations, assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                object[] childNodeObjects = info.ChildNodeObjects(locationsGroupContext);
+                object[] childNodeObjects = info.ChildNodeObjects(calculationsGroupContext);
 
                 // Assert
                 Assert.AreEqual(4, childNodeObjects.Length);
@@ -203,7 +203,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DesignWaterLevelLocationsGroupContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DesignWaterLevelCalculationsGroupContext));
         }
     }
 }

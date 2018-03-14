@@ -70,7 +70,7 @@
     <Compile Include="TreeNodeInfos\BackgroundDataTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\DesignWaterLevelLocationsGroupContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\DesignWaterLevelCalculationsGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DesignWaterLevelCalculationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingStructureFailureMechanismContextTreeNodeInfoTest.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="TreeNodeInfos\StructuresOutputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\TechnicalInnovationFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaterPressureAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveHeightLocationsGroupContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\WaveHeightCalculationsGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveHeightCalculationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\ForeshoreProfileContextUpdateInfoTest.cs" />

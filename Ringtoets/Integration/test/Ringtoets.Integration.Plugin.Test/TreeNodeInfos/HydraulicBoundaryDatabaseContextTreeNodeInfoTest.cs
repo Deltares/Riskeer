@@ -261,13 +261,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(2, objects.Length);
 
-                var designWaterLevelLocationsGroupContext = (DesignWaterLevelLocationsGroupContext) objects[0];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, designWaterLevelLocationsGroupContext.WrappedData);
-                Assert.AreSame(assessmentSection, designWaterLevelLocationsGroupContext.AssessmentSection);
+                var designWaterLevelCalculationsGroupContext = (DesignWaterLevelCalculationsGroupContext) objects[0];
+                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, designWaterLevelCalculationsGroupContext.WrappedData);
+                Assert.AreSame(assessmentSection, designWaterLevelCalculationsGroupContext.AssessmentSection);
 
-                var waveHeightLocationsGroupContext = (WaveHeightLocationsGroupContext) objects[1];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, waveHeightLocationsGroupContext.WrappedData);
-                Assert.AreSame(assessmentSection, waveHeightLocationsGroupContext.AssessmentSection);
+                var waveHeightCalculationsGroupContext = (WaveHeightCalculationsGroupContext) objects[1];
+                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, waveHeightCalculationsGroupContext.WrappedData);
+                Assert.AreSame(assessmentSection, waveHeightCalculationsGroupContext.AssessmentSection);
             }
         }
 
