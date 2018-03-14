@@ -1,0 +1,85 @@
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Linq;
+using Core.Common.Base.Data;
+using Core.Common.Gui.Plugin;
+using Core.Common.Gui.PropertyBag;
+using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
+
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
+{
+    [TestFixture]
+    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationContextPropertyInfoTest
+    {
+        [Test]
+        public void Initialized_Always_ExpectedPropertiesSet()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                // Call
+                PropertyInfo info = GetInfo(plugin);
+
+                // Assert
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationContext), info.DataType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties), info.PropertyObjectType);
+            }
+        }
+
+        [Test]
+        public void CreateInstance_WithContext_SetsDataCorrectly()
+        {
+            // Setup
+            double designWaterLevel = new Random().NextDouble();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+            };
+
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationContext(hydraulicBoundaryLocationCalculation);
+
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                PropertyInfo info = GetInfo(plugin);
+
+                // Call
+                IObjectProperties objectProperties = info.CreateInstance(context);
+
+                // Assert
+                Assert.IsInstanceOf<GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties>(objectProperties);
+                Assert.AreSame(hydraulicBoundaryLocationCalculation, objectProperties.Data);
+                RoundedDouble actualDesignWaterLevel = ((GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties) objectProperties).DesignWaterLevel;
+                Assert.AreEqual(designWaterLevel, actualDesignWaterLevel, actualDesignWaterLevel.GetAccuracy());
+            }
+        }
+
+        private static PropertyInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
+        {
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationContext));
+        }
+    }
+}
