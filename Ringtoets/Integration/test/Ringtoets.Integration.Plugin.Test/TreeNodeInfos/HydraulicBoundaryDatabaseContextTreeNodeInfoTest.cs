@@ -601,6 +601,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var waveHeightCalculationsForMechanismSpecificSignalingNormObserver = mocks.StrictMock<IObserver>();
             var waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver = mocks.StrictMock<IObserver>();
 
+            var duneLocationsObserver = mocks.StrictMock<IObserver>();
+
             assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
             assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(hydraulicBoundaryLocationsObserver);
 
@@ -621,6 +623,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Attach(waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver);
             assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Attach(waveHeightCalculationsForMechanismSpecificSignalingNormObserver);
             assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Attach(waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver);
+
+            assessmentSection.DuneErosion.DuneLocations.Attach(duneLocationsObserver);
 
             if (expectUpdateObserver)
             {
@@ -644,6 +648,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver.Expect(o => o.UpdateObserver());
                 waveHeightCalculationsForMechanismSpecificSignalingNormObserver.Expect(o => o.UpdateObserver());
                 waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver.Expect(o => o.UpdateObserver());
+
+                duneLocationsObserver.Expect(o => o.UpdateObserver());
             }
         }
 
