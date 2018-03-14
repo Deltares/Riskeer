@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -72,8 +71,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 // Assert
                 Assert.IsInstanceOf<DesignWaterLevelCalculationProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocationCalculation, objectProperties.Data);
-                RoundedDouble actualDesignWaterLevel = ((DesignWaterLevelCalculationProperties) objectProperties).DesignWaterLevel;
-                Assert.AreEqual(designWaterLevel, actualDesignWaterLevel, actualDesignWaterLevel.GetAccuracy());
             }
         }
 

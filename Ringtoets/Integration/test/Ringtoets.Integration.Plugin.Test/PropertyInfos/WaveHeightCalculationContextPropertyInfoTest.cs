@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -72,8 +71,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 // Assert
                 Assert.IsInstanceOf<WaveHeightCalculationProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocationCalculation, objectProperties.Data);
-                RoundedDouble actualWaveHeight = ((WaveHeightCalculationProperties) objectProperties).WaveHeight;
-                Assert.AreEqual(waveHeight, actualWaveHeight, actualWaveHeight.GetAccuracy());
             }
         }
 
