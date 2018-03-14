@@ -367,6 +367,58 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             }
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithUseManualAssemblyCategoryGroupSet_ExpectedColumnStates(bool useManualAssemblyCategoryGroup)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityStoneCoverFailureMechanismSectionResult(section)
+            {
+                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForFactorizedSignalingNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForSignalingNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForLowerLimitNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForFactorizedLowerLimitNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+
+                if (useManualAssemblyCategoryGroup)
+                {
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
+                }
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex],
+                                                                             useManualAssemblyCategoryGroup);
+            }
+        }
+
         #endregion
 
         #region Registration
