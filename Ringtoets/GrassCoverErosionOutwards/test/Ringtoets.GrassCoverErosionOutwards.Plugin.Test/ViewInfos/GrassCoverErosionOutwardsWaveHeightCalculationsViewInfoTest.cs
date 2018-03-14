@@ -149,7 +149,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 string name = info.GetViewName(null, null);
 
                 // Assert
-                Assert.AreEqual(Resources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName, name);
+                Assert.AreEqual(Resources.GrassCoverErosionOutwardsWaveHeightCalculationsContext_DisplayName, name);
             }
         }
 

@@ -256,9 +256,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogtes bij doorsnede-eis.
         /// </summary>
-        public static string GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName {
+        public static string GrassCoverErosionOutwardsWaveHeightCalculationsContext_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightCalculationsContext_DisplayName", resourceCulture);
             }
         }
         

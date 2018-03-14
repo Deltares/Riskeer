@@ -187,15 +187,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
-            var waterLevelHydraulicBoundaryLocationsContext = (GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext) children[0];
-            CollectionAssert.AreEqual(failureMechanism.HydraulicBoundaryLocations.Select(hbl => hbl.DesignWaterLevelCalculation1), waterLevelHydraulicBoundaryLocationsContext.WrappedData);
-            Assert.AreSame(failureMechanism, waterLevelHydraulicBoundaryLocationsContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, waterLevelHydraulicBoundaryLocationsContext.AssessmentSection);
+            var waterLevelHydraulicBoundaryCalculationsContext = (GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext) children[0];
+            CollectionAssert.AreEqual(failureMechanism.HydraulicBoundaryLocations.Select(hbl => hbl.DesignWaterLevelCalculation1), waterLevelHydraulicBoundaryCalculationsContext.WrappedData);
+            Assert.AreSame(failureMechanism, waterLevelHydraulicBoundaryCalculationsContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, waterLevelHydraulicBoundaryCalculationsContext.AssessmentSection);
 
-            var waveHeightHydraulicBoundaryLocationsContext = (GrassCoverErosionOutwardsWaveHeightCalculationsContext) children[1];
-            CollectionAssert.AreEqual(failureMechanism.HydraulicBoundaryLocations.Select(hbl => hbl.WaveHeightCalculation1), waveHeightHydraulicBoundaryLocationsContext.WrappedData);
-            Assert.AreSame(failureMechanism, waveHeightHydraulicBoundaryLocationsContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, waveHeightHydraulicBoundaryLocationsContext.AssessmentSection);
+            var waveHeightHydraulicBoundaryCalculationsContext = (GrassCoverErosionOutwardsWaveHeightCalculationsContext) children[1];
+            CollectionAssert.AreEqual(failureMechanism.HydraulicBoundaryLocations.Select(hbl => hbl.WaveHeightCalculation1), waveHeightHydraulicBoundaryCalculationsContext.WrappedData);
+            Assert.AreSame(failureMechanism, waveHeightHydraulicBoundaryCalculationsContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, waveHeightHydraulicBoundaryCalculationsContext.AssessmentSection);
 
             var waveConditionsCalculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[2];
             Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, waveConditionsCalculationGroupContext.WrappedData);
