@@ -63,25 +63,25 @@ namespace Ringtoets.StabilityStoneCover.Data
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the factorized signaling norm (Cat IIv - IIIv).
+        /// for the signaling norm (Cat IIv - IIIv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNorm { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the factorized signaling norm (Cat IIIv - IVv).
+        /// for the failure mechanism specific lower limit norm (Cat IIIv - IVv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNorm { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the factorized signaling norm (Cat IVv - Vv).
+        /// for the lower limit norm (Cat IVv - Vv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNorm { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
-        /// for the factorized signaling norm (Cat Vv - VIv).
+        /// for the factorized lower limit norm (Cat Vv - VIv).
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm { get; set; }
 

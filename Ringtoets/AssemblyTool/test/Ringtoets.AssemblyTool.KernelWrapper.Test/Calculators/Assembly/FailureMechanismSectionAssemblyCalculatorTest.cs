@@ -876,11 +876,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-            var detailedAssesmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -893,11 +888,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleDetailedAssessment(
-                    detailedAssesmentResultForFactorizedSignalingNorm,
-                    detailedAssesmentResultForSignalingNorm,
-                    detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-                    detailedAssesmentResultForLowerLimitNorm,
-                    detailedAssesmentResultForFactorizedLowerLimitNorm);
+                    random.NextEnumValue<DetailedAssessmentResultType>(),
+                    random.NextEnumValue<DetailedAssessmentResultType>(),
+                    random.NextEnumValue<DetailedAssessmentResultType>(),
+                    random.NextEnumValue<DetailedAssessmentResultType>(),
+                    random.NextEnumValue<DetailedAssessmentResultType>());
 
                 // Assert
                 Assert.AreEqual(GetGroup(kernel.FailureMechanismSectionAssemblyCategoryGroup.Result), assembly);
@@ -909,11 +904,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-            var detailedAssesmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -925,11 +915,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
-                    detailedAssesmentResultForFactorizedSignalingNorm,
-                    detailedAssesmentResultForSignalingNorm,
-                    detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-                    detailedAssesmentResultForLowerLimitNorm,
-                    detailedAssesmentResultForFactorizedLowerLimitNorm);
+                    random.NextEnumValue<DetailedAssessmentResultType>(),
+                    random.NextEnumValue<DetailedAssessmentResultType>(),
+                    random.NextEnumValue<DetailedAssessmentResultType>(),
+                    random.NextEnumValue<DetailedAssessmentResultType>(),
+                    random.NextEnumValue<DetailedAssessmentResultType>());
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);

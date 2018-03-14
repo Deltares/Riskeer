@@ -374,7 +374,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
             {
                 throw new InvalidEnumArgumentException(nameof(category),
-                                                       (int)category,
+                                                       (int) category,
                                                        typeof(FailureMechanismSectionAssemblyCategoryGroup));
             }
 
@@ -459,18 +459,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             switch (detailedAssessmentResult)
-                {
-                    case DetailedAssessmentResultType.None:
-                        return DetailedCalculationResult.None;
-                    case DetailedAssessmentResultType.Sufficient:
-                        return DetailedCalculationResult.V;
-                    case DetailedAssessmentResultType.Insufficient:
-                        return DetailedCalculationResult.VN;
-                    case DetailedAssessmentResultType.NotAssessed:
-                        return DetailedCalculationResult.NGO;
-                    default:
-                        throw new NotSupportedException();
-                }
+            {
+                case DetailedAssessmentResultType.None:
+                    return DetailedCalculationResult.None;
+                case DetailedAssessmentResultType.Sufficient:
+                    return DetailedCalculationResult.V;
+                case DetailedAssessmentResultType.Insufficient:
+                    return DetailedCalculationResult.VN;
+                case DetailedAssessmentResultType.NotAssessed:
+                    return DetailedCalculationResult.NGO;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }

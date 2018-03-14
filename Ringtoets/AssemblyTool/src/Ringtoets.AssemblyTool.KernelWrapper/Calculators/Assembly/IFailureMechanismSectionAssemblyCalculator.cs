@@ -70,7 +70,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
-        /// <param name="detailedAssessmentResult">The detailed assessment result.</param>
+        /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
         /// <param name="probability">The calculated probability.</param>
         /// <param name="categories">The collection of categories for this failure mechanism section.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
@@ -85,16 +85,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
-        /// <param name="detailedAssesmentResultForFactorizedSignalingNorm">The detailed assessment result
-        /// for category Iv - IIv.</param>
-        /// <param name="detailedAssesmentResultForSignalingNorm">The detailed assessment result for category
-        /// IIv - IIIv.</param>
-        /// <param name="detailedAssesmentResultForMechanismSpecificLowerLimitNorm">The detailed assessment
-        /// result  for category IIIv - IVv.</param>
-        /// <param name="detailedAssesmentResultForLowerLimitNorm">The detailed assessment result for category
-        /// IVv - Vv.</param>
-        /// <param name="detailedAssesmentResultForFactorizedLowerLimitNorm">The detailed assessment result
-        /// for category Vv - VIv.</param>
+        /// <param name="detailedAssesmentResultForFactorizedSignalingNorm">The category Iv - IIv 
+        /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
+        /// <param name="detailedAssesmentResultForSignalingNorm">The category IIv - IIIv 
+        /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
+        /// <param name="detailedAssesmentResultForMechanismSpecificLowerLimitNorm">TThe category IIIv - IVv 
+        /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
+        /// <param name="detailedAssesmentResultForLowerLimitNorm">The category IVv - Vv 
+        /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
+        /// <param name="detailedAssesmentResultForFactorizedLowerLimitNorm">The category Vv - VIv 
+        /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
@@ -135,7 +135,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.
         /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result.</param>
+        /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>
+        /// to assemble for.</param>
         /// <param name="probability">The calculated probability.</param>
         /// <param name="categories">The collection of categories for this failure mechanism section.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
@@ -150,7 +151,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.
         /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result.</param>
+        /// <param name="tailorMadeAssessmentResult">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
