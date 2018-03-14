@@ -214,6 +214,40 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public bool UseManualAssemblyCategoryGroup
+        {
+            get
+            {
+                return SectionResult.UseManualAssemblyCategoryGroup;
+            }
+            set
+            {
+                SectionResult.UseManualAssemblyCategoryGroup = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        public SelectableFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
+        {
+            get
+            {
+                return SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(SectionResult.ManualAssemblyCategoryGroup);
+            }
+            set
+            {
+                SectionResult.ManualAssemblyCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(value);
+                UpdateInternalData();
+            }
+        }
+
         public override void Update()
         {
             UpdateDerivedData();

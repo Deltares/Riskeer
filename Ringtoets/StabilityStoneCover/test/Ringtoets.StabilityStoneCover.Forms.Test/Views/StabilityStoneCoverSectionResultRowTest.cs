@@ -64,6 +64,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual(result.DetailedAssessmentResultForFactorizedLowerLimitNorm, row.DetailedAssessmentResultForFactorizedLowerLimitNorm);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.TailorMadeAssessmentResult),
                                 row.TailorMadeAssessmentResult);
+                Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.ManualAssemblyCategoryGroup),
+                                row.ManualAssemblyCategoryGroup);
             }
         }
 
@@ -98,6 +101,67 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                                 row.TailorMadeAssemblyCategoryGroup);
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.CombinedAssemblyCategoryOutput.Value),
                                 row.CombinedAssemblyCategoryGroup);
+            }
+        }
+
+        [Test]
+        public void UseManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            bool newValue = !result.UseManualAssemblyCategoryGroup;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new StabilityStoneCoverSectionResultRow(result);
+
+                // Precondition
+                Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+
+                // Call
+                row.UseManualAssemblyCategoryGroup = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.UseManualAssemblyCategoryGroup);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void ManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new StabilityStoneCoverSectionResultRow(result);
+
+                // Call
+                row.ManualAssemblyCategoryGroup = newValue;
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(newValue);
+                Assert.AreEqual(expectedCategoryGroup, result.ManualAssemblyCategoryGroup);
+                mocks.VerifyAll();
             }
         }
 
