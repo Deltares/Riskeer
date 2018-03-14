@@ -152,7 +152,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForLowerLimitNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedLowerLimitNormIndex].Value);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[tailorMadeResultIndex].Value);
-                Assert.AreEqual("VIIv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[combinedAssemblyCategoryGroupIndex].Value);
