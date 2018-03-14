@@ -42,6 +42,43 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
     [TestFixture]
     public class StabilityStoneCoverSectionResultRowTest
     {
+        private static StabilityStoneCoverSectionResultRow.ConstructionProperties ConstructionProperties
+        {
+            get
+            {
+                return new StabilityStoneCoverSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = 1,
+                    DetailedAssessmentResultForFactorizedSignalingNormIndex = 2,
+                    DetailedAssessmentResultForSignalingNormIndex = 3,
+                    DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex = 4,
+                    DetailedAssessmentResultForLowerLimitNormIndex = 5,
+                    DetailedAssessmentResultForFactorizedLowerLimitNormIndex = 6,
+                    TailorMadeAssessmentResultIndex = 7,
+                    SimpleAssemblyCategoryGroupIndex = 8,
+                    DetailedAssemblyCategoryGroupIndex = 9,
+                    TailorMadeAssemblyCategoryGroupIndex = 10,
+                    CombinedAssemblyCategoryGroupIndex = 11,
+                    ManualAssemblyCategoryGroupIndex = 13
+                };
+            }
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => new StabilityStoneCoverSectionResultRow(result, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+        }
+
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
@@ -52,7 +89,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResult>>(row);
@@ -91,7 +128,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
                                 row.SimpleAssemblyCategoryGroup);
@@ -121,7 +158,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
@@ -153,7 +190,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -185,7 +222,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -214,7 +251,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedSignalingNorm = newValue;
@@ -243,7 +280,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForSignalingNorm = newValue;
@@ -272,7 +309,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = newValue;
@@ -301,7 +338,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForLowerLimitNorm = newValue;
@@ -330,7 +367,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedLowerLimitNorm = newValue;
@@ -359,7 +396,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result);
+                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;

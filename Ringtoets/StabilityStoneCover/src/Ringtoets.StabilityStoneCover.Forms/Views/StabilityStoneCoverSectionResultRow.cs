@@ -36,6 +36,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     /// </summary>
     public class StabilityStoneCoverSectionResultRow : FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResult>
     {
+        private readonly int simpleAssessmentResultIndex;
+        private readonly int detailedAssessmentResultForFactorizedSignalingNormIndex;
+        private readonly int detailedAssessmentResultForSignalingNormIndex;
+        private readonly int detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex;
+        private readonly int detailedAssessmentResultForLowerLimitNormIndex;
+        private readonly int detailedAssessmentResultForFactorizedLowerLimitNormIndex;
+        private readonly int tailorMadeAssessmentResultIndex;
+        private readonly int simpleAssemblyCategoryGroupIndex;
+        private readonly int detailedAssemblyCategoryGroupIndex;
+        private readonly int tailorMadeAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyCategoryGroupIndex;
+        private readonly int manualAssemblyCategoryGroupIndex;
+
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
@@ -46,10 +59,31 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// </summary>
         /// <param name="sectionResult">The <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>
         /// to wrap so that it can be displayed as a row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="StabilityStoneCoverSectionResultRow"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult,
+                                                   ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
+            simpleAssessmentResultIndex = constructionProperties.SimpleAssessmentResultIndex;
+            detailedAssessmentResultForFactorizedSignalingNormIndex = constructionProperties.DetailedAssessmentResultForFactorizedSignalingNormIndex;
+            detailedAssessmentResultForSignalingNormIndex = constructionProperties.DetailedAssessmentResultForSignalingNormIndex;
+            detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex = constructionProperties.DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex;
+            detailedAssessmentResultForLowerLimitNormIndex = constructionProperties.DetailedAssessmentResultForLowerLimitNormIndex;
+            detailedAssessmentResultForFactorizedLowerLimitNormIndex = constructionProperties.DetailedAssessmentResultForFactorizedLowerLimitNormIndex;
+            tailorMadeAssessmentResultIndex = constructionProperties.TailorMadeAssessmentResultIndex;
+            simpleAssemblyCategoryGroupIndex = constructionProperties.SimpleAssemblyCategoryGroupIndex;
+            detailedAssemblyCategoryGroupIndex = constructionProperties.DetailedAssemblyCategoryGroupIndex;
+            tailorMadeAssemblyCategoryGroupIndex = constructionProperties.TailorMadeAssemblyCategoryGroupIndex;
+            combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
+            manualAssemblyCategoryGroupIndex = constructionProperties.ManualAssemblyCategoryGroupIndex;
+
             Update();
         }
 
