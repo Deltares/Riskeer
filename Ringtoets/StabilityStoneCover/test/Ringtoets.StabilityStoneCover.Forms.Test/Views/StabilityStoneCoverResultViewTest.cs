@@ -44,7 +44,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         private const int detailedAssessmentResultForFactorizedLowerLimitNormIndex = 6;
         private const int tailorMadeResultIndex = 7;
         private const int simpleAssemblyCategoryGroupIndex = 8;
-        private const int columnCount = 9;
+        private const int detailedAssemblyCategoryGroupIndex = 9;
+        private const int columnCount = 10;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -100,6 +101,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Vv - VIv", dataGridView.Columns[detailedAssessmentResultForFactorizedLowerLimitNormIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeResultIndex].HeaderText);
                 Assert.AreEqual("Assemblageresultaat\r\neenvoudige toets", dataGridView.Columns[simpleAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Assemblageresultaat\r\ngedetailleerde toets per vak", dataGridView.Columns[detailedAssemblyCategoryGroupIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -138,6 +140,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedLowerLimitNormIndex].Value);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[tailorMadeResultIndex].Value);
                 Assert.AreEqual("VIIv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
             }
         }
     }
