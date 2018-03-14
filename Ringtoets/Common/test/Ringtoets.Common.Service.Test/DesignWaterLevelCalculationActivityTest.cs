@@ -222,7 +222,9 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             mockRepository.ReplayAll();
 
-            var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
+
+            var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
                                                                    validFilePath,
                                                                    validPreprocessorDirectory,
                                                                    norm,
@@ -248,7 +250,7 @@ namespace Ringtoets.Common.Service.Test
 
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.Single();
 
-                Assert.AreEqual(new TestHydraulicBoundaryLocation(locationName).Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
             }
 
@@ -487,7 +489,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             const double norm = 1.0 / 30;
-            var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(0, locationName, 0, 0)),
+            var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                                    validFilePath,
                                                                    validPreprocessorDirectory,
                                                                    norm,

@@ -220,7 +220,9 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             mockRepository.ReplayAll();
 
-            var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
+
+            var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
                                                              validFilePath,
                                                              validPreprocessorDirectory,
                                                              norm,
@@ -245,7 +247,7 @@ namespace Ringtoets.Common.Service.Test
                 });
                 WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
 
-                Assert.AreEqual(new TestHydraulicBoundaryLocation(locationName).Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
             }
 
@@ -485,7 +487,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             const double norm = 1.0 / 30;
-            var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(0, locationName, 0, 0)),
+            var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              validFilePath,
                                                              validPreprocessorDirectory,
                                                              norm,

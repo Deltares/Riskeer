@@ -193,7 +193,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_ValidPathOneLocationInTheList_LogsMessages()
+        public void CalculateDesignWaterLevels_ValidPathOneCalculation_LogsMessages()
         {
             // Setup
             const string hydraulicLocationName = "name";
@@ -368,7 +368,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_ValidPathOneLocationInTheList_LogsMessages()
+        public void CalculateWaveHeights_ValidPathOneCalculation_LogsMessages()
         {
             // Setup
             const string hydraulicLocationName = "name";

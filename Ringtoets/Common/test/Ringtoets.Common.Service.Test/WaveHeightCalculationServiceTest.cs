@@ -191,7 +191,8 @@ namespace Ringtoets.Common.Service.Test
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 InputParameters =
                 {
@@ -218,7 +219,7 @@ namespace Ringtoets.Common.Service.Test
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
 
-                AssessmentLevelCalculationInput expectedInput = CreateInput(0, norm);
+                AssessmentLevelCalculationInput expectedInput = CreateInput(hydraulicBoundaryLocation.Id, norm);
                 AssertInput(expectedInput, calculator.ReceivedInputs.Single());
                 Assert.IsFalse(calculator.IsCanceled);
                 Assert.IsNotNull(hydraulicBoundaryLocationCalculation.Output);
@@ -275,6 +276,7 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidWaveHeightCalculationAndDoesNotConverge_SetsOutputAndLogs(bool readIllustrationPoints)
         {
             // Setup
+            const double norm = 1.0 / 30;
             const string locationName = "punt_flw_1";
 
             var calculator = new TestWaveHeightCalculator
@@ -292,7 +294,8 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProvider.Expect(mp => mp.GetCalculatedNotConvergedMessage(locationName)).Return(failedConvergenceMessage);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName))
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 InputParameters =
                 {
@@ -302,11 +305,14 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                Action call = () => new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocationCalculation,
-                                                                                 validFilePath,
-                                                                                 validPreprocessorDirectory,
-                                                                                 1.0 / 30,
-                                                                                 calculationMessageProvider);
+                Action call = () =>
+                {
+                    new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocationCalculation,
+                                                                 validFilePath,
+                                                                 validPreprocessorDirectory,
+                                                                 norm,
+                                                                 calculationMessageProvider);
+                };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -319,6 +325,10 @@ namespace Ringtoets.Common.Service.Test
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
+
+                AssessmentLevelCalculationInput expectedInput = CreateInput(hydraulicBoundaryLocation.Id, norm);
+                AssertInput(expectedInput, calculator.ReceivedInputs.Single());
+
                 Assert.IsFalse(calculator.IsCanceled);
                 Assert.IsNotNull(hydraulicBoundaryLocationCalculation.Output);
                 Assert.AreEqual(readIllustrationPoints, hydraulicBoundaryLocationCalculation.Output.HasGeneralResult);
@@ -594,8 +604,6 @@ namespace Ringtoets.Common.Service.Test
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
-            const double norm = 1.0 / 30;
-
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var service = new WaveHeightCalculationService();
@@ -605,7 +613,7 @@ namespace Ringtoets.Common.Service.Test
                 service.Calculate(hydraulicBoundaryLocationCalculation,
                                   validFilePath,
                                   validPreprocessorDirectory,
-                                  norm,
+                                  1.0 / 30,
                                   calculationMessageProvider);
 
                 // Assert
@@ -625,7 +633,6 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             const string locationName = "punt_flw_1";
             const string calculationFailedMessage = "calculationFailedMessage";
-            const double norm = 1.0 / 30;
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -667,7 +674,7 @@ namespace Ringtoets.Common.Service.Test
                         new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocationCalculation,
                                                                      validFilePath,
                                                                      validPreprocessorDirectory,
-                                                                     norm,
+                                                                     1.0 / 30,
                                                                      calculationMessageProvider);
                     }
                     catch (HydraRingCalculationException e)

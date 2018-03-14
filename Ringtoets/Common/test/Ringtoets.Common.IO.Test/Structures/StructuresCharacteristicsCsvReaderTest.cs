@@ -214,7 +214,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void GetLineCount_ValidFileWithOneLocationsAndExtraWhiteLines_ReturnCount()
+        public void GetLineCount_ValidFileWithOneLocationAndExtraWhiteLines_ReturnCount()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
