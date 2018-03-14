@@ -39,6 +39,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverSectionResultRow"/>.
@@ -202,6 +203,17 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the combined assembly category group.
+        /// </summary>
+        public string CombinedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedAssemblyCategoryGroup);
+            }
+        }
+
         public override void Update()
         {
             UpdateDerivedData();
@@ -212,6 +224,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             TryGetSimpleAssemblyCategoryGroup();
             TryGetDetailedAssemblyCategoryGroup();
             TryGetTailorMadeAssemblyCategoryGroup();
+            TryGetCombinedAssemblyCategoryGroup();
         }
 
         private void TryGetSimpleAssemblyCategoryGroup()
@@ -247,6 +260,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             catch (AssemblyException e)
             {
                 tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
+
+        private void TryGetCombinedAssemblyCategoryGroup()
+        {
+            try
+            {
+                combinedAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                    SectionResult);
+            }
+            catch (AssemblyException e)
+            {
+                combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
             }
         }
     }
