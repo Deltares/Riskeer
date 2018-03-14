@@ -335,6 +335,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             catch (AssemblyException e)
             {
                 simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.InnerException.Message;
             }
         }
 
@@ -347,6 +348,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             catch (AssemblyException e)
             {
                 detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.InnerException.Message;
             }
         }
 
@@ -359,6 +361,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             catch (AssemblyException e)
             {
                 tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.InnerException.Message;
             }
         }
 
@@ -372,6 +375,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             catch (AssemblyException e)
             {
                 combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.InnerException.Message;
             }
         }
 
