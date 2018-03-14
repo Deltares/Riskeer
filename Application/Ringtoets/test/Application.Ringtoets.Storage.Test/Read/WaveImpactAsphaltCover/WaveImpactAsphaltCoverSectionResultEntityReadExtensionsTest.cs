@@ -75,8 +75,6 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
         }
 
         [Test]
@@ -105,8 +103,6 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
         }
     }
 }

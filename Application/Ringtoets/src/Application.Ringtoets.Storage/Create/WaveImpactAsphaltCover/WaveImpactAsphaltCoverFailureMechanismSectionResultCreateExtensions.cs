@@ -32,7 +32,8 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
     internal static class WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> based on the information of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> based on the information
+        /// of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverSectionResultEntity"/>.</returns>
@@ -40,9 +41,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         {
             var sectionResultEntity = new WaveImpactAsphaltCoverSectionResultEntity
             {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA),
-                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
+                LayerOne = Convert.ToByte(result.AssessmentLayerOne)
             };
 
             return sectionResultEntity;

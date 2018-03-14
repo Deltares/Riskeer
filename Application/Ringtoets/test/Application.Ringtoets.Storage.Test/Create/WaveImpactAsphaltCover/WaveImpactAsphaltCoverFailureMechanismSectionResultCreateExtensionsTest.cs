@@ -23,7 +23,6 @@ using System;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -40,14 +39,10 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             // Setup
             var random = new Random();
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            var assessmentLayerTwoAResult = random.NextEnumValue<AssessmentLayerTwoAResult>();
-            const double assessmentLayerThreeResult = 3.2;
 
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerTwoA = assessmentLayerTwoAResult,
-                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+                AssessmentLayerOne = assessmentLayerOneResult
             };
 
             // Call
@@ -55,24 +50,6 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(Convert.ToByte(assessmentLayerTwoAResult), result.LayerTwoA);
-            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
-        }
-
-        [Test]
-        public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
-        {
-            // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
-            {
-                AssessmentLayerThree = RoundedDouble.NaN
-            };
-
-            // Call
-            WaveImpactAsphaltCoverSectionResultEntity result = sectionResult.Create();
-
-            // Assert
-            Assert.IsNull(result.LayerThree);
         }
     }
 }

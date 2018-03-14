@@ -21,7 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -37,7 +36,8 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
         /// Reads the <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> and use the information to update a 
         /// <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> to create <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> to 
+        /// create <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
@@ -49,8 +49,6 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             }
 
             sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.AssessmentLayerTwoA = (AssessmentLayerTwoAResult) entity.LayerTwoA;
-            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }
     }
 }

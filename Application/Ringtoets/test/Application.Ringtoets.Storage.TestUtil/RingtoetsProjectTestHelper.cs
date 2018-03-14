@@ -499,6 +499,15 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         #endregion
 
+        #region PipingStructure FailureMechanism
+
+        private static void ConfigurePipingStructureFailureMechanism(PipingStructureFailureMechanism pipingStructureFailureMechanism)
+        {
+            pipingStructureFailureMechanism.N = (RoundedDouble) 12.5;
+        }
+
+        #endregion
+
         #region StabilityPointStructures FailureMechanism
 
         private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
@@ -1967,7 +1976,6 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults)
         {
-            var random = new Random(21);
             foreach (StabilityStoneCoverFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
@@ -2056,22 +2064,10 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults)
         {
-            var random = new Random(21);
             foreach (WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
-        }
-
-        #endregion
-
-        #region PipingStructure FailureMechanism
-
-        private static void ConfigurePipingStructureFailureMechanism(PipingStructureFailureMechanism pipingStructureFailureMechanism)
-        {
-            pipingStructureFailureMechanism.N = (RoundedDouble) 12.5;
         }
 
         #endregion

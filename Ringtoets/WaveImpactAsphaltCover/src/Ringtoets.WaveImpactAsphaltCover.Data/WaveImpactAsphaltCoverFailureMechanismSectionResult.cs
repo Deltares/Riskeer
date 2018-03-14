@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
 
@@ -41,8 +41,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
-            AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
-            AssessmentLayerThree = RoundedDouble.NaN;
+            DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.None;
+            DetailedAssessmentResultForSignalingNorm = DetailedAssessmentResultType.None;
+            DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = DetailedAssessmentResultType.None;
+            DetailedAssessmentResultForLowerLimitNorm = DetailedAssessmentResultType.None;
+            DetailedAssessmentResultForFactorizedLowerLimitNorm = DetailedAssessmentResultType.None;
+            TailorMadeAssessmentResult = FailureMechanismSectionAssemblyCategoryGroup.None;
+            ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
         /// <summary>
@@ -51,14 +56,48 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which
-        /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized signaling norm (Cat Iv - IIv).
         /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
+        public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNorm { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the signaling norm (Cat IIv - IIIv).
         /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
+        public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNorm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the mechanism specific lower limit norm (Cat IIIv - IVv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNorm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the lower limit norm (Cat IVv - Vv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNorm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized lower limit norm (Cat Vv - VIv).
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tailor made assessment result.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
+        /// </summary>
+        public bool UseManualAssemblyCategoryGroup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
     }
 }

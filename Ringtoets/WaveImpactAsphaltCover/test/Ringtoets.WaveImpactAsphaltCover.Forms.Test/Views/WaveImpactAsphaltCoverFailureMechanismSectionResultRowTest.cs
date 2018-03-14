@@ -21,13 +21,11 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -51,11 +49,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.AreEqual(row.AssessmentLayerThree, result.AssessmentLayerThree);
-
-            TestHelper.AssertTypeConverter<WaveImpactAsphaltCoverFailureMechanismSectionResultRow, NoValueRoundedDoubleConverter>(
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]
@@ -82,41 +75,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
-            var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoA = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
-        }
-
-        [Test]
-        public void AssessmentLayerThree_ValueSet_ReturnExpectedValue()
-        {
-            // Setup
-            var random = new Random(21);
-            RoundedDouble assessmentLayerThree = random.NextRoundedDouble();
-
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(sectionResult);
-
-            // Call
-            row.AssessmentLayerThree = assessmentLayerThree;
-
-            // Assert
-            Assert.AreEqual(assessmentLayerThree, sectionResult.AssessmentLayerThree);
         }
     }
 }

@@ -24,7 +24,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Util;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -79,22 +78,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
-
-            EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
-                Enum.GetValues(typeof(AssessmentLayerTwoAResult))
-                    .OfType<AssessmentLayerTwoAResult>()
-                    .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
-                    .ToArray();
-
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
-                twoAResultDataSource,
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
         }
 
         protected override void BindEvents()
