@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -66,9 +67,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => result.TailorMadeAssessmentProbability = newValue;
 
             // Assert
-            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
-            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            Assert.AreEqual(expectedMessage, message);
+            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
         }
 
         [Test]
@@ -107,9 +107,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => result.ManualAssemblyProbability = newValue;
 
             // Assert
-            string message = Assert.Throws<ArgumentOutOfRangeException>(test).Message;
-            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            Assert.AreEqual(expectedMessage, message);
+            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
         }
 
         [Test]
