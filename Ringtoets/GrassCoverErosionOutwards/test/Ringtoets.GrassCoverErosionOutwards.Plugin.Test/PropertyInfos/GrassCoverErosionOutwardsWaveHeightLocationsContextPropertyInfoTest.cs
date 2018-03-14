@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext), info.DataType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext), info.DataType);
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsProperties), info.PropertyObjectType);
             }
         }
@@ -61,9 +61,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(calculations,
-                                                                                  assessmentSection,
-                                                                                  new GrassCoverErosionOutwardsFailureMechanism());
+            var context = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(calculations,
+                                                                                     assessmentSection,
+                                                                                     new GrassCoverErosionOutwardsFailureMechanism());
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext));
         }
     }
 }
