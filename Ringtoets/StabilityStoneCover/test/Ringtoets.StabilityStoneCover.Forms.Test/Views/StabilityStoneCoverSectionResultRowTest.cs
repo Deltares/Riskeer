@@ -83,12 +83,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.DetailedAssessmentAssemblyGroupOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
                 var row = new StabilityStoneCoverSectionResultRow(result);
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
                                 row.SimpleAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.DetailedAssessmentAssemblyGroupOutput.Value),
+                                row.DetailedAssemblyCategoryGroup);
             }
         }
 
