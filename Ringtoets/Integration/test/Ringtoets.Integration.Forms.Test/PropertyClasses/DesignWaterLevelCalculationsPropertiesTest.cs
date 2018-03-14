@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -51,7 +49,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
 
-            Assert.IsInstanceOf<TypeConverter>(TypeDescriptor.GetConverter(properties, true));
             TestHelper.AssertTypeConverter<DesignWaterLevelCalculationsProperties, ExpandableArrayConverter>(
                 nameof(DesignWaterLevelCalculationsProperties.Calculations));
         }
@@ -78,8 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 Output = new TestHydraulicBoundaryLocationOutput(1.5)
             };
@@ -91,16 +87,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             });
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Calculations, typeof(DesignWaterLevelCalculationProperties));
             Assert.AreEqual(1, properties.Calculations.Length);
-
-            DesignWaterLevelCalculationProperties designWaterLevelCalculationProperties = properties.Calculations.First();
-            Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelCalculationProperties.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationProperties.Id);
-            Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelCalculationProperties.Location);
-
-            RoundedDouble designWaterLevel = hydraulicBoundaryLocationCalculation.Output.Result;
-            Assert.AreEqual(designWaterLevel, designWaterLevelCalculationProperties.DesignWaterLevel, designWaterLevel.GetAccuracy());
+            Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Calculations[0].Data);
         }
     }
 }

@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -51,7 +49,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
 
-            Assert.IsInstanceOf<TypeConverter>(TypeDescriptor.GetConverter(properties, true));
             TestHelper.AssertTypeConverter<WaveHeightCalculationsProperties, ExpandableArrayConverter>(
                 nameof(WaveHeightCalculationsProperties.Calculations));
         }
@@ -78,8 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
                 Output = new TestHydraulicBoundaryLocationOutput(1.5)
             };
@@ -91,16 +87,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             });
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Calculations, typeof(WaveHeightCalculationProperties));
             Assert.AreEqual(1, properties.Calculations.Length);
-
-            WaveHeightCalculationProperties waveHeightCalculationProperties = properties.Calculations.First();
-            Assert.AreEqual(hydraulicBoundaryLocation.Name, waveHeightCalculationProperties.Name);
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationProperties.Id);
-            Assert.AreEqual(hydraulicBoundaryLocation.Location, waveHeightCalculationProperties.Location);
-
-            RoundedDouble waveHeight = hydraulicBoundaryLocationCalculation.Output.Result;
-            Assert.AreEqual(waveHeight, waveHeightCalculationProperties.WaveHeight, waveHeight.GetAccuracy());
+            Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Calculations[0].Data);
         }
     }
 }

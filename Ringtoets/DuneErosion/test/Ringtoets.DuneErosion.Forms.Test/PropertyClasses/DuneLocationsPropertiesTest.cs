@@ -95,9 +95,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             using (var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation()))
             {
                 // Assert
-                TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-                Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
-
                 Assert.AreSame(locations, properties.Data);
 
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
