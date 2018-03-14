@@ -320,10 +320,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
         private void UpdateDerivedData()
         {
+            ResetErrorTexts();
             TryGetSimpleAssemblyCategoryGroup();
             TryGetDetailedAssemblyCategoryGroup();
             TryGetTailorMadeAssemblyCategoryGroup();
             TryGetCombinedAssemblyCategoryGroup();
+        }
+
+        private void ResetErrorTexts()
+        {
+            ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
         }
 
         private void TryGetSimpleAssemblyCategoryGroup()
