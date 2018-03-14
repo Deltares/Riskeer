@@ -101,14 +101,11 @@ namespace Ringtoets.Common.Service.Test
         public void ParameteredConstructor_CalculationServiceMessageProviderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-            {
-                new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                                                  validFilePath,
-                                                  validPreprocessorDirectory,
-                                                  1,
-                                                  null);
-            };
+            TestDelegate call = () => new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                                                                        validFilePath,
+                                                                        validPreprocessorDirectory,
+                                                                        1,
+                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

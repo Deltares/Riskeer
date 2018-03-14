@@ -159,14 +159,11 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_MessageProviderNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () =>
-            {
-                new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                                                                   string.Empty,
-                                                                   string.Empty,
-                                                                   1,
-                                                                   null);
-            };
+            TestDelegate test = () => new DesignWaterLevelCalculationService().Calculate(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                                                                                         string.Empty,
+                                                                                         string.Empty,
+                                                                                         1,
+                                                                                         null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

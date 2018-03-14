@@ -87,11 +87,11 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(testName, result);
         }
 
-        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
                                                                        HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
         {
             Assert.IsNotNull(hydraulicBoundaryLocationCalculation);
-            Assert.AreSame(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
+            Assert.AreSame(expectedHydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
         }
     }
