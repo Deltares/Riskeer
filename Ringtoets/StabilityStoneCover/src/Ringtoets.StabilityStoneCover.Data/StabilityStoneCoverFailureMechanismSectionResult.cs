@@ -47,6 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Data
             DetailedAssessmentResultForLowerLimitNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForFactorizedLowerLimitNorm = DetailedAssessmentResultType.None;
             TailorMadeAssessmentResult = FailureMechanismSectionAssemblyCategoryGroup.None;
+            ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
         /// <summary>
@@ -88,5 +89,15 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// Gets or sets the tailor made assessment result.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
+        /// </summary>
+        public bool UseManualAssemblyCategoryGroup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
     }
 }
