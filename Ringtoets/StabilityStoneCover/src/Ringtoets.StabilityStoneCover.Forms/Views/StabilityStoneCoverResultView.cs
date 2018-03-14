@@ -19,16 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
 using Core.Common.Base;
-using Core.Common.Util;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Views
 {
@@ -84,6 +78,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(StabilityStoneCoverSectionResultRow.TailorMadeAssessmentResult));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(StabilityStoneCoverSectionResultRow.SimpleAssemblyCategoryGroup));
         }
     }
 }
