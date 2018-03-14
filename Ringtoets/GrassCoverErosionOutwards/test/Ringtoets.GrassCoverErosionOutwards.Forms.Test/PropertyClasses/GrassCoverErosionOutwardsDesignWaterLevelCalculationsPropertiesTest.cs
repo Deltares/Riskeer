@@ -23,7 +23,6 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -51,23 +50,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
 
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            const string expectedLocationsDisplayName = "Locaties";
-            const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaardendatabase.";
-            const string expectedLocationsCategory = "Algemeen";
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            PropertyDescriptor locationsProperty = dynamicProperties.Find("Calculations", false);
-
-            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
-            Assert.IsNotNull(locationsProperty);
-            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
-            Assert.IsTrue(locationsProperty.IsReadOnly);
-            Assert.IsTrue(locationsProperty.IsBrowsable);
-            Assert.AreEqual(expectedLocationsDisplayName, locationsProperty.DisplayName);
-            Assert.AreEqual(expectedLocationsDescription, locationsProperty.Description);
-            Assert.AreEqual(expectedLocationsCategory, locationsProperty.Category);
+            Assert.IsInstanceOf<TypeConverter>(TypeDescriptor.GetConverter(properties, true));
+            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties, ExpandableArrayConverter>(
+                nameof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties.Calculations));
         }
 
         [Test]
@@ -77,14 +62,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
 
             // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
-
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
             PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
-            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
                                                                             "Algemeen",
                                                                             "Locaties",
@@ -110,8 +91,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(1, properties.Calculations.Length);
-            TestHelper.AssertTypeConverter<GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties, ExpandableArrayConverter>(
-                nameof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties.Calculations));
             GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties calculationProperties = properties.Calculations[0];
             Assert.AreEqual(hydraulicBoundaryLocation.Name, calculationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, calculationProperties.Id);

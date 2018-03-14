@@ -295,7 +295,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.DesignWaterLevel, hydraulicBoundaryLocationCalculation.Output.Result.GetAccuracy());
+            Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.DesignWaterLevel);
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             Assert.AreEqual(convergenceValue, properties.Convergence);

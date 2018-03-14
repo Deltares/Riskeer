@@ -295,7 +295,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new DesignWaterLevelCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.DesignWaterLevel, hydraulicBoundaryLocationCalculation.Output.Result.GetAccuracy());
+            Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.DesignWaterLevel);
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             Assert.AreEqual(convergenceValue, properties.Convergence);

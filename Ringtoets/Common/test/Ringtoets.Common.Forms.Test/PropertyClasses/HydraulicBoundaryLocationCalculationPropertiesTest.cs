@@ -76,9 +76,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryLocationCalculation>>(properties);
-
             Assert.IsInstanceOf<ExpandableObjectConverter>(TypeDescriptor.GetConverter(properties, true));
-
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoProbabilityValueDoubleConverter>(
                 nameof(HydraulicBoundaryLocationCalculationProperties.TargetProbability));
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoValueRoundedDoubleConverter>(
@@ -87,7 +85,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 nameof(HydraulicBoundaryLocationCalculationProperties.CalculatedProbability));
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoValueRoundedDoubleConverter>(
                 nameof(HydraulicBoundaryLocationCalculationProperties.CalculatedReliability));
-
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(
                 nameof(HydraulicBoundaryLocationCalculationProperties.AlphaValues));
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, KeyValueExpandableArrayConverter>(

@@ -50,6 +50,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
+
+            Assert.IsInstanceOf<TypeConverter>(TypeDescriptor.GetConverter(properties, true));
+            TestHelper.AssertTypeConverter<WaveHeightCalculationsProperties, ExpandableArrayConverter>(
+                nameof(WaveHeightCalculationsProperties.Calculations));
         }
 
         [Test]
@@ -59,14 +63,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new WaveHeightCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
 
             // Assert
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
-
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
             PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
-            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
                                                                             "Algemeen",
                                                                             "Locaties",
@@ -93,7 +93,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(properties.Calculations, typeof(WaveHeightCalculationProperties));
             Assert.AreEqual(1, properties.Calculations.Length);
-            TestHelper.AssertTypeConverter<WaveHeightCalculationsProperties, ExpandableArrayConverter>(nameof(WaveHeightCalculationsProperties.Calculations));
 
             WaveHeightCalculationProperties waveHeightCalculationProperties = properties.Calculations.First();
             Assert.AreEqual(hydraulicBoundaryLocation.Name, waveHeightCalculationProperties.Name);
