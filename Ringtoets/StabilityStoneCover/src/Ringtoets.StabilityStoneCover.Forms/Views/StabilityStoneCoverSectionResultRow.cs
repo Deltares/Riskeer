@@ -38,6 +38,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     {
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverSectionResultRow"/>.
@@ -190,6 +191,17 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the tailor made assembly category group.
+        /// </summary>
+        public string TailorMadeAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(tailorMadeAssemblyCategoryGroup);
+            }
+        }
+
         public override void Update()
         {
             UpdateDerivedData();
@@ -199,6 +211,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             TryGetSimpleAssemblyCategoryGroup();
             TryGetDetailedAssemblyCategoryGroup();
+            TryGetTailorMadeAssemblyCategoryGroup();
         }
 
         private void TryGetSimpleAssemblyCategoryGroup()
@@ -222,6 +235,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             catch (AssemblyException e)
             {
                 detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
+
+        private void TryGetTailorMadeAssemblyCategoryGroup()
+        {
+            try
+            {
+                tailorMadeAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+            }
+            catch (AssemblyException e)
+            {
+                tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
             }
         }
     }

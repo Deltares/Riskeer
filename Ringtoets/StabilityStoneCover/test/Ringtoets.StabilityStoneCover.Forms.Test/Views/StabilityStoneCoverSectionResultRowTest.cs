@@ -84,6 +84,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 calculator.DetailedAssessmentAssemblyGroupOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                calculator.TailorMadeAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
                 var row = new StabilityStoneCoverSectionResultRow(result);
@@ -92,6 +93,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                                 row.SimpleAssemblyCategoryGroup);
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.DetailedAssessmentAssemblyGroupOutput.Value),
                                 row.DetailedAssemblyCategoryGroup);
+                Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.TailorMadeAssemblyCategoryOutput.Value),
+                                row.TailorMadeAssemblyCategoryGroup);
             }
         }
 
