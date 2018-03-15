@@ -20,12 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Base.Data;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -172,37 +168,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             {
                 SectionResult.TailorMadeAssessmentResult = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(value);
                 UpdateInternalData();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the layer 2a assessment.
-        /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerTwoA;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerTwoA = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
             }
         }
 
