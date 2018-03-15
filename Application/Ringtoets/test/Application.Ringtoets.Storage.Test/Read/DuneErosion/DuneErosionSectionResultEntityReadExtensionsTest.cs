@@ -75,38 +75,6 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
-        }
-
-        [Test]
-        public void Read_EntityWithNullValues_SectionResultWithNaNValues()
-        {
-            // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            var layerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>();
-
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new DuneErosionSectionResultEntity
-            {
-                LayerOne = Convert.ToByte(layerOne),
-                LayerTwoA = Convert.ToByte(layerTwoA),
-                LayerThree = null,
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult);
-
-            // Assert
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
         }
     }
 }

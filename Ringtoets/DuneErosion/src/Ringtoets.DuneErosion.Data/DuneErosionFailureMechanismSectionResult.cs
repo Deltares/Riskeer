@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
@@ -49,9 +48,6 @@ namespace Ringtoets.DuneErosion.Data
             DetailedAssessmentResultForFactorizedLowerLimitNorm = DetailedAssessmentResultType.None;
             TailorMadeAssessmentResult = FailureMechanismSectionAssemblyCategoryGroup.None;
             ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
-
-            AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
-            AssessmentLayerThree = RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -103,16 +99,5 @@ namespace Ringtoets.DuneErosion.Data
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which
-        /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
-        /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }
