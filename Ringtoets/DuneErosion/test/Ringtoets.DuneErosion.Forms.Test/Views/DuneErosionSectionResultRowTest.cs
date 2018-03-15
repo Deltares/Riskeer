@@ -25,6 +25,9 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Forms;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -51,37 +54,19 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
+            Assert.AreEqual(result.DetailedAssessmentResultForFactorizedSignalingNorm, row.DetailedAssessmentResultForFactorizedSignalingNorm);
+            Assert.AreEqual(result.DetailedAssessmentResultForSignalingNorm, row.DetailedAssessmentResultForSignalingNorm);
+            Assert.AreEqual(result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, row.DetailedAssessmentResultForSignalingNorm);
+            Assert.AreEqual(result.DetailedAssessmentResultForLowerLimitNorm, row.DetailedAssessmentResultForLowerLimitNorm);
+            Assert.AreEqual(result.DetailedAssessmentResultForFactorizedLowerLimitNorm, row.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+            Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.TailorMadeAssessmentResult),
+                            row.TailorMadeAssessmentResult);
+
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<DuneErosionSectionResultRow, NoValueRoundedDoubleConverter>(
                 nameof(DuneErosionSectionResultRow.AssessmentLayerThree));
-        }
-
-        [Test]
-        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var random = new Random(39);
-            var newValue = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
-            result.Attach(observer);
-
-            var row = new DuneErosionSectionResultRow(result);
-
-            // Call
-            row.SimpleAssessmentResult = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -116,5 +101,213 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
+
+        #region Registration
+
+        [Test]
+        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new DuneErosionSectionResultRow(result);
+
+                // Call
+                row.SimpleAssessmentResult = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.SimpleAssessmentResult);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void DetailedAssessmentResultForFactorizedSignalingNorm_SetNewvalue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new DuneErosionSectionResultRow(result);
+
+                // Call
+                row.DetailedAssessmentResultForFactorizedSignalingNorm = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.DetailedAssessmentResultForFactorizedSignalingNorm);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void DetailedAssessmentResultForSignalingNorm_SetNewvalue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new DuneErosionSectionResultRow(result);
+
+                // Call
+                row.DetailedAssessmentResultForSignalingNorm = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.DetailedAssessmentResultForSignalingNorm);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_SetNewvalue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new DuneErosionSectionResultRow(result);
+
+                // Call
+                row.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void DetailedAssessmentResultForLowerLimitNorm_SetNewvalue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new DuneErosionSectionResultRow(result);
+
+                // Call
+                row.DetailedAssessmentResultForLowerLimitNorm = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.DetailedAssessmentResultForLowerLimitNorm);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void DetailedAssessmentResultForFactorizedLowerLimitNorm_SetNewvalue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new DuneErosionSectionResultRow(result);
+
+                // Call
+                row.DetailedAssessmentResultForFactorizedLowerLimitNorm = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void TailorMadeAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new DuneErosionSectionResultRow(result);
+
+                // Call
+                row.TailorMadeAssessmentResult = newValue;
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(newValue);
+                Assert.AreEqual(expectedCategoryGroup, result.TailorMadeAssessmentResult);
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
     }
 }
