@@ -544,6 +544,72 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         #region Tailor Made Assessment
 
         [Test]
+        public void AssembleTailorMadeAssessmentWithTailorMadeAssessmentResult_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleTailorMadeAssessment(random.NextEnumValue<TailorMadeAssessmentResultType>());
+
+            // Assert
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, assembly);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithTailorMadeAssessmentResult_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                TailorMadeAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+            };
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleTailorMadeAssessment(random.NextEnumValue<TailorMadeAssessmentResultType>());
+
+            // Assert
+            Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, assembly);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithTailorMadeAssessmentResult_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentResultInput);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithTailorMadeAssessmentResult_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleTailorMadeAssessment(random.NextEnumValue<TailorMadeAssessmentResultType>());
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
         public void AssembleTailorMadeAssessmentWithProbabilityAndDetailedCalculationResult_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
         {
             // Setup
@@ -840,7 +906,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult);
 
             // Assert
-            Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentResultInput);
+            Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentGroupInput);
         }
 
         [Test]

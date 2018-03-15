@@ -114,6 +114,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                                                                                 DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm);
 
         /// <summary>
+        /// Assembles the tailor made assessment based on the input parameter.
+        /// </summary>
+        /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>
+        /// to assemble for.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult);
+
+        /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>

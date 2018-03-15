@@ -246,7 +246,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
-                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentResultInput);
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentGroupInput);
             }
         }
 

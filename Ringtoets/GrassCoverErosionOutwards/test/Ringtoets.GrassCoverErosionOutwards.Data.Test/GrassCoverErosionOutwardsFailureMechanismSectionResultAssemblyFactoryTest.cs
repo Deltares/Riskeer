@@ -246,7 +246,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
-                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentResultInput);
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentGroupInput);
             }
         }
 
