@@ -85,24 +85,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
-        /// <param name="detailedAssesmentResultForFactorizedSignalingNorm">The category Iv - IIv 
+        /// <param name="detailedAssessmentResultForFactorizedSignalingNorm">The category Iv - IIv 
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
-        /// <param name="detailedAssesmentResultForSignalingNorm">The category IIv - IIIv 
+        /// <param name="detailedAssessmentResultForSignalingNorm">The category IIv - IIIv 
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
-        /// <param name="detailedAssesmentResultForMechanismSpecificLowerLimitNorm">TThe category IIIv - IVv 
+        /// <param name="detailedAssessmentResultForMechanismSpecificLowerLimitNorm">TThe category IIIv - IVv 
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
-        /// <param name="detailedAssesmentResultForLowerLimitNorm">The category IVv - Vv 
+        /// <param name="detailedAssessmentResultForLowerLimitNorm">The category IVv - Vv 
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
-        /// <param name="detailedAssesmentResultForFactorizedLowerLimitNorm">The category Vv - VIv 
+        /// <param name="detailedAssessmentResultForFactorizedLowerLimitNorm">The category Vv - VIv 
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
-        FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssesmentResultForFactorizedSignalingNorm,
-                                                                                DetailedAssessmentResultType detailedAssesmentResultForSignalingNorm,
-                                                                                DetailedAssessmentResultType detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-                                                                                DetailedAssessmentResultType detailedAssesmentResultForLowerLimitNorm,
-                                                                                DetailedAssessmentResultType detailedAssesmentResultForFactorizedLowerLimitNorm);
+        FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
+                                                                                DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,
+                                                                                DetailedAssessmentResultType detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+                                                                                DetailedAssessmentResultType detailedAssessmentResultForLowerLimitNorm,
+                                                                                DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm);
 
         /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.

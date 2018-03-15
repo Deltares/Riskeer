@@ -52,11 +52,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual((DetailedAssessmentProbabilityOnlyResultType) 0, calculator.DetailedAssessmentProbabilityOnlyResultInput);
             Assert.IsNull(calculator.DetailedAssessmentAssemblyOutput);
 
-            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForFactorizedSignalingNormInput);
-            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForSignalingNormInput);
-            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput);
-            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForLowerLimitNormInput);
-            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssesmentResultForFactorizedLowerLimitNormInput);
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssessmentResultForFactorizedSignalingNormInput);
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssessmentResultForSignalingNormInput);
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput);
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssessmentResultForLowerLimitNormInput);
+            Assert.AreEqual((DetailedAssessmentResultType) 0, calculator.DetailedAssessmentResultForFactorizedLowerLimitNormInput);
             Assert.IsNull(calculator.DetailedAssessmentAssemblyGroupOutput);
 
             Assert.IsNull(calculator.TailorMadeAssessmentCategoriesInput);
@@ -427,27 +427,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         {
             // Setup
             var random = new Random(39);
-            var detailedAssesmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
 
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
             // Call
-            calculator.AssembleDetailedAssessment(detailedAssesmentResultForFactorizedSignalingNorm,
-                                                  detailedAssesmentResultForSignalingNorm,
-                                                  detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-                                                  detailedAssesmentResultForLowerLimitNorm,
-                                                  detailedAssesmentResultForFactorizedLowerLimitNorm);
+            calculator.AssembleDetailedAssessment(detailedAssessmentResultForFactorizedSignalingNorm,
+                                                  detailedAssessmentResultForSignalingNorm,
+                                                  detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+                                                  detailedAssessmentResultForLowerLimitNorm,
+                                                  detailedAssessmentResultForFactorizedLowerLimitNorm);
 
             // Assert
-            Assert.AreEqual(detailedAssesmentResultForFactorizedSignalingNorm, calculator.DetailedAssesmentResultForFactorizedSignalingNormInput);
-            Assert.AreEqual(detailedAssesmentResultForSignalingNorm, calculator.DetailedAssesmentResultForSignalingNormInput);
-            Assert.AreEqual(detailedAssesmentResultForMechanismSpecificLowerLimitNorm, calculator.DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput);
-            Assert.AreEqual(detailedAssesmentResultForLowerLimitNorm, calculator.DetailedAssesmentResultForLowerLimitNormInput);
-            Assert.AreEqual(detailedAssesmentResultForFactorizedLowerLimitNorm, calculator.DetailedAssesmentResultForFactorizedLowerLimitNormInput);
+            Assert.AreEqual(detailedAssessmentResultForFactorizedSignalingNorm, calculator.DetailedAssessmentResultForFactorizedSignalingNormInput);
+            Assert.AreEqual(detailedAssessmentResultForSignalingNorm, calculator.DetailedAssessmentResultForSignalingNormInput);
+            Assert.AreEqual(detailedAssessmentResultForMechanismSpecificLowerLimitNorm, calculator.DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput);
+            Assert.AreEqual(detailedAssessmentResultForLowerLimitNorm, calculator.DetailedAssessmentResultForLowerLimitNormInput);
+            Assert.AreEqual(detailedAssessmentResultForFactorizedLowerLimitNorm, calculator.DetailedAssessmentResultForFactorizedLowerLimitNormInput);
         }
 
         [Test]

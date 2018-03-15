@@ -197,15 +197,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="DetailedCategoryBoundariesCalculationResult"/> based on the given parameters.
         /// </summary>
-        /// <param name="detailedAssesmentResultForFactorizedSignalingNorm">The detailed assessment result
+        /// <param name="detailedAssessmentResultForFactorizedSignalingNorm">The detailed assessment result
         /// for category Iv - IIv.</param>
-        /// <param name="detailedAssesmentResultForSignalingNorm">The detailed assessment result for category
+        /// <param name="detailedAssessmentResultForSignalingNorm">The detailed assessment result for category
         /// IIv - IIIv.</param>
-        /// <param name="detailedAssesmentResultForMechanismSpecificLowerLimitNorm">The detailed assessment
+        /// <param name="detailedAssessmentResultForMechanismSpecificLowerLimitNorm">The detailed assessment
         /// result  for category IIIv - IVv.</param>
-        /// <param name="detailedAssesmentResultForLowerLimitNorm">The detailed assessment result for category
+        /// <param name="detailedAssessmentResultForLowerLimitNorm">The detailed assessment result for category
         /// IVv - Vv.</param>
-        /// <param name="detailedAssesmentResultForFactorizedLowerLimitNorm">The detailed assessment result
+        /// <param name="detailedAssessmentResultForFactorizedLowerLimitNorm">The detailed assessment result
         /// for category Vv - VIv.</param>
         /// <returns>The created <see cref="DetailedCategoryBoundariesCalculationResult"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when any parameter is an invalid
@@ -213,18 +213,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <exception cref="NotSupportedException">Thrown when any parameter is a valid but unsupported
         /// <see cref="DetailedAssessmentResultType"/>.</exception>
         public static DetailedCategoryBoundariesCalculationResult CreateDetailedCalculationInputFromCategoryResults(
-            DetailedAssessmentResultType detailedAssesmentResultForFactorizedSignalingNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForSignalingNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForLowerLimitNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForFactorizedLowerLimitNorm)
+            DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm)
         {
             return new DetailedCategoryBoundariesCalculationResult(
-                ConvertDetailedAssessmentResultType(detailedAssesmentResultForFactorizedSignalingNorm),
-                ConvertDetailedAssessmentResultType(detailedAssesmentResultForSignalingNorm),
-                ConvertDetailedAssessmentResultType(detailedAssesmentResultForMechanismSpecificLowerLimitNorm),
-                ConvertDetailedAssessmentResultType(detailedAssesmentResultForLowerLimitNorm),
-                ConvertDetailedAssessmentResultType(detailedAssesmentResultForFactorizedLowerLimitNorm));
+                ConvertDetailedAssessmentResultType(detailedAssessmentResultForFactorizedSignalingNorm),
+                ConvertDetailedAssessmentResultType(detailedAssessmentResultForSignalingNorm),
+                ConvertDetailedAssessmentResultType(detailedAssessmentResultForMechanismSpecificLowerLimitNorm),
+                ConvertDetailedAssessmentResultType(detailedAssessmentResultForLowerLimitNorm),
+                ConvertDetailedAssessmentResultType(detailedAssessmentResultForFactorizedLowerLimitNorm));
         }
 
         /// <summary>

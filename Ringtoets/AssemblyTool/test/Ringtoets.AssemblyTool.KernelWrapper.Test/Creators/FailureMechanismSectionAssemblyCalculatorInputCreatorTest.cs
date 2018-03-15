@@ -254,19 +254,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [Test]
         [TestCaseSource(nameof(InvalidDetailedAssessmentCategoryResults))]
         public void CreateDetailedCalculationInputFromCategoryResults_InvalidEnumInput_ThrowInvalidEnumerArgumentException(
-            DetailedAssessmentResultType detailedAssesmentResultForFactorizedSignalingNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForSignalingNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForLowerLimitNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForFactorizedLowerLimitNorm)
+            DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm)
         {
             // Call
             TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromCategoryResults(
-                detailedAssesmentResultForFactorizedSignalingNorm,
-                detailedAssesmentResultForSignalingNorm,
-                detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-                detailedAssesmentResultForLowerLimitNorm,
-                detailedAssesmentResultForFactorizedLowerLimitNorm);
+                detailedAssessmentResultForFactorizedSignalingNorm,
+                detailedAssessmentResultForSignalingNorm,
+                detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+                detailedAssessmentResultForLowerLimitNorm,
+                detailedAssessmentResultForFactorizedLowerLimitNorm);
 
             // Assert
             string expectedMessage = $"The value of argument 'detailedAssessmentResult' (99) is invalid for Enum type '{nameof(DetailedAssessmentResultType)}'.";
@@ -278,26 +278,26 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         {
             // Setup
             var random = new Random(39);
-            var detailedAssesmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var detailedAssesmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
 
             // Call
             DetailedCategoryBoundariesCalculationResult result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromCategoryResults(
-                detailedAssesmentResultForFactorizedSignalingNorm,
-                detailedAssesmentResultForSignalingNorm,
-                detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-                detailedAssesmentResultForLowerLimitNorm,
-                detailedAssesmentResultForFactorizedLowerLimitNorm);
+                detailedAssessmentResultForFactorizedSignalingNorm,
+                detailedAssessmentResultForSignalingNorm,
+                detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+                detailedAssessmentResultForLowerLimitNorm,
+                detailedAssessmentResultForFactorizedLowerLimitNorm);
 
             // Assert
-            Assert.AreEqual(result.ResultItoII, GetDetailedCalculationResult(detailedAssesmentResultForFactorizedSignalingNorm));
-            Assert.AreEqual(result.ResultIItoIII, GetDetailedCalculationResult(detailedAssesmentResultForSignalingNorm));
-            Assert.AreEqual(result.ResultIIItoIV, GetDetailedCalculationResult(detailedAssesmentResultForMechanismSpecificLowerLimitNorm));
-            Assert.AreEqual(result.ResultIVtoV, GetDetailedCalculationResult(detailedAssesmentResultForLowerLimitNorm));
-            Assert.AreEqual(result.ResultVtoVI, GetDetailedCalculationResult(detailedAssesmentResultForFactorizedLowerLimitNorm));
+            Assert.AreEqual(result.ResultItoII, GetDetailedCalculationResult(detailedAssessmentResultForFactorizedSignalingNorm));
+            Assert.AreEqual(result.ResultIItoIII, GetDetailedCalculationResult(detailedAssessmentResultForSignalingNorm));
+            Assert.AreEqual(result.ResultIIItoIV, GetDetailedCalculationResult(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+            Assert.AreEqual(result.ResultIVtoV, GetDetailedCalculationResult(detailedAssessmentResultForLowerLimitNorm));
+            Assert.AreEqual(result.ResultVtoVI, GetDetailedCalculationResult(detailedAssessmentResultForFactorizedLowerLimitNorm));
         }
 
         private static IEnumerable<TestCaseData> InvalidDetailedAssessmentCategoryResults

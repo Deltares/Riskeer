@@ -162,22 +162,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         }
 
         public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
-            DetailedAssessmentResultType detailedAssesmentResultForFactorizedSignalingNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForSignalingNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForLowerLimitNorm,
-            DetailedAssessmentResultType detailedAssesmentResultForFactorizedLowerLimitNorm)
+            DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForLowerLimitNorm,
+            DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm)
         {
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 CalculationOutput<FailureMechanismSectionCategoryGroup> output = kernel.DetailedAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromCategoryResults(
-                        detailedAssesmentResultForFactorizedSignalingNorm,
-                        detailedAssesmentResultForSignalingNorm,
-                        detailedAssesmentResultForMechanismSpecificLowerLimitNorm,
-                        detailedAssesmentResultForLowerLimitNorm,
-                        detailedAssesmentResultForFactorizedLowerLimitNorm));
+                        detailedAssessmentResultForFactorizedSignalingNorm,
+                        detailedAssessmentResultForSignalingNorm,
+                        detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+                        detailedAssessmentResultForLowerLimitNorm,
+                        detailedAssessmentResultForFactorizedLowerLimitNorm));
 
                 return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
             }
