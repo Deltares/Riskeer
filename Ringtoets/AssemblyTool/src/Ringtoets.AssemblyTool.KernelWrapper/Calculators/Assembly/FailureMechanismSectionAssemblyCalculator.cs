@@ -55,6 +55,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
+        #region Simple Assessment
+
         public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
             try
@@ -80,6 +82,26 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResultValidityOnly(input));
 
                 return FailureMechanismSectionAssemblyCreator.Create(output.Result);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region Detailed Assessment
+
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult)
+        {
+            try
+            {
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                CalculationOutput<FailureMechanismSectionCategoryGroup> output = kernel.DetailedAssessmentDirectFailureMechanisms(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationResult(detailedAssessmentResult));
+
+                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
             }
             catch (Exception e)
             {
@@ -187,6 +209,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
+        #endregion
+
+        #region Tailor Made Assessment
+
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
                                                                             IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
@@ -255,6 +281,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
+        #endregion
+
+        #region Combined Assembly
+
         public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
                                                                 FailureMechanismSectionAssembly detailedAssembly,
                                                                 FailureMechanismSectionAssembly tailorMadeAssembly)
@@ -294,5 +324,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
             }
         }
+
+        #endregion
     }
 }

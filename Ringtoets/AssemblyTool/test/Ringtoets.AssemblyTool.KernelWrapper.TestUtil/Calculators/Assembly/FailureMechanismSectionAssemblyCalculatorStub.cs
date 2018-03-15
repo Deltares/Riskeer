@@ -60,6 +60,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the result type of the detailed assessment calculation.
         /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResultInput { get; private set; }
+
+        /// <summary>
+        /// Gets the result type of the detailed assessment calculation.
+        /// </summary>
         public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentProbabilityOnlyResultInput { get; private set; }
 
         /// <summary>
@@ -76,7 +81,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// Gets the 'N' parameter input of the detailed assessment calculation.
         /// </summary>
         public double DetailedAssessmentNInput { get; private set; }
-        
+
         /// <summary>
         /// Gets the detailed assessment result input for cat Iv - IIv.
         /// </summary>
@@ -92,7 +97,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
         public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
 
-
         /// <summary>
         /// Gets the detailed assessment result input for cat IVv - Vv.
         /// </summary>public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
@@ -102,7 +106,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// Gets the detailed assessment result input for cat Vv - VIv.
         /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNormInput { get; private set; }
-        
+
         /// <summary>
         /// Gets or sets the output of the tailor made assessment calculation.
         /// </summary>
@@ -219,6 +223,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                    (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
         }
 
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            DetailedAssessmentResultInput = detailedAssessmentResult;
+
+            if (DetailedAssessmentAssemblyGroupOutput == null)
+            {
+                DetailedAssessmentAssemblyGroupOutput = FailureMechanismSectionAssemblyCategoryGroup.IIv;
+            }
+
+            return DetailedAssessmentAssemblyGroupOutput.Value;
+        }
+
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                           double probability,
                                                                           IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
@@ -316,8 +337,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         }
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-                                                                            double probability, 
-                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> categories, 
+                                                                            double probability,
+                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
                                                                             double n)
         {
             if (ThrowExceptionOnCalculate)

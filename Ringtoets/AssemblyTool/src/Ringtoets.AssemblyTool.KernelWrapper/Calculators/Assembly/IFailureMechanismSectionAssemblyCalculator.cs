@@ -51,6 +51,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType input);
 
         /// <summary>
+        /// Assembles the detailed assessment based on the input parameter.
+        /// </summary>
+        /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult);
+
+        /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
         /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
