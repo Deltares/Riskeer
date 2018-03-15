@@ -19,10 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Windows.Forms;
-using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -38,9 +35,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     public class DuneErosionFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int simpleAssessmentIndex = 1;
+        private const int simpleAssessmentResultIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
+        private const int columnCount = 4;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -59,7 +57,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithDuneErosionFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -75,13 +73,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(4, dataGridView.ColumnCount);
+                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
 
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentIndex].HeaderText);
+                Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -91,42 +89,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void DuneErosionFailureMechanismResultView_WithDuneErosionFailureMechanismSectionResult_SectionsAddedAsRows()
+        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var random = new Random(21);
-            var result1 = new DuneErosionFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"))
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None,
-                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
-                AssessmentLayerThree = random.NextRoundedDouble()
-            };
-            var result2 = new DuneErosionFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 2"))
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
-                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
-                AssessmentLayerThree = random.NextRoundedDouble()
-            };
-            var result3 = new DuneErosionFailureMechanismSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 3"))
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable,
-                AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
-                AssessmentLayerThree = random.NextRoundedDouble()
-            };
-
-            var sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>
-            {
-                result1,
-                result2,
-                result3
-            };
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"));
 
             // Call
             using (var form = new Form())
-            using (var view = new DuneErosionFailureMechanismResultView(sectionResults, new DuneErosionFailureMechanism()))
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -135,37 +106,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(3, rows.Count);
+                Assert.AreEqual(1, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result1.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
-
-                cells = rows[1].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result2.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewTestHelper.AssertCellIsDisabled(cells[assessmentLayerThreeIndex]);
-
-                cells = rows[2].Cells;
-                Assert.AreEqual(4, cells.Count);
-                Assert.AreEqual("Section 3", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(result3.SimpleAssessmentResult, cells[simpleAssessmentIndex].Value);
-                Assert.AreEqual(result3.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                Assert.AreEqual(result3.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
-                DataGridViewTestHelper.AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
+                Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, cells[simpleAssessmentResultIndex].Value);
+                Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, cells[assessmentLayerTwoAIndex].Value);
+                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
     }
