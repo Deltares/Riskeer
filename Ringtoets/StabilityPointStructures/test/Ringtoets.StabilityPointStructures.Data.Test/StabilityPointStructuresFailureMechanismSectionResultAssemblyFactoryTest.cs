@@ -250,7 +250,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssembly actualOutput =
                     StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
-                        new StabilityPointStructuresFailureMechanism(),
+                        failureMechanism,
                         assessmentSection);
 
                 // Assert
@@ -281,7 +281,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 // Call
                 TestDelegate call = () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
-                    new StabilityPointStructuresFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -436,7 +436,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 // Call
                 TestDelegate call = () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
-                    new StabilityPointStructuresFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -600,7 +600,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 // Call
                 TestDelegate call = () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    new StabilityPointStructuresFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert

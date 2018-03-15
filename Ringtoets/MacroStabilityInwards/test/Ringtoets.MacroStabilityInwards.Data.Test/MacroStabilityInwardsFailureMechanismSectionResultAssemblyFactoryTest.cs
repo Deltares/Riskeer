@@ -290,7 +290,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                         {
                             MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
                         },
-                        new MacroStabilityInwardsFailureMechanism(),
+                        failureMechanism,
                         assessmentSection);
 
                 // Assert
@@ -325,7 +325,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                     {
                         MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
                     },
-                    new MacroStabilityInwardsFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -482,7 +482,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 // Call
                 TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
-                    new MacroStabilityInwardsFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -674,7 +674,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                    new MacroStabilityInwardsFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert

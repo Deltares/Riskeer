@@ -290,7 +290,7 @@ namespace Ringtoets.Piping.Data.Test
                         {
                             PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
                         },
-                        new PipingFailureMechanism(),
+                        failureMechanism,
                         assessmentSection);
 
                 // Assert
@@ -325,7 +325,7 @@ namespace Ringtoets.Piping.Data.Test
                     {
                         PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
                     },
-                    new PipingFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -482,7 +482,7 @@ namespace Ringtoets.Piping.Data.Test
                 // Call
                 TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
-                    new PipingFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -674,7 +674,7 @@ namespace Ringtoets.Piping.Data.Test
                 TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     Enumerable.Empty<PipingCalculationScenario>(),
-                    new PipingFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert

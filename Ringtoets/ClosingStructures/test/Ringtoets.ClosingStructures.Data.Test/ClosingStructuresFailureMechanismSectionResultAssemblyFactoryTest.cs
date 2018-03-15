@@ -250,7 +250,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 FailureMechanismSectionAssembly actualOutput =
                     ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
-                        new ClosingStructuresFailureMechanism(),
+                        failureMechanism,
                         assessmentSection);
 
                 // Assert
@@ -281,7 +281,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 // Call
                 TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
-                    new ClosingStructuresFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -436,7 +436,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 // Call
                 TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
-                    new ClosingStructuresFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert

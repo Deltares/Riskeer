@@ -281,7 +281,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 // Call
                 TestDelegate call = () => MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
-                    new MacroStabilityOutwardsFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -436,7 +436,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 // Call
                 TestDelegate call = () => MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
-                    new MacroStabilityOutwardsFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -600,7 +600,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 // Call
                 TestDelegate call = () => MacroStabilityOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    new MacroStabilityOutwardsFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert

@@ -250,7 +250,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 FailureMechanismSectionAssembly actualOutput =
                     HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
-                        new HeightStructuresFailureMechanism(),
+                        failureMechanism,
                         assessmentSection);
 
                 // Assert
@@ -281,7 +281,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 // Call
                 TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
-                    new HeightStructuresFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -436,7 +436,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 // Call
                 TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
-                    new HeightStructuresFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
@@ -600,7 +600,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 // Call
                 TestDelegate call = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    new HeightStructuresFailureMechanism(),
+                    failureMechanism,
                     assessmentSection);
 
                 // Assert
