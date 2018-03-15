@@ -79,6 +79,30 @@ namespace Ringtoets.DuneErosion.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(DuneErosionSectionResultRow.TailorMadeAssessmentResult));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.SimpleAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.DetailedAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.TailorMadeAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.CombinedAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.UseManualAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.ManualAssemblyCategoryGroup));
         }
     }
 }
