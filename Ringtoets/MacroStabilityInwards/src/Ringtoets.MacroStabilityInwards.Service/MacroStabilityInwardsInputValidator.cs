@@ -202,14 +202,6 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
         private static IEnumerable<double> GetDiscretizedXCoordinatesBetweenInterval(double startXCoordinate, double endXCoordinate)
         {
-            if (Math.Abs(endXCoordinate - startXCoordinate) < withinSurfaceLineLevelLimit)
-            {
-                return new[]
-                {
-                    startXCoordinate
-                };
-            }
-
             double xCoordinate = startXCoordinate;
             var discretizedXCoordinates = new List<double>();
             while (xCoordinate < endXCoordinate)
