@@ -158,11 +158,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
-                Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm, calculator.DetailedAssesmentResultForFactorizedSignalingNormInput);
-                Assert.AreEqual(sectionResult.DetailedAssessmentResultForSignalingNorm, calculator.DetailedAssesmentResultForSignalingNormInput);
-                Assert.AreEqual(sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, calculator.DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput);
-                Assert.AreEqual(sectionResult.DetailedAssessmentResultForLowerLimitNorm, calculator.DetailedAssesmentResultForLowerLimitNormInput);
-                Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm, calculator.DetailedAssesmentResultForFactorizedLowerLimitNormInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm, calculator.DetailedAssessmentResultForFactorizedSignalingNormInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForSignalingNorm, calculator.DetailedAssessmentResultForSignalingNormInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, calculator.DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForLowerLimitNorm, calculator.DetailedAssessmentResultForLowerLimitNormInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm, calculator.DetailedAssessmentResultForFactorizedLowerLimitNormInput);
             }
         }
 
