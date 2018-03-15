@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -53,39 +54,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedSignalingNormColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForFactorizedSignalingNorm));
 
-            EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
-                Enum.GetValues(typeof(AssessmentLayerTwoAResult))
-                    .OfType<AssessmentLayerTwoAResult>()
-                    .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForSignalingNorm));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
-                twoAResultDataSource,
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForLowerLimitNorm));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedLowerLimitNormColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForFactorizedLowerLimitNorm));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
         }
     }
 }
