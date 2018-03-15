@@ -259,12 +259,9 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<MicrostabilityFailureMechanismSectionResult> sectionResults)
         {
-            var random = new Random(21);
             foreach (MicrostabilityFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 

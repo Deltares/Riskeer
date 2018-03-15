@@ -23,11 +23,9 @@ using System;
 using Application.Ringtoets.Storage.Create.Microstability;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Create.Microstability
@@ -43,9 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Microstability
 
             var sectionResult = new MicrostabilityFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = random.NextEnumValue<AssessmentLayerOneState>(),
-                AssessmentLayerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>(),
-                AssessmentLayerThree = random.NextRoundedDouble()
+                AssessmentLayerOne = random.NextEnumValue<AssessmentLayerOneState>()
             };
 
             // Call
@@ -53,25 +49,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Microstability
 
             // Assert
             Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerOne), result.LayerOne);
-            Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerTwoA), result.LayerTwoA);
-            Assert.AreEqual(sectionResult.AssessmentLayerThree, result.LayerThree,
-                            sectionResult.AssessmentLayerThree.GetAccuracy());
-        }
-
-        [Test]
-        public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
-        {
-            // Setup
-            var sectionResult = new MicrostabilityFailureMechanismSectionResult(new TestFailureMechanismSection())
-            {
-                AssessmentLayerThree = RoundedDouble.NaN
-            };
-
-            // Call
-            MicrostabilitySectionResultEntity result = sectionResult.Create();
-
-            // Assert
-            Assert.IsNull(result.LayerThree);
         }
     }
 }

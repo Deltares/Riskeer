@@ -86,16 +86,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                     .OfType<AssessmentLayerTwoAResult>()
                     .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
                     .ToArray();
-
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(MicrostabilitySectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
-                twoAResultDataSource,
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(MicrostabilitySectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
         }
 
         protected override void BindEvents()

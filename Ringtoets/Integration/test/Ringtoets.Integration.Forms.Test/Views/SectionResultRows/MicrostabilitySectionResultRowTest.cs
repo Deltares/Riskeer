@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -51,11 +50,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<MicrostabilityFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
-            TestHelper.AssertTypeConverter<MicrostabilitySectionResultRow, NoValueRoundedDoubleConverter>(
-                nameof(MicrostabilitySectionResultRow.AssessmentLayerThree));
         }
 
         [Test]
@@ -82,39 +76,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MicrostabilityFailureMechanismSectionResult(section);
-            var row = new MicrostabilitySectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoA = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            double newValue = random.NextDouble();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MicrostabilityFailureMechanismSectionResult(section);
-            var row = new MicrostabilitySectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
     }
 }

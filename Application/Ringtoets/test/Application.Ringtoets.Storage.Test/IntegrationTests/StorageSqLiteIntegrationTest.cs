@@ -436,12 +436,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerTwoA, actualItem.AssessmentLayerTwoA);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
-                                     });
+                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
         }
 
         private static void AssertFailureMechanism(IFailureMechanism expectedFailureMechanism,
@@ -1789,10 +1784,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                     });
+                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
         }
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation expectedCalculation,
@@ -1831,10 +1823,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                     });
+                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
         }
 
         private static void AssertStabilityStoneCoverWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation,
@@ -1872,10 +1861,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults,
                                                                  IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
         {
-            AssertCollectionAndItems(expectedSectionResults, actualSectionResults, (expectedItem, actualItem) =>
-            {
-                Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-            });
+            AssertCollectionAndItems(expectedSectionResults, actualSectionResults, (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
         }
 
         private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation expectedCalculation,

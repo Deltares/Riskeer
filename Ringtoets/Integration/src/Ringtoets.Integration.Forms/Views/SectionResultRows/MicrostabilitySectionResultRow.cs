@@ -20,10 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -63,31 +59,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets the assessment layer two a of the <see cref="MicrostabilityFailureMechanismSectionResult"/>.
         /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA
+        public DetailedAssessmentResultType AssessmentLayerTwoA
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                return SectionResult.DetailedAssessmentResult;
             }
             set
             {
-                SectionResult.AssessmentLayerTwoA = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
+                SectionResult.DetailedAssessmentResult = value;
             }
         }
 
