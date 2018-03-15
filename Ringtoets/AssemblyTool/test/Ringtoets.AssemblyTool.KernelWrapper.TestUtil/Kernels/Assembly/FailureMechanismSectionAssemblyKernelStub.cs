@@ -44,6 +44,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public SimpleCalculationResultValidityOnly? SimpleAssessmentFailureMechanismsValidityOnlyInput { get; private set; }
 
         /// <summary>
+        /// Gets the input used in <see cref="DetailedAssessmentDirectFailureMechanisms(DetailedCalculationResult)"/>.
+        /// </summary>
+        public DetailedCalculationResult? DetailedCalculationResultInput { get; private set; }
+
+        /// <summary>
         /// Gets the input used in <see cref="DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbability)"/>.
         /// </summary>
         public DetailedCalculationInputFromProbability DetailedAssessmentFailureMechanismFromProbabilityInput { get; private set; }
@@ -154,7 +159,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationResult result)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            DetailedCalculationResultInput = result;
+            Calculated = true;
+            return FailureMechanismSectionAssemblyCategoryGroup;
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentIndirectFailureMechanisms(DetailedCalculationResult result)

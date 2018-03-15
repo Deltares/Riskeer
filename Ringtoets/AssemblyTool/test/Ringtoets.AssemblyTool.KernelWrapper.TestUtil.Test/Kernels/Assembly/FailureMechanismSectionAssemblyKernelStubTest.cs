@@ -220,16 +220,67 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         #region Detailed Assessment
 
         [Test]
-        public void DetailedAssessmentDirectFailureMechanisms_Always_ThrowNotImplementedException()
+        public void DetailedAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
+            var random = new Random(39);
+            var input = random.NextEnumValue<DetailedCalculationResult>();
+
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
             // Call
-            TestDelegate test = () => kernel.DetailedAssessmentDirectFailureMechanisms(0);
+            kernel.DetailedAssessmentDirectFailureMechanisms(input);
 
             // Assert
-            Assert.Throws<NotImplementedException>(test);
+            Assert.AreEqual(input, kernel.DetailedCalculationResultInput);
+            Assert.IsTrue(kernel.Calculated);
+        }
+
+        [Test]
+        public void DetailedAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = random.NextEnumValue<DetailedCalculationResult>();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
+                    random.NextEnumValue<FailureMechanismSectionCategoryGroup>())
+            };
+
+            // Call
+            CalculationOutput<FailureMechanismSectionCategoryGroup> result = kernel.DetailedAssessmentDirectFailureMechanisms(input);
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionAssemblyCategoryGroup, result);
+        }
+
+        [Test]
+        public void DetailedAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = random.NextEnumValue<DetailedCalculationResult>();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.DetailedAssessmentDirectFailureMechanisms(input);
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.DetailedCalculationResultInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionAssemblyCategoryGroup);
         }
 
         [Test]
