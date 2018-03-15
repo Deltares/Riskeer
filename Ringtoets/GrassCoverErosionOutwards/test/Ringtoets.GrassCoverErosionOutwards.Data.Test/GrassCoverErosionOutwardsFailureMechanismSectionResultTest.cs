@@ -21,6 +21,7 @@
 
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
@@ -44,6 +45,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
             Assert.IsNaN(result.AssessmentLayerThree);
+
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedSignalingNorm);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForSignalingNorm);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForLowerLimitNorm);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.TailorMadeAssessmentResult);
+            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }
 
         [Test]
