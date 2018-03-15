@@ -326,5 +326,71 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
             }
         }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="DuneErosionSectionResultRow"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Sets the simple assessment result index.
+            /// </summary>
+            public int SimpleAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result for factorized signaling norm index.
+            /// </summary>
+            public int DetailedAssessmentResultForFactorizedSignalingNormIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result for signaling norm index.
+            /// </summary>
+            public int DetailedAssessmentResultForSignalingNormIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result for mechanism specific lower limit norm index.
+            /// </summary>
+            public int DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result for lower limit norm index.
+            /// </summary>
+            public int DetailedAssessmentResultForLowerLimitNormIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result for factorized lower limit norm index.
+            /// </summary>
+            public int DetailedAssessmentResultForFactorizedLowerLimitNormIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the tailor made assessment result index.
+            /// </summary>
+            public int TailorMadeAssessmentResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the simple assembly category group index.
+            /// </summary>
+            public int SimpleAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assembly category group index.
+            /// </summary>
+            public int DetailedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the tailor made assembly category group index.
+            /// </summary>
+            public int TailorMadeAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the combined assembly category group index.
+            /// </summary>
+            public int CombinedAssemblyCategoryGroupIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the manual assembly category group index.
+            /// </summary>
+            public int ManualAssemblyCategoryGroupIndex { internal get; set; }
+        }
     }
 }
