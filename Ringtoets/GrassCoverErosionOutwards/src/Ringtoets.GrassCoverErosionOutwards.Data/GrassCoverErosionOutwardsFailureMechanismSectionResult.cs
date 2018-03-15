@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
@@ -42,9 +41,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
-            AssessmentLayerTwoA = AssessmentLayerTwoAResult.NotCalculated;
-            AssessmentLayerThree = RoundedDouble.NaN;
-
             DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForSignalingNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = DetailedAssessmentResultType.None;
@@ -58,17 +54,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which
-        /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
-        /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
