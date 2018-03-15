@@ -214,6 +214,18 @@ namespace Ringtoets.Common.Forms.Builders
         }
 
         /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddDetailedAssessmentResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            AddDetailedAssessmentResultColumn(dataGridViewControl, dataPropertyName,
+                                              Resources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName);
+        }
+
+        /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
         /// for the factorized signaling norm category (IIv - IIIv).
         /// </summary>
@@ -223,7 +235,7 @@ namespace Ringtoets.Common.Forms.Builders
         public static void AddDetailedAssessmentResultForFactorizedSignalingNormColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             AddDetailedAssessmentResultColumn(dataGridViewControl, dataPropertyName,
-                Resources.FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName);
+                                              Resources.FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName);
         }
 
         /// <summary>
@@ -236,9 +248,9 @@ namespace Ringtoets.Common.Forms.Builders
         public static void AddDetailedAssessmentResultForSignalingNormColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             AddDetailedAssessmentResultColumn(dataGridViewControl, dataPropertyName,
-                Resources.FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName);
+                                              Resources.FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName);
         }
-        
+
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing the detailed assessment result type
         /// for the failure mechanism specific lower limit norm category (IIIv - IVv).
@@ -249,7 +261,7 @@ namespace Ringtoets.Common.Forms.Builders
         public static void AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             AddDetailedAssessmentResultColumn(dataGridViewControl, dataPropertyName,
-                Resources.FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName);
+                                              Resources.FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName);
         }
 
         /// <summary>
@@ -360,6 +372,36 @@ namespace Ringtoets.Common.Forms.Builders
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
                 Resources.FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName);
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the tailor made
+        /// assessment result.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddTailorMadeAssessmentResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentResultType>> dataSource =
+                CreateEnumDisplayWrappers<TailorMadeAssessmentResultType>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentResultType>.Value),
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentResultType>.DisplayName));
         }
 
         /// <summary>
