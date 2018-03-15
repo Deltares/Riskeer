@@ -94,6 +94,16 @@
       <Name>Core.Components.Gis</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Forms\Ringtoets.AssemblyTool.Forms.csproj">
+      <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
+      <Name>Ringtoets.AssemblyTool.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>

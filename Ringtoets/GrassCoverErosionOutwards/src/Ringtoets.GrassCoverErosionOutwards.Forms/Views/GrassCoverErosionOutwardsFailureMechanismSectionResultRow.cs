@@ -22,6 +22,8 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -56,7 +58,120 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized signaling norm (Cat Iv - IIv).
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForFactorizedSignalingNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the signaling norm (Cat IIv - IIIv).
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForSignalingNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForSignalingNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the failure mechanism specific lower limit norm (Cat IIIv - IVv).
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the lower limit norm (Cat IVv - Vv).
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForLowerLimitNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForLowerLimitNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized lower limit norm (Cat Vv - VIv).
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the tailor made assessment result.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public SelectableFailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResult
+        {
+            get
+            {
+                return SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(SectionResult.TailorMadeAssessmentResult);
+            }
+            set
+            {
+                SectionResult.TailorMadeAssessmentResult = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(value);
+                UpdateInternalData();
             }
         }
 
