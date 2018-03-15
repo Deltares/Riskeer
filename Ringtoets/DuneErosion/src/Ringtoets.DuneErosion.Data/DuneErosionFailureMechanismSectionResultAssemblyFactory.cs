@@ -43,7 +43,7 @@ namespace Ringtoets.DuneErosion.Data
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleSimpleAssessment(DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -56,7 +56,7 @@ namespace Ringtoets.DuneErosion.Data
 
             try
             {
-                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult);
+                return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult).Group;
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
