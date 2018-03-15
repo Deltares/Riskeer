@@ -85,12 +85,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
                     GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
-                Assert.AreSame(calculatorOutput, actualOutput);
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, actualOutput);
             }
         }
 
