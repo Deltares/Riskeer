@@ -59,6 +59,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public DetailedCalculationInputFromProbabilityWithLengthEffect DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput { get; private set; }
 
         /// <summary>
+        /// Gets the input used in <see cref="TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationResult)"/>.
+        /// </summary>
+        public TailorMadeCalculationResult? TailorMadeCalculationResultInput { get; private set; }
+
+        /// <summary>
         /// Gets the input used in <see cref="TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationInputFromProbability)"/>.
         /// </summary>
         public TailorMadeCalculationInputFromProbability TailorMadeCalculationInputFromProbabilityInput { get; private set; }
@@ -212,7 +217,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationResult result)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            TailorMadeCalculationResultInput = result;
+            Calculated = true;
+            return FailureMechanismSectionAssemblyCategoryGroup;
         }
 
         public CalculationOutput<FailureMechanismSectionCategoryGroup> TailorMadeAssessmentIndirectFailureMechanisms(TailorMadeCalculationResult result)
