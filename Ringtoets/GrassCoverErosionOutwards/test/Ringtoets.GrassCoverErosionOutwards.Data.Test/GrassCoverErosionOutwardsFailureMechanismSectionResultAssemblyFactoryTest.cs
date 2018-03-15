@@ -37,6 +37,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
+        #region Simple Assembly
+
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
@@ -116,5 +118,99 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
+
+        #endregion
+
+        #region Detailed Assembly
+
+        [Test]
+        public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_WithSectionResult_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(21);
+            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(failureMechanismSection)
+            {
+                DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>(),
+                DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>(),
+                DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>(),
+                DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>(),
+                DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>()
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+
+                // Assert
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm, calculator.DetailedAssesmentResultForFactorizedSignalingNormInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForSignalingNorm, calculator.DetailedAssesmentResultForSignalingNormInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, calculator.DetailedAssesmentResultForMechanismSpecificLowerLimitNormInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForLowerLimitNorm, calculator.DetailedAssesmentResultForLowerLimitNormInput);
+                Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm, calculator.DetailedAssesmentResultForFactorizedLowerLimitNormInput);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(failureMechanismSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
+                    GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+
+                // Assert
+                Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, actualOutput);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        {
+            // Setup
+            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(failureMechanismSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
     }
 }
