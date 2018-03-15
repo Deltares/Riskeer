@@ -42,6 +42,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest
     {
+        private static GrassCoverErosionOutwardsFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties
+        {
+            get
+            {
+                return new GrassCoverErosionOutwardsFailureMechanismSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = 1,
+                    DetailedAssessmentResultForFactorizedSignalingNormIndex = 2,
+                    DetailedAssessmentResultForSignalingNormIndex = 3,
+                    DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex = 4,
+                    DetailedAssessmentResultForLowerLimitNormIndex = 5,
+                    DetailedAssessmentResultForFactorizedLowerLimitNormIndex = 6,
+                    TailorMadeAssessmentResultIndex = 7,
+                    SimpleAssemblyCategoryGroupIndex = 8,
+                    DetailedAssemblyCategoryGroupIndex = 9,
+                    TailorMadeAssemblyCategoryGroupIndex = 10,
+                    CombinedAssemblyCategoryGroupIndex = 11,
+                    ManualAssemblyCategoryGroupIndex = 13
+                };
+            }
+        }
+
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
@@ -52,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>>(row);
@@ -91,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
                                 row.SimpleAssemblyCategoryGroup);
@@ -121,7 +143,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
@@ -153,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -185,7 +207,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -214,7 +236,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedSignalingNorm = newValue;
@@ -243,7 +265,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForSignalingNorm = newValue;
@@ -272,7 +294,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = newValue;
@@ -301,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForLowerLimitNorm = newValue;
@@ -330,7 +352,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedLowerLimitNorm = newValue;
@@ -359,7 +381,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;

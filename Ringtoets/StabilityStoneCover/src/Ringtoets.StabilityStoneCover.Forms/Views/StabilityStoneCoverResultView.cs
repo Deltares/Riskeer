@@ -55,7 +55,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
 
         protected override StabilityStoneCoverSectionResultRow CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
         {
-            return new StabilityStoneCoverSectionResultRow(sectionResult,
+            return new StabilityStoneCoverSectionResultRow(
+                sectionResult,
                 new StabilityStoneCoverSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
