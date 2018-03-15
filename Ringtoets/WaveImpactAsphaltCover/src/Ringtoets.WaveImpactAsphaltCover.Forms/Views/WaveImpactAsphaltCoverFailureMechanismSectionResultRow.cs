@@ -92,6 +92,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultType SimpleAssessmentResult
         {
             get
@@ -109,6 +111,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the factorized signaling norm (Cat Iv - IIv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNorm
         {
             get
@@ -126,6 +130,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the signaling norm (Cat IIv - IIIv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNorm
         {
             get
@@ -143,6 +149,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the failure mechanism specific signaling norm (Cat IIIv - IVv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNorm
         {
             get
@@ -160,6 +168,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the lower limit norm (Cat IVv - Vv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNorm
         {
             get
@@ -177,6 +187,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the factorized lower limit norm (Cat Vv - VIv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm
         {
             get
@@ -193,6 +205,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// <summary>
         /// Gets or sets the tailor made assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SelectableFailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResult
         {
             get
@@ -271,6 +285,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// <summary>
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SelectableFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
         {
             get
@@ -284,6 +300,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             }
         }
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public override void Update()
         {
             UpdateDerivedData();
