@@ -261,6 +261,41 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
+        /// Creates a <see cref="TailorMadeCalculationResult"/> based on the given <see cref="TailorMadeAssessmentResultType"/>.
+        /// </summary>
+        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create the result for.</param>
+        /// <returns>The created tailor made calculation result.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
+        /// is an invalid <see cref="TailorMadeAssessmentResultType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
+        /// is a valid but unsupported <see cref="TailorMadeAssessmentResultType"/>.</exception>
+        public static TailorMadeCalculationResult CreateTailorMadeCalculationResult(TailorMadeAssessmentResultType tailorMadeAssessmentResult)
+        {
+            if (!Enum.IsDefined(typeof(TailorMadeAssessmentResultType), tailorMadeAssessmentResult))
+            {
+                throw new InvalidEnumArgumentException(nameof(tailorMadeAssessmentResult),
+                                                       (int) tailorMadeAssessmentResult,
+                                                       typeof(TailorMadeAssessmentResultType));
+            }
+
+            switch (tailorMadeAssessmentResult)
+            {
+                case TailorMadeAssessmentResultType.None:
+                    return TailorMadeCalculationResult.None;
+                case TailorMadeAssessmentResultType.ProbabilityNegligible:
+                    return TailorMadeCalculationResult.FV;
+                case TailorMadeAssessmentResultType.Sufficient:
+                    return TailorMadeCalculationResult.V;
+                case TailorMadeAssessmentResultType.Insufficient:
+                    return TailorMadeCalculationResult.VN;
+                case TailorMadeAssessmentResultType.NotAssessed:
+                    return TailorMadeCalculationResult.NGO;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
         /// Creates <see cref="TailorMadeCalculationInputFromProbability"/> based on the given parameters.
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create

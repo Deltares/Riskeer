@@ -300,7 +300,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(result.ResultVtoVI, GetDetailedCalculationResult(detailedAssessmentResultForFactorizedLowerLimitNorm));
         }
 
-        [Test] 
+        [Test]
         public void CreateDetailedCalculationResult_InvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
@@ -830,6 +830,51 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Assert
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void CreateTailorMadeCalculationResult_InvalidEnumInput_ThrowInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationResult((TailorMadeAssessmentResultType) 99);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'tailorMadeAssessmentResult' (99) is invalid for Enum type '{nameof(TailorMadeAssessmentResultType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(TailorMadeAssessmentResultType.None)]
+        [TestCase(TailorMadeAssessmentResultType.ProbabilityNegligible)]
+        [TestCase(TailorMadeAssessmentResultType.Insufficient)]
+        [TestCase(TailorMadeAssessmentResultType.Sufficient)]
+        [TestCase(TailorMadeAssessmentResultType.NotAssessed)]
+        public void CreateTailorMadeCalculationResult_ValidInput_ReturnsTailorMadeCalculationResult(TailorMadeAssessmentResultType detailedAssessmentResult)
+        {
+            // Call
+            TailorMadeCalculationResult result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationResult(detailedAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(result, GetTailorMadeCalculationResult(detailedAssessmentResult));
+        }
+
+        private static TailorMadeCalculationResult GetTailorMadeCalculationResult(TailorMadeAssessmentResultType detailedAssessmentResult)
+        {
+            switch (detailedAssessmentResult)
+            {
+                case TailorMadeAssessmentResultType.None:
+                    return TailorMadeCalculationResult.None;
+                case TailorMadeAssessmentResultType.ProbabilityNegligible:
+                    return TailorMadeCalculationResult.FV;
+                case TailorMadeAssessmentResultType.Sufficient:
+                    return TailorMadeCalculationResult.V;
+                case TailorMadeAssessmentResultType.Insufficient:
+                    return TailorMadeCalculationResult.VN;
+                case TailorMadeAssessmentResultType.NotAssessed:
+                    return TailorMadeCalculationResult.NGO;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         #endregion
