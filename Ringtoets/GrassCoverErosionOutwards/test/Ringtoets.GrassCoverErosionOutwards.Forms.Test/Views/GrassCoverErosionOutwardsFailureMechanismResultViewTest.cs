@@ -47,7 +47,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private const int detailedAssemblyCategoryGroupIndex = 9;
         private const int tailorMadeAssemblyCategoryGroupIndex = 10;
         private const int combinedAssemblyCategoryGroupIndex = 11;
-        private const int columnCount = 12;
+        private const int useManualAssemblyCategoryGroupIndex = 12;
+        private const int manualAssemblyCategoryGroupIndex = 13;
+        private const int columnCount = 14;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -98,6 +100,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[combinedAssemblyCategoryGroupIndex]);
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyCategoryGroupIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[manualAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Iv - IIv", dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex].HeaderText);
@@ -110,6 +114,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.AreEqual("Assemblageresultaat\r\ngedetailleerde toets per vak", dataGridView.Columns[detailedAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Assemblageresultaat\r\ntoets op maat", dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Assemblageresultaat\r\ngecombineerd", dataGridView.Columns[combinedAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Overschrijf\r\nassemblageresultaat", dataGridView.Columns[useManualAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Assemblageresultaat\r\nhandmatig", dataGridView.Columns[manualAssemblyCategoryGroupIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -150,6 +156,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[combinedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
             }
         }
     }

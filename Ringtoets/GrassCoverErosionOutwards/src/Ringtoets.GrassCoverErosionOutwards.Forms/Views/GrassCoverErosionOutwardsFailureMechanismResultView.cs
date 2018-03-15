@@ -19,16 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
 using Core.Common.Base;
-using Core.Common.Util;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
@@ -58,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 DataGridViewControl,
                 nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.Name));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
@@ -101,6 +95,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.UseManualAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.ManualAssemblyCategoryGroup));
         }
     }
 }
