@@ -220,11 +220,44 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm)
         {
             return new DetailedCategoryBoundariesCalculationResult(
-                ConvertDetailedAssessmentResultType(detailedAssessmentResultForFactorizedSignalingNorm),
-                ConvertDetailedAssessmentResultType(detailedAssessmentResultForSignalingNorm),
-                ConvertDetailedAssessmentResultType(detailedAssessmentResultForMechanismSpecificLowerLimitNorm),
-                ConvertDetailedAssessmentResultType(detailedAssessmentResultForLowerLimitNorm),
-                ConvertDetailedAssessmentResultType(detailedAssessmentResultForFactorizedLowerLimitNorm));
+                CreateDetailedCalculationResult(detailedAssessmentResultForFactorizedSignalingNorm),
+                CreateDetailedCalculationResult(detailedAssessmentResultForSignalingNorm),
+                CreateDetailedCalculationResult(detailedAssessmentResultForMechanismSpecificLowerLimitNorm),
+                CreateDetailedCalculationResult(detailedAssessmentResultForLowerLimitNorm),
+                CreateDetailedCalculationResult(detailedAssessmentResultForFactorizedLowerLimitNorm));
+        }
+
+        /// <summary>
+        /// Creates a <see cref="DetailedCalculationResult"/> based on the given <see cref="DetailedAssessmentResultType"/>.
+        /// </summary>
+        /// <param name="detailedAssessmentResult">The detailed assessment result to create the result for.</param>
+        /// <returns>The created detailed calculation result.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is a valid but unsupported <see cref="DetailedAssessmentResultType"/>.</exception>
+        public static DetailedCalculationResult CreateDetailedCalculationResult(DetailedAssessmentResultType detailedAssessmentResult)
+        {
+            if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
+            {
+                throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
+                                                       (int) detailedAssessmentResult,
+                                                       typeof(DetailedAssessmentResultType));
+            }
+
+            switch (detailedAssessmentResult)
+            {
+                case DetailedAssessmentResultType.None:
+                    return DetailedCalculationResult.None;
+                case DetailedAssessmentResultType.Sufficient:
+                    return DetailedCalculationResult.V;
+                case DetailedAssessmentResultType.Insufficient:
+                    return DetailedCalculationResult.VN;
+                case DetailedAssessmentResultType.NotAssessed:
+                    return DetailedCalculationResult.NGO;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         /// <summary>
@@ -435,39 +468,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     return new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.NGO);
                 case TailorMadeAssessmentProbabilityCalculationResultType.Probability:
                     return new TailorMadeProbabilityCalculationResult(new Probability(probability));
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        /// Converts a <see cref="DetailedAssessmentResultType"/> into <see cref="DetailedCalculationResult"/>.
-        /// </summary>
-        /// <param name="detailedAssessmentResult">The detailed assessment result to convert.</param>
-        /// <returns>The converted detailed calculation result.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
-        /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
-        /// is a valid but unsupported <see cref="DetailedAssessmentResultType"/>.</exception>
-        private static DetailedCalculationResult ConvertDetailedAssessmentResultType(DetailedAssessmentResultType detailedAssessmentResult)
-        {
-            if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
-            {
-                throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
-                                                       (int) detailedAssessmentResult,
-                                                       typeof(DetailedAssessmentResultType));
-            }
-
-            switch (detailedAssessmentResult)
-            {
-                case DetailedAssessmentResultType.None:
-                    return DetailedCalculationResult.None;
-                case DetailedAssessmentResultType.Sufficient:
-                    return DetailedCalculationResult.V;
-                case DetailedAssessmentResultType.Insufficient:
-                    return DetailedCalculationResult.VN;
-                case DetailedAssessmentResultType.NotAssessed:
-                    return DetailedCalculationResult.NGO;
                 default:
                     throw new NotSupportedException();
             }

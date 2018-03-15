@@ -253,7 +253,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
         [Test]
         [TestCaseSource(nameof(InvalidDetailedAssessmentCategoryResults))]
-        public void CreateDetailedCalculationInputFromCategoryResults_InvalidEnumInput_ThrowInvalidEnumerArgumentException(
+        public void CreateDetailedCalculationInputFromCategoryResults_InvalidEnumInput_ThrowInvalidEnumArgumentException(
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
@@ -298,6 +298,31 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(result.ResultIIItoIV, GetDetailedCalculationResult(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
             Assert.AreEqual(result.ResultIVtoV, GetDetailedCalculationResult(detailedAssessmentResultForLowerLimitNorm));
             Assert.AreEqual(result.ResultVtoVI, GetDetailedCalculationResult(detailedAssessmentResultForFactorizedLowerLimitNorm));
+        }
+
+        [Test] 
+        public void CreateDetailedCalculationResult_InvalidEnumInput_ThrowInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationResult((DetailedAssessmentResultType) 99);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'detailedAssessmentResult' (99) is invalid for Enum type '{nameof(DetailedAssessmentResultType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(DetailedAssessmentResultType.None)]
+        [TestCase(DetailedAssessmentResultType.Insufficient)]
+        [TestCase(DetailedAssessmentResultType.Sufficient)]
+        [TestCase(DetailedAssessmentResultType.NotAssessed)]
+        public void CreateDetailedCalculationResult_ValidInput_ReturnsDetailedCalculationResult(DetailedAssessmentResultType detailedAssessmentResult)
+        {
+            // Call
+            DetailedCalculationResult result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationResult(detailedAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(result, GetDetailedCalculationResult(detailedAssessmentResult));
         }
 
         private static IEnumerable<TestCaseData> InvalidDetailedAssessmentCategoryResults
