@@ -22,7 +22,7 @@
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -36,9 +36,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerThreeIndex = 3;
-        private const int columnCount = 4;
+        private const int detailedAssessmentResultForFactorizedSignalingNormIndex = 2;
+        private const int detailedAssessmentResultForSignalingNormIndex = 3;
+        private const int detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex = 4;
+        private const int detailedAssessmentResultForLowerLimitNormIndex = 5;
+        private const int detailedAssessmentResultForFactorizedLowerLimitNormIndex = 6;
+        private const int tailorMadeResultIndex = 7;
+        private const int columnCount = 8;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -76,12 +80,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
 
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultForLowerLimitNormIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultForFactorizedLowerLimitNormIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[tailorMadeResultIndex]);
 
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
-                Assert.AreEqual("Toets op maat", dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Iv - IIv", dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IIv - IIIv", dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IIIv - IVv", dataGridView.Columns[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. IVv - Vv", dataGridView.Columns[detailedAssessmentResultForLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\nCat. Vv - VIv", dataGridView.Columns[detailedAssessmentResultForFactorizedLowerLimitNormIndex].HeaderText);
+                Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeResultIndex].HeaderText);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -112,8 +124,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, cells[simpleAssessmentResultIndex].Value);
-                Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, cells[assessmentLayerTwoAIndex].Value);
-                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
+                Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedSignalingNormIndex].Value);
+                Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForSignalingNormIndex].Value);
+                Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].Value);
+                Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForLowerLimitNormIndex].Value);
+                Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedLowerLimitNormIndex].Value);
+                Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[tailorMadeResultIndex].Value);
             }
         }
     }

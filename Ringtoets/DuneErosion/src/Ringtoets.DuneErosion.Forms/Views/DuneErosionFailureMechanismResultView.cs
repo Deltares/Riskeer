@@ -19,15 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
 using Core.Common.Base;
-using Core.Common.Util;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.Views
 {
@@ -53,39 +48,37 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(DuneErosionSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentValidityOnlyResultType))
-                    .OfType<SimpleAssessmentValidityOnlyResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(DuneErosionSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>.DisplayName));
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedSignalingNormColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForFactorizedSignalingNorm));
 
-            EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
-                Enum.GetValues(typeof(AssessmentLayerTwoAResult))
-                    .OfType<AssessmentLayerTwoAResult>()
-                    .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForSignalingNorm));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(DuneErosionSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
-                twoAResultDataSource,
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(DuneErosionSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForLowerLimitNorm));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedLowerLimitNormColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForFactorizedLowerLimitNorm));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(DuneErosionSectionResultRow.TailorMadeAssessmentResult));
         }
     }
 }
