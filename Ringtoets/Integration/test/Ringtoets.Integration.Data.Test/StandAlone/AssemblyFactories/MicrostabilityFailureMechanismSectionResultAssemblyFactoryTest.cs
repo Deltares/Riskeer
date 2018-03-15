@@ -39,6 +39,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
     [TestFixture]
     public class MicrostabilityFailureMechanismSectionResultAssemblyFactoryTest
     {
+        #region Simple Assembly
+
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
@@ -87,12 +89,12 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
                     MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
-                Assert.AreSame(calculatorOutput, actualOutput);
+                Assert.AreEqual(calculatorOutput.Group, actualOutput);
             }
         }
 
@@ -119,5 +121,250 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
+
+        #endregion
+
+        #region Detailed Assembly
+
+        [Test]
+        public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+
+                // Assert
+                Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
+                    MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup? calculatorOutput = calculator.DetailedAssessmentAssemblyGroupOutput;
+                Assert.AreEqual(calculatorOutput, actualOutput);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
+
+        #region Tailor Made Assembly
+
+        [Test]
+        public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+
+                // Assert
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentResultInput);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
+                    MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup? calculatorOutput = calculator.TailorMadeAssemblyCategoryOutput;
+                Assert.AreEqual(calculatorOutput, actualOutput);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
+
+        #region Combined Assembly
+
+        [Test]
+        public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(
+                    sectionResult);
+                FailureMechanismSectionAssemblyCategoryGroup expectedDetailedAssembly = MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
+                    sectionResult);
+                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly = MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
+                    sectionResult);
+
+                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual(expectedDetailedAssembly, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+            }
+        }
+
+        [Test]
+        public void AssembleCombinedAssessment_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
+                    MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup? calculatorOutput = calculator.CombinedAssemblyCategoryOutput;
+                Assert.AreEqual(calculatorOutput, actualOutput);
+            }
+        }
+
+        [Test]
+        public void AssembleCombinedAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
+
+                // Call
+                TestDelegate call = () => MicrostabilityFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
     }
 }
