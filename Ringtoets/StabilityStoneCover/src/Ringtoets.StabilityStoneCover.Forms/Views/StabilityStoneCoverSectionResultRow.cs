@@ -63,6 +63,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="StabilityStoneCoverSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult,
                                                    ConstructionProperties constructionProperties)
             : base(sectionResult)
@@ -93,6 +95,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult
         {
             get
@@ -110,6 +114,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the factorized signaling norm (Cat Iv - IIv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNorm
         {
             get
@@ -127,6 +133,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the signaling norm (Cat IIv - IIIv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNorm
         {
             get
@@ -144,6 +152,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the failure mechanism specific lower limit norm (Cat IIIv - IVv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNorm
         {
             get
@@ -161,6 +171,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the lower limit norm (Cat IVv - Vv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNorm
         {
             get
@@ -178,6 +190,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
         /// for the factorized lower limit norm (Cat Vv - VIv).
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm
         {
             get
@@ -194,6 +208,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// <summary>
         /// Gets or sets the tailor made assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SelectableFailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResult
         {
             get
@@ -272,6 +288,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// <summary>
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SelectableFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
         {
             get
@@ -285,6 +303,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             }
         }
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public override void Update()
         {
             UpdateDerivedData();
