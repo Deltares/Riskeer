@@ -176,18 +176,56 @@ namespace Ringtoets.MacroStabilityInwards.Service
             double maximumXCoordinateSoilProfile = soilProfileXCoordinates.Max();
             double maxXCoordinate = Math.Min(maximumXCoordinateSoilProfile, maximumXCoordinateSurfaceLine);
 
-            var xCoordinates = new List<double>();
             double minimumXCoordinateSurfaceLine = surfaceLineXCoordinates.Min();
             double minimumXCoordinateSoilProfile = soilProfileXCoordinates.Min();
-            double x = Math.Max(minimumXCoordinateSoilProfile, minimumXCoordinateSurfaceLine);
-            while (x < maxXCoordinate)
+            double minXCoordinate = Math.Max(minimumXCoordinateSoilProfile, minimumXCoordinateSurfaceLine);
+
+            IEnumerable<double> clippedSoilProfileXCoordinates = soilProfileXCoordinates.Where(xCoordinate => IsXCoordinateInRange(xCoordinate, minXCoordinate, maxXCoordinate));
+            IEnumerable<double> clippedSurfaceLineXCoordinates = surfaceLineXCoordinates.Where(xCoordinate => IsXCoordinateInRange(xCoordinate, minXCoordinate, maxXCoordinate));
+
+            double[] uniqueClippedXCoordinates = clippedSoilProfileXCoordinates.Concat(clippedSurfaceLineXCoordinates)
+                                                                               .Distinct()
+                                                                               .OrderBy(xCoordinate => xCoordinate)
+                                                                               .ToArray();
+
+            var xCoordinates = new List<double>();
+            for (var i = 0; i < uniqueClippedXCoordinates.Length - 1; i++)
             {
-                xCoordinates.Add(x);
-                x += withinSurfaceLineLevelLimit;
+                double firstXCoordinate = uniqueClippedXCoordinates[i];
+                double secondXCoordinate = uniqueClippedXCoordinates[i + 1];
+
+                xCoordinates.AddRange(GetDiscretizedXCoordinatesBetweenInterval(firstXCoordinate, secondXCoordinate));
             }
-            xCoordinates.Add(maxXCoordinate);
+            xCoordinates.Add(uniqueClippedXCoordinates.Last());
 
             return xCoordinates;
+        }
+
+        private static IEnumerable<double> GetDiscretizedXCoordinatesBetweenInterval(double startXCoordinate, double endXCoordinate)
+        {
+            if (Math.Abs(endXCoordinate - startXCoordinate) < withinSurfaceLineLevelLimit)
+            {
+                return new[]
+                {
+                    startXCoordinate
+                };
+            }
+
+            double xCoordinate = startXCoordinate;
+            var discretizedXCoordinates = new List<double>();
+            while (xCoordinate < endXCoordinate)
+            {
+                discretizedXCoordinates.Add(xCoordinate);
+                xCoordinate += withinSurfaceLineLevelLimit;
+            }
+
+            return discretizedXCoordinates;
+        }
+
+        private static bool IsXCoordinateInRange(double xCoordinate, double minXCoordinate, double maxXCoordinate)
+        {
+            return xCoordinate <= maxXCoordinate
+                   && xCoordinate >= minXCoordinate;
         }
 
         private static IEnumerable<IEnumerable<Segment2D>> GetLayerPolygons(MacroStabilityInwardsSoilProfile2D soilProfile2D)
