@@ -22,6 +22,8 @@
 using System;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
+using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -33,6 +35,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
+        private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
+        private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultRow"/>.
         /// </summary>
@@ -40,7 +47,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         internal GrassCoverErosionOutwardsFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
-            : base(sectionResult) {}
+            : base(sectionResult)
+        {
+            Update();
+        }
 
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
@@ -171,6 +181,110 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
         }
 
-        public override void Update() {}
+        /// <summary>
+        /// Gets the simple assembly category group.
+        /// </summary>
+        public string SimpleAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(simpleAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the detailed assembly category group.
+        /// </summary>
+        public string DetailedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(detailedAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the tailor made assembly category group.
+        /// </summary>
+        public string TailorMadeAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(tailorMadeAssemblyCategoryGroup);
+            }
+        }
+
+        /// <summary>
+        /// Gets the combined assembly category group.
+        /// </summary>
+        public string CombinedAssemblyCategoryGroup
+        {
+            get
+            {
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedAssemblyCategoryGroup);
+            }
+        }
+
+        public override void Update()
+        {
+            UpdateDerivedData();
+        }
+
+        private void UpdateDerivedData()
+        {
+            TryGetSimpleAssemblyCategoryGroup();
+            TryGetDetailedAssemblyCategoryGroup();
+            TryGetTailorMadeAssemblyCategoryGroup();
+            TryGetCombinedAssemblyCategoryGroup();
+        }
+
+        private void TryGetSimpleAssemblyCategoryGroup()
+        {
+            try
+            {
+                simpleAssemblyCategoryGroup = GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+            }
+            catch (AssemblyException e)
+            {
+                simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
+
+        private void TryGetDetailedAssemblyCategoryGroup()
+        {
+            try
+            {
+                detailedAssemblyCategoryGroup = GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(SectionResult);
+            }
+            catch (AssemblyException e)
+            {
+                detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
+
+        private void TryGetTailorMadeAssemblyCategoryGroup()
+        {
+            try
+            {
+                tailorMadeAssemblyCategoryGroup = GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+            }
+            catch (AssemblyException e)
+            {
+                tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
+
+        private void TryGetCombinedAssemblyCategoryGroup()
+        {
+            try
+            {
+                combinedAssemblyCategoryGroup = GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                    SectionResult);
+            }
+            catch (AssemblyException e)
+            {
+                combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+            }
+        }
     }
 }
