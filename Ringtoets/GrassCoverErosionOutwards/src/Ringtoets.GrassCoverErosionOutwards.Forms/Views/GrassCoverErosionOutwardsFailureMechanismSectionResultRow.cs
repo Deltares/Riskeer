@@ -303,6 +303,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         public override void Update()
         {
             UpdateDerivedData();
+            UpdateColumnStateDefinitionStates();
         }
 
         private void CreateColumnStateDefinitions()
@@ -401,6 +402,40 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.InnerException.Message;
             }
+        }
+
+        /// <summary>
+        /// Updates the column state definitions.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        private void UpdateColumnStateDefinitionStates()
+        {
+            bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForFactorizedSignalingNormIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForSignalingNormIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForLowerLimitNormIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForFactorizedLowerLimitNormIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
+
+            if (UseManualAssemblyCategoryGroup)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex]);
+            }
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyCategoryGroupIndex], !UseManualAssemblyCategoryGroup);
         }
 
         /// <summary>
