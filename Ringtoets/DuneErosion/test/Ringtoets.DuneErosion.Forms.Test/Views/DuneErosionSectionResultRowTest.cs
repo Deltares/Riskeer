@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -30,7 +29,6 @@ using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
@@ -61,45 +59,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(result.DetailedAssessmentResultForFactorizedLowerLimitNorm, row.DetailedAssessmentResultForFactorizedLowerLimitNorm);
             Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.TailorMadeAssessmentResult),
                             row.TailorMadeAssessmentResult);
-
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
-            TestHelper.AssertTypeConverter<DuneErosionSectionResultRow, NoValueRoundedDoubleConverter>(
-                nameof(DuneErosionSectionResultRow.AssessmentLayerThree));
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
-            var row = new DuneErosionSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoA = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            double newValue = random.NextDouble();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
-            var row = new DuneErosionSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
 
         #region Registration

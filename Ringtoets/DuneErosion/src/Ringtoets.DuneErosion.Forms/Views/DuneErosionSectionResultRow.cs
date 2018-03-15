@@ -20,12 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Base.Data;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
@@ -45,7 +41,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public DuneErosionSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult) 
+        public DuneErosionSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
             : base(sectionResult) {}
 
         /// <summary>
@@ -63,21 +59,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
             {
                 SectionResult.SimpleAssessmentResult = value;
                 SectionResult.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets the assessment layer two a of the <see cref="DuneErosionFailureMechanismSectionResult"/>.
-        /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerTwoA;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerTwoA = value;
             }
         }
 
@@ -191,22 +172,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
             {
                 SectionResult.TailorMadeAssessmentResult = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(value);
                 UpdateInternalData();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
             }
         }
 
