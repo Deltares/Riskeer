@@ -21,11 +21,9 @@
 
 using System;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Util;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -51,13 +49,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         protected override GrassCoverErosionOutwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
         {
             return new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(sectionResult);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            DataGridViewControl.CellFormatting -= OnCellFormatting;
-
-            base.Dispose(disposing);
         }
 
         protected override void AddDataGridColumns()
@@ -95,29 +86,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
-        }
-
-        protected override void BindEvents()
-        {
-            base.BindEvents();
-
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-        }
-
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
-            {
-                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
         }
     }
 }
