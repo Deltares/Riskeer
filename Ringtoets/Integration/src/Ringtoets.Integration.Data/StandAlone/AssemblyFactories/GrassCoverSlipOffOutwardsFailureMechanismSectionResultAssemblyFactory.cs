@@ -44,7 +44,8 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(GrassCoverSlipOffOutwardsFailureMechanismSectionResult failureMechanismSectionResult)
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(
+            GrassCoverSlipOffOutwardsFailureMechanismSectionResult failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -58,6 +59,39 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             try
             {
                 return calculator.AssembleSimpleAssessment(failureMechanismSectionResult.SimpleAssessmentResult).Group;
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Assembles the detailed assessment result.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to
+        /// assemble the detailed assembly for.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
+            GrassCoverSlipOffOutwardsFailureMechanismSectionResult failureMechanismSectionResult)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                return calculator.AssembleDetailedAssessment(
+                    failureMechanismSectionResult.DetailedAssessmentResult);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
