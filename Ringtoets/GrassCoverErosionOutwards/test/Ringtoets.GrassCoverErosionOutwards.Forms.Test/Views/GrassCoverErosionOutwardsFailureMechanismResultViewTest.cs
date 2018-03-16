@@ -138,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 form.Show();
 
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
@@ -146,6 +146,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedSignalingNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForSignalingNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].Value);

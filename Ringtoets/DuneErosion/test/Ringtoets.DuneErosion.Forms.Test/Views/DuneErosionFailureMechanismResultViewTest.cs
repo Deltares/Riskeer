@@ -135,7 +135,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 form.Show();
 
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);

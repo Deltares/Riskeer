@@ -131,7 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 var invalidated = false;
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
 
                 // Precondition
@@ -249,7 +249,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Precondition
                 Assert.IsFalse(invalidated);
                 Assert.IsFalse(row.Updated);
-                
+
                 // When
                 row.RowUpdated?.Invoke(row, EventArgs.Empty);
                 sectionResult.NotifyObservers();

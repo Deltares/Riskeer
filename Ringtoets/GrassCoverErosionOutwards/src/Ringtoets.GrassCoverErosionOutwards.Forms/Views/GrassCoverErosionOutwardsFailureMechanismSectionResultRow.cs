@@ -94,6 +94,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultType SimpleAssessmentResult
         {
             get
