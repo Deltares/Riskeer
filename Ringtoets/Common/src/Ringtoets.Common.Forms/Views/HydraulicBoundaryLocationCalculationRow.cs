@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The <see cref="HydraulicBoundaryLocationCalculation"/> for this row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationCalculationRow(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+        internal HydraulicBoundaryLocationCalculationRow(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
             : base(hydraulicBoundaryLocationCalculation) {}
 
         /// <summary>

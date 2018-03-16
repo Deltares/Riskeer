@@ -55,8 +55,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             Assert.AreEqual(id, row.Id);
             Assert.AreEqual(locationName, row.Name);
-            var expectedPoint2D = new Point2D(coordinateX, coordinateY);
-            Assert.AreEqual(expectedPoint2D, row.Location);
+            Assert.AreSame(hydraulicBoundaryLocation.Location, row.Location);
 
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationRow, NoValueRoundedDoubleConverter>(nameof(HydraulicBoundaryLocationCalculationRow.Result));
             Assert.IsNaN(row.Result);

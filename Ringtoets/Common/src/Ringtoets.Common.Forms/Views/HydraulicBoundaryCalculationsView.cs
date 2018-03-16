@@ -155,12 +155,7 @@ namespace Ringtoets.Common.Forms.Views
             return Enumerable.Empty<IllustrationPointControlItem>();
         }
 
-        /// <summary>
-        /// Creates a new row that is added to the data table.
-        /// </summary>
-        /// <param name="calculation">The calculation for which to create a new row.</param>
-        /// <returns>The newly created row.</returns>
-        private HydraulicBoundaryLocationCalculationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation)
+        private static HydraulicBoundaryLocationCalculationRow CreateNewRow(HydraulicBoundaryLocationCalculation calculation)
         {
             return new HydraulicBoundaryLocationCalculationRow(calculation);
         }
