@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Plugin;
@@ -28,7 +27,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -60,19 +58,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var random = new Random();
-
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
-                },
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
-                }
-            };
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             var context = new DesignWaterLevelCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                                   assessmentSection,
@@ -89,8 +75,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 // Assert
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocationCalculations, objectProperties.Data);
-                DesignWaterLevelCalculationProperties[] calculationProperties = ((DesignWaterLevelCalculationsProperties) objectProperties).Calculations;
-                CollectionAssert.AreEqual(hydraulicBoundaryLocationCalculations, calculationProperties.Select(p => p.Data));
             }
 
             mockRepository.VerifyAll();

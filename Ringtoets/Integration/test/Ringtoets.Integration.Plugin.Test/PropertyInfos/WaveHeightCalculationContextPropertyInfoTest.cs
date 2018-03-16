@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
@@ -53,11 +52,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_SetsDataCorrectly()
         {
             // Setup
-            double waveHeight = new Random().NextDouble();
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationOutput(waveHeight)
-            };
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             var context = new WaveHeightCalculationContext(hydraulicBoundaryLocationCalculation);
 

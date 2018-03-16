@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                                           context.AssessmentSection,
                                                                                                           () => context.AssessmentSection.FailureMechanismContribution.Norm),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
-                CloseForData = CloseDesignWaterLevelCalculationsViewForData
+                CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
 
             yield return new ViewInfo<
@@ -167,13 +167,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 GetViewName = (view, context) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaveHeightCalculationsContext_DisplayName,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseGrassCoverErosionOutwardsCalculationsViewForData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationsView(context.WrappedData,
                                                                                                     context.FailureMechanism,
                                                                                                     context.AssessmentSection,
                                                                                                     () => context.AssessmentSection.FailureMechanismContribution.Norm),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
+                CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
         }
 
@@ -383,24 +383,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsWaveHeightCalculationsView
-
-        private static bool CloseGrassCoverErosionOutwardsCalculationsViewForData(GrassCoverErosionOutwardsWaveHeightCalculationsView view, object dataToCloseFor)
-        {
-            return CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, dataToCloseFor);
-        }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsDesignWaterLevelCalculationsView
-
-        private static bool CloseDesignWaterLevelCalculationsViewForData(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view, object dataToCloseFor)
-        {
-            return CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, dataToCloseFor);
         }
 
         #endregion
