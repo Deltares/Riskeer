@@ -759,7 +759,6 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults)
         {
-            var random = new Random(21);
             foreach (DuneErosionFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
