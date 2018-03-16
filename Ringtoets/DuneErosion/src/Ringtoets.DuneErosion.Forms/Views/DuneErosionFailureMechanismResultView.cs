@@ -32,6 +32,19 @@ namespace Ringtoets.DuneErosion.Forms.Views
     public class DuneErosionFailureMechanismResultView : FailureMechanismResultView
         <DuneErosionFailureMechanismSectionResult, DuneErosionSectionResultRow, DuneErosionFailureMechanism>
     {
+        private const int simpleAssessmentResultIndex = 1;
+        private const int detailedAssessmentResultForFactorizedSignalingNormIndex = 2;
+        private const int detailedAssessmentResultForSignalingNormIndex = 3;
+        private const int detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex = 4;
+        private const int detailedAssessmentResultForLowerLimitNormIndex = 5;
+        private const int detailedAssessmentResultForFactorizedLowerLimitNormIndex = 6;
+        private const int tailorMadeAssessmentResultIndex = 7;
+        private const int simpleAssemblyCategoryGroupIndex = 8;
+        private const int detailedAssemblyCategoryGroupIndex = 9;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 10;
+        private const int combinedAssemblyCategoryGroupIndex = 11;
+        private const int manualAssemblyCategoryGroupIndex = 13;
+
         /// <inheritdoc/>
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismResultView"/>.
@@ -43,7 +56,23 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override DuneErosionSectionResultRow CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
         {
-            return new DuneErosionSectionResultRow(sectionResult);
+            return new DuneErosionSectionResultRow(
+                sectionResult,
+                new DuneErosionSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    DetailedAssessmentResultForFactorizedSignalingNormIndex = detailedAssessmentResultForFactorizedSignalingNormIndex,
+                    DetailedAssessmentResultForSignalingNormIndex = detailedAssessmentResultForSignalingNormIndex,
+                    DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex = detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex,
+                    DetailedAssessmentResultForLowerLimitNormIndex = detailedAssessmentResultForLowerLimitNormIndex,
+                    DetailedAssessmentResultForFactorizedLowerLimitNormIndex = detailedAssessmentResultForFactorizedLowerLimitNormIndex,
+                    TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
+                    SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
+                    TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
+                    CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
+                    ManualAssemblyCategoryGroupIndex = manualAssemblyCategoryGroupIndex
+                });
         }
 
         protected override void AddDataGridColumns()

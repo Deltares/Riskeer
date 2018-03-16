@@ -42,6 +42,43 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     [TestFixture]
     public class DuneErosionSectionResultRowTest
     {
+        private static DuneErosionSectionResultRow.ConstructionProperties ConstructionProperties
+        {
+            get
+            {
+                return new DuneErosionSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = 1,
+                    DetailedAssessmentResultForFactorizedSignalingNormIndex = 2,
+                    DetailedAssessmentResultForSignalingNormIndex = 3,
+                    DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex = 4,
+                    DetailedAssessmentResultForLowerLimitNormIndex = 5,
+                    DetailedAssessmentResultForFactorizedLowerLimitNormIndex = 6,
+                    TailorMadeAssessmentResultIndex = 7,
+                    SimpleAssemblyCategoryGroupIndex = 8,
+                    DetailedAssemblyCategoryGroupIndex = 9,
+                    TailorMadeAssemblyCategoryGroupIndex = 10,
+                    CombinedAssemblyCategoryGroupIndex = 11,
+                    ManualAssemblyCategoryGroupIndex = 13
+                };
+            }
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate call = () => new DuneErosionSectionResultRow(result, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+        }
+
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
@@ -50,7 +87,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            var row = new DuneErosionSectionResultRow(result);
+            var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResult>>(row);
@@ -88,7 +125,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
                                 row.SimpleAssemblyCategoryGroup);
@@ -100,7 +137,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                                 row.CombinedAssemblyCategoryGroup);
             }
         }
-
 
         [Test]
         public void UseManualAssemblyCategoryGroup_SetNewValue_NotifyObserversAndPropertyChanged()
@@ -119,7 +155,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
@@ -151,7 +187,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -183,7 +219,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -212,7 +248,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedSignalingNorm = newValue;
@@ -241,7 +277,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForSignalingNorm = newValue;
@@ -270,7 +306,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = newValue;
@@ -299,7 +335,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForLowerLimitNorm = newValue;
@@ -328,7 +364,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedLowerLimitNorm = newValue;
@@ -357,7 +393,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRow(result);
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;
