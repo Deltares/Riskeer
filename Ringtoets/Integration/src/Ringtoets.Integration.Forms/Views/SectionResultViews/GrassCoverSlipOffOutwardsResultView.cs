@@ -19,19 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Util;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 {
@@ -55,71 +48,23 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             return new GrassCoverSlipOffOutwardsSectionResultRow(sectionResult);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            DataGridViewControl.CellFormatting -= OnCellFormatting;
-
-            base.Dispose(disposing);
-        }
-
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(GrassCoverSlipOffOutwardsSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(GrassCoverSlipOffOutwardsSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(GrassCoverSlipOffOutwardsSectionResultRow.DetailedAssessmentResult));
 
-            EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
-                Enum.GetValues(typeof(AssessmentLayerTwoAResult))
-                    .OfType<AssessmentLayerTwoAResult>()
-                    .Select(el => new EnumDisplayWrapper<AssessmentLayerTwoAResult>(el))
-                    .ToArray();
-
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_DetailedAssessmentResult_DisplayName,
-                twoAResultDataSource,
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.Value),
-                nameof(EnumDisplayWrapper<AssessmentLayerTwoAResult>.DisplayName));
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
-        }
-
-        protected override void BindEvents()
-        {
-            base.BindEvents();
-
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-        }
-
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
-            {
-                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(GrassCoverSlipOffOutwardsSectionResultRow.TailorMadeAssessmentResult));
         }
     }
 }
