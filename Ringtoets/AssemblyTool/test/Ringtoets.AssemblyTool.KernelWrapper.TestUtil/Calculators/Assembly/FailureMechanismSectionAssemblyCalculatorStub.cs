@@ -94,12 +94,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
         /// <summary>
         /// Gets the detailed assessment result input for cat IIIv - IVv.
-        /// </summary>public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
+        /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
 
         /// <summary>
         /// Gets the detailed assessment result input for cat IVv - Vv.
-        /// </summary>public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNormInput { get; private set; }
+        /// </summary>
         public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNormInput { get; private set; }
 
         /// <summary>
