@@ -261,12 +261,9 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults)
         {
-            var random = new Random(21);
             foreach (PipingStructureFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerTwoA = GetAssessmentLayerTwoAResult();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 

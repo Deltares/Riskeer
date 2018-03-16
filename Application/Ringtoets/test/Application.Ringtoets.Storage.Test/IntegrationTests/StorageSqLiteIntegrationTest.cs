@@ -1887,12 +1887,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             IEnumerable<PipingStructureFailureMechanismSectionResult> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults, (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerTwoA, actualItem.AssessmentLayerTwoA);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
-                                     });
+                                     actualSectionResults, (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
         }
 
         #endregion
