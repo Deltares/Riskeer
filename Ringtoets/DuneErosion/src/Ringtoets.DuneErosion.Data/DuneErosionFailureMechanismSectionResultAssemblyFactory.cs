@@ -41,7 +41,7 @@ namespace Ringtoets.DuneErosion.Data
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/> 
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
         {
@@ -72,7 +72,7 @@ namespace Ringtoets.DuneErosion.Data
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
             DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
@@ -108,7 +108,7 @@ namespace Ringtoets.DuneErosion.Data
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
             DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
@@ -140,7 +140,7 @@ namespace Ringtoets.DuneErosion.Data
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssessment(
             DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
