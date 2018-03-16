@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.Exceptions;
@@ -84,6 +85,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
             tailorMadeAssemblyCategoryGroupIndex = constructionProperties.TailorMadeAssemblyCategoryGroupIndex;
             combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
             manualAssemblyCategoryGroupIndex = constructionProperties.ManualAssemblyCategoryGroupIndex;
+
+            CreateColumnStateDefinitions();
 
             Update();
         }
@@ -302,6 +305,34 @@ namespace Ringtoets.DuneErosion.Forms.Views
         public override void Update()
         {
             UpdateDerivedData();
+        }
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForFactorizedSignalingNormIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForSignalingNormIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForLowerLimitNormIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForFactorizedLowerLimitNormIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(simpleAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(detailedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(tailorMadeAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(combinedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(manualAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
         }
 
         private void UpdateDerivedData()
