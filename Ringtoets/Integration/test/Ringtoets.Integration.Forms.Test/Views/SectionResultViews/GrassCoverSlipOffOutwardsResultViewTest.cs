@@ -41,7 +41,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;
         private const int tailorMadeAssessmentResultIndex = 3;
-        private const int columnCount = 4;
+        private const int simpleAssemblyCategoryGroupIndex = 4;
+        private const int detailedAssemblyCategoryGroupIndex = 5;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 6;
+        private const int combinedAssemblyCategoryGroupIndex = 7;
+        private const int columnCount = 8;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -82,16 +86,28 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[tailorMadeAssessmentResultIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[simpleAssemblyCategoryGroupIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssemblyCategoryGroupIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[combinedAssemblyCategoryGroupIndex]);
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeAssessmentResultIndex].HeaderText);
+                Assert.AreEqual("Assemblageresultaat\r\neenvoudige toets", dataGridView.Columns[simpleAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Assemblageresultaat\r\ngedetailleerde toets per vak", dataGridView.Columns[detailedAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Assemblageresultaat\r\ntoets op maat", dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].HeaderText);
+                Assert.AreEqual("Assemblageresultaat\r\ngecombineerd", dataGridView.Columns[combinedAssemblyCategoryGroupIndex].HeaderText);
 
                 Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[simpleAssessmentResultIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[detailedAssessmentResultIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[tailorMadeAssessmentResultIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[simpleAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[detailedAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -125,6 +141,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultIndex].Value);
                 Assert.AreEqual(TailorMadeAssessmentResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
+                Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("IIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("IIv", cells[combinedAssemblyCategoryGroupIndex].Value);
             }
         }
     }
