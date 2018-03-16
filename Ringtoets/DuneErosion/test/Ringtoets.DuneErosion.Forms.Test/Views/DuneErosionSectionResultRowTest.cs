@@ -298,6 +298,99 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
         }
 
+        #region Column States
+
+        [Test]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None, true)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable, true)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.NotApplicable, false)]
+        public void Constructor_WithSimpleAssessmentResultSet_ExpectedColumnStates(SimpleAssessmentValidityOnlyResultType simpleAssessmentResult,
+                                                                                   bool cellsEnabled)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForFactorizedSignalingNormIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForSignalingNormIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForLowerLimitNormIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForFactorizedLowerLimitNormIndex],
+                                                                             cellsEnabled);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
+                                                                             cellsEnabled);
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithUseManualAssemblyCategoryGroupSet_ExpectedColumnStates(bool useManualAssemblyCategoryGroup)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section)
+            {
+                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForFactorizedSignalingNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForSignalingNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForLowerLimitNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultForFactorizedLowerLimitNormIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex],
+                                                                             !useManualAssemblyCategoryGroup);
+
+                if (useManualAssemblyCategoryGroup)
+                {
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.DetailedAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex]);
+                    FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(
+                        columnStateDefinitions[ConstructionProperties.CombinedAssemblyCategoryGroupIndex]);
+                }
+
+                FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[ConstructionProperties.ManualAssemblyCategoryGroupIndex],
+                                                                             useManualAssemblyCategoryGroup);
+            }
+        }
+
+        #endregion
+
         #region Registration
 
         [Test]
