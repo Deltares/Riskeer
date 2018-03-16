@@ -80,10 +80,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 simpleAssessmentDataSource,
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
                 nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
-
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
         }
 
         protected override void BindEvents()

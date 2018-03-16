@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
 
@@ -38,7 +38,8 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         public StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
-            AssessmentLayerThree = RoundedDouble.NaN;
+            TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
+            ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
         /// <summary>
@@ -47,8 +48,18 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the tailor made assessment result.
         /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
+        public TailorMadeAssessmentResultType TailorMadeAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.
+        /// </summary>
+        public bool UseManualAssemblyCategoryGroup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the manually selected assembly category group.
+        /// </summary>
+        public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
     }
 }

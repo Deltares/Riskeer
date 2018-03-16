@@ -19,17 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -51,53 +44,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
-            TestHelper.AssertTypeConverter<StrengthStabilityLengthwiseConstructionSectionResultRow, NoValueRoundedDoubleConverter>(
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.AssessmentLayerThree));
-        }
-
-        [Test]
-        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var random = new Random(39);
-            var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section);
-            result.Attach(observer);
-
-            var row = new StrengthStabilityLengthwiseConstructionSectionResultRow(result);
-
-            // Call
-            row.SimpleAssessmentResult = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            double newValue = random.NextDouble();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section);
-            var row = new StrengthStabilityLengthwiseConstructionSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
     }
 }
