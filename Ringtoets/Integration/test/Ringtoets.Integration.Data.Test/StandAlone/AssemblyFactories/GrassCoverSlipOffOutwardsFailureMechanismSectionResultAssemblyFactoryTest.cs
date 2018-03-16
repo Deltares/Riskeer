@@ -39,6 +39,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
     [TestFixture]
     public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
+        #region Simple Assembly
+
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
@@ -87,12 +89,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
                     GrassCoverSlipOffOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
-                Assert.AreSame(calculatorOutput, actualOutput);
+                Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, actualOutput);
             }
         }
 
@@ -119,5 +120,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
+
+        #endregion
     }
 }
