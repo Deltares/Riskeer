@@ -28,10 +28,10 @@ namespace Ringtoets.Common.Data.TestUtil
     /// </summary>
     public class TestFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="TestFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the result was made.</param>
         public TestFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
     }
 }

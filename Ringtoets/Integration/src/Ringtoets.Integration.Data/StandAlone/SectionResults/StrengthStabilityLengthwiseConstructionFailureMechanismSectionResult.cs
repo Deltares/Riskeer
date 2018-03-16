@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
@@ -32,12 +31,10 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
-        /// <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/> will hold the result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;

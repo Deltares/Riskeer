@@ -37,11 +37,10 @@ namespace Ringtoets.ClosingStructures.Data
         private double tailorMadeAssessmentProbability;
         private double manualAssemblyProbability;
 
+        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public ClosingStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
@@ -66,7 +65,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets or sets the detailed assessment result.
         /// </summary>
         public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentResult { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the tailor made assessment result.
         /// </summary>
@@ -84,8 +83,8 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null, 
-                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_, 
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 tailorMadeAssessmentProbability = value;
             }

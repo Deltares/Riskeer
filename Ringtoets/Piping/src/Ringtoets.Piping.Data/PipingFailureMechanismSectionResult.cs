@@ -36,11 +36,10 @@ namespace Ringtoets.Piping.Data
         private double tailorMadeAssessmentProbability;
         private double manualAssemblyProbability;
 
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;

@@ -37,12 +37,10 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         private double detailedAssessmentProbability;
         private double tailorMadeAssessmentProbability;
 
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
-        /// <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> will hold the result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;

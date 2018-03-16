@@ -37,11 +37,10 @@ namespace Ringtoets.HeightStructures.Data
         private double tailorMadeAssessmentProbability;
         private double manualAssemblyProbability;
 
+        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public HeightStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
@@ -61,7 +60,7 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the detailed assessment result.
         /// </summary>

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
@@ -32,12 +31,10 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// </summary>
     public class PipingStructureFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="PipingStructureFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
-        /// <see cref="PipingStructureFailureMechanismSectionResult"/> will hold the result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public PipingStructureFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;

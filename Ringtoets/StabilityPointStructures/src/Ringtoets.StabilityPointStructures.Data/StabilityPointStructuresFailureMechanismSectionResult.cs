@@ -37,11 +37,10 @@ namespace Ringtoets.StabilityPointStructures.Data
         private double tailorMadeAssessmentProbability;
         private double manualAssemblyProbability;
 
+        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None;
