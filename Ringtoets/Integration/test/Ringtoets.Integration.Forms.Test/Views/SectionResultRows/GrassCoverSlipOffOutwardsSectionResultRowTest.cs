@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -52,37 +53,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(row);
 
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
+            Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
+            Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
+
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             TestHelper.AssertTypeConverter<GrassCoverSlipOffOutwardsSectionResultRow, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverSlipOffOutwardsSectionResultRow.AssessmentLayerThree));
-        }
-
-        [Test]
-        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var random = new Random(39);
-            var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
-            result.Attach(observer);
-
-            var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
-
-            // Call
-            row.SimpleAssessmentResult = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.SimpleAssessmentResult);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -117,5 +95,96 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
+
+        #region Registration
+
+        [Test]
+        public void SimpleAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+
+                // Call
+                row.SimpleAssessmentResult = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.SimpleAssessmentResult);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void DetailedAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+
+                // Call
+                row.DetailedAssessmentResult = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.DetailedAssessmentResult);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void TailorMadeAssessmentResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var random = new Random(39);
+            var newValue = random.NextEnumValue<TailorMadeAssessmentResultType>();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+
+                // Call
+                row.TailorMadeAssessmentResult = newValue;
+
+                // Assert
+                Assert.AreEqual(newValue, result.TailorMadeAssessmentResult);
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
     }
 }

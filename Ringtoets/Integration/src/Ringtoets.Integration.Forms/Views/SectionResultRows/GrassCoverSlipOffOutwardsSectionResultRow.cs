@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
@@ -41,11 +42,16 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <param name="sectionResult">The <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public GrassCoverSlipOffOutwardsSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public GrassCoverSlipOffOutwardsSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult) 
+            : base(sectionResult) {}
 
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultType SimpleAssessmentResult
         {
             get
@@ -55,7 +61,43 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the detailed assessment result.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public DetailedAssessmentResultType DetailedAssessmentResult
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResult;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResult = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the tailor made assessment result.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public TailorMadeAssessmentResultType TailorMadeAssessmentResult
+        {
+            get
+            {
+                return SectionResult.TailorMadeAssessmentResult;
+            }
+            set
+            {
+                SectionResult.TailorMadeAssessmentResult = value;
+                UpdateInternalData();
             }
         }
 
