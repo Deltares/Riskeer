@@ -42,6 +42,38 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     [TestFixture]
     public class GrassCoverSlipOffOutwardsSectionResultRowTest
     {
+        private static GrassCoverSlipOffOutwardsSectionResultRow.ConstructionProperties ConstructionProperties
+        {
+            get
+            {
+                return new GrassCoverSlipOffOutwardsSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = 1,
+                    DetailedAssessmentResultIndex = 2,
+                    TailorMadeAssessmentResultIndex = 3,
+                    SimpleAssemblyCategoryGroupIndex = 4,
+                    DetailedAssemblyCategoryGroupIndex = 5,
+                    TailorMadeAssemblyCategoryGroupIndex = 6,
+                    CombinedAssemblyCategoryGroupIndex = 7,
+                    ManualAssemblyCategoryGroupIndex = 9
+                };
+            }
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate test = () => new GrassCoverSlipOffOutwardsSectionResultRow(result, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+        }
+
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
@@ -52,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result, ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(row);
@@ -85,7 +117,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result, ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -116,7 +148,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
@@ -148,7 +180,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -180,7 +212,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -209,7 +241,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResult = newValue;
@@ -238,7 +270,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
+                var row = new GrassCoverSlipOffOutwardsSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;

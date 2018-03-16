@@ -34,6 +34,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class GrassCoverSlipOffOutwardsResultView : FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
         GrassCoverSlipOffOutwardsSectionResultRow, GrassCoverSlipOffOutwardsFailureMechanism>
     {
+        private const int simpleAssessmentResultIndex = 1;
+        private const int detailedAssessmentResultIndex = 2;
+        private const int tailorMadeAssessmentResultIndex = 3;
+        private const int simpleAssemblyCategoryGroupIndex = 4;
+        private const int detailedAssemblyCategoryGroupIndex = 5;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 6;
+        private const int combinedAssemblyCategoryGroupIndex = 7;
+        private const int manualAssemblyCategoryGroupIndex = 9;
+
         /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffOutwardsResultView"/>.
@@ -45,7 +54,19 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override GrassCoverSlipOffOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult)
         {
-            return new GrassCoverSlipOffOutwardsSectionResultRow(sectionResult);
+            return new GrassCoverSlipOffOutwardsSectionResultRow(
+                sectionResult,
+                new GrassCoverSlipOffOutwardsSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
+                    TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
+                    SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
+                    TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
+                    CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
+                    ManualAssemblyCategoryGroupIndex = manualAssemblyCategoryGroupIndex
+                });
         }
 
         protected override void AddDataGridColumns()

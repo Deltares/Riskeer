@@ -36,6 +36,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
     /// </summary>
     public class GrassCoverSlipOffOutwardsSectionResultRow : FailureMechanismSectionResultRow<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>
     {
+        private readonly int simpleAssessmentResultIndex;
+        private readonly int detailedAssessmentResultIndex;
+        private readonly int tailorMadeAssessmentResultIndex;
+        private readonly int simpleAssemblyCategoryGroupIndex;
+        private readonly int detailedAssemblyCategoryGroupIndex;
+        private readonly int tailorMadeAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyCategoryGroupIndex;
+        private readonly int manualAssemblyCategoryGroupIndex;
+
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
@@ -46,12 +55,29 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// </summary>
         /// <param name="sectionResult">The <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="GrassCoverSlipOffOutwardsSectionResultRow"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public GrassCoverSlipOffOutwardsSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult)
+        public GrassCoverSlipOffOutwardsSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult,
+                                                         ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
+            simpleAssessmentResultIndex = constructionProperties.SimpleAssessmentResultIndex;
+            detailedAssessmentResultIndex = constructionProperties.DetailedAssessmentResultIndex;
+            tailorMadeAssessmentResultIndex = constructionProperties.TailorMadeAssessmentResultIndex;
+            simpleAssemblyCategoryGroupIndex = constructionProperties.SimpleAssemblyCategoryGroupIndex;
+            detailedAssemblyCategoryGroupIndex = constructionProperties.DetailedAssemblyCategoryGroupIndex;
+            tailorMadeAssemblyCategoryGroupIndex = constructionProperties.TailorMadeAssemblyCategoryGroupIndex;
+            combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
+            manualAssemblyCategoryGroupIndex = constructionProperties.ManualAssemblyCategoryGroupIndex;
+
             Update();
         }
 
