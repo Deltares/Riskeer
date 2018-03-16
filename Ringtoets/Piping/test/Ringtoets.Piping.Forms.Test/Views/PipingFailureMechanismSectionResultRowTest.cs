@@ -191,6 +191,23 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
+                Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
+                Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
+                Assert.AreEqual(result.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
+                                row.DetailedAssessmentProbability);
+                Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
+                Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
+                Assert.AreEqual(result.UseManualAssemblyProbability, row.UseManualAssemblyProbability);
+                Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
+
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(11, columnStateDefinitions.Count);
@@ -206,34 +223,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.CombinedAssemblyCategoryGroupIndex);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.CombinedAssemblyProbabilityIndex);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ManualAssemblyProbabilityIndex);
-
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.SimpleAssessmentResultIndex]);
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentResultIndex]);
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex],
-                                                                                      true);
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentResultIndex]);
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.TailorMadeAssessmentProbabilityIndex]);
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[ConstructionProperties.ManualAssemblyProbabilityIndex]);
-
-                Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-                Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
-                Assert.AreEqual(result.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
-                                row.DetailedAssessmentProbability);
-                Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
-                Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
-                Assert.AreEqual(result.UseManualAssemblyProbability, row.UseManualAssemblyProbability);
-                Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateIsEnabled(columnStateDefinitions[ConstructionProperties.CombinedAssemblyProbabilityIndex],
-                                                                                      true);
-
-                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability));
-                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
-                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyProbability));
-                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
                 mocks.VerifyAll();
             }
         }
