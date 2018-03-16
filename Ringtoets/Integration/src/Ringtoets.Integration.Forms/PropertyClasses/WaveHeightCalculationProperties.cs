@@ -48,8 +48,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_WaveHeight_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveHeightCalculation_Result_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveHeightCalculation_Result_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaveHeight
         {
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [PropertyOrder(9)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Convergence_WaveHeight_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveHeightCalculation_Convergence_Description))]
         public string Convergence
         {
             get

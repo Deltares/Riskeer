@@ -388,6 +388,33 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de toetspeil berekening?.
+        /// </summary>
+        public static string DesignWaterLevelCalculation_Convergence_Description {
+            get {
+                return ResourceManager.GetString("DesignWaterLevelCalculation_Convergence_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekend toetspeil..
+        /// </summary>
+        public static string DesignWaterLevelCalculation_Result_Description {
+            get {
+                return ResourceManager.GetString("DesignWaterLevelCalculation_Result_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetspeil [m+NAP].
+        /// </summary>
+        public static string DesignWaterLevelCalculation_Result_DisplayName {
+            get {
+                return ResourceManager.GetString("DesignWaterLevelCalculation_Result_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetspeilen.
         /// </summary>
         public static string DesignWaterLevelCalculationsContext_DisplayName {
@@ -471,24 +498,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de toetspeil berekening?.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de golfhoogte berekening?.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Convergence_WaveHeight_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Convergence_WaveHeight_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
         /// </summary>
         public static string HydraulicBoundaryDatabase_DisplayName {
@@ -512,42 +521,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string HydraulicBoundaryDatabase_FilePath_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabase_FilePath_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekend toetspeil..
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetspeil [m+NAP].
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekende golfhoogte..
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Location_WaveHeight_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Location_WaveHeight_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hs [m].
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName", resourceCulture);
             }
         }
         
@@ -774,6 +747,33 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string WaveHeight_Calculate_All_ToolTip {
             get {
                 return ResourceManager.GetString("WaveHeight_Calculate_All_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de golfhoogte berekening?.
+        /// </summary>
+        public static string WaveHeightCalculation_Convergence_Description {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculation_Convergence_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende golfhoogte..
+        /// </summary>
+        public static string WaveHeightCalculation_Result_Description {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculation_Result_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs [m].
+        /// </summary>
+        public static string WaveHeightCalculation_Result_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculation_Result_DisplayName", resourceCulture);
             }
         }
         
