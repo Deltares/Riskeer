@@ -81,6 +81,14 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(GrassCoverSlipOffOutwardsSectionResultRow.CombinedAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(GrassCoverSlipOffOutwardsSectionResultRow.UseManualAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(GrassCoverSlipOffOutwardsSectionResultRow.ManualAssemblyCategoryGroup));
         }
     }
 }
