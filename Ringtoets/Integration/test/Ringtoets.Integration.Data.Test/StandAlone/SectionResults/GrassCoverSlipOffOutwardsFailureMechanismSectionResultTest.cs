@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -49,29 +48,6 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
-
-            Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
-            Assert.IsNaN(result.AssessmentLayerThree);
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(5)]
-        [TestCase(0.5)]
-        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue(double newValue)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
-
-            // Call
-            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerThree,
-                            failureMechanismSectionResult.AssessmentLayerThree.GetAccuracy());
         }
     }
 }
