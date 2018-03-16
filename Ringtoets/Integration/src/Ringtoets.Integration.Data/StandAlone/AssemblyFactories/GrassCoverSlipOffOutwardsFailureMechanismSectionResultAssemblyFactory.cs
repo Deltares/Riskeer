@@ -131,5 +131,41 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 throw new AssemblyException(e.Message, e);
             }
         }
+
+        /// <summary>
+        /// Assembles the combined assembly.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to
+        /// combine the assemblies for.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssessment(
+            GrassCoverSlipOffOutwardsFailureMechanismSectionResult failureMechanismSectionResult)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
+            FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = AssembleDetailedAssessment(failureMechanismSectionResult);
+            FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly = AssembleTailorMadeAssessment(failureMechanismSectionResult);
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                return calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
     }
 }
