@@ -21,6 +21,7 @@
 
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
@@ -44,6 +45,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
+            Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
+
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
             Assert.IsNaN(result.AssessmentLayerThree);
         }
