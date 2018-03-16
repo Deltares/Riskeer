@@ -20,11 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Base.Data;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -44,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public GrassCoverSlipOffOutwardsSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult) 
+        public GrassCoverSlipOffOutwardsSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult)
             : base(sectionResult) {}
 
         /// <summary>
@@ -98,37 +94,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             {
                 SectionResult.TailorMadeAssessmentResult = value;
                 UpdateInternalData();
-            }
-        }
-
-        /// <summary>
-        /// Gets the assessment layer two a of the <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>.
-        /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerTwoA;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerTwoA = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
             }
         }
 

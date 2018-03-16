@@ -21,14 +21,12 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -51,49 +49,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(row);
-
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
             Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
             Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
-
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
-            TestHelper.AssertTypeConverter<GrassCoverSlipOffOutwardsSectionResultRow, NoValueRoundedDoubleConverter>(
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.AssessmentLayerThree));
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
-            var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoA = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            double newValue = random.NextDouble();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
-            var row = new GrassCoverSlipOffOutwardsSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
 
         #region Registration
