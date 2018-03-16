@@ -110,7 +110,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssemblyCategoryGroupIndex);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex);
                 FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.CombinedAssemblyCategoryGroupIndex);
-                FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ManualAssemblyCategoryGroupIndex);               
+                FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ManualAssemblyCategoryGroupIndex);
             }
         }
 
