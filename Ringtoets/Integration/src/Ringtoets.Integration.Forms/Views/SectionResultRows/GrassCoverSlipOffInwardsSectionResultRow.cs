@@ -59,37 +59,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             }
         }
 
-        /// <summary>
-        /// Gets the assessment layer two a of the <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
-        /// </summary>
-        public AssessmentLayerTwoAResult AssessmentLayerTwoA
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerTwoA;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerTwoA = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerThree = value.ToPrecision(SectionResult.AssessmentLayerThree.NumberOfDecimalPlaces);
-            }
-        }
-
         public override void Update() {}
     }
 }

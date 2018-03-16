@@ -408,12 +408,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerTwoA, actualItem.AssessmentLayerTwoA);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
-                                     });
+                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -1010,10 +1005,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                     });
+                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
         }
 
         private static void AssertDuneLocations(IEnumerable<DuneLocation> expectedDuneLocations,

@@ -40,9 +40,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards
         {
             var sectionResultEntity = new GrassCoverSlipOffInwardsSectionResultEntity
             {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA),
-                LayerThree = result.AssessmentLayerThree.ToNaNAsNull()
+                LayerOne = Convert.ToByte(result.AssessmentLayerOne)
             };
 
             return sectionResultEntity;

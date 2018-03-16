@@ -52,11 +52,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverSlipOffInwardsFailureMechanismSectionResult>>(row);
 
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
-            TestHelper.AssertTypeConverter<GrassCoverSlipOffInwardsSectionResultRow, NoValueRoundedDoubleConverter>(
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]
@@ -83,39 +78,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            const AssessmentLayerTwoAResult newValue = AssessmentLayerTwoAResult.Successful;
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(section);
-            var row = new GrassCoverSlipOffInwardsSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoA = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            double newValue = random.NextDouble();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResult(section);
-            var row = new GrassCoverSlipOffInwardsSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
     }
 }
