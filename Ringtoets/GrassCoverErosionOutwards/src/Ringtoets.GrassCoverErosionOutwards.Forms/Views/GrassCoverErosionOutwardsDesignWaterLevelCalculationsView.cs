@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         {
             base.InitializeDataGridView();
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Result),
-                                                 Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName);
+                                                 Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_DisplayName);
         }
 
         protected override object CreateSelectedItemFromCurrentRow()

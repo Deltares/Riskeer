@@ -100,6 +100,42 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsDesignWaterLevelCalculation_Convergence_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsDesignWaterLevelCalculation_Convergence_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende waterstand bij doorsnede-eis..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis [m+NAP].
+        /// </summary>
+        public static string GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstanden bij doorsnede-eis.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
@@ -108,62 +144,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_com" +
                         "position_and_clear_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_DesignWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_DesignWaterLevel_D" +
-                        "escription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Descrip" +
-                        "tion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekende waterstand bij doorsnede-eis..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis [m+NAP].
-        /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekende golfhoogte bij doorsnede-eis..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis [m].
-        /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName", resourceCulture);
             }
         }
         
@@ -182,15 +162,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         public static string GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstanden bij doorsnede-eis.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaterLevelLocations_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocations_DisplayName", resourceCulture);
             }
         }
         
@@ -250,6 +221,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocation" +
                         "Result_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveHeightCalculation_Convergence_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightCalculation_Convergence_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende golfhoogte bij doorsnede-eis..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveHeightCalculation_Result_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightCalculation_Result_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis [m].
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveHeightCalculation_Result_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightCalculation_Result_DisplayName", resourceCulture);
             }
         }
         

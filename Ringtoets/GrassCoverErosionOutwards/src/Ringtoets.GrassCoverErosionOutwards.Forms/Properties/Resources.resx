@@ -123,16 +123,16 @@
   <data name="GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle waterstanden bij doorsnede-eis berekenen.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaterLevelLocations_DisplayName" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext_DisplayName" xml:space="preserve">
     <value>Waterstanden bij doorsnede-eis</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_Description" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_Description" xml:space="preserve">
     <value>Berekende waterstand bij doorsnede-eis.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_DisplayName" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis [m+NAP]</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_DesignWaterLevel_Description" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculation_Convergence_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveHeightCalculationsContext_DisplayName" xml:space="preserve">
@@ -141,13 +141,13 @@
   <data name="GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle golfhoogtes bij doorsnede-eis berekenen.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Description" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsWaveHeightCalculation_Convergence_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_Description" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsWaveHeightCalculation_Result_Description" xml:space="preserve">
     <value>Berekende golfhoogte bij doorsnede-eis.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsWaveHeightCalculation_Result_DisplayName" xml:space="preserve">
     <value>Golfhoogte bij doorsnede-eis [m]</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description" xml:space="preserve">

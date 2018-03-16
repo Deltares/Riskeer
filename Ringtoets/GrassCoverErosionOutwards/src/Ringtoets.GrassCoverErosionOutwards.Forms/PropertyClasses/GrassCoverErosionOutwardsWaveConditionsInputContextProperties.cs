@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
                                                                              IObservablePropertyChangeHandler propertyChangeHandler)
             : base(context, getNormativeAssessmentLevelFunc, propertyChangeHandler) {}
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description))]
         public override RoundedDouble AssessmentLevel
         {
