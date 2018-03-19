@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.Exceptions;
@@ -36,6 +37,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
     /// </summary>
     public class WaterPressureAsphaltCoverSectionResultRow : FailureMechanismSectionResultRow<WaterPressureAsphaltCoverFailureMechanismSectionResult>
     {
+        private readonly int simpleAssessmentResultIndex;
+        private readonly int tailorMadeAssessmentResultIndex;
+        private readonly int simpleAssemblyCategoryGroupIndex;
+        private readonly int tailorMadeAssemblyCategoryGroupIndex;
+        private readonly int combinedAssemblyCategoryGroupIndex;
+        private readonly int manualAssemblyCategoryGroupIndex;
+
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
@@ -56,6 +64,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
+
+            simpleAssessmentResultIndex = constructionProperties.SimpleAssessmentResultIndex;
+            tailorMadeAssessmentResultIndex = constructionProperties.TailorMadeAssessmentResultIndex;
+            simpleAssemblyCategoryGroupIndex = constructionProperties.SimpleAssemblyCategoryGroupIndex;
+            tailorMadeAssemblyCategoryGroupIndex = constructionProperties.TailorMadeAssemblyCategoryGroupIndex;
+            combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
+            manualAssemblyCategoryGroupIndex = constructionProperties.ManualAssemblyCategoryGroupIndex;
+
+            CreateColumnStateDefinitions();
 
             Update();
         }
@@ -166,6 +183,25 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         public override void Update()
         {
             UpdateDerivedData();
+        }
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(simpleAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(tailorMadeAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(combinedAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(manualAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
         }
 
         private void UpdateDerivedData()
