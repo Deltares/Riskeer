@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -54,7 +55,25 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
-                SectionResult.NotifyObservers();
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the tailor made assessment result.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public TailorMadeAssessmentResultType TailorMadeAssessmentResult
+        {
+            get
+            {
+                return SectionResult.TailorMadeAssessmentResult;
+            }
+            set
+            {
+                SectionResult.TailorMadeAssessmentResult = value;
+                UpdateInternalData();
             }
         }
 
