@@ -39,6 +39,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
     [TestFixture]
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactoryTest
     {
+        #region Simple Assembly
+
         [Test]
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
@@ -118,5 +120,85 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
+
+        #endregion
+
+        #region Tailor Made Assembly
+
+        [Test]
+        public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+
+                // Assert
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentResultInput);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup actualOutput =
+                    WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup? calculatorOutput = calculator.TailorMadeAssemblyCategoryOutput;
+                Assert.AreEqual(calculatorOutput, actualOutput);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessment_CalculatorThrowsExceptions_ThrowsAssemblyException()
+        {
+            // Setup
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
     }
 }

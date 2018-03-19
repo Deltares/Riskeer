@@ -65,5 +65,38 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 throw new AssemblyException(e.Message, e);
             }
         }
+
+        /// <summary>
+        /// Assembles the tailor made assessment result.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to
+        /// assemble the tailor made assembly for.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
+            WaterPressureAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                return calculator.AssembleTailorMadeAssessment(
+                    failureMechanismSectionResult.TailorMadeAssessmentResult);
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
     }
 }
