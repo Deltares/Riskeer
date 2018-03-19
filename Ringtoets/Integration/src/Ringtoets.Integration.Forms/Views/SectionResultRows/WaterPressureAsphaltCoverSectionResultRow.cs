@@ -56,6 +56,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="WaterPressureAsphaltCoverSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public WaterPressureAsphaltCoverSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult,
                                                          ConstructionProperties constructionProperties)
             : base(sectionResult)
@@ -80,6 +82,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the simple assessment result.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultType SimpleAssessmentResult
         {
             get
@@ -180,6 +184,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             }
         }
 
+        /// <inheritdoc />
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public override void Update()
         {
             UpdateDerivedData();
@@ -262,6 +269,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Updates the column state definitions.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         private void UpdateColumnStateDefinitionStates()
         {
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
@@ -275,6 +284,15 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex]);
                 FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex]);
+            }
+            else
+            {
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex],
+                                                                                     simpleAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex],
+                                                                                     tailorMadeAssemblyCategoryGroup);
+                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex],
+                                                                                     combinedAssemblyCategoryGroup);
             }
 
             FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyCategoryGroupIndex], !UseManualAssemblyCategoryGroup);
