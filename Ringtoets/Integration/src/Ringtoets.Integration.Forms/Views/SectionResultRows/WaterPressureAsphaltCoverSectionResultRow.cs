@@ -183,6 +183,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         public override void Update()
         {
             UpdateDerivedData();
+            UpdateColumnStateDefinitionStates();
         }
 
         private void CreateColumnStateDefinitions()
@@ -256,6 +257,27 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
+        }
+
+        /// <summary>
+        /// Updates the column state definitions.
+        /// </summary>
+        private void UpdateColumnStateDefinitionStates()
+        {
+            bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
+                                                                  simpleAssessmentSufficient || UseManualAssemblyCategoryGroup);
+
+            if (UseManualAssemblyCategoryGroup)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex]);
+            }
+
+            FailureMechanismSectionResultRowHelper.SetColumnState(ColumnStateDefinitions[manualAssemblyCategoryGroupIndex], !UseManualAssemblyCategoryGroup);
         }
 
         /// <summary>
