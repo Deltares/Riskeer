@@ -109,6 +109,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
