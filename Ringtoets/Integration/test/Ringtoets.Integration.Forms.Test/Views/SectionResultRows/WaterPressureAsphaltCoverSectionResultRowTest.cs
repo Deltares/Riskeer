@@ -42,6 +42,37 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     [TestFixture]
     public class WaterPressureAsphaltCoverSectionResultRowTest
     {
+        private static WaterPressureAsphaltCoverSectionResultRow.ConstructionProperties ConstructionProperties
+        {
+            get
+            {
+                return new WaterPressureAsphaltCoverSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = 1,
+                    TailorMadeAssessmentResultIndex = 2,
+                    SimpleAssemblyCategoryGroupIndex = 3,
+                    TailorMadeAssemblyCategoryGroupIndex = 4,
+                    CombinedAssemblyCategoryGroupIndex = 5,
+                    ManualAssemblyCategoryGroupIndex = 7
+                };
+            }
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
+
+            // Call
+            TestDelegate test = () => new WaterPressureAsphaltCoverSectionResultRow(result, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+        }
+
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
@@ -52,7 +83,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new WaterPressureAsphaltCoverSectionResultRow(result);
+                var row = new WaterPressureAsphaltCoverSectionResultRow(result, ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<WaterPressureAsphaltCoverFailureMechanismSectionResult>>(row);
@@ -83,7 +114,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new WaterPressureAsphaltCoverSectionResultRow(result);
+                var row = new WaterPressureAsphaltCoverSectionResultRow(result, ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -112,7 +143,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaterPressureAsphaltCoverSectionResultRow(result);
+                var row = new WaterPressureAsphaltCoverSectionResultRow(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
@@ -144,7 +175,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaterPressureAsphaltCoverSectionResultRow(result);
+                var row = new WaterPressureAsphaltCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -176,7 +207,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaterPressureAsphaltCoverSectionResultRow(result);
+                var row = new WaterPressureAsphaltCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -205,7 +236,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaterPressureAsphaltCoverSectionResultRow(result);
+                var row = new WaterPressureAsphaltCoverSectionResultRow(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;

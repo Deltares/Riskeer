@@ -34,6 +34,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class WaterPressureAsphaltCoverResultView : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
         WaterPressureAsphaltCoverSectionResultRow, WaterPressureAsphaltCoverFailureMechanism>
     {
+        private const int simpleAssessmentResultIndex = 1;
+        private const int tailorMadeAssessmentResultIndex = 2;
+        private const int simpleAssemblyCategoryGroupIndex = 3;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 4;
+        private const int combinedAssemblyCategoryGroupIndex = 5;
+        private const int manualAssemblyCategoryGroupIndex = 7;
+
         /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="WaterPressureAsphaltCoverResultView"/>.
@@ -45,7 +52,17 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override WaterPressureAsphaltCoverSectionResultRow CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
-            return new WaterPressureAsphaltCoverSectionResultRow(sectionResult);
+            return new WaterPressureAsphaltCoverSectionResultRow(
+                sectionResult,
+                new WaterPressureAsphaltCoverSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
+                    SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
+                    CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
+                    ManualAssemblyCategoryGroupIndex = manualAssemblyCategoryGroupIndex
+                });
         }
 
         protected override void AddDataGridColumns()

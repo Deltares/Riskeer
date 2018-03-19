@@ -45,10 +45,18 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// </summary>
         /// <param name="sectionResult">The <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public WaterPressureAsphaltCoverSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="WaterPressureAsphaltCoverSectionResultRow"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public WaterPressureAsphaltCoverSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult,
+                                                         ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
             Update();
         }
 
