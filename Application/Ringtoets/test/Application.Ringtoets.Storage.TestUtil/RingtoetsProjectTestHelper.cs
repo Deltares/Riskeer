@@ -204,11 +204,9 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResult> sectionResults)
         {
-            var random = new Random(21);
             foreach (TechnicalInnovationFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
@@ -226,8 +224,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (MacroStabilityOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
-                sectionResult.DetailedAssessmentProbability = (RoundedDouble) random.NextDouble();
-                sectionResult.TailorMadeAssessmentProbability = (RoundedDouble) random.NextDouble();
+                sectionResult.DetailedAssessmentProbability = random.NextDouble();
+                sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
             }
         }
 
@@ -527,27 +525,27 @@ namespace Application.Ringtoets.Storage.TestUtil
                             BreakWater =
                             {
                                 Type = BreakWaterType.Dam,
-                                Height = (RoundedDouble) random.NextDouble()
+                                Height = random.NextRoundedDouble()
                             },
                             DrainCoefficient =
                             {
-                                Mean = (RoundedDouble) random.NextDouble()
+                                Mean = random.NextRoundedDouble()
                             },
-                            FactorStormDurationOpenStructure = (RoundedDouble) random.NextDouble(),
+                            FactorStormDurationOpenStructure = random.NextRoundedDouble(),
                             FailureProbabilityStructureWithErosion = random.NextDouble(),
                             ForeshoreProfile = foreshoreProfile,
                             HydraulicBoundaryLocation = hydroLocation,
                             LoadSchematizationType = LoadSchematizationType.Quadratic,
                             ModelFactorSuperCriticalFlow =
                             {
-                                Mean = (RoundedDouble) random.NextDouble()
+                                Mean = random.NextRoundedDouble()
                             },
-                            VolumicWeightWater = (RoundedDouble) random.NextDouble(),
+                            VolumicWeightWater = random.NextRoundedDouble(),
                             UseForeshore = random.NextBoolean(),
                             UseBreakWater = random.NextBoolean(),
                             StormDuration =
                             {
-                                Mean = (RoundedDouble) random.NextDouble()
+                                Mean = random.NextRoundedDouble()
                             },
                             Structure = stabilityPointStructure,
                             ShouldIllustrationPointsBeCalculated = false
@@ -566,27 +564,27 @@ namespace Application.Ringtoets.Storage.TestUtil
                             BreakWater =
                             {
                                 Type = BreakWaterType.Dam,
-                                Height = (RoundedDouble) random.NextDouble()
+                                Height = random.NextRoundedDouble()
                             },
                             DrainCoefficient =
                             {
-                                Mean = (RoundedDouble) random.NextDouble()
+                                Mean = random.NextRoundedDouble()
                             },
-                            FactorStormDurationOpenStructure = (RoundedDouble) random.NextDouble(),
+                            FactorStormDurationOpenStructure = random.NextRoundedDouble(),
                             FailureProbabilityStructureWithErosion = random.NextDouble(),
                             ForeshoreProfile = foreshoreProfile,
                             HydraulicBoundaryLocation = hydroLocation,
                             LoadSchematizationType = LoadSchematizationType.Quadratic,
                             ModelFactorSuperCriticalFlow =
                             {
-                                Mean = (RoundedDouble) random.NextDouble()
+                                Mean = random.NextRoundedDouble()
                             },
-                            VolumicWeightWater = (RoundedDouble) random.NextDouble(),
+                            VolumicWeightWater = random.NextRoundedDouble(),
                             UseForeshore = random.NextBoolean(),
                             UseBreakWater = random.NextBoolean(),
                             StormDuration =
                             {
-                                Mean = (RoundedDouble) random.NextDouble()
+                                Mean = random.NextRoundedDouble()
                             },
                             Structure = stabilityPointStructure,
                             ShouldIllustrationPointsBeCalculated = true

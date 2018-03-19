@@ -51,10 +51,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<TechnicalInnovationFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
-            TestHelper.AssertTypeConverter<TechnicalInnovationSectionResultRow, NoValueRoundedDoubleConverter>(
-                nameof(TechnicalInnovationSectionResultRow.AssessmentLayerThree));
         }
 
         [Test]
@@ -81,23 +77,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Assert
             Assert.AreEqual(newValue, result.SimpleAssessmentResult);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            double newValue = random.NextDouble();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new TechnicalInnovationFailureMechanismSectionResult(section);
-            var row = new TechnicalInnovationSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
     }
 }
