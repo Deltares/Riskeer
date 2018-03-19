@@ -206,9 +206,17 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
 
         private void UpdateDerivedData()
         {
+            ResetErrorTexts();
             TryGetSimpleAssemblyCategoryGroup();
             TryGetTailorMadeAssemblyCategoryGroup();
             TryGetCombinedAssemblyCategoryGroup();
+        }
+
+        private void ResetErrorTexts()
+        {
+            ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
         }
 
         private void TryGetSimpleAssemblyCategoryGroup()
@@ -220,6 +228,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             catch (AssemblyException e)
             {
                 simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
 
@@ -232,6 +241,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             catch (AssemblyException e)
             {
                 tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
 
@@ -244,6 +254,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             catch (AssemblyException e)
             {
                 combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
             }
         }
 
