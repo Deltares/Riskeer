@@ -19,27 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Util;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
     /// The view for a collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionResultView : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
-        StrengthStabilityLengthwiseConstructionSectionResultRow, StrengthStabilityLengthwiseConstructionFailureMechanism>
+    public class StrengthStabilityLengthwiseConstructionResultView
+        : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
+            StrengthStabilityLengthwiseConstructionSectionResultRow,
+            StrengthStabilityLengthwiseConstructionFailureMechanism>
     {
+        private const int simpleAssessmentResultIndex = 1;
+        private const int tailorMadeAssessmentResultIndex = 2;
+        private const int simpleAssemblyCategoryGroupIndex = 3;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 4;
+        private const int combinedAssemblyCategoryGroupIndex = 5;
+        private const int manualAssemblyCategoryGroupIndex = 7;
+
         /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionResultView"/>.
@@ -49,60 +52,55 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override StrengthStabilityLengthwiseConstructionSectionResultRow CreateFailureMechanismSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
+        protected override StrengthStabilityLengthwiseConstructionSectionResultRow CreateFailureMechanismSectionResultRow(
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
         {
-            return new StrengthStabilityLengthwiseConstructionSectionResultRow(sectionResult);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            DataGridViewControl.CellFormatting -= OnCellFormatting;
-
-            base.Dispose(disposing);
+            return new StrengthStabilityLengthwiseConstructionSectionResultRow(
+                sectionResult,
+                new StrengthStabilityLengthwiseConstructionSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
+                    SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
+                    CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
+                    ManualAssemblyCategoryGroupIndex = manualAssemblyCategoryGroupIndex
+                });
         }
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
-        }
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.TailorMadeAssessmentResult));
 
-        protected override void BindEvents()
-        {
-            base.BindEvents();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.SimpleAssemblyCategoryGroup));
 
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-        }
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
-            {
-                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.CombinedAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.UseManualAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.ManualAssemblyCategoryGroup));
         }
     }
 }
