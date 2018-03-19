@@ -73,35 +73,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
-        }
-
-        [Test]
-        public void Read_EntityWithNullValues_SectionResultWithNaNValues()
-        {
-            // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new WaterPressureAsphaltCoverSectionResultEntity
-            {
-                LayerThree = null,
-                LayerOne = Convert.ToByte(layerOne),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult);
-
-            // Assert
-            Assert.IsNotNull(sectionResult);
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
         }
     }
 }

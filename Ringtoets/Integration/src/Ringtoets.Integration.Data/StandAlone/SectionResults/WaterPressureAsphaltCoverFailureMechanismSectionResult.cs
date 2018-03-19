@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
@@ -36,12 +35,12 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <summary>
         /// Creates a new instance of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
         /// </summary>
-        public WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section)
+            : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
             ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
-            AssessmentLayerThree = RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -63,10 +62,5 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the manually selected assembly category group.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }

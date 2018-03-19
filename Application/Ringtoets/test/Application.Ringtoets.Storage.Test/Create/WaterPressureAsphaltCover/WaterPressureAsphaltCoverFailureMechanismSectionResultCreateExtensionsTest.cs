@@ -23,7 +23,6 @@ using System;
 using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -40,12 +39,10 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
             // Setup
             var random = new Random();
             var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            const double assessmentLayerThreeResult = 3.2;
 
             var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
+                AssessmentLayerOne = assessmentLayerOneResult
             };
 
             // Call
@@ -53,23 +50,6 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
-        }
-
-        [Test]
-        public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
-        {
-            // Setup
-            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
-            {
-                AssessmentLayerThree = RoundedDouble.NaN
-            };
-
-            // Call
-            WaterPressureAsphaltCoverSectionResultEntity result = sectionResult.Create();
-
-            // Assert
-            Assert.IsNull(result.LayerThree);
         }
     }
 }

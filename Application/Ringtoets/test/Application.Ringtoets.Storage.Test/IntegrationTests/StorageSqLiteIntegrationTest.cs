@@ -394,7 +394,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      (expectedItem, actualItem) =>
                                      {
                                          Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
-                                         Assert.AreEqual(expectedItem.AssessmentLayerThree, actualItem.AssessmentLayerThree);
                                      });
         }
 
