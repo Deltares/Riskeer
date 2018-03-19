@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Util;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -54,59 +55,19 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             return new WaterPressureAsphaltCoverSectionResultRow(sectionResult);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            DataGridViewControl.CellFormatting -= OnCellFormatting;
-
-            base.Dispose(disposing);
-        }
-
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(WaterPressureAsphaltCoverSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(WaterPressureAsphaltCoverSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
-
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(WaterPressureAsphaltCoverSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
-        }
-
-        protected override void BindEvents()
-        {
-            base.BindEvents();
-
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-        }
-
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
-            {
-                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(WaterPressureAsphaltCoverSectionResultRow.TailorMadeAssessmentResult));
         }
     }
 }
