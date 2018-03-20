@@ -81,8 +81,9 @@ namespace Application.Ringtoets.Storage.Create
             };
 
             AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);
+            AddHydraulicLocationCalculationEntities(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
-
+            
             entity.BackgroundDataEntities.Add(section.BackgroundData.Create());
 
             entity.FailureMechanismEntities.Add(section.Piping.Create(registry));
@@ -137,6 +138,19 @@ namespace Application.Ringtoets.Storage.Create
                     entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));
                 }
             }
+        }
+
+        private static void AddHydraulicLocationCalculationEntities(AssessmentSection assessmentSection, AssessmentSectionEntity entity, PersistenceRegistry registry)
+        {
+            // TODO: WIT-1606 Finalize the ordering of where to map which calculation
+            entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaterLevelCalculationsForSignalingNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity3 = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity4 = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity5 = assessmentSection.WaveHeightCalculationsForSignalingNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity6 = assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity7 = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Create(registry);
         }
     }
 }

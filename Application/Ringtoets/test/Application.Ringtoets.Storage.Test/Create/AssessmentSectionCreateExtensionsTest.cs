@@ -184,6 +184,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -194,6 +196,16 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.HydraulicDatabaseVersion);
             CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
             CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
+
+            int expectedNrOfCalculations = assessmentSection.HydraulicBoundaryDatabase.Locations.Count;
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity, expectedNrOfCalculations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity1, expectedNrOfCalculations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity2, expectedNrOfCalculations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity3, expectedNrOfCalculations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity4, expectedNrOfCalculations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity5, expectedNrOfCalculations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity6, expectedNrOfCalculations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity7, expectedNrOfCalculations);
         }
 
         [Test]
@@ -215,6 +227,8 @@ namespace Application.Ringtoets.Storage.Test.Create
                     }
                 }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -223,8 +237,18 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
             Assert.AreEqual(testVersion, entity.HydraulicDatabaseVersion);
-            Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
             CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
+
+            int expectedNrOfHydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, entity.HydraulicLocationEntities.Count);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity1, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity2, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity3, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity4, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity5, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity6, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity7, expectedNrOfHydraulicBoundaryLocations);
         }
 
         [Test]
@@ -251,6 +275,8 @@ namespace Application.Ringtoets.Storage.Test.Create
                     PreprocessorDirectory = preprocessorDirectory
                 }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -259,11 +285,21 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
             Assert.AreEqual(testVersion, entity.HydraulicDatabaseVersion);
-            Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
             Assert.AreEqual(1, entity.HydraRingPreprocessorEntities.Count);
             HydraRingPreprocessorEntity preprocessorEntity = entity.HydraRingPreprocessorEntities.First();
             Assert.AreEqual(Convert.ToByte(usePreprocessor), preprocessorEntity.UsePreprocessor);
             Assert.AreEqual(preprocessorDirectory, preprocessorEntity.PreprocessorDirectory);
+
+            int expectedNrOfHydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, entity.HydraulicLocationEntities.Count);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity1, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity2, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity3, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity4, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity5, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity6, expectedNrOfHydraulicBoundaryLocations);
+            AssertHydraulicLocationCalculationCollectionEntity(entity.HydraulicLocationCalculationCollectionEntity7, expectedNrOfHydraulicBoundaryLocations);
         }
 
         [Test]
@@ -291,6 +327,13 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             string expectedXml = new Point2DXmlSerializer().ToXml(points);
             Assert.AreEqual(expectedXml, entity.ReferenceLinePointXml);
+        }
+
+        private static void AssertHydraulicLocationCalculationCollectionEntity(HydraulicLocationCalculationCollectionEntity collectionEntity,
+                                                                               int expectedNrOfCalculationEntities)
+        {
+            Assert.IsNotNull(collectionEntity);
+            Assert.AreEqual(expectedNrOfCalculationEntities, collectionEntity.HydraulicLocationCalculationEntities.Count);
         }
     }
 }
