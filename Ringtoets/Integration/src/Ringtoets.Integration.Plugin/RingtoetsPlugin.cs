@@ -498,15 +498,23 @@ namespace Ringtoets.Integration.Plugin
                     context.WrappedData,
                     (WaterPressureAsphaltCoverFailureMechanism) context.FailureMechanism));
 
-            yield return CreateFailureMechanismResultViewInfo<
-                MacroStabilityOutwardsFailureMechanism,
-                MacroStabilityOutwardsFailureMechanismSectionResult,
-                MacroStabilityOutwardsResultView,
-                MacroStabilityOutwardsSectionResultRow>(
-                context => new MacroStabilityOutwardsResultView(
+            yield return new ViewInfo<
+                ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>,
+                IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>,
+                MacroStabilityOutwardsResultView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData<MacroStabilityOutwardsFailureMechanism,
+                    MacroStabilityOutwardsFailureMechanismSectionResult,
+                    MacroStabilityOutwardsResultView,
+                    MacroStabilityOutwardsSectionResultRow>,
+                GetViewData = context => context.WrappedData,
+                CreateInstance = context => new MacroStabilityOutwardsResultView(
                     context.WrappedData,
                     (MacroStabilityOutwardsFailureMechanism) context.FailureMechanism,
-                    context.AssessmentSection));
+                    context.AssessmentSection)
+            };
 
             yield return new ViewInfo<Comment, CommentView>
             {
@@ -834,7 +842,15 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacroStabilityOutwardsFailureMechanismSectionResult>();
+
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>>
+            {
+                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
 
             yield return new TreeNodeInfo<Comment>
             {
@@ -895,16 +911,16 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static ViewInfo<ProbabilityFailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
+        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
             TFailureMechanism, TResult, TView, TResultRow>(
-            Func<ProbabilityFailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
+            Func<FailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
             where TResult : FailureMechanismSectionResult
             where TView : FailureMechanismResultView<TResult, TResultRow, TFailureMechanism>
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
             where TResultRow : FailureMechanismSectionResultRow<TResult>
         {
             return new ViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<TResult>,
+                FailureMechanismSectionResultContext<TResult>,
                 IEnumerable<TResult>,
                 TView>
             {
@@ -916,10 +932,10 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultTreeNodeInfo<T>()
+        private TreeNodeInfo<FailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultTreeNodeInfo<T>()
             where T : FailureMechanismSectionResult
         {
-            return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<T>>
+            return new TreeNodeInfo<FailureMechanismSectionResultContext<T>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -1401,50 +1417,50 @@ namespace Ringtoets.Integration.Plugin
             if (grassCoverSlipOffInwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new ProbabilityFailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
-                        grassCoverSlipOffInwards.SectionResults, nodeData, assessmentSection);
+                    new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
+                        grassCoverSlipOffInwards.SectionResults, nodeData);
             }
 
             if (grassCoverSlipOffOutwards != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new ProbabilityFailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
-                        grassCoverSlipOffOutwards.SectionResults, nodeData, assessmentSection);
+                    new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
+                        grassCoverSlipOffOutwards.SectionResults, nodeData);
             }
 
             if (microstability != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new ProbabilityFailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
-                        microstability.SectionResults, nodeData, assessmentSection);
+                    new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
+                        microstability.SectionResults, nodeData);
             }
 
             if (pipingStructure != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
-                        pipingStructure.SectionResults, nodeData, assessmentSection);
+                    new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
+                        pipingStructure.SectionResults, nodeData);
             }
 
             if (technicalInnovation != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new ProbabilityFailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
-                        technicalInnovation.SectionResults, nodeData, assessmentSection);
+                    new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
+                        technicalInnovation.SectionResults, nodeData);
             }
 
             if (strengthStabilityLengthwiseConstruction != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new ProbabilityFailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
-                        strengthStabilityLengthwiseConstruction.SectionResults, nodeData, assessmentSection);
+                    new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
+                        strengthStabilityLengthwiseConstruction.SectionResults, nodeData);
             }
 
             if (waterPressureAsphaltCover != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new ProbabilityFailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(
-                        waterPressureAsphaltCover.SectionResults, nodeData, assessmentSection);
+                    new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(
+                        waterPressureAsphaltCover.SectionResults, nodeData);
             }
 
             if (macroStabilityOutwards != null)

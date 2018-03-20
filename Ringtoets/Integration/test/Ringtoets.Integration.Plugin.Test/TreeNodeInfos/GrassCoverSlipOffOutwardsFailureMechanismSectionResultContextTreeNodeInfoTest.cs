@@ -27,7 +27,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -38,94 +37,87 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private RingtoetsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
-            // Assert
-            Assert.IsNotNull(info.Text);
-            Assert.IsNull(info.ForeColor);
-            Assert.IsNotNull(info.Image);
-            Assert.IsNotNull(info.ContextMenuStrip);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ExpandOnCreate);
-            Assert.IsNull(info.ChildNodeObjects);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
+            using (plugin)
+            {
+                // Assert
+                Assert.IsNotNull(info.Text);
+                Assert.IsNull(info.ForeColor);
+                Assert.IsNotNull(info.Image);
+                Assert.IsNotNull(info.ContextMenuStrip);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.IsChecked);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
+            }
         }
 
         [Test]
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var mechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(mechanism.SectionResults,
-                                                                                                                                      mechanism,
-                                                                                                                                      assessmentSection);
+            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(mechanism.SectionResults,
+                                                                                                                           mechanism);
+            using (plugin)
+            {
+                // Call
+                string text = info.Text(context);
 
-            // Call
-            string text = info.Text(context);
-
-            // Assert
-            Assert.AreEqual("Resultaat", text);
+                // Assert
+                Assert.AreEqual("Resultaat", text);
+            }
         }
 
         [Test]
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Setup
-            mocks.ReplayAll();
+            using (plugin)
+            {
+                // Call
+                Image image = info.Image(null);
 
-            // Call
-            Image image = info.Image(null);
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, image);
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, image);
+            }
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var mocks = new MockRepository();
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.Build()).Return(null);
+
+            using (plugin)
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
@@ -140,7 +132,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }
