@@ -46,6 +46,14 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long AssessmentSectionEntityId { get; set; }
         public long ProjectEntityId { get; set; }
+        public long HydraulicLocationCalculationCollectionEntity1Id { get; set; }
+        public long HydraulicLocationCalculationCollectionEntity2Id { get; set; }
+        public long HydraulicLocationCalculationCollectionEntity3Id { get; set; }
+        public long HydraulicLocationCalculationCollectionEntity4Id { get; set; }
+        public long HydraulicLocationCalculationCollectionEntity5Id { get; set; }
+        public long HydraulicLocationCalculationCollectionEntity6Id { get; set; }
+        public long HydraulicLocationCalculationCollectionEntity7Id { get; set; }
+        public long HydraulicLocationCalculationCollectionEntity8Id { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
@@ -59,6 +67,14 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
 
         public virtual ProjectEntity ProjectEntity { get; set; }
+        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity { get; set; }
+        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity1 { get; set; }
+        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity2 { get; set; }
+        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity3 { get; set; }
+        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity4 { get; set; }
+        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity5 { get; set; }
+        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity6 { get; set; }
+        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity7 { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BackgroundDataEntity> BackgroundDataEntities { get; set; }

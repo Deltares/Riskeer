@@ -38,45 +38,20 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HydraulicLocationCalculationEntity()
         {
-            HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
-            HydraulicLocationEntities1 = new HashSet<HydraulicLocationEntity>();
-            HydraulicLocationEntities2 = new HashSet<HydraulicLocationEntity>();
-            HydraulicLocationEntities3 = new HashSet<HydraulicLocationEntity>();
-            HydraulicLocationEntities4 = new HashSet<HydraulicLocationEntity>();
-            HydraulicLocationEntities5 = new HashSet<HydraulicLocationEntity>();
-            HydraulicLocationEntities6 = new HashSet<HydraulicLocationEntity>();
-            HydraulicLocationEntities7 = new HashSet<HydraulicLocationEntity>();
             HydraulicLocationOutputEntities = new HashSet<HydraulicLocationOutputEntity>();
+            HydraulicLocationCalculationCollectionEntities = new HashSet<HydraulicLocationCalculationCollectionEntity>();
         }
 
         public long HydraulicLocationCalculationEntityId { get; set; }
         public byte ShouldIllustrationPointsBeCalculated { get; set; }
+        public long HydraulicLocationEntityId { get; set; }
 
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities1 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities2 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities3 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities4 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities5 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities6 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities7 { get; set; }
+        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraulicLocationCalculationCollectionEntity> HydraulicLocationCalculationCollectionEntities { get; set; }
     }
 }
