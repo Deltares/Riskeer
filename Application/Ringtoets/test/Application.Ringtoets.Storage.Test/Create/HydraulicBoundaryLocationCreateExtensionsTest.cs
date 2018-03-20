@@ -72,69 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             int id = random.Next(0, 150);
             int order = random.Next();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY)
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = random.NextBoolean()
-                    }
-                },
-                DesignWaterLevelCalculation2 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = random.NextBoolean()
-                    },
-                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
-                },
-                DesignWaterLevelCalculation3 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = random.NextBoolean()
-                    }
-                },
-                DesignWaterLevelCalculation4 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = random.NextBoolean()
-                    },
-                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
-                },
-                WaveHeightCalculation1 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = random.NextBoolean()
-                    }
-                },
-                WaveHeightCalculation2 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = random.NextBoolean()
-                    },
-                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
-                },
-                WaveHeightCalculation3 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = random.NextBoolean()
-                    }
-                },
-                WaveHeightCalculation4 =
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = random.NextBoolean()
-                    },
-                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
-                }
-            };
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
             var registry = new PersistenceRegistry();
 
             // Call
