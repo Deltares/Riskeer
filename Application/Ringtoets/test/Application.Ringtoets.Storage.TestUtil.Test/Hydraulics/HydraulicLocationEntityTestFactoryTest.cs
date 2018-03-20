@@ -37,15 +37,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test.Hydraulics
             // Assert
             Assert.IsNotNull(entity);
             Assert.IsNotEmpty(entity.Name);
-
-            Assert.IsNotNull(entity.HydraulicLocationCalculationEntity);
-            Assert.IsNotNull(entity.HydraulicLocationCalculationEntity1);
-            Assert.IsNotNull(entity.HydraulicLocationCalculationEntity2);
-            Assert.IsNotNull(entity.HydraulicLocationCalculationEntity3);
-            Assert.IsNotNull(entity.HydraulicLocationCalculationEntity4);
-            Assert.IsNotNull(entity.HydraulicLocationCalculationEntity5);
-            Assert.IsNotNull(entity.HydraulicLocationCalculationEntity6);
-            Assert.IsNotNull(entity.HydraulicLocationCalculationEntity7);
         }
     }
 }
