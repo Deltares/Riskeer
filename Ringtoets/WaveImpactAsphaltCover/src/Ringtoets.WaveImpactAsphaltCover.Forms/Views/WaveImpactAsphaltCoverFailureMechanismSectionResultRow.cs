@@ -302,9 +302,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             }
         }
 
-        /// <inheritdoc />
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
         public override void Update()
         {
             UpdateDerivedData();
