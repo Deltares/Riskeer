@@ -82,30 +82,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void AddHydraulicBoundaryLocation_HydraulicBoundaryLocation_LocationAndCalculationsAdded()
-        {
-            // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            // Call
-            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation);
-
-            // Assert
-            Assert.AreEqual(1, assessmentSection.HydraulicBoundaryDatabase.Locations.Count);
-            Assert.AreSame(hydraulicBoundaryLocation, assessmentSection.HydraulicBoundaryDatabase.Locations[0]);
-
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForSignalingNorm, hydraulicBoundaryLocation);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation);
-        }
-
-        [Test]
         public void GetFailureMechanisms_Always_ReturnEmpty()
         {
             // Setup
@@ -133,11 +109,40 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(expectedMessage, message);
         }
 
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddHydraulicBoundaryLocation_HydraulicBoundaryLocation_LocationAndCalculationsAdded(bool setCalculationOutput)
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            // Call
+            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation, setCalculationOutput);
+
+            // Assert
+            Assert.AreEqual(1, assessmentSection.HydraulicBoundaryDatabase.Locations.Count);
+            Assert.AreSame(hydraulicBoundaryLocation, assessmentSection.HydraulicBoundaryDatabase.Locations[0]);
+
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForSignalingNorm, hydraulicBoundaryLocation, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation, setCalculationOutput);
+        }
+
         private static void AssertHydraulicBoundaryCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
-                                                                TestHydraulicBoundaryLocation expectedHydraulicBoundaryLocation)
+                                                                TestHydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
+                                                                bool expectedHasOutput)
         {
             Assert.AreEqual(1, calculations.Count());
-            Assert.AreSame(expectedHydraulicBoundaryLocation, calculations.ElementAt(0).HydraulicBoundaryLocation);
+
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = calculations.ElementAt(0);
+            Assert.AreSame(expectedHydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedHasOutput, hydraulicBoundaryLocationCalculation.HasOutput);
         }
     }
 }
