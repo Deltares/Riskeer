@@ -106,6 +106,7 @@
     <Compile Include="Read\HeightStructures\HeightStructuresCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\HydraulicLocationCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\FaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\IllustrationPoints\GeneralResultFaultTreeIllustrationPointEntityReadExtensionsTest.cs" />
