@@ -147,15 +147,6 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(coordinateX, entity.LocationX);
             Assert.AreEqual(coordinateY, entity.LocationY);
             Assert.AreEqual(order, entity.Order);
-
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation1, entity.HydraulicLocationCalculationEntity7);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation2, entity.HydraulicLocationCalculationEntity6);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation3, entity.HydraulicLocationCalculationEntity5);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation4, entity.HydraulicLocationCalculationEntity4);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation1, entity.HydraulicLocationCalculationEntity3);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation2, entity.HydraulicLocationCalculationEntity2);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation3, entity.HydraulicLocationCalculationEntity1);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation4, entity.HydraulicLocationCalculationEntity);
         }
 
         [Test]
@@ -346,22 +337,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreSame(entity1, entity2);
-        }
-
-        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation calculation,
-                                                                       HydraulicLocationCalculationEntity entity)
-        {
-            Assert.AreEqual(Convert.ToByte(calculation.InputParameters.ShouldIllustrationPointsBeCalculated),
-                            entity.ShouldIllustrationPointsBeCalculated);
-
-            if (calculation.Output == null)
-            {
-                CollectionAssert.IsEmpty(entity.HydraulicLocationOutputEntities);
-            }
-            else
-            {
-                Assert.AreEqual(1, entity.HydraulicLocationOutputEntities.Count);
-            }
         }
 
         private static GrassCoverErosionOutwardsHydraulicLocationOutputEntity GetHydraulicLocationOutputEntity(

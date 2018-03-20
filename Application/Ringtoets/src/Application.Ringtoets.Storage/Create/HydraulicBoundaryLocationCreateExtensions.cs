@@ -63,14 +63,6 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
-                HydraulicLocationCalculationEntity = location.WaveHeightCalculation4.Create(),
-                HydraulicLocationCalculationEntity1 = location.WaveHeightCalculation3.Create(),
-                HydraulicLocationCalculationEntity2 = location.WaveHeightCalculation2.Create(),
-                HydraulicLocationCalculationEntity3 = location.WaveHeightCalculation1.Create(),
-                HydraulicLocationCalculationEntity4 = location.DesignWaterLevelCalculation4.Create(),
-                HydraulicLocationCalculationEntity5 = location.DesignWaterLevelCalculation3.Create(),
-                HydraulicLocationCalculationEntity6 = location.DesignWaterLevelCalculation2.Create(),
-                HydraulicLocationCalculationEntity7 = location.DesignWaterLevelCalculation1.Create(),
                 Order = order
             };
 
