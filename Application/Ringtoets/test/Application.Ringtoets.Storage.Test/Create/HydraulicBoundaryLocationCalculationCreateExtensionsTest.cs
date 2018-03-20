@@ -34,10 +34,24 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class HydraulicBoundaryLocationCalculationCreateExtensionsTest
     {
         [Test]
+        public void Create_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            // Call
+            TestDelegate call = () => calculation.Create(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
+
+        [Test]
         public void Create_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HydraulicBoundaryLocationCalculation) null).Create();
+            TestDelegate call = () => ((HydraulicBoundaryLocationCalculation) null).Create(new PersistenceRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -50,7 +64,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(33);
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 InputParameters =
                 {
@@ -59,8 +75,12 @@ namespace Application.Ringtoets.Storage.Test.Create
                 Output = null
             };
 
+            var registry = new PersistenceRegistry();
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
+
             // Call
-            HydraulicLocationCalculationEntity entity = calculation.Create();
+            HydraulicLocationCalculationEntity entity = calculation.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -74,7 +94,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(33);
             bool shouldIllustrationPointsBeCalculated = random.NextBoolean();
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
                 InputParameters =
                 {
@@ -86,8 +108,12 @@ namespace Application.Ringtoets.Storage.Test.Create
                     null)
             };
 
+            var registry = new PersistenceRegistry();
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
+
             // Call
-            HydraulicLocationCalculationEntity entity = calculation.Create();
+            HydraulicLocationCalculationEntity entity = calculation.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -102,6 +128,26 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(expectedOutput.TargetProbability, outputEntity.TargetProbability);
             Assert.IsNull(outputEntity.GeneralResultSubMechanismIllustrationPointEntity);
             Assert.AreEqual(Convert.ToByte(expectedOutput.CalculationConvergence), outputEntity.CalculationConvergence);
+        }
+
+        [Test]
+        public void Create_CalculationWithAlreadyCreatedHydraulicBoundaryLocation_ReturnsEntityWithHydraulicBoundaryLocationEntity()
+        {
+            // Setup
+            var hydraulicLocation = new TestHydraulicBoundaryLocation();
+
+            var registry = new PersistenceRegistry();
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            registry.Register(hydraulicLocationEntity, hydraulicLocation);
+
+            var calculation = new HydraulicBoundaryLocationCalculation(hydraulicLocation);
+            
+            // Call
+            HydraulicLocationCalculationEntity entity = calculation.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
         }
     }
 }

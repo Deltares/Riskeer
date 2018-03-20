@@ -36,19 +36,26 @@ namespace Application.Ringtoets.Storage.Create
         /// <see cref="HydraulicBoundaryLocationCalculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicLocationCalculationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// is <c>null</c>.</exception>
-        internal static HydraulicLocationCalculationEntity Create(this HydraulicBoundaryLocationCalculation calculation)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static HydraulicLocationCalculationEntity Create(this HydraulicBoundaryLocationCalculation calculation,
+                                                                PersistenceRegistry registry)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
 
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
             var hydraulicLocationCalculationEntity = new HydraulicLocationCalculationEntity
             {
-                ShouldIllustrationPointsBeCalculated = Convert.ToByte(calculation.InputParameters.ShouldIllustrationPointsBeCalculated)
+                ShouldIllustrationPointsBeCalculated = Convert.ToByte(calculation.InputParameters.ShouldIllustrationPointsBeCalculated),
+                HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(calculation.HydraulicBoundaryLocation)
             };
 
             CreateHydraulicBoundaryLocationOutput(hydraulicLocationCalculationEntity, calculation.Output);
