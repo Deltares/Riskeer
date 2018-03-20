@@ -82,6 +82,30 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
+        public void AddHydraulicBoundaryLocation_HydraulicBoundaryLocation_LocationAndCalculationsAdded()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            // Call
+            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.AreEqual(1, assessmentSection.HydraulicBoundaryDatabase.Locations.Count);
+            Assert.AreSame(hydraulicBoundaryLocation, assessmentSection.HydraulicBoundaryDatabase.Locations[0]);
+
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForSignalingNorm, hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation);
+        }
+
+        [Test]
         public void GetFailureMechanisms_Always_ReturnEmpty()
         {
             // Setup
@@ -107,6 +131,13 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             string message = Assert.Throws<NotImplementedException>(call).Message;
             const string expectedMessage = "Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.";
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        private static void AssertHydraulicBoundaryCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                TestHydraulicBoundaryLocation expectedHydraulicBoundaryLocation)
+        {
+            Assert.AreEqual(1, calculations.Count());
+            Assert.AreSame(expectedHydraulicBoundaryLocation, calculations.ElementAt(0).HydraulicBoundaryLocation);
         }
     }
 }

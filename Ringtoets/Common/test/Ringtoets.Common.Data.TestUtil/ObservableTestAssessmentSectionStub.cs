@@ -147,6 +147,23 @@ namespace Ringtoets.Common.Data.TestUtil
             }
         }
 
+        /// <summary>
+        /// Adds a hydraulic boundary location to the assessment section stub.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to add.</param>
+        public void AddHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            waterLevelCalculationsForFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waterLevelCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waterLevelCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waterLevelCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightCalculationsForFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waveHeightCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+        }
+
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
             yield break;
