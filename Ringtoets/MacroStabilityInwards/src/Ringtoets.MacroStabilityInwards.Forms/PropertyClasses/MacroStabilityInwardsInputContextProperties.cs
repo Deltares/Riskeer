@@ -256,7 +256,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsWaterStressesProperties(data.WrappedData, GetEffectiveAssessmentLevel, propertyChangeHandler);
+                return new MacroStabilityInwardsWaterStressesProperties(data.WrappedData, GetEffectiveAssessmentLevel(), propertyChangeHandler);
             }
         }
 

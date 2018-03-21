@@ -53,28 +53,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int locationDailyPropertyIndex = 13;
         private const int waterStressLinesPropertyIndex = 14;
 
-        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+        private readonly RoundedDouble assessmentLevel;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaterStressesProperties"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
-        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <param name="assessmentLevel">The assessment level at stake.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> or <paramref name="propertyChangeHandler"/>
+        /// is <c>null</c>.</exception>
         public MacroStabilityInwardsWaterStressesProperties(MacroStabilityInwardsInput data,
-                                                            Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                            RoundedDouble assessmentLevel,
                                                             IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
-            }
-
-            if (getNormativeAssessmentLevelFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
 
             if (propertyChangeHandler == null)
@@ -83,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
 
             this.data = data;
-            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+            this.assessmentLevel = assessmentLevel;
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
@@ -295,7 +291,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsWaterStressLinesProperties(data, getNormativeAssessmentLevelFunc);
+                return new MacroStabilityInwardsWaterStressLinesProperties(data, assessmentLevel);
             }
         }
 
