@@ -21,11 +21,12 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -34,14 +35,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class AssessmentSectionViewInfoTest
     {
-        private MockRepository mocks;
         private RingtoetsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionView));
         }
@@ -77,6 +76,19 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Map, image);
+        }
+
+        [Test]
+        public void CreateInstance_WithAssessmentSection_ReturnsAssessmentSectionView()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            // Call
+            IView view = info.CreateInstance(assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<AssessmentSectionView>(view);
         }
     }
 }

@@ -424,7 +424,8 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
             {
                 GetViewName = (view, section) => RingtoetsFormsResources.AssessmentSectionMap_DisplayName,
-                Image = RingtoetsFormsResources.Map
+                Image = RingtoetsFormsResources.Map,
+                CreateInstance = section => new AssessmentSectionView(section)
             };
 
             yield return new ViewInfo<IFailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
