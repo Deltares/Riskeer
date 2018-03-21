@@ -70,7 +70,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 IChartControl chartControl = GetChartControl(control);
                 Assert.IsInstanceOf<Control>(chartControl);
-                Assert.AreSame(chartControl, chartControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
                 Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);

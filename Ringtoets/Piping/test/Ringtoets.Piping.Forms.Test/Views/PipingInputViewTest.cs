@@ -73,7 +73,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 var chartControl = (IChartControl) view.Controls.Find("chartControl", true).First();
                 Assert.IsInstanceOf<Control>(chartControl);
-                Assert.AreSame(chartControl, chartControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
                 Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
                 Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
