@@ -83,7 +83,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <param name="data">The data to show in the view.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsInputView(MacroStabilityInwardsCalculationScenario data, Func<RoundedDouble> getNormativeAssessmentLevelFunc)
+        public MacroStabilityInwardsInputView(MacroStabilityInwardsCalculationScenario data,
+                                              Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (data == null)
             {

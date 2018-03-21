@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -63,6 +64,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int waternetZonesExtremeIndex = 17;
         private const int waternetZonesDailyIndex = 18;
         private const int nrOfChartData = 19;
+
+        [Test]
+        public void Constructor_DataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsInputView(null, GetTestNormativeAssessmentLevel);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
+        public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("getNormativeAssessmentLevelFunc", paramName);
+        }
 
         [Test]
         public void Constructor_ValidParameters_ExpectedDefaultValues()
@@ -360,8 +383,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 surfaceLineChartData.Attach(observer);
 
-                MacroStabilityInwardsStochasticSoilProfile newSoilProfile =
-                    MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+                MacroStabilityInwardsStochasticSoilProfile newSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
                 // When
                 calculation.InputParameters.StochasticSoilProfile = newSoilProfile;
