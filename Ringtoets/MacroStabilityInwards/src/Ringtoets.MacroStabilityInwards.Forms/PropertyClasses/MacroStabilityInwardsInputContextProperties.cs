@@ -165,6 +165,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                 data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
         }
 
+        private RoundedDouble GetEffectiveAssessmentLevel()
+        {
+            return data.WrappedData.UseAssessmentLevelManualInput
+                       ? data.WrappedData.AssessmentLevel
+                       : getNormativeAssessmentLevelFunc();
+        }
+
         #region Hydraulic data
 
         [DynamicVisible]
@@ -199,9 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.UseAssessmentLevelManualInput
-                           ? data.WrappedData.AssessmentLevel
-                           : getNormativeAssessmentLevelFunc();
+                return GetEffectiveAssessmentLevel();
             }
             set
             {
@@ -251,7 +256,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsWaterStressesProperties(data.WrappedData, getNormativeAssessmentLevelFunc, propertyChangeHandler);
+                return new MacroStabilityInwardsWaterStressesProperties(data.WrappedData, GetEffectiveAssessmentLevel, propertyChangeHandler);
             }
         }
 
