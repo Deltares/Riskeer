@@ -103,6 +103,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup 
             const int nameColumnIndex = 0;
+            const int stringColumnIndex = 1;
 
             // Call
             using (ShowFailureMechanismResultsView(new ObservableList<TestFailureMechanismSectionResult>()))
@@ -110,10 +111,12 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(1, dataGridView.ColumnCount);
+                Assert.AreEqual(2, dataGridView.ColumnCount);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[stringColumnIndex]);
 
-                Assert.AreEqual("Test", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("Name", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("String", dataGridView.Columns[stringColumnIndex].HeaderText);
             }
         }
 
@@ -298,6 +301,34 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFailureMechanismResultView_WhenRowUpdated_ThenColumnsDoNotAutoResize()
+        {
+            // Given
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[1];
+                dataGridViewCell.Value = "Long string abcdefghijklmnop2wgfwgwrgqwgargwefwe";
+                int initialWidth = dataGridViewCell.OwningColumn.Width;
+
+                // When
+                row.TestString = "a";
+                row.RowUpdated?.Invoke(row, EventArgs.Empty);
+
+                // Then
+                int newWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.AreEqual(initialWidth, newWidth);
+            }
+        }
+
+        [Test]
         public void GivenFailureMechanismResultView_WhenResultRemovedAndSectionResultsNotified_ThenEventHandlersDisconnected()
         {
             // Given
@@ -337,19 +368,20 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
     }
 
-    public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>
+    public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, TestRow, TestFailureMechanism>
     {
         public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
+        protected override TestRow CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
             return new TestRow(sectionResult);
         }
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
+            DataGridViewControl.AddTextBoxColumn("Name", "Name", true);
+            DataGridViewControl.AddTextBoxColumn(nameof(TestRow.TestString), "String");
         }
     }
 
@@ -361,6 +393,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         public bool Updated { get; private set; }
+
+        public string TestString { get; set; }
 
         public override void Update()
         {

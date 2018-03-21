@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Forms.Views
         private void RowUpdated(object sender, EventArgs eventArgs)
         {
             rowUpdating = true;
-            DataGridViewControl.RefreshDataGridView();
+            DataGridViewControl.RefreshDataGridView(false);
         }
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)

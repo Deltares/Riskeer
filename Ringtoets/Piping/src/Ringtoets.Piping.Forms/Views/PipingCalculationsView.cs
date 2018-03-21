@@ -78,14 +78,18 @@ namespace Ringtoets.Piping.Forms.Views
             pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
             hydraulicBoundaryLocationsObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn);
             // The concat is needed to observe the input of calculations in child groups.
-            pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
+            pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
+                UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
+                    pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
             pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
-            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(dataGridViewControl.RefreshDataGridView, pcg => pcg.Children);
+            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(
+                () => dataGridViewControl.RefreshDataGridView(), pcg => pcg.Children);
 
             pipingSurfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(UpdateDataGridViewDataSource, rpslc => rpslc);
 
             pipingStochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
-            stochasticSoilProfileObserver = new RecursiveObserver<PipingStochasticSoilModelCollection, PipingStochasticSoilProfile>(dataGridViewControl.RefreshDataGridView, ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles));
+            stochasticSoilProfileObserver = new RecursiveObserver<PipingStochasticSoilModelCollection, PipingStochasticSoilProfile>(
+                () => dataGridViewControl.RefreshDataGridView(), ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles));
         }
 
         /// <summary>
