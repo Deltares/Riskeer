@@ -25,7 +25,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
@@ -119,11 +118,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public string Contribution
+        public double Contribution
         {
             get
             {
-                return Resources.FailureMechanismProperties_Contribution_Other;
+                return data.Contribution;
             }
         }
 
