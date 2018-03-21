@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -64,24 +66,49 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData rightGridChartData;
         private readonly ChartMultipleLineData tangentLinesData;
 
+        private readonly MacroStabilityInwardsCalculationScenario data;
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
+
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
 
         private MacroStabilityInwardsWaternet currentWaternetExtreme;
         private MacroStabilityInwardsWaternet currentWaternetDaily;
 
-        private MacroStabilityInwardsCalculationScenario data;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputView"/>.
         /// </summary>
-        public MacroStabilityInwardsInputView()
+        /// <param name="data">The data to show in the view.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsInputView(MacroStabilityInwardsCalculationScenario data, Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
+            }
+
             InitializeComponent();
 
-            calculationObserver = new Observer(UpdateChartTitle);
-            calculationInputObserver = new Observer(UpdateViewData);
+            this.data = data;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+
+            calculationObserver = new Observer(UpdateChartTitle)
+            {
+                Observable = data
+            };
+
+            calculationInputObserver = new Observer(UpdateViewData)
+            {
+                Observable = data.InputParameters
+            };
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
@@ -125,37 +152,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             chartDataCollection.Add(waternetZonesDailyChartData);
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>();
+
+            SetChartData();
+
+            chartControl.Data = chartDataCollection;
+
+            UpdateChartTitle();
+            UpdateTableData();
         }
 
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as MacroStabilityInwardsCalculationScenario;
-
-                calculationObserver.Observable = data;
-                calculationInputObserver.Observable = data?.InputParameters;
-
-                if (data == null)
-                {
-                    chartControl.Data = null;
-                    chartControl.ChartTitle = string.Empty;
-                }
-                else
-                {
-                    SetChartData();
-
-                    chartControl.Data = chartDataCollection;
-                    UpdateChartTitle();
-                }
-
-                UpdateTableData();
-            }
-        }
+        public object Data { get; set; }
 
         public IChartControl Chart
         {
@@ -211,7 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             SetSurfaceLineChartData(surfaceLine);
             SetSoilProfileChartData(surfaceLine, soilProfile);
 
-            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(macroStabilityInwardsInput), surfaceLine);
+            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(macroStabilityInwardsInput, GetEffectiveAssessmentLevel()), surfaceLine);
             SetWaternetDailyChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(macroStabilityInwardsInput), surfaceLine);
 
             MacroStabilityInwardsGridDeterminationType gridDeterminationType = macroStabilityInwardsInput.GridDeterminationType;
@@ -330,6 +336,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private IEnumerable<MacroStabilityInwardsSoilLayer2D> GetSoilLayers()
         {
             return MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(data?.InputParameters.SoilProfileUnderSurfaceLine?.Layers);
+        }
+
+        private RoundedDouble GetEffectiveAssessmentLevel()
+        {
+            return data.InputParameters.UseAssessmentLevelManualInput
+                       ? data.InputParameters.AssessmentLevel
+                       : getNormativeAssessmentLevelFunc();
         }
     }
 }
