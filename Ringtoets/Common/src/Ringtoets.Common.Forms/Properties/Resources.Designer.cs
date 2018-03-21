@@ -2332,42 +2332,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(A+-&gt;A).
-        /// </summary>
-        public static string MetaData_DesignWaterLevelCalculation1 {
-            get {
-                return ResourceManager.GetString("MetaData_DesignWaterLevelCalculation1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to h(A-&gt;B).
-        /// </summary>
-        public static string MetaData_DesignWaterLevelCalculation2 {
-            get {
-                return ResourceManager.GetString("MetaData_DesignWaterLevelCalculation2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to h(B-&gt;C).
-        /// </summary>
-        public static string MetaData_DesignWaterLevelCalculation3 {
-            get {
-                return ResourceManager.GetString("MetaData_DesignWaterLevelCalculation3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to h(C-&gt;D).
-        /// </summary>
-        public static string MetaData_DesignWaterLevelCalculation4 {
-            get {
-                return ResourceManager.GetString("MetaData_DesignWaterLevelCalculation4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string MetaData_ID {
@@ -2395,38 +2359,74 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(A+-&gt;A).
+        ///   Looks up a localized string similar to h(C-&gt;D).
         /// </summary>
-        public static string MetaData_WaveHeightCalculation1 {
+        public static string MetaData_WaterLevelCalculationForFactorizedLowerLimit {
             get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculation1", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForFactorizedLowerLimit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(A-&gt;B).
+        ///   Looks up a localized string similar to h(A+-&gt;A).
         /// </summary>
-        public static string MetaData_WaveHeightCalculation2 {
+        public static string MetaData_WaterLevelCalculationForFactorizedSignalingNorm {
             get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculation2", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForFactorizedSignalingNorm", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(B-&gt;C).
+        ///   Looks up a localized string similar to h(B-&gt;C).
         /// </summary>
-        public static string MetaData_WaveHeightCalculation3 {
+        public static string MetaData_WaterLevelCalculationForLowerLimit {
             get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculation3", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(A-&gt;B).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForSignalingNorm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hs(C-&gt;D).
         /// </summary>
-        public static string MetaData_WaveHeightCalculation4 {
+        public static string MetaData_WaveHeightCalculationForFactorizedLowerLimit {
             get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculation4", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForFactorizedLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(A+-&gt;A).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForFactorizedSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForFactorizedSignalingNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(B-&gt;C).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(A-&gt;B).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForSignalingNorm", resourceCulture);
             }
         }
         

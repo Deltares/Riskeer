@@ -1314,28 +1314,28 @@ Pf = {1}</value>
   <data name="FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName" xml:space="preserve">
     <value>N* [-]</value>
   </data>
-  <data name="MetaData_DesignWaterLevelCalculation1" xml:space="preserve">
+  <data name="MetaData_WaterLevelCalculationForFactorizedSignalingNorm" xml:space="preserve">
     <value>h(A+-&gt;A)</value>
   </data>
-  <data name="MetaData_DesignWaterLevelCalculation2" xml:space="preserve">
+  <data name="MetaData_WaterLevelCalculationForSignalingNorm" xml:space="preserve">
     <value>h(A-&gt;B)</value>
   </data>
-  <data name="MetaData_DesignWaterLevelCalculation3" xml:space="preserve">
+  <data name="MetaData_WaterLevelCalculationForLowerLimit" xml:space="preserve">
     <value>h(B-&gt;C)</value>
   </data>
-  <data name="MetaData_DesignWaterLevelCalculation4" xml:space="preserve">
+  <data name="MetaData_WaterLevelCalculationForFactorizedLowerLimit" xml:space="preserve">
     <value>h(C-&gt;D)</value>
   </data>
-  <data name="MetaData_WaveHeightCalculation1" xml:space="preserve">
+  <data name="MetaData_WaveHeightCalculationForFactorizedSignalingNorm" xml:space="preserve">
     <value>Hs(A+-&gt;A)</value>
   </data>
-  <data name="MetaData_WaveHeightCalculation2" xml:space="preserve">
+  <data name="MetaData_WaveHeightCalculationForSignalingNorm" xml:space="preserve">
     <value>Hs(A-&gt;B)</value>
   </data>
-  <data name="MetaData_WaveHeightCalculation3" xml:space="preserve">
+  <data name="MetaData_WaveHeightCalculationForLowerLimit" xml:space="preserve">
     <value>Hs(B-&gt;C)</value>
   </data>
-  <data name="MetaData_WaveHeightCalculation4" xml:space="preserve">
+  <data name="MetaData_WaveHeightCalculationForFactorizedLowerLimit" xml:space="preserve">
     <value>Hs(C-&gt;D)</value>
   </data>
   <data name="FailureMechanism_ProbabilityAssessmentInput_A_Description" xml:space="preserve">
