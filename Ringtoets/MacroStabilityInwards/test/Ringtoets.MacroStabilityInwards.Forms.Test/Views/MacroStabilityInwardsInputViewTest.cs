@@ -91,11 +91,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_ValidParameters_ExpectedDefaultValues()
         {
             // Call
-            using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), GetTestNormativeAssessmentLevel))
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IChartView>(view);
+                Assert.AreSame(calculation, view.Data);
                 Assert.IsNotNull(view.Chart);
                 Assert.AreEqual(2, view.Controls.Count);
 

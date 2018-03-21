@@ -65,11 +65,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData leftGridChartData;
         private readonly ChartPointData rightGridChartData;
         private readonly ChartMultipleLineData tangentLinesData;
-
-        private readonly MacroStabilityInwardsCalculationScenario data;
         private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
+
+        private MacroStabilityInwardsCalculationScenario data;
 
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
@@ -162,7 +162,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             UpdateTableData();
         }
 
-        public object Data { get; set; }
+        public object Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                data = value as MacroStabilityInwardsCalculationScenario;
+            }
+        }
 
         public IChartControl Chart
         {
