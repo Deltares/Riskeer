@@ -49,7 +49,8 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
         /// could not be calculated.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
-        public static MacroStabilityInwardsWaternet CalculateExtreme(IMacroStabilityInwardsWaternetInput input, RoundedDouble assessmentLevel)
+        public static MacroStabilityInwardsWaternet CalculateExtreme(IMacroStabilityInwardsWaternetInput input,
+                                                                     RoundedDouble assessmentLevel)
         {
             if (input == null)
             {
