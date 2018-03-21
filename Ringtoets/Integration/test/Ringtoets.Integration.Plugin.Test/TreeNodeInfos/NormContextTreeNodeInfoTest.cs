@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsSetImage()
+        public void Image_Always_ReturnsNormsIcon()
         {
             // Setup
             mocks.ReplayAll();
