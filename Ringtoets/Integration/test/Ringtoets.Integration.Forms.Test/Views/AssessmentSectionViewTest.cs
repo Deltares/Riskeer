@@ -147,40 +147,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation);
-
-            using (var view = new AssessmentSectionView(assessmentSection))
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-                // When
-                var random = new Random(21);
-                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                assessmentSection.WaveHeightCalculationsForSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                assessmentSection.WaveHeightCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            }
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetCalculationFuncs))]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
             Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
@@ -307,11 +273,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var hrLocationsMapData = (MapPointData) mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex - 1);
                 Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
 
+                // Call
                 assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
-
-                // Call
-                assessmentSection.NotifyObservers();
 
                 // Assert
                 var actualReferenceLineMapData = (MapLineData) mapData.Collection.ElementAt(referenceLineIndex + 1);

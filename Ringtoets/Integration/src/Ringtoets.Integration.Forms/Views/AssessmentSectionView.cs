@@ -51,7 +51,6 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionView"/>.
@@ -83,11 +82,6 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl)
-            {
-                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
-            };
 
             var mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -100,16 +94,6 @@ namespace Ringtoets.Integration.Forms.Views
 
             SetMapDataFeatures();
             ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
-        }
-
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> CreateHydraulicBoundaryLocationCalculationsObserver(
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
-        {
-            return new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
-                UpdateMapData, calc => calc)
-            {
-                Observable = calculations
-            };
         }
 
         public object Data { get; set; }
@@ -134,7 +118,6 @@ namespace Ringtoets.Integration.Forms.Views
             waveHeightCalculationsForLowerLimitNormObserver.Dispose();
             waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
-            hydraulicBoundaryLocationObserver.Dispose();
 
             if (disposing)
             {
@@ -142,6 +125,16 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> CreateHydraulicBoundaryLocationCalculationsObserver(
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            return new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
+                UpdateMapData, calc => calc)
+            {
+                Observable = calculations
+            };
         }
 
         private void UpdateMapData()
