@@ -2485,6 +2485,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NormsIcon {
+            get {
+                object obj = ResourceManager.GetObject("NormsIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bronlocatie.
         /// </summary>
         public static string ObservableCollectionWithSourcePath_SourcePath_DisplayName {

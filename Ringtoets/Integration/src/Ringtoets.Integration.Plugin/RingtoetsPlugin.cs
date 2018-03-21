@@ -708,6 +708,13 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = ReferenceLineContextMenuStrip
             };
 
+            yield return new TreeNodeInfo<NormContext>
+            {
+                Text = context => RingtoetsCommonDataResources.Norms_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.NormsIcon,
+                ContextMenuStrip = NormContextMenuStrip
+            };
+
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
                 StandAloneFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
@@ -1260,6 +1267,17 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
+        #region NormContext TreeNodeInfo
+
+        private ContextMenuStrip NormContextMenuStrip(NormContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
+
         #region BackgroundData treeNodeInfo
 
         private ContextMenuStrip BackgroundDataMenuStrip(BackgroundData nodeData, object parentData, TreeViewControl treeViewControl)
@@ -1316,6 +1334,7 @@ namespace Ringtoets.Integration.Plugin
             var childNodes = new List<object>
             {
                 new ReferenceLineContext(nodeData),
+                new NormContext(nodeData.FailureMechanismContribution, nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData.HydraulicBoundaryDatabase, nodeData),
                 nodeData.BackgroundData,
