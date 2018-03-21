@@ -195,6 +195,135 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void Read_WithHydraulicBoundaryLocationCalculations_ReturnsNewAssessmentSectionWithHydraulicBoundaryLocationCalculations()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+
+            const string testLocation = "testLocation";
+            const string testVersion = "testVersion";
+            entity.HydraulicDatabaseLocation = testLocation;
+            entity.HydraulicDatabaseVersion = testVersion;
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
+            hydraulicLocationEntity.Name = "A";
+            hydraulicLocationEntity.Order = 1;
+            entity.HydraulicLocationEntities.Add(hydraulicLocationEntity);
+
+            entity.HydraulicLocationCalculationCollectionEntity = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 1);
+            entity.HydraulicLocationCalculationCollectionEntity1 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 2);
+            entity.HydraulicLocationCalculationCollectionEntity2 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 3);
+            entity.HydraulicLocationCalculationCollectionEntity3 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 4);
+            entity.HydraulicLocationCalculationCollectionEntity4 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 5);
+            entity.HydraulicLocationCalculationCollectionEntity5 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 6);
+            entity.HydraulicLocationCalculationCollectionEntity6 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 7);
+            entity.HydraulicLocationCalculationCollectionEntity7 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 8);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations.Single();
+
+            HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForFactorizedSignalingNorm.Single();
+            HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity
+                                                                                          .HydraulicLocationCalculationEntities
+                                                                                          .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaterLevelCalculationsForLowerLimitNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity2
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaterLevelCalculationsForFactorizedLowerLimitNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity3
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaveHeightCalculationsForFactorizedSignalingNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity4
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaveHeightCalculationsForSignalingNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity5
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaveHeightCalculationsForLowerLimitNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity6
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaveHeightCalculationsForFactorizedLowerLimitNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity7
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+        }
+
+        [Test]
+        public void Read_WithoutHydraulicBoundaryLocationDatabase_ReturnsNewAssessementSectionWithoutHydraulicBoundaryLocationAndCalculations()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = section.HydraulicBoundaryDatabase;
+            CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
+            Assert.IsNull(hydraulicBoundaryDatabase.Version);
+            Assert.IsFalse(hydraulicBoundaryDatabase.CanUsePreprocessor);
+            Assert.IsFalse(hydraulicBoundaryDatabase.UsePreprocessor);
+
+            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+        }
+
+        [Test]
         public void Read_WithHydraulicDatabaseLocationWithoutPreprocessor_ReturnsNewAssessmentSectionWithHydraulicDatabaseSet()
         {
             // Setup
@@ -214,6 +343,20 @@ namespace Application.Ringtoets.Storage.Test.Read
             hydraulicLocationEntityOne.Name = "B";
             hydraulicLocationEntityOne.Order = 0;
             entity.HydraulicLocationEntities.Add(hydraulicLocationEntityTwo);
+
+            var hydraulicLocationEntities = new[]
+            {
+                hydraulicLocationEntityOne,
+                hydraulicLocationEntityTwo
+            };
+            entity.HydraulicLocationCalculationCollectionEntity = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity1 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity2 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity3 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity4 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity5 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity6 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity7 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
 
             var collector = new ReadConversionCollector();
 
@@ -261,6 +404,20 @@ namespace Application.Ringtoets.Storage.Test.Read
             hydraulicLocationEntityOne.Name = "B";
             hydraulicLocationEntityOne.Order = 0;
             entity.HydraulicLocationEntities.Add(hydraulicLocationEntityTwo);
+
+            var hydraulicLocationEntities = new[]
+            {
+                hydraulicLocationEntityOne,
+                hydraulicLocationEntityTwo
+            };
+            entity.HydraulicLocationCalculationCollectionEntity = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity1 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity2 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity3 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity4 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity5 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity6 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
+            entity.HydraulicLocationCalculationCollectionEntity7 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntities);
 
             var collector = new ReadConversionCollector();
 
@@ -1539,7 +1696,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 InputComments = inputComments,
                 OutputComments = outputComments,
                 NotRelevantComments = notRelevantComments,
-                PipingStructureFailureMechanismMetaEntities = 
+                PipingStructureFailureMechanismMetaEntities =
                 {
                     new PipingStructureFailureMechanismMetaEntity
                     {
@@ -1642,6 +1799,47 @@ namespace Application.Ringtoets.Storage.Test.Read
                                         technicalInnovations.OutputComments,
                                         technicalInnovations.NotRelevantComments,
                                         section.TechnicalInnovation);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicLocationCalculationEntity expectedEntity,
+                                                                       HydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
+                                                                       HydraulicBoundaryLocationCalculation actualCalculation)
+        {
+            Assert.AreSame(expectedHydraulicBoundaryLocation, actualCalculation.HydraulicBoundaryLocation);
+            Assert.AreEqual(Convert.ToBoolean(expectedEntity.ShouldIllustrationPointsBeCalculated),
+                            actualCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.IsNull(actualCalculation.Output);
+        }
+
+        private static HydraulicLocationCalculationCollectionEntity CreateHydraulicLocationCollectionCalculationEntity(IEnumerable<HydraulicLocationEntity> hydraulicLocationEntities)
+        {
+            var entity = new HydraulicLocationCalculationCollectionEntity();
+            foreach (HydraulicLocationEntity hydraulicLocationEntity in hydraulicLocationEntities)
+            {
+                entity.HydraulicLocationCalculationEntities.Add(new HydraulicLocationCalculationEntity
+                {
+                    HydraulicLocationEntity = hydraulicLocationEntity
+                });
+            }
+
+            return entity; 
+        }
+
+        private static HydraulicLocationCalculationCollectionEntity CreateHydraulicLocationCollectionCalculationEntity(HydraulicLocationEntity hydraulicLocationEntity,
+                                                                                                                       int seed)
+        {
+            var random = new Random(seed);
+            return new HydraulicLocationCalculationCollectionEntity
+            {
+                HydraulicLocationCalculationEntities =
+                {
+                    new HydraulicLocationCalculationEntity
+                    {
+                        HydraulicLocationEntity = hydraulicLocationEntity,
+                        ShouldIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean())
+                    }
+                }
+            };
         }
 
         private static AssessmentSectionEntity CreateAssessmentSectionEntity()
