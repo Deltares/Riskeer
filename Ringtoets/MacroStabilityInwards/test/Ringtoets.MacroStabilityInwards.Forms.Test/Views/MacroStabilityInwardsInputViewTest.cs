@@ -806,17 +806,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
+            var macroStabilityInwardsCalculatorFactoryConfig = new MacroStabilityInwardsCalculatorFactoryConfig();
+
             using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
-                using (new MacroStabilityInwardsCalculatorFactoryConfig())
-                {
-                    // Precondition
-                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
-                                                                                          (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
-                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
-                }
+                // Precondition
+                ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                      (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                      (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+
+                macroStabilityInwardsCalculatorFactoryConfig.Dispose();
 
                 // Call
                 calculation.InputParameters.NotifyObservers();
