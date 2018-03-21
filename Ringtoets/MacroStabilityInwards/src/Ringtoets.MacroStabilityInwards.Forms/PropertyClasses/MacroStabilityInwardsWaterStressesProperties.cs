@@ -53,26 +53,38 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int locationDailyPropertyIndex = 13;
         private const int waterStressLinesPropertyIndex = 14;
 
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaterStressesProperties"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
-        /// <param name="handler">The handler responsible for handling effects of a property change.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsWaterStressesProperties(MacroStabilityInwardsInput data, IObservablePropertyChangeHandler handler)
+        public MacroStabilityInwardsWaterStressesProperties(MacroStabilityInwardsInput data,
+                                                            Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                            IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
-            if (handler == null)
+
+            if (getNormativeAssessmentLevelFunc == null)
             {
-                throw new ArgumentNullException(nameof(handler));
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
+
+            if (propertyChangeHandler == null)
+            {
+                throw new ArgumentNullException(nameof(propertyChangeHandler));
+            }
+
             this.data = data;
-            propertyChangeHandler = handler;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+            this.propertyChangeHandler = propertyChangeHandler;
         }
 
         [PropertyOrder(waterLevelRiverAveragePropertyIndex)]
