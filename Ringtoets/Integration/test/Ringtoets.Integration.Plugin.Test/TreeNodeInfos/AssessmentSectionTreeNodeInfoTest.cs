@@ -183,19 +183,20 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(23, objects.Length);
-                var backgroundData = (BackgroundData) objects[0];
-                Assert.AreSame(assessmentSection.BackgroundData, backgroundData);
 
-                var referenceLineContext = (ReferenceLineContext) objects[1];
+                var referenceLineContext = (ReferenceLineContext) objects[0];
                 Assert.AreSame(assessmentSection, referenceLineContext.WrappedData);
 
-                var contributionContext = (FailureMechanismContributionContext) objects[2];
+                var contributionContext = (FailureMechanismContributionContext) objects[1];
                 Assert.AreSame(assessmentSection.FailureMechanismContribution, contributionContext.WrappedData);
                 Assert.AreSame(assessmentSection, contributionContext.Parent);
 
-                var context = (HydraulicBoundaryDatabaseContext) objects[3];
+                var context = (HydraulicBoundaryDatabaseContext) objects[2];
                 Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.WrappedData);
                 Assert.AreSame(assessmentSection, context.AssessmentSection);
+
+                var backgroundData = (BackgroundData) objects[3];
+                Assert.AreSame(assessmentSection.BackgroundData, backgroundData);
 
                 var comment = (Comment) objects[4];
                 Assert.AreSame(assessmentSection.Comments, comment);

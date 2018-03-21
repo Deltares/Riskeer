@@ -1315,10 +1315,10 @@ namespace Ringtoets.Integration.Plugin
         {
             var childNodes = new List<object>
             {
-                nodeData.BackgroundData,
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData.HydraulicBoundaryDatabase, nodeData),
+                nodeData.BackgroundData,
                 nodeData.Comments
             };
 
