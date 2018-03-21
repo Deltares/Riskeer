@@ -60,6 +60,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                   assessmentSection => assessmentSection.WaveHeightCalculationsForSignalingNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                                   assessmentSection => assessmentSection.WaveHeightCalculationsForLowerLimitNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                                  assessmentSection => assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.First()));
             }
         }
 
