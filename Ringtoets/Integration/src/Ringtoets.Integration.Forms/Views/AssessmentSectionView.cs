@@ -47,6 +47,7 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         /// <summary>
@@ -70,6 +71,7 @@ namespace Ringtoets.Integration.Forms.Views
             waterLevelCalculationsForSignalingNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForSignalingNorm);
             waterLevelCalculationsForLowerLimitNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
             waterLevelCalculationsForFactorizedLowerLimitNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            waveHeightCalculationsForFactorizedSignalingNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
 
             hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
             {
@@ -121,6 +123,7 @@ namespace Ringtoets.Integration.Forms.Views
             waterLevelCalculationsForSignalingNormObserver.Dispose();
             waterLevelCalculationsForLowerLimitNormObserver.Dispose();
             waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
+            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
             hydraulicBoundaryLocationObserver.Dispose();
 
