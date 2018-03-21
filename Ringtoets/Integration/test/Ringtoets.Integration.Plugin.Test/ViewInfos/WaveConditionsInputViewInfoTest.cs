@@ -515,59 +515,65 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             const double assessmentLevel1 = 1.1;
             const double assessmentLevel2 = 2.2;
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new [] { hydraulicBoundaryLocation });
-            assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel1);
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel2);
-
-            var grassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
             {
-                InputParameters =
+                DesignWaterLevelCalculation1 =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel1)
+                },
+                DesignWaterLevelCalculation3 =
+                {
+                    Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel2)
                 }
             };
 
+            var waveConditionsInput = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+            };
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             yield return new TestCaseData(
                     new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                        grassCoverErosionOutwardsWaveConditionsCalculation.InputParameters,
-                        grassCoverErosionOutwardsWaveConditionsCalculation,
+                        waveConditionsInput,
+                        new GrassCoverErosionOutwardsWaveConditionsCalculation
+                        {
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
                         assessmentSection,
                         new GrassCoverErosionOutwardsFailureMechanism()),
                     assessmentLevel1)
                 .SetName("Grass outwards input context");
 
-            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
             yield return new TestCaseData(
                     new StabilityStoneCoverWaveConditionsInputContext(
-                        stabilityStoneCoverWaveConditionsCalculation.InputParameters,
-                        stabilityStoneCoverWaveConditionsCalculation,
+                        waveConditionsInput,
+                        new StabilityStoneCoverWaveConditionsCalculation
+                        {
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
                         assessmentSection,
                         new ForeshoreProfile[0]),
                     assessmentLevel2)
                 .SetName("Stability stone cover input context");
 
-            var waveImpactAsphaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
             yield return new TestCaseData(
                     new WaveImpactAsphaltCoverWaveConditionsInputContext(
-                        waveImpactAsphaltCoverWaveConditionsCalculation.InputParameters,
-                        waveImpactAsphaltCoverWaveConditionsCalculation,
+                        waveConditionsInput,
+                        new WaveImpactAsphaltCoverWaveConditionsCalculation
+                        {
+                            InputParameters =
+                            {
+                                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                            }
+                        },
                         assessmentSection,
                         new ForeshoreProfile[0]),
                     assessmentLevel2)
