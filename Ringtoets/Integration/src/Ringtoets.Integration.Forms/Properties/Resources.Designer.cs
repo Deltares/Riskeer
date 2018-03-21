@@ -471,11 +471,11 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overig (30).
+        ///   Looks up a localized string similar to Overig ({0}).
         /// </summary>
-        public static string FailureMechanismProperties_Contribution_Other {
+        public static string FailureMechanismProperties_Contribution_Other_0 {
             get {
-                return ResourceManager.GetString("FailureMechanismProperties_Contribution_Other", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismProperties_Contribution_Other_0", resourceCulture);
             }
         }
         

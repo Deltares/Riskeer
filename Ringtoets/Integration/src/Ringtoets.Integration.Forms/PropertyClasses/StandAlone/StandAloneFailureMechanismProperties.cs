@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -34,17 +37,27 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
     /// </summary>
     public class StandAloneFailureMechanismProperties : ObjectProperties<IFailureMechanism>
     {
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="StandAloneFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public StandAloneFailureMechanismProperties(IFailureMechanism failureMechanism)
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public StandAloneFailureMechanismProperties(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
 
             Data = failureMechanism;
         }
@@ -100,7 +113,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
         {
             get
             {
-                return Resources.FailureMechanismProperties_Contribution_Other;
+                return string.Format(Resources.FailureMechanismProperties_Contribution_Other_0,
+                    assessmentSection.FailureMechanismContribution.Distribution.Single(d => d.FailureMechanism is OtherFailureMechanism).Contribution);
             }
         }
 

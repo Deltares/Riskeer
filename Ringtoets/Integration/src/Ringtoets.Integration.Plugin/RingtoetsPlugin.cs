@@ -311,7 +311,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismProperties>
             {
-                CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData, context.Parent)
             };
             yield return new PropertyInfo<MacroStabilityOutwardsFailureMechanismContext, MacroStabilityOutwardsFailureMechanismProperties>
             {

@@ -24,6 +24,9 @@ using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
@@ -36,12 +39,29 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new StandAloneFailureMechanismProperties(null);
+            TestDelegate test = () => new StandAloneFailureMechanismProperties(null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new StandAloneFailureMechanismProperties(new TestFailureMechanism(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
         }
 
         [Test]
@@ -50,21 +70,33 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
         public void Constructor_ExpectedValues(bool isRelevant)
         {
             // Setup
+            var random = new Random(39);
+            double otherContribution = random.NextDouble();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(
+                                                                                   new IFailureMechanism[0],
+                                                                                   otherContribution,
+                                                                                   0.1,
+                                                                                   1.0 / 30000));
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
             // Call
-            var properties = new StandAloneFailureMechanismProperties(failureMechanism);
+            var properties = new StandAloneFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual("Overig (30)", properties.Contribution);
+            Assert.AreEqual($"Overig ({otherContribution})", properties.Contribution);
             Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -73,31 +105,40 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
         public void Constructor_WithIsRelevant_ReturnCorrectPropertyValues(bool isRelevant)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
             // Call
-            var properties = new StandAloneFailureMechanismProperties(failureMechanism);
+            var properties = new StandAloneFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism
             {
                 IsRelevant = true
             };
 
             // Call
-            var properties = new StandAloneFailureMechanismProperties(failureMechanism);
+            var properties = new StandAloneFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -132,19 +173,24 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism
             {
                 IsRelevant = false
             };
 
             // Call
-            var properties = new StandAloneFailureMechanismProperties(failureMechanism);
+            var properties = new StandAloneFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -172,6 +218,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -180,11 +227,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestFailureMechanism
             {
                 IsRelevant = isRelevant
             };
-            var properties = new StandAloneFailureMechanismProperties(failureMechanism);
+            var properties = new StandAloneFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -194,6 +245,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+            mocks.VerifyAll();
         }
     }
 }
