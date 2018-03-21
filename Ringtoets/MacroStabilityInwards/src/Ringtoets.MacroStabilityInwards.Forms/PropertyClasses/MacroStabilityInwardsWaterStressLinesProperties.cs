@@ -72,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsWaternetProperties(data.WaternetExtreme);
+                return new MacroStabilityInwardsWaternetProperties(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(data, getNormativeAssessmentLevelFunc()));
             }
         }
 
@@ -85,7 +85,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsWaternetProperties(data.WaternetDaily);
+                return new MacroStabilityInwardsWaternetProperties(DerivedMacroStabilityInwardsInput.GetWaternetDaily(data));
             }
         }
 
