@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.CalculatedInput;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -28,50 +29,45 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// Class responsible for calculating the derived macro stability inwards input.
     /// </summary>
-    public class DerivedMacroStabilityInwardsInput
+    public static class DerivedMacroStabilityInwardsInput
     {
-        private readonly MacroStabilityInwardsInput input;
-
         /// <summary>
-        /// Creates a new instance of <see cref="DerivedMacroStabilityInwardsInput"/>.
+        /// Gets the calculated waternet for extreme circumstances.
         /// </summary>
-        /// <param name="input">The input to calculate the derived macro stability inwards input.</param>
+        /// <param name="input">The input to calculate the waternet for.</param>
+        /// <param name="assessmentLevel">The assessment level at stake.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        public DerivedMacroStabilityInwardsInput(MacroStabilityInwardsInput input)
+        /// <returns>Returns the corresponding derived waternet value.</returns>
+        public static MacroStabilityInwardsWaternet GetWaternetExtreme(MacroStabilityInwardsInput input, RoundedDouble assessmentLevel)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
-            this.input = input;
-        }
 
-        /// <summary>
-        /// Gets the calculated waternet for extreme circumstances.
-        /// </summary>
-        public MacroStabilityInwardsWaternet WaternetExtreme
-        {
-            get
-            {
-                return input.SoilProfileUnderSurfaceLine != null
-                           ? WaternetCalculationService.CalculateExtreme(input)
-                           : new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
-                                                               new MacroStabilityInwardsWaternetLine[0]);
-            }
+            return input.SoilProfileUnderSurfaceLine != null
+                       ? WaternetCalculationService.CalculateExtreme(input, assessmentLevel)
+                       : new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
+                                                           new MacroStabilityInwardsWaternetLine[0]);
         }
 
         /// <summary>
         /// Gets the calculated waternet for daily circumstances.
         /// </summary>
-        public MacroStabilityInwardsWaternet WaternetDaily
+        /// <param name="input">The input to calculate the waternet for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <returns>Returns the corresponding derived waternet value.</returns>
+        public static MacroStabilityInwardsWaternet GetWaternetDaily(MacroStabilityInwardsInput input)
         {
-            get
+            if (input == null)
             {
-                return input.SoilProfileUnderSurfaceLine != null
-                           ? WaternetCalculationService.CalculateDaily(input)
-                           : new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
-                                                               new MacroStabilityInwardsWaternetLine[0]);
+                throw new ArgumentNullException(nameof(input));
             }
+
+            return input.SoilProfileUnderSurfaceLine != null
+                       ? WaternetCalculationService.CalculateDaily(input)
+                       : new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
+                                                           new MacroStabilityInwardsWaternetLine[0]);
         }
     }
 }
