@@ -65,26 +65,11 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 Observable = assessmentSection
             };
-            waterLevelCalculationsForFactorizedSignalingNormObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
-                UpdateMapData, calc => calc)
-            {
-                Observable = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-            };
-            waterLevelCalculationsForSignalingNormObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
-                UpdateMapData, calc => calc)
-            {
-                Observable = assessmentSection.WaterLevelCalculationsForSignalingNorm
-            };
-            waterLevelCalculationsForLowerLimitNormObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
-                UpdateMapData, calc => calc)
-            {
-                Observable = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-            };
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
-                UpdateMapData, calc => calc)
-            {
-                Observable = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm
-            };
+
+            waterLevelCalculationsForFactorizedSignalingNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+            waterLevelCalculationsForSignalingNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForSignalingNorm);
+            waterLevelCalculationsForLowerLimitNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            waterLevelCalculationsForFactorizedLowerLimitNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
 
             hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
             {
@@ -107,6 +92,16 @@ namespace Ringtoets.Integration.Forms.Views
 
             SetMapDataFeatures();
             ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
+        }
+
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> CreateHydraulicBoundaryLocationCalculationsObserver(
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            return new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
+                UpdateMapData, calc => calc)
+            {
+                Observable = calculations
+            };
         }
 
         public object Data { get; set; }
