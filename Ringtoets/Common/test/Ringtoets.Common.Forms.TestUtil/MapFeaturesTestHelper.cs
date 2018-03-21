@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Forms.TestUtil
@@ -59,6 +61,45 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual(expectedValue, feature.MetaData[key]);
         }
 
+        public static void AssertHydraulicBoundaryFeaturesData(IAssessmentSection assessmentSection, IEnumerable<MapFeature> features)
+        {
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            int expectedNrOfFeatures = hydraulicBoundaryLocationsArray.Length;
+            Assert.AreEqual(expectedNrOfFeatures, features.Count());
+
+            for (var i = 0; i < expectedNrOfFeatures; i++)
+            {
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationsArray[i];
+                MapFeature mapFeature = features.ElementAt(i);
+
+                AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(A+->A)");
+                AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(A->B)");
+                AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(B->C)");
+                AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(C->D)");
+
+                AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "Hs(A+->A)");
+                AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "Hs(A->B)");
+                AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "Hs(B->C)");
+                AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "Hs(C->D)");
+            }
+        }
+
         /// <summary>
         /// Asserts whether the meta data for <paramref name="key"/> in <paramref name="feature"/>
         /// contains the correct output data.
@@ -77,6 +118,15 @@ namespace Ringtoets.Common.Forms.TestUtil
                                                                          string key)
         {
             Assert.AreEqual(expectedValue, feature.MetaData[key]);
+        }
+
+        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
+                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation1)
+        {
+            return calculationList
+                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation1))
+                   .Select(calculation => calculation.Output?.Result ?? RoundedDouble.NaN)
+                   .Single();
         }
     }
 }
