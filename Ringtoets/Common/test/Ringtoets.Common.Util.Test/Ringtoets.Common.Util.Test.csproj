@@ -19,6 +19,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregatedHydraulicBoundaryLocationFactoryTest.cs" />
     <Compile Include="AggregatedHydraulicBoundaryLocationTest.cs" />
     <Compile Include="AssignUnassignCalculationsTest.cs" />
     <Compile Include="CalculationWithLocationTest.cs" />
