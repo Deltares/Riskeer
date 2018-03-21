@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -113,10 +114,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                                  new MacroStabilityInwardsFailureMechanism(),
                                                                                                  assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationScenarioContext);
@@ -144,10 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                                  new MacroStabilityInwardsFailureMechanism(),
                                                                                                  assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationScenarioContext);
@@ -175,10 +170,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationGroupContext);
@@ -206,10 +199,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationGroupContext);
@@ -239,10 +230,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationGroupContext);
@@ -272,10 +261,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                                            new MacroStabilityInwardsFailureMechanism(),
                                                                                            assessmentSection);
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationGroupContext);
@@ -299,10 +286,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -326,10 +310,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -356,10 +337,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -386,10 +364,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -408,10 +383,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -429,10 +401,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new MacroStabilityInwardsFailureMechanism());
@@ -453,10 +422,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -477,10 +443,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new MacroStabilityInwardsFailureMechanism());
@@ -506,10 +469,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -536,10 +496,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = new MacroStabilityInwardsCalculationScenario()
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -569,10 +526,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = calculation
-            })
+            using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -602,10 +556,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsInputView
-            {
-                Data = new MacroStabilityInwardsCalculationScenario()
-            })
+            using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), GetTestNormativeAssessmentLevel))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -614,6 +565,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                 Assert.IsFalse(closeForData);
                 mocks.VerifyAll();
             }
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }
