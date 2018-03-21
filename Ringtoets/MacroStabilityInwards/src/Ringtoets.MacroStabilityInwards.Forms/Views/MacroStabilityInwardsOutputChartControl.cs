@@ -278,8 +278,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 SetSoilProfileChartData();
             }
 
-            SetWaternetExtremeChartData(input.WaternetExtreme);
-            SetWaternetDailyChartData(input.WaternetDaily);
+            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input));
+            SetWaternetDailyChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(input));
 
             if (data.Output != null)
             {
@@ -364,14 +364,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 dailyPhreaticLineData.Value.Points = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(dailyPhreaticLineData.Key);
             }
+
             foreach (KeyValuePair<MacroStabilityInwardsPhreaticLine, ChartLineData> extremePhreaticLineData in phreaticLineExtremeLookup)
             {
                 extremePhreaticLineData.Value.Points = MacroStabilityInwardsChartDataPointsFactory.CreatePhreaticLinePoints(extremePhreaticLineData.Key);
             }
+
             foreach (KeyValuePair<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> dailyWaternetLineData in waternetLineDailyLookup)
             {
                 dailyWaternetLineData.Value.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(dailyWaternetLineData.Key, surfaceLine);
             }
+
             foreach (KeyValuePair<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> extremeWaternetLineData in waternetLineExtremeLookup)
             {
                 extremeWaternetLineData.Value.Areas = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(extremeWaternetLineData.Key, surfaceLine);
@@ -384,14 +387,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 dailyPhreaticLineData.Value.Points = new Point2D[0];
             }
+
             foreach (KeyValuePair<MacroStabilityInwardsPhreaticLine, ChartLineData> extremePhreaticLineData in phreaticLineExtremeLookup)
             {
                 extremePhreaticLineData.Value.Points = new Point2D[0];
             }
+
             foreach (KeyValuePair<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> dailyWaternetLineData in waternetLineDailyLookup)
             {
                 dailyWaternetLineData.Value.Areas = Enumerable.Empty<Point2D[]>();
             }
+
             foreach (KeyValuePair<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> extremeWaternetLineData in waternetLineExtremeLookup)
             {
                 extremeWaternetLineData.Value.Areas = Enumerable.Empty<Point2D[]>();

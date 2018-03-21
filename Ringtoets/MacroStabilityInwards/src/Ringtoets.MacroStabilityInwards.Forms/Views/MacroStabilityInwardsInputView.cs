@@ -174,6 +174,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -210,8 +211,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             SetSurfaceLineChartData(surfaceLine);
             SetSoilProfileChartData(surfaceLine, soilProfile);
 
-            SetWaternetExtremeChartData(macroStabilityInwardsInput.WaternetExtreme, surfaceLine);
-            SetWaternetDailyChartData(macroStabilityInwardsInput.WaternetDaily, surfaceLine);
+            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(macroStabilityInwardsInput), surfaceLine);
+            SetWaternetDailyChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(macroStabilityInwardsInput), surfaceLine);
 
             MacroStabilityInwardsGridDeterminationType gridDeterminationType = macroStabilityInwardsInput.GridDeterminationType;
             MacroStabilityInwardsGrid leftGrid = macroStabilityInwardsInput.LeftGrid;
