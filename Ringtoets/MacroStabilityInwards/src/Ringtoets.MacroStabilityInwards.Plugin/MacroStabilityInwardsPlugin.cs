@@ -245,7 +245,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewData = context => context.MacroStabilityInwardsCalculation,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseInputViewForData
+                CloseForData = CloseInputViewForData,
+                CreateInstance = context => new MacroStabilityInwardsInputView(context.MacroStabilityInwardsCalculation,
+                                                                               () => GetNormativeAssessmentLevel(context.AssessmentSection, context.MacroStabilityInwardsCalculation))
             };
 
             yield return new ViewInfo<MacroStabilityInwardsScenariosContext, CalculationGroup, MacroStabilityInwardsScenariosView>
