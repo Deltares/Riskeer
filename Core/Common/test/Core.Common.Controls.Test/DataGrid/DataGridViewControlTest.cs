@@ -600,7 +600,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void RefreshDataGridView_ShouldAutoResizeTrue_IncreasesColumnWidth()
+        public void RefreshDataGridView_AddLongerText_IncreasesColumnWidth()
         {
             using (var form = new Form())
             using (var control = new DataGridViewControl())
@@ -631,7 +631,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void RefreshDataGridView_ShouldAutoResizeFalse_SameColumnWidth()
+        public void RefreshDataGridView_AddShorterText_DecreasesColumnWidth()
         {
             using (var form = new Form())
             using (var control = new DataGridViewControl())
@@ -642,7 +642,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test");
                 var dataSource = new[]
                 {
-                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Test")
+                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "This is a long textwegawegwegwetawergawegawegtwaegwaeg.")
                 };
                 control.SetDataSource(dataSource);
 
@@ -650,14 +650,14 @@ namespace Core.Common.Controls.Test.DataGrid
                 control.SetCurrentCell(dataGridViewCell);
 
                 int initialWidth = dataGridViewCell.OwningColumn.Width;
-                dataSource[0].TestString = "This is a long textwegawegwegwetawergawegawegtwaegwaeg.";
+                dataSource[0].TestString = "Test";
 
                 // Call
-                control.RefreshDataGridView(false);
+                control.RefreshDataGridView();
 
                 // Assert
                 int newTextWidth = dataGridViewCell.OwningColumn.Width;
-                Assert.AreEqual(newTextWidth, initialWidth);
+                Assert.Less(newTextWidth, initialWidth);
             }
         }
 

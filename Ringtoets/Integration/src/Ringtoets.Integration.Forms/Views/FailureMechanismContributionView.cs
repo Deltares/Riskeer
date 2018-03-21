@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             this.viewCommands = viewCommands;
 
-            failureMechanismObserver = new Observer(() => probabilityDistributionGrid.RefreshDataGridView());
+            failureMechanismObserver = new Observer(probabilityDistributionGrid.RefreshDataGridView);
         }
 
         /// <summary>

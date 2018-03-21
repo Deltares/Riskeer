@@ -358,15 +358,10 @@ namespace Core.Common.Controls.DataGrid
         /// <summary>
         /// Refreshes the <see cref="DataGridView"/> and performs an <see cref="DataGridView.AutoResizeColumns()"/>.
         /// </summary>
-        /// <param name="shouldAutoResizeColumns">Indicator whether the column width should be automatically resized.</param>
-        public void RefreshDataGridView(bool shouldAutoResizeColumns = true)
+        public void RefreshDataGridView()
         {
             dataGridView.Refresh();
-
-            if (shouldAutoResizeColumns)
-            {
-                AutoResizeColumns();
-            }
+            AutoResizeColumns();
         }
 
         /// <summary>
