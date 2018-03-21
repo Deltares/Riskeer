@@ -38,29 +38,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int waternetExtremePropertyIndex = 1;
         private const int waternetDailyPropertyIndex = 2;
 
-        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+        private readonly RoundedDouble assessmentLevel;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaterStressLinesProperties"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
-        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsWaterStressLinesProperties(MacroStabilityInwardsInput data,
-                                                               Func<RoundedDouble> getNormativeAssessmentLevelFunc)
+        /// <param name="assessmentLevel">The assessment level at stake.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public MacroStabilityInwardsWaterStressLinesProperties(MacroStabilityInwardsInput data, RoundedDouble assessmentLevel)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (getNormativeAssessmentLevelFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
-            }
-
             this.data = data;
-            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+            this.assessmentLevel = assessmentLevel;
         }
 
         [PropertyOrder(waternetExtremePropertyIndex)]
@@ -72,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsWaternetProperties(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(data, getNormativeAssessmentLevelFunc()));
+                return new MacroStabilityInwardsWaternetProperties(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(data, assessmentLevel));
             }
         }
 
