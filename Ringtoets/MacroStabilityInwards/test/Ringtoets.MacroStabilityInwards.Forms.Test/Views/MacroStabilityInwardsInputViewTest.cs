@@ -356,9 +356,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 // Assert
                 ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
                                                                                       (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
                                                                                       (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
             }
         }
@@ -1038,9 +1038,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                     // Precondition
                     ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
                                                                                           (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
                                                                                           (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
                 }
 
@@ -1082,9 +1082,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                     // Assert
                     ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
                                                                                           (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
                                                                                           (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
                 }
             }
@@ -1117,9 +1117,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var waternetExtremeChartDataCollection = (ChartDataCollection) chartData[waternetZonesExtremeIndex];
                 var waternetDailyChartDataCollection = (ChartDataCollection) chartData[waternetZonesDailyIndex];
 
-                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
                                                                                       waternetExtremeChartDataCollection);
-                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
                                                                                       waternetDailyChartDataCollection);
 
                 IEnumerable<ChartData> waternetExtremeChartData = waternetExtremeChartDataCollection.Collection;
@@ -1164,7 +1164,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }));
         }
 
-        MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
+        private static MacroStabilityInwardsSurfaceLine GetSurfaceLineWithGeometry()
         {
             var points = new[]
             {
@@ -1175,7 +1175,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             return GetSurfaceLine(points);
         }
 
-        MacroStabilityInwardsSurfaceLine GetSecondSurfaceLineWithGeometry()
+        private static MacroStabilityInwardsSurfaceLine GetSecondSurfaceLineWithGeometry()
         {
             var points = new[]
             {
@@ -1186,7 +1186,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             return GetSurfaceLine(points);
         }
 
-        MacroStabilityInwardsSurfaceLine GetSurfaceLine(Point3D[] points)
+        private static MacroStabilityInwardsSurfaceLine GetSurfaceLine(Point3D[] points)
         {
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface line name");
             surfaceLine.SetGeometry(points);
