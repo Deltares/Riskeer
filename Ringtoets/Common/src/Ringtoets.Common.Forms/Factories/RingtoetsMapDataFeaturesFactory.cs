@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Util;
 
 namespace Ringtoets.Common.Forms.Factories
 {
@@ -134,6 +135,24 @@ namespace Ringtoets.Common.Forms.Factories
             }
 
             return features;
+        }
+
+        /// <summary>
+        /// Create hydraulic boundary location features based on the provided <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to create the location features for.</param>
+        /// <returns>A collection of features.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationFeatures(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection)
+                                                             .Select(CreateHydraulicBoundaryLocationFeature)
+                                                             .ToList();
         }
 
         /// <summary>
@@ -354,6 +373,22 @@ namespace Ringtoets.Common.Forms.Factories
                     }
                 })
             });
+        }
+
+        private static MapFeature CreateHydraulicBoundaryLocationFeature(AggregatedHydraulicBoundaryLocation location)
+        {
+            MapFeature feature = CreateSinglePointMapFeature(location.Location);
+            feature.MetaData[Resources.MetaData_ID] = location.Id;
+            feature.MetaData[Resources.MetaData_Name] = location.Name;
+            feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation1] = location.WaterLevelCalculationForFactorizedSignalingNorm;
+            feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation2] = location.WaterLevelCalculationForSignalingNorm;
+            feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation3] = location.WaterLevelCalculationForLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation4] = location.WaterLevelCalculationForFactorizedLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculation1] = location.WaveHeightCalculationForFactorizedSignalingNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculation2] = location.WaveHeightCalculationForSignalingNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculation3] = location.WaveHeightCalculationForLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculation4] = location.WaveHeightCalculationForFactorizedLowerLimitNorm;
+            return feature;
         }
 
         private static RoundedDouble GetHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationCalculation calculation)

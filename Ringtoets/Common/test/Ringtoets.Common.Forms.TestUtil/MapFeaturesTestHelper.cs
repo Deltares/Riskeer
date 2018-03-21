@@ -58,5 +58,25 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             Assert.AreEqual(expectedValue, feature.MetaData[key]);
         }
+
+        /// <summary>
+        /// Asserts whether the meta data for <paramref name="key"/> in <paramref name="feature"/>
+        /// contains the correct output data.
+        /// </summary>
+        /// <param name="expectedValue">The value  to assert against.</param>
+        /// <param name="feature">The <see cref="MapFeature"/> to be asserted.</param>
+        /// <param name="key">The name of the meta data element to retrieve the data from.</param>
+        /// <exception cref="KeyNotFoundException">Thrown when the meta data of <paramref name="feature"/> does not 
+        /// contain a <see cref="KeyValuePair{TKey,TValue}"/> with <paramref name="key"/> as key.</exception>
+        /// <exception cref="AssertionException">Thrown when the wave height or the design water level of a 
+        /// hydraulic boundary location and the  respective meta data value associated with <paramref name="key"/>
+        ///  are not the same.
+        /// </exception>
+        public static void AssertHydraulicBoundaryLocationOutputMetaData(RoundedDouble expectedValue,
+                                                                         MapFeature feature,
+                                                                         string key)
+        {
+            Assert.AreEqual(expectedValue, feature.MetaData[key]);
+        }
     }
 }

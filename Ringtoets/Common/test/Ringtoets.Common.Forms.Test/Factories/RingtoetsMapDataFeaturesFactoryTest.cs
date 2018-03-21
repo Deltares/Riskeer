@@ -161,6 +161,55 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
+        public void CreateHydraulicBoundaryLocationFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationFeatures_NoLocations_ReturnsEmptyFeaturesCollection()
+        {
+            // Call
+            IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
+                new ObservableTestAssessmentSectionStub());
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationFeatures_GivenLocations_ReturnsLocationFeaturesCollection()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "location1", 1, 1), true);
+            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "location2", 2, 2));
+
+            // Call
+            MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection).ToArray();
+
+            // Assert
+            HydraulicBoundaryLocation[] expectedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            Assert.AreEqual(expectedLocations.Length, features.Length);
+
+            for (var i = 0; i < expectedLocations.Length; i++)
+            {
+                AssertHydraulicBoundaryLocationMetaData(expectedLocations[i], features[i], assessmentSection);
+            }
+
+            Point2D[] expectedPoints = assessmentSection.HydraulicBoundaryDatabase.Locations
+                                                        .Select(location => location.Location)
+                                                        .ToArray();
+            AssertEqualFeatureCollections(
+                expectedPoints, features);
+        }
+
+        [Test]
         public void CreateFailureMechanismSectionFeatures_SectionsNull_ReturnsEmptyFeaturesCollection()
         {
             // Call
@@ -776,6 +825,48 @@ namespace Ringtoets.Common.Forms.Test.Factories
             MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation4,
                                                                                 mapFeature,
                                                                                 "Hs(C->D)");
+        }
+
+        private static void AssertHydraulicBoundaryLocationMetaData(HydraulicBoundaryLocation hydraulicBoundaryLocation, MapFeature mapFeature,
+                                                                    IAssessmentSection assessmentSection)
+        {
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, mapFeature.MetaData["ID"]);
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, mapFeature.MetaData["Naam"]);
+
+            MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                mapFeature, "h(A+->A)");
+            MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation),
+                mapFeature, "h(A->B)");
+            MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                mapFeature, "h(B->C)");
+            MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                mapFeature, "h(C->D)");
+
+            MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                mapFeature, "Hs(A+->A)");
+            MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                GetExpectedResult(assessmentSection.WaveHeightCalculationsForSignalingNorm, hydraulicBoundaryLocation),
+                mapFeature, "Hs(A->B)");
+            MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                mapFeature, "Hs(B->C)");
+            MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                mapFeature, "Hs(C->D)");
+        }
+
+        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
+                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation1)
+        {
+            return calculationList
+                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation1))
+                   .Select(calculation => calculation.Output?.Result ?? RoundedDouble.NaN)
+                   .Single();
         }
 
         private static void AssertEqualFeatureCollections(Point2D[] points, IEnumerable<MapFeature> features)
