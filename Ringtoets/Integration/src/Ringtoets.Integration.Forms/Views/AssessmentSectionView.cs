@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -35,62 +36,54 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssessmentSectionView : UserControl, IMapView
     {
+        private readonly IAssessmentSection assessmentSection;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
-        private IAssessmentSection data;
-
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionView"/>.
         /// </summary>
-        public AssessmentSectionView()
+        public AssessmentSectionView(IAssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             InitializeComponent();
 
-            assessmentSectionObserver = new Observer(UpdateMapData);
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
+            assessmentSectionObserver = new Observer(UpdateMapData)
+            {
+                Observable = assessmentSection
+            };
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
+            {
+                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
+            };
             hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl);
+                UpdateMapData, hbl => hbl)
+            {
+                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
+            };
 
-            mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
+            var mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+
+            this.assessmentSection = assessmentSection;
+
+            SetMapDataFeatures();
+            ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
         }
 
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as IAssessmentSection;
-
-                assessmentSectionObserver.Observable = data;
-                hydraulicBoundaryLocationsObserver.Observable = data?.HydraulicBoundaryDatabase.Locations;
-                hydraulicBoundaryLocationObserver.Observable = data?.HydraulicBoundaryDatabase.Locations;
-
-                if (data == null)
-                {
-                    ringtoetsMapControl.RemoveAllData();
-                }
-                else
-                {
-                    SetMapDataFeatures();
-
-                    ringtoetsMapControl.SetAllData(mapDataCollection, data.BackgroundData);
-                }
-            }
-        }
+        public object Data { get; set; }
 
         public IMapControl Map
         {
@@ -123,8 +116,8 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetMapDataFeatures()
         {
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data.ReferenceLine, data.Id, data.Name);
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(data.HydraulicBoundaryDatabase);
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(assessmentSection.ReferenceLine, assessmentSection.Id, assessmentSection.Name);
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(assessmentSection.HydraulicBoundaryDatabase);
         }
     }
 }
