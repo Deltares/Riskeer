@@ -42,6 +42,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int referenceLineIndex = 0;
         private const int hydraulicBoundaryLocationsIndex = 1;
 
+        private static IEnumerable<TestCaseData> GetCalculations
+        {
+            get
+            {
+                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.First()));
+            }
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -58,8 +67,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RingtoetsMapControl)view.Controls[0]).MapControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 AssertEmptyMapData(view.Map.Data);
             }
         }
@@ -74,7 +83,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
@@ -151,6 +160,35 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.WaveHeightCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
                 assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
                 hydraulicBoundaryLocation.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetCalculations))]
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+        {
+            // Given
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+
+            using (var view = new AssessmentSectionView(assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+
+                // When
+                HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+                calculation.Output = new TestHydraulicBoundaryLocationOutput(new Random(21).NextDouble());
+                calculation.NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);

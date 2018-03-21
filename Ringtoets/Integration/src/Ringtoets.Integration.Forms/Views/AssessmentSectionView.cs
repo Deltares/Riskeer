@@ -37,11 +37,13 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class AssessmentSectionView : UserControl, IMapView
     {
         private readonly IAssessmentSection assessmentSection;
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
+
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
+        private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryLocationsObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         /// <summary>
@@ -60,6 +62,12 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 Observable = assessmentSection
             };
+            waterLevelCalculationsForFactorizedSignalingNormObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
+                UpdateMapData, calc => calc)
+            {
+                Observable = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
+            };
+
             hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
@@ -96,6 +104,7 @@ namespace Ringtoets.Integration.Forms.Views
         protected override void Dispose(bool disposing)
         {
             assessmentSectionObserver.Dispose();
+            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
             hydraulicBoundaryLocationObserver.Dispose();
 
