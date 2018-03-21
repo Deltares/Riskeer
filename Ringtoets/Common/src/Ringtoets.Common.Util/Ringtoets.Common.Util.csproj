@@ -11,6 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregatedHydraulicBoundaryLocation.cs" />
     <Compile Include="AssignUnassignCalculations.cs" />
     <Compile Include="CalculationWithLocation.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
