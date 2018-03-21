@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -71,6 +70,84 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutputAndNormTypeSignaling_ReturnsCorrespondingAssessmentLevel()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.Signaling));
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocationWithOutput = CreateHydraulicBoundaryLocationWithOutput();
+
+            // Call
+            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocationWithOutput);
+
+            // Assert
+            Assert.AreEqual(hydraulicBoundaryLocationWithOutput.DesignWaterLevelCalculation2.Output.Result, normativeAssessmentLevel);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutputAndNormTypeLowerLimit_ReturnsCorrespondingAssessmentLevel()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.LowerLimit));
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocationWithOutput = CreateHydraulicBoundaryLocationWithOutput();
+
+            // Call
+            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocationWithOutput);
+
+            // Assert
+            Assert.AreEqual(hydraulicBoundaryLocationWithOutput.DesignWaterLevelCalculation3.Output.Result, normativeAssessmentLevel);
+
+            mocks.VerifyAll();
+        }
+
+        [TestCase(NormType.Signaling)]
+        [TestCase(NormType.LowerLimit)]
+        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN(NormType normType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(normType));
+            mocks.ReplayAll();
+
+            // Call
+            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(null);
+
+            // Assert
+            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+
+            mocks.VerifyAll();
+        }
+
+        [TestCase(NormType.Signaling)]
+        [TestCase(NormType.LowerLimit)]
+        public void GetNormativeAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN(NormType normType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(normType));
+            mocks.ReplayAll();
+
+            // Call
+            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
+
+            // Assert
+            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+
+            mocks.VerifyAll();
+        }
+
         private static FailureMechanismContribution CreateFailureMechanismContribution(NormType normType)
         {
             var random = new Random(21);
@@ -86,196 +163,21 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             };
         }
 
-        #region Norm type signaling
-
-        [Test]
-        public void GetNormativeAssessmentLevel_AssessmentSectionWithOutputAndNormTypeSignaling_ReturnsCorrespondingAssessmentLevel()
+        private static HydraulicBoundaryLocation CreateHydraulicBoundaryLocationWithOutput()
         {
-            // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            double expectedNormativeAssessmentLevel = new Random(21).NextDouble();
+            var random = new Random(32);
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.Signaling));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>
+            return new TestHydraulicBoundaryLocation
             {
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                DesignWaterLevelCalculation2 =
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(expectedNormativeAssessmentLevel)
+                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
                 },
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            });
-            mocks.ReplayAll();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocation);
-
-            // Assert
-            Assert.AreEqual(expectedNormativeAssessmentLevel, normativeAssessmentLevel, normativeAssessmentLevel.GetAccuracy());
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNullAndNormTypeSignaling_ReturnsNaN()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.Signaling));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            mocks.ReplayAll();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(null);
-
-            // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNotPartOfAssessmentSectionAndNormTypeSignaling_ReturnsNaN()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.Signaling));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            mocks.ReplayAll();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
-
-            // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetNormativeAssessmentLevel_AssessmentSectionWithoutOutputAndNormTypeSignaling_ReturnsNaN()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.Signaling));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            });
-            mocks.ReplayAll();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocation);
-
-            // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
-
-            mocks.VerifyAll();
-        }
-
-        #endregion
-
-        #region Norm type lower limit
-
-        [Test]
-        public void GetNormativeAssessmentLevel_AssessmentSectionWithOutputAndNormTypeLowerLimit_ReturnsCorrespondingAssessmentLevel()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            double expectedNormativeAssessmentLevel = new Random(21).NextDouble();
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.LowerLimit));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                DesignWaterLevelCalculation3 =
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(expectedNormativeAssessmentLevel)
-                },
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            });
-            mocks.ReplayAll();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocation);
-
-            // Assert
-            Assert.AreEqual(expectedNormativeAssessmentLevel, normativeAssessmentLevel, normativeAssessmentLevel.GetAccuracy());
-
-            mocks.VerifyAll();
+                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                }
+            };
         }
-
-        [Test]
-        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNullAndNormTypeLowerLimit_ReturnsNaN()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.LowerLimit));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            mocks.ReplayAll();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(null);
-
-            // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNotPartOfAssessmentSectionAndNormTypeLowerLimit_ReturnsNaN()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.LowerLimit));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            mocks.ReplayAll();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
-
-            // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetNormativeAssessmentLevel_AssessmentSectionWithoutOutputAndNormTypeLowerLimit_ReturnsNaN()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(CreateFailureMechanismContribution(NormType.LowerLimit));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            });
-            mocks.ReplayAll();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocation);
-
-            // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
-
-            mocks.VerifyAll();
-        }
-
-        #endregion
     }
 }
