@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -36,11 +37,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null);
+            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null, GetTestNormativeAssessmentLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("data", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(input, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
         }
 
         [Test]
@@ -50,7 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInput>>(properties);
@@ -68,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel);
 
             // Assert
             CollectionAssert.IsEmpty(properties.WaternetExtreme.PhreaticLines);
@@ -82,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel);
 
             // Call
             string name = properties.ToString();
@@ -98,7 +113,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -120,6 +135,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Dagelijkse omstandigheden",
                                                                             "Eigenschappen van de waterspanningslijnen bij dagelijkse omstandigheden.",
                                                                             true);
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }

@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
@@ -37,19 +38,29 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int waternetExtremePropertyIndex = 1;
         private const int waternetDailyPropertyIndex = 2;
 
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaterStressLinesProperties"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsWaterStressLinesProperties(MacroStabilityInwardsInput data)
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsWaterStressLinesProperties(MacroStabilityInwardsInput data,
+                                                               Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
+            }
+
             this.data = data;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
         }
 
         [PropertyOrder(waternetExtremePropertyIndex)]
