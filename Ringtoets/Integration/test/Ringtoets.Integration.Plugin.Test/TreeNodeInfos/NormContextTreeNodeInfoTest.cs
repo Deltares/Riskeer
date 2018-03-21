@@ -75,6 +75,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
+
             mocks.VerifyAll();
         }
 
@@ -94,6 +95,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Normen", text);
             }
+
             mocks.VerifyAll();
         }
 
@@ -113,6 +115,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.NormsIcon, image);
             }
+
             mocks.VerifyAll();
         }
 
@@ -122,7 +125,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new NormContext(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(),
-                                                                  assessmentSection);
+                                          assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -149,6 +152,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     info.ContextMenuStrip(context, null, treeViewControl);
                 }
             }
+
             // Assert
             mocks.VerifyAll();
         }
