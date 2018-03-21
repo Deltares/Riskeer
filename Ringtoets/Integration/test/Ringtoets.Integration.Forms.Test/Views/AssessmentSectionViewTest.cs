@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int referenceLineIndex = 0;
         private const int hydraulicBoundaryLocationsIndex = 1;
 
-        private static IEnumerable<TestCaseData> GetCalculations
+        private static IEnumerable<TestCaseData> GetCalculationFuncs
         {
             get
             {
@@ -50,6 +50,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                   assessmentSection => assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                                   assessmentSection => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
             }
         }
 
@@ -169,7 +171,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetCalculations))]
+        [TestCaseSource(nameof(GetCalculationFuncs))]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
             Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
         {

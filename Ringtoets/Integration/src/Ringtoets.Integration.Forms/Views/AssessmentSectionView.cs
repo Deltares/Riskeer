@@ -45,6 +45,7 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
         private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         /// <summary>
@@ -72,6 +73,11 @@ namespace Ringtoets.Integration.Forms.Views
                 UpdateMapData, calc => calc)
             {
                 Observable = assessmentSection.WaterLevelCalculationsForSignalingNorm
+            };
+            waterLevelCalculationsForLowerLimitNormObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
+                UpdateMapData, calc => calc)
+            {
+                Observable = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
             };
 
             hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
@@ -112,6 +118,7 @@ namespace Ringtoets.Integration.Forms.Views
             assessmentSectionObserver.Dispose();
             waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
             waterLevelCalculationsForSignalingNormObserver.Dispose();
+            waterLevelCalculationsForLowerLimitNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
             hydraulicBoundaryLocationObserver.Dispose();
 
@@ -119,6 +126,7 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
