@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -547,9 +548,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 var waternetExtremeChartDataCollection = (ChartDataCollection) chartData[waternetZonesExtremeIndex];
                 var waternetDailyChartDataCollection = (ChartDataCollection) chartData[waternetZonesDailyIndex];
 
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetExtreme,
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
                                                                                        waternetExtremeChartDataCollection);
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(calculation.InputParameters.WaternetDaily,
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
                                                                                        waternetDailyChartDataCollection);
 
                 IEnumerable<ChartData> waternetExtremeChartData = waternetExtremeChartDataCollection.Collection;
