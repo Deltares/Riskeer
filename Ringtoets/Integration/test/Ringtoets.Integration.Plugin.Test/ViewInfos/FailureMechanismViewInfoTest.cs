@@ -213,9 +213,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithData_ReturnFailureMechanismView()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var failureMechanism = new TestFailureMechanism();
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
