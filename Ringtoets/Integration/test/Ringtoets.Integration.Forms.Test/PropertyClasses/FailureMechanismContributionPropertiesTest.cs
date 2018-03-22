@@ -48,11 +48,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var failureMechanismChangeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => new FailureMechanismContributionProperties(
@@ -64,17 +64,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanismContribution", paramName);
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var failureMechanismChangeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var failureMechanismChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mocks.ReplayAll();
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
@@ -88,17 +88,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismContributionNormChangeHandlerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mocks.ReplayAll();
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
@@ -112,17 +112,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("normChangeHandler", paramName);
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionCompositionChangeHandlerNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var failureMechanismChangeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
@@ -136,18 +136,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("compositionChangeHandler", paramName);
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var failureMechanismChangeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mocks.ReplayAll();
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
@@ -167,17 +167,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             TestHelper.AssertTypeConverter<FailureMechanismContributionProperties, NoProbabilityValueDoubleConverter>(
                 nameof(FailureMechanismContributionProperties.LowerLimitNorm));
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithValidParameters_DataSet()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var failureMechanismChangeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            var assessmentSectionChangeHandler = mockRepository.Stub<IAssessmentSectionCompositionChangeHandler>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mocks.ReplayAll();
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
@@ -219,6 +220,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             expectedCategory,
                                                                             "Norm van het dijktraject",
                                                                             "De kans die wordt gebruikt als de norm van het dijktraject.");
+            mocks.VerifyAll();
         }
 
         [Test]

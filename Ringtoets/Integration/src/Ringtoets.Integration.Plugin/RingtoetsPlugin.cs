@@ -309,6 +309,12 @@ namespace Ringtoets.Integration.Plugin
                     new FailureMechanismContributionNormChangeHandler(context.Parent),
                     new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
             };
+            yield return new PropertyInfo<NormContext, NormProperties>
+            {
+                CreateInstance = context => new NormProperties(
+                    context.WrappedData,
+                    new FailureMechanismContributionNormChangeHandler(context.AssessmentSection))
+            };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismProperties>
             {
                 CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData, context.Parent)
