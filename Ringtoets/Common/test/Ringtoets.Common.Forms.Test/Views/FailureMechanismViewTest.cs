@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private const int hydraulicBoundaryLocationsIndex = 4;
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var view = new FailureMechanismView<TestFailureMechanism>())
@@ -55,18 +55,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IMapView>(view);
-                Assert.IsNotNull(view.Map);
                 Assert.IsNull(view.Data);
-            }
-        }
 
-        [Test]
-        public void DefaultConstructor_Always_AddEmptyMapControl()
-        {
-            // Call
-            using (var view = new FailureMechanismView<TestFailureMechanism>())
-            {
-                // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
                 Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
