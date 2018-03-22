@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism)
             {
                 Data = failureMechanismContext
             })
@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism)
             {
                 Data = failureMechanismContext
             })
@@ -150,7 +150,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism)
             {
                 Data = failureMechanismContext
             })
@@ -172,7 +172,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism)
             {
                 Data = failureMechanismContext
             })
@@ -207,6 +207,24 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(isRelevant, result);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_WithData_ReturnFailureMechanismView()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismView<IFailureMechanism>>(view);
         }
 
         private class TestFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
