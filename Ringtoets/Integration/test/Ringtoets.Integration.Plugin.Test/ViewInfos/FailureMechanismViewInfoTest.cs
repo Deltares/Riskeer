@@ -100,12 +100,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection)
-            {
-                Data = failureMechanismContext
-            })
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -122,14 +118,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection)
-            {
-                Data = failureMechanismContext
-            })
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -148,12 +139,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var otherTestFailureMechanism = new TestFailureMechanism();
 
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection)
-            {
-                Data = failureMechanismContext
-            })
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherTestFailureMechanism);

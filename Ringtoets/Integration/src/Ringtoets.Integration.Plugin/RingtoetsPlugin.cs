@@ -1020,12 +1020,9 @@ namespace Ringtoets.Integration.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;
 
-            var viewFailureMechanismContext = (IFailureMechanismContext<IFailureMechanism>) view.Data;
-            IFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion
