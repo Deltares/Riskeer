@@ -65,8 +65,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult,
-                                                   ConstructionProperties constructionProperties)
+        internal StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult,
+                                                     ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (constructionProperties == null)
@@ -486,12 +486,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             /// Sets the detailed assessment result for factorized lower limit norm index.
             /// </summary>
             public int DetailedAssessmentResultForFactorizedLowerLimitNormIndex { internal get; set; }
-            
+
             /// <summary>
             /// Sets the tailor made assessment result index.
             /// </summary>
             public int TailorMadeAssessmentResultIndex { internal get; set; }
-            
+
             /// <summary>
             /// Sets the simple assembly category group index.
             /// </summary>
