@@ -102,7 +102,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism)
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism)
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -150,7 +150,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism)
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -172,7 +172,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism)
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })

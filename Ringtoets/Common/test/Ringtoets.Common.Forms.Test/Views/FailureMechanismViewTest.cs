@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -50,7 +51,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(),
+                                                                             new ObservableTestAssessmentSectionStub()))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -68,19 +70,43 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         public void Constructor_failureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new FailureMechanismView<IFailureMechanism>(null);
+            TestDelegate call = () => new FailureMechanismView<IFailureMechanism>(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismView<IFailureMechanism>(failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Data_FailureMechanismContext_DataSet()
         {
             // Setup
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var failureMechanism = new TestFailureMechanism();
                 var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -100,7 +126,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var failureMechanism = new TestFailureMechanism();
                 var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(failureMechanism, assessmentSection);
@@ -117,7 +143,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_OtherThanFailureMechanismContext_DataNull()
         {
             // Setup
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var data = new object();
 
@@ -133,7 +159,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
@@ -157,7 +183,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_EmptyFailureMechanismContext_NoMapDataSet()
         {
             // Setup
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), assessmentSection);
@@ -176,7 +202,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Data_FailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -237,7 +263,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void UpdateObserver_HydraulicBoundaryLocationsDataUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -275,7 +301,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -322,7 +348,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -366,7 +392,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void UpdateObserver_FailureMechanismSectionsUpdated_MapDataUpdated()
         {
             // Setup
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -404,7 +430,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
 
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -484,7 +510,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             var oldFailureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), oldAssessmentSection);
             var newFailureMechanismContext = new FailureMechanismContext<TestFailureMechanism>(new TestFailureMechanism(), newAssessmentSection);
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 

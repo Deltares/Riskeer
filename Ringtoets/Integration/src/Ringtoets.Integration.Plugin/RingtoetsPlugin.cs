@@ -434,7 +434,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
-                CreateInstance = context => new FailureMechanismView<IFailureMechanism>(context.WrappedData)
+                CreateInstance = context => new FailureMechanismView<IFailureMechanism>(context.WrappedData, context.Parent)
             };
 
             yield return CreateFailureMechanismResultViewInfo<
