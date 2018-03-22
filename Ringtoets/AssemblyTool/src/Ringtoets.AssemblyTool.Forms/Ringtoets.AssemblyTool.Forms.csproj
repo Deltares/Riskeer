@@ -11,7 +11,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisplayAssessmentSectionAssemblyCategoryGroup.cs" />
     <Compile Include="DisplayFailureMechanismSectionAssemblyCategoryGroup.cs" />
+    <Compile Include="DisplayAssessmentSectionAssemblyCategoryGroupConverter.cs" />
     <Compile Include="DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -43,6 +45,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
