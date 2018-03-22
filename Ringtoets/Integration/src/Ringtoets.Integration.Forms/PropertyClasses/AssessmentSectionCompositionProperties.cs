@@ -47,9 +47,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <param name="assessmentSection">The assessment section for which the <see cref="IAssessmentSection.Composition"/> properties are shown.</param>
         /// <param name="compositionChangeHandler">The <see cref="IAssessmentSectionCompositionChangeHandler"/> for when the composition changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionCompositionProperties(
-            IAssessmentSection assessmentSection,
-            IAssessmentSectionCompositionChangeHandler compositionChangeHandler)
+        public AssessmentSectionCompositionProperties(IAssessmentSection assessmentSection, IAssessmentSectionCompositionChangeHandler compositionChangeHandler)
         {
             if (assessmentSection == null)
             {
@@ -69,9 +67,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [PropertyOrder(1)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismContribution_Composition_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismContribution_Composition_Description))]
-        public AssessmentSectionComposition AssessmentSectionComposition
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionComposition_Composition_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSectionComposition_Composition_Description))]
+        public AssessmentSectionComposition Composition
         {
             get
             {

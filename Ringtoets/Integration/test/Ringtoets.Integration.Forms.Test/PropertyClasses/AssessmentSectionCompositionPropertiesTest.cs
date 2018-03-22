@@ -48,9 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new AssessmentSectionCompositionProperties(
-                null,
-                assessmentSectionChangeHandler);
+            TestDelegate test = () => new AssessmentSectionCompositionProperties(null, assessmentSectionChangeHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -67,9 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new AssessmentSectionCompositionProperties(
-                assessmentSection,
-                null);
+            TestDelegate test = () => new AssessmentSectionCompositionProperties(assessmentSection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -87,9 +83,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new AssessmentSectionCompositionProperties(
-                assessmentSection,
-                assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionCompositionProperties(assessmentSection, assessmentSectionChangeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IAssessmentSection>>(properties);
@@ -107,9 +101,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new AssessmentSectionCompositionProperties(
-                assessmentSection,
-                assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionCompositionProperties(assessmentSection, assessmentSectionChangeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -131,24 +123,22 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            const AssessmentSectionComposition assessmentSectionComposition = AssessmentSectionComposition.DikeAndDune;
+            const AssessmentSectionComposition composition = AssessmentSectionComposition.DikeAndDune;
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.Composition).Return(assessmentSectionComposition);
+            assessmentSection.Stub(section => section.Composition).Return(composition);
             var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            var properties = new AssessmentSectionCompositionProperties(
-                assessmentSection,
-                assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionCompositionProperties(assessmentSection, assessmentSectionChangeHandler);
 
             // Assert
-            Assert.AreEqual(assessmentSectionComposition, properties.AssessmentSectionComposition);
+            Assert.AreEqual(composition, properties.Composition);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenAssessmentSectionComposition_WhenConfirmingCompositionValueChange_ThenAssessmentSectionCompositionSetAndNotifiesObserver()
+        public void GivenAssessmentSectionCompositionProperties_WhenConfirmingCompositionValueChange_ThenCompositionSetAndNotifiesObserver()
         {
             // Given
             const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;
@@ -164,9 +154,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
-            var properties = new AssessmentSectionCompositionProperties(
-                assessmentSection,
-                compositionChangeHandler);
+            var properties = new AssessmentSectionCompositionProperties(assessmentSection, compositionChangeHandler);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -176,16 +164,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // When
             const AssessmentSectionComposition newComposition = AssessmentSectionComposition.DikeAndDune;
-            properties.AssessmentSectionComposition = newComposition;
+            properties.Composition = newComposition;
 
             // Then
-            Assert.AreEqual(newComposition, properties.AssessmentSectionComposition);
+            Assert.AreEqual(newComposition, properties.Composition);
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenAssessmentSectionComposition_WhenCancelingCompositionValueChange_ThenDataSameObserversNotNotified()
+        public void GivenAssessmentSectionCompositionProperties_WhenCancelingCompositionValueChange_ThenDataSameAndObserversNotNotified()
         {
             // Given
             const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;
@@ -201,9 +189,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
-            var properties = new AssessmentSectionCompositionProperties(
-                assessmentSection,
-                compositionChangeHandler);
+            var properties = new AssessmentSectionCompositionProperties(assessmentSection, compositionChangeHandler);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -213,10 +199,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // When
             const AssessmentSectionComposition newComposition = AssessmentSectionComposition.DikeAndDune;
-            properties.AssessmentSectionComposition = newComposition;
+            properties.Composition = newComposition;
 
             // Then
-            Assert.AreEqual(originalComposition, properties.AssessmentSectionComposition);
+            Assert.AreEqual(originalComposition, properties.Composition);
             Assert.AreEqual(originalComposition, assessmentSection.Composition);
             mocks.VerifyAll();
         }
@@ -228,7 +214,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
-        public void AssessmentSectionComposition_CompositionValueChanges_NotifiesChangedObjectsInAssessmentSection(
+        public void Composition_ValueChanges_NotifiesChangedObjectsInAssessmentSection(
             AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
         {
             // Setup
@@ -251,12 +237,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                     });
             mocks.ReplayAll();
 
-            var properties = new AssessmentSectionCompositionProperties(
-                assessmentSection,
-                compositionChangeHandler);
+            var properties = new AssessmentSectionCompositionProperties(assessmentSection, compositionChangeHandler);
 
             // Call
-            properties.AssessmentSectionComposition = newComposition;
+            properties.Composition = newComposition;
 
             // Assert
             mocks.VerifyAll();

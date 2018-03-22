@@ -47,9 +47,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/> for which the properties are shown.</param>
         /// <param name="normChangeHandler">The <see cref="IObservablePropertyChangeHandler"/> for when the norm changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public NormProperties(
-            FailureMechanismContribution failureMechanismContribution,
-            IObservablePropertyChangeHandler normChangeHandler)
+        public NormProperties(FailureMechanismContribution failureMechanismContribution, IObservablePropertyChangeHandler normChangeHandler)
         {
             if (failureMechanismContribution == null)
             {

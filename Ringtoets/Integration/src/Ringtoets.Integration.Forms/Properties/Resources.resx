@@ -267,10 +267,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="WaveHeightCalculation_Result_DisplayName" xml:space="preserve">
     <value>Hs [m]</value>
   </data>
-  <data name="FailureMechanismContribution_Composition_Description" xml:space="preserve">
+  <data name="AssessmentSectionComposition_Composition_Description" xml:space="preserve">
     <value>Selecteer het type traject, bepalend voor de faalkansbegroting.</value>
   </data>
-  <data name="FailureMechanismContribution_Composition_DisplayName" xml:space="preserve">
+  <data name="AssessmentSectionComposition_Composition_DisplayName" xml:space="preserve">
     <value>Trajecttype</value>
   </data>
   <data name="FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_" xml:space="preserve">
