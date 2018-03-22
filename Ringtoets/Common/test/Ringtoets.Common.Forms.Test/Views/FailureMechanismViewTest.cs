@@ -50,14 +50,19 @@ namespace Ringtoets.Common.Forms.Test.Views
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
             // Call
-            using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(),
-                                                                             new ObservableTestAssessmentSectionStub()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IMapView>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
 
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);

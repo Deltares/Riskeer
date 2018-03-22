@@ -37,9 +37,6 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class FailureMechanismView<T> : UserControl, IMapView where T : IFailureMechanism
     {
-        private readonly T failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
-
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
@@ -71,8 +68,8 @@ namespace Ringtoets.Common.Forms.Views
 
             InitializeComponent();
 
-            this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
 
             failureMechanismObserver = new Observer(UpdateMapData)
             {
@@ -109,6 +106,16 @@ namespace Ringtoets.Common.Forms.Views
 
             ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
         }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public T FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
 
@@ -148,11 +155,11 @@ namespace Ringtoets.Common.Forms.Views
 
         private void SetMapDataFeatures()
         {
-            ReferenceLine referenceLine = assessmentSection.ReferenceLine;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
+            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
 
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, assessmentSection.Id, assessmentSection.Name);
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
