@@ -473,9 +473,9 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Overig ({0}).
         /// </summary>
-        public static string FailureMechanismProperties_Contribution_Other_0 {
+        public static string FailureMechanismProperties_Contribution_Other_Percentage_0 {
             get {
-                return ResourceManager.GetString("FailureMechanismProperties_Contribution_Other_0", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismProperties_Contribution_Other_Percentage_0", resourceCulture);
             }
         }
         

@@ -113,7 +113,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses.StandAlone
         {
             get
             {
-                return string.Format(Resources.FailureMechanismProperties_Contribution_Other_0,
+                return string.Format(Resources.FailureMechanismProperties_Contribution_Other_Percentage_0,
                     assessmentSection.FailureMechanismContribution.Distribution.Single(d => d.FailureMechanism is OtherFailureMechanism).Contribution);
             }
         }
