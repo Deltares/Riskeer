@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -71,21 +71,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
+            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
-                failureMechanism,
-                assessmentSection);
+                failureMechanism);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -260,21 +255,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
+            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
                 failureMechanism.SectionResults,
-                failureMechanism,
-                assessmentSection);
+                failureMechanism);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverSlipOffOutwardsResultView>(view);
-            mocks.VerifyAll();
         }
     }
 }

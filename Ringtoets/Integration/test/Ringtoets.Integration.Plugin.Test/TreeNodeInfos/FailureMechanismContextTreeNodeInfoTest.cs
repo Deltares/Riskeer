@@ -200,8 +200,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(typeof(DuneErosionFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(DuneErosionFailureMechanismSectionResult)")]
         [TestCase(typeof(GrassCoverSlipOffInwardsFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverSlipOffInwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionResult),
@@ -210,8 +208,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MicrostabilityFailureMechanismSectionResult)")]
         [TestCase(typeof(PipingStructureFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(PipingStructureFailureMechanismSectionResult)")]
-        [TestCase(typeof(StabilityStoneCoverFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StabilityStoneCoverFailureMechanismSectionResult)")]
         [TestCase(typeof(TechnicalInnovationFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(TechnicalInnovationFailureMechanismSectionResult)")]
         [TestCase(typeof(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult),

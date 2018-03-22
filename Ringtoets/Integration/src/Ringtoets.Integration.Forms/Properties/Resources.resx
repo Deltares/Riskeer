@@ -348,7 +348,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="ReferenceLineProperties_Geometry_Description" xml:space="preserve">
     <value>Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) die samen de referentielijn vormen.</value>
   </data>
-  <data name="FailureMechanismProperties_Contribution_Other" xml:space="preserve">
-    <value>Overig (30)</value>
+  <data name="FailureMechanismProperties_Contribution_Other_0" xml:space="preserve">
+    <value>Overig ({0})</value>
   </data>
 </root>

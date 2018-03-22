@@ -144,6 +144,9 @@
   <data name="ReferenceLine_DisplayName" xml:space="preserve">
     <value>Referentielijn</value>
   </data>
+  <data name="Norms_DisplayName" xml:space="preserve">
+    <value>Normen</value>
+  </data>
   <data name="DesignVariable_Distribution_must_be_set" xml:space="preserve">
     <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
   </data>

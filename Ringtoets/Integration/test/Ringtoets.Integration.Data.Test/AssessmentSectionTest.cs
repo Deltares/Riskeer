@@ -601,7 +601,7 @@ namespace Ringtoets.Integration.Data.Test
                         new Tuple<double, bool>(0, true),
                         new Tuple<double, bool>(0, true),
                         new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(0, false),
+                        new Tuple<double, bool>(4, false),
                         new Tuple<double, bool>(0, true),
                         new Tuple<double, bool>(0, true),
                         new Tuple<double, bool>(0, true),

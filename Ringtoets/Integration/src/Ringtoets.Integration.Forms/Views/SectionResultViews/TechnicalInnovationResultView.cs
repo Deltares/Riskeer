@@ -19,14 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Util;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.Builders;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
@@ -40,72 +35,70 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class TechnicalInnovationResultView : FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult,
         TechnicalInnovationSectionResultRow, TechnicalInnovationFailureMechanism>
     {
+        private const int simpleAssessmentResultIndex = 1;
+        private const int tailorMadeAssessmentResultIndex = 2;
+        private const int simpleAssemblyCategoryGroupIndex = 3;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 4;
+        private const int combinedAssemblyCategoryGroupIndex = 5;
+        private const int manualAssemblyCategoryGroupIndex = 7;
+
         /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="TechnicalInnovationResultView"/>.
         /// </summary>
-        public TechnicalInnovationResultView(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults,
-                                             TechnicalInnovationFailureMechanism failureMechanism)
+        public TechnicalInnovationResultView(
+            IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults,
+            TechnicalInnovationFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override TechnicalInnovationSectionResultRow CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult)
         {
-            return new TechnicalInnovationSectionResultRow(sectionResult);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            DataGridViewControl.CellFormatting -= OnCellFormatting;
-
-            base.Dispose(disposing);
+            return new TechnicalInnovationSectionResultRow(
+                sectionResult,
+                new TechnicalInnovationSectionResultRow.ConstructionProperties
+                {
+                    SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
+                    SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
+                    CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
+                    ManualAssemblyCategoryGroupIndex = manualAssemblyCategoryGroupIndex
+                });
         }
 
         protected override void AddDataGridColumns()
         {
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(TechnicalInnovationSectionResultRow.Name),
-                RingtoetsCommonFormsResources.Section_DisplayName,
-                true);
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(TechnicalInnovationSectionResultRow.Name));
 
-            EnumDisplayWrapper<SimpleAssessmentResultType>[] simpleAssessmentDataSource =
-                Enum.GetValues(typeof(SimpleAssessmentResultType))
-                    .OfType<SimpleAssessmentResultType>()
-                    .Select(sa => new EnumDisplayWrapper<SimpleAssessmentResultType>(sa))
-                    .ToArray();
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(TechnicalInnovationSectionResultRow.SimpleAssessmentResult));
 
-            DataGridViewControl.AddComboBoxColumn(
-                nameof(TechnicalInnovationSectionResultRow.SimpleAssessmentResult),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_SimpleAssessmentResult_DisplayName,
-                simpleAssessmentDataSource,
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.Value),
-                nameof(EnumDisplayWrapper<SimpleAssessmentResultType>.DisplayName));
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(TechnicalInnovationSectionResultRow.TailorMadeAssessmentResult));
 
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(TechnicalInnovationSectionResultRow.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
-        }
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(TechnicalInnovationSectionResultRow.SimpleAssemblyCategoryGroup));
 
-        protected override void BindEvents()
-        {
-            base.BindEvents();
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(TechnicalInnovationSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
-            DataGridViewControl.CellFormatting += OnCellFormatting;
-        }
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(TechnicalInnovationSectionResultRow.CombinedAssemblyCategoryGroup));
 
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex > SimpleAssessmentColumnIndex)
-            {
-                SimpleAssessmentResultType simpleAssessmentResult = GetDataAtRow(eventArgs.RowIndex).SimpleAssessmentResult;
-                if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult))
-                {
-                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-                else
-                {
-                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
-                }
-            }
+            FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(TechnicalInnovationSectionResultRow.UseManualAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(TechnicalInnovationSectionResultRow.ManualAssemblyCategoryGroup));
         }
     }
 }
