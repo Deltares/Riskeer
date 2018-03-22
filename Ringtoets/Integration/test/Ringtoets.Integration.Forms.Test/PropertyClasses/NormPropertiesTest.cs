@@ -90,11 +90,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismContribution>>(properties);
             Assert.AreSame(failureMechanismContribution, properties.Data);
 
-            TestHelper.AssertTypeConverter<FailureMechanismContributionProperties, NoProbabilityValueDoubleConverter>(
-                nameof(FailureMechanismContributionProperties.SignalingNorm));
-
-            TestHelper.AssertTypeConverter<FailureMechanismContributionProperties, NoProbabilityValueDoubleConverter>(
-                nameof(FailureMechanismContributionProperties.LowerLimitNorm));
+            TestHelper.AssertTypeConverter<NormProperties, NoProbabilityValueDoubleConverter>(
+                nameof(NormProperties.SignalingNorm));
+            TestHelper.AssertTypeConverter<NormProperties, NoProbabilityValueDoubleConverter>(
+                nameof(NormProperties.LowerLimitNorm));
             mocks.VerifyAll();
         }
 

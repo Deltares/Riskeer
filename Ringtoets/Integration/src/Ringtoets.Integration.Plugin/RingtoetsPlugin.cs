@@ -301,12 +301,10 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
+            yield return new PropertyInfo<FailureMechanismContributionContext, AssessmentSectionCompositionProperties>
             {
-                CreateInstance = context => new FailureMechanismContributionProperties(
-                    context.WrappedData,
+                CreateInstance = context => new AssessmentSectionCompositionProperties(
                     context.Parent,
-                    new FailureMechanismContributionNormChangeHandler(context.Parent),
                     new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
             };
             yield return new PropertyInfo<NormContext, NormProperties>

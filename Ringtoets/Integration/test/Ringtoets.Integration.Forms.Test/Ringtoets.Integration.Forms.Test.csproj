@@ -47,7 +47,7 @@
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ReferenceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\BackgroundDataPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesIntegrationTest.cs" />
+    <Compile Include="PropertyClasses\NormPropertiesIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContextTest.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
@@ -57,7 +57,7 @@
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismContributionPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\AssessmentSectionCompositionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismPropertiesTest.cs" />

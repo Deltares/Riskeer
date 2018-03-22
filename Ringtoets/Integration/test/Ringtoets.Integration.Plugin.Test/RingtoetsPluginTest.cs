@@ -248,7 +248,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(FailureMechanismContributionContext),
-                    typeof(FailureMechanismContributionProperties));
+                    typeof(AssessmentSectionCompositionProperties));
                 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

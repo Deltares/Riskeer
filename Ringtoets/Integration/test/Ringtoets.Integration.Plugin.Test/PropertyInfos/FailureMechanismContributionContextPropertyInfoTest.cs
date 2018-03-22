@@ -27,7 +27,6 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -48,7 +47,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(FailureMechanismContributionContext), info.DataType);
-                Assert.AreEqual(typeof(FailureMechanismContributionProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(AssessmentSectionCompositionProperties), info.PropertyObjectType);
             }
         }
 
@@ -69,8 +68,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             {
                 plugin.Gui = gui;
 
-                FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
-                var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
+                var context = new FailureMechanismContributionContext(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(),
+                                                                      assessmentSection);
 
                 PropertyInfo info = GetInfo(plugin);
 
@@ -78,8 +77,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismContributionProperties>(objectProperties);
-                Assert.AreSame(failureMechanismContribution, objectProperties.Data);
+                Assert.IsInstanceOf<AssessmentSectionCompositionProperties>(objectProperties);
+                Assert.AreSame(assessmentSection, objectProperties.Data);
             }
 
             mocks.VerifyAll();
@@ -87,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismContributionProperties));
+            return plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(AssessmentSectionCompositionProperties));
         }
     }
 }
