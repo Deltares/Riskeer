@@ -2485,6 +2485,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Normen.
+        /// </summary>
+        public static string Norms_DisplayName {
+            get {
+                return ResourceManager.GetString("Norms_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap NormsIcon {

@@ -714,7 +714,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<NormContext>
             {
-                Text = context => RingtoetsCommonDataResources.Norms_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.Norms_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.NormsIcon,
                 ContextMenuStrip = NormContextMenuStrip
             };

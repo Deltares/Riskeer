@@ -1396,4 +1396,7 @@ Cat. IVv - Vv</value>
 per vak
 Cat. Vv - VIv</value>
   </data>
+  <data name="Norms_DisplayName" xml:space="preserve">
+    <value>Normen</value>
+  </data>
 </root>
