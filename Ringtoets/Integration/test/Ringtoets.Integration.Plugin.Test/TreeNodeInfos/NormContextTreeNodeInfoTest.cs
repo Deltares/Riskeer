@@ -37,20 +37,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class NormContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -75,16 +65,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -95,16 +81,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Normen", text);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnsNormsIcon()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -115,14 +97,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.NormsIcon, image);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new NormContext(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(),
                                           assessmentSection);
