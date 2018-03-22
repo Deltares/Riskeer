@@ -43,8 +43,8 @@ namespace Application.Ringtoets.Storage.DbContext
         }
 
         public long HydraulicLocationCalculationEntityId { get; set; }
-        public byte ShouldIllustrationPointsBeCalculated { get; set; }
         public long HydraulicLocationEntityId { get; set; }
+        public byte ShouldIllustrationPointsBeCalculated { get; set; }
 
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
 

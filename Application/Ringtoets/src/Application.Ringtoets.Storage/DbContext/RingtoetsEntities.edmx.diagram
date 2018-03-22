@@ -4,203 +4,149 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-<<<<<<< HEAD
-      <Diagram DiagramId="143406871b624a3080def7c3c31a548f" Name="Diagram1" ZoomLevel="11" ShowGrid="false" DisplayType="false">
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-=======
       <Diagram DiagramId="143406871b624a3080def7c3c31a548f" Name="Diagram1" ZoomLevel="34" ShowGrid="false" DisplayType="false">
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" Width="1.5" PointX="3" PointY="113.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.BackgroundDataEntity" Width="1.5" PointX="5.25" PointY="243.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.BackgroundDataMetaEntity" Width="1.5" PointX="7.5" PointY="243.75" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.CalculationGroupEntity" Width="1.5" PointX="6" PointY="106.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructureEntity" Width="1.5" PointX="10.5" PointY="174.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresCalculationEntity" Width="1.5" PointX="15.75" PointY="143.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="81.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresOutputEntity" Width="1.5" PointX="21" PointY="147.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity" Width="1.5" PointX="21" PointY="126.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DikeProfileEntity" Width="1.5" PointX="10.5" PointY="72.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneErosionFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="157" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneErosionSectionResultEntity" Width="1.5" PointX="12.75" PointY="89.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneLocationEntity" Width="1.5" PointX="10.5" PointY="134" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneLocationOutputEntity" Width="1.5" PointX="12.75" PointY="134.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" Width="1.5" PointX="8.25" PointY="112.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Width="1.5" PointX="10.5" PointY="103.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" Width="1.5" PointX="15.75" PointY="44.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ForeshoreProfileEntity" Width="1.5" PointX="10.5" PointY="151.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Width="1.5" PointX="15.75" PointY="82.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Width="1.5" PointX="10.5" PointY="87.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Width="1.5" PointX="15.75" PointY="92.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsDikeHeightOutputEntity" Width="1.5" PointX="23.25" PointY="94.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="159.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity" Width="1.5" PointX="18" PointY="93.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity" Width="1.5" PointX="23.25" PointY="90.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" Width="1.5" PointX="18" PointY="99.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="69.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Width="1.5" PointX="10.5" PointY="77.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Width="1.5" PointX="12.75" PointY="77.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity" Width="1.5" PointX="12.75" PointY="124.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Width="1.5" PointX="15.75" PointY="114.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" Width="1.5" PointX="18" PointY="114.75" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" Width="1.5" PointX="12.75" PointY="113.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity" Width="1.5" PointX="12.75" PointY="119" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructureEntity" Width="1.5" PointX="10.5" PointY="145.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresCalculationEntity" Width="1.5" PointX="18.75" PointY="134.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="130.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresOutputEntity" Width="1.5" PointX="21" PointY="136.75" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" Width="1.5" PointX="15.75" PointY="105.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraRingPreprocessorEntity" Width="1.5" PointX="5.25" PointY="246.75" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Width="1.5" PointX="3" PointY="109.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" Width="1.5" PointX="5.25" PointY="112.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" Width="1.5" PointX="15.75" PointY="88.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.IllustrationPointResultEntity" Width="1.5" PointX="3" PointY="8.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Width="1.5" PointX="21" PointY="97.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationOutputEntity" Width="1.5" PointX="23.25" PointY="98.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" Width="1.5" PointX="12.75" PointY="60.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="84.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsPreconsolidationStressEntity" Width="1.5" PointX="15.75" PointY="164.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity" Width="1.5" PointX="12.75" PointY="110.375" />
         <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSemiProbabilisticOutputEntity" Width="1.5" PointX="23.25" PointY="107.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerOneDEntity" Width="1.5" PointX="15.75" PointY="168" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" Width="1.5" PointX="15.75" PointY="156.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" Width="1.5" PointX="13.5" PointY="158" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" Width="1.5" PointX="13.5" PointY="160.75" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Width="1.5" PointX="15.75" PointY="139" />
         <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacrostabilityOutwardsSectionResultEntity" Width="1.5" PointX="12.75" PointY="101.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" Width="1.5" PointX="12.75" PointY="130.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" Width="1.5" PointX="18" PointY="103.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCalculationOutputEntity" Width="1.5" PointX="20.25" PointY="113.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCharacteristicPointEntity" Width="1.5" PointX="12.75" PointY="63.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="66.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSectionResultEntity" Width="1.5" PointX="12.75" PointY="104.5" />
         <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSemiProbabilisticOutputEntity" Width="1.5" PointX="20.25" PointY="91.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSoilLayerEntity" Width="1.5" PointX="12.75" PointY="164.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSoilProfileEntity" Width="1.5" PointX="10.5" PointY="126.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStochasticSoilProfileEntity" Width="1.5" PointX="12.75" PointY="139.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStructureSectionResultEntity" Width="1.5" PointX="12.75" PointY="87" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ProjectEntity" Width="1.5" PointX="0.75" PointY="114.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructureEntity" Width="1.5" PointX="10.5" PointY="162.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresCalculationEntity" Width="1.5" PointX="12.75" PointY="142.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="142.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresOutputEntity" Width="1.5" PointX="18" PointY="148.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresSectionResultEntity" Width="1.5" PointX="15.75" PointY="101.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="54.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverSectionResultEntity" Width="1.5" PointX="12.75" PointY="116" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" Width="1.5" PointX="15.75" PointY="125.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsOutputEntity" Width="1.5" PointX="18" PointY="126.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StochastEntity" Width="1.5" PointX="13.5" PointY="82.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StochasticSoilModelEntity" Width="1.5" PointX="10.5" PointY="139.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StrengthStabilityLengthwiseConstructionSectionResultEntity" Width="1.5" PointX="12.75" PointY="92.875" />
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 1579
+        
+        
+        
+        
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_8_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_1_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_2_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_3_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_4_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_5_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_6_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_7_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingSemiProbabilisticOutputEntity_0_0" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" Width="1.5" PointX="3" PointY="106.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.BackgroundDataEntity" Width="1.5" PointX="5.25" PointY="232.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.BackgroundDataMetaEntity" Width="1.5" PointX="7.5" PointY="233.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.CalculationGroupEntity" Width="1.5" PointX="3" PointY="101.5" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructureEntity" Width="1.5" PointX="7.5" PointY="51" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresCalculationEntity" Width="1.5" PointX="12.75" PointY="136.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="102.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresOutputEntity" Width="1.5" PointX="18" PointY="141.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity" Width="1.5" PointX="15" PointY="113" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DikeProfileEntity" Width="1.5" PointX="7.5" PointY="123" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneErosionFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="127.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneErosionSectionResultEntity" Width="1.5" PointX="9.75" PointY="76.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneLocationEntity" Width="1.5" PointX="7.5" PointY="109.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneLocationOutputEntity" Width="1.5" PointX="9.75" PointY="109.5" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" Width="1.5" PointX="5.25" PointY="106.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Width="1.5" PointX="7.5" PointY="80.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" Width="1.5" PointX="15.75" PointY="78" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ForeshoreProfileEntity" Width="1.5" PointX="7.5" PointY="145.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Width="1.5" PointX="15.75" PointY="149.625" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Width="1.5" PointX="7.5" PointY="98.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Width="1.5" PointX="9.75" PointY="173.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsDikeHeightOutputEntity" Width="1.5" PointX="18.25" PointY="174.625" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="106.5" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity" Width="1.5" PointX="12" PointY="174.625" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity" Width="1.5" PointX="18.25" PointY="170.625" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" Width="1.5" PointX="12" PointY="128.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="117.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Width="1.5" PointX="7.5" PointY="130.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Width="1.5" PointX="9.75" PointY="130.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="88.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Width="1.5" PointX="15.75" PointY="133.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" Width="1.5" PointX="18" PointY="134.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="82.5" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="103" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructureEntity" Width="1.5" PointX="7.5" PointY="59.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresCalculationEntity" Width="1.5" PointX="15.75" PointY="140.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="150.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresOutputEntity" Width="1.5" PointX="18" PointY="144.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" Width="1.5" PointX="12.75" PointY="78.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraRingPreprocessorEntity" Width="1.5" PointX="5.25" PointY="230.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Width="1.5" PointX="7.5" PointY="226.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" Width="1.5" PointX="5.25" PointY="225" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" Width="1.5" PointX="9.75" PointY="225.625" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.IllustrationPointResultEntity" Width="1.5" PointX="3" PointY="15.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Width="1.5" PointX="21" PointY="172.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationOutputEntity" Width="1.5" PointX="23.25" PointY="175" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" Width="1.5" PointX="9.75" PointY="143.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="120.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsPreconsolidationStressEntity" Width="1.5" PointX="12.75" PointY="157.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="91.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerOneDEntity" Width="1.5" PointX="12.75" PointY="121.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" Width="1.5" PointX="12.75" PointY="161.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" Width="1.5" PointX="10.5" PointY="157.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" Width="1.5" PointX="10.5" PointY="150.625" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Width="1.5" PointX="12.75" PointY="153.5" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" Width="1.5" PointX="9.75" PointY="94" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" Width="1.5" PointX="12" PointY="178.625" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCalculationOutputEntity" Width="1.5" PointX="14.25" PointY="169.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCharacteristicPointEntity" Width="1.5" PointX="9.75" PointY="140.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="114.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSectionResultEntity" Width="1.5" PointX="9.75" PointY="71.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSoilLayerEntity" Width="1.5" PointX="9.75" PointY="168.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSoilProfileEntity" Width="1.5" PointX="7.5" PointY="171.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStochasticSoilProfileEntity" Width="1.5" PointX="9.75" PointY="153.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStructureSectionResultEntity" Width="1.5" PointX="9.75" PointY="100" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ProjectEntity" Width="1.5" PointX="0.75" PointY="109.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructureEntity" Width="1.5" PointX="7.5" PointY="157" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresCalculationEntity" Width="1.5" PointX="15.75" PointY="174.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="137.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresOutputEntity" Width="1.5" PointX="18" PointY="180.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresSectionResultEntity" Width="1.5" PointX="12.75" PointY="82.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="169" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverSectionResultEntity" Width="1.5" PointX="9.75" PointY="85.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" Width="1.5" PointX="9.75" PointY="184.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsOutputEntity" Width="1.5" PointX="12" PointY="191.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StochastEntity" Width="1.5" PointX="13.5" PointY="149.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StochasticSoilModelEntity" Width="1.5" PointX="7.5" PointY="153.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StrengthStabilityLengthwiseConstructionSectionResultEntity" Width="1.5" PointX="9.75" PointY="79.75" />
         <EntityTypeShape EntityType="RingtoetsEntitiesModel.SubMechanismIllustrationPointEntity" Width="1.5" PointX="0.75" PointY="6.625" />
         <EntityTypeShape EntityType="RingtoetsEntitiesModel.SubMechanismIllustrationPointStochastEntity" Width="1.5" PointX="3" PointY="5.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.SurfaceLineEntity" Width="1.5" PointX="10.5" PointY="61.25" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TechnicalInnovationSectionResultEntity" Width="1.5" PointX="12.75" PointY="127.5" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TopLevelFaultTreeIllustrationPointEntity" Width="1.5" PointX="18" PointY="63.375" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TopLevelSubMechanismIllustrationPointEntity" Width="1.5" PointX="12.75" PointY="46.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.SurfaceLineEntity" Width="1.5" PointX="7.5" PointY="141.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TechnicalInnovationSectionResultEntity" Width="1.5" PointX="9.75" PointY="74.125" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TopLevelFaultTreeIllustrationPointEntity" Width="1.5" PointX="18" PointY="114" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TopLevelSubMechanismIllustrationPointEntity" Width="1.5" PointX="9.75" PointY="52.625" />
         <EntityTypeShape EntityType="RingtoetsEntitiesModel.VersionEntity" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaterPressureAsphaltCoverSectionResultEntity" Width="1.5" PointX="12.75" PointY="121.875" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="57.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity" Width="1.5" PointX="12.75" PointY="95.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Width="1.5" PointX="15.75" PointY="131.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsOutputEntity" Width="1.5" PointX="18" PointY="143.375" />
->>>>>>> 1579
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaterPressureAsphaltCoverSectionResultEntity" Width="1.5" PointX="9.75" PointY="105.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="134.5" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity" Width="1.5" PointX="9.75" PointY="65.375" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Width="1.5" PointX="12.75" PointY="184.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsOutputEntity" Width="1.5" PointX="15" PointY="189.5" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_BackgroundDataEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraRingPreprocessorEntity_0_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_8_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_BackgroundDataMetaEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_3_0" />
@@ -236,9 +182,7 @@
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingStructureFailureMechanismMetaEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_StabilityPointStructureEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_StabilityStoneCoverFailureMechanismMetaEntity_0_0" />
@@ -251,7 +195,6 @@
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_1_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsSectionResultEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingSectionResultEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingStructureSectionResultEntity_0_0" />
@@ -289,14 +232,7 @@
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HeightStructuresOutputEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_0_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_1_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_2_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_3_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_4_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_5_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_6_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_7_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationCalculationEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_2_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" />
@@ -307,7 +243,6 @@
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_1_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationOutputEntity_0_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCharacteristicPointEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsPreconsolidationStressEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSoilLayerOneDEntity_0_0" />
@@ -318,7 +253,6 @@
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingCalculationOutputEntity_0_0" />
-        <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingSemiProbabilisticOutputEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingCharacteristicPointEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingSoilLayerEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingStochasticSoilProfileEntity_1_0" />
@@ -335,100 +269,100 @@
         <AssociationConnector Association="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointStochastEntity" />
         <AssociationConnector Association="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointStochastEntity" />
         <AssociationConnector Association="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity" />
-      </Diagram>
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" Width="1.5" PointX="5.0796132223120019" PointY="8.7095911394383716" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.BackgroundDataEntity" Width="1.5" PointX="3.5017745604281196" PointY="29.866345255573442" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.BackgroundDataMetaEntity" Width="1.5" PointX="11.023690334997927" PointY="27.931132642520186" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.CalculationGroupEntity" Width="1.5" PointX="11.503664424411795" PointY="18.466286399618856" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructureEntity" Width="1.5" PointX="8.5114777984616712" PointY="13.892514712127165" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresCalculationEntity" Width="1.5" PointX="0.54642696331554419" PointY="20.893175805403466" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresFailureMechanismMetaEntity" Width="1.5" PointX="2.5777894177370655" PointY="25.461649832065053" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresOutputEntity" Width="1.5" PointX="9.7791262575328" PointY="6.3540639459872912" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity" Width="1.5" PointX="9.1364867804276244" PointY="15.076071552502025" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DikeProfileEntity" Width="1.5" PointX="3.9877425432148121" PointY="7.145963836063614" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneErosionFailureMechanismMetaEntity" Width="1.5" PointX="11.423357102751433" PointY="1.3657984590929926" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneErosionSectionResultEntity" Width="1.5" PointX="0.2875422724930301" PointY="15.967242918893343" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneLocationEntity" Width="1.5" PointX="2.7862946906994539" PointY="19.074759462417457" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneLocationOutputEntity" Width="1.5" PointX="11.356793934179839" PointY="1.8699145623808329" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" Width="1.5" PointX="3.463865229610291" PointY="26.864873779409042" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Width="1.5" PointX="3.5936990322515832" PointY="10.15030879254933" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" Width="1.5" PointX="8.5394022709407853" PointY="18.551820331510072" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ForeshoreProfileEntity" Width="1.5" PointX="8.4798212277143357" PointY="21.908030907580642" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Width="1.5" PointX="11.538988446602128" PointY="16.436147846484626" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Width="1.5" PointX="11.657081985686478" PointY="7.7768522388194" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Width="1.5" PointX="4.1963595469465291" PointY="29.411639093147421" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsDikeHeightOutputEntity" Width="1.5" PointX="8.2691257411004635" PointY="19.577354157146697" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsFailureMechanismMetaEntity" Width="1.5" PointX="0.19891578340852434" PointY="0.5038406106195602" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity" Width="1.5" PointX="0.35936259867593767" PointY="11.993424555283703" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity" Width="1.5" PointX="9.175414249848302" PointY="8.2175464519381265" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" Width="1.5" PointX="11.942999733585399" PointY="9.5654674812990557" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="4.1455115248195415" PointY="24.802397769318148" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Width="1.5" PointX="3.9436461161559659" PointY="12.179836800405679" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Width="1.5" PointX="2.9785544047963595" PointY="25.370822575581641" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity" Width="1.5" PointX="8.413584780140587" PointY="10.321748097577014" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Width="1.5" PointX="11.11738080676523" PointY="28.806523902717291" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" Width="1.5" PointX="3.4609921702467803" PointY="27.83240034982208" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" Width="1.5" PointX="1.6159939847961038" PointY="23.306829776292123" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity" Width="1.5" PointX="11.295538656085515" PointY="20.322284782455437" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructureEntity" Width="1.5" PointX="1.0682974593100592" PointY="4.1696391125068253" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresCalculationEntity" Width="1.5" PointX="2.8437855331431074" PointY="7.9278169013223687" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity" Width="1.5" PointX="5.996444846501781" PointY="2.8571278764200994" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresOutputEntity" Width="1.5" PointX="10.483376891577326" PointY="1.0506465141897305" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" Width="1.5" PointX="4.24304868105941" PointY="13.18942523616805" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraRingPreprocessorEntity" Width="1.5" PointX="5.7888003111764794" PointY="6.9262785645789835" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Width="1.5" PointX="6.79367219973061" PointY="18.291359269195869" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" Width="1.5" PointX="3.52580371104451" PointY="1.0194274936893151" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" Width="1.5" PointX="10.131327933692992" PointY="0.017729938038499066" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.IllustrationPointResultEntity" Width="1.5" PointX="11.660854272386457" PointY="29.969341619857282" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Width="1.5" PointX="3.0132865081603111" PointY="10.433019806832551" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationOutputEntity" Width="1.5" PointX="5.2369571855463821" PointY="5.3998132820240281" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" Width="1.5" PointX="9.7499706622911475" PointY="20.763803864253592" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" Width="1.5" PointX="3.7989387827920442" PointY="14.383768222473455" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsPreconsolidationStressEntity" Width="1.5" PointX="7.5683724896835036" PointY="26.218601626445821" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity" Width="1.5" PointX="5.7255138241339072" PointY="9.2236123127972771" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerOneDEntity" Width="1.5" PointX="0.89340157289682032" PointY="12.636015480680399" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" Width="1.5" PointX="3.4292367489213293" PointY="20.29813222042198" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" Width="1.5" PointX="0.23779438633369021" PointY="23.920182388238693" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" Width="1.5" PointX="9.5906054589853653" PointY="8.1975695230986787" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Width="1.5" PointX="10.817522271916978" PointY="9.4657431288928464" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="0.32439011909272064" PointY="26.753386509955575" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity" Width="1.5" PointX="3.725258154666637" PointY="15.509947515795915" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" Width="1.5" PointX="9.0769833368607724" PointY="11.354989548844745" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" Width="1.5" PointX="7.2766427524744728" PointY="8.209884960302098" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCalculationOutputEntity" Width="1.5" PointX="0.30582219749028894" PointY="4.2915873547511119" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCharacteristicPointEntity" Width="1.5" PointX="9.07920689372309" PointY="0.15209479637075904" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" Width="1.5" PointX="4.6075702852604774" PointY="24.415773417994274" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSectionResultEntity" Width="1.5" PointX="8.3266574816436787" PointY="2.1836148063575918" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSoilLayerEntity" Width="1.5" PointX="5.2229606757047407" PointY="27.226715726417822" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSoilProfileEntity" Width="1.5" PointX="9.2724841708654928" PointY="13.571903488399416" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStochasticSoilProfileEntity" Width="1.5" PointX="4.8256199531376458" PointY="17.09619485637927" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStructureFailureMechanismMetaEntity" Width="1.5" PointX="11.220520639429111" PointY="6.2131885170066674" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStructureSectionResultEntity" Width="1.5" PointX="1.7039528888202984" PointY="5.4804437186012249" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ProjectEntity" Width="1.5" PointX="3.4300229770271216" PointY="21.104011009030049" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructureEntity" Width="1.5" PointX="0.14449092379980297" PointY="3.0966921016092841" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresCalculationEntity" Width="1.5" PointX="2.4160432677790724" PointY="22.898041869931873" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" Width="1.5" PointX="0.42098083552950094" PointY="30.56968755953465" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresOutputEntity" Width="1.5" PointX="3.5879923084694854" PointY="19.211832651501442" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresSectionResultEntity" Width="1.5" PointX="10.299671826092373" PointY="10.489974250313814" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverFailureMechanismMetaEntity" Width="1.5" PointX="10.709443112234325" PointY="30.775513871934038" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverSectionResultEntity" Width="1.5" PointX="10.117270330953073" PointY="11.972441678853912" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" Width="1.5" PointX="9.5261534124268934" PointY="10.976449509605974" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsOutputEntity" Width="1.5" PointX="6.3796477235758893" PointY="2.2303093980207618" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StochastEntity" Width="1.5" PointX="0.13093551999467218" PointY="16.728857912462605" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StochasticSoilModelEntity" Width="1.5" PointX="11.285142101014564" PointY="30.450503557198914" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StrengthStabilityLengthwiseConstructionSectionResultEntity" Width="1.5" PointX="3.7471077198847698" PointY="30.348232164209815" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.SubMechanismIllustrationPointEntity" Width="1.5" PointX="5.8016044002965108" PointY="15.274822570045862" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.SubMechanismIllustrationPointStochastEntity" Width="1.5" PointX="10.724033720197172" PointY="15.768845461201316" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.SurfaceLineEntity" Width="1.5" PointX="10.81199930180423" PointY="3.7208332287710313" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TechnicalInnovationSectionResultEntity" Width="1.5" PointX="4.11227742960317" PointY="18.724845179694167" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TopLevelFaultTreeIllustrationPointEntity" Width="1.5" PointX="0.82809810378965831" PointY="30.300369664235212" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TopLevelSubMechanismIllustrationPointEntity" Width="1.5" PointX="2.9342159363134837" PointY="29.71883375836482" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.VersionEntity" Width="1.5" PointX="11.193301990252595" PointY="1.3131765133296962" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaterPressureAsphaltCoverSectionResultEntity" Width="1.5" PointX="11.636054713109534" PointY="13.717166534493289" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverFailureMechanismMetaEntity" Width="1.5" PointX="5.5679227232783672" PointY="2.9925872995483629" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity" Width="1.5" PointX="2.5191837262917236" PointY="3.4379208848988267" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Width="1.5" PointX="11.500575285172356" PointY="25.951110583707276" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsOutputEntity" Width="1.5" PointX="6.9721934771967087" PointY="0.89587819617981013" />
+        </Diagram>
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" Width="1.5" PointX="10.509778098440627" PointY="23.508990790466306" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.BackgroundDataEntity" Width="1.5" PointX="11.831365814353976" PointY="22.990623380518809" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.BackgroundDataMetaEntity" Width="1.5" PointX="3.9990027975286373" PointY="29.220226480262461" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.CalculationGroupEntity" Width="1.5" PointX="2.020976007925801" PointY="11.869928901954522" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructureEntity" Width="1.5" PointX="1.0306107630164414" PointY="5.5266145344481874" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresCalculationEntity" Width="1.5" PointX="1.807019418946942" PointY="14.233228511285608" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresFailureMechanismMetaEntity" Width="1.5" PointX="9.72821751689921" PointY="16.424094863433435" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresOutputEntity" Width="1.5" PointX="4.2603338194360649" PointY="17.579986416539171" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity" Width="1.5" PointX="3.0812247000081578" PointY="4.251567887259446" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DikeProfileEntity" Width="1.5" PointX="10.31240579221044" PointY="7.7146710193318642" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneErosionFailureMechanismMetaEntity" Width="1.5" PointX="10.138000917685218" PointY="17.727182441264009" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneErosionSectionResultEntity" Width="1.5" PointX="1.0636778069025268" PointY="12.653261011770582" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneLocationEntity" Width="1.5" PointX="8.9897440695156074" PointY="4.6935725680988156" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DuneLocationOutputEntity" Width="1.5" PointX="7.7934354188821438" PointY="17.381662421571864" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" Width="1.5" PointX="9.14273915493057" PointY="10.758160521629341" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Width="1.5" PointX="11.013775974052855" PointY="21.3338819990558" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" Width="1.5" PointX="10.90905823135239" PointY="23.824276637204122" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ForeshoreProfileEntity" Width="1.5" PointX="0.33766066671240175" PointY="2.5312823963031557" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Width="1.5" PointX="0.23311808902449818" PointY="0.69704438778434152" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Width="1.5" PointX="9.25084258860482" PointY="29.301472826535569" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Width="1.5" PointX="2.6996220567727565" PointY="14.87273672915657" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsDikeHeightOutputEntity" Width="1.5" PointX="6.4037025731074166" PointY="14.105262897026382" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsFailureMechanismMetaEntity" Width="1.5" PointX="9.3476053128706322" PointY="21.451443860983218" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOutputEntity" Width="1.5" PointX="11.032905634042297" PointY="1.8830783524937362" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity" Width="1.5" PointX="1.9163387426716922" PointY="14.15175556305412" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" Width="1.5" PointX="5.5613822962908923" PointY="4.4596454819942108" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="9.09126023812744" PointY="16.306865476214728" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Width="1.5" PointX="0.028733605532317241" PointY="10.298892487910992" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Width="1.5" PointX="7.7521937395223386" PointY="18.897047826506686" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity" Width="1.5" PointX="11.631739698178945" PointY="5.97043489197755" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Width="1.5" PointX="3.1641495112162783" PointY="20.007606932896937" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" Width="1.5" PointX="7.3084841833023741" PointY="23.990134846414502" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" Width="1.5" PointX="3.0587044763652163" PointY="15.484836451469379" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity" Width="1.5" PointX="6.4284024603797141" PointY="2.1176367411937735" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructureEntity" Width="1.5" PointX="5.8213749070751364" PointY="8.8296077888596844" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresCalculationEntity" Width="1.5" PointX="6.35937681717769" PointY="7.5195548122374127" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity" Width="1.5" PointX="4.3434953691174716" PointY="30.198275952692271" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresOutputEntity" Width="1.5" PointX="0.19337957547669279" PointY="12.161932384670681" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" Width="1.5" PointX="0.2439908423665868" PointY="20.731211254713688" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraRingPreprocessorEntity" Width="1.5" PointX="7.3973675665433358" PointY="2.521206991058405" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Width="1.5" PointX="2.7271840789947586" PointY="18.899416097858648" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" Width="1.5" PointX="4.6017846654177577" PointY="10.228882183427402" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" Width="1.5" PointX="10.472927899320112" PointY="24.910423782146733" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.IllustrationPointResultEntity" Width="1.5" PointX="10.908945511518487" PointY="12.783956474058309" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationEntity" Width="1.5" PointX="8.9053701334192272" PointY="22.601535956655415" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCalculationOutputEntity" Width="1.5" PointX="5.1970371590913444" PointY="13.724600410891977" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" Width="1.5" PointX="0.62965194724018314" PointY="18.698478677635304" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" Width="1.5" PointX="7.82390279873456" PointY="19.191385218497079" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsPreconsolidationStressEntity" Width="1.5" PointX="10.268792090131338" PointY="25.086405348538609" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity" Width="1.5" PointX="2.2307691100196769" PointY="9.4421110495189726" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerOneDEntity" Width="1.5" PointX="1.6158889874889932" PointY="27.303444949585685" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" Width="1.5" PointX="6.8847794751100153" PointY="28.28062885826483" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" Width="1.5" PointX="10.947531518967605" PointY="7.3107979778716334" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" Width="1.5" PointX="9.3288716866303574" PointY="26.045084682314229" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Width="1.5" PointX="5.9216949781038313" PointY="19.914690563415498" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="3.6180938406000349" PointY="31.941305384012548" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity" Width="1.5" PointX="11.689025368396671" PointY="28.496765537418781" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" Width="1.5" PointX="11.511729005496823" PointY="21.538315932051425" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" Width="1.5" PointX="2.9010679344185943" PointY="9.2604089720455978" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCalculationOutputEntity" Width="1.5" PointX="10.523372668085328" PointY="15.24612148816051" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingCharacteristicPointEntity" Width="1.5" PointX="6.8978681577825309" PointY="4.3584500869542593" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" Width="1.5" PointX="3.8887436445284376" PointY="24.922130462211616" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSectionResultEntity" Width="1.5" PointX="10.114065761731037" PointY="3.2337377682485329" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSoilLayerEntity" Width="1.5" PointX="2.1901811073488466" PointY="24.884175640011289" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingSoilProfileEntity" Width="1.5" PointX="3.5004506835250417" PointY="13.324293649440769" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStochasticSoilProfileEntity" Width="1.5" PointX="6.2919325541201667" PointY="7.5642368977722887" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStructureFailureMechanismMetaEntity" Width="1.5" PointX="5.5434351104979562" PointY="10.284202461263259" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.PipingStructureSectionResultEntity" Width="1.5" PointX="11.329563634157911" PointY="11.969045927733671" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ProjectEntity" Width="1.5" PointX="0.20250156158697866" PointY="15.990796916182523" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructureEntity" Width="1.5" PointX="4.888299299817672" PointY="20.617009753648663" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresCalculationEntity" Width="1.5" PointX="0.012537231674668022" PointY="3.0454366817350671" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" Width="1.5" PointX="10.872288699668035" PointY="3.8329631257024421" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresOutputEntity" Width="1.5" PointX="4.8574821431457451" PointY="13.917460373564373" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityPointStructuresSectionResultEntity" Width="1.5" PointX="5.4576997856878213" PointY="5.1823063218883734" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverFailureMechanismMetaEntity" Width="1.5" PointX="7.5002004986164161" PointY="31.325424864574067" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverSectionResultEntity" Width="1.5" PointX="4.2957015225178106" PointY="18.123036601637974" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" Width="1.5" PointX="10.884029337616651" PointY="22.702596138558629" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsOutputEntity" Width="1.5" PointX="8.6429234857870849" PointY="31.950587213016387" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StochastEntity" Width="1.5" PointX="6.3500482115661949" PointY="25.437281471415087" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StochasticSoilModelEntity" Width="1.5" PointX="0.49117006011827385" PointY="25.959679615665078" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.StrengthStabilityLengthwiseConstructionSectionResultEntity" Width="1.5" PointX="0.55136813435301568" PointY="31.992815524336329" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.SubMechanismIllustrationPointEntity" Width="1.5" PointX="6.2664560723427947" PointY="2.4668929588361146" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.SubMechanismIllustrationPointStochastEntity" Width="1.5" PointX="1.1760764071606455" PointY="2.084013343827805" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.SurfaceLineEntity" Width="1.5" PointX="6.4345544085067488" PointY="20.886531854461197" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TechnicalInnovationSectionResultEntity" Width="1.5" PointX="11.356723442374134" PointY="18.728898086924524" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TopLevelFaultTreeIllustrationPointEntity" Width="1.5" PointX="7.874366912932306" PointY="23.745384242267061" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.TopLevelSubMechanismIllustrationPointEntity" Width="1.5" PointX="10.584354064699427" PointY="7.4453173612455457" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.VersionEntity" Width="1.5" PointX="5.704758326385523" PointY="15.348878405685014" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaterPressureAsphaltCoverSectionResultEntity" Width="1.5" PointX="2.7621300829398123" PointY="6.53701992637339" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverFailureMechanismMetaEntity" Width="1.5" PointX="4.4883167801836121" PointY="13.053381657718393" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity" Width="1.5" PointX="7.7549518774053787" PointY="0.65817663104188473" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Width="1.5" PointX="1.8313653663878167" PointY="10.009110291492711" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsOutputEntity" Width="1.5" PointX="0.70090859602247768" PointY="30.655450209349137" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_1_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_2_0" />
