@@ -151,16 +151,15 @@ namespace Application.Ringtoets.Storage.Read
                                                                       IAssessmentSection assessmentSection,
                                                                       ReadConversionCollector collector)
         {
-            // TODO: WIT-1606 Finalize the ordering of where to map which calculation
-            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity2.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity3.Read(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity7.Read(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity6.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity5.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity4.Read(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, collector);
 
-            entity.HydraulicLocationCalculationCollectionEntity4.Read(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity5.Read(assessmentSection.WaveHeightCalculationsForSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity6.Read(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity7.Read(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity3.Read(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity2.Read(assessmentSection.WaveHeightCalculationsForSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, collector);
         }
 
         private static void ReadPipingFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)

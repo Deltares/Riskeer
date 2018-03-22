@@ -229,7 +229,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations.Single();
 
             HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForFactorizedSignalingNorm.Single();
-            HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity
+            HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity7
                                                                                           .HydraulicLocationCalculationEntities
                                                                                           .Single();
             AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
@@ -237,46 +237,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                                                        calculation);
 
             calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaterLevelCalculationsForLowerLimitNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity2
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaterLevelCalculationsForFactorizedLowerLimitNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity3
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaveHeightCalculationsForFactorizedSignalingNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity4
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaveHeightCalculationsForSignalingNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity5
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaveHeightCalculationsForLowerLimitNorm.Single();
             hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity6
                                                        .HydraulicLocationCalculationEntities
                                                        .Single();
@@ -284,8 +244,48 @@ namespace Application.Ringtoets.Storage.Test.Read
                                                        hydraulicBoundaryLocation,
                                                        calculation);
 
+            calculation = section.WaterLevelCalculationsForLowerLimitNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity5
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaterLevelCalculationsForFactorizedLowerLimitNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity4
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaveHeightCalculationsForFactorizedSignalingNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity3
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaveHeightCalculationsForSignalingNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity2
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
+            calculation = section.WaveHeightCalculationsForLowerLimitNorm.Single();
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
+                                                       .HydraulicLocationCalculationEntities
+                                                       .Single();
+            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
+                                                       hydraulicBoundaryLocation,
+                                                       calculation);
+
             calculation = section.WaveHeightCalculationsForFactorizedLowerLimitNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity7
+            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity
                                                        .HydraulicLocationCalculationEntities
                                                        .Single();
             AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,

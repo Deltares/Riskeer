@@ -142,15 +142,15 @@ namespace Application.Ringtoets.Storage.Create
 
         private static void AddHydraulicLocationCalculationEntities(AssessmentSection assessmentSection, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            // TODO: WIT-1606 Finalize the ordering of where to map which calculation
-            entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaterLevelCalculationsForSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity3 = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity4 = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity5 = assessmentSection.WaveHeightCalculationsForSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity6 = assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity7 = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity7 = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity6 = assessmentSection.WaterLevelCalculationsForSignalingNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity5 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity4 = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Create(registry);
+
+            entity.HydraulicLocationCalculationCollectionEntity3 = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity2 = assessmentSection.WaveHeightCalculationsForSignalingNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Create(registry);
         }
     }
 }
