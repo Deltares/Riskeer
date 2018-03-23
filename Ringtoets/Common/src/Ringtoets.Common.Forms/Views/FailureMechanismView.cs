@@ -40,7 +40,6 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
 
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
@@ -89,11 +88,6 @@ namespace Ringtoets.Common.Forms.Views
                 Observable = assessmentSection
             };
             hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
-            {
-                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl)
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
@@ -150,7 +144,6 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
-            hydraulicBoundaryLocationObserver.Dispose();
             waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
             waterLevelCalculationsForSignalingNormObserver.Dispose();
             waterLevelCalculationsForLowerLimitNormObserver.Dispose();
