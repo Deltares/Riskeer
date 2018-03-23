@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -82,15 +83,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartMultipleAreaData sliceShearStressChartData;
         private readonly ChartMultipleAreaData sliceLoadStressChartData;
 
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
         private readonly IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineExtremeLookup;
         private readonly IDictionary<MacroStabilityInwardsPhreaticLine, ChartLineData> phreaticLineDailyLookup;
         private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineExtremeLookup;
         private readonly IDictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData> waternetLineDailyLookup;
+
         private MacroStabilityInwardsCalculationScenario data;
-        private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
+        private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
 
         private MacroStabilityInwardsWaternet currentWaternetExtreme;
         private MacroStabilityInwardsWaternet currentWaternetDaily;
@@ -98,9 +102,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputChartControl"/>.
         /// </summary>
-        public MacroStabilityInwardsOutputChartControl()
+        /// <param name="data">The data to show in the view.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsOutputChartControl(MacroStabilityInwardsCalculationScenario data,
+                                                       Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
+            }
+
             InitializeComponent();
+
+            this.data = data;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.CalculationOutput_DisplayName);
             soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
@@ -189,6 +210,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             phreaticLineDailyLookup = new Dictionary<MacroStabilityInwardsPhreaticLine, ChartLineData>();
             waternetLineExtremeLookup = new Dictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData>();
             waternetLineDailyLookup = new Dictionary<MacroStabilityInwardsWaternetLine, ChartMultipleAreaData>();
+
+            UpdateChartData();
+
+            chartControl.Data = chartDataCollection;
         }
 
         public IChartControl Chart
@@ -208,9 +233,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             set
             {
                 data = value as MacroStabilityInwardsCalculationScenario;
-
-                chartControl.Data = data != null ? chartDataCollection : null;
-                UpdateChartData();
             }
         }
 

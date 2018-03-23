@@ -65,6 +65,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData leftGridChartData;
         private readonly ChartPointData rightGridChartData;
         private readonly ChartMultipleLineData tangentLinesData;
+
         private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
