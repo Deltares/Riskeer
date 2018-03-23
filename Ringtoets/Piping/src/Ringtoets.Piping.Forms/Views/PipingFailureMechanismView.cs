@@ -45,19 +45,6 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingFailureMechanismView : UserControl, IMapView
     {
-        private readonly Observer failureMechanismObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer surfaceLinesObserver;
-        private readonly Observer stochasticSoilModelsObserver;
-
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
-        private readonly RecursiveObserver<CalculationGroup, PipingInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> calculationObserver;
-        private readonly RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
-
-        private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
         private readonly MapLineData stochasticSoilModelsMapData;
@@ -66,6 +53,17 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData calculationsMapData;
+        private Observer failureMechanismObserver;
+        private Observer hydraulicBoundaryLocationsObserver;
+        private Observer assessmentSectionObserver;
+        private Observer surfaceLinesObserver;
+        private Observer stochasticSoilModelsObserver;
+
+        private RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+        private RecursiveObserver<CalculationGroup, PipingInput> calculationInputObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private RecursiveObserver<CalculationGroup, PipingCalculationScenario> calculationObserver;
+        private RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
 
         private PipingFailureMechanismContext data;
 
@@ -92,51 +90,9 @@ namespace Ringtoets.Piping.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            failureMechanismObserver = new Observer(UpdateMapData)
-            {
-                Observable = failureMechanism
-            };
-            assessmentSectionObserver = new Observer(UpdateMapData)
-            {
-                Observable = assessmentSection
-            };
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
-            {
-                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-            surfaceLinesObserver = new Observer(UpdateSurfaceLinesMapData)
-            {
-                Observable = failureMechanism.SurfaceLines
-            };
-            stochasticSoilModelsObserver = new Observer(UpdateStochasticSoilModelsMapData)
-            {
-                Observable = failureMechanism.StochasticSoilModels
-            };
+            CreateObservers();
 
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateHydraulicBoundaryLocationsMapData, hbl => hbl)
-            {
-                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
-                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)))
-            {
-                Observable = failureMechanism.CalculationsGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
-            {
-                Observable = failureMechanism.CalculationsGroup
-            };
-            calculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children)
-            {
-                Observable = failureMechanism.CalculationsGroup
-            };
-            surfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(UpdateSurfaceLinesMapData, rpslc => rpslc)
-            {
-                Observable = failureMechanism.SurfaceLines
-            };
-
-            mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
+            var mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
@@ -198,6 +154,53 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private void CreateObservers()
+        {
+            failureMechanismObserver = new Observer(UpdateMapData)
+            {
+                Observable = FailureMechanism
+            };
+            assessmentSectionObserver = new Observer(UpdateMapData)
+            {
+                Observable = AssessmentSection
+            };
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            surfaceLinesObserver = new Observer(UpdateSurfaceLinesMapData)
+            {
+                Observable = FailureMechanism.SurfaceLines
+            };
+            stochasticSoilModelsObserver = new Observer(UpdateStochasticSoilModelsMapData)
+            {
+                Observable = FailureMechanism.StochasticSoilModels
+            };
+
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateHydraulicBoundaryLocationsMapData, hbl => hbl)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
+                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)))
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            calculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children)
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            surfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(UpdateSurfaceLinesMapData, rpslc => rpslc)
+            {
+                Observable = FailureMechanism.SurfaceLines
+            };
         }
 
         private void UpdateMapData()
