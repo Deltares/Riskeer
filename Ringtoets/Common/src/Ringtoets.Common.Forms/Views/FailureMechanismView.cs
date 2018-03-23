@@ -48,6 +48,15 @@ namespace Ringtoets.Common.Forms.Views
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismView{T}"/>.
         /// </summary>
@@ -88,6 +97,15 @@ namespace Ringtoets.Common.Forms.Views
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
+
+            waterLevelCalculationsForFactorizedSignalingNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+            waterLevelCalculationsForSignalingNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForSignalingNorm);
+            waterLevelCalculationsForLowerLimitNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            waterLevelCalculationsForFactorizedLowerLimitNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            waveHeightCalculationsForFactorizedSignalingNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
+            waveHeightCalculationsForSignalingNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaveHeightCalculationsForSignalingNorm);
+            waveHeightCalculationsForLowerLimitNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            waveHeightCalculationsForFactorizedLowerLimitNormObserver = CreateHydraulicBoundaryLocationCalculationsObserver(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
 
             var mapDataCollection = new MapDataCollection(failureMechanism.Name);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -133,6 +151,14 @@ namespace Ringtoets.Common.Forms.Views
             assessmentSectionObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
             hydraulicBoundaryLocationObserver.Dispose();
+            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
+            waterLevelCalculationsForSignalingNormObserver.Dispose();
+            waterLevelCalculationsForLowerLimitNormObserver.Dispose();
+            waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
+            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
+            waveHeightCalculationsForSignalingNormObserver.Dispose();
+            waveHeightCalculationsForLowerLimitNormObserver.Dispose();
+            waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
 
             if (disposing)
             {
@@ -140,6 +166,16 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> CreateHydraulicBoundaryLocationCalculationsObserver(
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            return new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(
+                UpdateMapData, calc => calc)
+            {
+                Observable = calculations
+            };
         }
 
         private void UpdateMapData()
