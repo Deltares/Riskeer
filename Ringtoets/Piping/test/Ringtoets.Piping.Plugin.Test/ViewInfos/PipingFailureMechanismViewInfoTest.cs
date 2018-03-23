@@ -79,6 +79,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -95,17 +96,13 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = pipingFailureMechanismContext
-            })
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -122,14 +119,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var failureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = pipingFailureMechanismContext
-            })
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -144,16 +136,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var failureMechanism = new PipingFailureMechanism();
             var otherPipingFailureMechanism = new PipingFailureMechanism();
 
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = pipingFailureMechanismContext
-            })
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherPipingFailureMechanism);
@@ -168,14 +154,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var failureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = pipingFailureMechanismContext
-            })
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -213,9 +194,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnPipingFailureMechanismView()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
