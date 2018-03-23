@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -46,7 +47,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_ReturnsCategories()
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnsCategories()
         {
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub();
@@ -74,6 +75,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                 AssessmentSectionAssemblyCategoryGroup.B,
                 AssessmentSectionAssemblyCategoryGroup.C
             }, result.Select(r => r.Group));
+        }
+
+        [Test]
+        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnsCategories()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub();
+            calculator.AssessmentSectionCategoriesOutput = new[]
+            {
+                new AssessmentSectionAssemblyCategory(1, 2, AssessmentSectionAssemblyCategoryGroup.A),
+                new AssessmentSectionAssemblyCategory(4.01, 5, AssessmentSectionAssemblyCategoryGroup.D)
+            };
+
+            // Call
+            IEnumerable<AssessmentSectionAssemblyCategory> result = calculator.CalculateAssessmentSectionCategories(0, 0);
+
+            // Assert
+            Assert.AreSame(calculator.AssessmentSectionCategoriesOutput, result);
         }
 
         [Test]
