@@ -20,6 +20,7 @@
     <Compile Include="FailureMechanismSectionResultRowTestHelper.cs" />
     <Compile Include="CalculationsViewSynchronizationTester.cs" />
     <Compile Include="MapFeaturesTestHelper.cs" />
+    <Compile Include="MapViewTestHelper.cs" />
     <Compile Include="SetPropertyValueAfterConfirmationParameterTester.cs" />
     <Compile Include="ControlTestHelper.cs" />
     <Compile Include="DistributionPropertiesTestHelper.cs" />
