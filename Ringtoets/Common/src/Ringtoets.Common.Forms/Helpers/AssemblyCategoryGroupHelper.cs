@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Forms.Helpers
     public static class AssemblyCategoryGroupHelper
     {
         /// <summary>
-        /// Gets the color for a category group.
+        /// Gets the color for an assessment section assembly category group.
         /// </summary>
         /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
         /// <returns>The <see cref="Color"/> corresponding to the given category group.</returns>
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Forms.Helpers
         }
 
         /// <summary>
-        /// Gets the color for a category group.
+        /// Gets the color for a failure mechanism assembly category group.
         /// </summary>
         /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
         /// <returns>The <see cref="Color"/> corresponding to the given category group.</returns>

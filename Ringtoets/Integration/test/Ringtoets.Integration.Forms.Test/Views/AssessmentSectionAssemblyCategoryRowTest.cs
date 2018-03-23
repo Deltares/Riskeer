@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -63,6 +64,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(categoryGroup), categoryRow.Color);
             Assert.AreEqual(lowerBoundary, categoryRow.LowerBoundary);
             Assert.AreEqual(upperBoundary, categoryRow.UpperBoundary);
+
+            TestHelper.AssertTypeConverter<AssessmentSectionAssemblyCategoryRow,
+                NoProbabilityValueDoubleConverter>(
+                nameof(AssessmentSectionAssemblyCategoryRow.LowerBoundary));
+            TestHelper.AssertTypeConverter<AssessmentSectionAssemblyCategoryRow,
+                NoProbabilityValueDoubleConverter>(
+                nameof(AssessmentSectionAssemblyCategoryRow.UpperBoundary));
         }
     }
 }

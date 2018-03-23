@@ -30,7 +30,8 @@ using Ringtoets.Common.Data.Contribution;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// View for a collection of <see cref="AssessmentSectionAssemblyCategory"/>.
+    /// View for a <see cref="FailureMechanismContribution"/> to show 
+    /// a collection of <see cref="AssessmentSectionAssemblyCategory"/>.
     /// </summary>
     public partial class AssessmentSectionAssemblyCategoriesView : UserControl, IView
     {

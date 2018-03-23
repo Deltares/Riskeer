@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void GetAssessmentSectionAssemblyCategoryGroupColor_WithInvalidFailureMechanismSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
+        public void GetAssessmentSectionAssemblyCategoryGroupColor_WithInvalidAssessmentSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
         {
             // Call
             TestDelegate test = () => AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(
