@@ -305,13 +305,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
-                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
@@ -421,14 +414,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
-                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 // When

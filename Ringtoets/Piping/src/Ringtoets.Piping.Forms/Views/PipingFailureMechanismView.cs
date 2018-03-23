@@ -173,11 +173,11 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateMapData)
+            failureMechanismObserver = new Observer(UpdateSectionsMapData)
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateMapData)
+            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
             };
@@ -228,17 +228,6 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 Observable = FailureMechanism.SurfaceLines
             };
-        }
-
-        private void UpdateMapData()
-        {
-            UpdateCalculationsMapData();
-            UpdateHydraulicBoundaryLocationsMapData();
-            UpdateReferenceLineMapData();
-
-            UpdateSectionsMapData();
-            UpdateSurfaceLinesMapData();
-            UpdateStochasticSoilModelsMapData();
         }
 
         private void SetAllMapDataFeatures()
