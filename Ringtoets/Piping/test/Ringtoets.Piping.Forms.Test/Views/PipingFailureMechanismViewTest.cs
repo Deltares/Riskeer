@@ -65,19 +65,36 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new PipingFailureMechanismView(null);
+            TestDelegate call = () => new PipingFailureMechanismView(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PipingFailureMechanismView(new PipingFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -86,8 +103,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RingtoetsMapControl)view.Controls[0]).MapControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 Assert.IsNull(view.Map.Data);
             }
         }
@@ -96,7 +113,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_PipingFailureMechanismContext_DataSet()
         {
             // Setup
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -115,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_OtherThanPipingFailureMechanismContext_DataNull()
         {
             // Setup
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var data = new object();
 
@@ -131,7 +148,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -158,7 +175,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
             {
                 var failureMechanismContext = new PipingFailureMechanismContext(
                     new PipingFailureMechanism(), assessmentSection);
@@ -179,7 +196,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
             {
                 var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
@@ -202,7 +219,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
             {
                 view.Data = new PipingFailureMechanismContext(
                     new PipingFailureMechanism(), assessmentSection);
@@ -282,28 +299,28 @@ namespace Ringtoets.Piping.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism))
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0.0, 3.0),
+                new Point2D(3.0, 0.0)
+            });
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                    }
+                },
+                ReferenceLine = referenceLine
+            };
+
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var referenceLine = new ReferenceLine();
-                referenceLine.SetGeometry(new[]
-                {
-                    new Point2D(0.0, 3.0),
-                    new Point2D(3.0, 0.0)
-                });
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
-                        }
-                    },
-                    ReferenceLine = referenceLine
-                };
 
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -333,20 +350,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                    }
+                }
+            };
+
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-                        }
-                    }
-                };
 
                 view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
@@ -375,21 +392,21 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                }
+            };
+
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            hydraulicBoundaryLocation
-                        }
-                    }
-                };
 
                 var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
@@ -422,27 +439,21 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                ReferenceLine = referenceLine
+            };
+
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var points1 = new List<Point2D>
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                };
-
-                var points2 = new List<Point2D>
-                {
-                    new Point2D(2.0, 5.0),
-                    new Point2D(4.0, 3.0)
-                };
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    ReferenceLine = new ReferenceLine()
-                };
-                assessmentSection.ReferenceLine.SetGeometry(points1);
 
                 view.Data = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
@@ -464,7 +475,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // When
-                assessmentSection.ReferenceLine.SetGeometry(points2);
+                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                {
+                    new Point2D(2.0, 5.0),
+                    new Point2D(4.0, 3.0)
+                });
                 assessmentSection.NotifyObservers();
 
                 // Then
@@ -479,19 +494,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Given
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismView(failureMechanism))
+            using (var view = new PipingFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
                 var surfaceLine = new PipingSurfaceLine(string.Empty);
 
-                var geometry1 = new Collection<Point3D>
+                surfaceLine.SetGeometry(new Collection<Point3D>
                 {
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
-                };
-
-                surfaceLine.SetGeometry(geometry1);
+                });
 
                 view.Data = failureMechanismContext;
 
@@ -526,7 +539,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLine
             }, "path");
 
-            using (var view = new PipingFailureMechanismView(failureMechanism))
+            using (var view = new PipingFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
@@ -559,9 +572,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Given
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismView(failureMechanism))
+            using (var view = new PipingFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;                
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
@@ -603,7 +616,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
-            using (var view = new PipingFailureMechanismView(failureMechanism))
+            using (var view = new PipingFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -641,7 +654,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
-            using (var view = new PipingFailureMechanismView(failureMechanism))
+            using (var view = new PipingFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -714,7 +727,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism))
+            using (var view = new PipingFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -766,10 +779,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism))
+            using (var view = new PipingFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                
+
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
@@ -804,11 +817,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const int updatedStochasticSoilModelsLayerIndex = stochasticSoilModelsIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
 
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -902,7 +916,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var oldPipingFailureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), oldAssessmentSection);
             var newPipingFailureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), newAssessmentSection);
-            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), oldAssessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -934,6 +948,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 PipingSurfaceLine surfaceLine = surfaceLinesArray[index];
                 CollectionAssert.AreEquivalent(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)), surfaceLineFeatures[index].MapGeometries.First().PointCollections.First());
             }
+
             Assert.AreEqual("Profielschematisaties", mapData.Name);
         }
 
@@ -951,6 +966,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 PipingStochasticSoilModel stochasticSoilModel = stochasticSoilModelsArray[index];
                 CollectionAssert.AreEquivalent(stochasticSoilModel.Geometry.Select(p => new Point2D(p)), soilModelsFeatures[index].MapGeometries.First().PointCollections.First());
             }
+
             Assert.AreEqual("Stochastische ondergrondmodellen", mapData.Name);
         }
 
@@ -975,6 +991,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                                },
                                                geometries[0].PointCollections.First());
             }
+
             Assert.AreEqual("Berekeningen", mapData.Name);
         }
 

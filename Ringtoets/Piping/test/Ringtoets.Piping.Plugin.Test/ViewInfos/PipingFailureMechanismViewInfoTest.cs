@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism))
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 string viewName = info.GetViewName(view, pipingFailureMechanismContext);
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism)
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = pipingFailureMechanismContext
             })
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism)
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = pipingFailureMechanismContext
             })
@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism)
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = pipingFailureMechanismContext
             })
@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism)
+            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = pipingFailureMechanismContext
             })

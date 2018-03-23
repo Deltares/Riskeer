@@ -205,7 +205,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = ClosePipingFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
-                CreateInstance = context => new PipingFailureMechanismView(context.WrappedData)
+                CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new ViewInfo<
