@@ -17,8 +17,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FailureMechanismSectionResultRowTestHelperTest.cs" />
     <Compile Include="MapViewTestHelperTest.cs" />
+    <Compile Include="AssemblyCategoryGroupTestHelperTest.cs" />
     <Compile Include="SetPropertyValueAfterConfirmationParameterTesterTest.cs" />
     <Compile Include="ControlTestHelperTest.cs" />
     <Compile Include="DistributionPropertiesTestHelperTest.cs" />

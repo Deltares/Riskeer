@@ -34,26 +34,6 @@ namespace Ringtoets.Common.Forms.TestUtil
     public static class FailureMechanismSectionResultRowTestHelper
     {
         /// <summary>
-        /// Gets a collection of test cases to test the colors belonging to various
-        /// <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> values.
-        /// </summary>
-        public static IEnumerable<TestCaseData> CategoryGroupColorCases
-        {
-            get
-            {
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, Color.FromArgb(255, 255, 255));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.None, Color.FromArgb(255, 255, 255));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.Iv, Color.FromArgb(0, 255, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.IIv, Color.FromArgb(118, 147, 60));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.IIIv, Color.FromArgb(255, 255, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.IVv, Color.FromArgb(204, 192, 218));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.Vv, Color.FromArgb(255, 153, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.VIv, Color.FromArgb(255, 0, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.VIIv, Color.FromArgb(255, 255, 255));
-            }
-        }
-
-        /// <summary>
         /// Asserts the state of the <paramref name="columnStateDefinition"/>.
         /// </summary>
         /// <param name="columnStateDefinition">The <see cref="DataGridViewColumnStateDefinition"/>

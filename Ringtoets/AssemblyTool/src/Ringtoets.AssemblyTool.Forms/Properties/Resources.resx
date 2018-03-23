@@ -150,4 +150,19 @@
   <data name="SelectableFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName" xml:space="preserve">
     <value>NVT</value>
   </data>
+  <data name="DisplayAssessmentSectionAssemblyCategoryGroup_APlus_DisplayName" xml:space="preserve">
+    <value>A+</value>
+  </data>
+  <data name="DisplayAssessmentSectionAssemblyCategoryGroup_A_DisplayName" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="DisplayAssessmentSectionAssemblyCategoryGroup_B_DisplayName" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="DisplayAssessmentSectionAssemblyCategoryGroup_C_DisplayName" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="DisplayAssessmentSectionAssemblyCategoryGroup_D_DisplayName" xml:space="preserve">
+    <value>D</value>
+  </data>
 </root>

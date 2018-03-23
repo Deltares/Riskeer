@@ -87,22 +87,22 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsTrue(rowUpdateDone);
             mocks.VerifyAll();
         }
-    }
 
-    public class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResult>
-    {
-        public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
-
-        public bool Updated { get; private set; }
-
-        public void UpdateInternal()
+        private class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResult>
         {
-            UpdateInternalData();
-        }
+            public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
-        public override void Update()
-        {
-            Updated = true;
+            public bool Updated { get; private set; }
+
+            public void UpdateInternal()
+            {
+                UpdateInternalData();
+            }
+
+            public override void Update()
+            {
+                Updated = true;
+            }
         }
     }
 }

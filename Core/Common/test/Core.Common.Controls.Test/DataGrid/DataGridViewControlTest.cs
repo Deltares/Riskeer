@@ -608,17 +608,18 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                control.AddTextBoxColumn("Test property", "Test header");
-                control.SetDataSource(new[]
+                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test");
+                var dataSource = new[]
                 {
-                    "Test"
-                });
+                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Test")
+                };
+                control.SetDataSource(dataSource);
 
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
 
                 int initialWidth = dataGridViewCell.OwningColumn.Width;
-                dataGridViewCell.Value = "This is a long text.";
+                dataSource[0].TestString = "This is a long textwegawegwegwetawergawegawegtwaegwaeg.";
 
                 // Call
                 control.RefreshDataGridView();
@@ -638,31 +639,25 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                control.AddTextBoxColumn("Test property", "Test header");
-                control.SetDataSource(new[]
+                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test");
+                var dataSource = new[]
                 {
-                    "Test"
-                });
+                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "This is a long textwegawegwegwetawergawegawegtwaegwaeg.")
+                };
+                control.SetDataSource(dataSource);
 
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
 
                 int initialWidth = dataGridViewCell.OwningColumn.Width;
-                dataGridViewCell.Value = "This is a long text.";
-
-                control.RefreshDataGridView();
-
-                // Precondition
-                int longTextWidth = dataGridViewCell.OwningColumn.Width;
-                Assert.Greater(longTextWidth, initialWidth);
-
-                dataGridViewCell.Value = string.Empty;
+                dataSource[0].TestString = "Test";
 
                 // Call
                 control.RefreshDataGridView();
 
                 // Assert
-                Assert.Less(dataGridViewCell.OwningColumn.Width, longTextWidth);
+                int newTextWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Less(newTextWidth, initialWidth);
             }
         }
 
@@ -675,18 +670,18 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                control.AddTextBoxColumn("Test property", "Test header");
-
-                control.SetDataSource(new[]
+                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test");
+                var dataSource = new[]
                 {
-                    "Test"
-                });
+                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Test")
+                };
+                control.SetDataSource(dataSource);
 
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
 
                 int initialWidth = dataGridViewCell.OwningColumn.Width;
-                dataGridViewCell.Value = "This is a long text.";
+                dataSource[0].TestString = "This is a long textwegawegwegwetawergawegawegtwaegwaeg.";
 
                 // Call
                 control.AutoResizeColumns();
@@ -706,31 +701,25 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(control);
                 form.Show();
 
-                control.AddTextBoxColumn("Test property", "Test header");
-                control.SetDataSource(new[]
+                control.AddTextBoxColumn(nameof(TestDataGridViewMultipleColumnsRow.TestString), "Test");
+                var dataSource = new[]
                 {
-                    "Test"
-                });
+                    new TestDataGridViewMultipleColumnsRow(RoundedDouble.NaN, "Long test text abcd")
+                };
+                control.SetDataSource(dataSource);
 
                 DataGridViewCell dataGridViewCell = control.GetCell(0, 0);
                 control.SetCurrentCell(dataGridViewCell);
 
                 int initialWidth = dataGridViewCell.OwningColumn.Width;
-                dataGridViewCell.Value = "This is a long text.";
-
-                control.AutoResizeColumns();
-
-                // Precondition
-                int longTextWidth = dataGridViewCell.OwningColumn.Width;
-                Assert.Greater(longTextWidth, initialWidth);
-
-                dataGridViewCell.Value = string.Empty;
+                dataSource[0].TestString = "text";
 
                 // Call
                 control.AutoResizeColumns();
 
                 // Assert
-                Assert.Less(dataGridViewCell.OwningColumn.Width, longTextWidth);
+                int shortTextWidth = dataGridViewCell.OwningColumn.Width;
+                Assert.Less(shortTextWidth, initialWidth);
             }
         }
 
@@ -1306,7 +1295,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
             public RoundedDouble TestRoundedDouble { get; }
 
-            public string TestString { get; }
+            public string TestString { get; set; }
         }
 
         #region Event handling

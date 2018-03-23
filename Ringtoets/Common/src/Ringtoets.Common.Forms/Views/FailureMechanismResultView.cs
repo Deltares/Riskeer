@@ -43,7 +43,6 @@ namespace Ringtoets.Common.Forms.Views
         where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
         where TFailureMechanism : IFailureMechanism
     {
-        protected const int SimpleAssessmentColumnIndex = 1;
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
 
         private readonly Observer failureMechanismObserver;
@@ -108,7 +107,8 @@ namespace Ringtoets.Common.Forms.Views
         {
             base.OnLoad(e);
             AddDataGridColumns();
-            BindEvents();
+
+            DataGridViewControl.CellFormatting += HandleCellStyling;
 
             UpdateDataGridViewDataSource();
         }
@@ -163,27 +163,9 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets data that is visualized on the row a the given <paramref name="rowIndex"/>.
-        /// </summary>
-        /// <param name="rowIndex">The position of the row in the data source.</param>
-        /// <returns>The data bound to the row at index <paramref name="rowIndex"/>.</returns>
-        protected TSectionResultRow GetDataAtRow(int rowIndex)
-        {
-            return (TSectionResultRow) DataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem;
-        }
-
-        /// <summary>
         /// Adds the columns to the view.
         /// </summary>
         protected abstract void AddDataGridColumns();
-
-        /// <summary>
-        /// Binds the events to the data grid view.
-        /// </summary>
-        protected virtual void BindEvents()
-        {
-            DataGridViewControl.CellFormatting += HandleCellStyling;
-        }
 
         private void RemoveSectionResultRowEvents()
         {
@@ -207,7 +189,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            TSectionResultRow row = GetDataAtRow(e.RowIndex);
+            var row = (TSectionResultRow) DataGridViewControl.GetRowFromIndex(e.RowIndex).DataBoundItem;
 
             if (row.ColumnStateDefinitions.ContainsKey(e.ColumnIndex))
             {

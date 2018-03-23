@@ -82,6 +82,51 @@ namespace Ringtoets.AssemblyTool.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A.
+        /// </summary>
+        internal static string DisplayAssessmentSectionAssemblyCategoryGroup_A_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayAssessmentSectionAssemblyCategoryGroup_A_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A+.
+        /// </summary>
+        internal static string DisplayAssessmentSectionAssemblyCategoryGroup_APlus_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayAssessmentSectionAssemblyCategoryGroup_APlus_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to B.
+        /// </summary>
+        internal static string DisplayAssessmentSectionAssemblyCategoryGroup_B_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayAssessmentSectionAssemblyCategoryGroup_B_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C.
+        /// </summary>
+        internal static string DisplayAssessmentSectionAssemblyCategoryGroup_C_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayAssessmentSectionAssemblyCategoryGroup_C_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D.
+        /// </summary>
+        internal static string DisplayAssessmentSectionAssemblyCategoryGroup_D_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayAssessmentSectionAssemblyCategoryGroup_D_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string DisplayFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName {

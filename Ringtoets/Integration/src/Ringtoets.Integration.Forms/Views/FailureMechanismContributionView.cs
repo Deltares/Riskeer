@@ -110,7 +110,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             SetAssessmentSectionComposition();
             SetReturnPeriodText();
-            probabilityDistributionGrid.RefreshDataGridView();
+            SetGridDataSource();
         }
 
         /// <summary> 

@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Forms.Helpers
 
             columnStateDefinition.Style = new CellStyle(
                 Color.FromKnownColor(KnownColor.ControlText),
-                GetCategoryGroupColor(assemblyCategoryGroup));
+                AssemblyCategoryGroupHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup));
         }
 
         /// <summary>
@@ -234,47 +234,6 @@ namespace Ringtoets.Common.Forms.Helpers
                 assemblyCategoryGroup);
 
             return new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(displayCategoryGroup).DisplayName;
-        }
-
-        /// <summary>
-        /// Gets the color for a category group.
-        /// </summary>
-        /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
-        /// <returns>The <see cref="Color"/> corresponding to the given category group.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyCategoryGroup"/>
-        /// has an invalid value for <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyCategoryGroup"/>
-        /// is not supported.</exception>
-        private static Color GetCategoryGroupColor(FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
-        {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), assemblyCategoryGroup))
-            {
-                throw new InvalidEnumArgumentException(nameof(assemblyCategoryGroup),
-                                                       (int) assemblyCategoryGroup,
-                                                       typeof(FailureMechanismSectionAssemblyCategoryGroup));
-            }
-
-            switch (assemblyCategoryGroup)
-            {
-                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
-                    return Color.FromArgb(0, 255, 0);
-                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
-                    return Color.FromArgb(118, 147, 60);
-                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
-                    return Color.FromArgb(255, 255, 0);
-                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
-                    return Color.FromArgb(204, 192, 218);
-                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
-                    return Color.FromArgb(255, 153, 0);
-                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
-                    return Color.FromArgb(255, 0, 0);
-                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
-                case FailureMechanismSectionAssemblyCategoryGroup.None:
-                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
-                    return Color.FromArgb(255, 255, 255);
-                default:
-                    throw new NotSupportedException();
-            }
         }
 
         private static CalculationScenarioStatus GetCalculationStatus(ICalculation calculation,

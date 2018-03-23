@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.Views
@@ -79,6 +80,8 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Updates all data and states for the row.
         /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public abstract void Update();
 
         /// <summary>

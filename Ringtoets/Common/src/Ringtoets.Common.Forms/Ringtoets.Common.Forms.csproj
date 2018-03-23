@@ -30,6 +30,7 @@
     <Compile Include="Factories\RingtoetsStackChartDataFactory.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
+    <Compile Include="Helpers\AssemblyCategoryGroupHelper.cs" />
     <Compile Include="Helpers\ObserverHelper.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelper.cs" />
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
@@ -37,6 +38,7 @@
     <Compile Include="Helpers\ProbabilityFormattingHelper.cs" />
     <Compile Include="ImportInfos\RingtoetsImportInfoFactory.cs" />
     <Compile Include="IScenarioRow.cs" />
+    <Compile Include="PresentationObjects\NormContext.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationCalculationContext.cs" />
     <Compile Include="PresentationObjects\ICalculationContext.cs" />

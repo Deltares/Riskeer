@@ -54,11 +54,13 @@
     <Compile Include="Factories\RingtoetsGraphNodeFactoryTest.cs" />
     <Compile Include="Factories\RingtoetsStackChartDataFactoryTest.cs" />
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
+    <Compile Include="Helpers\AssemblyCategoryGroupHelperTest.cs" />
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ObserverHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelperTest.cs" />
     <Compile Include="ImportInfos\RingtoetsImportInfoFactoryTest.cs" />
+    <Compile Include="PresentationObjects\NormContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\IllustrationPointContextTest.cs" />
     <Compile Include="PresentationObjects\InputContextBaseTest.cs" />

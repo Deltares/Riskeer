@@ -71,10 +71,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult,
-                                                                        StabilityPointStructuresFailureMechanism failureMechanism,
-                                                                        IAssessmentSection assessmentSection,
-                                                                        ConstructionProperties constructionProperties)
+        internal StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult,
+                                                                          StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                          IAssessmentSection assessmentSection,
+                                                                          ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (failureMechanism == null)
@@ -289,9 +289,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             }
         }
 
-        /// <inheritdoc />
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
         public override void Update()
         {
             UpdateDerivedData();

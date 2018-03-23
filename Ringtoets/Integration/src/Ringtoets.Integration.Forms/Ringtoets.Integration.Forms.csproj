@@ -41,7 +41,8 @@
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationsProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationProperties.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismContributionProperties.cs" />
+    <Compile Include="PropertyClasses\NormProperties.cs" />
+    <Compile Include="PropertyClasses\AssessmentSectionCompositionProperties.cs" />
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\ReferenceLineProperties.cs" />
@@ -84,6 +85,16 @@
       <DependentUpon>DesignWaterLevelCalculationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\IAssessmentSectionCompositionChangeHandler.cs" />
+    <Compile Include="Views\AssessmentSectionAssemblyCategoryRow.cs" />
+    <Compile Include="Views\AssessmentSectionAssemblyCategoriesTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssessmentSectionAssemblyCategoriesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssessmentSectionAssemblyCategoriesView.Designer.cs">
+      <DependentUpon>AssessmentSectionAssemblyCategoriesView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffOutwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\MacroStabilityOutwardsSectionResultRow.cs" />
@@ -242,6 +253,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DesignWaterLevelCalculationsView.resx">
       <DependentUpon>DesignWaterLevelCalculationsView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssessmentSectionAssemblyCategoriesView.resx">
+      <DependentUpon>AssessmentSectionAssemblyCategoriesView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\WaveHeightCalculationsView.resx">
