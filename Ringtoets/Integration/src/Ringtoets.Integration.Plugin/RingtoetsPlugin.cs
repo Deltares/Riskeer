@@ -1294,6 +1294,8 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip NormContextMenuStrip(NormContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
         }
