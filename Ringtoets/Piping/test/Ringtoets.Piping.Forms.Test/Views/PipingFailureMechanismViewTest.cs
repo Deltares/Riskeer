@@ -63,10 +63,21 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int calculationsIndex = 7;
 
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PipingFailureMechanismView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -85,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_PipingFailureMechanismContext_DataSet()
         {
             // Setup
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -104,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_OtherThanPipingFailureMechanismContext_DataNull()
         {
             // Setup
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 var data = new object();
 
@@ -120,7 +131,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -147,7 +158,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 var failureMechanismContext = new PipingFailureMechanismContext(
                     new PipingFailureMechanism(), assessmentSection);
@@ -168,7 +179,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
@@ -191,7 +202,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
 
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 view.Data = new PipingFailureMechanismContext(
                     new PipingFailureMechanism(), assessmentSection);
@@ -213,17 +224,67 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_PipingFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            using (var view = new PipingFailureMechanismView())
+            PipingStochasticSoilModel stochasticSoilModel1 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name1", new[]
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(1.1, 2.2)
+            });
+
+            PipingStochasticSoilModel stochasticSoilModel2 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name2", new[]
+            {
+                new Point2D(3.0, 4.0),
+                new Point2D(3.3, 4.4)
+            });
+
+            var surfaceLineA = new PipingSurfaceLine("Line A");
+            surfaceLineA.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(3.0, 0.0, 1.7)
+            });
+
+            var surfaceLineB = new PipingSurfaceLine("Name B");
+            surfaceLineB.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.5),
+                new Point3D(3.0, 0.0, 1.8)
+            });
+            surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
+            surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
+
+            var failureMechanism = new PipingFailureMechanism();
+            const string arbitraryFilePath = "path";
+            var geometryPoints = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(2.0, 0.0),
+                new Point2D(4.0, 4.0),
+                new Point2D(6.0, 4.0)
+            };
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLineA,
+                surfaceLineB
+            }, arbitraryFilePath);
+            failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                stochasticSoilModel1,
+                stochasticSoilModel2
+            }, arbitraryFilePath);
+
+            PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+            PipingCalculationScenario calculationB = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculationB.InputParameters.SurfaceLine = surfaceLineB;
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+
+            using (var view = new PipingFailureMechanismView(failureMechanism))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var geometryPoints = new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(2.0, 0.0),
-                    new Point2D(4.0, 4.0),
-                    new Point2D(6.0, 4.0)
-                };
 
                 var referenceLine = new ReferenceLine();
                 referenceLine.SetGeometry(new[]
@@ -243,57 +304,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     },
                     ReferenceLine = referenceLine
                 };
-
-                PipingStochasticSoilModel stochasticSoilModel1 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name1", new[]
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(1.1, 2.2)
-                });
-
-                PipingStochasticSoilModel stochasticSoilModel2 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name2", new[]
-                {
-                    new Point2D(3.0, 4.0),
-                    new Point2D(3.3, 4.4)
-                });
-
-                var surfaceLineA = new PipingSurfaceLine("Line A");
-                surfaceLineA.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.0),
-                    new Point3D(3.0, 0.0, 1.7)
-                });
-
-                var surfaceLineB = new PipingSurfaceLine("Name B");
-                surfaceLineB.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.5),
-                    new Point3D(3.0, 0.0, 1.8)
-                });
-                surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
-                surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
-
-                var failureMechanism = new PipingFailureMechanism();
-                const string arbitraryFilePath = "path";
-                failureMechanism.SurfaceLines.AddRange(new[]
-                {
-                    surfaceLineA,
-                    surfaceLineB
-                }, arbitraryFilePath);
-                failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
-                failureMechanism.StochasticSoilModels.AddRange(new[]
-                {
-                    stochasticSoilModel1,
-                    stochasticSoilModel2
-                }, arbitraryFilePath);
-
-                PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
-                calculationA.InputParameters.SurfaceLine = surfaceLineA;
-                PipingCalculationScenario calculationB = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
-                calculationB.InputParameters.SurfaceLine = surfaceLineB;
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
-                failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -323,7 +333,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -365,7 +375,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -412,7 +422,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -467,10 +477,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithSurfaceLinesData_WhenSurfaceLinesUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
             // Given
-            using (var view = new PipingFailureMechanismView())
+            var failureMechanism = new PipingFailureMechanism();
+
+            using (var view = new PipingFailureMechanismView(failureMechanism))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
                 var surfaceLine = new PipingSurfaceLine(string.Empty);
 
@@ -508,15 +519,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithSurfaceLineData_WhenSurfaceLineUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
             // Given
-            using (var view = new PipingFailureMechanismView())
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+
+            using (var view = new PipingFailureMechanismView(failureMechanism))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var surfaceLine = new PipingSurfaceLine(string.Empty);
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.SurfaceLines.AddRange(new[]
-                {
-                    surfaceLine
-                }, "path");
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
@@ -545,11 +557,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new PipingFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+            var failureMechanism = new PipingFailureMechanism();
 
-                var failureMechanism = new PipingFailureMechanism();
+            using (var view = new PipingFailureMechanismView(failureMechanism))
+            {
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;                
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
@@ -590,11 +602,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithStochasticSoilModels_WhenStochasticSoilModelsUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
             // Given
-            using (var view = new PipingFailureMechanismView())
+            var failureMechanism = new PipingFailureMechanism();
+            using (var view = new PipingFailureMechanismView(failureMechanism))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
                 PipingStochasticSoilModel stochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("", new[]
                 {
@@ -628,11 +640,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new PipingFailureMechanismView())
+            var failureMechanism = new PipingFailureMechanism();
+            using (var view = new PipingFailureMechanismView(failureMechanism))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new PipingFailureMechanism();
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 var surfaceLineA = new PipingSurfaceLine(string.Empty);
@@ -680,31 +692,32 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new PipingFailureMechanismView())
+            var surfaceLineA = new PipingSurfaceLine(string.Empty);
+            surfaceLineA.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(3.0, 0.0, 1.7)
+            });
+
+            var surfaceLineB = new PipingSurfaceLine(string.Empty);
+            surfaceLineB.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.5),
+                new Point3D(3.0, 0.0, 1.8)
+            });
+            surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
+            surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
+
+            PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new PipingFailureMechanismView(failureMechanism))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var surfaceLineA = new PipingSurfaceLine(string.Empty);
-                surfaceLineA.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.0),
-                    new Point3D(3.0, 0.0, 1.7)
-                });
-
-                var surfaceLineB = new PipingSurfaceLine(string.Empty);
-                surfaceLineB.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.5),
-                    new Point3D(3.0, 0.0, 1.8)
-                });
-                surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
-                surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
-
-                PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
-                calculationA.InputParameters.SurfaceLine = surfaceLineA;
-
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
@@ -730,31 +743,33 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new PipingFailureMechanismView())
+
+            var surfaceLineA = new PipingSurfaceLine(string.Empty);
+            surfaceLineA.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(3.0, 0.0, 1.7)
+            });
+
+            var surfaceLineB = new PipingSurfaceLine(string.Empty);
+            surfaceLineB.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.5),
+                new Point3D(3.0, 0.0, 1.8)
+            });
+            surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
+            surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
+
+            PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new PipingFailureMechanismView(failureMechanism))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var surfaceLineA = new PipingSurfaceLine(string.Empty);
-                surfaceLineA.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.0),
-                    new Point3D(3.0, 0.0, 1.7)
-                });
-
-                var surfaceLineB = new PipingSurfaceLine(string.Empty);
-                surfaceLineB.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.5),
-                    new Point3D(3.0, 0.0, 1.8)
-                });
-                surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
-                surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
-
-                PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
-                calculationA.InputParameters.SurfaceLine = surfaceLineA;
-
-                var failureMechanism = new PipingFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+                
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
@@ -789,7 +804,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             const int updatedStochasticSoilModelsLayerIndex = stochasticSoilModelsIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
 
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -887,7 +902,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var oldPipingFailureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), oldAssessmentSection);
             var newPipingFailureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), newAssessmentSection);
-            using (var view = new PipingFailureMechanismView())
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
