@@ -28,13 +28,11 @@ using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -94,11 +92,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 nameof(NormProperties.SignalingNorm));
             TestHelper.AssertTypeConverter<NormProperties, NoProbabilityValueDoubleConverter>(
                 nameof(NormProperties.LowerLimitNorm));
+            TestHelper.AssertTypeConverter<NormProperties, EnumTypeConverter>(
+                nameof(NormProperties.NormativeNorm));
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithValidParameters_DataSet()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -130,7 +130,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.");
 
             PropertyDescriptor normativeNormProperty = dynamicProperties[2];
-            Assert.IsInstanceOf<EnumTypeConverter>(normativeNormProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normativeNormProperty,
                                                                             expectedCategory,
                                                                             "Norm van het dijktraject",
@@ -180,8 +179,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(Action<NormProperties> setProperty)
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             var mocks = new MockRepository();
             var observable = mocks.StrictMock<IObservable>();

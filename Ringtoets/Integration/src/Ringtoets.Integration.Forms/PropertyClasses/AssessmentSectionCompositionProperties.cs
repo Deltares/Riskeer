@@ -39,7 +39,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public class AssessmentSectionCompositionProperties : ObjectProperties<IAssessmentSection>
     {
         private readonly IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
-        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCompositionProperties"/>.
@@ -61,7 +60,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
             Data = assessmentSection;
             this.compositionChangeHandler = compositionChangeHandler;
-            this.assessmentSection = assessmentSection;
         }
 
         [PropertyOrder(1)]
@@ -73,13 +71,13 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return assessmentSection.Composition;
+                return data.Composition;
             }
             set
             {
                 if (compositionChangeHandler.ConfirmCompositionChange())
                 {
-                    IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(assessmentSection, value);
+                    IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(data, value);
                     foreach (IObservable changedObject in changedObjects)
                     {
                         changedObject.NotifyObservers();

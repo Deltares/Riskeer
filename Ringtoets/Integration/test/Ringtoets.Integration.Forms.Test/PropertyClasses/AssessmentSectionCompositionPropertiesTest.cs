@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithValidParameters_DataSet()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var mocks = new MockRepository();
