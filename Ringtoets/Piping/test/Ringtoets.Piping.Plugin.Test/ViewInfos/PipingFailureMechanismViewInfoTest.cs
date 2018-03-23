@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
@@ -61,7 +62,6 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(PipingFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(PipingFailureMechanismContext), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]
@@ -72,16 +72,23 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
-            {
-                // Call
-                string viewName = info.GetViewName(view, pipingFailureMechanismContext);
+            // Call
+            string viewName = info.GetViewName(null, context);
 
-                // Assert
-                Assert.AreEqual(failureMechanism.Name, viewName);
-            }
+            // Assert
+            Assert.AreEqual(failureMechanism.Name, viewName);
+        }
+
+        [Test]
+        public void Image_Always_ReturnsGenericInputOutputIcon()
+        {
+            // Call
+            Image image = info.Image;
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -106,6 +113,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
