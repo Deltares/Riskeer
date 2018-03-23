@@ -102,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputChartControl"/>.
         /// </summary>
-        /// <param name="data">The data to show in the view.</param>
+        /// <param name="data">The calculation to show the output for.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsOutputChartControl(MacroStabilityInwardsCalculationScenario data,
@@ -301,7 +301,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 SetSoilProfileChartData();
             }
 
-            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, RoundedDouble.NaN));
+            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, GetEffectiveAssessmentLevel()));
             SetWaternetDailyChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(input));
 
             if (data.Output != null)
@@ -468,6 +468,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 chartData.Add(waternetLineChartData);
                 waternetLineLookup.Add(waternetLine, waternetLineChartData);
             }
+        }
+
+        private RoundedDouble GetEffectiveAssessmentLevel()
+        {
+            return data.InputParameters.UseAssessmentLevelManualInput
+                       ? data.InputParameters.AssessmentLevel
+                       : getNormativeAssessmentLevelFunc();
         }
     }
 }

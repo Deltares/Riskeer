@@ -81,7 +81,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputView"/>.
         /// </summary>
-        /// <param name="data">The data to show in the view.</param>
+        /// <param name="data">The calculation to show the input for.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsInputView(MacroStabilityInwardsCalculationScenario data,
