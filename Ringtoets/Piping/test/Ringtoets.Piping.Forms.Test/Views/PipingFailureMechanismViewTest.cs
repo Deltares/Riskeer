@@ -254,6 +254,35 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+        {
+            // Given
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+
+            using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl)view.Controls[0]).MapControl;
+
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+
+                // When
+                HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+                calculation.Output = new TestHydraulicBoundaryLocationOutput(new Random(21).NextDouble());
+                calculation.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+            }
+        }
+
+        [Test]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
