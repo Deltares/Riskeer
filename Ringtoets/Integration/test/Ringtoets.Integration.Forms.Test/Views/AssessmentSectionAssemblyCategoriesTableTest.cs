@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Forms.Views;
 
@@ -164,8 +163,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     AssessmentSectionAssemblyCategory category = categories[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
 
-                    Assert.AreEqual(new EnumDisplayWrapper<DisplayAssessmentSectionAssemblyCategoryGroup>(
-                                        DisplayAssessmentSectionAssemblyCategoryGroupConverter.Convert(category.Group)).DisplayName, rowCells[categoryGroupColumnIndex].Value);
+                    Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(category.Group).DisplayName, rowCells[categoryGroupColumnIndex].Value);
                     Assert.AreEqual(AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group), rowCells[colorColumnIndex].Value);
                     Assert.AreEqual(category.LowerBoundary, rowCells[lowerBoundaryColumnIndex].Value);
                     Assert.AreEqual(category.UpperBoundary, rowCells[upperBoundaryColumnIndex].Value);

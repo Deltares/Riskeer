@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 
@@ -48,8 +47,7 @@ namespace Ringtoets.Integration.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSectionAssemblyCategory));
             }
 
-            Group = new EnumDisplayWrapper<DisplayAssessmentSectionAssemblyCategoryGroup>(
-                DisplayAssessmentSectionAssemblyCategoryGroupConverter.Convert(assessmentSectionAssemblyCategory.Group)).DisplayName;
+            Group = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(assessmentSectionAssemblyCategory.Group).DisplayName;
             Color = AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assessmentSectionAssemblyCategory.Group);
             UpperBoundary = assessmentSectionAssemblyCategory.UpperBoundary;
             LowerBoundary = assessmentSectionAssemblyCategory.LowerBoundary;

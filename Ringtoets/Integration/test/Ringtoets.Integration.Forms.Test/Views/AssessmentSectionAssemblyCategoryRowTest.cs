@@ -21,10 +21,8 @@
 
 using System;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Views;
@@ -46,11 +44,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithAssessmentSectionAssemblyCategory_ExpectedValues()
+        [TestCase(AssessmentSectionAssemblyCategoryGroup.APlus, "A+")]
+        [TestCase(AssessmentSectionAssemblyCategoryGroup.A, "A")]
+        [TestCase(AssessmentSectionAssemblyCategoryGroup.B, "B")]
+        [TestCase(AssessmentSectionAssemblyCategoryGroup.C, "C")]
+        [TestCase(AssessmentSectionAssemblyCategoryGroup.D, "D")]
+        public void Constructor_WithAssessmentSectionAssemblyCategory_ExpectedValues(
+            AssessmentSectionAssemblyCategoryGroup categoryGroup, string expectedName)
         {
             // Setup
             var random = new Random(39);
-            var categoryGroup = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
             var category = new AssessmentSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryGroup);
@@ -59,8 +62,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var categoryRow = new AssessmentSectionAssemblyCategoryRow(category);
 
             // Assert
-            Assert.AreEqual(new EnumDisplayWrapper<DisplayAssessmentSectionAssemblyCategoryGroup>(
-                                DisplayAssessmentSectionAssemblyCategoryGroupConverter.Convert(categoryGroup)).DisplayName, categoryRow.Group);
+            Assert.AreEqual(expectedName, categoryRow.Group);
             Assert.AreEqual(AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(categoryGroup), categoryRow.Color);
             Assert.AreEqual(lowerBoundary, categoryRow.LowerBoundary);
             Assert.AreEqual(upperBoundary, categoryRow.UpperBoundary);

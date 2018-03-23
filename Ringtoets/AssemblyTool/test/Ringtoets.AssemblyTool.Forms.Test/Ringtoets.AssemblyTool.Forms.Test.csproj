@@ -14,9 +14,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayAssessmentSectionAssemblyCategoryGroupConverterTest.cs" />
     <Compile Include="DisplayFailureMechanismSectionAssemblyCategoryGroupConverterTest.cs" />
-    <Compile Include="DisplayAssessmentSectionAssemblyCategoryGroupTest.cs" />
     <Compile Include="DisplayFailureMechanismSectionAssemblyCategoryGroupTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectableFailureMechanismSectionAssemblyCategoryGroupConverterTest.cs" />

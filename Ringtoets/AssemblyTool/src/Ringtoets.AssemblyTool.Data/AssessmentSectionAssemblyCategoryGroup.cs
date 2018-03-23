@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Ringtoets.AssemblyTool.Data.Properties;
+
 namespace Ringtoets.AssemblyTool.Data
 {
     /// <summary>
@@ -26,10 +29,19 @@ namespace Ringtoets.AssemblyTool.Data
     /// </summary>
     public enum AssessmentSectionAssemblyCategoryGroup
     {
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_APlus_DisplayName))]
         APlus = 1,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_A_DisplayName))]
         A = 2,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_B_DisplayName))]
         B = 3,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_C_DisplayName))]
         C = 4,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_D_DisplayName))]
         D = 5
     }
 }
