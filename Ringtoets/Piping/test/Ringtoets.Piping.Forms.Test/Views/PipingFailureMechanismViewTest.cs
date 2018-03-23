@@ -265,7 +265,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             using (var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl)view.Controls[0]).MapControl;
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
