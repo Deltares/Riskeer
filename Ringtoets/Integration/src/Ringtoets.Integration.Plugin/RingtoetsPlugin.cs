@@ -399,6 +399,14 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.AssessmentSection = context.Parent
             };
 
+            yield return new ViewInfo<NormContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Norms_DisplayName,
+                Image = RingtoetsCommonFormsResources.NormsIcon,
+                CloseForData = CloseAssessmentSectionCategoriesViewForData,
+                CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.AssessmentSection.FailureMechanismContribution)
+            };
+
             yield return new ViewInfo<DesignWaterLevelCalculationsContext, IEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelCalculationsContext_DisplayName} - {context.CategoryBoundaryName}",
@@ -1061,6 +1069,16 @@ namespace Ringtoets.Integration.Plugin
         {
             var assessmentSection = o as IAssessmentSection;
             return assessmentSection != null && assessmentSection.FailureMechanismContribution == view.Data && assessmentSection == view.AssessmentSection;
+        }
+
+        #endregion
+
+        #region NormContext ViewInfo
+
+        private static bool CloseAssessmentSectionCategoriesViewForData(AssessmentSectionAssemblyCategoriesView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            return assessmentSection != null && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution;
         }
 
         #endregion

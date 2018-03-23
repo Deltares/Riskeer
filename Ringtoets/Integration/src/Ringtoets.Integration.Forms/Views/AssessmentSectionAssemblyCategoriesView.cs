@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -39,32 +39,32 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategoriesView"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the view belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// <param name="failureMechanismContribution">The failure mechanism contribution belonging to the view.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismContribution"/>
         /// is <c>null</c>.</exception>
-        public AssessmentSectionAssemblyCategoriesView(IAssessmentSection assessmentSection)
+        public AssessmentSectionAssemblyCategoriesView(FailureMechanismContribution failureMechanismContribution)
         {
-            if (assessmentSection == null)
+            if (failureMechanismContribution == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(failureMechanismContribution));
             }
 
             InitializeComponent();
 
             failureMechanismContributionObserver = new Observer(UpdateTableData)
             {
-                Observable = assessmentSection.FailureMechanismContribution
+                Observable = failureMechanismContribution
             };
 
-            AssessmentSection = assessmentSection;
+            FailureMechanismContribution = failureMechanismContribution;
 
             UpdateTableData();
         }
 
         /// <summary>
-        /// Gets the <see cref="IAssessmentSection"/> the view belongs to.
+        /// Gets the <see cref="FailureMechanismContribution"/> the view belongs to.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
+        public FailureMechanismContribution FailureMechanismContribution { get; }
 
         public object Data { get; set; }
 
@@ -87,8 +87,8 @@ namespace Ringtoets.Integration.Forms.Views
         private void UpdateTableData()
         {
             assessmentSectionAssemblyCategoriesTable.SetData(AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(
-                                                                 AssessmentSection.FailureMechanismContribution.SignalingNorm,
-                                                                 AssessmentSection.FailureMechanismContribution.LowerLimitNorm));
+                                                                 FailureMechanismContribution.SignalingNorm,
+                                                                 FailureMechanismContribution.LowerLimitNorm));
         }
     }
 }

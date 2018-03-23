@@ -30,6 +30,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Forms.Views;
@@ -40,32 +41,32 @@ namespace Ringtoets.Integration.Forms.Test.Views
     public class AssessmentSectionAssemblyCategoriesViewTest
     {
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new AssessmentSectionAssemblyCategoriesView(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
+            Assert.AreEqual("failureMechanismContribution", paramName);
         }
 
         [Test]
         public void Constructor_WithData_CreatesViewAndTableWithData()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new AssessmentSectionAssemblyCategoriesView(assessmentSection))
+            using (var view = new AssessmentSectionAssemblyCategoriesView(failureMechanismContribution))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreEqual(1, view.Controls.Count);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
+                Assert.AreSame(failureMechanismContribution, view.FailureMechanismContribution);
 
                 AssessmentSectionAssemblyCategoriesTable tableControl = GetCategoriesTable(view);
                 Assert.NotNull(tableControl);
@@ -75,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithAssessmentSection_WhenAssessmentSectionUpdated_ThenDataTableUpdated()
+        public void GivenViewWithFailureMechanismContribution_WhenFailureMechanismContributionUpdated_ThenDataTableUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -83,13 +84,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new AssessmentSectionAssemblyCategoriesView(assessmentSection))
+            using (var view = new AssessmentSectionAssemblyCategoriesView(failureMechanismContribution))
             {
                 AssessmentSectionAssemblyCategoriesTable categoriesTable = GetCategoriesTable(view);
-                assessmentSection.FailureMechanismContribution.Attach(observer);
+                failureMechanismContribution.Attach(observer);
 
                 // Precondition
                 Assert.AreEqual(3, categoriesTable.Rows.Count);
@@ -102,7 +103,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 {
                     new AssessmentSectionAssemblyCategory(1, 2, AssessmentSectionAssemblyCategoryGroup.A)
                 };
-                assessmentSection.FailureMechanismContribution.NotifyObservers();
+                failureMechanismContribution.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(1, categoriesTable.Rows.Count);
