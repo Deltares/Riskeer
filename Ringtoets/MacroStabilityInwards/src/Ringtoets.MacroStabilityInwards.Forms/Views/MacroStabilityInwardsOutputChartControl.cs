@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
@@ -278,7 +279,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 SetSoilProfileChartData();
             }
 
-            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input));
+            SetWaternetExtremeChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, RoundedDouble.NaN));
             SetWaternetDailyChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(input));
 
             if (data.Output != null)
