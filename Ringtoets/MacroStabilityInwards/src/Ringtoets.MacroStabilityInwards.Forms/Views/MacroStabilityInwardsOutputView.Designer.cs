@@ -39,7 +39,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void InitializeComponent()
         {
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.macroStabilityInwardsOutputChartControl = new Ringtoets.MacroStabilityInwards.Forms.Views.MacroStabilityInwardsOutputChartControl();
+            this.macroStabilityInwardsOutputChartControl = new Ringtoets.MacroStabilityInwards.Forms.Views.MacroStabilityInwardsOutputChartControl(data, getNormativeAssessmentLevelFunc);
             this.slicesTable = new Ringtoets.MacroStabilityInwards.Forms.Views.MacroStabilityInwardsSlicesTable();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
