@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            Assert.AreEqual("assessmentSectionAssemblyCategory", paramName);
         }
 
         [Test]
