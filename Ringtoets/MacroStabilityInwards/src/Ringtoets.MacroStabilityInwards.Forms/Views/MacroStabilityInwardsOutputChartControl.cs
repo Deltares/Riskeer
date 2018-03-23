@@ -118,10 +118,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
 
-            InitializeComponent();
-
             this.data = data;
             this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+
+            InitializeComponent();
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.CalculationOutput_DisplayName);
             soilProfileChartData = RingtoetsChartDataFactory.CreateSoilProfileChartData();
