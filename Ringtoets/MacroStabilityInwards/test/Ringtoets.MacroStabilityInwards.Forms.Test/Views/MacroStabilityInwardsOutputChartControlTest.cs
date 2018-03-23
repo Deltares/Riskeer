@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -47,35 +48,48 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int waternetZonesDailyIndex = 15;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            var control = new MacroStabilityInwardsOutputChartControl();
+            TestDelegate test = () => new MacroStabilityInwardsOutputChartControl(null, GetTestNormativeAssessmentLevel);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
+        public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsOutputChartControl(new MacroStabilityInwardsCalculationScenario(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("getNormativeAssessmentLevelFunc", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+
+            // Call
+            var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(control);
             Assert.IsInstanceOf<IChartView>(control);
-            Assert.IsNull(control.Data);
-
+            Assert.AreSame(calculation, control.Data);
+            Assert.IsNotNull(control.Chart);
             Assert.AreEqual(1, control.Controls.Count);
-            Assert.IsInstanceOf<IChartControl>(control.Controls[0]);
-        }
 
-        [Test]
-        public void DefaultConstructor_Always_AddChartControlWithEmptyChartData()
-        {
-            // Call
-            using (var control = new MacroStabilityInwardsOutputChartControl())
-            {
-                // Assert
-                IChartControl chartControl = GetChartControl(control);
-                Assert.IsInstanceOf<Control>(chartControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
-                Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
-                Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
-                Assert.IsNull(chartControl.Data);
-                Assert.IsNull(chartControl.ChartTitle);
-            }
+            IChartControl chartControl = GetChartControl(control);
+            Assert.IsInstanceOf<Control>(chartControl);
+            Assert.AreEqual(DockStyle.Fill, ((Control)chartControl).Dock);
+            Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
+            Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
         }
 
         [Test]
@@ -585,6 +599,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private static IChartControl GetChartControl(MacroStabilityInwardsOutputChartControl view)
         {
             return ControlTestHelper.GetControls<IChartControl>(view, "chartControl").Single();
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }

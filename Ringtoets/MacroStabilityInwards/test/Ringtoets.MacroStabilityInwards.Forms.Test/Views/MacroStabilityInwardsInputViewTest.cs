@@ -88,11 +88,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_ValidParameters_ExpectedDefaultValues()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
-            // Call
+            // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
+            // Call
             using (var view = new MacroStabilityInwardsInputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Assert
