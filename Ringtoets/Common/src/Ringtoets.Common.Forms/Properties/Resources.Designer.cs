@@ -110,6 +110,42 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kleur.
+        /// </summary>
+        public static string AssessmentSectionAssemblyCategory_Color_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyCategory_Color_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie.
+        /// </summary>
+        public static string AssessmentSectionAssemblyCategory_Group_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyCategory_Group_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens [1/jaar].
+        /// </summary>
+        public static string AssessmentSectionAssemblyCategory_LowerBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyCategory_LowerBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bovengrens [1/jaar].
+        /// </summary>
+        public static string AssessmentSectionAssemblyCategory_UpperBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyCategory_UpperBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is er een dam aanwezig?.
         /// </summary>
         public static string BreakWater_HasBreakWater_Description {
