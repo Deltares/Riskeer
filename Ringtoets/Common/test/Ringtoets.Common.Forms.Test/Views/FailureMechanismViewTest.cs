@@ -46,29 +46,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         private const int sectionsEndPointIndex = 3;
         private const int hydraulicBoundaryLocationsIndex = 4;
 
-        private static IEnumerable<TestCaseData> GetCalculationFuncs
-        {
-            get
-            {
-                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.First()));
-                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
-                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
-                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First()));
-                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.First()));
-                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaveHeightCalculationsForSignalingNorm.First()));
-                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaveHeightCalculationsForLowerLimitNorm.First()));
-                yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.First()));
-            }
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -192,7 +169,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetCalculationFuncs))]
+        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
             Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
         {
