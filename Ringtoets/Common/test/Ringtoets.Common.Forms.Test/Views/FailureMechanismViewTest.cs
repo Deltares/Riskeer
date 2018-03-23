@@ -143,7 +143,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_FailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
+        public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
             var geometryPoints = new[]
