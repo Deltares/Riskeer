@@ -298,13 +298,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
-                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 // Precondition
@@ -340,14 +333,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-                observers[dikeProfilesIndex].Expect(obs => obs.UpdateObserver());
-                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 // When

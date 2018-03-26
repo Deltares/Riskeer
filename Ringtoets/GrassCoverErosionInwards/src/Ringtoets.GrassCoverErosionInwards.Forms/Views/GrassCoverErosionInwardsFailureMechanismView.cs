@@ -155,11 +155,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateAllMapData)
+            failureMechanismObserver = new Observer(UpdateSectionsMapData)
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateAllMapData)
+            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
             };
@@ -195,16 +195,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 Observable = FailureMechanism.DikeProfiles
             };
-        }
-
-        private void UpdateAllMapData()
-        {
-            UpdateCalculationsMapData();
-            UpdateHydraulicBoundaryLocationsMapData();
-            UpdateReferenceLineMapData();
-
-            UpdateSectionsMapData();
-            UpdateDikeProfilesMapData();
         }
 
         private void SetAllMapDataFeatures()
