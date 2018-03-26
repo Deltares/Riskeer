@@ -29,6 +29,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
@@ -56,20 +57,54 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         private const int calculationsIndex = 7;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new ClosingStructuresFailureMechanismView(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new ClosingStructuresFailureMechanismView())
+            TestDelegate call = () => new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            // Call
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IMapView>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
 
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RingtoetsMapControl)view.Controls[0]).MapControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 AssertEmptyMapData(view.Map.Data);
             }
         }
@@ -78,10 +113,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void Data_ClosingStructuresFailureMechanismContext_DataSet()
         {
             // Setup
-            using (var view = new ClosingStructuresFailureMechanismView())
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
+            {
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
                     new ClosingStructuresFailureMechanism(), assessmentSection);
 
@@ -99,7 +134,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new ClosingStructuresFailureMechanismView())
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
                     new ClosingStructuresFailureMechanism(), assessmentSection);
@@ -116,7 +151,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void Data_OtherThanClosingStructuresFailureMechanismContext_DataNull()
         {
             // Setup
-            using (var view = new ClosingStructuresFailureMechanismView())
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var data = new object();
 
@@ -132,7 +167,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
-            using (var view = new ClosingStructuresFailureMechanismView())
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -160,7 +195,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void Data_EmptyClosingStructuresFailureMechanismContext_NoMapDataSet()
         {
             // Setup
-            using (var view = new ClosingStructuresFailureMechanismView())
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var assessmentSection = new ObservableTestAssessmentSectionStub();
 
@@ -181,84 +216,78 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         [Test]
         public void Data_ClosingStructuresFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
         {
-            // Setup
-            using (var view = new ClosingStructuresFailureMechanismView())
+            // Setup          
+            var calculationA = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
+                    Structure = new TestClosingStructure(new Point2D(1.2, 2.3))
+                }
+            };
+
+            var calculationB = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6),
+                    Structure = new TestClosingStructure(new Point2D(2.7, 2.0))
+                }
+            };
+
+            var geometryPoints = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(2.0, 0.0),
+                new Point2D(4.0, 4.0),
+                new Point2D(6.0, 4.0)
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
+
+            var profile1 = new TestForeshoreProfile("profile1 ID", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
+            var profile2 = new TestForeshoreProfile("profile2 ID", new[]
+            {
+                new Point2D(2, 2),
+                new Point2D(3, 3)
+            });
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile1,
+                profile2
+            }, "path");
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                    }
+                },
+                ReferenceLine = referenceLine
+            };
+
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var geometryPoints = new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(2.0, 0.0),
-                    new Point2D(4.0, 4.0),
-                    new Point2D(6.0, 4.0)
-                };
-
-                var referenceLine = new ReferenceLine();
-                referenceLine.SetGeometry(new[]
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                });
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
-                        }
-                    },
-                    ReferenceLine = referenceLine
-                };
-
-                var calculationLocationA = new Point2D(1.2, 2.3);
-                var calculationLocationB = new Point2D(2.7, 2.0);
-
-                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-                var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
-
-                var calculationA = new StructuresCalculation<ClosingStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
-                        Structure = new TestClosingStructure(calculationLocationA)
-                    }
-                };
-
-                var calculationB = new StructuresCalculation<ClosingStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationB,
-                        Structure = new TestClosingStructure(calculationLocationB)
-                    }
-                };
-
-                var failureMechanism = new ClosingStructuresFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
-
-                var profile1 = new TestForeshoreProfile("profile1 ID", new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                });
-                var profile2 = new TestForeshoreProfile("profile2 ID", new[]
-                {
-                    new Point2D(2, 2),
-                    new Point2D(3, 3)
-                });
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    profile1,
-                    profile2
-                }, "path");
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
-                failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -290,20 +319,20 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                    }
+                }
+            };
+
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-                        }
-                    }
-                };
 
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
 
@@ -327,22 +356,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                }
+            };
+
             var random = new Random(21);
-            using (var view = new ClosingStructuresFailureMechanismView())
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            hydraulicBoundaryLocation
-                        }
-                    }
-                };
 
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
 
@@ -375,27 +404,19 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                ReferenceLine = new ReferenceLine()
+            };
+            assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var points1 = new List<Point2D>
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                };
-
-                var points2 = new List<Point2D>
-                {
-                    new Point2D(2.0, 5.0),
-                    new Point2D(4.0, 3.0)
-                };
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    ReferenceLine = new ReferenceLine()
-                };
-                assessmentSection.ReferenceLine.SetGeometry(points1);
 
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
 
@@ -407,7 +428,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // When
-                assessmentSection.ReferenceLine.SetGeometry(points2);
+                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                {
+                    new Point2D(2.0, 5.0),
+                    new Point2D(4.0, 3.0)
+                });
                 assessmentSection.NotifyObservers();
 
                 // Then
@@ -419,11 +444,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
@@ -451,22 +477,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var foreshoreProfile = new TestForeshoreProfile("originalProfile ID", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                foreshoreProfile
+            }, "path");
+
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var foreshoreProfile = new TestForeshoreProfile("originalProfile ID", new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                });
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    foreshoreProfile
-                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -493,21 +519,21 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithForeshoreProfilesData_WhenForeshoreProfilesUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                new TestForeshoreProfile("originalProfile ID", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            }, "path");
+
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    new TestForeshoreProfile("originalProfile ID", new[]
-                    {
-                        new Point2D(0, 0),
-                        new Point2D(1, 1)
-                    })
-                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -536,18 +562,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithStructureData_WhenStructureUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ClosingStructures.AddRange(new[]
+            {
+                new TestClosingStructure(new Point2D(0, 0), "Id")
+            }, "path");
+
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var structure = new TestClosingStructure(new Point2D(0, 0), "Id");
-                failureMechanism.ClosingStructures.AddRange(new[]
-                {
-                    structure
-                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -558,8 +583,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                                                           structuresData);
 
                 // When
-                structure.CopyProperties(new TestClosingStructure(new Point2D(1, 1), "Id"));
-                structure.NotifyObservers();
+                new TestClosingStructure(new Point2D(0, 0), "Id").CopyProperties(new TestClosingStructure(new Point2D(1, 1), "Id"));
+                new TestClosingStructure(new Point2D(0, 0), "Id").NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
@@ -571,18 +596,18 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithStructuresData_WhenStructuresUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ClosingStructures.AddRange(new[]
+            {
+                new TestClosingStructure(new Point2D(0, 0), "Id1")
+            }, "path");
+
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism,
                                                                                            new ObservableTestAssessmentSectionStub());
-
-                failureMechanism.ClosingStructures.AddRange(new[]
-                {
-                    new TestClosingStructure(new Point2D(0, 0), "Id1")
-                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -609,38 +634,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var calculationA = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
+                    Structure = new TestClosingStructure(new Point2D(1.2, 2.3))
+                }
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var calculationLocationA = new Point2D(1.2, 2.3);
-                var calculationLocationB = new Point2D(2.7, 2.0);
-
-                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-                var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
-
-                var calculationA = new StructuresCalculation<ClosingStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
-                        Structure = new TestClosingStructure(calculationLocationA)
-                    }
-                };
-
-                var calculationB = new StructuresCalculation<ClosingStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationB,
-                        Structure = new TestClosingStructure(calculationLocationB)
-                    }
-                };
-
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
@@ -651,6 +660,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                                           calculationMapData);
 
                 // When
+                var calculationB = new StructuresCalculation<ClosingStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6),
+                        Structure = new TestClosingStructure(new Point2D(2.7, 2.0))
+                    }
+                };
+
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
                 failureMechanism.CalculationsGroup.NotifyObservers();
 
@@ -663,27 +681,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var calculationA = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
+                    Structure = new TestClosingStructure(new Point2D(1.2, 2.3))
+                }
+            };
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var calculationLocationA = new Point2D(1.2, 2.3);
-                var calculationLocationB = new Point2D(2.7, 2.0);
-
-                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-
-                var calculationA = new StructuresCalculation<ClosingStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
-                        Structure = new TestClosingStructure(calculationLocationA)
-                    }
-                };
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
@@ -694,7 +707,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                                           calculationMapData);
 
                 // When
-                calculationA.InputParameters.Structure = new TestClosingStructure(calculationLocationB);
+                calculationA.InputParameters.Structure = new TestClosingStructure(new Point2D(2.7, 2.0));
                 calculationA.InputParameters.NotifyObservers();
 
                 // Then
@@ -706,26 +719,23 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var calculationA = new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
+                    Structure = new TestClosingStructure(new Point2D(1.2, 2.3))
+                }
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var calculationLocationA = new Point2D(1.2, 2.3);
-
-                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-
-                var calculationA = new StructuresCalculation<ClosingStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
-                        Structure = new TestClosingStructure(calculationLocationA)
-                    }
-                };
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
@@ -757,11 +767,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             const int updatedStructuresLayerIndex = structuresIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
 
-            using (var view = new ClosingStructuresFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -855,7 +865,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             var oldClosingStructuresFailureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), oldAssessmentSection);
             var newClosingStructuresFailureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), newAssessmentSection);
-            using (var view = new ClosingStructuresFailureMechanismView())
+            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), oldAssessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -893,6 +903,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     calculation.InputParameters.HydraulicBoundaryLocation.Location
                 }, geometries[0].PointCollections.First());
             }
+
             Assert.AreEqual("Berekeningen", mapData.Name);
         }
 

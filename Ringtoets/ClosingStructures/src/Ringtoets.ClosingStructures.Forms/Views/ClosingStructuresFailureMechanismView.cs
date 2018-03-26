@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -72,8 +73,25 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismView"/>.
         /// </summary>
-        public ClosingStructuresFailureMechanismView()
+        /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
+        /// <param name="assessmentSection">The assessment section to show data for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ClosingStructuresFailureMechanismView(ClosingStructuresFailureMechanism failureMechanism,
+                                                     IAssessmentSection assessmentSection)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
+
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateMapData);
@@ -111,6 +129,16 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             mapDataCollection.Add(structuresMapData);
             mapDataCollection.Add(calculationsMapData);
         }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public ClosingStructuresFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
 
         public object Data
         {
@@ -185,6 +213,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
