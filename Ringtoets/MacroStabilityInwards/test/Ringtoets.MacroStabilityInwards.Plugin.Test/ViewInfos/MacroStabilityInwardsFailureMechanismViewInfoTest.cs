@@ -102,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism)
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = macroStabilityInwardsFailureMechanismContext
             })
@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism)
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = macroStabilityInwardsFailureMechanismContext
             })
@@ -150,7 +150,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism)
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = macroStabilityInwardsFailureMechanismContext
             })
@@ -172,7 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism)
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = macroStabilityInwardsFailureMechanismContext
             })
