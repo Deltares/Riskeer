@@ -35,7 +35,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.Factories;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
@@ -72,8 +71,6 @@ namespace Ringtoets.Piping.Forms.Views
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, PipingCalculationScenario> calculationObserver;
         private RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
-
-        private PipingFailureMechanismContext data;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismView"/>.
