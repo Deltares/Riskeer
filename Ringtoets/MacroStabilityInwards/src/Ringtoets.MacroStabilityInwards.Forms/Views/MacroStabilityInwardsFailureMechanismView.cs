@@ -75,7 +75,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismView(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public MacroStabilityInwardsFailureMechanismView(MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                         IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -88,6 +89,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             }
 
             InitializeComponent();
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
 
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
@@ -122,6 +126,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(calculationsMapData);
         }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public MacroStabilityInwardsFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
 
         public object Data
         {
