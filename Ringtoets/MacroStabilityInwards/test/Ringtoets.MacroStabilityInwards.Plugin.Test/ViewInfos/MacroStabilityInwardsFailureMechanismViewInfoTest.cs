@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -60,7 +61,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]
@@ -70,17 +70,24 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(macroStabilityInwardsFailureMechanism, assessmentSection);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
-            {
-                // Call
-                string viewName = info.GetViewName(view, macroStabilityInwardsFailureMechanismContext);
+            // Call
+            string viewName = info.GetViewName(null, macroStabilityInwardsFailureMechanismContext);
 
-                // Assert
-                Assert.AreEqual(macroStabilityInwardsFailureMechanism.Name, viewName);
-            }
+            // Assert
+            Assert.AreEqual(failureMechanism.Name, viewName);
+        }
+
+        [Test]
+        public void Image_Always_ReturnsGenericInputOutputIcon()
+        {
+            // Call
+            Image image = info.Image;
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -91,10 +98,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(macroStabilityInwardsFailureMechanism, assessmentSection);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism)
             {
                 Data = macroStabilityInwardsFailureMechanismContext
             })
@@ -105,6 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -114,10 +122,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(macroStabilityInwardsFailureMechanism, assessmentSection);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism)
             {
                 Data = macroStabilityInwardsFailureMechanismContext
             })
@@ -136,12 +144,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var otherMacroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(macroStabilityInwardsFailureMechanism, assessmentSection);
+            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism)
             {
                 Data = macroStabilityInwardsFailureMechanismContext
             })
@@ -160,16 +168,16 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(macroStabilityInwardsFailureMechanism, assessmentSection);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism)
             {
                 Data = macroStabilityInwardsFailureMechanismContext
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, macroStabilityInwardsFailureMechanism);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsTrue(closeForData);
