@@ -412,12 +412,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
 
-            var viewFailureMechanismContext = (MacroStabilityInwardsFailureMechanismContext) view.Data;
-            MacroStabilityInwardsFailureMechanism viewMacroStabilityInwardsFailureMechanism = viewFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewMacroStabilityInwardsFailureMechanism, failureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion
