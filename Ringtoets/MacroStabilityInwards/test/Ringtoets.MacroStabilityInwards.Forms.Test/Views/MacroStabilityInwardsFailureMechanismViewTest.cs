@@ -499,10 +499,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithSurfaceLinesData_WhenSurfaceLinesUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), new ObservableTestAssessmentSectionStub()))
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
                 var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 

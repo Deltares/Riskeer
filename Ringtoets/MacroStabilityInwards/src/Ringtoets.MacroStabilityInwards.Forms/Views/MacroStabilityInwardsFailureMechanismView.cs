@@ -112,6 +112,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             mapDataCollection.Add(sectionsEndPointMapData);
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(calculationsMapData);
+
+            SetAllMapDataFeatures();
+
+            ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -279,7 +283,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private void SetCalculationsMapData()
         {
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculations =
-                data.WrappedData.CalculationsGroup.GetCalculations().Cast<MacroStabilityInwardsCalculationScenario>();
+                FailureMechanism.CalculationsGroup.GetCalculations().Cast<MacroStabilityInwardsCalculationScenario>();
             calculationsMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
 
@@ -295,7 +299,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetHydraulicBoundaryLocationsMapData()
         {
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
             hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
         }
 
@@ -311,8 +315,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetReferenceLineMapData()
         {
-            ReferenceLine referenceLine = data.Parent.ReferenceLine;
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
+            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
         }
 
         #endregion
@@ -329,7 +333,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetSectionsMapData()
         {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
 
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
@@ -348,7 +352,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetSurfaceLinesMapData()
         {
-            MacroStabilityInwardsSurfaceLineCollection macroStabilityInwardsSurfaceLines = data.WrappedData.SurfaceLines;
+            MacroStabilityInwardsSurfaceLineCollection macroStabilityInwardsSurfaceLines = FailureMechanism.SurfaceLines;
             surfaceLinesMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(macroStabilityInwardsSurfaceLines.ToArray());
         }
 
@@ -364,7 +368,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private void SetStochasticSoilModelsMapData()
         {
-            MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = data.WrappedData.StochasticSoilModels;
+            MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = FailureMechanism.StochasticSoilModels;
             stochasticSoilModelsMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels.ToArray());
         }
 
