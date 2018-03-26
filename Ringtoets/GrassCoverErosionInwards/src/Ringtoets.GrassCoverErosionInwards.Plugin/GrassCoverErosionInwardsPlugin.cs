@@ -397,12 +397,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
 
-            var viewFailureMechanismContext = (GrassCoverErosionInwardsFailureMechanismContext) view.Data;
-            GrassCoverErosionInwardsFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion

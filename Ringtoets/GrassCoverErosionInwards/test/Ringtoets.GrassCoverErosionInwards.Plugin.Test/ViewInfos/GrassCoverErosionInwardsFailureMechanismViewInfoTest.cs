@@ -100,12 +100,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = grassCoverErosionInwardsFailureMechanismContext
-            })
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -123,12 +119,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = grassCoverErosionInwardsFailureMechanismContext
-            })
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -147,12 +139,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var otherGrassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = grassCoverErosionInwardsFailureMechanismContext
-            })
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherGrassCoverErosionInwardsFailureMechanism);
@@ -168,12 +156,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = grassCoverErosionInwardsFailureMechanismContext
-            })
+            using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
