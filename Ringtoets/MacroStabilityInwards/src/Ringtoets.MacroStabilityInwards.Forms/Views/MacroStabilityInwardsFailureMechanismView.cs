@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -71,8 +72,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismView"/>.
         /// </summary>
-        public MacroStabilityInwardsFailureMechanismView()
+        /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsFailureMechanismView(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateMapData);
