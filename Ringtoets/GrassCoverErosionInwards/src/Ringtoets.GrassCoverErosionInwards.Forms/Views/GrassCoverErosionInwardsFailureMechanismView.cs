@@ -88,6 +88,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             InitializeComponent();
 
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
+
             failureMechanismObserver = new Observer(UpdateAllMapData);
             assessmentSectionObserver = new Observer(UpdateAllMapData);
             hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData);
@@ -121,6 +124,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             mapDataCollection.Add(foreshoreProfilesMapData);
             mapDataCollection.Add(calculationsMapData);
         }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
 
         public object Data
         {
