@@ -209,7 +209,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData)
             };
 
             yield return new ViewInfo<
