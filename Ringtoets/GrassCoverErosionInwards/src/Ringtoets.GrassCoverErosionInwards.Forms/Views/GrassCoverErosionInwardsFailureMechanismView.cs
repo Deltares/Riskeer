@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -69,8 +70,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismView"/>.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanismView()
+        /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsFailureMechanismView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             InitializeComponent();
 
             failureMechanismObserver = new Observer(UpdateAllMapData);
