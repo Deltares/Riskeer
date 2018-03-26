@@ -174,7 +174,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseGrassCoverErosionInwardsFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismView(context.WrappedData)
             };
 
             yield return new ViewInfo<
