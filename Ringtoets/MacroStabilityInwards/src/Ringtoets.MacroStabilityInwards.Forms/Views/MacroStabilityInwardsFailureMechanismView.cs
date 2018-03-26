@@ -45,18 +45,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     /// </summary>
     public partial class MacroStabilityInwardsFailureMechanismView : UserControl, IMapView
     {
-        private readonly Observer failureMechanismObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer surfaceLinesObserver;
-        private readonly Observer stochasticSoilModelsObserver;
-
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
-        private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
-        private readonly RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine> surfaceLineObserver;
-
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
@@ -66,6 +54,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData calculationsMapData;
+        private Observer failureMechanismObserver;
+        private Observer hydraulicBoundaryLocationsObserver;
+        private Observer assessmentSectionObserver;
+        private Observer surfaceLinesObserver;
+        private Observer stochasticSoilModelsObserver;
+
+        private RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+        private RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> calculationInputObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
+        private RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine> surfaceLineObserver;
 
         private MacroStabilityInwardsFailureMechanismContext data;
 
@@ -93,19 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(UpdateMapData);
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData);
-            surfaceLinesObserver = new Observer(UpdateSurfaceLinesMapData);
-            stochasticSoilModelsObserver = new Observer(UpdateStochasticSoilModelsMapData);
-
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateHydraulicBoundaryLocationsMapData, hbl => hbl);
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput>(
-                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<MacroStabilityInwardsCalculationScenario>().Select(pc => pc.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children);
-            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children);
-            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateSurfaceLinesMapData, rpslc => rpslc);
+            CreateObservers();
 
             mapDataCollection = new MapDataCollection(MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -207,7 +194,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
+        }
+
+        private void CreateObservers()
+        {
+            failureMechanismObserver = new Observer(UpdateMapData);
+            assessmentSectionObserver = new Observer(UpdateMapData);
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData);
+            surfaceLinesObserver = new Observer(UpdateSurfaceLinesMapData);
+            stochasticSoilModelsObserver = new Observer(UpdateStochasticSoilModelsMapData);
+
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateHydraulicBoundaryLocationsMapData, hbl => hbl);
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput>(
+                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<MacroStabilityInwardsCalculationScenario>().Select(pc => pc.InputParameters)));
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children);
+            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children);
+            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateSurfaceLinesMapData, rpslc => rpslc);
         }
 
         private void UpdateMapData()
