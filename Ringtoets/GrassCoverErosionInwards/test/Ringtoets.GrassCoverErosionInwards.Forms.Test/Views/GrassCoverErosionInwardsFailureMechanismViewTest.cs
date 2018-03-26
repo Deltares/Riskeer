@@ -39,7 +39,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
@@ -110,105 +109,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_GrassCoverErosionInwardsFailureMechanismContext_DataSet()
-        {
-            // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), new ObservableTestAssessmentSectionStub()))
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanGrassCoverErosionInwardsFailureMechanismContext_DataNull()
-        {
-            // Setup
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), new ObservableTestAssessmentSectionStub()))
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
+        public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
+            // Call
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
                 MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
         [Test]
-        public void Data_SetToNull_MapDataCleared()
-        {
-            // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
-            {
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                // Precondition
-                Assert.AreEqual(8, view.Map.Data.Collection.Count());
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.Map.Data);
-                Assert.IsNull(view.Map.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void Data_EmptyGrassCoverErosionInwardsFailureMechanismContext_NoMapDataSet()
-        {
-            // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
-            {
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-                AssertEmptyMapData(view.Map.Data);
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void Data_GrassCoverErosionInwardsFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
+        public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
             var calculationA = new GrassCoverErosionInwardsCalculation
@@ -277,18 +192,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
+            // Call
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
@@ -323,10 +232,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
@@ -368,11 +273,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
+                
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
@@ -413,11 +314,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
+                
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 var mocks = new MockRepository();
@@ -458,10 +355,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
@@ -509,10 +402,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
-
                 MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -550,10 +439,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
 
@@ -595,10 +480,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 MapData dikeProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
@@ -653,10 +534,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
-
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -692,9 +569,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -733,9 +607,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                view.Data = failureMechanismContext;
-
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 var mocks = new MockRepository();
@@ -771,10 +642,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
 
                 MapDataCollection mapData = map.Data;
 
@@ -845,40 +712,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
                 Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
-            }
-        }
-
-        [Test]
-        public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
-        {
-            // Setup
-            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
-            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
-
-            newAssessmentSection.ReferenceLine = new ReferenceLine();
-            newAssessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(2, 4),
-                new Point2D(3, 4)
-            });
-
-            var oldGrassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), oldAssessmentSection);
-            var newGrassCoverErosionInwardsFailureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), newAssessmentSection);
-            using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), oldAssessmentSection))
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                view.Data = oldGrassCoverErosionInwardsFailureMechanismContext;
-                view.Data = newGrassCoverErosionInwardsFailureMechanismContext;
-                MapData dataBeforeUpdate = map.Data;
-
-                newAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
-
-                // Call
-                oldAssessmentSection.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(dataBeforeUpdate, map.Data);
             }
         }
 

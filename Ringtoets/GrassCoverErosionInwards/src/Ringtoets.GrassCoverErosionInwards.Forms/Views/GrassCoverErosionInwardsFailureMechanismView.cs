@@ -34,7 +34,6 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Factories;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
@@ -44,7 +43,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public partial class GrassCoverErosionInwardsFailureMechanismView : UserControl, IMapView
     {
-        private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
         private readonly MapPointData sectionsStartPointMapData;
@@ -63,8 +61,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculation> calculationObserver;
         private RecursiveObserver<DikeProfileCollection, DikeProfile> dikeProfileObserver;
-
-        private GrassCoverErosionInwardsFailureMechanismContext data;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismView"/>.
@@ -92,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             CreateObservers();
 
-            mapDataCollection = new MapDataCollection(GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayName);
+            var mapDataCollection = new MapDataCollection(GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             dikeProfilesMapData = RingtoetsMapDataFactory.CreateDikeProfileMapData();
@@ -126,51 +122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
 
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as GrassCoverErosionInwardsFailureMechanismContext;
-
-                if (data == null)
-                {
-                    failureMechanismObserver.Observable = null;
-                    assessmentSectionObserver.Observable = null;
-                    hydraulicBoundaryLocationsObserver.Observable = null;
-                    hydraulicBoundaryLocationObserver.Observable = null;
-
-                    calculationInputObserver.Observable = null;
-                    calculationGroupObserver.Observable = null;
-                    calculationObserver.Observable = null;
-
-                    dikeProfilesObserver.Observable = null;
-                    dikeProfileObserver.Observable = null;
-
-                    ringtoetsMapControl.RemoveAllData();
-                }
-                else
-                {
-                    failureMechanismObserver.Observable = data.WrappedData;
-                    assessmentSectionObserver.Observable = data.Parent;
-                    hydraulicBoundaryLocationsObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
-                    hydraulicBoundaryLocationObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
-                    calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
-                    calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
-                    calculationObserver.Observable = data.WrappedData.CalculationsGroup;
-
-                    dikeProfilesObserver.Observable = data.WrappedData.DikeProfiles;
-                    dikeProfileObserver.Observable = data.WrappedData.DikeProfiles;
-
-                    SetAllMapDataFeatures();
-
-                    ringtoetsMapControl.SetAllData(mapDataCollection, data.Parent.BackgroundData);
-                }
-            }
-        }
+        public object Data { get; set; }
 
         public IMapControl Map
         {
