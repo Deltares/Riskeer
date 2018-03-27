@@ -101,7 +101,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new StabilityPointStructuresFailureMechanismView
+            using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -125,7 +125,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new StabilityPointStructuresFailureMechanismView
+            using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -149,7 +149,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new StabilityPointStructuresFailureMechanismView
+            using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -171,7 +171,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new StabilityPointStructuresFailureMechanismView
+            using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
