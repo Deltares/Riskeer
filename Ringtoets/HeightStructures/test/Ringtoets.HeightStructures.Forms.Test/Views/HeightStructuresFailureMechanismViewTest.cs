@@ -29,6 +29,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -56,15 +57,49 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private const int calculationsIndex = 7;
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new HeightStructuresFailureMechanismView(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new HeightStructuresFailureMechanismView())
+            TestDelegate call = () => new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            // Call
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IMapView>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
 
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
@@ -78,12 +113,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_HeightStructuresFailureMechanismContext_DataSet()
         {
             // Setup
-            using (var view = new HeightStructuresFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(
-                    new HeightStructuresFailureMechanism(), assessmentSection);
+                    new HeightStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub());
 
                 // Call
                 view.Data = failureMechanismContext;
@@ -97,7 +130,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_OtherThanHeightStructuresFailureMechanismContext_DataNull()
         {
             // Setup
-            using (var view = new HeightStructuresFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
             {
                 var data = new object();
 
@@ -115,7 +148,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new HeightStructuresFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), assessmentSection))
             {
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(
                     new HeightStructuresFailureMechanism(), assessmentSection);
@@ -132,10 +165,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_SetToNull_MapDataCleared()
         {
             // Setup
-            using (var view = new HeightStructuresFailureMechanismView())
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
+            using (var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), assessmentSection))
+            {
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(
                     new HeightStructuresFailureMechanism(), assessmentSection);
 
@@ -159,10 +192,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_EmptyHeightStructuresFailureMechanismContext_NoMapDataSet()
         {
             // Setup
-            using (var view = new HeightStructuresFailureMechanismView())
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
 
+            using (var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), assessmentSection))
+            {
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(
                     new HeightStructuresFailureMechanism(), assessmentSection);
 
@@ -180,84 +213,78 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void Data_HeightStructuresFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            using (var view = new HeightStructuresFailureMechanismView())
+            var calculationA = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
+                    Structure = new TestHeightStructure(new Point2D(1.2, 2.3))
+                }
+            };
+
+            var calculationB = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6),
+                    Structure = new TestHeightStructure(new Point2D(2.7, 2.0))
+                }
+            };
+
+            var geometryPoints = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(2.0, 0.0),
+                new Point2D(4.0, 4.0),
+                new Point2D(6.0, 4.0)
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
+
+            var profile1 = new TestForeshoreProfile("profile1 ID", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
+            var profile2 = new TestForeshoreProfile("profile2 ID", new[]
+            {
+                new Point2D(2, 2),
+                new Point2D(3, 3)
+            });
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile1,
+                profile2
+            }, "path");
+
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                    }
+                },
+                ReferenceLine = referenceLine
+            };
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var geometryPoints = new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(2.0, 0.0),
-                    new Point2D(4.0, 4.0),
-                    new Point2D(6.0, 4.0)
-                };
-
-                var referenceLine = new ReferenceLine();
-                referenceLine.SetGeometry(new[]
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                });
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
-                        }
-                    },
-                    ReferenceLine = referenceLine
-                };
-
-                var calculationLocationA = new Point2D(1.2, 2.3);
-                var calculationLocationB = new Point2D(2.7, 2.0);
-
-                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-                var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
-
-                var calculationA = new StructuresCalculation<HeightStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
-                        Structure = new TestHeightStructure(calculationLocationA)
-                    }
-                };
-
-                var calculationB = new StructuresCalculation<HeightStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationB,
-                        Structure = new TestHeightStructure(calculationLocationB)
-                    }
-                };
-
-                var failureMechanism = new HeightStructuresFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
-
-                var profile1 = new TestForeshoreProfile("profile1 ID", new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                });
-                var profile2 = new TestForeshoreProfile("profile2 ID", new[]
-                {
-                    new Point2D(2, 2),
-                    new Point2D(3, 3)
-                });
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    profile1,
-                    profile2
-                }, "path");
-
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
-                failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -289,20 +316,20 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithHydraulicBoundarLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                    }
+                }
+            };
+
+            using (var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-                        }
-                    }
-                };
 
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(),
                                                                                           assessmentSection);
@@ -329,22 +356,22 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                }
+            };
+
             var random = new Random(21);
-            using (var view = new HeightStructuresFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            hydraulicBoundaryLocation
-                        }
-                    }
-                };
 
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
@@ -377,27 +404,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                ReferenceLine = new ReferenceLine()
+            };
+            assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            using (var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var points1 = new List<Point2D>
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                };
-
-                var points2 = new List<Point2D>
-                {
-                    new Point2D(2.0, 5.0),
-                    new Point2D(4.0, 3.0)
-                };
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    ReferenceLine = new ReferenceLine()
-                };
-                assessmentSection.ReferenceLine.SetGeometry(points1);
 
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(),
                                                                                           assessmentSection);
@@ -411,7 +430,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                                                              referenceLineMapData);
 
                 // When
-                assessmentSection.ReferenceLine.SetGeometry(points2);
+                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                {
+                    new Point2D(2.0, 5.0),
+                    new Point2D(4.0, 3.0)
+                });
                 assessmentSection.NotifyObservers();
 
                 // Then
@@ -424,11 +447,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new HeightStructuresFailureMechanism();
+                
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
                                                                                           new ObservableTestAssessmentSectionStub());
 
@@ -457,22 +481,23 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var foreshoreProfile = new TestForeshoreProfile("originalProfile ID", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
+
+            var failureMechanism = new HeightStructuresFailureMechanism();            
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                foreshoreProfile
+            }, "path");
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new HeightStructuresFailureMechanism();
+                
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var foreshoreProfile = new TestForeshoreProfile("originalProfile ID", new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                });
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    foreshoreProfile
-                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -499,22 +524,22 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithForeshoreProfilesData_WhenForeshoreProfilesUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                new TestForeshoreProfile("originalProfile ID", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            }, "path");
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
                                                                                           new ObservableTestAssessmentSectionStub());
-
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    new TestForeshoreProfile("originalProfile ID", new[]
-                    {
-                        new Point2D(0, 0),
-                        new Point2D(1, 1)
-                    })
-                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -545,19 +570,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithStructureData_WhenStructureUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var structure = new TestHeightStructure(new Point2D(0, 0), "Id");
+            var failureMechanism = new HeightStructuresFailureMechanism();            
+            failureMechanism.HeightStructures.AddRange(new[]
+            {
+                structure
+            }, "path");
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
                                                                                           new ObservableTestAssessmentSectionStub());
-
-                var structure = new TestHeightStructure(new Point2D(0, 0), "Id");
-                failureMechanism.HeightStructures.AddRange(new[]
-                {
-                    structure
-                }, "path");
 
                 view.Data = failureMechanismContext;
 
@@ -581,18 +606,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithStructuresData_WhenStructuresUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.HeightStructures.AddRange(new[]
+            {
+                new TestHeightStructure(new Point2D(0, 0), "Id1")
+            }, "path");
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
-                                                                                          new ObservableTestAssessmentSectionStub());
-
-                failureMechanism.HeightStructures.AddRange(new[]
-                {
-                    new TestHeightStructure(new Point2D(0, 0), "Id1")
-                }, "path");
+                                                                                          new ObservableTestAssessmentSectionStub());                
 
                 view.Data = failureMechanismContext;
 
@@ -619,39 +644,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var calculationA = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
+                    Structure = new TestHeightStructure(new Point2D(1.2, 2.3))
+                }
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
                                                                                           new ObservableTestAssessmentSectionStub());
-
-                var calculationLocationA = new Point2D(1.2, 2.3);
-                var calculationLocationB = new Point2D(2.7, 2.0);
-
-                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-                var hydraulicBoundaryLocationB = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6);
-
-                var calculationA = new StructuresCalculation<HeightStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
-                        Structure = new TestHeightStructure(calculationLocationA)
-                    }
-                };
-
-                var calculationB = new StructuresCalculation<HeightStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationB,
-                        Structure = new TestHeightStructure(calculationLocationB)
-                    }
-                };
-
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
@@ -662,6 +672,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                                           calculationMapData);
 
                 // When
+                var calculationB = new StructuresCalculation<HeightStructuresInput>
+                {
+                    InputParameters =
+                    {
+                        HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6),
+                        Structure = new TestHeightStructure(new Point2D(2.7, 2.0))
+                    }
+                };
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
                 failureMechanism.CalculationsGroup.NotifyObservers();
 
@@ -675,28 +693,23 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var calculationA = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
+                    Structure = new TestHeightStructure(new Point2D(1.2, 2.3))
+                }
+            };
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new HeightStructuresFailureMechanism();
+                
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
                                                                                           new ObservableTestAssessmentSectionStub());
-
-                var calculationLocationA = new Point2D(1.2, 2.3);
-                var calculationLocationB = new Point2D(2.7, 2.0);
-
-                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-
-                var calculationA = new StructuresCalculation<HeightStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
-                        Structure = new TestHeightStructure(calculationLocationA)
-                    }
-                };
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
@@ -707,7 +720,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                                           calculationMapData);
 
                 // When
-                calculationA.InputParameters.Structure = new TestHeightStructure(calculationLocationB);
+                calculationA.InputParameters.Structure = new TestHeightStructure(new Point2D(2.7, 2.0));
                 calculationA.InputParameters.NotifyObservers();
 
                 // Then
@@ -720,27 +733,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new HeightStructuresFailureMechanismView())
+            var calculationA = new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3),
+                    Structure = new TestHeightStructure(new Point2D(1.2, 2.3))
+                }
+            };
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism,
                                                                                           new ObservableTestAssessmentSectionStub());
-
-                var calculationLocationA = new Point2D(1.2, 2.3);
-
-                var hydraulicBoundaryLocationA = new HydraulicBoundaryLocation(1, string.Empty, 1.3, 2.3);
-
-                var calculationA = new StructuresCalculation<HeightStructuresInput>
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocationA,
-                        Structure = new TestHeightStructure(calculationLocationA)
-                    }
-                };
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
                 view.Data = failureMechanismContext;
 
@@ -773,12 +783,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             const int updatedStructuresLayerIndex = structuresIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
 
-            using (var view = new HeightStructuresFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-                var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 view.Data = failureMechanismContext;
@@ -873,7 +884,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 new HeightStructuresFailureMechanism(), oldAssessmentSection);
             var newHeightStructuresFailureMechanismContext = new HeightStructuresFailureMechanismContext(
                 new HeightStructuresFailureMechanism(), newAssessmentSection);
-            using (var view = new HeightStructuresFailureMechanismView())
+            using (var view = new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), oldAssessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 

@@ -101,7 +101,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new HeightStructuresFailureMechanismView
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -125,7 +125,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new HeightStructuresFailureMechanismView
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -149,7 +149,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new HeightStructuresFailureMechanismView
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -171,7 +171,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new HeightStructuresFailureMechanismView
+            using (var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })

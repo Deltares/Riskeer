@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -72,9 +73,26 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismView"/>.
         /// </summary>
-        public HeightStructuresFailureMechanismView()
+        /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
+        /// <param name="assessmentSection">The assessment section to show data for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HeightStructuresFailureMechanismView(HeightStructuresFailureMechanism failureMechanism,
+                                                    IAssessmentSection assessmentSection)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             InitializeComponent();
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
 
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
@@ -111,6 +129,16 @@ namespace Ringtoets.HeightStructures.Forms.Views
             mapDataCollection.Add(structuresMapData);
             mapDataCollection.Add(calculationsMapData);
         }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public HeightStructuresFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
 
         public object Data
         {
