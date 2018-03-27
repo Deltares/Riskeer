@@ -45,18 +45,18 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// </summary>
     public partial class HeightStructuresFailureMechanismView : UserControl, IMapView
     {
-        private readonly Observer failureMechanismObserver;
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly Observer foreshoreProfilesObserver;
-        private readonly Observer structuresObserver;
+        private Observer failureMechanismObserver;
+        private Observer assessmentSectionObserver;
+        private Observer hydraulicBoundaryLocationsObserver;
+        private Observer foreshoreProfilesObserver;
+        private Observer structuresObserver;
 
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
-        private readonly RecursiveObserver<CalculationGroup, HeightStructuresInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>> calculationObserver;
-        private readonly RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
-        private readonly RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure> structureObserver;
+        private RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+        private RecursiveObserver<CalculationGroup, HeightStructuresInput> calculationInputObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>> calculationObserver;
+        private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
+        private RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure> structureObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -94,21 +94,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(UpdateMapData);
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
-            foreshoreProfilesObserver = new Observer(UpdateMapData);
-            structuresObserver = new Observer(UpdateMapData);
-
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl);
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, HeightStructuresInput>(
-                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<HeightStructuresInput>>()
-                                                                     .Select(pc => pc.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
-            calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>>(UpdateMapData, pcg => pcg.Children);
-            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll);
-            structureObserver = new RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure>(UpdateMapData, coll => coll);
+            CreateObservers();
 
             mapDataCollection = new MapDataCollection(HeightStructuresDataResources.HeightStructuresFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -128,6 +114,58 @@ namespace Ringtoets.HeightStructures.Forms.Views
             mapDataCollection.Add(foreshoreProfilesMapData);
             mapDataCollection.Add(structuresMapData);
             mapDataCollection.Add(calculationsMapData);
+        }
+
+        private void CreateObservers()
+        {
+            failureMechanismObserver = new Observer(UpdateMapData)
+            {
+                Observable = FailureMechanism
+            };
+            assessmentSectionObserver = new Observer(UpdateMapData)
+            {
+                Observable = AssessmentSection
+            };
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            foreshoreProfilesObserver = new Observer(UpdateMapData)
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+            structuresObserver = new Observer(UpdateMapData)
+            {
+                Observable = FailureMechanism.HeightStructures
+            };
+
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateMapData, hbl => hbl)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, HeightStructuresInput>(
+                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<HeightStructuresInput>>()
+                                                                     .Select(pc => pc.InputParameters)))
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children)
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>>(UpdateMapData, pcg => pcg.Children)
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll)
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+            structureObserver = new RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure>(UpdateMapData, coll => coll)
+            {
+                Observable = FailureMechanism.HeightStructures
+            };
         }
 
         /// <summary>
