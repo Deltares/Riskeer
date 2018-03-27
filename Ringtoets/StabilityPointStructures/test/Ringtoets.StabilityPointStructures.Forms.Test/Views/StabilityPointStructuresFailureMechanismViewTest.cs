@@ -39,7 +39,6 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
@@ -103,116 +102,28 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RingtoetsMapControl)view.Controls[0]).MapControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 AssertEmptyMapData(view.Map.Data);
             }
         }
 
         [Test]
-        public void Data_StabilityPointStructuresFailureMechanismContext_DataSet()
-        {
-            // Setup
-            using (var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(
-                    new StabilityPointStructuresFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanStabilityPointStructuresFailureMechanismContext_DataNull()
-        {
-            // Setup
-            using (var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
+        public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
+            // Call
             using (var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), assessmentSection))
             {
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(
-                    new StabilityPointStructuresFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
                 MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
         [Test]
-        public void Data_SetToNull_MapDataCleared()
-        {
-            // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-            using (var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), assessmentSection))
-            {
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(
-                    new StabilityPointStructuresFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                // Precondition
-                Assert.AreEqual(8, view.Map.Data.Collection.Count());
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.Map.Data);
-                Assert.IsNull(view.Map.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void Data_EmptyStabilityPointStructuresFailureMechanismContext_NoMapDataSet()
-        {
-            // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-            using (var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), assessmentSection))
-            {
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(
-                    new StabilityPointStructuresFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-                AssertEmptyMapData(view.Map.Data);
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void Data_StabilityPointStructuresFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
+        public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
             var calculationA = new StructuresCalculation<StabilityPointStructuresInput>
@@ -284,18 +195,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
+            // Call
             using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
@@ -333,10 +238,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
@@ -371,10 +272,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
@@ -417,10 +314,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
@@ -448,10 +341,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
@@ -482,7 +371,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 new Point2D(1, 1)
             });
 
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
@@ -492,9 +380,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                view.Data = failureMechanismContext;
 
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
@@ -533,10 +418,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                
-                view.Data = failureMechanismContext;
-
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
@@ -573,11 +454,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism,
-                                                                                                  new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
-
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
                 // Precondition
@@ -608,11 +484,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism,
-                                                                                                  new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
@@ -652,9 +523,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -698,9 +566,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                view.Data = failureMechanismContext;
-
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 // Precondition
@@ -734,9 +599,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -772,10 +634,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-
-                view.Data = failureMechanismContext;
 
                 MapDataCollection mapData = map.Data;
 
@@ -849,40 +707,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
-        {
-            // Setup
-            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
-            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
-
-            newAssessmentSection.ReferenceLine = new ReferenceLine();
-            newAssessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(2, 4),
-                new Point2D(3, 4)
-            });
-
-            var oldStabilityPointStructuresFailureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), oldAssessmentSection);
-            var newStabilityPointStructuresFailureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), newAssessmentSection);
-            using (var view = new StabilityPointStructuresFailureMechanismView(new StabilityPointStructuresFailureMechanism(), oldAssessmentSection))
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                view.Data = oldStabilityPointStructuresFailureMechanismContext;
-                view.Data = newStabilityPointStructuresFailureMechanismContext;
-                MapData dataBeforeUpdate = map.Data;
-
-                newAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
-
-                // Call
-                oldAssessmentSection.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(dataBeforeUpdate, map.Data);
-            }
-        }
-
         private static void AssertCalculationsMapData(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
@@ -903,6 +727,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                     calculation.InputParameters.HydraulicBoundaryLocation.Location
                 }, geometries[0].PointCollections.First());
             }
+
             Assert.AreEqual("Berekeningen", mapData.Name);
         }
 
