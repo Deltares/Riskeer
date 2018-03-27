@@ -45,19 +45,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// </summary>
     public partial class StabilityPointStructuresFailureMechanismView : UserControl, IMapView
     {
-        private readonly Observer failureMechanismObserver;
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly Observer foreshoreProfilesObserver;
-        private readonly Observer structuresObserver;
-
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
-        private readonly RecursiveObserver<CalculationGroup, StabilityPointStructuresInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, StructuresCalculation<StabilityPointStructuresInput>> calculationObserver;
-        private readonly RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
-        private readonly RecursiveObserver<StructureCollection<StabilityPointStructure>, StabilityPointStructure> structureObserver;
-
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
@@ -67,6 +54,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         private readonly MapLineData foreshoreProfilesMapData;
         private readonly MapPointData structuresMapData;
         private readonly MapLineData calculationsMapData;
+        private Observer failureMechanismObserver;
+        private Observer assessmentSectionObserver;
+        private Observer hydraulicBoundaryLocationsObserver;
+        private Observer foreshoreProfilesObserver;
+        private Observer structuresObserver;
+
+        private RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+        private RecursiveObserver<CalculationGroup, StabilityPointStructuresInput> calculationInputObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private RecursiveObserver<CalculationGroup, StructuresCalculation<StabilityPointStructuresInput>> calculationObserver;
+        private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
+        private RecursiveObserver<StructureCollection<StabilityPointStructure>, StabilityPointStructure> structureObserver;
 
         private StabilityPointStructuresFailureMechanismContext data;
 
@@ -94,20 +93,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(UpdateMapData);
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
-            foreshoreProfilesObserver = new Observer(UpdateMapData);
-            structuresObserver = new Observer(UpdateMapData);
-
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl);
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, StabilityPointStructuresInput>(
-                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<StabilityPointStructuresInput>>().Select(pc => pc.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
-            calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<StabilityPointStructuresInput>>(UpdateMapData, pcg => pcg.Children);
-            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll);
-            structureObserver = new RecursiveObserver<StructureCollection<StabilityPointStructure>, StabilityPointStructure>(UpdateMapData, coll => coll);
+            CreateObservers();
 
             mapDataCollection = new MapDataCollection(StabilityPointStructuresDataResources.StabilityPointStructuresFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -212,7 +198,59 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
+        }
+
+        private void CreateObservers()
+        {
+            failureMechanismObserver = new Observer(UpdateMapData)
+            {
+                Observable = FailureMechanism
+            };
+            assessmentSectionObserver = new Observer(UpdateMapData)
+            {
+                Observable = AssessmentSection
+            };
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            foreshoreProfilesObserver = new Observer(UpdateMapData)
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+            structuresObserver = new Observer(UpdateMapData)
+            {
+                Observable = FailureMechanism.StabilityPointStructures
+            };
+
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateMapData, hbl => hbl)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, StabilityPointStructuresInput>(
+                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<StabilityPointStructuresInput>>().Select(pc => pc.InputParameters)))
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children)
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<StabilityPointStructuresInput>>(UpdateMapData, pcg => pcg.Children)
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll)
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+            structureObserver = new RecursiveObserver<StructureCollection<StabilityPointStructure>, StabilityPointStructure>(UpdateMapData, coll => coll)
+            {
+                Observable = FailureMechanism.StabilityPointStructures
+            };
         }
 
         private void UpdateMapData()
