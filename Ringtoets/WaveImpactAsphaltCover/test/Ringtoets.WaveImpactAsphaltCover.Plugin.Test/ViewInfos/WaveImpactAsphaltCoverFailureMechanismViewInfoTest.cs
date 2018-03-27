@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -99,12 +100,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = waveImpactAsphaltCoverFailureMechanismContext
-            })
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -122,12 +119,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = waveImpactAsphaltCoverFailureMechanismContext
-            })
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -147,12 +140,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var otherWaveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
-
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = waveImpactAsphaltCoverFailureMechanismContext
-            })
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherWaveImpactAsphaltCoverFailureMechanism);
@@ -168,12 +156,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection)
-            {
-                Data = waveImpactAsphaltCoverFailureMechanismContext
-            })
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -205,6 +189,22 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(isRelevant, result);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_WithContext_ReturnWaveImpactAsphaltCoverFailureMechanismView()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismView>(view);
         }
     }
 }
