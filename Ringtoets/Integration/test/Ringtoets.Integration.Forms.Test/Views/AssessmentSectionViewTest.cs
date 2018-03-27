@@ -23,10 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -137,6 +139,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
@@ -149,6 +156,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -161,9 +169,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssessmentSectionView(assessmentSection))
             {
-                view.Data = assessmentSection;
-                MapDataCollection mapData = view.Map.Data;
-                MapData hydraulicBoundaryLocationsMapData = mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
                 AssertHydraulicBoundarLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
@@ -176,6 +189,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Then
                 AssertHydraulicBoundarLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
                                                        hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -197,10 +211,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             using (var view = new AssessmentSectionView(assessmentSection))
             {
-                view.Data = assessmentSection;
-                MapDataCollection mapData = view.Map.Data;
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
@@ -215,6 +233,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Assert
                 AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -291,6 +310,30 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
+        }
+
+        /// <summary>
+        /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
+        /// </summary>
+        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
+        /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
+        /// elements.</param>
+        /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
+        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        {
+            MapData[] mapDataArray = mapData.ToArray();
+
+            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
+
+            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
+
+            return new[]
+            {
+                referenceLineMapDataObserver,
+                hydraulicBoundaryLocationsMapDataObserver
+            };
         }
     }
 }

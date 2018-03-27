@@ -150,15 +150,7 @@ namespace Ringtoets.Integration.Forms.Views
             SetHydraulicBoundaryLocationsMapData();
         }
 
-        private void SetReferenceLineMapData()
-        {
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(assessmentSection.ReferenceLine, assessmentSection.Id, assessmentSection.Name);
-        }
-
-        private void SetHydraulicBoundaryLocationsMapData()
-        {
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection);
-        }
+        #region ReferenceLine MapData
 
         private void UpdateReferenceLineMapData()
         {
@@ -166,10 +158,26 @@ namespace Ringtoets.Integration.Forms.Views
             referenceLineMapData.NotifyObservers();
         }
 
+        private void SetReferenceLineMapData()
+        {
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(assessmentSection.ReferenceLine, assessmentSection.Id, assessmentSection.Name);
+        }
+
+        #endregion
+
+        #region HydraulicBoundaryLocations MapData
+
         private void UpdateHydraulicBoundaryLocationsMapData()
         {
             SetHydraulicBoundaryLocationsMapData();
             hydraulicBoundaryLocationsMapData.NotifyObservers();
         }
+
+        private void SetHydraulicBoundaryLocationsMapData()
+        {
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection);
+        }
+
+        #endregion
     }
 }
