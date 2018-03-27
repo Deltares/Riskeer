@@ -101,7 +101,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = waveImpactAsphaltCoverFailureMechanismContext
             })
@@ -124,7 +124,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = waveImpactAsphaltCoverFailureMechanismContext
             })
@@ -149,7 +149,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = waveImpactAsphaltCoverFailureMechanismContext
             })
@@ -170,7 +170,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = waveImpactAsphaltCoverFailureMechanismContext
             })
