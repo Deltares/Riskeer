@@ -92,10 +92,10 @@ namespace Ringtoets.ClosingStructures.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            InitializeComponent();
+
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
-
-            InitializeComponent();
 
             CreateObservers();
 
