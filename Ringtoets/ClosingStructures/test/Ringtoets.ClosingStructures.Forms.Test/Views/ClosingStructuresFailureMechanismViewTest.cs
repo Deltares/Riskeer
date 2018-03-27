@@ -32,7 +32,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -110,111 +109,21 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Data_ClosingStructuresFailureMechanismContext_DataSet()
-        {
-            // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
-            {
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
-                    new ClosingStructuresFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
+        public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
+            // Call
             using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
             {
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
-                    new ClosingStructuresFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
                 MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
         [Test]
-        public void Data_OtherThanClosingStructuresFailureMechanismContext_DataNull()
-        {
-            // Setup
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_SetToNull_MapDataCleared()
-        {
-            // Setup
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
-                    new ClosingStructuresFailureMechanism(),
-                    assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                // Precondition
-                Assert.AreEqual(8, view.Map.Data.Collection.Count());
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.Map.Data);
-                Assert.IsNull(view.Map.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void Data_EmptyClosingStructuresFailureMechanismContext_NoMapDataSet()
-        {
-            // Setup
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), new ObservableTestAssessmentSectionStub()))
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(
-                    new ClosingStructuresFailureMechanism(),
-                    assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-                AssertEmptyMapData(view.Map.Data);
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void Data_ClosingStructuresFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
+        public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup          
             var calculationA = new StructuresCalculation<ClosingStructuresInput>
@@ -285,18 +194,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
+            // Call
             using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
@@ -334,10 +237,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
@@ -372,10 +271,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
@@ -418,10 +313,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
@@ -449,10 +340,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
@@ -492,10 +379,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
-
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
@@ -533,10 +416,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
-
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
@@ -572,10 +451,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
-
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
                 // Precondition
@@ -605,11 +480,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism,
-                                                                                           new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
@@ -649,9 +519,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -696,10 +563,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
-
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 // Precondition
@@ -735,10 +598,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
-
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 // Precondition
@@ -772,10 +631,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var failureMechanism = new ClosingStructuresFailureMechanism();
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-
-                view.Data = failureMechanismContext;
 
                 MapDataCollection mapData = map.Data;
 
@@ -846,40 +701,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
                 Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
-            }
-        }
-
-        [Test]
-        public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
-        {
-            // Setup
-            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
-            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
-
-            newAssessmentSection.ReferenceLine = new ReferenceLine();
-            newAssessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(2, 4),
-                new Point2D(3, 4)
-            });
-
-            var oldClosingStructuresFailureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), oldAssessmentSection);
-            var newClosingStructuresFailureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), newAssessmentSection);
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), oldAssessmentSection))
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                view.Data = oldClosingStructuresFailureMechanismContext;
-                view.Data = newClosingStructuresFailureMechanismContext;
-                MapData dataBeforeUpdate = map.Data;
-
-                newAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
-
-                // Call
-                oldAssessmentSection.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(dataBeforeUpdate, map.Data);
             }
         }
 

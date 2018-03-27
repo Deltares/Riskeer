@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -45,7 +44,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     /// </summary>
     public partial class ClosingStructuresFailureMechanismView : UserControl, IMapView
     {
-        private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
         private readonly MapPointData sectionsStartPointMapData;
@@ -66,8 +64,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         private RecursiveObserver<CalculationGroup, StructuresCalculation<ClosingStructuresInput>> calculationObserver;
         private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
         private RecursiveObserver<StructureCollection<ClosingStructure>, ClosingStructure> structureObserver;
-
-        private ClosingStructuresFailureMechanismContext data;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismView"/>.
@@ -95,7 +91,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
             CreateObservers();
 
-            mapDataCollection = new MapDataCollection(ClosingStructuresDataResources.ClosingStructuresFailureMechanism_DisplayName);
+            var mapDataCollection = new MapDataCollection(ClosingStructuresDataResources.ClosingStructuresFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             foreshoreProfilesMapData = RingtoetsMapDataFactory.CreateForeshoreProfileMapData();
@@ -128,52 +124,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
 
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as ClosingStructuresFailureMechanismContext;
-
-                if (data == null)
-                {
-                    failureMechanismObserver.Observable = null;
-                    assessmentSectionObserver.Observable = null;
-                    hydraulicBoundaryLocationsObserver.Observable = null;
-                    hydraulicBoundaryLocationObserver.Observable = null;
-                    foreshoreProfilesObserver.Observable = null;
-                    foreshoreProfileObserver.Observable = null;
-                    structuresObserver.Observable = null;
-                    structureObserver.Observable = null;
-                    calculationInputObserver.Observable = null;
-                    calculationGroupObserver.Observable = null;
-                    calculationObserver.Observable = null;
-
-                    ringtoetsMapControl.RemoveAllData();
-                }
-                else
-                {
-                    failureMechanismObserver.Observable = data.WrappedData;
-                    assessmentSectionObserver.Observable = data.Parent;
-                    hydraulicBoundaryLocationsObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
-                    hydraulicBoundaryLocationObserver.Observable = data.Parent.HydraulicBoundaryDatabase.Locations;
-                    foreshoreProfilesObserver.Observable = data.WrappedData.ForeshoreProfiles;
-                    foreshoreProfileObserver.Observable = data.WrappedData.ForeshoreProfiles;
-                    structuresObserver.Observable = data.WrappedData.ClosingStructures;
-                    structureObserver.Observable = data.WrappedData.ClosingStructures;
-                    calculationInputObserver.Observable = data.WrappedData.CalculationsGroup;
-                    calculationGroupObserver.Observable = data.WrappedData.CalculationsGroup;
-                    calculationObserver.Observable = data.WrappedData.CalculationsGroup;
-
-                    SetMapDataFeatures();
-
-                    ringtoetsMapControl.SetAllData(mapDataCollection, data.Parent.BackgroundData);
-                }
-            }
-        }
+        public object Data { get; set; }
 
         public IMapControl Map
         {
