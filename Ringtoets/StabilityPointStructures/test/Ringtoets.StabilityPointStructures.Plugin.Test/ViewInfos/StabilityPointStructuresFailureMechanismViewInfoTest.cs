@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -60,7 +61,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismContext), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]
@@ -73,14 +73,21 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new StabilityPointStructuresFailureMechanismView())
-            {
-                // Call
-                string viewName = info.GetViewName(view, failureMechanismContext);
+            // Call
+            string viewName = info.GetViewName(null, failureMechanismContext);
 
-                // Assert
-                Assert.AreEqual(failureMechanism.Name, viewName);
-            }
+            // Assert
+            Assert.AreEqual(failureMechanism.Name, viewName);
+        }
+
+        [Test]
+        public void Image_Always_ReturnsGenericInputOutputIcon()
+        {
+            // Call
+            Image image = info.Image;
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -105,6 +112,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
