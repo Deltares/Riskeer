@@ -151,77 +151,140 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
 
         private void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateMapData)
+            failureMechanismObserver = new Observer(UpdateSectionsMapData)
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateMapData)
+            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
             };
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
             {
                 Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            foreshoreProfilesObserver = new Observer(UpdateMapData)
+            foreshoreProfilesObserver = new Observer(UpdateForeshoreProfilesMapData)
             {
                 Observable = FailureMechanism.ForeshoreProfiles
             };
 
             hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl)
+                UpdateHydraulicBoundaryLocationsMapData, hbl => hbl)
             {
                 Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
             };
             calculationInputObserver = new RecursiveObserver<CalculationGroup, WaveConditionsInput>(
-                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                                     .Select(pc => pc.InputParameters)))
+                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                                 .Select(pc => pc.InputParameters)))
             {
                 Observable = FailureMechanism.WaveConditionsCalculationGroup
             };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children)
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
                 Observable = FailureMechanism.WaveConditionsCalculationGroup
             };
-            calculationObserver = new RecursiveObserver<CalculationGroup, WaveImpactAsphaltCoverWaveConditionsCalculation>(UpdateMapData, pcg => pcg.Children)
+            calculationObserver = new RecursiveObserver<CalculationGroup, WaveImpactAsphaltCoverWaveConditionsCalculation>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
                 Observable = FailureMechanism.WaveConditionsCalculationGroup
             };
-            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll)
+            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateForeshoreProfilesMapData, coll => coll)
             {
                 Observable = FailureMechanism.ForeshoreProfiles
             };
         }
 
-        private void UpdateMapData()
+        private void SetMapDataFeatures()
         {
-            SetMapDataFeatures();
+            SetReferenceLineMapData();
+            SetSectionsMapData();
+            SetHydraulicBoundaryLocationsMapData();
+            SetForeshoreProfilesMapData();
+            SetCalculationsMapData();
+        }
 
-            referenceLineMapData.NotifyObservers();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-            hydraulicBoundaryLocationsMapData.NotifyObservers();
-            foreshoreProfilesMapData.NotifyObservers();
+        #region Calculations MapData
+
+        private void UpdateCalculationsMapData()
+        {
+            SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
         }
 
-        private void SetMapDataFeatures()
+        private void SetCalculationsMapData()
         {
-            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
-            IEnumerable<ForeshoreProfile> foreshoreProfiles = FailureMechanism.ForeshoreProfiles;
             IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations =
                 FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+            calculationsMapData.Features = WaveImpactAsphaltCoverMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
+        }
 
+        #endregion
+
+        #region HydraulicBoundaryLocations MapData
+
+        private void UpdateHydraulicBoundaryLocationsMapData()
+        {
+            SetHydraulicBoundaryLocationsMapData();
+            hydraulicBoundaryLocationsMapData.NotifyObservers();
+        }
+
+        private void SetHydraulicBoundaryLocationsMapData()
+        {
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(AssessmentSection.HydraulicBoundaryDatabase);
+        }
+
+        #endregion
+
+        #region ReferenceLine MapData
+
+        private void UpdateReferenceLineMapData()
+        {
+            SetReferenceLineMapData();
+            referenceLineMapData.NotifyObservers();
+        }
+
+        private void SetReferenceLineMapData()
+        {
+            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
+        }
+
+        #endregion
+
+        #region Sections MapData
+
+        private void UpdateSectionsMapData()
+        {
+            SetSectionsMapData();
+            sectionsMapData.NotifyObservers();
+            sectionsStartPointMapData.NotifyObservers();
+            sectionsEndPointMapData.NotifyObservers();
+        }
+
+        private void SetSectionsMapData()
+        {
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
+
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
-            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
-            calculationsMapData.Features = WaveImpactAsphaltCoverMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
+
+        #endregion
+
+        #region Foreshore Profiles MapData
+
+        private void UpdateForeshoreProfilesMapData()
+        {
+            SetForeshoreProfilesMapData();
+            foreshoreProfilesMapData.NotifyObservers();
+        }
+
+        private void SetForeshoreProfilesMapData()
+        {
+            IEnumerable<ForeshoreProfile> foreshoreProfiles = FailureMechanism.ForeshoreProfiles;
+            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
+        }
+
+        #endregion
     }
 }
