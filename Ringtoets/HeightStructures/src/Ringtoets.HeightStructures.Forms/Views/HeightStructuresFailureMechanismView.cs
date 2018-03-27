@@ -44,6 +44,14 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// </summary>
     public partial class HeightStructuresFailureMechanismView : UserControl, IMapView
     {
+        private readonly MapLineData referenceLineMapData;
+        private readonly MapLineData sectionsMapData;
+        private readonly MapPointData sectionsStartPointMapData;
+        private readonly MapPointData sectionsEndPointMapData;
+        private readonly MapPointData hydraulicBoundaryLocationsMapData;
+        private readonly MapLineData foreshoreProfilesMapData;
+        private readonly MapPointData structuresMapData;
+        private readonly MapLineData calculationsMapData;
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
         private Observer hydraulicBoundaryLocationsObserver;
@@ -56,15 +64,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
         private RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>> calculationObserver;
         private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
         private RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure> structureObserver;
-
-        private readonly MapLineData referenceLineMapData;
-        private readonly MapLineData sectionsMapData;
-        private readonly MapPointData sectionsStartPointMapData;
-        private readonly MapPointData sectionsEndPointMapData;
-        private readonly MapPointData hydraulicBoundaryLocationsMapData;
-        private readonly MapLineData foreshoreProfilesMapData;
-        private readonly MapPointData structuresMapData;
-        private readonly MapLineData calculationsMapData;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismView"/>.
@@ -115,58 +114,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
             ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
-        private void CreateObservers()
-        {
-            failureMechanismObserver = new Observer(UpdateMapData)
-            {
-                Observable = FailureMechanism
-            };
-            assessmentSectionObserver = new Observer(UpdateMapData)
-            {
-                Observable = AssessmentSection
-            };
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
-            {
-                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-            foreshoreProfilesObserver = new Observer(UpdateMapData)
-            {
-                Observable = FailureMechanism.ForeshoreProfiles
-            };
-            structuresObserver = new Observer(UpdateMapData)
-            {
-                Observable = FailureMechanism.HeightStructures
-            };
-
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl)
-            {
-                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, HeightStructuresInput>(
-                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<HeightStructuresInput>>()
-                                                                     .Select(pc => pc.InputParameters)))
-            {
-                Observable = FailureMechanism.CalculationsGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children)
-            {
-                Observable = FailureMechanism.CalculationsGroup
-            };
-            calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>>(UpdateMapData, pcg => pcg.Children)
-            {
-                Observable = FailureMechanism.CalculationsGroup
-            };
-            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll)
-            {
-                Observable = FailureMechanism.ForeshoreProfiles
-            };
-            structureObserver = new RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure>(UpdateMapData, coll => coll)
-            {
-                Observable = FailureMechanism.HeightStructures
-            };
-        }
-
         /// <summary>
         /// Gets the failure mechanism.
         /// </summary>
@@ -205,41 +152,171 @@ namespace Ringtoets.HeightStructures.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
-        private void UpdateMapData()
+        private void CreateObservers()
         {
-            SetMapDataFeatures();
+            failureMechanismObserver = new Observer(UpdateSectionsMapData)
+            {
+                Observable = FailureMechanism
+            };
+            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
+            {
+                Observable = AssessmentSection
+            };
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            foreshoreProfilesObserver = new Observer(UpdateForeshoreProfilesMapData)
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+            structuresObserver = new Observer(UpdateStructuresMapData)
+            {
+                Observable = FailureMechanism.HeightStructures
+            };
 
-            referenceLineMapData.NotifyObservers();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-            hydraulicBoundaryLocationsMapData.NotifyObservers();
-            foreshoreProfilesMapData.NotifyObservers();
-            structuresMapData.NotifyObservers();
-            calculationsMapData.NotifyObservers();
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateHydraulicBoundaryLocationsMapData, hbl => hbl)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, HeightStructuresInput>(
+                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<HeightStructuresInput>>()
+                                                                                 .Select(pc => pc.InputParameters)))
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<HeightStructuresInput>>(UpdateCalculationsMapData, pcg => pcg.Children)
+            {
+                Observable = FailureMechanism.CalculationsGroup
+            };
+            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateForeshoreProfilesMapData, coll => coll)
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+            structureObserver = new RecursiveObserver<StructureCollection<HeightStructure>, HeightStructure>(UpdateStructuresMapData, coll => coll)
+            {
+                Observable = FailureMechanism.HeightStructures
+            };
         }
 
         private void SetMapDataFeatures()
         {
-            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
-            IEnumerable<ForeshoreProfile> foreshoreProfiles = FailureMechanism.ForeshoreProfiles;
-            IEnumerable<HeightStructure> structures = FailureMechanism.HeightStructures;
+            SetReferenceLineMapData();
+            SetSectionsMapData();
+            SetHydraulicBoundaryLocationsMapData();
+            SetForeshoreProfilesMapData();
+            SetStructuresMapData();
+            SetCalculationsMapData();
+        }
+
+        #region Calculations MapData
+
+        private void UpdateCalculationsMapData()
+        {
+            SetCalculationsMapData();
+            calculationsMapData.NotifyObservers();
+        }
+
+        private void SetCalculationsMapData()
+        {
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations =
                 FailureMechanism.CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
+            calculationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures<HeightStructuresInput, HeightStructure>(calculations);
+        }
 
+        #endregion
+
+        #region HydraulicBoundaryLocations MapData
+
+        private void UpdateHydraulicBoundaryLocationsMapData()
+        {
+            SetHydraulicBoundaryLocationsMapData();
+            hydraulicBoundaryLocationsMapData.NotifyObservers();
+        }
+
+        private void SetHydraulicBoundaryLocationsMapData()
+        {
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(AssessmentSection.HydraulicBoundaryDatabase);
+        }
+
+        #endregion
+
+        #region ReferenceLine MapData
+
+        private void UpdateReferenceLineMapData()
+        {
+            SetReferenceLineMapData();
+            referenceLineMapData.NotifyObservers();
+        }
+
+        private void SetReferenceLineMapData()
+        {
+            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
+        }
+
+        #endregion
+
+        #region Sections MapData
+
+        private void UpdateSectionsMapData()
+        {
+            SetSectionsMapData();
+            sectionsMapData.NotifyObservers();
+            sectionsStartPointMapData.NotifyObservers();
+            sectionsEndPointMapData.NotifyObservers();
+        }
+
+        private void SetSectionsMapData()
+        {
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
+
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
-            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
-            structuresMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
-            calculationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures<HeightStructuresInput, HeightStructure>(calculations);
         }
+
+        #endregion
+
+        #region Structures MapData
+
+        private void UpdateStructuresMapData()
+        {
+            SetStructuresMapData();
+            structuresMapData.NotifyObservers();
+        }
+
+        private void SetStructuresMapData()
+        {
+            IEnumerable<HeightStructure> structures = FailureMechanism.HeightStructures;
+            structuresMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
+        }
+
+        #endregion
+
+        #region Foreshore Profiles MapData
+
+        private void UpdateForeshoreProfilesMapData()
+        {
+            SetForeshoreProfilesMapData();
+            foreshoreProfilesMapData.NotifyObservers();
+        }
+
+        private void SetForeshoreProfilesMapData()
+        {
+            IEnumerable<ForeshoreProfile> foreshoreProfiles = FailureMechanism.ForeshoreProfiles;
+            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
+        }
+
+        #endregion
     }
 }
