@@ -7,7 +7,6 @@ PRAGMA foreign_keys = OFF;
 
 ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 
-INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
 INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
@@ -87,6 +86,23 @@ SELECT
 FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraRingPreprocessorEntity SELECT * FROM [SOURCEPROJECT].HydraRingPreprocessorEntity;
+INSERT INTO HydraulicLocationEntity (
+	[HydraulicLocationEntityId],
+	[AssessmentSectionEntityId],
+	[LocationId],
+	[Name],
+	[LocationX],
+	[LocationY],
+	[Order])
+SELECT 
+	[HydraulicLocationEntityId],
+	[AssessmentSectionEntityId],
+	[LocationId],
+	[Name],
+	[LocationX],
+	[LocationY],
+	[Order]
+FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
 INSERT INTO MacroStabilityInwardsCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
@@ -256,244 +272,267 @@ SELECT FailureMechanismEntityId,
 	1.0
 FROM FailureMechanismEntity WHERE FailureMechanismType = 11;
 
--- Insert new Hydraulic Location Calculations
--- Note: Union has been used to repeat the operation 8 times for the calculations
-INSERT INTO HydraulicLocationCalculationEntity (
-    [ShouldIllustrationPointsBeCalculated]
-)
-SELECT
-    0
-    FROM [SOURCEPROJECT].HydraulicLocationEntity
-UNION ALL
-SELECT
-    0
-    FROM [SOURCEPROJECT].HydraulicLocationEntity
-UNION ALL
-SELECT
-    0
-    FROM [SOURCEPROJECT].HydraulicLocationEntity
-UNION ALL
-SELECT
-    0
-    FROM [SOURCEPROJECT].HydraulicLocationEntity
-UNION ALL
-SELECT
-    0
-    FROM [SOURCEPROJECT].HydraulicLocationEntity
-UNION ALL
-SELECT
-    0
-    FROM [SOURCEPROJECT].HydraulicLocationEntity
-UNION ALL
-SELECT
-    0
-    FROM [SOURCEPROJECT].HydraulicLocationEntity
-UNION ALL
-SELECT
-    0
-    FROM [SOURCEPROJECT].HydraulicLocationEntity;
 
--- Create temp table to store the new calculation ids
+/*
+Note, the following conventions are used for the calculation type on AssessmentSectionEntity:
+- The water level calculations for the factorized signaling norm = 1.
+- The water level calculations for the signaling norm = 2.
+- The water level calculations for the lower limit norm = 3.
+- The water level calculations for the factorized lower limit norm = 4.
+- The wave height calculations for the factorized signaling norm = 5.
+- The wave height calculations for the signaling norm = 6.
+- The wave height calculations for the lower limit norm = 7.
+- The wave height calculations for the factorized lower limit norm = 8.
+*/ 
+
+-- Migrate the hydraulic boundary location calculations on assessment section level
+-- Create the calculation entities
 CREATE TEMP TABLE TempHydraulicLocationCalculationEntity
 (
-    'Calculation1Id' INTEGER NOT NULL,
-    'Calculation2Id' INTEGER NOT NULL,
-    'Calculation3Id' INTEGER NOT NULL,
-    'Calculation4Id' INTEGER NOT NULL,
-    'Calculation5Id' INTEGER NOT NULL,
-    'Calculation6Id' INTEGER NOT NULL,
-    'Calculation7Id' INTEGER NOT NULL,
-    'Calculation8Id' INTEGER NOT NULL,
-    'HydraulicLocationEntityId' INTEGER NOT NULL,
-    PRIMARY KEY 
-    (   
-        'Calculation1Id', 
-        'Calculation2Id', 
-        'Calculation3Id', 
-        'Calculation4Id', 
-        'Calculation5Id', 
-        'Calculation6Id', 
-        'Calculation7Id', 
-        'Calculation8Id', 
-        'HydraulicLocationEntityId'
-    )
-) WITHOUT ROWID;
-
--- Store the mapping between the calculations and the hydraulic boundary location
-INSERT INTO TempHydraulicLocationCalculationEntity (
-    [Calculation1Id],
-    [Calculation2Id],
-    [Calculation3Id],
-    [Calculation4Id],
-    [Calculation5Id],
-    [Calculation6Id],
-    [Calculation7Id],
-    [Calculation8Id],
-    [HydraulicLocationEntityId])
-SELECT
-    last_insert_rowid() - IndexOffSet,
-    last_insert_rowid() - IndexOffset - 1,
-    last_insert_rowid() - IndexOffset - 2,
-    last_insert_rowid() - IndexOffset - 3,
-    last_insert_rowid() - IndexOffset - 4,
-    last_insert_rowid() - IndexOffset - 5,
-    last_insert_rowid() - IndexOffset - 6,
-    last_insert_rowid() - IndexOffset - 7,
-    HydraulicLocationEntityId
-FROM (
-    SELECT
-        hleB.HydraulicLocationEntityId AS HydraulicLocationEntityId,
-        (
-            SELECT 
-                (COUNT() - 1) * 8
-            FROM [SOURCEPROJECT].HydraulicLocationEntity hleA
-            WHERE hleA.HydraulicLocationEntityId >= hleB.HydraulicLocationEntityId
-        ) AS IndexOffSet
-    FROM [SOURCEPROJECT].HydraulicLocationEntity hleB
-    ORDER BY hleB.HydraulicLocationEntityId
+	'HydraulicLocationCalculationEntityId' INTEGER NOT NULL,
+	'HydraulicLocationEntityId' INTEGER NOT NULL,
+	'AssessmentSectionEntityId' INTEGER NOT NULL,
+	'CalculationType' TINYINT (1) NOT NULL,
+	PRIMARY KEY 
+	(
+		'HydraulicLocationCalculationEntityId' AUTOINCREMENT
+	)
 );
 
--- Perform the migration of the location entities
-INSERT INTO HydraulicLocationEntity (
-    [HydraulicLocationEntityId],
-    [AssessmentSectionEntityId],
-    [HydraulicLocationCalculationEntity1Id],
-    [HydraulicLocationCalculationEntity2Id],
-    [HydraulicLocationCalculationEntity3Id],
-    [HydraulicLocationCalculationEntity4Id],
-    [HydraulicLocationCalculationEntity5Id],
-    [HydraulicLocationCalculationEntity6Id],
-    [HydraulicLocationCalculationEntity7Id],
-    [HydraulicLocationCalculationEntity8Id],
-    [LocationId],
-    [Name],
-    [LocationX],
-    [LocationY],
-    [Order]
-)
-SELECT 
-    [HydraulicLocationEntityId],
-    [AssessmentSectionEntityId],
-    [Calculation1Id],
-    [Calculation2Id],
-    [Calculation3Id],
-    [Calculation4Id],
-    [Calculation5Id],
-    [Calculation6Id],
-    [Calculation7Id],
-    [Calculation8Id],
-    [LocationId],
-    [Name],
-    [LocationX],
-    [LocationY],
-    [Order]
-    FROM [SOURCEPROJECT].HydraulicLocationEntity
-    JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId);
+-- UNION ALL is used to repeate the operation for the calculations eight times
+INSERT INTO TempHydraulicLocationCalculationEntity (
+	[HydraulicLocationEntityId],
+	[AssessmentSectionEntityId],
+	CalculationType)
+SELECT
+	HydraulicLocationEntityId,
+	AssessmentSectionEntityId,
+	0
+FROM HydraulicLocationEntity
+UNION ALL
+SELECT
+	HydraulicLocationEntityId,
+	AssessmentSectionEntityId,
+	1
+FROM HydraulicLocationEntity
+UNION ALL
+SELECT
+	HydraulicLocationEntityId,
+	AssessmentSectionEntityId,
+	2
+FROM HydraulicLocationEntity
+UNION ALL
+SELECT
+	HydraulicLocationEntityId,
+	AssessmentSectionEntityId,
+	3
+FROM HydraulicLocationEntity
+UNION ALL
+SELECT
+	HydraulicLocationEntityId,
+	AssessmentSectionEntityId,
+	4
+FROM HydraulicLocationEntity
+UNION ALL
+SELECT
+	HydraulicLocationEntityId,
+	AssessmentSectionEntityId,
+	5
+FROM HydraulicLocationEntity
+UNION ALL
+SELECT
+	HydraulicLocationEntityId,
+	AssessmentSectionEntityId,
+	6
+FROM HydraulicLocationEntity
+UNION ALL
+SELECT
+	HydraulicLocationEntityId,
+	AssessmentSectionEntityId,
+	7
+FROM HydraulicLocationEntity;
 
--- Perform the migration of the output entities
-INSERT INTO HydraulicLocationOutputEntity (
-	[HydraulicLocationOutputEntityId],
+INSERT INTO HydraulicLocationCalculationEntity (
 	[HydraulicLocationCalculationEntityId],
-	[GeneralResultSubMechanismIllustrationPointEntityId],
-	[Result],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence])
+	[HydraulicLocationEntityId],
+	[ShouldIllustrationPointsBeCalculated])
 SELECT
-	[HydraulicLocationEntityOutputId],
-	CASE WHEN [HydraulicLocationOutputType] = 1
-		THEN [Calculation2Id]
-	ELSE
-		[Calculation6Id]
-	END,
-	[GeneralResultSubMechanismIllustrationPointEntityId],
-	[Result],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence]
-FROM [SOURCEPROJECT].HydraulicLocationOutputEntity hlo
-JOIN [SOURCEPROJECT].HydraulicLocationEntity hl ON hlo.HydraulicLocationEntityId = hl.HydraulicLocationEntityId
-JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId)
-JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
-WHERE NormativeNormType = 2
+	HydraulicLocationCalculationEntityId,
+	HydraulicLocationEntityId,
+	0
+FROM TempHydraulicLocationCalculationEntity;
 
-UNION 
+-- Create the calculation collections
+CREATE TEMP TABLE TempHydraulicLocationCalculationCollectionEntity
+(
+	'HydraulicLocationCalculationCollectionEntityId' INTEGER NOT NULL,
+	'AssessmentSectionEntityId' INTEGER NOT NULL,
+	'CalculationType' TINYINT (1) NOT NULL,
+	PRIMARY KEY 
+	(   
+		'HydraulicLocationCalculationCollectionEntityId' AUTOINCREMENT
+	)
+);
 
+INSERT INTO TempHydraulicLocationCalculationCollectionEntity (
+	[AssessmentSectionEntityId],
+	[CalculationType])
 SELECT
-	[HydraulicLocationEntityOutputId],
-	CASE WHEN [HydraulicLocationOutputType] = 1
-		THEN [Calculation3Id]
-	ELSE
-		[Calculation7Id]
-	END,
-	[GeneralResultSubMechanismIllustrationPointEntityId],
-	[Result],
-	[TargetProbability],
-	[TargetReliability],
-	[CalculatedProbability],
-	[CalculatedReliability],
-	[CalculationConvergence]
-FROM [SOURCEPROJECT].HydraulicLocationOutputEntity hlo
-JOIN [SOURCEPROJECT].HydraulicLocationEntity hl ON hlo.HydraulicLocationEntityId = hl.HydraulicLocationEntityId
-JOIN TempHydraulicLocationCalculationEntity USING (HydraulicLocationEntityId)
-JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
-WHERE NormativeNormType = 1;
+	AssessmentSectionEntityId,
+	0
+FROM [SOURCEPROJECT].AssessmentSectionEntity
+UNION ALL
+SELECT
+	AssessmentSectionEntityId,
+	1
+FROM [SOURCEPROJECT].AssessmentSectionEntity
+UNION ALL
+SELECT
+	AssessmentSectionEntityId,
+	2
+FROM [SOURCEPROJECT].AssessmentSectionEntity
+UNION ALL
+SELECT
+	AssessmentSectionEntityId,
+	3
+FROM [SOURCEPROJECT].AssessmentSectionEntity
+UNION ALL
+SELECT
+	AssessmentSectionEntityId,
+	4
+FROM [SOURCEPROJECT].AssessmentSectionEntity
+UNION ALL
+SELECT
+	AssessmentSectionEntityId,
+	5
+FROM [SOURCEPROJECT].AssessmentSectionEntity
+UNION ALL
+SELECT
+	AssessmentSectionEntityId,
+	6
+FROM [SOURCEPROJECT].AssessmentSectionEntity
+UNION ALL
+SELECT
+	AssessmentSectionEntityId,
+	7
+FROM [SOURCEPROJECT].AssessmentSectionEntity;
 
--- Update the calculation inputs based on the norm
-UPDATE HydraulicLocationCalculationEntity
-    SET [ShouldIllustrationPointsBeCalculated] = 1
-    WHERE HydraulicLocationCalculationEntityId IN (
-        SELECT 
-            [HydraulicLocationCalculationEntityId]
-        FROM [SOURCEPROJECT].HydraulicLocationEntity hle
-        JOIN TempHydraulicLocationCalculationEntity mapping ON hle.HydraulicLocationEntityId = mapping.HydraulicLocationEntityId
-        JOIN HydraulicLocationCalculationEntity hlce ON mapping.Calculation2Id = hlce.HydraulicLocationCalculationEntityId
-        JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
-        WHERE NormativeNormType = 2 AND hle.ShouldDesignWaterlevelIllustrationPointsBeCalculated = 1
-    );
+INSERT INTO HydraulicLocationCalculationCollectionEntity (
+	[HydraulicLocationCalculationCollectionEntityId])
+SELECT
+	HydraulicLocationCalculationCollectionEntityId
+FROM TempHydraulicLocationCalculationCollectionEntity;
 
-UPDATE HydraulicLocationCalculationEntity
-    SET [ShouldIllustrationPointsBeCalculated] = 1
-    WHERE HydraulicLocationCalculationEntityId IN (
-        SELECT 
-            [HydraulicLocationCalculationEntityId]
-        FROM [SOURCEPROJECT].HydraulicLocationEntity hle
-        JOIN TempHydraulicLocationCalculationEntity mapping ON hle.HydraulicLocationEntityId = mapping.HydraulicLocationEntityId
-        JOIN HydraulicLocationCalculationEntity hlce ON mapping.Calculation3Id = hlce.HydraulicLocationCalculationEntityId
-        JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
-        WHERE NormativeNormType = 1 AND hle.ShouldDesignWaterlevelIllustrationPointsBeCalculated = 1
-    );
-    
-UPDATE HydraulicLocationCalculationEntity
-    SET [ShouldIllustrationPointsBeCalculated] = 1
-    WHERE HydraulicLocationCalculationEntityId IN (
-        SELECT 
-            [HydraulicLocationCalculationEntityId]
-        FROM [SOURCEPROJECT].HydraulicLocationEntity hle
-        JOIN TempHydraulicLocationCalculationEntity mapping ON hle.HydraulicLocationEntityId = mapping.HydraulicLocationEntityId
-        JOIN HydraulicLocationCalculationEntity hlce ON mapping.Calculation6Id = hlce.HydraulicLocationCalculationEntityId
-        JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
-        WHERE NormativeNormType = 2 AND hle.ShouldWaveHeightIllustrationPointsBeCalculated = 1
-    );
+-- Map the calculations into the collections and add them to the association table
+INSERT INTO HydraulicLocationCalculationCollectionToHydraulicCalculationEntity (
+	[HydraulicLocationCalculationCollectionEntityId],
+	[HydraulicLocationCalculationEntityId])
+SELECT 
+	[HydraulicLocationCalculationCollectionEntityId],
+	[HydraulicLocationCalculationEntityId]
+FROM TempHydraulicLocationCalculationEntity calculationTable 
+JOIN TempHydraulicLocationCalculationCollectionEntity calculationCollectionTable 
+	ON calculationTable.AssessmentSectionEntityId = calculationCollectionTable.AssessmentSectionEntityId 
+	AND calculationTable.CalculationType = calculationCollectionTable.CalculationType;
 
-UPDATE HydraulicLocationCalculationEntity
-    SET [ShouldIllustrationPointsBeCalculated] = 1
-    WHERE HydraulicLocationCalculationEntityId IN (
-        SELECT 
-            [HydraulicLocationCalculationEntityId]
-        FROM [SOURCEPROJECT].HydraulicLocationEntity hle
-        JOIN TempHydraulicLocationCalculationEntity mapping ON hle.HydraulicLocationEntityId = mapping.HydraulicLocationEntityId
-        JOIN HydraulicLocationCalculationEntity hlce ON mapping.Calculation7Id = hlce.HydraulicLocationCalculationEntityId
-        JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
-        WHERE NormativeNormType = 1 AND hle.ShouldWaveHeightIllustrationPointsBeCalculated = 1
-    );
+-- Migrate the AssessmentSectionEntity
+INSERT INTO AssessmentSectionEntity (
+	[AssessmentSectionEntityId],
+	[ProjectEntityId],
+	[HydraulicLocationCalculationCollectionEntity1Id],
+	[HydraulicLocationCalculationCollectionEntity2Id],
+	[HydraulicLocationCalculationCollectionEntity3Id],
+	[HydraulicLocationCalculationCollectionEntity4Id],
+	[HydraulicLocationCalculationCollectionEntity5Id],
+	[HydraulicLocationCalculationCollectionEntity6Id],
+	[HydraulicLocationCalculationCollectionEntity7Id],
+	[HydraulicLocationCalculationCollectionEntity8Id],
+	[Id],
+	[Name],
+	[Comments],
+	[LowerLimitNorm],
+	[SignalingNorm],
+	[NormativeNormType],
+	[HydraulicDatabaseVersion],
+	[HydraulicDatabaseLocation],
+	[Composition],
+	[ReferenceLinePointXml],
+	[Order])
+SELECT 
+	[AssessmentSectionEntityId],
+	[ProjectEntityId],
+	[WaterLevelCalculationsForFactorizedSignalingNormId],
+	[WaterLevelCalculationsForSignalingNormId],
+	[WaterLevelCalculationsForLowerLimitNormId],
+	[WaterLevelCalculationsForFactorizedLowerLimitNormId],
+	[WaveHeightCalculationsForFactorizedSignalingNormId],
+	[WaveHeightCalculationsForSignalingNormId],
+	[WaveHeightCalculationsForLowerLimitNormId],
+	[WaveHeightCalculationsForFactorizedLowerLimitNormId],
+	[Id],
+	[Name],
+	[Comments],
+	[LowerLimitNorm],
+	[SignalingNorm],
+	[NormativeNormType],
+	[HydraulicDatabaseVersion],
+	[HydraulicDatabaseLocation],
+	[Composition],
+	[ReferenceLinePointXml],
+	[Order]
+FROM [SOURCEPROJECT].AssessmentSectionEntity 
+JOIN (
+	SELECT
+		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFactorizedSignalingNormId,
+		AssessmentSectionEntityId
+	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 0
+) USING (AssessmentSectionEntityId)
+JOIN (
+	SELECT
+		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForSignalingNormId,
+		AssessmentSectionEntityId
+	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 1
+) USING (AssessmentSectionEntityId)
+JOIN (
+	SELECT
+		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForLowerLimitNormId,
+		AssessmentSectionEntityId
+	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 2
+) USING (AssessmentSectionEntityId)
+JOIN (
+	SELECT
+		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFactorizedLowerLimitNormId,
+		AssessmentSectionEntityId
+	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 3
+) USING (AssessmentSectionEntityId)
+JOIN (
+	SELECT
+		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFactorizedSignalingNormId,
+		AssessmentSectionEntityId
+	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 4
+) USING (AssessmentSectionEntityId)
+JOIN (
+	SELECT
+		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForSignalingNormId,
+		AssessmentSectionEntityId
+	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 5
+) USING (AssessmentSectionEntityId)
+JOIN (
+	SELECT
+		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForLowerLimitNormId,
+		AssessmentSectionEntityId
+	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 6
+) USING (AssessmentSectionEntityId)
+JOIN (
+	SELECT
+		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFactorizedLowerLimitNormId,
+		AssessmentSectionEntityId
+	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 7
+) USING (AssessmentSectionEntityId);
 
 -- Cleanup
 DROP TABLE TempHydraulicLocationCalculationEntity;
+DROP TABLE TempHydraulicLocationCalculationCollectionEntity;
 
 /* 
 Write migration logging
