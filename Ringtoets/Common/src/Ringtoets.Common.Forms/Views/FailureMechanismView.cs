@@ -180,10 +180,30 @@ namespace Ringtoets.Common.Forms.Views
             SetHydraulicBoundaryLocationsMapData();
         }
 
+        #region ReferenceLine MapData
+
+        private void UpdateRefereceLineMapData()
+        {
+            SetRefereceLineMapData();
+            referenceLineMapData.NotifyObservers();
+        }
+
         private void SetRefereceLineMapData()
         {
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(
                 AssessmentSection.ReferenceLine, AssessmentSection.Id, AssessmentSection.Name);
+        }
+
+        #endregion
+
+        #region Sections MapData
+
+        private void UpdateSectionsMapData()
+        {
+            SetSectionsMapData();
+            sectionsMapData.NotifyObservers();
+            sectionsStartPointMapData.NotifyObservers();
+            sectionsEndPointMapData.NotifyObservers();
         }
 
         private void SetSectionsMapData()
@@ -195,29 +215,21 @@ namespace Ringtoets.Common.Forms.Views
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
-        private void SetHydraulicBoundaryLocationsMapData()
-        {
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
-        }
+        #endregion
 
-        private void UpdateRefereceLineMapData()
-        {
-            SetRefereceLineMapData();
-            referenceLineMapData.NotifyObservers();
-        }
-
-        private void UpdateSectionsMapData()
-        {
-            SetSectionsMapData();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-        }
+        #region HydraulicBoundaryLocations MapData
 
         private void UpdateHydraulicBoundaryLocationsMapData()
         {
             SetHydraulicBoundaryLocationsMapData();
             hydraulicBoundaryLocationsMapData.NotifyObservers();
         }
+
+        private void SetHydraulicBoundaryLocationsMapData()
+        {
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
+        }
+
+        #endregion
     }
 }
