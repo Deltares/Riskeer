@@ -67,7 +67,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
         private RecursiveObserver<CalculationGroup, ClosingStructuresInput> calculationInputObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, StructuresCalculation<ClosingStructuresInput>> calculationObserver;
@@ -156,7 +155,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             waveHeightCalculationsForLowerLimitNormObserver.Dispose();
             waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
-            hydraulicBoundaryLocationObserver.Dispose();
             foreshoreProfilesObserver.Dispose();
             foreshoreProfileObserver.Dispose();
             calculationInputObserver.Dispose();
@@ -213,14 +211,9 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
 
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateHydraulicBoundaryLocationsMapData, hbl => hbl)
-            {
-                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
-            };
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ClosingStructuresInput>(
                 UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                                     .Select(pc => pc.InputParameters)))
+                                                                                 .Select(pc => pc.InputParameters)))
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
