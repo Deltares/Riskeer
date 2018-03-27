@@ -267,6 +267,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
@@ -279,6 +284,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
