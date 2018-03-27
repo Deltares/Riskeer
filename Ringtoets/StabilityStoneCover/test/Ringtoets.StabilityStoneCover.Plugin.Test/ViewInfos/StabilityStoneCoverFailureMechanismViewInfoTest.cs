@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -99,12 +100,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection)
-            {
-                Data = stabilityStoneCoverFailureMechanismContext
-            })
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -121,14 +118,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection)
-            {
-                Data = stabilityStoneCoverFailureMechanismContext
-            })
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -143,16 +135,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             var otherStabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
-
-            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection)
-            {
-                Data = stabilityStoneCoverFailureMechanismContext
-            })
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherStabilityStoneCoverFailureMechanism);
@@ -167,14 +153,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection)
-            {
-                Data = stabilityStoneCoverFailureMechanismContext
-            })
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, stabilityStoneCoverFailureMechanism);
@@ -206,6 +187,22 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(isRelevant, result);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_WithContext_ReturnStabilityStoneCoverFailureMechanismView()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismView>(view);
         }
     }
 }
