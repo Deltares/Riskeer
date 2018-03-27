@@ -240,6 +240,41 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         }
 
         [Test]
+        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+        {
+            // Given
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection))
+            {
+                IMapControl map = ((RingtoetsMapControl)view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+
+                // When
+                HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+                calculation.Output = new TestHydraulicBoundaryLocationOutput(new Random(21).NextDouble());
+                calculation.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                mocks.ReplayAll();
+            }
+        }
+
+        [Test]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
