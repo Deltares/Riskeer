@@ -114,6 +114,9 @@ namespace Ringtoets.HeightStructures.Forms.Views
             mapDataCollection.Add(foreshoreProfilesMapData);
             mapDataCollection.Add(structuresMapData);
             mapDataCollection.Add(calculationsMapData);
+
+            SetMapDataFeatures();
+            ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
         private void CreateObservers()
@@ -271,15 +274,15 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
         private void SetMapDataFeatures()
         {
-            ReferenceLine referenceLine = data.Parent.ReferenceLine;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
-            IEnumerable<ForeshoreProfile> foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
-            IEnumerable<HeightStructure> structures = data.WrappedData.HeightStructures;
+            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
+            IEnumerable<ForeshoreProfile> foreshoreProfiles = FailureMechanism.ForeshoreProfiles;
+            IEnumerable<HeightStructure> structures = FailureMechanism.HeightStructures;
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations =
-                data.WrappedData.CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
+                FailureMechanism.CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
 
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
