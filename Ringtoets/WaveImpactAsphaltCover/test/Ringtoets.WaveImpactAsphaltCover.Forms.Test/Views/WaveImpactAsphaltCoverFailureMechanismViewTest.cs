@@ -251,7 +251,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (var view = new WaveImpactAsphaltCoverFailureMechanismView(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection))
             {
-                IMapControl map = ((RingtoetsMapControl)view.Controls[0]).MapControl;
+                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
