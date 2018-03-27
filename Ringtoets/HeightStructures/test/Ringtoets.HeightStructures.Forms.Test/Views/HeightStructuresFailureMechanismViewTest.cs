@@ -56,7 +56,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         private const int calculationsIndex = 7;
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var view = new HeightStructuresFailureMechanismView())
@@ -64,23 +64,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IMapView>(view);
-                Assert.IsNotNull(view.Map);
                 Assert.IsNull(view.Data);
-            }
-        }
 
-        [Test]
-        public void DefaultConstructor_Always_AddEmptyMapControl()
-        {
-            // Call
-            using (var view = new HeightStructuresFailureMechanismView())
-            {
-                // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                Assert.IsNull(view.Map.Data);
+                Assert.AreSame(view.Map, ((RingtoetsMapControl)view.Controls[0]).MapControl);
+                Assert.AreEqual(DockStyle.Fill, ((Control)view.Map).Dock);
+                AssertEmptyMapData(view.Map.Data);
             }
         }
 
