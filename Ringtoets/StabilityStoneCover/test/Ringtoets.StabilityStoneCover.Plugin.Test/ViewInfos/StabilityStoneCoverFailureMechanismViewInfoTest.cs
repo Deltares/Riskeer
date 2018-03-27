@@ -101,7 +101,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection)
             {
                 Data = stabilityStoneCoverFailureMechanismContext
             })
@@ -125,7 +125,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection)
             {
                 Data = stabilityStoneCoverFailureMechanismContext
             })
@@ -149,7 +149,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection)
             {
                 Data = stabilityStoneCoverFailureMechanismContext
             })
@@ -171,7 +171,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection)
             {
                 Data = stabilityStoneCoverFailureMechanismContext
             })
