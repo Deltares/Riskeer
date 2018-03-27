@@ -96,7 +96,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseStabilityPointStructuresFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new StabilityPointStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new ViewInfo<
@@ -267,12 +268,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as StabilityPointStructuresFailureMechanism;
 
-            var viewFailureMechanismContext = (StabilityPointStructuresFailureMechanismContext) view.Data;
-            StabilityPointStructuresFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion
