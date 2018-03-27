@@ -158,88 +158,165 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
         private void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateMapData)
+            failureMechanismObserver = new Observer(UpdateSectionsMapData)
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateMapData)
+            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
             };
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
             {
                 Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            foreshoreProfilesObserver = new Observer(UpdateMapData)
+            foreshoreProfilesObserver = new Observer(UpdateForeshoreProfilesMapData)
             {
                 Observable = FailureMechanism.ForeshoreProfiles
             };
-            structuresObserver = new Observer(UpdateMapData)
+            structuresObserver = new Observer(UpdateStructuresMapData)
             {
                 Observable = FailureMechanism.ClosingStructures
             };
 
             hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl)
+                UpdateHydraulicBoundaryLocationsMapData, hbl => hbl)
             {
                 Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
             };
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ClosingStructuresInput>(
-                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<ClosingStructuresInput>>()
+                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<ClosingStructuresInput>>()
                                                                      .Select(pc => pc.InputParameters)))
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children)
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
-            calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<ClosingStructuresInput>>(UpdateMapData, pcg => pcg.Children)
+            calculationObserver = new RecursiveObserver<CalculationGroup, StructuresCalculation<ClosingStructuresInput>>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
-            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll)
+            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateForeshoreProfilesMapData, coll => coll)
             {
                 Observable = FailureMechanism.ForeshoreProfiles
             };
-            structureObserver = new RecursiveObserver<StructureCollection<ClosingStructure>, ClosingStructure>(UpdateMapData, coll => coll)
+            structureObserver = new RecursiveObserver<StructureCollection<ClosingStructure>, ClosingStructure>(UpdateStructuresMapData, coll => coll)
             {
                 Observable = FailureMechanism.ClosingStructures
             };
         }
 
-        private void UpdateMapData()
+        private void SetMapDataFeatures()
         {
-            SetMapDataFeatures();
+            SetReferenceLineMapData();
+            SetSectionsMapData();
+            SetHydraulicBoundaryLocationsMapData();
+            SetForeshoreProfilesMapData();
+            SetStructuresMapData();
+            SetCalculationsMapData();
+        }
 
-            referenceLineMapData.NotifyObservers();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-            hydraulicBoundaryLocationsMapData.NotifyObservers();
-            foreshoreProfilesMapData.NotifyObservers();
-            structuresMapData.NotifyObservers();
+        #region Calculations MapData
+
+        private void UpdateCalculationsMapData()
+        {
+            SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
         }
 
-        private void SetMapDataFeatures()
+        private void SetCalculationsMapData()
         {
-            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
-            IEnumerable<ForeshoreProfile> foreshoreProfiles = FailureMechanism.ForeshoreProfiles;
-            IEnumerable<ClosingStructure> structures = FailureMechanism.ClosingStructures;
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations =
                 FailureMechanism.CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
+            calculationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures<ClosingStructuresInput, ClosingStructure>(calculations);
+        }
 
+        #endregion
+
+        #region HydraulicBoundaryLocations MapData
+
+        private void UpdateHydraulicBoundaryLocationsMapData()
+        {
+            SetHydraulicBoundaryLocationsMapData();
+            hydraulicBoundaryLocationsMapData.NotifyObservers();
+        }
+
+        private void SetHydraulicBoundaryLocationsMapData()
+        {
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(AssessmentSection.HydraulicBoundaryDatabase);
+        }
+
+        #endregion
+
+        #region ReferenceLine MapData
+
+        private void UpdateReferenceLineMapData()
+        {
+            SetReferenceLineMapData();
+            referenceLineMapData.NotifyObservers();
+        }
+
+        private void SetReferenceLineMapData()
+        {
+            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
+        }
+
+        #endregion
+
+        #region Sections MapData
+
+        private void UpdateSectionsMapData()
+        {
+            SetSectionsMapData();
+            sectionsMapData.NotifyObservers();
+            sectionsStartPointMapData.NotifyObservers();
+            sectionsEndPointMapData.NotifyObservers();
+        }
+
+        private void SetSectionsMapData()
+        {
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
+
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(hydraulicBoundaryDatabase);
-            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
-            structuresMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
-            calculationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructureCalculationsFeatures<ClosingStructuresInput, ClosingStructure>(calculations);
         }
+
+        #endregion
+
+        #region Structures MapData
+
+        private void UpdateStructuresMapData()
+        {
+            SetStructuresMapData();
+            structuresMapData.NotifyObservers();
+        }
+
+        private void SetStructuresMapData()
+        {
+            IEnumerable<ClosingStructure> structures = FailureMechanism.ClosingStructures;
+            structuresMapData.Features = RingtoetsMapDataFeaturesFactory.CreateStructuresFeatures(structures);
+        }
+
+        #endregion
+
+        #region Foreshore Profiles MapData
+
+        private void UpdateForeshoreProfilesMapData()
+        {
+            SetForeshoreProfilesMapData();
+            foreshoreProfilesMapData.NotifyObservers();
+        }
+
+        private void SetForeshoreProfilesMapData()
+        {
+            IEnumerable<ForeshoreProfile> foreshoreProfiles = FailureMechanism.ForeshoreProfiles;
+            foreshoreProfilesMapData.Features = RingtoetsMapDataFeaturesFactory.CreateForeshoreProfilesFeatures(foreshoreProfiles);
+        }
+
+        #endregion
     }
 }
