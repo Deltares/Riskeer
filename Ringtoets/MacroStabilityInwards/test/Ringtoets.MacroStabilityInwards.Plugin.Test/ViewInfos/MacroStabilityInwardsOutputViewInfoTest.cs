@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -124,7 +125,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             protected override IView GetView()
             {
-                return new MacroStabilityInwardsOutputView();
+                return new MacroStabilityInwardsOutputView(new MacroStabilityInwardsCalculationScenario(), () => (RoundedDouble) 1.1);
             }
 
             protected override ICalculation GetCalculation()
