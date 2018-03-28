@@ -127,7 +127,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseGrassCoverErosionOutwardsFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new ViewInfo<
@@ -352,12 +353,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var assessmentSection = data as IAssessmentSection;
             var failureMechanism = data as GrassCoverErosionOutwardsFailureMechanism;
 
-            var viewFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext) view.Data;
-            GrassCoverErosionOutwardsFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion
