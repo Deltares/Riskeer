@@ -91,57 +91,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_MacroStabilityInwardsCalculationScenario_DataSetToChartControl()
-        {
-            // Setup
-            using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView())
-            {
-                form.Controls.Add(view);
-                form.Show();
-
-                MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
-
-                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-                calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-
-                // Call
-                view.Data = calculation;
-
-                // Assert
-                Assert.AreSame(calculation, view.Data);
-                Assert.AreSame(calculation, chartControl.Data);
-            }
-        }
-
-        [Test]
-        public void Data_SetToNull_ChartControlDataNull()
+        public void Constructor_CalculationWithOutput_DataSetToChartControl()
         {
             // Setup
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
+            // Call
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView
-            {
-                Data = calculation
-            })
             {
                 form.Controls.Add(view);
                 form.Show();
 
                 MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
 
-                // Precondition
+                // Assert
                 Assert.AreSame(calculation, view.Data);
                 Assert.AreSame(calculation, chartControl.Data);
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                Assert.IsNull(view.Data);
-                Assert.IsNull(chartControl.Data);
             }
         }
 
@@ -149,28 +117,27 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenCalculationWithOutput_WhenOutputCleared_ThenChartDataUpdated()
         {
             // Given
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilProfile = stochasticSoilProfile
+                },
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
+
             using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView())
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 form.Controls.Add(view);
                 form.Show();
 
                 MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
-
-                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
-                var calculation = new MacroStabilityInwardsCalculationScenario
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        StochasticSoilProfile = stochasticSoilProfile
-                    },
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
-                };
-
-                view.Data = calculation;
 
                 // Precondition
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
@@ -189,27 +156,26 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenCalculationWithoutOutput_WhenOutputSet_ThenChartDataUpdated()
         {
             // Given
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilProfile = stochasticSoilProfile
+                }
+            };
+
             using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView())
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 form.Controls.Add(view);
                 form.Show();
 
                 MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
-
-                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
-                var calculation = new MacroStabilityInwardsCalculationScenario
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        StochasticSoilProfile = stochasticSoilProfile
-                    }
-                };
-
-                view.Data = calculation;
 
                 // Precondition
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
@@ -228,28 +194,27 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithOutputSet_WhenInputChangedAndObserversNotified_ThenChartDataUpdated()
         {
             // Given
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilProfile = stochasticSoilProfile
+                },
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
+
             using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView())
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 form.Controls.Add(view);
                 form.Show();
 
                 MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
-
-                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
-                var calculation = new MacroStabilityInwardsCalculationScenario
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        StochasticSoilProfile = stochasticSoilProfile
-                    },
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
-                };
-
-                view.Data = calculation;
 
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
 
@@ -270,26 +235,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithoutOutputSet_WhenInputChangedAndObserversNotified_ThenChartDataUpdated()
         {
             // Given
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilProfile = stochasticSoilProfile
+                }
+            };
+
             using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView())
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 form.Controls.Add(view);
                 form.Show();
 
                 MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
-
-                MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
-                var calculation = new MacroStabilityInwardsCalculationScenario
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        StochasticSoilProfile = stochasticSoilProfile
-                    }
-                };
-
-                view.Data = calculation;
 
                 ChartDataCollection chartData = GetChartControl(chartControl).Data;
 
@@ -310,18 +274,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithOutputSet_WhenOutputUpdated_ThenTableUpdated()
         {
             // Given
-            using (var view = new MacroStabilityInwardsOutputView())
+            MacroStabilityInwardsOutput outputWithoutSlices = MacroStabilityInwardsOutputTestFactory.CreateOutputWithoutSlices();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                Output = outputWithoutSlices
+            };
+
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);
-
-                MacroStabilityInwardsOutput outputWithoutSlices = MacroStabilityInwardsOutputTestFactory.CreateOutputWithoutSlices();
-
-                var calculation = new MacroStabilityInwardsCalculationScenario
-                {
-                    Output = outputWithoutSlices
-                };
-
-                view.Data = calculation;
 
                 // Precondition
                 Assert.AreEqual(0, slicesTable.Rows.Count);
@@ -339,16 +301,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithOutputSet_WhenOutputCleared_ThenTableCleared()
         {
             // Given
-            using (var view = new MacroStabilityInwardsOutputView())
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            };
+
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 MacroStabilityInwardsSlicesTable slicesTable = GetSlicesTable(view);
-
-                var calculation = new MacroStabilityInwardsCalculationScenario
-                {
-                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
-                };
-
-                view.Data = calculation;
 
                 // Precondition
                 Assert.AreEqual(3, slicesTable.Rows.Count);
