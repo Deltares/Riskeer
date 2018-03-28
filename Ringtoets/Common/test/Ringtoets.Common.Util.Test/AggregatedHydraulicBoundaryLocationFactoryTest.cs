@@ -118,10 +118,10 @@ namespace Ringtoets.Common.Util.Test
         }
 
         private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
-                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation1)
+                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return calculationList
-                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation1))
+                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
                    .Select(calculation => calculation.Output.Result)
                    .Single();
         }
