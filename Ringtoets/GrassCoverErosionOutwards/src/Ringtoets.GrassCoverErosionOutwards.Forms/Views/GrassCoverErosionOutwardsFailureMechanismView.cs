@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -69,9 +70,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismView"/>.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanismView()
+        public GrassCoverErosionOutwardsFailureMechanismView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                             IAssessmentSection assessmentSection)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             InitializeComponent();
+
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
 
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
@@ -104,6 +119,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             mapDataCollection.Add(foreshoreProfilesMapData);
             mapDataCollection.Add(calculationsMapData);
         }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
 
         public object Data
         {
@@ -172,6 +197,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

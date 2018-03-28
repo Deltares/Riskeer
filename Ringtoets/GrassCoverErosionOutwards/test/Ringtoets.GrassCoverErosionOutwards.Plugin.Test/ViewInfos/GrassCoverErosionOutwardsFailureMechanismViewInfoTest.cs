@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = grassCoverErosionOutwardsFailureMechanismContext
             })
@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = grassCoverErosionOutwardsFailureMechanismContext
             })
@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = grassCoverErosionOutwardsFailureMechanismContext
             })
@@ -168,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, assessmentSection)
             {
                 Data = grassCoverErosionOutwardsFailureMechanismContext
             })
