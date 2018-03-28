@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Forms.Helpers
     /// <summary>
     /// Helper class for determining the colors belonging to various assembly category groups.
     /// </summary>
-    public static class AssemblyCategoryGroupHelper
+    public static class AssemblyCategoryGroupColorHelper
     {
         /// <summary>
         /// Gets the color for an assessment section assembly category group.

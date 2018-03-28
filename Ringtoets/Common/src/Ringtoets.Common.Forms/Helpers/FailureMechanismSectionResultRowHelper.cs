@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Forms.Helpers
 
             columnStateDefinition.Style = new CellStyle(
                 Color.FromKnownColor(KnownColor.ControlText),
-                AssemblyCategoryGroupHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup));
+                AssemblyCategoryGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup));
         }
 
         /// <summary>

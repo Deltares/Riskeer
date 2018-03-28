@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.Views
 {

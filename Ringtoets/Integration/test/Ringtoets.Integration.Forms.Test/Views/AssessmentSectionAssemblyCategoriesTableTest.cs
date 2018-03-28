@@ -163,8 +163,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     AssessmentSectionAssemblyCategory category = categories[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
 
-                    Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(category.Group).DisplayName, rowCells[categoryGroupColumnIndex].Value);
-                    Assert.AreEqual(AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group), rowCells[colorColumnIndex].Value);
+                    Assert.AreEqual(category.Group, rowCells[categoryGroupColumnIndex].Value);
+                    Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group), rowCells[colorColumnIndex].Value);
                     Assert.AreEqual(category.LowerBoundary, rowCells[lowerBoundaryColumnIndex].Value);
                     Assert.AreEqual(category.UpperBoundary, rowCells[upperBoundaryColumnIndex].Value);
                 }

@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
@@ -44,29 +45,26 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.APlus, "A+")]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.A, "A")]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.B, "B")]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.C, "C")]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.D, "D")]
-        public void Constructor_WithAssessmentSectionAssemblyCategory_ExpectedValues(
-            AssessmentSectionAssemblyCategoryGroup categoryGroup, string expectedName)
+        public void Constructor_WithAssessmentSectionAssemblyCategory_ExpectedValues()
         {
             // Setup
             var random = new Random(39);
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
+            var categoryGroup = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
             var category = new AssessmentSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryGroup);
 
             // Call
             var categoryRow = new AssessmentSectionAssemblyCategoryRow(category);
 
             // Assert
-            Assert.AreEqual(expectedName, categoryRow.Group);
-            Assert.AreEqual(AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(categoryGroup), categoryRow.Color);
+            Assert.AreEqual(categoryGroup, categoryRow.Group);
+            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(categoryGroup), categoryRow.Color);
             Assert.AreEqual(lowerBoundary, categoryRow.LowerBoundary);
             Assert.AreEqual(upperBoundary, categoryRow.UpperBoundary);
 
+            TestHelper.AssertTypeConverter<AssessmentSectionAssemblyCategoryRow,
+                EnumTypeConverter>(nameof(AssessmentSectionAssemblyCategoryRow.Group));
             TestHelper.AssertTypeConverter<AssessmentSectionAssemblyCategoryRow,
                 NoProbabilityValueDoubleConverter>(
                 nameof(AssessmentSectionAssemblyCategoryRow.LowerBoundary));

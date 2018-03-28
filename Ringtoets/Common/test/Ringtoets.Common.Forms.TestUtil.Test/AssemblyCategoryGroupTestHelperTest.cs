@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void FailureMechanismSectionAssemblyCategoryGroupColorCases_Always_ReturnsExpectedCases()
         {
             // Call
-            IEnumerable<TestCaseData> colorCases = AssemblyCategoryColorTestHelper.FailureMechanismSectionAssemblyCategoryGroupColorCases.ToArray();
+            IEnumerable<TestCaseData> testCases = AssemblyCategoryColorTestHelper.FailureMechanismSectionAssemblyCategoryGroupColorCases.ToArray();
 
             // Assert
             var expectedCases = new[]
@@ -50,11 +50,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.VIIv, Color.FromArgb(255, 255, 255))
             };
 
-            Assert.AreEqual(expectedCases.Length, colorCases.Count());
-            for (var i = 0; i < colorCases.Count(); i++)
+            Assert.AreEqual(expectedCases.Length, testCases.Count());
+            for (var i = 0; i < testCases.Count(); i++)
             {
-                Assert.AreEqual(expectedCases[i].Arguments[0], colorCases.ElementAt(i).Arguments[0]);
-                Assert.AreEqual(expectedCases[i].Arguments[1], colorCases.ElementAt(i).Arguments[1]);
+                Assert.AreEqual(expectedCases[i].Arguments[0], testCases.ElementAt(i).Arguments[0]);
+                Assert.AreEqual(expectedCases[i].Arguments[1], testCases.ElementAt(i).Arguments[1]);
             }
         }
 
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void AssessmentSectionAssemblyCategoryGroupColorCases_Always_ReturnsExpectedCases()
         {
             // Call
-            IEnumerable<TestCaseData> colorCases = AssemblyCategoryColorTestHelper.AssessmentSectionAssemblyCategoryGroupColorCases.ToArray();
+            IEnumerable<TestCaseData> testCases = AssemblyCategoryColorTestHelper.AssessmentSectionAssemblyCategoryGroupColorCases.ToArray();
 
             // Assert
             var expectedCases = new[]
@@ -74,11 +74,11 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 new TestCaseData(AssessmentSectionAssemblyCategoryGroup.D, Color.FromArgb(255, 0, 0))
             };
 
-            Assert.AreEqual(expectedCases.Length, colorCases.Count());
-            for (var i = 0; i < colorCases.Count(); i++)
+            Assert.AreEqual(expectedCases.Length, testCases.Count());
+            for (var i = 0; i < testCases.Count(); i++)
             {
-                Assert.AreEqual(expectedCases[i].Arguments[0], colorCases.ElementAt(i).Arguments[0]);
-                Assert.AreEqual(expectedCases[i].Arguments[1], colorCases.ElementAt(i).Arguments[1]);
+                Assert.AreEqual(expectedCases[i].Arguments[0], testCases.ElementAt(i).Arguments[0]);
+                Assert.AreEqual(expectedCases[i].Arguments[1], testCases.ElementAt(i).Arguments[1]);
             }
         }
     }
