@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
+using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -54,6 +55,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var table = new PipingSoilLayerTable())
             {
                 // Assert
+                Assert.IsInstanceOf<DataGridViewControl>(table);
+
                 DataGridViewColumn nameColumn = table.GetColumnFromIndex(nameColumnIndex);
                 Assert.AreEqual("Naam", nameColumn.HeaderText);
                 DataGridViewColumn colorColumn = table.GetColumnFromIndex(colorColumnIndex);
@@ -100,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 table.SetData(layers);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(layers.Length, table.Rows.Count);
             }
         }
 
@@ -132,22 +135,23 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var table = new PipingSoilLayerTable())
             {
-                var layers = new[]
-                {
-                    new PipingSoilLayer(2.5),
-                    new PipingSoilLayer(2.3),
-                    new PipingSoilLayer(1.1)
-                };
                 table.SetData(new[]
                 {
                     new PipingSoilLayer(1.0)
                 });
 
+                var newLayers = new[]
+                {
+                    new PipingSoilLayer(2.5),
+                    new PipingSoilLayer(2.3),
+                    new PipingSoilLayer(1.1)
+                };
+
                 // Call
-                table.SetData(layers);
+                table.SetData(newLayers);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(newLayers.Length, table.Rows.Count);
             }
         }
 
@@ -168,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 table.SetData(layers);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(layers.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
                     PipingSoilLayer pipingSoilLayer = layers[i];

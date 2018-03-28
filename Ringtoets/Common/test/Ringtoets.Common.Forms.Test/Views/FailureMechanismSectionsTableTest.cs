@@ -23,6 +23,7 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -43,6 +44,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (var table = new FailureMechanismSectionsTable())
             {
                 // Assert
+                Assert.IsInstanceOf<DataGridViewControl>(table);
+
                 DataGridViewColumn nameColumn = table.GetColumnFromIndex(nameColumnIndex);
                 Assert.AreEqual("Vaknaam", nameColumn.HeaderText);
                 DataGridViewColumn lengthColumn = table.GetColumnFromIndex(lengthColumnIndex);
@@ -71,7 +74,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 table.SetData(sections);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(sections.Length, table.Rows.Count);
             }
         }
 
@@ -103,22 +106,23 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var table = new FailureMechanismSectionsTable())
             {
-                var sections = new[]
-                {
-                    CreateFailureMechanismSection("a"),
-                    CreateFailureMechanismSection("b"),
-                    CreateFailureMechanismSection("c")
-                };
                 table.SetData(new[]
                 {
                     CreateFailureMechanismSection("d")
                 });
 
+                var newSections = new[]
+                {
+                    CreateFailureMechanismSection("a"),
+                    CreateFailureMechanismSection("b"),
+                    CreateFailureMechanismSection("c")
+                };
+
                 // Call
-                table.SetData(sections);
+                table.SetData(newSections);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(newSections.Length, table.Rows.Count);
             }
         }
 
@@ -139,7 +143,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 table.SetData(sections);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(sections.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
                     FailureMechanismSection section = sections[i];
