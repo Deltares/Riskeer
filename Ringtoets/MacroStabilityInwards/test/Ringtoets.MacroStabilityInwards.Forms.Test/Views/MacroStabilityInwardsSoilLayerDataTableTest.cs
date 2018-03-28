@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -53,6 +54,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (var table = new MacroStabilityInwardsSoilLayerDataTable())
             {
                 // Assert
+                Assert.IsInstanceOf<DataGridViewControl>(table);
+
                 DataGridViewColumn nameColumn = table.GetColumnFromIndex(nameColumnIndex);
                 Assert.AreEqual("Naam", nameColumn.HeaderText);
                 DataGridViewColumn colorColumn = table.GetColumnFromIndex(colorColumnIndex);
@@ -101,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 table.SetData(layers);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(layers.Length, table.Rows.Count);
             }
         }
 
@@ -133,22 +136,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var table = new MacroStabilityInwardsSoilLayerDataTable())
             {
-                var layers = new[]
-                {
-                    new MacroStabilityInwardsSoilLayerData(),
-                    new MacroStabilityInwardsSoilLayerData(),
-                    new MacroStabilityInwardsSoilLayerData()
-                };
                 table.SetData(new[]
                 {
                     new MacroStabilityInwardsSoilLayerData()
                 });
 
+                var newLayers = new[]
+                {
+                    new MacroStabilityInwardsSoilLayerData(),
+                    new MacroStabilityInwardsSoilLayerData(),
+                    new MacroStabilityInwardsSoilLayerData()
+                };
+
                 // Call
-                table.SetData(layers);
+                table.SetData(newLayers);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(newLayers.Length, table.Rows.Count);
             }
         }
 
@@ -173,7 +177,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 table.SetData(layers);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(layers.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
                     MacroStabilityInwardsSoilLayerData soilLayerData = layers[i];

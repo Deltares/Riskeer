@@ -46,6 +46,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (var table = new AssessmentSectionAssemblyCategoriesTable())
             {
                 // Assert
+                Assert.IsInstanceOf<DataGridViewControl>(table);
+
                 DataGridViewColumn groupColumn = table.GetColumnFromIndex(categoryGroupColumnIndex);
                 Assert.AreEqual("Categorie", groupColumn.HeaderText);
                 Assert.IsTrue(groupColumn.ReadOnly);
@@ -89,7 +91,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 table.SetData(categories);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(categories.Length, table.Rows.Count);
             }
         }
 
@@ -121,22 +123,23 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var table = new AssessmentSectionAssemblyCategoriesTable())
             {
-                var categories = new[]
-                {
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory()
-                };
                 table.SetData(new[]
                 {
                     CreateAssessmentSectionAssemblyCategory()
                 });
 
+                var newCategories = new[]
+                {
+                    CreateAssessmentSectionAssemblyCategory(),
+                    CreateAssessmentSectionAssemblyCategory(),
+                    CreateAssessmentSectionAssemblyCategory()
+                };
+
                 // Call
-                table.SetData(categories);
+                table.SetData(newCategories);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(newCategories.Length, table.Rows.Count);
             }
         }
 
@@ -157,7 +160,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 table.SetData(categories);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(categories.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
                     AssessmentSectionAssemblyCategory category = categories[i];
