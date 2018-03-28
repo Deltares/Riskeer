@@ -130,8 +130,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -168,8 +168,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -207,8 +207,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 form.Controls.Add(view);
                 form.Show();

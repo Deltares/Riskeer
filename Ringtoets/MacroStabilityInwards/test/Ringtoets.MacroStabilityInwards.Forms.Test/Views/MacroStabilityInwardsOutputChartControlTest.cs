@@ -397,10 +397,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (var macroStabilityInwardsCalculatorFactoryConfig = new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
             {
-                macroStabilityInwardsCalculatorFactoryConfig.Dispose();
-
                 // Precondition
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
+
+                macroStabilityInwardsCalculatorFactoryConfig.Dispose();
 
                 // Call
                 control.UpdateChartData();
