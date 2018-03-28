@@ -101,13 +101,24 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_Always_CreatesMacroStabilityInwardsOutputView()
+        public void CreateInstance_WithContext_SetsDataCorrectly()
         {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
+            mocks.ReplayAll();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            var calculationOutputContext = new MacroStabilityInwardsOutputContext(calculation,
+                                                                                  new MacroStabilityInwardsFailureMechanism(),
+                                                                                  assessmentSection);
+
             // Call
-            IView view = info.CreateInstance(null);
+            IView view = info.CreateInstance(calculationOutputContext);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsOutputView>(view);
+            Assert.AreSame(calculation, view.Data);
+            mocks.VerifyAll();
         }
 
         [TestFixture]

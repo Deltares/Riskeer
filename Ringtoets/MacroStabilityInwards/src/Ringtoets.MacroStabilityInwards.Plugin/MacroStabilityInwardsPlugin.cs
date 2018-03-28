@@ -266,7 +266,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CreateInstance = context => new MacroStabilityInwardsOutputView(context.WrappedData,
+                                                                               () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
             };
         }
 
