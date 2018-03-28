@@ -413,7 +413,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             var queryGenerator = new HydraulicLocationValidationQueryGenerator(sourceFilePath);
 
-            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicLocationsValidationQuery());
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedHydraulicLocationsValidationQuery());
             reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsValidationQuery());
             reader.AssertReturnedDataIsValid(HydraulicLocationValidationQueryGenerator.GetHydraulicBoundaryLocationCalculationInputValidationQuery());
 
@@ -432,20 +432,23 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
-            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveHeightCalculationsValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveHeightCalculationsValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.SignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.LowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationOutputsValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.NormativeNormType.SignalingNorm));
 
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
-                                                 HydraulicLocationValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedSignalingNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedLowerLimitNorm));
-
-            reader.AssertReturnedDataIsValid(queryGenerator.GetDesignWaterLevelCalculationOutputsValidationQuery(
-                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetDesignWaterLevelCalculationOutputsValidationQuery(
-                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.SignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedSignalingNorm));
+            reader.AssertReturnedDataIsValid(HydraulicLocationValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+            reader.AssertReturnedDataIsValid(HydraulicLocationValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedSignalingNorm));
         }
 
         private static void AssertDesignWaterLevelCalculationEntities(MigratedDatabaseReader reader, HydraulicLocationValidationQueryGenerator queryGenerator)
@@ -459,20 +462,23 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedLowerLimitNorm));
 
-            reader.AssertReturnedDataIsValid(queryGenerator.GetDesignWaterLevelCalculationsValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetDesignWaterLevelCalculationsValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.SignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.LowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.NormativeNormType.SignalingNorm));
 
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
-                                                 HydraulicLocationValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedSignalingNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedLowerLimitNorm));
-
-            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveHeightCalculationOutputsValidationQuery(
-                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveHeightCalculationOutputsValidationQuery(
-                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.SignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedSignalingNorm));
+            reader.AssertReturnedDataIsValid(HydraulicLocationValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+            reader.AssertReturnedDataIsValid(HydraulicLocationValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedSignalingNorm));
         }
 
         /// <summary>
@@ -563,7 +569,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// Generates a query to validate the migrated hydraulic boundary locations.
             /// </summary>
             /// <returns>The query to validate the migrated hydraulic boundary locations.</returns>
-            public string GetHydraulicLocationsValidationQuery()
+            public string GetMigratedHydraulicLocationsValidationQuery()
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT " +
@@ -574,7 +580,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "AND NEW.LocationId = OLD.LocationId " +
                        "AND NEW.Name = OLD.Name " +
                        "AND NEW.LocationX = OLD.LocationX " +
-                       "AND NEW.LocationY = OLD.LocationY; " +
+                       "AND NEW.LocationY = OLD.LocationY " +
+                       "AND NEW.\"Order\" = OLD.\"Order\"; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -616,9 +623,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <summary>
             /// Generates a query to validate the number of created hydraulic boundary location calculations per assessment section.
             /// </summary>
-            /// <param name="calculation">The type of calculation that should be validated.</param>
+            /// <param name="calculationType">The type of calculation that should be validated.</param>
             /// <returns>The query to validate the number of hydraulic boundary location calculations per assessment section.</returns>
-            public string GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(CalculationType calculation)
+            public string GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(CalculationType calculationType)
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT " +
@@ -637,7 +644,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "ase.AssessmentSectionEntityId, " +
                        "COUNT(distinct HydraulicLocationEntityId) AS NEWCount " +
                        "FROM AssessmentSectionEntity ase " +
-                       $"JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculation}Id " +
+                       $"JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id " +
                        "= hlcce.HydraulicLocationCalculationCollectionEntityId " +
                        "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
                        "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
@@ -659,7 +666,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
             /// but is unsupported.</exception>
-            public string GetDesignWaterLevelCalculationsValidationQuery(NormativeNormType normType)
+            public string GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
 
@@ -686,7 +693,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
             /// but is unsupported.</exception>
-            public string GetDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType normType)
+            public string GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
 
@@ -727,7 +734,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
             /// but is unsupported.</exception>
-            public string GetWaveHeightCalculationsValidationQuery(NormativeNormType normType)
+            public string GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToWaveHeightCalculationType(normType);
 
@@ -754,7 +761,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
             /// but is unsupported.</exception>
-            public string GetWaveHeightCalculationOutputsValidationQuery(NormativeNormType normType)
+            public string GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
 
@@ -788,19 +795,36 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <summary>
             /// Generates a query to validate the new hydraulic boundary location calculations that are not based on migrated data.
             /// </summary>
-            /// <param name="calculation">The type of calculation on which the input should be validated.</param>
+            /// <param name="calculationType">The type of calculation on which the input should be validated.</param>
             /// <returns>The query to validate the hydraulic boundary location calculation input.</returns>
-            public string GetNewCalculationsValidationQuery(CalculationType calculation)
+            public string GetNewCalculationsValidationQuery(CalculationType calculationType)
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationEntity) " +
                        "FROM AssessmentSectionEntity ase " +
                        "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
-                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculation}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
+                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
                        "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
                        "JOIN HydraulicLocationCalculationEntity hlce USING (HydraulicLocationCalculationEntityId) " +
                        "WHERE hlce.ShouldIllustrationPointsBeCalculated = 0;" +
                        "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate the new hydraulic boundary location calculation outputs that are not based on migrated data.
+            /// </summary>
+            /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
+            /// <returns>The query to validate the hydraulic boundary location calculation input.</returns>
+            public static string GetNewCalculationOutputsValidationQuery(CalculationType calculationType)
+            {
+                return "SELECT  " +
+                       "COUNT() = 0 " +
+                       "FROM AssessmentSectionEntity ase " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
+                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN HydraulicLocationOutputEntity USING (HydraulicLocationCalculationEntityId); ";
             }
 
             /// <summary>
