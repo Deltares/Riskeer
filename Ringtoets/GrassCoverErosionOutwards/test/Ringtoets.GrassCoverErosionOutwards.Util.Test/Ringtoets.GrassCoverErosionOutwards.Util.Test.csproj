@@ -14,6 +14,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -21,5 +22,19 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Util\Ringtoets.GrassCoverErosionOutwards.Util.csproj">
+      <Project>{033ED27D-E806-42B4-9689-8150CFAE1906}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Util</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
