@@ -299,7 +299,7 @@ CREATE TEMP TABLE TempHydraulicLocationCalculationEntity
 	)
 );
 
--- UNION ALL is used to repeate the operation for the calculations eight times
+-- UNION ALL is used to repeat the operation for the calculations eight times
 INSERT INTO TempHydraulicLocationCalculationEntity (
 	[HydraulicLocationEntityId],
 	[AssessmentSectionEntityId],
