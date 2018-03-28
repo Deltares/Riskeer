@@ -26,13 +26,13 @@ using NUnit.Framework;
 namespace Ringtoets.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoryGroupTest : EnumValuesTestFixture<AssessmentSectionAssemblyCategoryGroup, int>
+    public class AssessmentSectionAssemblyCategoryGroupTest : EnumWithDisplayNameTestFixture<AssessmentSectionAssemblyCategoryGroup>
     {
-        protected override IDictionary<AssessmentSectionAssemblyCategoryGroup, int> ExpectedValueForEnumValues
+        protected override IDictionary<AssessmentSectionAssemblyCategoryGroup, byte> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<AssessmentSectionAssemblyCategoryGroup, int>
+                return new Dictionary<AssessmentSectionAssemblyCategoryGroup, byte>
                 {
                     {
                         AssessmentSectionAssemblyCategoryGroup.APlus, 1
@@ -48,6 +48,31 @@ namespace Ringtoets.AssemblyTool.Data.Test
                     },
                     {
                         AssessmentSectionAssemblyCategoryGroup.D, 5
+                    }
+                };
+            }
+        }
+
+        protected override IDictionary<AssessmentSectionAssemblyCategoryGroup, string> ExpectedDisplayNameForEnumValues
+        {
+            get
+            {
+                return new Dictionary<AssessmentSectionAssemblyCategoryGroup, string>
+                {
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.APlus, "A+"
+                    },
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.A, "A"
+                    },
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.B, "B"
+                    },
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.C, "C"
+                    },
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.D, "D"
                     }
                 };
             }

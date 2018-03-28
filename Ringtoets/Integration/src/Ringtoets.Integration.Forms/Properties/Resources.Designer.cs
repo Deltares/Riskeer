@@ -137,6 +137,24 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecteer het type traject, bepalend voor de faalkansbegroting..
+        /// </summary>
+        public static string AssessmentSectionComposition_Composition_Description {
+            get {
+                return ResourceManager.GetString("AssessmentSectionComposition_Composition_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trajecttype.
+        /// </summary>
+        public static string AssessmentSectionComposition_Composition_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionComposition_Composition_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap AssessmentSectionFolder {
@@ -424,24 +442,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer het type traject, bepalend voor de faalkansbegroting..
-        /// </summary>
-        public static string FailureMechanismContribution_Composition_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismContribution_Composition_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Trajecttype.
-        /// </summary>
-        public static string FailureMechanismContribution_Composition_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismContribution_Composition_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Trajecttype: {0}.
         /// </summary>
         public static string FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_ {
@@ -473,9 +473,9 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Overig ({0}).
         /// </summary>
-        public static string FailureMechanismProperties_Contribution_Other_0 {
+        public static string FailureMechanismProperties_Contribution_Other_Percentage_0 {
             get {
-                return ResourceManager.GetString("FailureMechanismProperties_Contribution_Other_0", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismProperties_Contribution_Other_Percentage_0", resourceCulture);
             }
         }
         

@@ -301,13 +301,17 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = context => new HydraulicBoundaryDatabaseProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<FailureMechanismContributionContext, FailureMechanismContributionProperties>
+            yield return new PropertyInfo<FailureMechanismContributionContext, AssessmentSectionCompositionProperties>
             {
-                CreateInstance = context => new FailureMechanismContributionProperties(
-                    context.WrappedData,
+                CreateInstance = context => new AssessmentSectionCompositionProperties(
                     context.Parent,
-                    new FailureMechanismContributionNormChangeHandler(context.Parent),
                     new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
+            };
+            yield return new PropertyInfo<NormContext, NormProperties>
+            {
+                CreateInstance = context => new NormProperties(
+                    context.WrappedData,
+                    new FailureMechanismContributionNormChangeHandler(context.AssessmentSection))
             };
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismProperties>
             {
@@ -393,6 +397,14 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = CloseFailureMechanismContributionViewForData,
                 CreateInstance = context => new FailureMechanismContributionView(Gui.ViewCommands),
                 AfterCreate = (view, context) => view.AssessmentSection = context.Parent
+            };
+
+            yield return new ViewInfo<NormContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Norms_DisplayName,
+                Image = RingtoetsCommonFormsResources.NormsIcon,
+                CloseForData = CloseAssessmentSectionCategoriesViewForData,
+                CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.AssessmentSection.FailureMechanismContribution)
             };
 
             yield return new ViewInfo<DesignWaterLevelCalculationsContext, IEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
@@ -710,7 +722,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<NormContext>
             {
-                Text = context => RingtoetsCommonDataResources.Norms_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.Norms_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.NormsIcon,
                 ContextMenuStrip = NormContextMenuStrip
             };
@@ -1061,6 +1073,16 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
+        #region NormContext ViewInfo
+
+        private static bool CloseAssessmentSectionCategoriesViewForData(AssessmentSectionAssemblyCategoriesView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            return assessmentSection != null && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution;
+        }
+
+        #endregion
+
         #region FailureMechanismResults ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow>(TView view, object dataToCloseFor)
@@ -1272,6 +1294,8 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip NormContextMenuStrip(NormContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
         }

@@ -335,36 +335,36 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             return failureMechanismResultView;
         }
-    }
 
-    public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>
-    {
-        public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism) {}
-
-        protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
+        private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>
         {
-            return new TestRow(sectionResult);
+            public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
+                : base(failureMechanismSectionResults, failureMechanism) {}
+
+            protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
+            {
+                return new TestRow(sectionResult);
+            }
+
+            protected override void AddDataGridColumns()
+            {
+                DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
+            }
         }
 
-        protected override void AddDataGridColumns()
+        private class TestRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>
         {
-            DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
-        }
-    }
+            public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult)
+            {
+                ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
+            }
 
-    public class TestRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>
-    {
-        public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult)
-        {
-            ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
-        }
+            public bool Updated { get; private set; }
 
-        public bool Updated { get; private set; }
-
-        public override void Update()
-        {
-            Updated = true;
+            public override void Update()
+            {
+                Updated = true;
+            }
         }
     }
 }

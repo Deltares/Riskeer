@@ -97,6 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 Assert.IsFalse(contributionView.AutoScroll);
             }
+
             mocks.VerifyAll();
         }
 
@@ -127,6 +128,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 string expectedReturnPeriodLabel = $"Norm van het dijktraject: 1 / {returnPeriod.ToString(CultureInfo.CurrentCulture)}";
                 Assert.AreEqual(expectedReturnPeriodLabel, returnPeriodLabel.Properties.Text);
             }
+
             mocks.VerifyAll();
         }
 
@@ -161,6 +163,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 string probabilitySpaceColumnHeaderText = dataGridView.Columns[probabilitySpaceColumnIndex].HeaderText;
                 Assert.AreEqual("Faalkansruimte [1/jaar]", probabilitySpaceColumnHeaderText);
             }
+
             mocks.VerifyAll();
         }
 
@@ -213,6 +216,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 var contributionCell = (DataGridViewTextBoxCell) row.Cells[contributionColumnIndex];
                 Assert.AreEqual(testContribution, contributionCell.Value);
+
+                var probabilitySpaceCell = (DataGridViewTextBoxCell) row.Cells[probabilitySpaceColumnIndex];
+                Assert.AreEqual(initialContribution.Distribution.Single(d => d.FailureMechanism == someMechanism).ProbabilitySpace, probabilitySpaceCell.Value);
             }
 
             mockRepository.VerifyAll();
@@ -367,6 +373,40 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFailureMechanismContributionView_WhenObserverNotified_UpdatesDataSource()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var viewCommands = mockRepository.Stub<IViewCommands>();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            using (var view = new FailureMechanismContributionView(viewCommands))
+            {
+                FailureMechanismContribution contributionData = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution(new[]
+                {
+                    failureMechanism
+                });
+
+                view.Data = contributionData;
+                ShowFormWithView(view);
+                
+                // Precondition
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
+                Assert.AreEqual(2, dataGridView.RowCount);
+
+                // When
+                contributionData.UpdateContributions(new IFailureMechanism[0], 30);
+                contributionData.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, dataGridView.RowCount);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void GivenFailureMechanismContributionView_WhenSettingData_ProperlyInitializeRelevancyColumn(bool isFailureMechanismRelevant)
@@ -402,6 +442,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var isRelevantGridCell = (DataGridViewCheckBoxCell) row.Cells[isRelevantColumnIndex];
                 Assert.AreEqual(isFailureMechanismRelevant, isRelevantGridCell.Value);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -439,6 +480,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
                 Assert.AreEqual("n.v.t", probabilitySpaceCell.FormattedValue);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -481,9 +523,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("1/#,#", probabilitySpaceCell.InheritedStyle.Format);
 
                 string expectedTextValue = new FailureMechanismContributionItem(failureMechanism, norm)
-                    .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
+                                           .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
                 Assert.AreEqual(expectedTextValue, probabilitySpaceCell.FormattedValue);
             }
+
             mockRepository.VerifyAll();
         }
 
@@ -514,6 +557,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 string expectedLabelValue = $"Trajecttype: {expectedDisplayText}";
                 Assert.AreEqual(expectedLabelValue, compositionLabel.Text);
             }
+
             mocks.VerifyAll();
         }
 
@@ -557,11 +601,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 string newCompositionValue = $"Trajecttype: {compositionDisplayName}";
                 Assert.AreEqual(newCompositionValue, compositionLabel.Text);
             }
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenView_WhenSettingRelevantFailureMechanism_RowIsStylesAsEnabled()
+        public void GivenView_WhenSettingRelevantFailureMechanism_RowIsStyledAsEnabled()
         {
             // Given
             var mocks = new MockRepository();
@@ -597,11 +642,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     AssertIsCellStyledAsEnabled(cell);
                 }
             }
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenView_WhenSettingFailureMechanismThatIsIrrelevant_RowIsStylesAsGreyedOut()
+        public void GivenView_WhenSettingFailureMechanismThatIsIrrelevant_RowIsStyledAsGreyedOut()
         {
             // Given
             var mocks = new MockRepository();
@@ -637,6 +683,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     AssertIsCellStyleGreyedOut(cell);
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -722,6 +769,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     }
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -759,6 +807,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Then
                 Assert.IsFalse(failureMechanism.IsRelevant);
             }
+
             mocks.VerifyAll();
         }
 
@@ -792,6 +841,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsTrue((bool) isRelevantCell.Value);
                 Assert.IsTrue(isRelevantCell.ReadOnly);
             }
+
             mocks.VerifyAll();
         }
 

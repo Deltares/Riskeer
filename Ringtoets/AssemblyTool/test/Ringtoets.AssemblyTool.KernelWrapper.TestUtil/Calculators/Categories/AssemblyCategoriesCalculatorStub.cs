@@ -52,9 +52,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public double N { get; private set; }
 
         /// <summary>
-        /// Gets the output of the <see cref="AssessmentSectionAssemblyCategory"/> calculation.
+        /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyCategory"/> calculation.
         /// </summary>
-        public IEnumerable<AssessmentSectionAssemblyCategory> AssessmentSectionCategoriesOutput { get; private set; }
+        public IEnumerable<AssessmentSectionAssemblyCategory> AssessmentSectionCategoriesOutput { get; set; }
 
         /// <summary>
         /// Gets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.

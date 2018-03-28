@@ -49,6 +49,7 @@
     <Compile Include="MetaDataAttributeNameProviders\HydraulicBoundaryLocationMetaDataAttributeNameProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfos\BackgroundDataPropertyInfoTest .cs" />
+    <Compile Include="PropertyInfos\NormContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\WaveHeightCalculationContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\DesignWaterLevelCalculationContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\DesignWaterLevelCalculationsContextPropertyInfoTest.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="TreeNodeInfos\WaveHeightCalculationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\ForeshoreProfileContextUpdateInfoTest.cs" />
+    <Compile Include="ViewInfos\AssessmentSectionAssemblyCategoriesViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismSectionsViewInfoTest.cs" />
     <Compile Include="ViewInfos\CommentViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
@@ -175,6 +177,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj">
       <Project>{F0FB401A-3494-4237-9E6D-02CDF77912A8}</Project>
       <Name>Core.Components.Gis.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\test\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Ringtoets.AssemblyTool.KernelWrapper.TestUtil.csproj">
+      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
+      <Name>Ringtoets.AssemblyTool.KernelWrapper.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>

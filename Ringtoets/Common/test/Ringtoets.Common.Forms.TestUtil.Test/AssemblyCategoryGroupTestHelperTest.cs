@@ -28,13 +28,13 @@ using Ringtoets.AssemblyTool.Data;
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {
     [TestFixture]
-    public class FailureMechanismSectionResultRowTestHelperTest
+    public class AssemblyCategoryGroupTestHelperTest
     {
         [Test]
-        public void CategoryGroupColorCases_Always_ReturnsExpectedCases()
+        public void FailureMechanismSectionAssemblyCategoryGroupColorCases_Always_ReturnsExpectedCases()
         {
             // Call
-            IEnumerable<TestCaseData> colorCases = FailureMechanismSectionResultRowTestHelper.CategoryGroupColorCases.ToArray();
+            IEnumerable<TestCaseData> colorCases = AssemblyCategoryColorTestHelper.FailureMechanismSectionAssemblyCategoryGroupColorCases.ToArray();
 
             // Assert
             var expectedCases = new[]
@@ -48,6 +48,30 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.Vv, Color.FromArgb(255, 153, 0)),
                 new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.VIv, Color.FromArgb(255, 0, 0)),
                 new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.VIIv, Color.FromArgb(255, 255, 255))
+            };
+
+            Assert.AreEqual(expectedCases.Length, colorCases.Count());
+            for (var i = 0; i < colorCases.Count(); i++)
+            {
+                Assert.AreEqual(expectedCases[i].Arguments[0], colorCases.ElementAt(i).Arguments[0]);
+                Assert.AreEqual(expectedCases[i].Arguments[1], colorCases.ElementAt(i).Arguments[1]);
+            }
+        }
+
+        [Test]
+        public void AssessmentSectionAssemblyCategoryGroupColorCases_Always_ReturnsExpectedCases()
+        {
+            // Call
+            IEnumerable<TestCaseData> colorCases = AssemblyCategoryColorTestHelper.AssessmentSectionAssemblyCategoryGroupColorCases.ToArray();
+
+            // Assert
+            var expectedCases = new[]
+            {
+                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.APlus, Color.FromArgb(0, 255, 0)),
+                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.A, Color.FromArgb(118, 147, 60)),
+                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.B, Color.FromArgb(255, 255, 0)),
+                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.C, Color.FromArgb(255, 153, 0)),
+                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.D, Color.FromArgb(255, 0, 0))
             };
 
             Assert.AreEqual(expectedCases.Length, colorCases.Count());

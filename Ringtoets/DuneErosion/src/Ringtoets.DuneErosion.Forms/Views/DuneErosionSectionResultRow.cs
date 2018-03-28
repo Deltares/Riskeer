@@ -64,8 +64,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public DuneErosionSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult,
-                                           ConstructionProperties constructionProperties)
+        internal DuneErosionSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult,
+                                             ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (constructionProperties == null)

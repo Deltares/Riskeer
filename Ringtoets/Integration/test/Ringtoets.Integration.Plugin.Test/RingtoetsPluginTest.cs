@@ -223,7 +223,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(22, propertyInfos.Length);
+                Assert.AreEqual(23, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -248,7 +248,12 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(FailureMechanismContributionContext),
-                    typeof(FailureMechanismContributionProperties));
+                    typeof(AssessmentSectionCompositionProperties));
+                
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(NormContext),
+                    typeof(NormProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -363,13 +368,19 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(17, viewInfos.Length);
+                Assert.AreEqual(18, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismContributionContext),
                     typeof(FailureMechanismContribution),
                     typeof(FailureMechanismContributionView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(NormContext),
+                    typeof(FailureMechanismContribution),
+                    typeof(AssessmentSectionAssemblyCategoriesView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
