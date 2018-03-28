@@ -68,7 +68,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             // 
             // macroStabilityInwardsOutputChartControl
             // 
-            this.macroStabilityInwardsOutputChartControl.Data = null;
             this.macroStabilityInwardsOutputChartControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.macroStabilityInwardsOutputChartControl.Location = new System.Drawing.Point(0, 0);
             this.macroStabilityInwardsOutputChartControl.Name = "macroStabilityInwardsOutputChartControl";

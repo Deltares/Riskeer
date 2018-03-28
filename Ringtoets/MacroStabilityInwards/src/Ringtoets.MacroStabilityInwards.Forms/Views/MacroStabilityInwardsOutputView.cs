@@ -74,8 +74,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 Observable = data.InputParameters
             };
 
-            macroStabilityInwardsOutputChartControl.Data = data;
-
             UpdateTableData();
         }
 
