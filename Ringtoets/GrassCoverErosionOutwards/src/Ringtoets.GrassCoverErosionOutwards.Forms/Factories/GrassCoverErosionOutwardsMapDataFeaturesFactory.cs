@@ -25,11 +25,13 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
+using Ringtoets.GrassCoverErosionOutwards.Util;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
@@ -100,6 +102,50 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
             }
 
             return features;
+        }
+
+        /// <summary>
+        /// Create hydraulic boundary location features based on the provided <paramref name="assessmentSection"/>
+        /// and <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to create the location features for.</param>
+        /// <param name="failureMechanism">The failure mechanism to create the locations for.</param>
+        /// <returns>A collection of features.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationsFeatures(IAssessmentSection assessmentSection,
+                                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            return GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection, failureMechanism)
+                                                                                      .Select(CreateHydraulicBoundaryLocationFeature)
+                                                                                      .ToArray();
+        }
+
+        private static MapFeature CreateHydraulicBoundaryLocationFeature(GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation location)
+        {
+            MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(location.Location);
+            feature.MetaData[RingtoetsCommonFormsResources.MetaData_ID] = location.Id;
+            feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = location.Name;
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm] = location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm;
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm] = location.WaterLevelCalculationForMechanismSpecificSignalingNorm;
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificLowerLimit] = location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismLowerLimit] = location.WaterLevelCalculationForLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedLowerLimit] = location.WaterLevelCalculationForFactorizedLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm] = location.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm] = location.WaveHeightCalculationForMechanismSpecificSignalingNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificLowerLimit] = location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForLowerLimit] = location.WaveHeightCalculationForLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedLowerLimit] = location.WaveHeightCalculationForFactorizedLowerLimitNorm;
+            return feature;
         }
     }
 }

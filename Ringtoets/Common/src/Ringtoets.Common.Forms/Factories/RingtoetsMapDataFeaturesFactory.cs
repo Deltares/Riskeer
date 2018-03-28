@@ -152,7 +152,7 @@ namespace Ringtoets.Common.Forms.Factories
 
             return AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection)
                                                              .Select(CreateHydraulicBoundaryLocationFeature)
-                                                             .ToList();
+                                                             .ToArray();
         }
 
         /// <summary>

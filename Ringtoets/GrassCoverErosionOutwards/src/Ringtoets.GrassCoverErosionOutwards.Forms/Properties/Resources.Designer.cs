@@ -261,11 +261,101 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h(Vv-&gt;VIv).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForFactorizedLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForFactorizedLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(IVv-&gt;Vv).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForMechanismLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForMechanismLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(Iv-&gt;IIv).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(IIIv-&gt;IVv).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForMechanismSpecificLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForMechanismSpecificLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(IIv-&gt;IIIv).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis.
         /// </summary>
         public static string MetaData_WaveHeight {
             get {
                 return ResourceManager.GetString("MetaData_WaveHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hs(Vv-&gt;VIv).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForFactorizedLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForFactorizedLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hs(IVv-&gt;Vv).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hs(Iv-&gt;IIv).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hs(IIIv-&gt;IVv).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForMechanismSpecificLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForMechanismSpecificLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hs(IIv-&gt;IIIv).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm", resourceCulture);
             }
         }
     }
