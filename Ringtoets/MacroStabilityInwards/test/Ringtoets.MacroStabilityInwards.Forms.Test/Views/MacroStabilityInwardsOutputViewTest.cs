@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -41,15 +43,40 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
     public class MacroStabilityInwardsOutputViewTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new MacroStabilityInwardsOutputView())
+            TestDelegate test = () => new MacroStabilityInwardsOutputView(null, GetTestNormativeAssessmentLevel);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
+        public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new MacroStabilityInwardsOutputView(new MacroStabilityInwardsCalculationScenario(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("getNormativeAssessmentLevelFunc", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+
+            // Call
+            using (var view = new MacroStabilityInwardsOutputView(calculation, GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IChartView>(view);
-                Assert.IsNull(view.Data);
+                Assert.AreSame(calculation, view.Data);
                 Assert.IsNotNull(view.Chart);
                 Assert.AreEqual(1, view.Controls.Count);
 
@@ -60,39 +87,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(1, splitContainer.Panel2.Controls.Count);
                 Assert.IsInstanceOf<MacroStabilityInwardsOutputChartControl>(splitContainer.Panel1.Controls[0]);
                 Assert.IsInstanceOf<MacroStabilityInwardsSlicesTable>(splitContainer.Panel2.Controls[0]);
-
-                var tableControl = (MacroStabilityInwardsSlicesTable) splitContainer.Panel2.Controls[0];
-                CollectionAssert.IsEmpty(tableControl.Rows);
-            }
-        }
-
-        [Test]
-        public void Data_MacroStabilityInwardsCalculationScenario_DataSet()
-        {
-            // Setup
-            using (var view = new MacroStabilityInwardsOutputView())
-            {
-                var calculation = new MacroStabilityInwardsCalculationScenario();
-
-                // Call
-                view.Data = calculation;
-
-                // Assert
-                Assert.AreSame(calculation, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanMacroStabilityInwardsCalculationScenario_DataNull()
-        {
-            // Setup
-            using (var view = new MacroStabilityInwardsOutputView())
-            {
-                // Call
-                view.Data = new object();
-
-                // Assert
-                Assert.IsNull(view.Data);
             }
         }
 
@@ -399,6 +393,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface line name");
             surfaceLine.SetGeometry(points);
             return surfaceLine;
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }
