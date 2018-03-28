@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// This class represents a row displaying the properties of a <see cref="AssessmentSectionAssemblyCategory"/>.
     /// </summary>
-    public class AssessmentSectionAssemblyCategoryRow
+    internal class AssessmentSectionAssemblyCategoryRow
     {
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategoryRow"/>.
@@ -47,8 +47,8 @@ namespace Ringtoets.Integration.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSectionAssemblyCategory));
             }
 
-            Group = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(assessmentSectionAssemblyCategory.Group).DisplayName;
-            Color = AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assessmentSectionAssemblyCategory.Group);
+            Group = assessmentSectionAssemblyCategory.Group;
+            Color = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assessmentSectionAssemblyCategory.Group);
             UpperBoundary = assessmentSectionAssemblyCategory.UpperBoundary;
             LowerBoundary = assessmentSectionAssemblyCategory.LowerBoundary;
         }
@@ -56,7 +56,8 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Gets the display name of the category group.
         /// </summary>
-        public string Group { get; }
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public AssessmentSectionAssemblyCategoryGroup Group { get; }
 
         /// <summary>
         /// Gets the color of the category.

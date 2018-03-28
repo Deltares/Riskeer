@@ -68,11 +68,7 @@ namespace Ringtoets.Integration.Forms.Views
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
         public object Data { get; set; }
-
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> if managed resources should be disposed; otherwise, <c>false</c>.</param>
+        
         protected override void Dispose(bool disposing)
         {
             failureMechanismContributionObserver.Dispose();

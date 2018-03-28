@@ -30,13 +30,13 @@ using Ringtoets.Common.Forms.TestUtil;
 namespace Ringtoets.Common.Forms.Test.Helpers
 {
     [TestFixture]
-    public class AssemblyCategoryGroupHelperTest
+    public class AssemblyCategoryGroupColorHelperTest
     {
         [Test]
         public void GetFailureMechanismSectionAssemblyCategoryGroupColor_WithInvalidFailureMechanismSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyCategoryGroupHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(
+            TestDelegate test = () => AssemblyCategoryGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(
                 (FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup, Color expectedColor)
         {
             // Call
-            Color color = AssemblyCategoryGroupHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup);
+            Color color = AssemblyCategoryGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup);
 
             // Assert
             Assert.AreEqual(expectedColor, color);
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         public void GetAssessmentSectionAssemblyCategoryGroupColor_WithInvalidAssessmentSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(
+            TestDelegate test = () => AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(
                 (AssessmentSectionAssemblyCategoryGroup) 99);
 
             // Assert
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             AssessmentSectionAssemblyCategoryGroup assemblyCategoryGroup, Color expectedColor)
         {
             // Call
-            Color color = AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assemblyCategoryGroup);
+            Color color = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assemblyCategoryGroup);
 
             // Assert
             Assert.AreEqual(expectedColor, color);

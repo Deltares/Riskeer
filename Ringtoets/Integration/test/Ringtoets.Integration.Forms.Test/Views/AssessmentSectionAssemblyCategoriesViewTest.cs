@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
@@ -52,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithData_CreatesViewAndTableWithData()
+        public void Constructor_WithFailureMechanismContribution_CreatesViewAndTableWithData()
         {
             // Setup
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
@@ -71,7 +72,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssessmentSectionAssemblyCategoriesTable tableControl = GetCategoriesTable(view);
                 Assert.NotNull(tableControl);
                 Assert.AreEqual(DockStyle.Fill, tableControl.Dock);
-                Assert.AreEqual(3, tableControl.Rows.Count);
+
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                Assert.AreEqual(calculator.AssessmentSectionCategoriesOutput.Count(), tableControl.Rows.Count);
             }
         }
 
@@ -79,34 +83,39 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenViewWithFailureMechanismContribution_WhenFailureMechanismContributionUpdated_ThenDataTableUpdated()
         {
             // Given
+            var random = new Random(21);
+
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+            failureMechanismContribution.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssessmentSectionAssemblyCategoriesView(failureMechanismContribution))
             {
-                AssessmentSectionAssemblyCategoriesTable categoriesTable = GetCategoriesTable(view);
-                failureMechanismContribution.Attach(observer);
-
-                // Precondition
-                Assert.AreEqual(3, categoriesTable.Rows.Count);
-
-                // When
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
-                calculator.AssessmentSectionCategoriesOutput = new[]
+                AssessmentSectionAssemblyCategoriesTable categoriesTable = GetCategoriesTable(view);
+
+                // Precondition
+                Assert.AreEqual(calculator.AssessmentSectionCategoriesOutput.Count(), categoriesTable.Rows.Count);
+
+                // When
+                var newOutput = new[]
                 {
-                    new AssessmentSectionAssemblyCategory(1, 2, AssessmentSectionAssemblyCategoryGroup.A)
+                    new AssessmentSectionAssemblyCategory(random.NextDouble(),
+                                                          random.NextDouble(),
+                                                          random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>())
                 };
+                calculator.AssessmentSectionCategoriesOutput = newOutput;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(1, categoriesTable.Rows.Count);
+                Assert.AreEqual(newOutput.Length, categoriesTable.Rows.Count);
             }
 
             mocks.VerifyAll();
