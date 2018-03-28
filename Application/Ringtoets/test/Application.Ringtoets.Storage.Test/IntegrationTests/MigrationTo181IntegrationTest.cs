@@ -400,7 +400,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "AND NEW.HydraulicDatabaseVersion IS OLD.HydraulicDatabaseVersion " +
                 "AND NEW.HydraulicDatabaseLocation IS OLD.HydraulicDatabaseLocation " +
                 "AND NEW.Composition = OLD.Composition " +
-                "AND NEW.ReferenceLinePointXml IS OLD.ReferenceLinePointXml; " +
+                "AND NEW.ReferenceLinePointXml IS OLD.ReferenceLinePointXml " +
+                "AND NEW.\"Order\" = OLD.\"Order\"; " +
                 "DETACH DATABASE SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateAssessmentSectionEntities);
@@ -414,8 +415,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicLocationsValidationQuery());
             reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsValidationQuery());
-            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationInputValidationQuery());
-            
+            reader.AssertReturnedDataIsValid(HydraulicLocationValidationQueryGenerator.GetHydraulicBoundaryLocationCalculationInputValidationQuery());
+
             AssertDesignWaterLevelCalculationEntities(reader, queryGenerator);
             AssertWaveHeightCalculationEntities(reader, queryGenerator);
         }
@@ -440,6 +441,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                  HydraulicLocationValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedSignalingNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedLowerLimitNorm));
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetDesignWaterLevelCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.LowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetDesignWaterLevelCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.SignalingNorm));
         }
 
         private static void AssertDesignWaterLevelCalculationEntities(MigratedDatabaseReader reader, HydraulicLocationValidationQueryGenerator queryGenerator)
@@ -462,6 +468,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                  HydraulicLocationValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedSignalingNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
                                                  HydraulicLocationValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveHeightCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.LowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveHeightCalculationOutputsValidationQuery(
+                                                 HydraulicLocationValidationQueryGenerator.NormativeNormType.SignalingNorm));
         }
 
         /// <summary>
@@ -594,7 +605,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// values.
             /// </summary>
             /// <returns>The query to validate the hydraulic boundary location calculation inputs.</returns>
-            public string GetHydraulicBoundaryLocationCalculationInputValidationQuery()
+            public static string GetHydraulicBoundaryLocationCalculationInputValidationQuery()
             {
                 return "SELECT " +
                        "COUNT() = 0 " +
@@ -650,28 +661,59 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// but is unsupported.</exception>
             public string GetDesignWaterLevelCalculationsValidationQuery(NormativeNormType normType)
             {
-                CalculationType calculationType;
-                switch (normType)
-                {
-                    case NormativeNormType.LowerLimitNorm:
-                        calculationType = CalculationType.WaterLevelCalculationsForLowerLimitNorm;
-                        break;
-                    case NormativeNormType.SignalingNorm:
-                        calculationType = CalculationType.WaterLevelCalculationsForSignalingNorm;
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
+                CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
 
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT " +
                        "COUNT() = 0 " +
                        "FROM AssessmentSectionEntity ase " +
-                       $"JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
+                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
                        "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
                        "JOIN HydraulicLocationCalculationEntity NEW USING (HydraulicLocationCalculationEntityId) " +
                        "JOIN [SOURCEPROJECT].HydraulicLocationEntity OLD USING (HydraulicLocationEntityId) " +
                        $"WHERE OLD.ShouldDesignWaterLevelIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the design water level calculations
+            /// are migrated correctly to the corresponding calculation entities.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            public string GetDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType normType)
+            {
+                CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
+
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT  " +
+                       "COUNT() =  " +
+                       "( " +
+                       "SELECT COUNT() " +
+                       "FROM [SOURCEPROJECT].HydraulicLocationOutputEntity sourceHlo " +
+                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity USING (HydraulicLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING (AssessmentSectionEntityId) " +
+                       $"WHERE sourceHlo.HydraulicLocationOutputType = 1 AND sourceAse.NormativeNormType = {(int) normType} " +
+                       ") " +
+                       "FROM AssessmentSectionEntity ase " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
+                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationOutputEntityId = OLD.HydraulicLocationEntityOutputId " +
+                       "WHERE NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
+                       "AND NEW.Result IS OLD.Result " +
+                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
+                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
+                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
+                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
+                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -687,33 +729,59 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// but is unsupported.</exception>
             public string GetWaveHeightCalculationsValidationQuery(NormativeNormType normType)
             {
-                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
-                {
-                    throw new InvalidEnumArgumentException(nameof(normType), (int)normType, typeof(NormativeNormType));
-                }
-
-                CalculationType calculationType;
-                switch (normType)
-                {
-                    case NormativeNormType.LowerLimitNorm:
-                        calculationType = CalculationType.WaveHeightCalculationsForLowerLimitNorm;
-                        break;
-                    case NormativeNormType.SignalingNorm:
-                        calculationType = CalculationType.WaveHeightCalculationsForSignalingNorm;
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
+                CalculationType calculationType = ConvertToWaveHeightCalculationType(normType);
 
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT " +
                        "COUNT() = 0 " +
                        "FROM AssessmentSectionEntity ase " +
-                       $"JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
+                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
                        "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
                        "JOIN HydraulicLocationCalculationEntity NEW USING (HydraulicLocationCalculationEntityId) " +
                        "JOIN [SOURCEPROJECT].HydraulicLocationEntity OLD USING (HydraulicLocationEntityId) " +
                        $"WHERE OLD.ShouldWaveHeightIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the wave height calculations 
+            /// are migrated correctly to the corresponding calculation entities.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            public string GetWaveHeightCalculationOutputsValidationQuery(NormativeNormType normType)
+            {
+                CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
+
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT  " +
+                       "COUNT() =  " +
+                       "( " +
+                       "SELECT COUNT() " +
+                       "FROM [SOURCEPROJECT].HydraulicLocationOutputEntity sourceHlo " +
+                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity USING (HydraulicLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING (AssessmentSectionEntityId) " +
+                       $"WHERE sourceHlo.HydraulicLocationOutputType = 2 AND sourceAse.NormativeNormType = {(int) normType} " +
+                       ") " +
+                       "FROM AssessmentSectionEntity ase " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
+                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON NEW.HydraulicLocationOutputEntityId = OLD.HydraulicLocationEntityOutputId " +
+                       "WHERE NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
+                       "AND NEW.Result IS OLD.Result " +
+                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
+                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
+                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
+                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
+                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -733,6 +801,60 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "JOIN HydraulicLocationCalculationEntity hlce USING (HydraulicLocationCalculationEntityId) " +
                        "WHERE hlce.ShouldIllustrationPointsBeCalculated = 0;" +
                        "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding design water level calculation from <see cref="CalculationType"/>.
+            /// </summary>
+            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns the converted <see cref="CalculationType"/>.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            private static CalculationType ConvertToDesignWaterLevelCalculationType(NormativeNormType normType)
+            {
+                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
+                }
+
+                switch (normType)
+                {
+                    case NormativeNormType.LowerLimitNorm:
+                        return CalculationType.WaterLevelCalculationsForLowerLimitNorm;
+                    case NormativeNormType.SignalingNorm:
+                        return CalculationType.WaterLevelCalculationsForSignalingNorm;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            /// <summary>
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding wave height calculation from <see cref="CalculationType"/>.
+            /// </summary>
+            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns the converted <see cref="CalculationType"/>.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            private static CalculationType ConvertToWaveHeightCalculationType(NormativeNormType normType)
+            {
+                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
+                }
+
+                switch (normType)
+                {
+                    case NormativeNormType.LowerLimitNorm:
+                        return CalculationType.WaveHeightCalculationsForLowerLimitNorm;
+                    case NormativeNormType.SignalingNorm:
+                        return CalculationType.WaveHeightCalculationsForSignalingNorm;
+                    default:
+                        throw new NotSupportedException();
+                }
             }
         }
 

@@ -583,6 +583,94 @@ UPDATE HydraulicLocationCalculationEntity
 		WHERE ase.NormativeNormType = 1 AND source.ShouldWaveHeightIllustrationPointsBeCalculated = 1
 );
 
+--Migrate the outputs on AssessmentSection level
+INSERT INTO HydraulicLocationOutputEntity (
+    [HydraulicLocationOutputEntityId],
+    [HydraulicLocationCalculationEntityId],
+    [GeneralResultSubMechanismIllustrationPointEntityId],
+    [Result],
+    [TargetProbability],
+    [TargetReliability],
+    [CalculatedProbability],
+    [CalculatedReliability],
+    [CalculationConvergence]) 
+SELECT 
+    [HydraulicLocationEntityOutputId],
+    [HydraulicLocationCalculationEntityId],
+    [GeneralResultSubMechanismIllustrationPointEntityId],
+    [Result],
+    [TargetProbability],
+    [TargetReliability],
+    [CalculatedProbability],
+    [CalculatedReliability],
+    [CalculationConvergence]
+FROM AssessmentSectionEntity ase
+JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
+JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
+JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+JOIN HydraulicLocationEntity USING (HydraulicLocationEntityId)
+JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity USING (HydraulicLocationEntityId)
+WHERE HydraulicLocationOutputType = 1 AND NormativeNormType = 2
+
+UNION
+
+SELECT 
+    [HydraulicLocationEntityOutputId],
+    [HydraulicLocationCalculationEntityId],
+    [GeneralResultSubMechanismIllustrationPointEntityId],
+    [Result],
+    [TargetProbability],
+    [TargetReliability],
+    [CalculatedProbability],
+    [CalculatedReliability],
+    [CalculationConvergence]
+FROM AssessmentSectionEntity ase
+JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
+JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
+JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+JOIN HydraulicLocationEntity USING (HydraulicLocationEntityId)
+JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity USING (HydraulicLocationEntityId)
+WHERE HydraulicLocationOutputType = 1 AND NormativeNormType = 1
+
+UNION
+
+SELECT 
+    [HydraulicLocationEntityOutputId],
+    [HydraulicLocationCalculationEntityId],
+    [GeneralResultSubMechanismIllustrationPointEntityId],
+    [Result],
+    [TargetProbability],
+    [TargetReliability],
+    [CalculatedProbability],
+    [CalculatedReliability],
+    [CalculationConvergence]
+FROM AssessmentSectionEntity ase
+JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
+JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
+JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+JOIN HydraulicLocationEntity USING (HydraulicLocationEntityId)
+JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity USING (HydraulicLocationEntityId)
+WHERE HydraulicLocationOutputType = 2 AND NormativeNormType = 2
+
+UNION
+
+SELECT 
+    [HydraulicLocationEntityOutputId],
+    [HydraulicLocationCalculationEntityId],
+    [GeneralResultSubMechanismIllustrationPointEntityId],
+    [Result],
+    [TargetProbability],
+    [TargetReliability],
+    [CalculatedProbability],
+    [CalculatedReliability],
+    [CalculationConvergence]
+FROM AssessmentSectionEntity ase
+JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
+JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
+JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+JOIN HydraulicLocationEntity USING (HydraulicLocationEntityId)
+JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity USING (HydraulicLocationEntityId)
+WHERE HydraulicLocationOutputType = 2 AND NormativeNormType = 1;
 
 -- Cleanup
 DROP TABLE TempHydraulicLocationCalculationEntity;
