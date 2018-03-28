@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
 {
@@ -70,13 +71,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "location1", 1, 1), true);
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "location2", 2, 2), true);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
-
-            SetOutputOnHydraulicBoundaryCalculations(failureMechanism);
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelper.AddHydraulicBoundaryLocations(
+                failureMechanism, assessmentSection, new[]
+                {
+                    new HydraulicBoundaryLocation(1, "location1", 1, 1),
+                    new HydraulicBoundaryLocation(2, "location1", 2, 2)
+                }, true);
 
             // Call
             GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation[] aggregatedLocations =
@@ -122,9 +124,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "location1", 1, 1));
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "location2", 2, 2));
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
@@ -154,26 +153,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
                 Assert.IsNaN(aggregatedLocations[i].WaveHeightCalculationForMechanismSpecificLowerLimitNorm);
                 Assert.IsNaN(aggregatedLocations[i].WaveHeightCalculationForLowerLimitNorm);
                 Assert.IsNaN(aggregatedLocations[i].WaveHeightCalculationForFactorizedLowerLimitNorm);
-            }
-        }
-
-        private static void SetOutputOnHydraulicBoundaryCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            var random = new Random(39);
-
-            SetOutputOnCalculationsInlist(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, random);
-            SetOutputOnCalculationsInlist(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, random);
-            SetOutputOnCalculationsInlist(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, random);
-            SetOutputOnCalculationsInlist(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, random);
-            SetOutputOnCalculationsInlist(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, random);
-            SetOutputOnCalculationsInlist(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, random);
-        }
-
-        private static void SetOutputOnCalculationsInlist(IEnumerable<HydraulicBoundaryLocationCalculation> calculationsList, Random random)
-        {
-            foreach (HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation in calculationsList)
-            {
-                hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
             }
         }
 
