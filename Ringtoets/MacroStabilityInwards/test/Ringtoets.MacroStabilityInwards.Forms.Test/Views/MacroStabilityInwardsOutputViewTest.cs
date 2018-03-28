@@ -108,7 +108,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
 
                 // Assert
-                Assert.AreSame(calculation, view.Data);
                 Assert.AreSame(calculation, chartControl.Data);
             }
         }

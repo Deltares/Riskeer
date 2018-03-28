@@ -109,12 +109,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
+            // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
             {
-                // Call
-                control.Data = calculation;
-
                 // Assert
                 IChartControl chartControl = GetChartControl(control);
                 ChartDataCollection chartData = chartControl.Data;
@@ -138,12 +136,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
+            // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
             {
-                // Call
-                control.Data = calculation;
-
                 // Assert
                 IChartControl chartControl = GetChartControl(control);
                 ChartDataCollection chartData = chartControl.Data;
