@@ -34,33 +34,6 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// </summary>
     public static class MapFeaturesTestHelper
     {
-        /// <summary>
-        /// Asserts whether the meta data for <paramref name="key"/> in <paramref name="feature"/>
-        /// contains the correct output data for <paramref name="calculation"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// to assert against.</param>
-        /// <param name="feature">The <see cref="MapFeature"/> to be asserted.</param>
-        /// <param name="key">The name of the meta data element to retrieve the data from.</param>
-        /// <exception cref="KeyNotFoundException">Thrown when the meta data of <paramref name="feature"/> does not 
-        /// contain a <see cref="KeyValuePair{TKey,TValue}"/> with <paramref name="key"/> as key.</exception>
-        /// <exception cref="AssertionException">Thrown when the wave height or the design water level of a 
-        /// hydraulic boundary location and the  respective meta data value associated with <paramref name="key"/>
-        ///  are not the same.
-        /// </exception>
-        public static void AssertHydraulicBoundaryLocationOutputMetaData(HydraulicBoundaryLocationCalculation calculation,
-                                                                         MapFeature feature,
-                                                                         string key)
-        {
-            RoundedDouble expectedValue = RoundedDouble.NaN;
-            if (calculation.Output != null)
-            {
-                expectedValue = calculation.Output.Result;
-            }
-
-            Assert.AreEqual(expectedValue, feature.MetaData[key]);
-        }
-
         public static void AssertHydraulicBoundaryFeaturesData(IAssessmentSection assessmentSection, IEnumerable<MapFeature> features)
         {
             HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();

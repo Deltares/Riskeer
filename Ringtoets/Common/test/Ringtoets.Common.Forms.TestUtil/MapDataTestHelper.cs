@@ -99,62 +99,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the output of
-        /// <paramref name="hydraulicBoundaryLocations"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations that contain the original data.</param>
-        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
-        /// <exception cref="AssertionException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>;</item>
-        /// <item>the number of hydraulic boundary locations and features in <see cref="MapData"/> are not the same;</item>
-        /// <item>the wave height or the design water level calculation results of a hydraulic boundary location and the 
-        /// respective outputs of a corresponding feature are not the same.</item>
-        /// </list>
-        /// </exception>
-        public static void AssertHydraulicBoundaryLocationOutputsMapData(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapPointData>(mapData);
-            var hydraulicLocationsMapData = (MapPointData) mapData;
-
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = hydraulicBoundaryLocations.ToArray();
-            int expectedNrOfFeatures = hydraulicBoundaryLocationsArray.Length;
-            Assert.AreEqual(expectedNrOfFeatures, hydraulicLocationsMapData.Features.Count());
-
-            for (var i = 0; i < expectedNrOfFeatures; i++)
-            {
-                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationsArray[i];
-                MapFeature mapFeature = hydraulicLocationsMapData.Features.ElementAt(i);
-
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation1,
-                                                                                    mapFeature,
-                                                                                    "h(A+->A)");
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation2,
-                                                                                    mapFeature,
-                                                                                    "h(A->B)");
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation3,
-                                                                                    mapFeature,
-                                                                                    "h(B->C)");
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation4,
-                                                                                    mapFeature,
-                                                                                    "h(C->D)");
-
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation1,
-                                                                                    mapFeature,
-                                                                                    "Hs(A+->A)");
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation2,
-                                                                                    mapFeature,
-                                                                                    "Hs(A->B)");
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation3,
-                                                                                    mapFeature,
-                                                                                    "Hs(B->C)");
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation4,
-                                                                                    mapFeature,
-                                                                                    "Hs(C->D)");
-            }
-        }
-
-        /// <summary>
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the data of
         /// hydraulic boundary locations and calculations in <paramref name="assessmentSection"/>.
         /// </summary>
