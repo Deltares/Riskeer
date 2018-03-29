@@ -710,6 +710,7 @@ namespace Application.Ringtoets.Storage.Read
                                   collector);
 
             entity.ReadHydraulicBoundaryLocations(failureMechanism.HydraulicBoundaryLocations, collector);
+            entity.ReadHydraulicBoundaryLocationCalculations(failureMechanism, collector);
 
             ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
         }
@@ -717,7 +718,7 @@ namespace Application.Ringtoets.Storage.Read
         private static void ReadGeneralGrassCoverErosionOutwardsCalculationInput(this FailureMechanismEntity entity,
                                                                                  GeneralGrassCoverErosionOutwardsInput input)
         {
-            entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().Read(input);
+            GetGrassCoverErosionOutwardsFailureMechanismMetaEntity(entity).Read(input);
         }
 
         private static void ReadGrassCoverErosionOutwardsMechanismSectionResults(this FailureMechanismEntity entity,
@@ -743,6 +744,27 @@ namespace Application.Ringtoets.Storage.Read
                                      .ToArray());
         }
 
+        private static void ReadHydraulicBoundaryLocationCalculations(this FailureMechanismEntity entity,
+                                                                      GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                      ReadConversionCollector collector)
+        {
+            GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity = GetGrassCoverErosionOutwardsFailureMechanismMetaEntity(entity);
+
+            metaEntity.HydraulicLocationCalculationCollectionEntity5.Read(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                                          collector);
+            metaEntity.HydraulicLocationCalculationCollectionEntity4.Read(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
+                                                                          collector);
+            metaEntity.HydraulicLocationCalculationCollectionEntity3.Read(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
+                                                                          collector);
+
+            metaEntity.HydraulicLocationCalculationCollectionEntity2.Read(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                                          collector);
+            metaEntity.HydraulicLocationCalculationCollectionEntity1.Read(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                                                                          collector);
+            metaEntity.HydraulicLocationCalculationCollectionEntity.Read(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
+                                                                         collector);
+        }
+
         private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                                                             CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
         {
@@ -751,6 +773,11 @@ namespace Application.Ringtoets.Storage.Read
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
             }
+        }
+
+        private static GrassCoverErosionOutwardsFailureMechanismMetaEntity GetGrassCoverErosionOutwardsFailureMechanismMetaEntity(FailureMechanismEntity entity)
+        {
+            return entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
         }
 
         #endregion
