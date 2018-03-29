@@ -103,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
                 Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                Assert.IsNull(view.Map.Data);
+                AssertEmptyMapData(view.Map.Data);
             }
         }
 

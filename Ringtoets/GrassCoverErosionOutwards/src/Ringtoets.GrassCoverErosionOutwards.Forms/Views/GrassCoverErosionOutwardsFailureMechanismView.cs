@@ -118,6 +118,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(foreshoreProfilesMapData);
             mapDataCollection.Add(calculationsMapData);
+
+            SetMapDataFeatures();
+            ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -216,14 +219,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         private void SetMapDataFeatures()
         {
-            ReferenceLine referenceLine = data.Parent.ReferenceLine;
-            IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = data.WrappedData.HydraulicBoundaryLocations.ToArray();
-            IEnumerable<ForeshoreProfile> foreshoreProfiles = data.WrappedData.ForeshoreProfiles;
+            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = FailureMechanism.HydraulicBoundaryLocations.ToArray();
+            IEnumerable<ForeshoreProfile> foreshoreProfiles = FailureMechanism.ForeshoreProfiles;
             IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations =
-                data.WrappedData.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
+                FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
 
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
