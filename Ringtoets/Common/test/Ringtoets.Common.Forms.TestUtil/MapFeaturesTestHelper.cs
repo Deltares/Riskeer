@@ -120,11 +120,17 @@ namespace Ringtoets.Common.Forms.TestUtil
             Assert.AreEqual(expectedValue, feature.MetaData[key]);
         }
 
-        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
-                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation1)
+        /// <summary>
+        /// Gets the expected result of a hydraulic boundary location calculation.
+        /// </summary>
+        /// <param name="calculationList">The list to get the calculation from.</param>
+        /// <param name="hydraulicBoundaryLocation">The location to get the calculation for.</param>
+        /// <returns>The result when there is output; <see cref="RoundedDouble.NaN"/> otherwise.</returns>
+        public static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
+                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return calculationList
-                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation1))
+                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
                    .Select(calculation => calculation.Output?.Result ?? RoundedDouble.NaN)
                    .Single();
         }

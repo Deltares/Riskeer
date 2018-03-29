@@ -158,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             };
             hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
             {
-                Observable = FailureMechanism.HydraulicBoundaryLocations
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
             };
             foreshoreProfilesObserver = new Observer(UpdateForeshoreProfilesMapData)
             {
@@ -168,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
                 UpdateHydraulicBoundaryLocationsMapData, hbl => hbl)
             {
-                Observable = FailureMechanism.HydraulicBoundaryLocations
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
             };
             calculationInputObserver = new RecursiveObserver<CalculationGroup, WaveConditionsInput>(
                 UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
@@ -226,8 +226,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         private void SetHydraulicBoundaryLocationsMapData()
         {
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocations = FailureMechanism.HydraulicBoundaryLocations.ToArray();
-            hydraulicBoundaryLocationsMapData.Features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(hydraulicBoundaryLocations);
+            hydraulicBoundaryLocationsMapData.Features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(AssessmentSection, FailureMechanism);
         }
 
         #endregion
