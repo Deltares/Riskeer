@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
@@ -225,6 +226,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
@@ -236,6 +242,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -258,6 +265,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
@@ -270,6 +282,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Then
                 AssertHydraulicBoundaryLocationOutputsMapData(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -291,6 +304,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
@@ -306,6 +324,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -318,6 +337,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
@@ -335,6 +361,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -358,6 +385,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
@@ -374,6 +406,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                mocks.VerifyAll();
             }
         }
 
@@ -395,6 +428,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
                 // Precondition
@@ -413,6 +451,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                mocks.VerifyAll();
             }
         }
 
@@ -435,6 +474,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 // Precondition
@@ -454,6 +498,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -476,6 +521,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 // Precondition
@@ -487,6 +537,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -509,6 +560,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
                 // Precondition
@@ -520,6 +576,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -674,6 +731,50 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
+        }
+
+        /// <summary>
+        /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
+        /// </summary>
+        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
+        /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
+        /// elements.</param>
+        /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
+        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        {
+            MapData[] mapDataArray = mapData.ToArray();
+
+            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
+
+            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsIndex].Attach(sectionsMapDataObserver);
+
+            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
+
+            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
+
+            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
+
+            var foreshoreProfilesMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesMapDataObserver);
+
+            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
+
+            return new[]
+            {
+                referenceLineMapDataObserver,
+                sectionsMapDataObserver,
+                sectionsStartPointMapDataObserver,
+                sectionsEndPointMapDataObserver,
+                hydraulicBoundaryLocationsMapDataObserver,
+                foreshoreProfilesMapDataObserver,
+                calculationsMapDataObserver
+            };
         }
     }
 }
