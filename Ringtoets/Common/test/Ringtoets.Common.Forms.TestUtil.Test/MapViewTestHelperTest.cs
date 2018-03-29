@@ -36,7 +36,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "test", 2, 3));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 2, 3)
+            });
 
             // Call
             TestCaseData[] cases = MapViewTestHelper.GetCalculationFuncs.ToArray();

@@ -50,11 +50,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
                                                          bool setCalculationOutput = false)
         {
             random = new Random(39);
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
-            {
-                assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation, setCalculationOutput);
-            }
 
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, setCalculationOutput);
             failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             if (setCalculationOutput)

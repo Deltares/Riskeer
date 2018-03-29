@@ -106,7 +106,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
 
             // Call
             using (var view = new AssessmentSectionView(assessmentSection))
@@ -133,7 +136,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
 
             using (var view = new AssessmentSectionView(assessmentSection))
             {
@@ -165,7 +171,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
 
             using (var view = new AssessmentSectionView(assessmentSection))
             {
@@ -183,7 +192,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                        hydraulicBoundaryLocationsMapData);
 
                 // When
-                assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    new HydraulicBoundaryLocation(1, "test", 1.0, 2.0),
+                    new HydraulicBoundaryLocation(2, "new 2", 2, 3)
+                });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then
@@ -252,7 +265,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
 
             using (var view = new AssessmentSectionView(assessmentSection))
             {
@@ -270,7 +286,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
 
                 // Call
-                assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "new 2", 2, 3));
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    new HydraulicBoundaryLocation(1, "test", 1.0, 2.0),
+                    new HydraulicBoundaryLocation(2, "new 2", 2, 3)
+                });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Assert

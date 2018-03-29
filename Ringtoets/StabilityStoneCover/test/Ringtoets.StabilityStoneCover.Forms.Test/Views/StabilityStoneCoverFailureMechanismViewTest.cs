@@ -184,7 +184,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
 
             // Call
             using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection))
@@ -212,7 +215,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         {
             // Given
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
 
             using (var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection))
             {
@@ -229,7 +235,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
                 // When
-                assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    new HydraulicBoundaryLocation(1, "test", 1.0, 2.0),
+                    new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0)
+                });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then
@@ -246,7 +256,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
 
             using (var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection))
             {

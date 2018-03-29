@@ -111,31 +111,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
         [TestCase(true)]
         [TestCase(false)]
-        public void AddHydraulicBoundaryLocation_HydraulicBoundaryLocation_LocationAndCalculationsAdded(bool setCalculationOutput)
-        {
-            // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            // Call
-            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation, setCalculationOutput);
-
-            // Assert
-            Assert.AreEqual(1, assessmentSection.HydraulicBoundaryDatabase.Locations.Count);
-            Assert.AreSame(hydraulicBoundaryLocation, assessmentSection.HydraulicBoundaryDatabase.Locations[0]);
-
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation, setCalculationOutput);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation, setCalculationOutput);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation, setCalculationOutput);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation, setCalculationOutput);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation, setCalculationOutput);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForSignalingNorm, hydraulicBoundaryLocation, setCalculationOutput);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation, setCalculationOutput);
-            AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation, setCalculationOutput);
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
         public void SetHydraulicBoundaryLocations_Always_LocationAndCalculationsAdded(bool setCalculationOutput)
         {
             // Setup
@@ -195,17 +170,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             {
                 CollectionAssert.DoesNotContain(assessmentSection.HydraulicBoundaryDatabase.Locations, location);
             }
-        }
-
-        private static void AssertHydraulicBoundaryCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
-                                                                TestHydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
-                                                                bool expectedHasOutput)
-        {
-            Assert.AreEqual(1, calculations.Count());
-
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = calculations.ElementAt(0);
-            Assert.AreSame(expectedHydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedHasOutput, hydraulicBoundaryLocationCalculation.HasOutput);
         }
 
         private static void AssertHydraulicBoundaryCalculations(HydraulicBoundaryLocationCalculation calculation,

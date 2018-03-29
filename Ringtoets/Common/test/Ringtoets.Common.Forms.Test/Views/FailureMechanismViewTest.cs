@@ -143,7 +143,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
 
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
@@ -177,7 +180,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
 
             using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), assessmentSection))
             {
@@ -209,7 +215,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+            });
 
             using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), assessmentSection))
             {
@@ -226,7 +235,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
                 // Call
-                assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0),
+                    new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0)
+                });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Assert

@@ -149,26 +149,6 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Adds a hydraulic boundary location to the assessment section stub.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to add.</param>
-        /// <param name="setCalculationOutput">Whether to set dummy output for the automatically generated
-        /// hydraulic boundary location calculations.</param>
-        public void AddHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool setCalculationOutput = false)
-        {
-            HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-            waterLevelCalculationsForFactorizedSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
-            waterLevelCalculationsForSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
-            waterLevelCalculationsForLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
-            waterLevelCalculationsForFactorizedLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
-            waveHeightCalculationsForFactorizedSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
-            waveHeightCalculationsForSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
-            waveHeightCalculationsForLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
-            waveHeightCalculationsForFactorizedLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
-        }
-
-        /// <summary>
         /// Sets the hydraulic boundary locations on the assessment section stub.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to set.</param>
@@ -192,6 +172,20 @@ namespace Ringtoets.Common.Data.TestUtil
         public void ChangeComposition(AssessmentSectionComposition newComposition)
         {
             throw new NotImplementedException("Stub only verifies Observable and basic behaviour, use a proper stub when this function is necessary.");
+        }
+
+        private void AddHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool setCalculationOutput)
+        {
+            HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+
+            waterLevelCalculationsForFactorizedSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            waterLevelCalculationsForSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            waterLevelCalculationsForLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            waterLevelCalculationsForFactorizedLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            waveHeightCalculationsForFactorizedSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            waveHeightCalculationsForSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            waveHeightCalculationsForLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            waveHeightCalculationsForFactorizedLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
         }
 
         private static HydraulicBoundaryLocationCalculation CreateHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation,

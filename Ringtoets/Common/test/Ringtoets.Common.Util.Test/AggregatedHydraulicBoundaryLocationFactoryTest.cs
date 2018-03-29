@@ -48,8 +48,11 @@ namespace Ringtoets.Common.Util.Test
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "location1", 1, 1), true);
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "location2", 2, 2), true);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "location1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location2", 2, 2)
+            }, true);
 
             // Call
             AggregatedHydraulicBoundaryLocation[] aggregatedLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection).ToArray();
@@ -89,8 +92,11 @@ namespace Ringtoets.Common.Util.Test
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "location1", 1, 1));
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "location2", 2, 2));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "location1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location2", 2, 2)
+            });
 
             // Call
             AggregatedHydraulicBoundaryLocation[] aggregatedLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection).ToArray();

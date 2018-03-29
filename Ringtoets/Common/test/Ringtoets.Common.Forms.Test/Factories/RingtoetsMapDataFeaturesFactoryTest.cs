@@ -183,12 +183,17 @@ namespace Ringtoets.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationFeatures_GivenLocations_ReturnsLocationFeaturesCollection()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateHydraulicBoundaryLocationFeatures_GivenLocations_ReturnsLocationFeaturesCollection(bool setOutput)
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "location1", 1, 1), true);
-            assessmentSection.AddHydraulicBoundaryLocation(new HydraulicBoundaryLocation(2, "location2", 2, 2));
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "location1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location2", 2, 2)
+            }, setOutput);
 
             // Call
             MapFeature[] features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection).ToArray();
