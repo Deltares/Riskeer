@@ -25,10 +25,14 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
@@ -80,13 +84,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
                 }
             };
 
-            var scenario = new MacroStabilityInwardsCalculationScenario
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation
-                }
-            };
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+
+            scenario.InputParameters.HydraulicBoundaryLocation = testHydraulicBoundaryLocation;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var context = new MacroStabilityInwardsInputContext(
@@ -106,7 +106,20 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             double expectedAssessmentLevel = normType == NormType.Signaling
                                                  ? designWaterLevelSignaling
                                                  : designWaterLevelLowerLimit;
-            Assert.AreEqual(expectedAssessmentLevel, ((MacroStabilityInwardsInputContextProperties) objectProperties).AssessmentLevel);
+
+            var macroStabilityInwardsInputContextProperties = (MacroStabilityInwardsInputContextProperties) objectProperties;
+
+            Assert.AreEqual(expectedAssessmentLevel, macroStabilityInwardsInputContextProperties.AssessmentLevel);
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                MacroStabilityInwardsWaternetProperties waternetProperties = macroStabilityInwardsInputContextProperties.WaterStressesProperties.WaterStressLines.WaternetExtreme;
+
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+
+                Assert.AreEqual(expectedAssessmentLevel, calculatorFactory.LastCreatedWaternetCalculator.Input.AssessmentLevel);
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, (MacroStabilityInwardsWaternet) waternetProperties.Data);
+            }
         }
     }
 }
