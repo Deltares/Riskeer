@@ -157,6 +157,14 @@ namespace Ringtoets.Common.Data.TestUtil
         public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, bool setCalculationOutput = false)
         {
             HydraulicBoundaryDatabase.Locations.Clear();
+            waterLevelCalculationsForFactorizedSignalingNorm.Clear();
+            waterLevelCalculationsForSignalingNorm.Clear();
+            waterLevelCalculationsForLowerLimitNorm.Clear();
+            waterLevelCalculationsForFactorizedLowerLimitNorm.Clear();
+            waveHeightCalculationsForFactorizedSignalingNorm.Clear();
+            waveHeightCalculationsForSignalingNorm.Clear();
+            waveHeightCalculationsForLowerLimitNorm.Clear();
+            waveHeightCalculationsForFactorizedLowerLimitNorm.Clear();
 
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
             {

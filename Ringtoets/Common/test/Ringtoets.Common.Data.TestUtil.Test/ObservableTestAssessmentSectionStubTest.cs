@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void SetHydraulicBoundaryLocations_LocationsAlreadyAdded_ClearOldLocations()
+        public void SetHydraulicBoundaryLocations_LocationsAlreadyAdded_ClearOldLocationsAndCalculations()
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
@@ -169,6 +169,14 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             foreach (TestHydraulicBoundaryLocation location in originalLocations)
             {
                 CollectionAssert.DoesNotContain(assessmentSection.HydraulicBoundaryDatabase.Locations, location);
+                CollectionAssert.DoesNotContain(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(calculation => calculation.HydraulicBoundaryLocation), location);
+                CollectionAssert.DoesNotContain(assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(calculation => calculation.HydraulicBoundaryLocation), location);
+                CollectionAssert.DoesNotContain(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(calculation => calculation.HydraulicBoundaryLocation), location);
+                CollectionAssert.DoesNotContain(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Select(calculation => calculation.HydraulicBoundaryLocation), location);
+                CollectionAssert.DoesNotContain(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Select(calculation => calculation.HydraulicBoundaryLocation), location);
+                CollectionAssert.DoesNotContain(assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(calculation => calculation.HydraulicBoundaryLocation), location);
+                CollectionAssert.DoesNotContain(assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(calculation => calculation.HydraulicBoundaryLocation), location);
+                CollectionAssert.DoesNotContain(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(calculation => calculation.HydraulicBoundaryLocation), location);
             }
         }
 
