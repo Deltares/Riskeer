@@ -40,6 +40,8 @@ namespace Ringtoets.Integration.Forms.Views
         /// <param name="assessmentSectionAssemblyCategory">The <see cref="AssessmentSectionAssemblyCategory"/> to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSectionAssemblyCategory"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public AssessmentSectionAssemblyCategoryRow(AssessmentSectionAssemblyCategory assessmentSectionAssemblyCategory)
         {
             if (assessmentSectionAssemblyCategory == null)
