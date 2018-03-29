@@ -45,17 +45,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// </summary>
     public partial class GrassCoverErosionOutwardsFailureMechanismView : UserControl, IMapView
     {
-        private readonly Observer failureMechanismObserver;
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly Observer foreshoreProfilesObserver;
-
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
-        private readonly RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionOutwardsWaveConditionsCalculation> calculationObserver;
-        private readonly RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
-
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
@@ -64,6 +53,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
         private readonly MapLineData foreshoreProfilesMapData;
         private readonly MapLineData calculationsMapData;
+        private Observer failureMechanismObserver;
+        private Observer assessmentSectionObserver;
+        private Observer hydraulicBoundaryLocationsObserver;
+        private Observer foreshoreProfilesObserver;
+
+        private RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
+        private RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private RecursiveObserver<CalculationGroup, GrassCoverErosionOutwardsWaveConditionsCalculation> calculationObserver;
+        private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
 
         private GrassCoverErosionOutwardsFailureMechanismContext data;
 
@@ -88,19 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(UpdateMapData);
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
-            foreshoreProfilesObserver = new Observer(UpdateMapData);
-
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl);
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, WaveConditionsInput>(
-                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                                     .Select(pc => pc.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children);
-            calculationObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionOutwardsWaveConditionsCalculation>(UpdateMapData, pcg => pcg.Children);
-            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll);
+            CreateObservers(failureMechanism);
 
             mapDataCollection = new MapDataCollection(GrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
@@ -202,6 +189,50 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private void CreateObservers(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            failureMechanismObserver = new Observer(UpdateMapData)
+            {
+                Observable = failureMechanism
+            };
+            assessmentSectionObserver = new Observer(UpdateMapData)
+            {
+                Observable = AssessmentSection
+            };
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            foreshoreProfilesObserver = new Observer(UpdateMapData)
+            {
+                Observable = failureMechanism.ForeshoreProfiles
+            };
+
+            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
+                UpdateMapData, hbl => hbl)
+            {
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, WaveConditionsInput>(
+                UpdateMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                     .Select(pc => pc.InputParameters)))
+            {
+                Observable = failureMechanism.WaveConditionsCalculationGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateMapData, pcg => pcg.Children)
+            {
+                Observable = failureMechanism.WaveConditionsCalculationGroup
+            };
+            calculationObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionOutwardsWaveConditionsCalculation>(UpdateMapData, pcg => pcg.Children)
+            {
+                Observable = failureMechanism.WaveConditionsCalculationGroup
+            };
+            foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateMapData, coll => coll)
+            {
+                Observable = failureMechanism.ForeshoreProfiles
+            };
         }
 
         private void UpdateMapData()
