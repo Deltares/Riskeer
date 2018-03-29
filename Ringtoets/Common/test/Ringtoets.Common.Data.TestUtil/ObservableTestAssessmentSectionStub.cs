@@ -168,6 +168,22 @@ namespace Ringtoets.Common.Data.TestUtil
             waveHeightCalculationsForFactorizedLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
         }
 
+        /// <summary>
+        /// Sets the hydraulic boundary locations on the assessment section stub.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to set.</param>
+        /// <param name="setCalculationOutput">Whether to set dummy output for the automatically generated
+        /// hydraulic boundary location calculations.</param>
+        public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, bool setCalculationOutput = false)
+        {
+            HydraulicBoundaryDatabase.Locations.Clear();
+
+            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
+            {
+                AddHydraulicBoundaryLocation(hydraulicBoundaryLocation, setCalculationOutput);
+            }
+        }
+
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
             yield break;
