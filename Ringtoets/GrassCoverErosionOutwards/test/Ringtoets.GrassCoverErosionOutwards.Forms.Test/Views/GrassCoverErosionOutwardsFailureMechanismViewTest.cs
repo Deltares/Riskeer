@@ -318,45 +318,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            var random = new Random(21);
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, assessmentSection))
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-                // Precondition
-                AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, failureMechanism, hydraulicBoundaryLocationsMapData);
-
-                // When
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.NotifyObservers();
-
-                // Then
-                AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, failureMechanism, hydraulicBoundaryLocationsMapData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
