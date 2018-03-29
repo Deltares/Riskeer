@@ -134,9 +134,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                 }
             }
 
-            protected override IView GetView()
+            protected override IView GetView(ICalculation data)
             {
-                return new MacroStabilityInwardsOutputView(new MacroStabilityInwardsCalculationScenario(), () => (RoundedDouble) 1.1);
+                return new MacroStabilityInwardsOutputView(new MacroStabilityInwardsCalculationScenario(), () => (RoundedDouble) 1.1)
+                {
+                    Data = data
+                };
             }
 
             protected override ICalculation GetCalculation()
