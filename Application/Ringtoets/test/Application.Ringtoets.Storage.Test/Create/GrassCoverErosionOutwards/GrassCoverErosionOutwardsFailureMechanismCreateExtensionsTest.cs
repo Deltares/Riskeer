@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
@@ -199,8 +200,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
                 entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
             string metaEntityForeshoreProfileCollectionSourcePath = metaEntity.ForeshoreProfileCollectionSourcePath;
-            Assert.AreNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
-            Assert.AreEqual(filePath, metaEntityForeshoreProfileCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(filePath, metaEntityForeshoreProfileCollectionSourcePath);
         }
 
         [Test]
@@ -240,14 +240,11 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        [TestCase(true, TestName = "Create_WithBoundaryLocation_ReturnFMEntityWithCalculationGroupEntities(true)")]
-        [TestCase(false, TestName = "Create_WithBoundaryLocation_ReturnFMEntityWithCalculationGroupEntities(false)")]
-        public void Create_WithGrassCoverErosionOutwardHydraulicBoundaryLocation_ReturnFailureMechanismEntityWithCalculationGroupEntities(bool isRelevant)
+        public void Create_WithoutHydraulicBoundaryLocationCalculations_ReturnsFailureMechanismWithHydraulicLocationCalculationEntities()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(0, "A", 0, 0));
-            failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(1, "B", 0, 0));
+            failureMechanism.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[0]);
 
             var registry = new PersistenceRegistry();
 
@@ -255,17 +252,99 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Count);
+            GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
+                entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
 
-            GrassCoverErosionOutwardsHydraulicLocationEntity firstLocation = entity.GrassCoverErosionOutwardsHydraulicLocationEntities.ElementAt(0);
-            GrassCoverErosionOutwardsHydraulicLocationEntity secondLocation = entity.GrassCoverErosionOutwardsHydraulicLocationEntities.ElementAt(1);
-            Assert.AreEqual("A", firstLocation.Name);
-            Assert.AreEqual(0, firstLocation.LocationId);
-            Assert.AreEqual(0, firstLocation.Order);
-            Assert.AreEqual("B", secondLocation.Name);
-            Assert.AreEqual(1, secondLocation.LocationId);
-            Assert.AreEqual(1, secondLocation.Order);
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity);
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity1);
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity2);
+
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity3);
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity4);
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity5);
+        }
+
+        [Test]
+        public void Create_WithHydraulicBoundaryLocationCalculations_ReturnsFailureMechanismWithHydraulicLocationCalculationEntities()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "A", 0, 0);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+            SetHydraulicBoundaryLocationCalculationInputsOfFailureMechanism(failureMechanism);
+
+            var registry = new PersistenceRegistry();
+            registry.Register(new HydraulicLocationEntity(), hydraulicBoundaryLocation);
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
+                entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
+
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity);
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity1);
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity2);
+
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity3);
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity4);
+            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                               metaEntity.HydraulicLocationCalculationCollectionEntity5);
+        }
+
+        private static void SetHydraulicBoundaryLocationCalculationInputsOfFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            SetHydraulicBoundaryLocationCalculationInputs(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, 1);
+            SetHydraulicBoundaryLocationCalculationInputs(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, 2);
+            SetHydraulicBoundaryLocationCalculationInputs(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, 3);
+
+            SetHydraulicBoundaryLocationCalculationInputs(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, 4);
+            SetHydraulicBoundaryLocationCalculationInputs(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, 5);
+            SetHydraulicBoundaryLocationCalculationInputs(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, 6);
+        }
+
+        private static void SetHydraulicBoundaryLocationCalculationInputs(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                          int seed)
+        {
+            var random = new Random(seed);
+            foreach (HydraulicBoundaryLocationCalculation calculation in calculations)
+            {
+                calculation.InputParameters.ShouldIllustrationPointsBeCalculated = random.NextBoolean();
+            }
+        }
+
+        private static void AssertHydraulicLocationCalculationCollectionEntity(IEnumerable<HydraulicBoundaryLocationCalculation> expectedCalculations,
+                                                                               HydraulicLocationCalculationCollectionEntity actualCollectionEntity)
+        {
+            Assert.IsNotNull(actualCollectionEntity);
+
+            HydraulicBoundaryLocationCalculation[] expectedCalculationsArray = expectedCalculations.ToArray();
+            ICollection<HydraulicLocationCalculationEntity> hydraulicLocationCalculationEntities = actualCollectionEntity.HydraulicLocationCalculationEntities;
+            Assert.AreEqual(expectedCalculationsArray.Length, hydraulicLocationCalculationEntities.Count);
+
+            var i = 0;
+            foreach (HydraulicLocationCalculationEntity actualCalculationEntity in hydraulicLocationCalculationEntities)
+            {
+                HydraulicBoundaryLocationCalculation expectedCalculation = expectedCalculationsArray[i];
+                Assert.AreEqual(Convert.ToByte(expectedCalculation.InputParameters.ShouldIllustrationPointsBeCalculated),
+                                actualCalculationEntity.ShouldIllustrationPointsBeCalculated);
+                i++;
+            }
         }
     }
 }
