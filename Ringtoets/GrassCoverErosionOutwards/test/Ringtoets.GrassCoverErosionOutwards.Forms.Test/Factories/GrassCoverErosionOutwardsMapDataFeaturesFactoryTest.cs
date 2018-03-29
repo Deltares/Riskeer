@@ -99,63 +99,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsArrayEmpty_ReturnsEmptyFeaturesCollection()
-        {
-            // Call
-            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(new HydraulicBoundaryLocation[0]);
-
-            // Assert
-            CollectionAssert.IsEmpty(features);
-        }
-
-        [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesCollection()
-        {
-            // Setup
-            var points = new[]
-            {
-                new Point2D(1.2, 2.3),
-                new Point2D(2.7, 2.0)
-            };
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
-
-            // Call
-            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(hydraulicBoundaryLocations);
-
-            // Assert
-            int expectedHydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
-            Assert.AreEqual(expectedHydraulicBoundaryLocationsCount, features.Count());
-            for (var i = 0; i < expectedHydraulicBoundaryLocationsCount; i++)
-            {
-                MapFeature mapFeature = features.ElementAt(i);
-                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocations.ElementAt(i);
-
-                Assert.AreEqual(4, mapFeature.MetaData.Keys.Count);
-                Assert.AreEqual(hydraulicBoundaryLocation.Id, mapFeature.MetaData["ID"]);
-                Assert.AreEqual(hydraulicBoundaryLocation.Name, mapFeature.MetaData["Naam"]);
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation1,
-                                                                                    mapFeature,
-                                                                                    "Waterstand bij doorsnede-eis");
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation1,
-                                                                                    mapFeature,
-                                                                                    "Golfhoogte bij doorsnede-eis");
-            }
-
-            AssertEqualFeatureCollections(points, features);
-        }
-
-        [Test]
         public void CreateHydraulicBoundaryLocationsFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
@@ -213,7 +156,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
                                                         .ToArray();
             AssertEqualFeatureCollections(
                 expectedPoints, features);
-
         }
 
         private static void AssertHydraulicBoundaryFeaturesData(IAssessmentSection assessmentSection, GrassCoverErosionOutwardsFailureMechanism failureMechanism, IEnumerable<MapFeature> features)
@@ -260,6 +202,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
                     mapFeature, "hs(Vv->VIv)");
             }
         }
+
         private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
                                                        HydraulicBoundaryLocation hydraulicBoundaryLocation1)
         {

@@ -22,11 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -68,40 +66,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
                         calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RingtoetsMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
-        }
-
-        /// <summary>
-        /// Create hydraulic boundary location features based on the provided <paramref name="hydraulicBoundaryLocations"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The collection of <see cref="HydraulicBoundaryLocation"/>
-        /// to create the location features for.</param>
-        /// <returns>A collection of features or an empty collection when <paramref name="hydraulicBoundaryLocations"/> is empty.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
-        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationsFeatures(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-        {
-            if (hydraulicBoundaryLocations == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
-            }
-
-            int hydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
-            var features = new MapFeature[hydraulicBoundaryLocationsCount];
-
-            for (var i = 0; i < hydraulicBoundaryLocationsCount; i++)
-            {
-                HydraulicBoundaryLocation location = hydraulicBoundaryLocations.ElementAt(i);
-
-                MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(location.Location);
-
-                feature.MetaData[RingtoetsCommonFormsResources.MetaData_ID] = location.Id;
-                feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = location.Name;
-                feature.MetaData[Resources.DesignWaterLevel_DisplayName] = location.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
-                feature.MetaData[Resources.MetaData_WaveHeight] = location.WaveHeightCalculation1.Output?.Result ?? RoundedDouble.NaN;
-
-                features[i] = feature;
-            }
-
-            return features;
         }
 
         /// <summary>
