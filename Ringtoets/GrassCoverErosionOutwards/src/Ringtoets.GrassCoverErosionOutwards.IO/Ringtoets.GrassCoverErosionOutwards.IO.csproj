@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exporters\GrassCoverErosionOutwardsCalculationConfigurationExporter.cs" />
+    <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsWaveConditionsExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
