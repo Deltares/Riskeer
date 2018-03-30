@@ -13,6 +13,7 @@
   <ItemGroup>
     <Compile Include="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation.cs" />
     <Compile Include="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationFactory.cs" />
+    <Compile Include="IGrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
