@@ -48,22 +48,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
-            AddEntitiesForHydraulicBoundaryLocations(mechanism.HydraulicBoundaryLocations, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
             return entity;
-        }
-
-        private static void AddEntitiesForHydraulicBoundaryLocations(
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-            FailureMechanismEntity entity,
-            PersistenceRegistry registry)
-        {
-            var i = 0;
-            foreach (HydraulicBoundaryLocation location in hydraulicBoundaryLocations)
-            {
-                entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Add(location.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, i++));
-            }
         }
 
         private static void AddEntitiesForFailureMechanismMeta(GrassCoverErosionOutwardsFailureMechanism failureMechanism,

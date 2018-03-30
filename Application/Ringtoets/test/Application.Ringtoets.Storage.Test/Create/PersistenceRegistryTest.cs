@@ -356,25 +356,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
         #endregion
 
-        #region GrassCoverErosionOutwards
-
-        [TestFixture]
-        private class GrassCoverErosionOutwardsHydraulicBoundaryLocationRegistryTest : RegistryTest<
-            HydraulicBoundaryLocation, GrassCoverErosionOutwardsHydraulicLocationEntity>
-        {
-            public GrassCoverErosionOutwardsHydraulicBoundaryLocationRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get<GrassCoverErosionOutwardsHydraulicLocationEntity>(m)) {}
-
-            protected override HydraulicBoundaryLocation CreateDataModel()
-            {
-                return new TestHydraulicBoundaryLocation(nameof(HydraulicBoundaryLocation));
-            }
-        }
-
-        #endregion
-
         #region Piping
 
         [TestFixture]

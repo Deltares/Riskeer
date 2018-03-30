@@ -709,7 +709,6 @@ namespace Application.Ringtoets.Storage.Read
                                   metaEntity.ForeshoreProfileCollectionSourcePath,
                                   collector);
 
-            entity.ReadHydraulicBoundaryLocations(failureMechanism.HydraulicBoundaryLocations, collector);
             entity.ReadHydraulicBoundaryLocationCalculations(failureMechanism, collector);
 
             ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
@@ -732,16 +731,6 @@ namespace Application.Ringtoets.Storage.Read
 
                 sectionResultEntity.Read(result);
             }
-        }
-
-        private static void ReadHydraulicBoundaryLocations(this FailureMechanismEntity entity,
-                                                           List<HydraulicBoundaryLocation> locations,
-                                                           ReadConversionCollector collector)
-        {
-            locations.AddRange(entity.GrassCoverErosionOutwardsHydraulicLocationEntities
-                                     .OrderBy(location => location.Order)
-                                     .Select(location => location.Read(collector))
-                                     .ToArray());
         }
 
         private static void ReadHydraulicBoundaryLocationCalculations(this FailureMechanismEntity entity,

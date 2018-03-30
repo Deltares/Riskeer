@@ -218,18 +218,6 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
         /// that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> to be registered.</param>
-        /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Register(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocation model)
-        {
-            Register(hydraulicLocations, entity, model);
-        }
-
-        /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
-        /// that was constructed with the information.
-        /// </summary>
         /// <param name="entity">The <see cref="DuneLocationEntity"/> to be registered.</param>
         /// <param name="model">The <see cref="DuneLocation"/> to be registered.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>

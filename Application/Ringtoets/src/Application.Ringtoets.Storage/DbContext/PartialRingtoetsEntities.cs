@@ -68,8 +68,6 @@ namespace Application.Ringtoets.Storage.DbContext
             GrassCoverErosionInwardsOvertoppingRateOutputEntities.Load();
             GrassCoverErosionInwardsSectionResultEntities.Load();
             GrassCoverErosionOutwardsFailureMechanismMetaEntities.Load();
-            GrassCoverErosionOutwardsHydraulicLocationEntities.Load();
-            GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Load();
             GrassCoverErosionOutwardsSectionResultEntities.Load();
             GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Load();
             GrassCoverErosionOutwardsWaveConditionsOutputEntities.Load();
