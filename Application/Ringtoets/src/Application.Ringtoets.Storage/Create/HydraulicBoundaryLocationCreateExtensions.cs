@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Create
 
             if (registry.Contains(location))
             {
-                return registry.Get<HydraulicLocationEntity>(location);
+                return registry.Get(location);
             }
 
             var entity = new HydraulicLocationEntity

@@ -87,8 +87,8 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<SurfaceLineEntity, MacroStabilityInwardsSurfaceLine> macroStabilityInwardsSurfaceLines =
             CreateDictionary<SurfaceLineEntity, MacroStabilityInwardsSurfaceLine>();
 
-        private readonly Dictionary<object, HydraulicBoundaryLocation> hydraulicLocations =
-            CreateDictionary<object, HydraulicBoundaryLocation>();
+        private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations =
+            CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
 
         private readonly Dictionary<DuneLocationEntity, DuneLocation> duneLocations =
             CreateDictionary<DuneLocationEntity, DuneLocation>();
@@ -833,9 +833,9 @@ namespace Application.Ringtoets.Storage.Create
         /// has been registered for <paramref name="model"/>.</exception>
         /// <remarks>Use <see cref="Contains(HydraulicBoundaryLocation)"/> to find out
         /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
-        internal T Get<T>(HydraulicBoundaryLocation model) where T : class
+        internal HydraulicLocationEntity Get(HydraulicBoundaryLocation model) 
         {
-            return Get(hydraulicLocations, model) as T;
+            return Get(hydraulicLocations, model);
         }
 
         /// <summary>

@@ -265,7 +265,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             public HydraulicBoundaryLocationRegistryTest() : base(
                 (r, e, m) => r.Register(e, m),
                 (r, m) => r.Contains(m),
-                (r, m) => r.Get<HydraulicLocationEntity>(m)) {}
+                (r, m) => r.Get(m)) {}
 
             protected override HydraulicBoundaryLocation CreateDataModel()
             {
