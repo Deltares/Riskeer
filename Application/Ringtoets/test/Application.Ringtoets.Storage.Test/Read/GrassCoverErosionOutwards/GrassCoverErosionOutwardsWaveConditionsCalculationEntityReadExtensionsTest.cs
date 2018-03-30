@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Serializers;
+using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -212,11 +213,11 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         public void Read_EntityWithHydraulicBoundaryLocationInCollector_CalculationHasAlreadyReadHydraulicBoundaryLocation()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2);
-            var hydraulicLocationEntity = new GrassCoverErosionOutwardsHydraulicLocationEntity();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
-                GrassCoverErosionOutwardsHydraulicLocationEntity = hydraulicLocationEntity
+                HydraulicLocationEntity = hydraulicLocationEntity
             };
 
             var collector = new ReadConversionCollector();
@@ -227,29 +228,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-        }
-
-        [Test]
-        public void Read_EntityWithHydraulicBoundaryLocationNotYetInCollector_CalculationWithCreatedHydraulicBoundaryLocationAndRegisteredNewEntities()
-        {
-            // Setup
-            var hydraulicLocationEntity = new GrassCoverErosionOutwardsHydraulicLocationEntity
-            {
-                Name = "A"
-            };
-
-            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
-            {
-                GrassCoverErosionOutwardsHydraulicLocationEntity = hydraulicLocationEntity
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            entity.Read(collector);
-
-            // Assert
-            Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
         }
 
         [Test]

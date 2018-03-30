@@ -64,12 +64,14 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             return entity;
         }
 
-        private static void SetInputParameters(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, GrassCoverErosionOutwardsWaveConditionsCalculation calculation, PersistenceRegistry registry)
+        private static void SetInputParameters(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, 
+                                               GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                               PersistenceRegistry registry)
         {
             HydraulicBoundaryLocation hydraulicBoundaryLocation = calculation.InputParameters.HydraulicBoundaryLocation;
             if (hydraulicBoundaryLocation != null)
             {
-                entity.GrassCoverErosionOutwardsHydraulicLocationEntity = hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
+                entity.HydraulicLocationEntity = registry.Get(hydraulicBoundaryLocation);
             }
             if (calculation.InputParameters.ForeshoreProfile != null)
             {
