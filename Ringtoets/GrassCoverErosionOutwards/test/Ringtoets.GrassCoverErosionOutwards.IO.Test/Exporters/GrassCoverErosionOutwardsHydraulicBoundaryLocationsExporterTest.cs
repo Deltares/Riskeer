@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Core.Common.Base.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -40,8 +42,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
+
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(null, assessmentSection);
+            TestDelegate call = () => new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(
+                null, assessmentSection, filePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,12 +57,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
+
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(new GrassCoverErosionOutwardsFailureMechanism(), null);
+            TestDelegate call = () => new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(
+                new GrassCoverErosionOutwardsFailureMechanism(), null, filePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FilePathNull_ThrowArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(
+                new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection, null);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -68,11 +94,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
+
             // Call
-            var exporter = new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
+            var exporter = new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection, filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
+            mocks.VerifyAll();
         }
     }
 }

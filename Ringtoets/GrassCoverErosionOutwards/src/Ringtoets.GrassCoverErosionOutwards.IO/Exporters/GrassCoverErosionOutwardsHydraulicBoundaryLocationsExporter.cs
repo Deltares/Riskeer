@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.IO;
+using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
@@ -31,15 +32,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
     /// </summary>
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter : IFileExporter
     {
+        private readonly string filePath;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to get calculations from.</param>
         /// <param name="assessmentSection">The assessment section to get locations and calculation from.</param>
+        /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
         /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                           IAssessmentSection assessmentSection)
+                                                                           IAssessmentSection assessmentSection,
+                                                                           string filePath)
         {
             if (failureMechanism == null)
             {
@@ -50,6 +56,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
+            IOUtils.ValidateFilePath(filePath);
+
+            this.filePath = filePath;
         }
 
         public bool Export()
