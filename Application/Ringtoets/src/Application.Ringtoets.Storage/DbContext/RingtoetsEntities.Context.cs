@@ -66,8 +66,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<GrassCoverErosionInwardsOvertoppingRateOutputEntity> GrassCoverErosionInwardsOvertoppingRateOutputEntities { get; set; }
         public virtual DbSet<GrassCoverErosionInwardsSectionResultEntity> GrassCoverErosionInwardsSectionResultEntities { get; set; }
         public virtual DbSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities { get; set; }
-        public virtual DbSet<GrassCoverErosionOutwardsHydraulicLocationEntity> GrassCoverErosionOutwardsHydraulicLocationEntities { get; set; }
-        public virtual DbSet<GrassCoverErosionOutwardsHydraulicLocationOutputEntity> GrassCoverErosionOutwardsHydraulicLocationOutputEntities { get; set; }
         public virtual DbSet<GrassCoverErosionOutwardsSectionResultEntity> GrassCoverErosionOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity> GrassCoverErosionOutwardsWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<GrassCoverErosionOutwardsWaveConditionsOutputEntity> GrassCoverErosionOutwardsWaveConditionsOutputEntities { get; set; }

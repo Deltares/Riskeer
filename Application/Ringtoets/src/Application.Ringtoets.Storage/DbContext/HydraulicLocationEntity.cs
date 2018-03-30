@@ -40,6 +40,7 @@ namespace Application.Ringtoets.Storage.DbContext
         {
             ClosingStructuresCalculationEntities = new HashSet<ClosingStructuresCalculationEntity>();
             GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
             HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
             HydraulicLocationCalculationEntities = new HashSet<HydraulicLocationCalculationEntity>();
             MacroStabilityInwardsCalculationEntities = new HashSet<MacroStabilityInwardsCalculationEntity>();
@@ -64,6 +65,9 @@ namespace Application.Ringtoets.Storage.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionOutwardsWaveConditionsCalculationEntity> GrassCoverErosionOutwardsWaveConditionsCalculationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresCalculationEntity> HeightStructuresCalculationEntities { get; set; }
