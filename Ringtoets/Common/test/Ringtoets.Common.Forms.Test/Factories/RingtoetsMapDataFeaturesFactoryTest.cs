@@ -706,35 +706,6 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(foreshoreProfiles[2].Name, features.ElementAt(1).MetaData["Naam"]);
         }
 
-        [Test]
-        public void CreateSinglePointMapFeature_PointNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("point", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateSinglePointMapFeature_WithPoint_CreatesASinglePointMapFeature()
-        {
-            // Setup
-            var point = new Point2D(0, 0);
-
-            // Call
-            MapFeature pointMapFeature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(point);
-
-            // Assert
-            MapGeometry[] mapGeometries = pointMapFeature.MapGeometries.ToArray();
-            Assert.AreEqual(1, mapGeometries.Length);
-            MapGeometry mapGeometry = mapGeometries.First();
-            IEnumerable<Point2D>[] geometryPointCollections = mapGeometry.PointCollections.ToArray();
-            Assert.AreEqual(1, geometryPointCollections.Length);
-            Assert.AreSame(point, geometryPointCollections.First().First());
-        }
-
         private static void AssertEqualFeatureCollections(Point2D[] points, IEnumerable<MapFeature> features)
         {
             Assert.AreEqual(points.Length, features.Count());

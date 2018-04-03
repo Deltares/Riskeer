@@ -32,7 +32,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
@@ -235,7 +234,7 @@ namespace Ringtoets.Common.Forms.Factories
                 var i = 0;
                 foreach (StructureBase structure in structures)
                 {
-                    MapFeature feature = CreateSinglePointMapFeature(structure.Location);
+                    MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(structure.Location);
                     feature.MetaData[Resources.MetaData_Name] = structure.Name;
 
                     mapFeatures[i] = feature;
@@ -309,34 +308,9 @@ namespace Ringtoets.Common.Forms.Factories
             return new MapFeature[0];
         }
 
-        /// <summary>
-        /// Creates a map feature with one single point.
-        /// </summary>
-        /// <param name="point">The point of the map feature.</param>
-        /// <returns>The map feature with the <paramref name="point"/> as geometry.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
-        public static MapFeature CreateSinglePointMapFeature(Point2D point)
-        {
-            if (point == null)
-            {
-                throw new ArgumentNullException(nameof(point));
-            }
-
-            return new MapFeature(new[]
-            {
-                new MapGeometry(new[]
-                {
-                    new[]
-                    {
-                        point
-                    }
-                })
-            });
-        }
-
         private static MapFeature CreateHydraulicBoundaryLocationFeature(AggregatedHydraulicBoundaryLocation location)
         {
-            MapFeature feature = CreateSinglePointMapFeature(location.Location);
+            MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[Resources.MetaData_ID] = location.Id;
             feature.MetaData[Resources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedSignalingNorm] = location.WaterLevelCalculationForFactorizedSignalingNorm;

@@ -27,6 +27,7 @@ using Core.Components.Gis.Features;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Util;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Util;
@@ -96,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
 
         private static MapFeature CreateHydraulicBoundaryLocationFeature(GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation location)
         {
-            MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(location.Location);
+            MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[RingtoetsCommonFormsResources.MetaData_ID] = location.Id;
             feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm] = location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm;

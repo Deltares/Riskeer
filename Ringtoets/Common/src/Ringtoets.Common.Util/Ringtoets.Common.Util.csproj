@@ -20,6 +20,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RingtoetsMapDataFeaturesFactoryHelper.cs" />
     <Compile Include="RingtoetsVersionComparer.cs" />
     <Compile Include="StructuresHelper.cs" />
     <Compile Include="SectionResultWithCalculationAssignment.cs" />
