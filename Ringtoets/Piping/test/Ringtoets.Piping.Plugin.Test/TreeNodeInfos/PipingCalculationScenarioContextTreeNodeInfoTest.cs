@@ -872,7 +872,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     new Point2D(0, 0)
                 }));
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),
                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
