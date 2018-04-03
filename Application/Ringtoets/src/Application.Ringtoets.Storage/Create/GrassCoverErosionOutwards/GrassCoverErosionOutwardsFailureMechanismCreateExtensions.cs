@@ -46,33 +46,32 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism, entity);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
-            AddEntitiesForHydraulicBoundaryLocations(mechanism.HydraulicBoundaryLocations, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
             return entity;
         }
 
-        private static void AddEntitiesForHydraulicBoundaryLocations(
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-            FailureMechanismEntity entity,
-            PersistenceRegistry registry)
-        {
-            var i = 0;
-            foreach (HydraulicBoundaryLocation location in hydraulicBoundaryLocations)
-            {
-                entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Add(location.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, i++));
-            }
-        }
-
         private static void AddEntitiesForFailureMechanismMeta(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                               FailureMechanismEntity entity)
+                                                               FailureMechanismEntity entity, PersistenceRegistry registry)
         {
             var metaEntity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
             {
                 ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
-                N = failureMechanism.GeneralInput.N
+                N = failureMechanism.GeneralInput.N,
+                HydraulicLocationCalculationCollectionEntity5 = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                                                .Create(registry),
+                HydraulicLocationCalculationCollectionEntity4 = failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
+                                                                                .Create(registry),
+                HydraulicLocationCalculationCollectionEntity3 = failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
+                                                                                .Create(registry),
+                HydraulicLocationCalculationCollectionEntity2 = failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                                                .Create(registry),
+                HydraulicLocationCalculationCollectionEntity1 = failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
+                                                                                .Create(registry),
+                HydraulicLocationCalculationCollectionEntity = failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+                                                                               .Create(registry)
             };
 
             entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Add(metaEntity);

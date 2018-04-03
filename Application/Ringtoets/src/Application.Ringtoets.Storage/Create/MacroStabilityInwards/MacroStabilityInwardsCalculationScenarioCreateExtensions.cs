@@ -175,7 +175,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
 
             if (inputParameters.HydraulicBoundaryLocation != null)
             {
-                entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
+                entity.HydraulicLocationEntity = registry.Get(inputParameters.HydraulicBoundaryLocation);
             }
         }
 

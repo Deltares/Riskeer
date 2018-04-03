@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long GrassCoverErosionOutwardsWaveConditionsCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public long? ForeshoreProfileEntityId { get; set; }
-        public long? GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
+        public long? HydraulicLocationEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
-        public virtual GrassCoverErosionOutwardsHydraulicLocationEntity GrassCoverErosionOutwardsHydraulicLocationEntity { get; set; }
+        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionOutwardsWaveConditionsOutputEntity> GrassCoverErosionOutwardsWaveConditionsOutputEntities { get; set; }

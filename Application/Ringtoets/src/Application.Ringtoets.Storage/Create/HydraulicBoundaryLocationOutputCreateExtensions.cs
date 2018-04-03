@@ -56,36 +56,5 @@ namespace Application.Ringtoets.Storage.Create
                 GeneralResultSubMechanismIllustrationPointEntity = output.GeneralResult?.CreateGeneralResultSubMechanismIllustrationPointEntity()
             };
         }
-
-        /// <summary>
-        /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationOutputEntity"/> based 
-        /// on the information of the <see cref="HydraulicBoundaryLocationOutput"/>.
-        /// </summary>
-        /// <param name="output">The output to create a database entity for.</param>
-        /// <param name="outputType">The calculation output type.</param>
-        /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationOutputEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionOutwardsHydraulicLocationOutputEntity CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(
-            this HydraulicBoundaryLocationOutput output,
-            HydraulicLocationOutputType outputType)
-
-        {
-            if (output == null)
-            {
-                throw new ArgumentNullException(nameof(output));
-            }
-
-            return new GrassCoverErosionOutwardsHydraulicLocationOutputEntity
-            {
-                HydraulicLocationOutputType = (byte) outputType,
-                Result = output.Result.ToNaNAsNull(),
-                TargetProbability = output.TargetProbability.ToNaNAsNull(),
-                TargetReliability = output.TargetReliability.ToNaNAsNull(),
-                CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
-                CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
-                CalculationConvergence = (byte) output.CalculationConvergence,
-                GeneralResultSubMechanismIllustrationPointEntity = output.GeneralResult?.CreateGeneralResultSubMechanismIllustrationPointEntity()
-            };
-        }
     }
 }

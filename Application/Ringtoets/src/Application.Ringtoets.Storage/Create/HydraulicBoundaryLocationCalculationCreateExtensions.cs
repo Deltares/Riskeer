@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Create
             var hydraulicLocationCalculationEntity = new HydraulicLocationCalculationEntity
             {
                 ShouldIllustrationPointsBeCalculated = Convert.ToByte(calculation.InputParameters.ShouldIllustrationPointsBeCalculated),
-                HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(calculation.HydraulicBoundaryLocation)
+                HydraulicLocationEntity = registry.Get(calculation.HydraulicBoundaryLocation)
             };
 
             CreateHydraulicBoundaryLocationOutput(hydraulicLocationCalculationEntity, calculation.Output);

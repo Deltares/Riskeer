@@ -355,26 +355,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         #endregion
 
-        #region GrassCoverErosionOutwards
-
-        [TestFixture]
-        private class GrassCoverErosionOutwardsHydraulicLocationCollectorTest : CollectorTest<
-            HydraulicBoundaryLocation,
-            GrassCoverErosionOutwardsHydraulicLocationEntity>
-        {
-            public GrassCoverErosionOutwardsHydraulicLocationCollectorTest() : base(
-                (c, e, m) => c.Read(e, m),
-                (c, e) => c.Contains(e),
-                (c, e) => c.Get(e)) {}
-
-            protected override HydraulicBoundaryLocation CreateDataModel()
-            {
-                return new TestHydraulicBoundaryLocation();
-            }
-        }
-
-        #endregion
-
         #region HeightStructure
 
         [TestFixture]

@@ -47,7 +47,6 @@ namespace Application.Ringtoets.Storage.DbContext
             ForeshoreProfileEntities = new HashSet<ForeshoreProfileEntity>();
             GrassCoverErosionInwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
             GrassCoverErosionOutwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
-            GrassCoverErosionOutwardsHydraulicLocationEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationEntity>();
             HeightStructureEntities = new HashSet<HeightStructureEntity>();
             HeightStructuresFailureMechanismMetaEntities = new HashSet<HeightStructuresFailureMechanismMetaEntity>();
             MacroStabilityInwardsFailureMechanismMetaEntities = new HashSet<MacroStabilityInwardsFailureMechanismMetaEntity>();
@@ -100,9 +99,6 @@ namespace Application.Ringtoets.Storage.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationEntity> GrassCoverErosionOutwardsHydraulicLocationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructureEntity> HeightStructureEntities { get; set; }

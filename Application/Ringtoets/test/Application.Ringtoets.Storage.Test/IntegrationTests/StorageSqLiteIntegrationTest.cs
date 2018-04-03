@@ -1752,7 +1752,26 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertHydraulicBoundaryLocations(expectedFailureMechanism.HydraulicBoundaryLocations, actualFailureMechanism.HydraulicBoundaryLocations);
+            AssertHydraulicBoundaryLocationCalculations(expectedFailureMechanism, actualFailureMechanism);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism expected,
+                                                                        GrassCoverErosionOutwardsFailureMechanism actual)
+        {
+            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                        actual.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
+                                                        actual.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
+                                                        actual.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
+
+            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                        actual.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                                                        actual.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
+                                                        actual.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
         }
 
         private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> expectedSectionResults,

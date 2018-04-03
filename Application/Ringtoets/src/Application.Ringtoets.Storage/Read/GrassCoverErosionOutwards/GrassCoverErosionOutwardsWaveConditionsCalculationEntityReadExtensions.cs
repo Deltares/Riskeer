@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
         private static void ReadCalculationInputs(WaveConditionsInput inputParameters, GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
         {
             inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);
-            inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.GrassCoverErosionOutwardsHydraulicLocationEntity, collector);
+            inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector);
             inputParameters.Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN();
             inputParameters.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
             inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
@@ -103,10 +103,12 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
         }
 
         private static HydraulicBoundaryLocation GetHydraulicBoundaryLocationValue(
-            GrassCoverErosionOutwardsHydraulicLocationEntity hydraulicLocationEntity,
+            HydraulicLocationEntity hydraulicLocationEntity,
             ReadConversionCollector collector)
         {
-            return hydraulicLocationEntity?.Read(collector);
+            return hydraulicLocationEntity != null 
+                       ? collector.Get(hydraulicLocationEntity) 
+                       : null;
         }
     }
 }

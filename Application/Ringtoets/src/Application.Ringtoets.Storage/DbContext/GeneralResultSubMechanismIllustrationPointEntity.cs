@@ -38,16 +38,12 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GeneralResultSubMechanismIllustrationPointEntity()
         {
-            GrassCoverErosionOutwardsHydraulicLocationOutputEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationOutputEntity>();
             HydraulicLocationOutputEntities = new HashSet<HydraulicLocationOutputEntity>();
             TopLevelSubMechanismIllustrationPointEntities = new HashSet<TopLevelSubMechanismIllustrationPointEntity>();
             StochastEntities = new HashSet<StochastEntity>();
         }
 
         public long GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationOutputEntity> GrassCoverErosionOutwardsHydraulicLocationOutputEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
