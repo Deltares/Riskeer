@@ -263,18 +263,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to h(Vv-&gt;VIv).
         /// </summary>
-        public static string MetaData_WaterLevelCalculationForFactorizedLowerLimit {
+        public static string MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm {
             get {
-                return ResourceManager.GetString("MetaData_WaterLevelCalculationForFactorizedLowerLimit", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to h(IVv-&gt;Vv).
         /// </summary>
-        public static string MetaData_WaterLevelCalculationForMechanismLowerLimit {
+        public static string MetaData_WaterLevelCalculationForLowerLimitNorm {
             get {
-                return ResourceManager.GetString("MetaData_WaterLevelCalculationForMechanismLowerLimit", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForLowerLimitNorm", resourceCulture);
             }
         }
         
@@ -290,9 +290,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to h(IIIv-&gt;IVv).
         /// </summary>
-        public static string MetaData_WaterLevelCalculationForMechanismSpecificLowerLimit {
+        public static string MetaData_WaterLevelCalculationForMechanismSpecificLowerLimitNorm {
             get {
-                return ResourceManager.GetString("MetaData_WaterLevelCalculationForMechanismSpecificLowerLimit", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForMechanismSpecificLowerLimitNorm", resourceCulture);
             }
         }
         
@@ -317,18 +317,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to hs(Vv-&gt;VIv).
         /// </summary>
-        public static string MetaData_WaveHeightCalculationForFactorizedLowerLimit {
+        public static string MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm {
             get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculationForFactorizedLowerLimit", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to hs(IVv-&gt;Vv).
         /// </summary>
-        public static string MetaData_WaveHeightCalculationForLowerLimit {
+        public static string MetaData_WaveHeightCalculationForLowerLimitNorm {
             get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculationForLowerLimit", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForLowerLimitNorm", resourceCulture);
             }
         }
         
@@ -344,9 +344,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to hs(IIIv-&gt;IVv).
         /// </summary>
-        public static string MetaData_WaveHeightCalculationForMechanismSpecificLowerLimit {
+        public static string MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm {
             get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculationForMechanismSpecificLowerLimit", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm", resourceCulture);
             }
         }
         

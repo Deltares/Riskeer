@@ -102,14 +102,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
             feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm] = location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm] = location.WaterLevelCalculationForMechanismSpecificSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificLowerLimit] = location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismLowerLimit] = location.WaterLevelCalculationForLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedLowerLimit] = location.WaterLevelCalculationForFactorizedLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificLowerLimitNorm] = location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForLowerLimitNorm] = location.WaterLevelCalculationForLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm] = location.WaterLevelCalculationForFactorizedLowerLimitNorm;
             feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm] = location.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm;
             feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm] = location.WaveHeightCalculationForMechanismSpecificSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificLowerLimit] = location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForLowerLimit] = location.WaveHeightCalculationForLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedLowerLimit] = location.WaveHeightCalculationForFactorizedLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm] = location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForLowerLimitNorm] = location.WaveHeightCalculationForLowerLimitNorm;
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm] = location.WaveHeightCalculationForFactorizedLowerLimitNorm;
             return feature;
         }
     }

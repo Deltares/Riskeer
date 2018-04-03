@@ -14,6 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler.cs" />
+    <Compile Include="GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelper.cs" />
     <Compile Include="PresentationObjects\EmptyGrassCoverErosionOutwardsOutput.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContext.cs" />

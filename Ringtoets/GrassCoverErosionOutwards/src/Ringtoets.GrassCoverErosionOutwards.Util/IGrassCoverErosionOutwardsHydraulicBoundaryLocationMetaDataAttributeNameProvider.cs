@@ -22,7 +22,7 @@
 namespace Ringtoets.GrassCoverErosionOutwards.Util
 {
     /// <summary>
-    /// Interface for providing meta data attribute names during exports of hydraulic boundary locations.
+    /// Interface for providing meta data attribute names of hydraulic boundary locations.
     /// </summary>
     public interface IGrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider
     {
