@@ -12,9 +12,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exporters\GrassCoverErosionOutwardsCalculationConfigurationExporter.cs" />
+    <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProvider.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsWaveConditionsExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -61,5 +67,16 @@
       <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Util\Ringtoets.GrassCoverErosionOutwards.Util.csproj">
+      <Project>{033ED27D-E806-42B4-9689-8150CFAE1906}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
