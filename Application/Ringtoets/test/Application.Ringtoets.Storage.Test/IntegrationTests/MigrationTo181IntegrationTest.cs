@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertHeightStructuresOutput(reader, sourceFilePath);
                     AssertStabilityPointStructuresOutput(reader, sourceFilePath);
 
-                    AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath );
+                    AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -728,7 +728,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        $"WHERE sourceHlo.HydraulicLocationOutputType = 1 AND sourceAse.NormativeNormType = {(int) normType} " +
                        ") " +
                        GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
-                       GetHydralicLocationCalculationOutputValidationSubQuery() +
+                       GetHydraulicLocationCalculationOutputValidationSubQuery() +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -784,7 +784,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        $"WHERE sourceHlo.HydraulicLocationOutputType = 2 AND sourceAse.NormativeNormType = {(int) normType} " +
                        ") " +
                        GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
-                       GetHydralicLocationCalculationOutputValidationSubQuery() +
+                       GetHydraulicLocationCalculationOutputValidationSubQuery() +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -824,7 +824,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) ";
             }
 
-            private static string GetHydralicLocationCalculationOutputValidationSubQuery()
+            private static string GetHydraulicLocationCalculationOutputValidationSubQuery()
             {
                 return "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
                        "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON " +
@@ -1011,11 +1011,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "SELECT " +
                        "[FailureMechanismEntityId], " +
                        "COUNT(distinct HydraulicLocationEntityId) AS NewCount " +
-                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
-                       "JOIN HydraulicLocationCalculationCollectionEntity " +
-                       $"ON HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
                        "JOIN FailureMechanismEntity USING (FailureMechanismEntityId) " +
                        "GROUP BY GrassCoverErosionOutwardsFailureMechanismMetaEntityId " +
                        ") USING (FailureMechanismEntityId) " +
@@ -1044,13 +1040,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "COUNT() = 0 " +
                        "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme  " +
                        "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
-                       $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int)calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
+                       $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
                        "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)  " +
                        "JOIN HydraulicLocationCalculationEntity NEW USING (HydraulicLocationCalculationEntityId)  " +
                        "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity OLD ON OLD.GrassCoverErosionOutwardsHydraulicLocationEntityId = NEW.HydraulicLocationEntityId  " +
                        "JOIN FailureMechanismEntity USING (FailureMechanismEntityId) " +
                        "JOIN AssessmentSectionEntity ase USING (AssessmentSectionEntityId) " +
-                       $"WHERE OLD.ShouldDesignWaterLevelIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int)normType}; " +
+                       $"WHERE OLD.ShouldDesignWaterLevelIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -1078,19 +1074,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
                        $"WHERE HydraulicLocationOutputType = 1 AND NormativeNormType = {(int) normType}" +
                        ") " +
-                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme " +
-                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
-                       $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity OLD ON NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
-                       "AND NEW.Result IS OLD.Result " +
-                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
-                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
-                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
-                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
-                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
+                       GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
+                       GetHydraulicLocationCalculationOutputValidationSubQuery() +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -1147,19 +1132,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
                        $"WHERE HydraulicLocationOutputType = 2 AND NormativeNormType = {(int) normType}" +
                        ") " +
-                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme " +
-                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
-                       $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity OLD ON NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
-                       "AND NEW.Result IS OLD.Result " +
-                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
-                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
-                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
-                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
-                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
+                       GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
+                       GetHydraulicLocationCalculationOutputValidationSubQuery() +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -1172,12 +1146,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity) " +
-                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
-                       "JOIN HydraulicLocationCalculationCollectionEntity " +
-                       $"ON HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity hlce USING (HydraulicLocationCalculationEntityId) " +
-                       "WHERE hlce.ShouldIllustrationPointsBeCalculated = 0;" +
+                       GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
+                       "WHERE ShouldIllustrationPointsBeCalculated = 0;" +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -1190,12 +1160,29 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 return "SELECT  " +
                        "COUNT() = 0 " +
-                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
+                       GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
+                       "JOIN HydraulicLocationOutputEntity USING (HydraulicLocationCalculationEntityId); ";
+            }
+
+            private static string GetHydraulicLocationCalculationsFromFailureMechanismQuery(CalculationType calculationType)
+            {
+                return "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
                        "JOIN HydraulicLocationCalculationCollectionEntity " +
                        $"ON HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = HydraulicLocationCalculationCollectionEntityId " +
                        "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN HydraulicLocationOutputEntity USING (HydraulicLocationCalculationEntityId); ";
+                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) ";
+            }
+
+            private static string GetHydraulicLocationCalculationOutputValidationSubQuery()
+            {
+                return "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity OLD ON NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
+                       "AND NEW.Result IS OLD.Result " +
+                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
+                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
+                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
+                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
+                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; ";
             }
 
             /// <summary>
