@@ -211,7 +211,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });
@@ -245,7 +245,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });
@@ -265,7 +265,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
                 // When
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
                 {
                     new HydraulicBoundaryLocation(1, "test", 1.0, 2.0),
                     new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0)
@@ -287,7 +287,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new ObservableTestAssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
             {
                 hydraulicBoundaryLocation
             });

@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
     /// Test helper for handling with hydraulic boundary locations and calculations in
     /// <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public static class GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelper
+    public static class GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper
     {
         private static Random random;
 

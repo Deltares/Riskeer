@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -31,7 +30,7 @@ using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelperTest
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelperTest
     {
         [Test]
         [TestCase(true)]
@@ -48,7 +47,7 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
             };
 
             // Call
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, locations, setCalculationOutput);
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, locations, setCalculationOutput);
 
             // Assert
             CollectionAssert.AreEqual(locations, assessmentSection.HydraulicBoundaryDatabase.Locations);

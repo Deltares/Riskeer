@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsHelper.AddHydraulicBoundaryLocations(
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
                 failureMechanism, assessmentSection, new[]
                 {
                     new HydraulicBoundaryLocation(1, "location1", 1, 1),
