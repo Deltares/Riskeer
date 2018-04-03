@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 
@@ -35,17 +36,56 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
         /// Creates a new <see cref="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation"/>
         /// with random output.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The created <see cref="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation"/>.</returns>
         public static GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation Create()
         {
             var random = new Random(39);
+            return Create(random.NextRoundedDouble(), random.NextRoundedDouble(),
+                          random.NextRoundedDouble(), random.NextRoundedDouble(),
+                          random.NextRoundedDouble(), random.NextRoundedDouble(),
+                          random.NextRoundedDouble(), random.NextRoundedDouble(),
+                          random.NextRoundedDouble(), random.NextRoundedDouble());
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation"/>
+        /// with given output.
+        /// </summary>
+        /// <param name="waterLevelCalculationForMechanismSpecificFactorizedSignalingNorm">The water level calculation for mechanism specific factorized signaling norm.</param>
+        /// <param name="waterLevelCalculationForMechanismSpecificSignalingNorm">The water level calculation for mechanism specific signaling norm.</param>
+        /// <param name="waterLevelCalculationForMechanismSpecificLowerLimitNorm">The water level calculation for mechanism specific lower limit norm.</param>
+        /// <param name="waterLevelCalculationForLowerLimitNorm">The water level calculation for lower limit norm.</param>
+        /// <param name="waterLevelCalculationForFactorizedLowerLimitNorm">The water level calculation for factorized lower limit norm.</param>
+        /// <param name="waveHeightCalculationForMechanismSpecificFactorizedSignalingNorm">The wave height calculation for mechanism specific factorized signaling norm.</param>
+        /// <param name="waveHeightCalculationForMechanismSpecificSignalingNorm">The wave height calculation for mechanism specific signaling norm.</param>
+        /// <param name="waveHeightCalculationForMechanismSpecificLowerLimitNorm">The wave height calculation for mechanism specific lower limit norm.</param>
+        /// <param name="waveHeightCalculationForLowerLimitNorm">The wave height calculation for lower limit norm.</param>
+        /// <param name="waveHeightCalculationForFactorizedLowerLimitNorm">The wave height calculation for factorized lower limit norm.</param>
+        /// <returns>The created <see cref="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation"/>.</returns>
+        public static GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation Create(
+            RoundedDouble waterLevelCalculationForMechanismSpecificFactorizedSignalingNorm,
+            RoundedDouble waterLevelCalculationForMechanismSpecificSignalingNorm,
+            RoundedDouble waterLevelCalculationForMechanismSpecificLowerLimitNorm,
+            RoundedDouble waterLevelCalculationForLowerLimitNorm,
+            RoundedDouble waterLevelCalculationForFactorizedLowerLimitNorm,
+            RoundedDouble waveHeightCalculationForMechanismSpecificFactorizedSignalingNorm,
+            RoundedDouble waveHeightCalculationForMechanismSpecificSignalingNorm,
+            RoundedDouble waveHeightCalculationForMechanismSpecificLowerLimitNorm,
+            RoundedDouble waveHeightCalculationForLowerLimitNorm,
+            RoundedDouble waveHeightCalculationForFactorizedLowerLimitNorm)
+        {
             return new GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation(
                 1, "test", new Point2D(0, 0),
-                random.NextRoundedDouble(), random.NextRoundedDouble(),
-                random.NextRoundedDouble(), random.NextRoundedDouble(),
-                random.NextRoundedDouble(), random.NextRoundedDouble(),
-                random.NextRoundedDouble(), random.NextRoundedDouble(),
-                random.NextRoundedDouble(), random.NextRoundedDouble());
+                waterLevelCalculationForMechanismSpecificFactorizedSignalingNorm,
+                waterLevelCalculationForMechanismSpecificSignalingNorm,
+                waterLevelCalculationForMechanismSpecificLowerLimitNorm,
+                waterLevelCalculationForLowerLimitNorm,
+                waterLevelCalculationForFactorizedLowerLimitNorm,
+                waveHeightCalculationForMechanismSpecificFactorizedSignalingNorm,
+                waveHeightCalculationForMechanismSpecificSignalingNorm,
+                waveHeightCalculationForMechanismSpecificLowerLimitNorm,
+                waveHeightCalculationForLowerLimitNorm,
+                waveHeightCalculationForFactorizedLowerLimitNorm);
         }
     }
 }

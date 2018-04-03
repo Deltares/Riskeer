@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.Util;
 using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
@@ -30,7 +33,7 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
     public class GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationTestHelperTest
     {
         [Test]
-        public void Create_Always_ReturnGrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation()
+        public void Create_WithoutParameters_ReturnGrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation()
         {
             // Call
             GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation location = GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationTestHelper.Create();
@@ -49,6 +52,50 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
             Assert.IsFalse(double.IsNaN(location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm));
             Assert.IsFalse(double.IsNaN(location.WaveHeightCalculationForLowerLimitNorm));
             Assert.IsFalse(double.IsNaN(location.WaveHeightCalculationForFactorizedLowerLimitNorm));
+        }
+        [Test]
+        public void Create_WithParameters_ReturnGrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation()
+        {
+            // Setup
+            var random = new Random(11);
+            RoundedDouble waterLevelCalculationForMechanismSpecificFactorizedSignalingNorm = random.NextRoundedDouble();
+            RoundedDouble waterLevelCalculationForMechanismSpecificSignalingNorm = random.NextRoundedDouble();
+            RoundedDouble waterLevelCalculationForMechanismSpecificLowerLimitNorm = random.NextRoundedDouble();
+            RoundedDouble waterLevelCalculationForLowerLimitNorm = random.NextRoundedDouble();
+            RoundedDouble waterLevelCalculationForFactorizedLowerLimitNorm = random.NextRoundedDouble();
+            RoundedDouble waveHeightCalculationForMechanismSpecificFactorizedSignalingNorm = random.NextRoundedDouble();
+            RoundedDouble waveHeightCalculationForMechanismSpecificSignalingNorm = random.NextRoundedDouble();
+            RoundedDouble waveHeightCalculationForMechanismSpecificLowerLimitNorm = random.NextRoundedDouble();
+            RoundedDouble waveHeightCalculationForLowerLimitNorm = random.NextRoundedDouble();
+            RoundedDouble waveHeightCalculationForFactorizedLowerLimitNorm = random.NextRoundedDouble();
+
+            // Call
+            GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation location = GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationTestHelper.Create(
+                waterLevelCalculationForMechanismSpecificFactorizedSignalingNorm,
+                waterLevelCalculationForMechanismSpecificSignalingNorm,
+                waterLevelCalculationForMechanismSpecificLowerLimitNorm,
+                waterLevelCalculationForLowerLimitNorm,
+                waterLevelCalculationForFactorizedLowerLimitNorm,
+                waveHeightCalculationForMechanismSpecificFactorizedSignalingNorm,
+                waveHeightCalculationForMechanismSpecificSignalingNorm,
+                waveHeightCalculationForMechanismSpecificLowerLimitNorm,
+                waveHeightCalculationForLowerLimitNorm,
+                waveHeightCalculationForFactorizedLowerLimitNorm);
+
+            // Assert
+            Assert.AreEqual(1, location.Id);
+            Assert.AreEqual("test", location.Name);
+            Assert.AreEqual(new Point2D(0, 0), location.Location);
+            Assert.AreEqual(waterLevelCalculationForMechanismSpecificFactorizedSignalingNorm, location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm);
+            Assert.AreEqual(waterLevelCalculationForMechanismSpecificSignalingNorm, location.WaterLevelCalculationForMechanismSpecificSignalingNorm);
+            Assert.AreEqual(waterLevelCalculationForMechanismSpecificLowerLimitNorm, location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm);
+            Assert.AreEqual(waterLevelCalculationForLowerLimitNorm, location.WaterLevelCalculationForLowerLimitNorm);
+            Assert.AreEqual(waterLevelCalculationForFactorizedLowerLimitNorm, location.WaterLevelCalculationForFactorizedLowerLimitNorm);
+            Assert.AreEqual(waveHeightCalculationForMechanismSpecificFactorizedSignalingNorm, location.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm);
+            Assert.AreEqual(waveHeightCalculationForMechanismSpecificSignalingNorm, location.WaveHeightCalculationForMechanismSpecificSignalingNorm);
+            Assert.AreEqual(waveHeightCalculationForMechanismSpecificLowerLimitNorm, location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm);
+            Assert.AreEqual(waveHeightCalculationForLowerLimitNorm, location.WaveHeightCalculationForLowerLimitNorm);
+            Assert.AreEqual(waveHeightCalculationForFactorizedLowerLimitNorm, location.WaveHeightCalculationForFactorizedLowerLimitNorm);
         }
     }
 }
