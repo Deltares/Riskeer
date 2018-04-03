@@ -27,11 +27,8 @@ using Core.Components.Gis.Features;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Util;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Util;
-using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
 {
@@ -91,26 +88,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
             }
 
             return GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection, failureMechanism)
-                                                                                      .Select(CreateHydraulicBoundaryLocationFeature)
+                                                                                      .Select(location => GrassCoverErosionOutwardsHydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(
+                                                                                                  location, new GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider()))
                                                                                       .ToArray();
-        }
-
-        private static MapFeature CreateHydraulicBoundaryLocationFeature(GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation location)
-        {
-            MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-            feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
-            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm] = location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm] = location.WaterLevelCalculationForMechanismSpecificSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificLowerLimitNorm] = location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForLowerLimitNorm] = location.WaterLevelCalculationForLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm] = location.WaterLevelCalculationForFactorizedLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm] = location.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm] = location.WaveHeightCalculationForMechanismSpecificSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm] = location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForLowerLimitNorm] = location.WaveHeightCalculationForLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm] = location.WaveHeightCalculationForFactorizedLowerLimitNorm;
-            return feature;
         }
     }
 }
