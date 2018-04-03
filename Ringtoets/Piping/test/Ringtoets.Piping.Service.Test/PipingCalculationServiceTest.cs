@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Service.Test
         [SetUp]
         public void Setup()
         {
-            testCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            testCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = testCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
