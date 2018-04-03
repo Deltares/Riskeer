@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 
@@ -112,9 +111,17 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <summary>
         /// Creates a scenario with valid input.
         /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
         /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
-        public static PipingCalculationScenario CreatePipingCalculationScenarioWithValidInput()
+        /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location.</remarks>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        public static PipingCalculationScenario CreatePipingCalculationScenarioWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
             const double bottom = 1.12;
             const double top = 10.56;
             var stochasticSoilProfile = new PipingStochasticSoilProfile(
@@ -167,17 +174,6 @@ namespace Ringtoets.Piping.Data.TestUtil
             surfaceLine.SetBottomDitchPolderSideAt(fourthCharacteristicPointLocation);
             surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
             surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
-            {
-                DesignWaterLevelCalculation2 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(1.1)
-                },
-                DesignWaterLevelCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(2.2)
-                }
-            };
 
             return new PipingCalculationScenario(new GeneralPipingInput())
             {

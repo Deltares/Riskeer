@@ -91,12 +91,27 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingCalculationScenarioWithValidInput_CreatesPipingCalculationScenarioWithValidInput()
+        public void CreatePipingCalculationScenarioWithValidInput_HydraulicBoundaryLocationNull_ThrowsArgumentnullException()
         {
             // Call
-            PipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            TestDelegate test = () => PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(null);
 
             // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
+        }
+
+        [Test]
+        public void CreatePipingCalculationScenarioWithValidInput_HydraulicBoundaryLocation_CreatesPipingCalculationScenarioWithValidInput()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            // Call
+            PipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.AreSame(hydraulicBoundaryLocation, scenario.InputParameters.HydraulicBoundaryLocation);
             Assert.IsTrue(PipingCalculationService.Validate(scenario, (RoundedDouble) 1.1));
         }
     }
