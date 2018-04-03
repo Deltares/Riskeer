@@ -28,7 +28,7 @@ using Ringtoets.Common.Util;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Properties;
 using RingtoetsDuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.Factories
 {
@@ -60,8 +60,8 @@ namespace Ringtoets.DuneErosion.Forms.Factories
                 DuneLocation location = duneLocations[i];
 
                 MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-                feature.MetaData[RingtoetsCommonFormsResources.MetaData_ID] = location.Id;
-                feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = location.Name;
+                feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
+                feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
                 feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
                 feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
                                                                                        CultureInfo.InvariantCulture);

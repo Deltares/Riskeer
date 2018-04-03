@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Util;
+using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Factories
 {
@@ -82,8 +83,8 @@ namespace Ringtoets.Common.Forms.Factories
             if (referenceLine != null)
             {
                 MapFeature feature = CreateSingleLineMapFeature(referenceLine.Points);
-                feature.MetaData[Resources.MetaData_ID] = id;
-                feature.MetaData[Resources.MetaData_Name] = name;
+                feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = id;
+                feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = name;
                 feature.MetaData[Resources.MetaData_Length_Rounded] = new RoundedDouble(2, referenceLine.Length);
 
                 return new[]
@@ -176,7 +177,7 @@ namespace Ringtoets.Common.Forms.Factories
                 foreach (DikeProfile dikeProfile in dikeProfiles)
                 {
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(dikeProfile));
-                    feature.MetaData[Resources.MetaData_Name] = dikeProfile.Name;
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = dikeProfile.Name;
 
                     mapFeatures[i] = feature;
                     i++;
@@ -207,7 +208,7 @@ namespace Ringtoets.Common.Forms.Factories
                 {
                     ForeshoreProfile foreshoreProfile = foreShoreProfilesWithGeometry[i];
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(foreshoreProfile));
-                    feature.MetaData[Resources.MetaData_Name] = foreshoreProfile.Name;
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = foreshoreProfile.Name;
 
                     mapFeatures[i] = feature;
                 }
@@ -235,7 +236,7 @@ namespace Ringtoets.Common.Forms.Factories
                 foreach (StructureBase structure in structures)
                 {
                     MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(structure.Location);
-                    feature.MetaData[Resources.MetaData_Name] = structure.Name;
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = structure.Name;
 
                     mapFeatures[i] = feature;
                     i++;
@@ -294,7 +295,7 @@ namespace Ringtoets.Common.Forms.Factories
                         calculationItem.HydraulicBoundaryLocation.Location
                     });
 
-                    feature.MetaData[Resources.MetaData_Name] = calculationItem.Name;
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = calculationItem.Name;
                     feature.MetaData[Resources.MetaData_Couple_distance] =
                         calculationItem.CalculationLocation.GetEuclideanDistanceTo(
                             calculationItem.HydraulicBoundaryLocation.Location);
@@ -311,8 +312,8 @@ namespace Ringtoets.Common.Forms.Factories
         private static MapFeature CreateHydraulicBoundaryLocationFeature(AggregatedHydraulicBoundaryLocation location)
         {
             MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-            feature.MetaData[Resources.MetaData_ID] = location.Id;
-            feature.MetaData[Resources.MetaData_Name] = location.Name;
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedSignalingNorm] = location.WaterLevelCalculationForFactorizedSignalingNorm;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForSignalingNorm] = location.WaterLevelCalculationForSignalingNorm;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForLowerLimit] = location.WaterLevelCalculationForLowerLimitNorm;
@@ -354,7 +355,7 @@ namespace Ringtoets.Common.Forms.Factories
                 })
             });
 
-            feature.MetaData[Resources.MetaData_Name] = section.Name;
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = section.Name;
             feature.MetaData[Resources.MetaData_Length_Rounded] = new RoundedDouble(2, section.Length);
 
             return feature;

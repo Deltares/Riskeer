@@ -31,7 +31,7 @@ using Ringtoets.Common.Util;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Util;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
 {
@@ -98,8 +98,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
         private static MapFeature CreateHydraulicBoundaryLocationFeature(GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation location)
         {
             MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-            feature.MetaData[RingtoetsCommonFormsResources.MetaData_ID] = location.Id;
-            feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = location.Name;
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm] = location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm] = location.WaterLevelCalculationForMechanismSpecificSignalingNorm;
             feature.MetaData[Resources.MetaData_WaterLevelCalculationForMechanismSpecificLowerLimit] = location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm;

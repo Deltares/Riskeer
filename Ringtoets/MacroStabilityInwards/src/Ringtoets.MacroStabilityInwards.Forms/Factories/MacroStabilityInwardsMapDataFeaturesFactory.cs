@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 {
@@ -55,7 +55,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                     MacroStabilityInwardsSurfaceLine surfaceLine = surfaceLines.ElementAt(i);
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(surfaceLine));
-                    feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = surfaceLine.Name;
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = surfaceLine.Name;
 
                     features[i] = feature;
                 }
@@ -82,7 +82,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                     MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = stochasticSoilModels.ElementAt(i);
 
                     MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSingleLineMapFeature(GetWorldPoints(stochasticSoilModel));
-                    feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = stochasticSoilModel.Name;
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = stochasticSoilModel.Name;
 
                     features[i] = feature;
                 }

@@ -2332,29 +2332,11 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID.
-        /// </summary>
-        public static string MetaData_ID {
-            get {
-                return ResourceManager.GetString("MetaData_ID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Lengte*.
         /// </summary>
         public static string MetaData_Length_Rounded {
             get {
                 return ResourceManager.GetString("MetaData_Length_Rounded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string MetaData_Name {
-            get {
-                return ResourceManager.GetString("MetaData_Name", resourceCulture);
             }
         }
         
