@@ -81,6 +81,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertAssessmentSection(reader, sourceFilePath);
                     AssertHydraulicBoundaryLocationsProperties(reader, sourceFilePath);
                     AssertHydraulicBoundaryLocationsOnAssessmentSection(reader, sourceFilePath);
+                    AssertHydraulicBoundaryLocationsOnGrassCoverErosionOutwardsFailureMechanism(reader, sourceFilePath);
 
                     AssertPipingSoilLayers(reader);
                     AssertHydraRingPreprocessor(reader);
@@ -92,6 +93,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertClosingStructuresOutput(reader, sourceFilePath);
                     AssertHeightStructuresOutput(reader, sourceFilePath);
                     AssertStabilityPointStructuresOutput(reader, sourceFilePath);
+
+                    AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath );
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -133,8 +136,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
                 "GrassCoverErosionInwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
-                "GrassCoverErosionOutwardsHydraulicLocationEntity",
-                "GrassCoverErosionOutwardsHydraulicLocationOutputEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
                 "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
@@ -147,7 +148,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "HeightStructuresSectionResultEntity",
                 "HydraRingPreprocessorEntity",
                 "HydraulicLocationEntity",
-                "HydraulicLocationOutputEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
                 "MacroStabilityInwardsCalculationOutputEntity",
@@ -483,6 +483,30 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var queryGenerator = new HydraulicLocationValidationQueryGeneratorOnAssessmentSection(sourceFilePath);
             AssertDesignWaterLevelCalculationEntitiesOnAssessmentSection(reader, queryGenerator);
             AssertWaveHeightCalculationEntitiesOnAssessmentSection(reader, queryGenerator);
+        }
+
+        private static void AssertHydraulicBoundaryLocationsOnGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            var queryGenerator = new HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator(sourceFilePath);
+
+            AssertDesignWaterLevelCalculationEntitiesOnGrassCoverErosionOutwardsFailureMechanism(reader, queryGenerator);
+            AssertWaveHeightCalculationEntitiesOnGrassCoverErosionOutwardsFailureMechanism(reader, queryGenerator);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity) " +
+                "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity new " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity source USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId) " +
+                "WHERE new.FailureMechanismEntityId = source.FailureMechanismEntityId " +
+                "AND new.N = source.N " +
+                "AND new.ForeshoreProfileCollectionSourcePath IS source.ForeshoreProfileCollectionSourcePath; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
 
         #region  Migrated Hydraulic Boundary Locations on Assessment section
@@ -876,6 +900,367 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                         return CalculationType.WaveHeightCalculationsForLowerLimitNorm;
                     case NormativeNormType.SignalingNorm:
                         return CalculationType.WaveHeightCalculationsForSignalingNorm;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Migrated Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism
+
+        private static void AssertDesignWaterLevelCalculationEntitiesOnGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader,
+                                                                                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator queryGenerator)
+        {
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificSignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm));
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType.SignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType.SignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType.LowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType.LowerLimitNorm));
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
+            reader.AssertReturnedDataIsValid(HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
+        }
+
+        private static void AssertWaveHeightCalculationEntitiesOnGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader,
+                                                                                                           HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator queryGenerator)
+        {
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificSignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm));
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType.SignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType.SignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType.LowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType.LowerLimitNorm));
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetNewCalculationsValidationQuery(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
+            reader.AssertReturnedDataIsValid(HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.GetNewCalculationOutputsValidationQuery(
+                                                 HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
+        }
+
+        private class HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator
+        {
+            /// <summary>
+            /// Enum to indicate the hydraulic location calculation type.
+            /// </summary>
+            public enum CalculationType
+            {
+                /// <summary>
+                /// Represents the water level calculations for the mechanism specific factorized signaling norm.
+                /// </summary>
+                WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm = 1,
+
+                /// <summary>
+                /// Represents the water level calculations for the mechanism specific signaling norm.
+                /// </summary>
+                WaterLevelCalculationsForMechanismSpecificSignalingNorm = 2,
+
+                /// <summary>
+                /// Represents the water level calculations for the mechanism specific lower limit norm.
+                /// </summary>
+                WaterLevelCalculationsForMechanismSpecificLowerLimitNorm = 3,
+
+                /// <summary>
+                /// Represents the wave height calculations for the mechanism specific factorized signaling norm.
+                /// </summary>
+                WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm = 4,
+
+                /// <summary>
+                /// Represents the wave height calculations for the mechanism specific signaling norm.
+                /// </summary>
+                WaveHeightCalculationsForMechanismSpecificSignalingNorm = 5,
+
+                /// <summary>
+                /// Represents the wave height calculations for the mechanism specific lower limit norm.
+                /// </summary>
+                WaveHeightCalculationsForMechanismSpecificLowerLimitNorm = 6
+            }
+
+            private readonly string sourceFilePath;
+
+            public HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator(string sourceFilePath)
+            {
+                if (string.IsNullOrWhiteSpace(sourceFilePath))
+                {
+                    throw new ArgumentException(@"Sourcefile path cannot be null or empty",
+                                                nameof(sourceFilePath));
+                }
+
+                this.sourceFilePath = sourceFilePath;
+            }
+
+            /// <summary>
+            /// Generates a query to validate the number of created hydraulic boundary location calculations per failure mechanism section.
+            /// </summary>
+            /// <param name="calculationType">The type of calculation that should be validated.</param>
+            /// <returns>The query to validate the number of hydraulic boundary location calculations per assessment section.</returns>
+            public string GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(CalculationType calculationType)
+            {
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT COUNT() = 0 " +
+                       "FROM " +
+                       "( " +
+                       "SELECT " +
+                       "[FailureMechanismEntityId], " +
+                       "COUNT(distinct GrassCoverErosionOutwardsHydraulicLocationEntityId) as OldCount, " +
+                       "NEWCount " +
+                       "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId) " +
+                       "LEFT JOIN " +
+                       "( " +
+                       "SELECT " +
+                       "[FailureMechanismEntityId], " +
+                       "COUNT(distinct HydraulicLocationEntityId) AS NewCount " +
+                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity " +
+                       $"ON HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN FailureMechanismEntity USING (FailureMechanismEntityId) " +
+                       "GROUP BY GrassCoverErosionOutwardsFailureMechanismMetaEntityId " +
+                       ") USING (FailureMechanismEntityId) " +
+                       "GROUP BY FailureMechanismEntityId " +
+                       ") " +
+                       "WHERE OldCount IS NOT NewCount; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the hydraulic boundary calculation input for the wave height calculations 
+            /// are migrated correctly.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the hydraulic boundary location calculation input for the wave height calculations.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but is unsupported.</exception>
+            public string GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType normType)
+            {
+                CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
+
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT  " +
+                       "COUNT() = 0 " +
+                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme  " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
+                       $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int)calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)  " +
+                       "JOIN HydraulicLocationCalculationEntity NEW USING (HydraulicLocationCalculationEntityId)  " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity OLD ON OLD.GrassCoverErosionOutwardsHydraulicLocationEntityId = NEW.HydraulicLocationEntityId  " +
+                       "JOIN FailureMechanismEntity USING (FailureMechanismEntityId) " +
+                       "JOIN AssessmentSectionEntity ase USING (AssessmentSectionEntityId) " +
+                       $"WHERE OLD.ShouldDesignWaterLevelIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int)normType}; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the design water level calculations
+            /// are migrated correctly to the corresponding calculation entities.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            public string GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType normType)
+            {
+                CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
+
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT " +
+                       "COUNT() = ( " +
+                       "SELECT COUNT() " +
+                       "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING (GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId) " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                       $"WHERE HydraulicLocationOutputType = 1 AND NormativeNormType = {(int) normType}" +
+                       ") " +
+                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
+                       $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity OLD ON NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
+                       "AND NEW.Result IS OLD.Result " +
+                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
+                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
+                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
+                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
+                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the hydraulic boundary calculation input for the wave height calculations 
+            /// are migrated correctly.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the hydraulic boundary location calculation input for the wave height calculations.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but is unsupported.</exception>
+            public string GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType normType)
+            {
+                CalculationType calculationType = ConvertToWaveHeightCalculationType(normType);
+
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT  " +
+                       "COUNT() = 0 " +
+                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme  " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
+                       $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)  " +
+                       "JOIN HydraulicLocationCalculationEntity NEW USING (HydraulicLocationCalculationEntityId)  " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity OLD ON OLD.GrassCoverErosionOutwardsHydraulicLocationEntityId = NEW.HydraulicLocationEntityId  " +
+                       "JOIN FailureMechanismEntity USING (FailureMechanismEntityId) " +
+                       "JOIN AssessmentSectionEntity ase USING (AssessmentSectionEntityId) " +
+                       $"WHERE OLD.ShouldWaveHeightIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the design water level calculations
+            /// are migrated correctly to the corresponding calculation entities.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            public string GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType normType)
+            {
+                CalculationType calculationType = ConvertToWaveHeightCalculationType(normType);
+
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT " +
+                       "COUNT() = ( " +
+                       "SELECT COUNT() " +
+                       "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING (GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId) " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                       $"WHERE HydraulicLocationOutputType = 2 AND NormativeNormType = {(int) normType}" +
+                       ") " +
+                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
+                       $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity OLD ON NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
+                       "AND NEW.Result IS OLD.Result " +
+                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
+                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
+                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
+                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
+                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate the new hydraulic boundary location calculations that are not based on migrated data.
+            /// </summary>
+            /// <param name="calculationType">The type of calculation on which the input should be validated.</param>
+            /// <returns>The query to validate the hydraulic boundary location calculation input.</returns>
+            public string GetNewCalculationsValidationQuery(CalculationType calculationType)
+            {
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity) " +
+                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity " +
+                       $"ON HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity hlce USING (HydraulicLocationCalculationEntityId) " +
+                       "WHERE hlce.ShouldIllustrationPointsBeCalculated = 0;" +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate the new hydraulic boundary location calculation outputs that are not based on migrated data.
+            /// </summary>
+            /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
+            /// <returns>The query to validate the hydraulic boundary location calculation input.</returns>
+            public static string GetNewCalculationOutputsValidationQuery(CalculationType calculationType)
+            {
+                return "SELECT  " +
+                       "COUNT() = 0 " +
+                       "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
+                       "JOIN HydraulicLocationCalculationCollectionEntity " +
+                       $"ON HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN HydraulicLocationOutputEntity USING (HydraulicLocationCalculationEntityId); ";
+            }
+
+            /// <summary>
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding design water level calculation from <see cref="CalculationType"/>.
+            /// </summary>
+            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns the converted <see cref="CalculationType"/>.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            private static CalculationType ConvertToDesignWaterLevelCalculationType(NormativeNormType normType)
+            {
+                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
+                }
+
+                switch (normType)
+                {
+                    case NormativeNormType.LowerLimitNorm:
+                        return CalculationType.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm;
+                    case NormativeNormType.SignalingNorm:
+                        return CalculationType.WaterLevelCalculationsForMechanismSpecificSignalingNorm;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            /// <summary>
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding wave height calculation from <see cref="CalculationType"/>.
+            /// </summary>
+            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns the converted <see cref="CalculationType"/>.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            private static CalculationType ConvertToWaveHeightCalculationType(NormativeNormType normType)
+            {
+                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
+                }
+
+                switch (normType)
+                {
+                    case NormativeNormType.LowerLimitNorm:
+                        return CalculationType.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm;
+                    case NormativeNormType.SignalingNorm:
+                        return CalculationType.WaveHeightCalculationsForMechanismSpecificSignalingNorm;
                     default:
                         throw new NotSupportedException();
                 }
