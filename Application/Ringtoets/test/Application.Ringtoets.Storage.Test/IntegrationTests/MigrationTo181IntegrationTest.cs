@@ -667,11 +667,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "SELECT " +
                        "ase.AssessmentSectionEntityId, " +
                        "COUNT(distinct HydraulicLocationEntityId) AS NewCount " +
-                       "FROM AssessmentSectionEntity ase " +
-                       $"JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id " +
-                       "= hlcce.HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
                        "GROUP BY ase.AssessmentSectionEntityId " +
                        ") USING(AssessmentSectionEntityId) " +
                        "GROUP BY sourceAse.AssessmentSectionEntityId " +
@@ -731,20 +727,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING (AssessmentSectionEntityId) " +
                        $"WHERE sourceHlo.HydraulicLocationOutputType = 1 AND sourceAse.NormativeNormType = {(int) normType} " +
                        ") " +
-                       "FROM AssessmentSectionEntity ase " +
-                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
-                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON " +
-                       "NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
-                       "AND NEW.Result IS OLD.Result " +
-                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
-                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
-                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
-                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
-                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
+                       GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
+                       GetHydralicLocationCalculationOutputValidationSubQuery() +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -799,20 +783,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING (AssessmentSectionEntityId) " +
                        $"WHERE sourceHlo.HydraulicLocationOutputType = 2 AND sourceAse.NormativeNormType = {(int) normType} " +
                        ") " +
-                       "FROM AssessmentSectionEntity ase " +
-                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
-                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON " +
-                       "NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
-                       "AND NEW.Result IS OLD.Result " +
-                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
-                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
-                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
-                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
-                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
+                       GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
+                       GetHydralicLocationCalculationOutputValidationSubQuery() +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -825,12 +797,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationEntity) " +
-                       "FROM AssessmentSectionEntity ase " +
-                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
-                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity hlce USING (HydraulicLocationCalculationEntityId) " +
-                       "WHERE hlce.ShouldIllustrationPointsBeCalculated = 0;" +
+                       GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
+                       "WHERE ShouldIllustrationPointsBeCalculated = 0;" +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -843,12 +811,30 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 return "SELECT  " +
                        "COUNT() = 0 " +
-                       "FROM AssessmentSectionEntity ase " +
-                       "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
-                       $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) " +
+                       GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
                        "JOIN HydraulicLocationOutputEntity USING (HydraulicLocationCalculationEntityId); ";
+            }
+
+            private static string GetHydraulicLocationCalculationsFromCollectionQuery(CalculationType calculationType)
+            {
+                return "FROM AssessmentSectionEntity ase " +
+                       $"JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id " +
+                       "= hlcce.HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) ";
+            }
+
+            private static string GetHydralicLocationCalculationOutputValidationSubQuery()
+            {
+                return "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
+                       "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON " +
+                       "NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
+                       "AND NEW.Result IS OLD.Result " +
+                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
+                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
+                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
+                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
+                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; ";
             }
 
             /// <summary>
