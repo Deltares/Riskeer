@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
         protected override PipingCalculationScenario CreateCalculation()
         {
-            return PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            return new PipingCalculationScenario(new GeneralPipingInput());
         }
 
         protected override PipingCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
