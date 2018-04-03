@@ -106,10 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_SetsDataCorrectly()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            mocks.ReplayAll();
-
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var calculationInputContext = new MacroStabilityInwardsInputContext(input,
