@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(name, row.Name);
             Assert.AreEqual(isRelevant, row.IsRelevant);
-            Assert.AreEqual(contribution * 100, row.Contribution);
+            Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.PipingProbability), row.FailureProbabilityPiping);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.UpliftProbability), row.FailureProbabilityUplift);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.HeaveProbability), row.FailureProbabilityHeave);
@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(name, row.Name);
             Assert.AreEqual(isRelevant, row.IsRelevant);
-            Assert.AreEqual(contribution * 100, row.Contribution);
+            Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
             Assert.AreEqual("-", row.FailureProbabilityPiping);
             Assert.AreEqual("-", row.FailureProbabilityUplift);
             Assert.AreEqual("-", row.FailureProbabilityHeave);

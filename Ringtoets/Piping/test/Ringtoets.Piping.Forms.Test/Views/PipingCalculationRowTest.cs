@@ -478,7 +478,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             PipingOutput assignedOutput = null;
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             if (hasOutput)
             {
                 assignedOutput = PipingOutputTestFactory.Create();

@@ -610,7 +610,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-
             var surfaceLineA = new PipingSurfaceLine(string.Empty);
             surfaceLineA.SetGeometry(new[]
             {
