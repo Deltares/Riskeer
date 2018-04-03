@@ -225,15 +225,18 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var calculationScenarios = new[]
             {
-                PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
+                PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -261,7 +264,6 @@ namespace Ringtoets.Piping.Data.Test
                                 calculator.DetailedAssessmentNInput);
                 AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
                 Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
-                mocks.VerifyAll();
             }
         }
 
@@ -271,9 +273,13 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = new PipingFailureMechanism();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
@@ -288,7 +294,7 @@ namespace Ringtoets.Piping.Data.Test
                         sectionResult,
                         new[]
                         {
-                            PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
+                            PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                         },
                         failureMechanism,
                         assessmentSection);
@@ -296,7 +302,6 @@ namespace Ringtoets.Piping.Data.Test
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
-                mocks.VerifyAll();
             }
         }
 
@@ -306,9 +311,13 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = new PipingFailureMechanism();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
@@ -323,7 +332,7 @@ namespace Ringtoets.Piping.Data.Test
                     sectionResult,
                     new[]
                     {
-                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
+                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     },
                     failureMechanism,
                     assessmentSection);
@@ -333,7 +342,6 @@ namespace Ringtoets.Piping.Data.Test
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
-                mocks.VerifyAll();
             }
         }
 
