@@ -87,7 +87,8 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
                 scenario,
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                failureMechanism, assessmentSection);
+                failureMechanism,
+                assessmentSection);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
@@ -132,7 +133,8 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
                 scenario,
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                failureMechanism, assessmentSection);
+                failureMechanism,
+                assessmentSection);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
