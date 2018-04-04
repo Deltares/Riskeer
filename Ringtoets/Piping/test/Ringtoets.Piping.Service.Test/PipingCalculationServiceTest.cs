@@ -121,10 +121,9 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void Validate_AssessmentLevelNotCalculated_LogsErrorAndReturnsFalse()
+        public void Validate_NormativeAssessmentLevelNotCalculated_LogsErrorAndReturnsFalse()
         {
             // Setup
-            testCalculation.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             testCalculation.InputParameters.UseAssessmentLevelManualInput = false;
 
             // Call
