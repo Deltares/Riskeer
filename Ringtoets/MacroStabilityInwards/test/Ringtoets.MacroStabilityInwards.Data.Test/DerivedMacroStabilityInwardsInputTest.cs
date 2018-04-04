@@ -23,10 +23,10 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
-using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -50,7 +50,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetWaternetExtreme_SoilProfileNull_ReturnsMacroStabilityInwardsWaternet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.InputParameters.StochasticSoilProfile = null;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -69,7 +69,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetWaternetExtreme_SurfaceLineNull_ReturnsMacroStabilityInwardsWaternet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.InputParameters.SurfaceLine = null;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -89,7 +89,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
@@ -119,7 +119,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetWaternetDaily_SoilProfileNull_ReturnsMacroStabilityInwardsWaternet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.InputParameters.StochasticSoilProfile = null;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -138,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetWaternetDaily_SurfaceLineNull_ReturnsMacroStabilityInwardsWaternet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.InputParameters.SurfaceLine = null;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -157,7 +157,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         public void GetWaternetDaily_ValidInput_ReturnsMacroStabilityInwardsWaternet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
