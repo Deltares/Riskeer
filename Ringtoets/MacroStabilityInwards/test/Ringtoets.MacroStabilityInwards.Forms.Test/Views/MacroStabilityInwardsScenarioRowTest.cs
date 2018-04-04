@@ -63,7 +63,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
             TestDelegate test = () => new MacroStabilityInwardsScenarioRow(calculation, null, assessmentSection);
@@ -78,7 +78,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
@@ -144,8 +144,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void IsRelevant_AlwaysOnChange_NotifyObserversAndCalculationPropertyChanged(bool newValue)
         {
             // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -169,8 +169,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -203,7 +203,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
 
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
@@ -231,8 +231,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput()
+            };
 
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
@@ -260,8 +262,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput()
+            };
 
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
