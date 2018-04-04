@@ -81,7 +81,27 @@ SELECT
 	[GeneralResultFaultTreeIllustrationPointEntityId],
 	[Reliability]
 FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
-INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
+INSERT INTO HeightStructuresSectionResultEntity (
+	[HeightStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[HeightStructuresCalculationEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssemblyProbability],
+	[ManualAssemblyProbability])
+SELECT
+	[HeightStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[HeightStructuresCalculationEntityId],
+	1,
+	1,
+	1,
+	NULL,
+	0,
+	NULL
+FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraRingPreprocessorEntity SELECT * FROM [SOURCEPROJECT].HydraRingPreprocessorEntity;
 INSERT INTO HydraulicLocationEntity (
 	[HydraulicLocationEntityId],

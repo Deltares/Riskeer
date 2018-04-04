@@ -95,6 +95,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertStabilityPointStructuresOutput(reader, sourceFilePath);
 
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
+
+                    AssertHeightStructuresSectionResultEntity(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -507,6 +509,25 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "DETACH DATABASE SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertHeightStructuresSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity) " +
+                "FROM HeightStructuresSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity OLD USING (HeightStructuresSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.HeightStructuresCalculationEntityId IS OLD.HeightStructuresCalculationEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentProbability IS NULL " +
+                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.ManualAssemblyProbability IS NULL; " +
+                "DETACH DATABASE SOURCEPROJECT;";
         }
 
         #region  Migrated Hydraulic Boundary Locations on Assessment section
