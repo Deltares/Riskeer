@@ -534,50 +534,18 @@ UPDATE HydraulicLocationCalculationEntity
 		SELECT
 			HydraulicLocationCalculationEntityId
 		FROM AssessmentSectionEntity ase
-		JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId
+		JOIN HydraulicLocationCalculationCollectionEntity hlcce 
+		ON ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId
+		OR ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
+		OR ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
+		OR ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId
 		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
 		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
-		JOIN [SOURCEPROJECT].HydraulicLocationEntity AS source USING (HydraulicLocationEntityId)
-		WHERE ase.NormativeNormType = 2 AND source.ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1
-);
-
-UPDATE HydraulicLocationCalculationEntity
-	SET [ShouldIllustrationPointsBeCalculated] = 1
-	WHERE HydraulicLocationCalculationEntityId IN (
-		SELECT
-			HydraulicLocationCalculationEntityId
-		FROM AssessmentSectionEntity ase
-		JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
-		JOIN [SOURCEPROJECT].HydraulicLocationEntity AS source USING (HydraulicLocationEntityId)
-		WHERE ase.NormativeNormType = 1 AND source.ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1
-);
-
-UPDATE HydraulicLocationCalculationEntity
-	SET [ShouldIllustrationPointsBeCalculated] = 1
-	WHERE HydraulicLocationCalculationEntityId IN (
-		SELECT
-			HydraulicLocationCalculationEntityId
-		FROM AssessmentSectionEntity ase
-		JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
-		JOIN [SOURCEPROJECT].HydraulicLocationEntity AS source USING (HydraulicLocationEntityId)
-		WHERE ase.NormativeNormType = 2 AND source.ShouldWaveHeightIllustrationPointsBeCalculated = 1
-);
-
-UPDATE HydraulicLocationCalculationEntity
-	SET [ShouldIllustrationPointsBeCalculated] = 1
-	WHERE HydraulicLocationCalculationEntityId IN (
-		SELECT
-			HydraulicLocationCalculationEntityId
-		FROM AssessmentSectionEntity ase
-		JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
-		JOIN [SOURCEPROJECT].HydraulicLocationEntity AS source USING (HydraulicLocationEntityId)
-		WHERE ase.NormativeNormType = 1 AND source.ShouldWaveHeightIllustrationPointsBeCalculated = 1
+		JOIN [SOURCEPROJECT].HydraulicLocationEntity USING (HydraulicLocationEntityId)
+		WHERE(ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
+		OR (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
+		OR (ShouldWaveHeightIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
+		OR (ShouldWaveHeightIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 );
 
 --Migrate the outputs on AssessmentSection level
@@ -682,58 +650,20 @@ UPDATE HydraulicLocationCalculationEntity
 		SELECT
 			HydraulicLocationCalculationEntityId
 		FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme
-		JOIN HydraulicLocationCalculationCollectionEntity hlcce ON gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity hlce USING (HydraulicLocationCalculationEntityId)
-		JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity source ON source.GrassCoverErosionOutwardsHydraulicLocationEntityId = hlce.HydraulicLocationEntityId
 		JOIN FailureMechanismEntity USING (FailureMechanismEntityId)
-		JOIN AssessmentSectionEntity ase USING (AssessmentSectionEntityId)
-		WHERE ase.NormativeNormType = 2 AND source.ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1
-);
-
-UPDATE HydraulicLocationCalculationEntity
-	SET [ShouldIllustrationPointsBeCalculated] = 1
-	WHERE HydraulicLocationCalculationEntityId IN (
-		SELECT
-			HydraulicLocationCalculationEntityId
-		FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme
-		JOIN HydraulicLocationCalculationCollectionEntity hlcce ON gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId
+		JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+		JOIN HydraulicLocationCalculationCollectionEntity hlcce 
+		ON gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId
+		OR gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
+		OR gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
+		OR gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
 		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity hlce USING (HydraulicLocationCalculationEntityId)
-		JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity source ON source.GrassCoverErosionOutwardsHydraulicLocationEntityId = hlce.HydraulicLocationEntityId
-		JOIN FailureMechanismEntity USING (FailureMechanismEntityId)
-		JOIN AssessmentSectionEntity ase USING (AssessmentSectionEntityId)
-		WHERE ase.NormativeNormType = 1 AND source.ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1
-);
-
-UPDATE HydraulicLocationCalculationEntity
-	SET [ShouldIllustrationPointsBeCalculated] = 1
-	WHERE HydraulicLocationCalculationEntityId IN (
-		SELECT
-			HydraulicLocationCalculationEntityId
-		FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme
-		JOIN HydraulicLocationCalculationCollectionEntity hlcce ON gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity hlce USING (HydraulicLocationCalculationEntityId)
-		JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity source ON source.GrassCoverErosionOutwardsHydraulicLocationEntityId = hlce.HydraulicLocationEntityId
-		JOIN FailureMechanismEntity USING (FailureMechanismEntityId)
-		JOIN AssessmentSectionEntity ase USING (AssessmentSectionEntityId)
-		WHERE ase.NormativeNormType = 2 AND source.ShouldWaveHeightIllustrationPointsBeCalculated = 1
-);
-
-UPDATE HydraulicLocationCalculationEntity
-	SET [ShouldIllustrationPointsBeCalculated] = 1
-	WHERE HydraulicLocationCalculationEntityId IN (
-		SELECT
-			HydraulicLocationCalculationEntityId
-		FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme
-		JOIN HydraulicLocationCalculationCollectionEntity hlcce ON gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity hlce USING (HydraulicLocationCalculationEntityId)
-		JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity source ON source.GrassCoverErosionOutwardsHydraulicLocationEntityId = hlce.HydraulicLocationEntityId
-		JOIN FailureMechanismEntity USING (FailureMechanismEntityId)
-		JOIN AssessmentSectionEntity ase USING (AssessmentSectionEntityId)
-		WHERE ase.NormativeNormType = 1 AND source.ShouldWaveHeightIllustrationPointsBeCalculated = 1
+		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+		JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity ON GrassCoverErosionOutwardsHydraulicLocationEntityId = HydraulicLocationEntityId
+		WHERE (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
+		OR (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
+		OR (ShouldWaveHeightIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
+		OR (ShouldWaveHeightIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 );
 
 -- Insert outputs
