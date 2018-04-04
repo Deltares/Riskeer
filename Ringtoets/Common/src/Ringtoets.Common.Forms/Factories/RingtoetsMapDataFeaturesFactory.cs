@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Factories
             }
 
             return AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection)
-                                                             .Select(CreateHydraulicBoundaryLocationFeature)
+                                                             .Select(HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature)
                                                              .ToArray();
         }
 
@@ -307,22 +307,6 @@ namespace Ringtoets.Common.Forms.Factories
             }
 
             return new MapFeature[0];
-        }
-
-        private static MapFeature CreateHydraulicBoundaryLocationFeature(AggregatedHydraulicBoundaryLocation location)
-        {
-            MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-            feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
-            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedSignalingNorm] = location.WaterLevelCalculationForFactorizedSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForSignalingNorm] = location.WaterLevelCalculationForSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForLowerLimit] = location.WaterLevelCalculationForLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedLowerLimit] = location.WaterLevelCalculationForFactorizedLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedSignalingNorm] = location.WaveHeightCalculationForFactorizedSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForSignalingNorm] = location.WaveHeightCalculationForSignalingNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForLowerLimit] = location.WaveHeightCalculationForLowerLimitNorm;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedLowerLimit] = location.WaveHeightCalculationForFactorizedLowerLimitNorm;
-            return feature;
         }
 
         private static MapCalculationData CreateMapCalculationData<TStructuresInput, TStructure>(

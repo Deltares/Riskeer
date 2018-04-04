@@ -1311,30 +1311,6 @@ Pf = {1}</value>
   <data name="FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName" xml:space="preserve">
     <value>N* [-]</value>
   </data>
-  <data name="MetaData_WaterLevelCalculationForFactorizedSignalingNorm" xml:space="preserve">
-    <value>h(A+-&gt;A)</value>
-  </data>
-  <data name="MetaData_WaterLevelCalculationForSignalingNorm" xml:space="preserve">
-    <value>h(A-&gt;B)</value>
-  </data>
-  <data name="MetaData_WaterLevelCalculationForLowerLimit" xml:space="preserve">
-    <value>h(B-&gt;C)</value>
-  </data>
-  <data name="MetaData_WaterLevelCalculationForFactorizedLowerLimit" xml:space="preserve">
-    <value>h(C-&gt;D)</value>
-  </data>
-  <data name="MetaData_WaveHeightCalculationForFactorizedSignalingNorm" xml:space="preserve">
-    <value>Hs(A+-&gt;A)</value>
-  </data>
-  <data name="MetaData_WaveHeightCalculationForSignalingNorm" xml:space="preserve">
-    <value>Hs(A-&gt;B)</value>
-  </data>
-  <data name="MetaData_WaveHeightCalculationForLowerLimit" xml:space="preserve">
-    <value>Hs(B-&gt;C)</value>
-  </data>
-  <data name="MetaData_WaveHeightCalculationForFactorizedLowerLimit" xml:space="preserve">
-    <value>Hs(C-&gt;D)</value>
-  </data>
   <data name="FailureMechanism_ProbabilityAssessmentInput_A_Description" xml:space="preserve">
     <value>De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>
   </data>
