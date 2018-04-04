@@ -225,15 +225,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
 
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var calculationScenarios = new[]
             {
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -261,7 +264,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                                 calculator.DetailedAssessmentNInput);
                 AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
                 Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
-                mocks.VerifyAll();
             }
         }
 
@@ -270,10 +272,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
 
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
@@ -288,7 +293,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                         sectionResult,
                         new[]
                         {
-                            MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
+                            MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                         },
                         failureMechanism,
                         assessmentSection);
@@ -296,7 +301,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
-                mocks.VerifyAll();
             }
         }
 
@@ -305,10 +309,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
 
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
@@ -323,7 +330,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                     sectionResult,
                     new[]
                     {
-                        MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
+                        MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     },
                     failureMechanism,
                     assessmentSection);
@@ -333,7 +340,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
-                mocks.VerifyAll();
             }
         }
 
