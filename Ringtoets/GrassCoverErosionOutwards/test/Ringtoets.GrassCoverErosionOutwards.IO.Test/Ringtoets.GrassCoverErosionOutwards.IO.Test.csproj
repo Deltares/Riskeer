@@ -21,6 +21,7 @@
     <Compile Include="Exporters\GrassCoverErosionOutwardsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProviderTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporterTest.cs" />
+    <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriterTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsWaveConditionsExporterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,6 +79,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Util\Ringtoets.GrassCoverErosionOutwards.Util.csproj">
       <Project>{033ED27D-E806-42B4-9689-8150CFAE1906}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil.csproj">
+      <Project>{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Util.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

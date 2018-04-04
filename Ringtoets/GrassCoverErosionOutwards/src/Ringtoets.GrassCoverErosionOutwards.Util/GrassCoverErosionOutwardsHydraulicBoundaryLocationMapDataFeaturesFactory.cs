@@ -55,16 +55,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util
             MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
-            feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm;
-            feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificSignalingNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificSignalingNorm;
-            feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificLowerLimitNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm;
-            feature.MetaData[nameProvider.WaterLevelCalculationForLowerLimitNormAttributeName] = location.WaterLevelCalculationForLowerLimitNorm;
-            feature.MetaData[nameProvider.WaterLevelCalculationForFactorizedLowerLimitNormAttributeName] = location.WaterLevelCalculationForFactorizedLowerLimitNorm;
-            feature.MetaData[nameProvider.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName] = location.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm;
-            feature.MetaData[nameProvider.WaveHeightCalculationForMechanismSpecificSignalingNormAttributeName] = location.WaveHeightCalculationForMechanismSpecificSignalingNorm;
-            feature.MetaData[nameProvider.WaveHeightCalculationForMechanismSpecificLowerLimitNormAttributeName] = location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm;
-            feature.MetaData[nameProvider.WaveHeightCalculationForLowerLimitNormAttributeName] = location.WaveHeightCalculationForLowerLimitNorm;
-            feature.MetaData[nameProvider.WaveHeightCalculationForFactorizedLowerLimitNormAttributeName] = location.WaveHeightCalculationForFactorizedLowerLimitNorm;
+            feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm.Value;
+            feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificSignalingNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificSignalingNorm.Value;
+            feature.MetaData[nameProvider.WaterLevelCalculationForMechanismSpecificLowerLimitNormAttributeName] = location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm.Value;
+            feature.MetaData[nameProvider.WaterLevelCalculationForLowerLimitNormAttributeName] = location.WaterLevelCalculationForLowerLimitNorm.Value;
+            feature.MetaData[nameProvider.WaterLevelCalculationForFactorizedLowerLimitNormAttributeName] = location.WaterLevelCalculationForFactorizedLowerLimitNorm.Value;
+            feature.MetaData[nameProvider.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName] = location.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm.Value;
+            feature.MetaData[nameProvider.WaveHeightCalculationForMechanismSpecificSignalingNormAttributeName] = location.WaveHeightCalculationForMechanismSpecificSignalingNorm.Value;
+            feature.MetaData[nameProvider.WaveHeightCalculationForMechanismSpecificLowerLimitNormAttributeName] = location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm.Value;
+            feature.MetaData[nameProvider.WaveHeightCalculationForLowerLimitNormAttributeName] = location.WaveHeightCalculationForLowerLimitNorm.Value;
+            feature.MetaData[nameProvider.WaveHeightCalculationForFactorizedLowerLimitNormAttributeName] = location.WaveHeightCalculationForFactorizedLowerLimitNorm.Value;
             return feature;
         }
     }
