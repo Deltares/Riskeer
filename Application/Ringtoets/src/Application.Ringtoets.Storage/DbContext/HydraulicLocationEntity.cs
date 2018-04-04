@@ -40,7 +40,9 @@ namespace Application.Ringtoets.Storage.DbContext
         {
             ClosingStructuresCalculationEntities = new HashSet<ClosingStructuresCalculationEntity>();
             GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
             HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
+            HydraulicLocationCalculationEntities = new HashSet<HydraulicLocationCalculationEntity>();
             MacroStabilityInwardsCalculationEntities = new HashSet<MacroStabilityInwardsCalculationEntity>();
             PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
             StabilityPointStructuresCalculationEntities = new HashSet<StabilityPointStructuresCalculationEntity>();
@@ -50,14 +52,6 @@ namespace Application.Ringtoets.Storage.DbContext
 
         public long HydraulicLocationEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
-        public long HydraulicLocationCalculationEntity1Id { get; set; }
-        public long HydraulicLocationCalculationEntity2Id { get; set; }
-        public long HydraulicLocationCalculationEntity3Id { get; set; }
-        public long HydraulicLocationCalculationEntity4Id { get; set; }
-        public long HydraulicLocationCalculationEntity5Id { get; set; }
-        public long HydraulicLocationCalculationEntity6Id { get; set; }
-        public long HydraulicLocationCalculationEntity7Id { get; set; }
-        public long HydraulicLocationCalculationEntity8Id { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
         public double? LocationX { get; set; }
@@ -73,16 +67,13 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionOutwardsWaveConditionsCalculationEntity> GrassCoverErosionOutwardsWaveConditionsCalculationEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresCalculationEntity> HeightStructuresCalculationEntities { get; set; }
 
-        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity { get; set; }
-        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity1 { get; set; }
-        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity2 { get; set; }
-        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity3 { get; set; }
-        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity4 { get; set; }
-        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity5 { get; set; }
-        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity6 { get; set; }
-        public virtual HydraulicLocationCalculationEntity HydraulicLocationCalculationEntity7 { get; set; }
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacroStabilityInwardsCalculationEntity> MacroStabilityInwardsCalculationEntities { get; set; }

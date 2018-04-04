@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -61,49 +60,9 @@ namespace Application.Ringtoets.Storage.Read
                                                                           entity.LocationX.ToNullAsNaN(),
                                                                           entity.LocationY.ToNullAsNaN());
 
-            SetDesignWaterLevelCalculations(entity, hydraulicBoundaryLocation);
-            SetWaveHeightCalculations(entity, hydraulicBoundaryLocation);
-
             collector.Read(entity, hydraulicBoundaryLocation);
 
             return hydraulicBoundaryLocation;
-        }
-
-        private static void SetDesignWaterLevelCalculations(HydraulicLocationEntity entity, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity7,
-                                                      hydraulicBoundaryLocation.DesignWaterLevelCalculation1);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity6,
-                                                      hydraulicBoundaryLocation.DesignWaterLevelCalculation2);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity5,
-                                                      hydraulicBoundaryLocation.DesignWaterLevelCalculation3);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity4,
-                                                      hydraulicBoundaryLocation.DesignWaterLevelCalculation4);
-        }
-
-        private static void SetWaveHeightCalculations(HydraulicLocationEntity entity, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity3,
-                                                      hydraulicBoundaryLocation.WaveHeightCalculation1);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity2,
-                                                      hydraulicBoundaryLocation.WaveHeightCalculation2);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity1,
-                                                      hydraulicBoundaryLocation.WaveHeightCalculation3);
-            SetHydraulicBoundaryLocationsCalculations(entity.HydraulicLocationCalculationEntity,
-                                                      hydraulicBoundaryLocation.WaveHeightCalculation4);
-        }
-
-        private static void SetHydraulicBoundaryLocationsCalculations(HydraulicLocationCalculationEntity entity,
-                                                                      HydraulicBoundaryLocationCalculation calculation)
-        {
-            calculation.InputParameters.ShouldIllustrationPointsBeCalculated =
-                Convert.ToBoolean(entity.ShouldIllustrationPointsBeCalculated);
-
-            HydraulicLocationOutputEntity outputEntity = entity.HydraulicLocationOutputEntities.SingleOrDefault();
-            if (outputEntity != null)
-            {
-                calculation.Output = outputEntity.Read();
-            }
         }
     }
 }

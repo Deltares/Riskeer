@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
             if (inputParameters.HydraulicBoundaryLocation != null)
             {
-                entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(inputParameters.HydraulicBoundaryLocation);
+                entity.HydraulicLocationEntity = registry.Get(inputParameters.HydraulicBoundaryLocation);
             }
         }
 

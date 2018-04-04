@@ -23,6 +23,7 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -64,6 +65,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             using (var table = new MacroStabilityInwardsSlicesTable())
             {
                 // Assert
+                Assert.IsInstanceOf<DataGridViewControl>(table);
+
                 DataGridViewColumn nameColumn = table.GetColumnFromIndex(nameColumnIndex);
                 Assert.AreEqual("Naam", nameColumn.HeaderText);
                 DataGridViewColumn xCenterColumn = table.GetColumnFromIndex(xCenterColumnIndex);
@@ -132,7 +135,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 table.SetData(slices);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(slices.Length, table.Rows.Count);
             }
         }
 
@@ -164,22 +167,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Setup
             using (var table = new MacroStabilityInwardsSlicesTable())
             {
-                var slices = new[]
-                {
-                    MacroStabilityInwardsSliceTestFactory.CreateSlice(),
-                    MacroStabilityInwardsSliceTestFactory.CreateSlice(),
-                    MacroStabilityInwardsSliceTestFactory.CreateSlice()
-                };
                 table.SetData(new[]
                 {
                     MacroStabilityInwardsSliceTestFactory.CreateSlice()
                 });
 
+                var newSlices = new[]
+                {
+                    MacroStabilityInwardsSliceTestFactory.CreateSlice(),
+                    MacroStabilityInwardsSliceTestFactory.CreateSlice(),
+                    MacroStabilityInwardsSliceTestFactory.CreateSlice()
+                };
+
                 // Call
-                table.SetData(slices);
+                table.SetData(newSlices);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(newSlices.Length, table.Rows.Count);
             }
         }
 
@@ -200,7 +204,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 table.SetData(slices);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(slices.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
                     MacroStabilityInwardsSlice slice = slices[i];

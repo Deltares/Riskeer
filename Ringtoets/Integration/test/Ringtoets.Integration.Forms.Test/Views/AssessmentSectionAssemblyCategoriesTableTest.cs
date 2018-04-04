@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Forms.Views;
 
@@ -47,6 +46,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (var table = new AssessmentSectionAssemblyCategoriesTable())
             {
                 // Assert
+                Assert.IsInstanceOf<DataGridViewControl>(table);
+
                 DataGridViewColumn groupColumn = table.GetColumnFromIndex(categoryGroupColumnIndex);
                 Assert.AreEqual("Categorie", groupColumn.HeaderText);
                 Assert.IsTrue(groupColumn.ReadOnly);
@@ -90,7 +91,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 table.SetData(categories);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(categories.Length, table.Rows.Count);
             }
         }
 
@@ -122,22 +123,23 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var table = new AssessmentSectionAssemblyCategoriesTable())
             {
-                var categories = new[]
-                {
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory()
-                };
                 table.SetData(new[]
                 {
                     CreateAssessmentSectionAssemblyCategory()
                 });
 
+                var newCategories = new[]
+                {
+                    CreateAssessmentSectionAssemblyCategory(),
+                    CreateAssessmentSectionAssemblyCategory(),
+                    CreateAssessmentSectionAssemblyCategory()
+                };
+
                 // Call
-                table.SetData(categories);
+                table.SetData(newCategories);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(newCategories.Length, table.Rows.Count);
             }
         }
 
@@ -158,15 +160,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 table.SetData(categories);
 
                 // Assert
-                Assert.AreEqual(3, table.Rows.Count);
+                Assert.AreEqual(categories.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
                     AssessmentSectionAssemblyCategory category = categories[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
 
-                    Assert.AreEqual(new EnumDisplayWrapper<DisplayAssessmentSectionAssemblyCategoryGroup>(
-                                        DisplayAssessmentSectionAssemblyCategoryGroupConverter.Convert(category.Group)).DisplayName, rowCells[categoryGroupColumnIndex].Value);
-                    Assert.AreEqual(AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group), rowCells[colorColumnIndex].Value);
+                    Assert.AreEqual(category.Group, rowCells[categoryGroupColumnIndex].Value);
+                    Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group), rowCells[colorColumnIndex].Value);
                     Assert.AreEqual(category.LowerBoundary, rowCells[lowerBoundaryColumnIndex].Value);
                     Assert.AreEqual(category.UpperBoundary, rowCells[upperBoundaryColumnIndex].Value);
                 }

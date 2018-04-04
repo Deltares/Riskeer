@@ -24,7 +24,6 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Views;
@@ -50,21 +49,22 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var random = new Random(39);
-            var categoryGroup = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
+            var categoryGroup = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
             var category = new AssessmentSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryGroup);
 
             // Call
             var categoryRow = new AssessmentSectionAssemblyCategoryRow(category);
 
             // Assert
-            Assert.AreEqual(new EnumDisplayWrapper<DisplayAssessmentSectionAssemblyCategoryGroup>(
-                                DisplayAssessmentSectionAssemblyCategoryGroupConverter.Convert(categoryGroup)).DisplayName, categoryRow.Group);
-            Assert.AreEqual(AssemblyCategoryGroupHelper.GetAssessmentSectionAssemblyCategoryGroupColor(categoryGroup), categoryRow.Color);
+            Assert.AreEqual(categoryGroup, categoryRow.Group);
+            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(categoryGroup), categoryRow.Color);
             Assert.AreEqual(lowerBoundary, categoryRow.LowerBoundary);
             Assert.AreEqual(upperBoundary, categoryRow.UpperBoundary);
 
+            TestHelper.AssertTypeConverter<AssessmentSectionAssemblyCategoryRow,
+                EnumTypeConverter>(nameof(AssessmentSectionAssemblyCategoryRow.Group));
             TestHelper.AssertTypeConverter<AssessmentSectionAssemblyCategoryRow,
                 NoProbabilityValueDoubleConverter>(
                 nameof(AssessmentSectionAssemblyCategoryRow.LowerBoundary));

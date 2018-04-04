@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Create
 
             if (input.HydraulicBoundaryLocation != null)
             {
-                entityToUpdate.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(input.HydraulicBoundaryLocation);
+                entityToUpdate.HydraulicLocationEntity = registry.Get(input.HydraulicBoundaryLocation);
             }
 
             if (input.ForeshoreProfile != null)

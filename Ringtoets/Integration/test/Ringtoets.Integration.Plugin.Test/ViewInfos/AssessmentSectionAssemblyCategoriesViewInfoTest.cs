@@ -39,14 +39,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class AssessmentSectionAssemblyCategoriesViewInfoTest
     {
-        private MockRepository mocks;
         private RingtoetsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionAssemblyCategoriesView));
         }
@@ -99,10 +97,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
-
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -122,13 +118,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             IAssessmentSection assessmentSection1 = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection1.Stub(section => section.Composition)
-                              .Return(AssessmentSectionComposition.DikeAndDune);
-
             IAssessmentSection assessmentSection2 = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
-            assessmentSection2.Stub(section => section.Composition)
-                              .Return(AssessmentSectionComposition.DikeAndDune);
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfig())

@@ -1399,16 +1399,4 @@ Cat. Vv - VIv</value>
   <data name="Norms_DisplayName" xml:space="preserve">
     <value>Normen</value>
   </data>
-  <data name="AssessmentSectionAssemblyCategory_Group_DisplayName" xml:space="preserve">
-    <value>Categorie</value>
-  </data>
-  <data name="AssessmentSectionAssemblyCategory_Color_DisplayName" xml:space="preserve">
-    <value>Kleur</value>
-  </data>
-  <data name="AssessmentSectionAssemblyCategory_UpperBoundary_DisplayName" xml:space="preserve">
-    <value>Bovengrens [1/jaar]</value>
-  </data>
-  <data name="AssessmentSectionAssemblyCategory_LowerBoundary_DisplayName" xml:space="preserve">
-    <value>Ondergrens [1/jaar]</value>
-  </data>
 </root>

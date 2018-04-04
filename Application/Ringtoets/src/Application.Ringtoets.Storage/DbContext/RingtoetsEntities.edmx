@@ -4,13 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=D:\Repos\Riskeer\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Dev\Git\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
           </Key>
           <Property Name="AssessmentSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity1Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity2Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity3Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity4Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity5Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity6Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity7Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity8Id" Type="integer" Nullable="false" />
           <Property Name="Id" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
@@ -422,37 +430,14 @@
           </Key>
           <Property Name="GrassCoverErosionOutwardsFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity1Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity2Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity3Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity4Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity5Id" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity6Id" Type="integer" Nullable="false" />
           <Property Name="N" Type="real" Nullable="false" />
           <Property Name="ForeshoreProfileCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
-        </EntityType>
-        <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationEntity">
-          <Key>
-            <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
-          </Key>
-          <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="LocationId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
-          <Property Name="LocationX" Type="real" />
-          <Property Name="LocationY" Type="real" />
-          <Property Name="ShouldWaveHeightIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
-          <Property Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
-          <Property Name="Order" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
-          <Key>
-            <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" />
-          </Key>
-          <Property Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="integer" Nullable="false" />
-          <Property Name="GeneralResultSubMechanismIllustrationPointEntityId" Type="integer" />
-          <Property Name="HydraulicLocationOutputType" Type="tinyint" Nullable="false" />
-          <Property Name="Result" Type="real" />
-          <Property Name="TargetProbability" Type="real" />
-          <Property Name="TargetReliability" Type="real" />
-          <Property Name="CalculatedProbability" Type="real" />
-          <Property Name="CalculatedReliability" Type="real" />
-          <Property Name="CalculationConvergence" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsSectionResultEntity">
           <Key>
@@ -471,7 +456,7 @@
           <Property Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CalculationGroupEntityId" Type="integer" Nullable="false" />
           <Property Name="ForeshoreProfileEntityId" Type="integer" />
-          <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="integer" />
+          <Property Name="HydraulicLocationEntityId" Type="integer" />
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
@@ -623,11 +608,26 @@
           <Property Name="UsePreprocessor" Type="tinyint" Nullable="false" />
           <Property Name="PreprocessorDirectory" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
+        <EntityType Name="HydraulicLocationCalculationCollectionEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationCalculationCollectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntityId" Type="integer" Nullable="false" />
+        </EntityType>
         <EntityType Name="HydraulicLocationCalculationEntity">
           <Key>
             <PropertyRef Name="HydraulicLocationCalculationEntityId" />
           </Key>
           <Property Name="HydraulicLocationCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
@@ -636,14 +636,6 @@
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity1Id" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity2Id" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity3Id" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity4Id" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity5Id" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity6Id" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity7Id" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity8Id" Type="integer" Nullable="false" />
           <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="real" />
@@ -1484,6 +1476,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AssessmentSectionEntity_1_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity8Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_2_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity7Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_3_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_4_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_5_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_6_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_7_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_8_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BackgroundDataEntity_0_0">
           <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="BackgroundDataEntity" Type="Self.BackgroundDataEntity" Multiplicity="*" />
@@ -2001,6 +2089,78 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Type="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_1_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Type="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_2_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Type="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_3_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Type="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_4_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Type="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_5_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Type="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_6_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Type="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2009,42 +2169,6 @@
             </Principal>
             <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0">
-          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
-          <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Type="Self.GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FailureMechanismEntity">
-              <PropertyRef Name="FailureMechanismEntityId" />
-            </Principal>
-            <Dependent Role="GrassCoverErosionOutwardsHydraulicLocationEntity">
-              <PropertyRef Name="FailureMechanismEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
-          <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Type="Self.GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="1" />
-          <End Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Type="Self.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GrassCoverErosionOutwardsHydraulicLocationEntity">
-              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
-            </Principal>
-            <Dependent Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
-              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0">
-          <End Role="GeneralResultSubMechanismIllustrationPointEntity" Type="Self.GeneralResultSubMechanismIllustrationPointEntity" Multiplicity="0..1" />
-          <End Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Type="Self.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GeneralResultSubMechanismIllustrationPointEntity">
-              <PropertyRef Name="GeneralResultSubMechanismIllustrationPointEntityId" />
-            </Principal>
-            <Dependent Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
-              <PropertyRef Name="GeneralResultSubMechanismIllustrationPointEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2061,14 +2185,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0">
-          <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Type="Self.GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="0..1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="0..1" />
           <End Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Type="Self.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GrassCoverErosionOutwardsHydraulicLocationEntity">
-              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
             </Principal>
             <Dependent Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity">
-              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+              <PropertyRef Name="HydraulicLocationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2264,103 +2388,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HydraulicLocationCalculationCollectionToHydraulicCalculationEntity_0_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" Type="Self.HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationCalculationCollectionToHydraulicCalculationEntity_1_0">
+          <End Role="HydraulicLocationCalculationCollectionEntity" Type="Self.HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" Type="Self.HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationCalculationEntity_0_0">
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HydraulicLocationEntity_0_0">
-          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity8Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_1_0">
-          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity7Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_2_0">
-          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity6Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_3_0">
-          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity5Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_4_0">
-          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity4Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_5_0">
-          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity3Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_6_0">
-          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity2Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_7_0">
-          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity1Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_8_0">
           <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3208,8 +3272,6 @@
           <EntitySet Name="GrassCoverErosionInwardsOvertoppingRateOutputEntity" EntityType="Self.GrassCoverErosionInwardsOvertoppingRateOutputEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionInwardsSectionResultEntity" EntityType="Self.GrassCoverErosionInwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntityType="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" store:Type="Tables" />
-          <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationEntity" EntityType="Self.GrassCoverErosionOutwardsHydraulicLocationEntity" store:Type="Tables" />
-          <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" EntityType="Self.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsSectionResultEntity" EntityType="Self.GrassCoverErosionOutwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" EntityType="Self.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsOutputEntity" EntityType="Self.GrassCoverErosionOutwardsWaveConditionsOutputEntity" store:Type="Tables" />
@@ -3221,6 +3283,8 @@
           <EntitySet Name="HeightStructuresOutputEntity" EntityType="Self.HeightStructuresOutputEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresSectionResultEntity" EntityType="Self.HeightStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="HydraRingPreprocessorEntity" EntityType="Self.HydraRingPreprocessorEntity" store:Type="Tables" />
+          <EntitySet Name="HydraulicLocationCalculationCollectionEntity" EntityType="Self.HydraulicLocationCalculationCollectionEntity" store:Type="Tables" />
+          <EntitySet Name="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" EntityType="Self.HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationCalculationEntity" EntityType="Self.HydraulicLocationCalculationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationOutputEntity" EntityType="Self.HydraulicLocationOutputEntity" store:Type="Tables" />
@@ -3277,6 +3341,38 @@
           <EntitySet Name="WaveImpactAsphaltCoverWaveConditionsOutputEntity" EntityType="Self.WaveImpactAsphaltCoverWaveConditionsOutputEntity" store:Type="Tables" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="Self.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_1_0" Association="Self.FK_AssessmentSectionEntity_1_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_2_0" Association="Self.FK_AssessmentSectionEntity_2_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_3_0" Association="Self.FK_AssessmentSectionEntity_3_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_4_0" Association="Self.FK_AssessmentSectionEntity_4_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_5_0" Association="Self.FK_AssessmentSectionEntity_5_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_6_0" Association="Self.FK_AssessmentSectionEntity_6_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_7_0" Association="Self.FK_AssessmentSectionEntity_7_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_8_0" Association="Self.FK_AssessmentSectionEntity_8_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_BackgroundDataEntity_0_0" Association="Self.FK_BackgroundDataEntity_0_0">
@@ -3452,27 +3548,39 @@
             <End Role="GrassCoverErosionInwardsSectionResultEntity" EntitySet="GrassCoverErosionInwardsSectionResultEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" Association="Self.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0">
-            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
             <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" Association="Self.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0">
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_1_0" Association="Self.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_1_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_2_0" Association="Self.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_2_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_3_0" Association="Self.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_3_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_4_0" Association="Self.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_4_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_5_0" Association="Self.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_5_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_6_0" Association="Self.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_6_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" Association="Self.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntity" />
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0" Association="Self.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0">
-            <End Role="GeneralResultSubMechanismIllustrationPointEntity" EntitySet="GeneralResultSubMechanismIllustrationPointEntity" />
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsSectionResultEntity_0_0" Association="Self.FK_GrassCoverErosionOutwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="GrassCoverErosionOutwardsSectionResultEntity" EntitySet="GrassCoverErosionOutwardsSectionResultEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" Association="Self.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0">
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
             <End Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" EntitySet="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_1_0" Association="Self.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_1_0">
@@ -3539,39 +3647,19 @@
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="HydraRingPreprocessorEntity" EntitySet="HydraRingPreprocessorEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationCalculationCollectionToHydraulicCalculationEntity_0_0" Association="Self.FK_HydraulicLocationCalculationCollectionToHydraulicCalculationEntity_0_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" EntitySet="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationCalculationCollectionToHydraulicCalculationEntity_1_0" Association="Self.FK_HydraulicLocationCalculationCollectionToHydraulicCalculationEntity_1_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntity" />
+            <End Role="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" EntitySet="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationCalculationEntity_0_0" Association="Self.FK_HydraulicLocationCalculationEntity_0_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="Self.FK_HydraulicLocationEntity_0_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_1_0" Association="Self.FK_HydraulicLocationEntity_1_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_2_0" Association="Self.FK_HydraulicLocationEntity_2_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_3_0" Association="Self.FK_HydraulicLocationEntity_3_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_4_0" Association="Self.FK_HydraulicLocationEntity_4_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_5_0" Association="Self.FK_HydraulicLocationEntity_5_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_6_0" Association="Self.FK_HydraulicLocationEntity_6_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_7_0" Association="Self.FK_HydraulicLocationEntity_7_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_8_0" Association="Self.FK_HydraulicLocationEntity_8_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
           </AssociationSet>
@@ -3849,7 +3937,10 @@
     <edmx:ConceptualModels>
       <Schema Namespace="RingtoetsEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RingtoetsEntities">
-          <EntitySet Name="HydraulicLocationCalculationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" />
+          <EntitySet Name="HydraulicLocationCalculationCollectionEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" />
+          <EntitySet Name="MacroStabilityOutwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity" />
+          <EntitySet Name="MacroStabilityOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity" />
+          <EntitySet Name="PipingStructureFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.PipingStructureFailureMechanismMetaEntity" />
           <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
           <EntitySet Name="BackgroundDataEntities" EntityType="RingtoetsEntitiesModel.BackgroundDataEntity" />
           <EntitySet Name="BackgroundDataMetaEntities" EntityType="RingtoetsEntitiesModel.BackgroundDataMetaEntity" />
@@ -3877,8 +3968,6 @@
           <EntitySet Name="GrassCoverErosionInwardsOvertoppingRateOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity" />
           <EntitySet Name="GrassCoverErosionInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
-          <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" />
-          <EntitySet Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" />
@@ -3890,6 +3979,7 @@
           <EntitySet Name="HeightStructuresOutputEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresOutputEntity" />
           <EntitySet Name="HeightStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" />
           <EntitySet Name="HydraRingPreprocessorEntities" EntityType="RingtoetsEntitiesModel.HydraRingPreprocessorEntity" />
+          <EntitySet Name="HydraulicLocationCalculationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="HydraulicLocationOutputEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" />
           <EntitySet Name="IllustrationPointResultEntities" EntityType="RingtoetsEntitiesModel.IllustrationPointResultEntity" />
@@ -3904,8 +3994,6 @@
           <EntitySet Name="MacroStabilityInwardsSoilProfileOneDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" />
           <EntitySet Name="MacroStabilityInwardsSoilProfileTwoDEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" />
           <EntitySet Name="MacroStabilityInwardsStochasticSoilProfileEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" />
-          <EntitySet Name="MacroStabilityOutwardsFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity" />
-          <EntitySet Name="MacroStabilityOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity" />
           <EntitySet Name="MicrostabilitySectionResultEntities" EntityType="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity" />
           <EntitySet Name="PipingCalculationEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationEntity" />
           <EntitySet Name="PipingCalculationOutputEntities" EntityType="RingtoetsEntitiesModel.PipingCalculationOutputEntity" />
@@ -3915,7 +4003,6 @@
           <EntitySet Name="PipingSoilLayerEntities" EntityType="RingtoetsEntitiesModel.PipingSoilLayerEntity" />
           <EntitySet Name="PipingSoilProfileEntities" EntityType="RingtoetsEntitiesModel.PipingSoilProfileEntity" />
           <EntitySet Name="PipingStochasticSoilProfileEntities" EntityType="RingtoetsEntitiesModel.PipingStochasticSoilProfileEntity" />
-          <EntitySet Name="PipingStructureFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.PipingStructureFailureMechanismMetaEntity" />
           <EntitySet Name="PipingStructureSectionResultEntities" EntityType="RingtoetsEntitiesModel.PipingStructureSectionResultEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="StabilityPointStructureEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructureEntity" />
@@ -3946,6 +4033,38 @@
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_1_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_1_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_2_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_2_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_3_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_3_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_4_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_4_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_5_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_5_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_6_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_6_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_7_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_7_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssessmentSectionEntity_8_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_8_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_BackgroundDataEntity_0_0" Association="RingtoetsEntitiesModel.FK_BackgroundDataEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="BackgroundDataEntity" EntitySet="BackgroundDataEntities" />
@@ -3958,7 +4077,7 @@
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="HydraRingPreprocessorEntity" EntitySet="HydraRingPreprocessorEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_8_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_8_0">
+          <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
           </AssociationSet>
@@ -4082,13 +4201,9 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="GrassCoverErosionInwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionInwardsFailureMechanismMetaEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0">
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_6_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_6_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0">
-            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_HeightStructureEntity_0_0" Association="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -4254,10 +4369,6 @@
             <End Role="GeneralResultFaultTreeIllustrationPointEntity" EntitySet="GeneralResultFaultTreeIllustrationPointEntities" />
             <End Role="TopLevelFaultTreeIllustrationPointEntity" EntitySet="TopLevelFaultTreeIllustrationPointEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0">
-            <End Role="GeneralResultSubMechanismIllustrationPointEntity" EntitySet="GeneralResultSubMechanismIllustrationPointEntities" />
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationOutputEntities" />
-          </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationOutputEntity_1_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_1_0">
             <End Role="GeneralResultSubMechanismIllustrationPointEntity" EntitySet="GeneralResultSubMechanismIllustrationPointEntities" />
             <End Role="HydraulicLocationOutputEntity" EntitySet="HydraulicLocationOutputEntities" />
@@ -4286,12 +4397,32 @@
             <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntities" />
             <End Role="GrassCoverErosionInwardsOvertoppingRateOutputEntity" EntitySet="GrassCoverErosionInwardsOvertoppingRateOutputEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntities" />
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationOutputEntities" />
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_1_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_1_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_2_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_2_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_3_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_3_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_4_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_4_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_5_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_5_0">
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+            <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" EntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0">
-            <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntities" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
             <End Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" EntitySet="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionOutwardsWaveConditionsOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsOutputEntity_0_0">
@@ -4314,37 +4445,9 @@
             <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntities" />
             <End Role="HeightStructuresSectionResultEntity" EntitySet="HeightStructuresSectionResultEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+          <AssociationSet Name="FK_HydraulicLocationCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationCalculationEntity_0_0">
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_1_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_1_0">
             <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_2_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_2_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_3_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_3_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_4_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_4_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_5_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_5_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_6_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_6_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicLocationEntity_7_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_7_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
-            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0">
             <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
@@ -4486,33 +4589,79 @@
             <End Role="StochastEntity" EntitySet="StochastEntities" />
             <End Role="GeneralResultSubMechanismIllustrationPointEntity" EntitySet="GeneralResultSubMechanismIllustrationPointEntities" />
           </AssociationSet>
+          <AssociationSet Name="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" Association="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionToHydraulicCalculationEntity">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+            <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+          </AssociationSet>
           <AssociationSet Name="MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity" Association="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity">
             <End Role="MacroStabilityInwardsSoilProfileTwoDEntity" EntitySet="MacroStabilityInwardsSoilProfileTwoDEntities" />
             <End Role="MacroStabilityInwardsSoilLayerTwoDEntity" EntitySet="MacroStabilityInwardsSoilLayerTwoDEntities" />
           </AssociationSet>
           </EntityContainer>
-        <EntityType Name="HydraulicLocationCalculationEntity">
+        <EntityType Name="HydraulicLocationCalculationCollectionEntity">
           <Key>
-            <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
           </Key>
-          <Property Name="HydraulicLocationCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities1" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_1_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities2" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_2_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities3" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_3_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities4" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_4_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities5" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_5_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities6" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_6_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities7" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_7_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
-          <NavigationProperty Name="HydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationOutputEntity" />
-          </EntityType>
+          <Property Name="HydraulicLocationCalculationCollectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AssessmentSectionEntities" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_1_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntities1" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_2_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntities2" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_3_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntities3" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_4_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntities4" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_5_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntities5" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_6_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntities6" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_7_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntities7" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_8_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities1" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_1_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities2" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_2_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities3" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_3_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities4" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_4_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities5" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_5_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntities" Relationship="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="HydraulicLocationCalculationEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityOutwardsFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="A" Type="Double" Nullable="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0" FromRole="MacroStabilityOutwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
+        </EntityType>
+        <EntityType Name="MacroStabilityOutwardsSectionResultEntity">
+          <Key>
+            <PropertyRef Name="MacroStabilityOutwardsSectionResultEntityId" />
+          </Key>
+          <Property Name="MacroStabilityOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="LayerOne" Type="Byte" Nullable="false" />
+          <Property Name="LayerTwoA" Type="Double" />
+          <Property Name="LayerThree" Type="Double" />
+          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsSectionResultEntity_0_0" FromRole="MacroStabilityOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
+        <EntityType Name="PipingStructureFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="PipingStructureFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="PipingStructureFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="N" Type="Double" Nullable="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_PipingStructureFailureMechanismMetaEntity_0_0" FromRole="PipingStructureFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
+        </EntityType>
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
           </Key>
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProjectEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity1Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity2Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity3Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity4Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity5Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity6Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity7Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity8Id" Type="Int64" Nullable="false" />
           <Property Name="Id" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -4525,10 +4674,18 @@
           <Property Name="ReferenceLinePointXml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity1" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_2_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity2" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_3_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity3" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_4_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity4" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_5_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity5" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_6_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity6" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_7_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity7" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_8_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
           <NavigationProperty Name="BackgroundDataEntities" Relationship="RingtoetsEntitiesModel.FK_BackgroundDataEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="BackgroundDataEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="HydraRingPreprocessorEntities" Relationship="RingtoetsEntitiesModel.FK_HydraRingPreprocessorEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraRingPreprocessorEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_8_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
         <EntityType Name="BackgroundDataEntity">
           <Key>
@@ -4798,8 +4955,7 @@
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="ForeshoreProfileEntities" Relationship="RingtoetsEntitiesModel.FK_ForeshoreProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionInwardsFailureMechanismMetaEntity" />
-          <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
-          <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationEntity" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_6_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="HeightStructureEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructureEntity" />
           <NavigationProperty Name="HeightStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="MacroStabilityInwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="MacroStabilityInwardsFailureMechanismMetaEntity" />
@@ -4904,7 +5060,6 @@
           <Property Name="GeneralResultSubMechanismIllustrationPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GoverningWindDirectionName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="GoverningWindDirectionAngle" Type="Double" Nullable="false" />
-          <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0" FromRole="GeneralResultSubMechanismIllustrationPointEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" />
           <NavigationProperty Name="HydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_1_0" FromRole="GeneralResultSubMechanismIllustrationPointEntity" ToRole="HydraulicLocationOutputEntity" />
           <NavigationProperty Name="TopLevelSubMechanismIllustrationPointEntities" Relationship="RingtoetsEntitiesModel.FK_TopLevelSubMechanismIllustrationPointEntity_1_0" FromRole="GeneralResultSubMechanismIllustrationPointEntity" ToRole="TopLevelSubMechanismIllustrationPointEntity" />
           <NavigationProperty Name="StochastEntities" Relationship="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointStochastEntity" FromRole="GeneralResultSubMechanismIllustrationPointEntity" ToRole="StochastEntity" />
@@ -5015,43 +5170,21 @@
           </Key>
           <Property Name="GrassCoverErosionOutwardsFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity1Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity2Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity3Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity4Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity5Id" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationCollectionEntity6Id" Type="Int64" Nullable="false" />
           <Property Name="N" Type="Double" Nullable="false" />
           <Property Name="ForeshoreProfileCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" FromRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
-        </EntityType>
-        <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationEntity">
-          <Key>
-            <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
-          </Key>
-          <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LocationId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
-          <Property Name="LocationX" Type="Double" />
-          <Property Name="LocationY" Type="Double" />
-          <Property Name="ShouldWaveHeightIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
-          <Property Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationEntity" ToRole="FailureMechanismEntity" />
-          <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" />
-          <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
-        </EntityType>
-        <EntityType Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
-          <Key>
-            <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" />
-          </Key>
-          <Property Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="Int64" Nullable="false" />
-          <Property Name="GeneralResultSubMechanismIllustrationPointEntityId" Type="Int64" />
-          <Property Name="HydraulicLocationOutputType" Type="Byte" Nullable="false" />
-          <Property Name="Result" Type="Double" />
-          <Property Name="TargetProbability" Type="Double" />
-          <Property Name="TargetReliability" Type="Double" />
-          <Property Name="CalculatedProbability" Type="Double" />
-          <Property Name="CalculatedReliability" Type="Double" />
-          <Property Name="CalculationConvergence" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="GeneralResultSubMechanismIllustrationPointEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" ToRole="GeneralResultSubMechanismIllustrationPointEntity" />
-          <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0" FromRole="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationEntity" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_6_0" FromRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" FromRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity1" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_1_0" FromRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity2" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_2_0" FromRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity3" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_3_0" FromRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity4" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_4_0" FromRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntity5" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_5_0" FromRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsSectionResultEntity">
           <Key>
@@ -5071,7 +5204,7 @@
           <Property Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" />
           <Property Name="ForeshoreProfileEntityId" Type="Int64" />
-          <Property Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" Type="Int64" />
+          <Property Name="HydraulicLocationEntityId" Type="Int64" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -5087,7 +5220,7 @@
           <Property Name="StepSize" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_2_0" FromRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_1_0" FromRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" ToRole="ForeshoreProfileEntity" />
-          <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" FromRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" FromRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsOutputEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsOutputEntity_0_0" FromRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsOutputEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsWaveConditionsOutputEntity">
@@ -5244,37 +5377,34 @@
           <Property Name="PreprocessorDirectory" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraRingPreprocessorEntity_0_0" FromRole="HydraRingPreprocessorEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
+        <EntityType Name="HydraulicLocationCalculationEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationCalculationEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="HydraulicLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationOutputEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationCollectionEntities" Relationship="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+        </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
             <PropertyRef Name="HydraulicLocationEntityId" />
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity1Id" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity2Id" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity3Id" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity4Id" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity5Id" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity6Id" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity7Id" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntity8Id" Type="Int64" Nullable="false" />
           <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Double" />
           <Property Name="LocationY" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_8_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="ClosingStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="ClosingStructuresCalculationEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
+          <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HeightStructuresCalculationEntity" />
-          <NavigationProperty Name="HydraulicLocationCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
-          <NavigationProperty Name="HydraulicLocationCalculationEntity1" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_1_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
-          <NavigationProperty Name="HydraulicLocationCalculationEntity2" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
-          <NavigationProperty Name="HydraulicLocationCalculationEntity3" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_3_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
-          <NavigationProperty Name="HydraulicLocationCalculationEntity4" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_4_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
-          <NavigationProperty Name="HydraulicLocationCalculationEntity5" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_5_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
-          <NavigationProperty Name="HydraulicLocationCalculationEntity6" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_6_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
-          <NavigationProperty Name="HydraulicLocationCalculationEntity7" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_7_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HydraulicLocationCalculationEntity" />
           <NavigationProperty Name="MacroStabilityInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="MacroStabilityInwardsCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="StabilityPointStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_1_0" FromRole="HydraulicLocationEntity" ToRole="StabilityPointStructuresCalculationEntity" />
@@ -5571,26 +5701,6 @@
           <NavigationProperty Name="MacroStabilityInwardsSoilProfileTwoDEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_1_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="MacroStabilityInwardsSoilProfileTwoDEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsStochasticSoilProfileEntity_0_0" FromRole="MacroStabilityInwardsStochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
-        <EntityType Name="MacroStabilityOutwardsFailureMechanismMetaEntity">
-          <Key>
-            <PropertyRef Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" />
-          </Key>
-          <Property Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="A" Type="Double" Nullable="false" />
-          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsFailureMechanismMetaEntity_0_0" FromRole="MacroStabilityOutwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
-        </EntityType>
-        <EntityType Name="MacroStabilityOutwardsSectionResultEntity">
-          <Key>
-            <PropertyRef Name="MacroStabilityOutwardsSectionResultEntityId" />
-          </Key>
-          <Property Name="MacroStabilityOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Double" />
-          <Property Name="LayerThree" Type="Double" />
-          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityOutwardsSectionResultEntity_0_0" FromRole="MacroStabilityOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
-        </EntityType>
         <EntityType Name="MicrostabilitySectionResultEntity">
           <Key>
             <PropertyRef Name="MicrostabilitySectionResultEntityId" />
@@ -5727,15 +5837,6 @@
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" FromRole="PipingStochasticSoilProfileEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="PipingSoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_PipingStochasticSoilProfileEntity_1_0" FromRole="PipingStochasticSoilProfileEntity" ToRole="PipingSoilProfileEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_PipingStochasticSoilProfileEntity_0_0" FromRole="PipingStochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
-        </EntityType>
-        <EntityType Name="PipingStructureFailureMechanismMetaEntity">
-          <Key>
-            <PropertyRef Name="PipingStructureFailureMechanismMetaEntityId" />
-          </Key>
-          <Property Name="PipingStructureFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="N" Type="Double" Nullable="false" />
-          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_PipingStructureFailureMechanismMetaEntity_0_0" FromRole="PipingStructureFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="PipingStructureSectionResultEntity">
           <Key>
@@ -6204,6 +6305,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AssessmentSectionEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity8Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_2_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity7Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_3_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_4_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_5_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_6_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_7_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssessmentSectionEntity_8_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="AssessmentSectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BackgroundDataEntity_0_0">
           <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.BackgroundDataEntity" Role="BackgroundDataEntity" Multiplicity="*" />
@@ -6240,7 +6437,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HydraulicLocationEntity_8_0">
+        <Association Name="FK_HydraulicLocationEntity_0_0">
           <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -6612,7 +6809,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0">
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_6_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -6620,18 +6817,6 @@
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
-              <PropertyRef Name="FailureMechanismEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FailureMechanismEntity">
-              <PropertyRef Name="FailureMechanismEntityId" />
-            </Principal>
-            <Dependent Role="GrassCoverErosionOutwardsHydraulicLocationEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -7128,18 +7313,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_1_0">
-          <End Type="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Role="GeneralResultSubMechanismIllustrationPointEntity" Multiplicity="0..1" />
-          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GeneralResultSubMechanismIllustrationPointEntity">
-              <PropertyRef Name="GeneralResultSubMechanismIllustrationPointEntityId" />
-            </Principal>
-            <Dependent Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
-              <PropertyRef Name="GeneralResultSubMechanismIllustrationPointEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_HydraulicLocationOutputEntity_1_0">
           <End Type="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Role="GeneralResultSubMechanismIllustrationPointEntity" Multiplicity="0..1" />
           <End Type="RingtoetsEntitiesModel.HydraulicLocationOutputEntity" Role="HydraulicLocationOutputEntity" Multiplicity="*" />
@@ -7224,27 +7397,87 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GrassCoverErosionOutwardsHydraulicLocationOutputEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity" Multiplicity="*" />
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GrassCoverErosionOutwardsHydraulicLocationEntity">
-              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
             </Principal>
-            <Dependent Role="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
-              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity5Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_2_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity4Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_3_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity3Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_4_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_5_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
+              <PropertyRef Name="HydraulicLocationCalculationCollectionEntity1Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity" Role="GrassCoverErosionOutwardsHydraulicLocationEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="0..1" />
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GrassCoverErosionOutwardsHydraulicLocationEntity">
-              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
             </Principal>
             <Dependent Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity">
-              <PropertyRef Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+              <PropertyRef Name="HydraulicLocationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7308,99 +7541,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HydraulicLocationEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+        <Association Name="FK_HydraulicLocationCalculationEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
             </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity8Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_1_0">
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity7Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_2_0">
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity6Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_3_0">
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity5Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_4_0">
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity4Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_5_0">
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity3Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_6_0">
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity2Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicLocationEntity_7_0">
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntity1Id" />
+            <Dependent Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7792,6 +7941,10 @@
           <End Type="RingtoetsEntitiesModel.StochastEntity" Role="StochastEntity" Multiplicity="*" />
           <End Type="RingtoetsEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Role="GeneralResultSubMechanismIllustrationPointEntity" Multiplicity="*" />
         </Association>
+        <Association Name="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="*" />
+        </Association>
         <Association Name="MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity">
           <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" Role="MacroStabilityInwardsSoilProfileTwoDEntity" Multiplicity="*" />
           <End Type="RingtoetsEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" Role="MacroStabilityInwardsSoilLayerTwoDEntity" Multiplicity="*" />
@@ -7802,11 +7955,39 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RingtoetsEntitiesModelStoreContainer" CdmEntityContainer="RingtoetsEntities">
-          <EntitySetMapping Name="HydraulicLocationCalculationEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity">
-              <MappingFragment StoreEntitySet="HydraulicLocationCalculationEntity">
-                <ScalarProperty Name="ShouldIllustrationPointsBeCalculated" ColumnName="ShouldIllustrationPointsBeCalculated" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
+          <EntitySetMapping Name="HydraulicLocationCalculationCollectionEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionEntity">
+              <MappingFragment StoreEntitySet="HydraulicLocationCalculationCollectionEntity">
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntityId" ColumnName="HydraulicLocationCalculationCollectionEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityOutwardsFailureMechanismMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityOutwardsFailureMechanismMetaEntity">
+                <ScalarProperty Name="A" ColumnName="A" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" ColumnName="MacroStabilityOutwardsFailureMechanismMetaEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MacroStabilityOutwardsSectionResultEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity">
+              <MappingFragment StoreEntitySet="MacroStabilityOutwardsSectionResultEntity">
+                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
+                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
+                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
+                <ScalarProperty Name="MacroStabilityOutwardsSectionResultEntityId" ColumnName="MacroStabilityOutwardsSectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PipingStructureFailureMechanismMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingStructureFailureMechanismMetaEntity">
+              <MappingFragment StoreEntitySet="PipingStructureFailureMechanismMetaEntity">
+                <ScalarProperty Name="N" ColumnName="N" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="PipingStructureFailureMechanismMetaEntityId" ColumnName="PipingStructureFailureMechanismMetaEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7824,6 +8005,14 @@
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity8Id" ColumnName="HydraulicLocationCalculationCollectionEntity8Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity7Id" ColumnName="HydraulicLocationCalculationCollectionEntity7Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity6Id" ColumnName="HydraulicLocationCalculationCollectionEntity6Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity5Id" ColumnName="HydraulicLocationCalculationCollectionEntity5Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity4Id" ColumnName="HydraulicLocationCalculationCollectionEntity4Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity3Id" ColumnName="HydraulicLocationCalculationCollectionEntity3Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity2Id" ColumnName="HydraulicLocationCalculationCollectionEntity2Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity1Id" ColumnName="HydraulicLocationCalculationCollectionEntity1Id" />
                 <ScalarProperty Name="ProjectEntityId" ColumnName="ProjectEntityId" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
               </MappingFragment>
@@ -8220,39 +8409,14 @@
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
                 <ScalarProperty Name="ForeshoreProfileCollectionSourcePath" ColumnName="ForeshoreProfileCollectionSourcePath" />
                 <ScalarProperty Name="N" ColumnName="N" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity6Id" ColumnName="HydraulicLocationCalculationCollectionEntity6Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity5Id" ColumnName="HydraulicLocationCalculationCollectionEntity5Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity4Id" ColumnName="HydraulicLocationCalculationCollectionEntity4Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity3Id" ColumnName="HydraulicLocationCalculationCollectionEntity3Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity2Id" ColumnName="HydraulicLocationCalculationCollectionEntity2Id" />
+                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntity1Id" ColumnName="HydraulicLocationCalculationCollectionEntity1Id" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntityId" ColumnName="GrassCoverErosionOutwardsFailureMechanismMetaEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GrassCoverErosionOutwardsHydraulicLocationEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationEntity">
-              <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationEntity">
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="ShouldDesignWaterLevelIllustrationPointsBeCalculated" ColumnName="ShouldDesignWaterLevelIllustrationPointsBeCalculated" />
-                <ScalarProperty Name="ShouldWaveHeightIllustrationPointsBeCalculated" ColumnName="ShouldWaveHeightIllustrationPointsBeCalculated" />
-                <ScalarProperty Name="LocationY" ColumnName="LocationY" />
-                <ScalarProperty Name="LocationX" ColumnName="LocationX" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
-                <ScalarProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" ColumnName="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
-              <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsHydraulicLocationOutputEntity">
-                <ScalarProperty Name="CalculationConvergence" ColumnName="CalculationConvergence" />
-                <ScalarProperty Name="CalculatedReliability" ColumnName="CalculatedReliability" />
-                <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
-                <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
-                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
-                <ScalarProperty Name="Result" ColumnName="Result" />
-                <ScalarProperty Name="HydraulicLocationOutputType" ColumnName="HydraulicLocationOutputType" />
-                <ScalarProperty Name="GeneralResultSubMechanismIllustrationPointEntityId" ColumnName="GeneralResultSubMechanismIllustrationPointEntityId" />
-                <ScalarProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" ColumnName="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
-                <ScalarProperty Name="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" ColumnName="GrassCoverErosionOutwardsHydraulicLocationOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8283,7 +8447,7 @@
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntityId" ColumnName="GrassCoverErosionOutwardsHydraulicLocationEntityId" />
+                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
                 <ScalarProperty Name="ForeshoreProfileEntityId" ColumnName="ForeshoreProfileEntityId" />
                 <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
                 <ScalarProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntityId" ColumnName="GrassCoverErosionOutwardsWaveConditionsCalculationEntityId" />
@@ -8436,6 +8600,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HydraulicLocationCalculationEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationCalculationEntity">
+              <MappingFragment StoreEntitySet="HydraulicLocationCalculationEntity">
+                <ScalarProperty Name="ShouldIllustrationPointsBeCalculated" ColumnName="ShouldIllustrationPointsBeCalculated" />
+                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
+                <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HydraulicLocationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationEntity">
@@ -8444,14 +8617,6 @@
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity8Id" ColumnName="HydraulicLocationCalculationEntity8Id" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity7Id" ColumnName="HydraulicLocationCalculationEntity7Id" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity6Id" ColumnName="HydraulicLocationCalculationEntity6Id" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity5Id" ColumnName="HydraulicLocationCalculationEntity5Id" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity4Id" ColumnName="HydraulicLocationCalculationEntity4Id" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity3Id" ColumnName="HydraulicLocationCalculationEntity3Id" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity2Id" ColumnName="HydraulicLocationCalculationEntity2Id" />
-                <ScalarProperty Name="HydraulicLocationCalculationEntity1Id" ColumnName="HydraulicLocationCalculationEntity1Id" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
               </MappingFragment>
@@ -8734,26 +8899,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MacroStabilityOutwardsFailureMechanismMetaEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity">
-              <MappingFragment StoreEntitySet="MacroStabilityOutwardsFailureMechanismMetaEntity">
-                <ScalarProperty Name="A" ColumnName="A" />
-                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
-                <ScalarProperty Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" ColumnName="MacroStabilityOutwardsFailureMechanismMetaEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MacroStabilityOutwardsSectionResultEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityOutwardsSectionResultEntity">
-              <MappingFragment StoreEntitySet="MacroStabilityOutwardsSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
-                <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
-                <ScalarProperty Name="MacroStabilityOutwardsSectionResultEntityId" ColumnName="MacroStabilityOutwardsSectionResultEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="MicrostabilitySectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MicrostabilitySectionResultEntity">
               <MappingFragment StoreEntitySet="MicrostabilitySectionResultEntity">
@@ -8881,15 +9026,6 @@
                 <ScalarProperty Name="StochasticSoilModelEntityId" ColumnName="StochasticSoilModelEntityId" />
                 <ScalarProperty Name="PipingSoilProfileEntityId" ColumnName="PipingSoilProfileEntityId" />
                 <ScalarProperty Name="PipingStochasticSoilProfileEntityId" ColumnName="PipingStochasticSoilProfileEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PipingStructureFailureMechanismMetaEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingStructureFailureMechanismMetaEntity">
-              <MappingFragment StoreEntitySet="PipingStructureFailureMechanismMetaEntity">
-                <ScalarProperty Name="N" ColumnName="N" />
-                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
-                <ScalarProperty Name="PipingStructureFailureMechanismMetaEntityId" ColumnName="PipingStructureFailureMechanismMetaEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -9352,6 +9488,14 @@
             </EndProperty>
             <EndProperty Name="StochastEntity">
               <ScalarProperty Name="StochastEntityId" ColumnName="StochastEntityId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" TypeName="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" StoreEntitySet="HydraulicLocationCalculationCollectionToHydraulicCalculationEntity">
+            <EndProperty Name="HydraulicLocationCalculationCollectionEntity">
+              <ScalarProperty Name="HydraulicLocationCalculationCollectionEntityId" ColumnName="HydraulicLocationCalculationCollectionEntityId" />
+            </EndProperty>
+            <EndProperty Name="HydraulicLocationCalculationEntity">
+              <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity" TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity" StoreEntitySet="MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity">

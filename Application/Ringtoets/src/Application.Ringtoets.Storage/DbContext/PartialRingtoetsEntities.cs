@@ -68,8 +68,6 @@ namespace Application.Ringtoets.Storage.DbContext
             GrassCoverErosionInwardsOvertoppingRateOutputEntities.Load();
             GrassCoverErosionInwardsSectionResultEntities.Load();
             GrassCoverErosionOutwardsFailureMechanismMetaEntities.Load();
-            GrassCoverErosionOutwardsHydraulicLocationEntities.Load();
-            GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Load();
             GrassCoverErosionOutwardsSectionResultEntities.Load();
             GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Load();
             GrassCoverErosionOutwardsWaveConditionsOutputEntities.Load();
@@ -81,6 +79,8 @@ namespace Application.Ringtoets.Storage.DbContext
             HeightStructuresOutputEntities.Load();
             HeightStructuresSectionResultEntities.Load();
             HydraulicLocationEntities.Load();
+            HydraulicLocationCalculationCollectionEntities.Include(e => e.HydraulicLocationCalculationEntities)
+                                                          .Load();
             HydraulicLocationCalculationEntities.Load();
             HydraulicLocationOutputEntities.Load();
             HydraRingPreprocessorEntities.Load();

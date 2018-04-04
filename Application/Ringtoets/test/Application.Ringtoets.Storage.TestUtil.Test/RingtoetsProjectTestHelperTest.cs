@@ -77,6 +77,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(NormType.Signaling, contribution.NormativeNorm);
 
             AssertHydraulicBoundaryDatabase(assessmentSection.HydraulicBoundaryDatabase);
+            AssertHydraulicBoundaryLocationCalculations(assessmentSection);
 
             AssertPipingFailureMechanism(assessmentSection);
 
@@ -290,7 +291,13 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
             Assert.AreEqual(15.0, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
 
-            Assert.AreEqual(2, failureMechanism.HydraulicBoundaryLocations.Count);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[0];
+            AssertHydraulicBoundaryLocationCalculationsWithoutIllustrationPoints(failureMechanism, hydraulicBoundaryLocation);
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocationWithIllustrationPoints = hydraulicBoundaryDatabase.Locations[1];
+            AssertHydraulicBoundaryLocationCalculationWithIllustrationPoints(failureMechanism, hydraulicBoundaryLocationWithIllustrationPoints);
+
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
 
             var firstCalculationGroup = (CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0];
@@ -506,11 +513,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(0.1, innerStochast.Duration, innerStochast.Duration.GetAccuracy());
         }
 
-        #region Hydraulic Boundary Database
-
         private static void AssertHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            Assert.NotNull(hydraulicBoundaryDatabase);
             Assert.AreEqual("1.0", hydraulicBoundaryDatabase.Version);
             Assert.AreEqual("/temp/test", hydraulicBoundaryDatabase.FilePath);
             Assert.IsTrue(hydraulicBoundaryDatabase.CanUsePreprocessor);
@@ -524,63 +528,144 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(152.3, hydraulicBoundaryLocation.Location.X);
             Assert.AreEqual(2938.5, hydraulicBoundaryLocation.Location.Y);
 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation1;
-            Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculation);
-
-            designWaterLevelCalculation = hydraulicBoundaryLocation.DesignWaterLevelCalculation3;
-            Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculation);
-
-            AssertSimpleHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation2);
-            AssertSimpleHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.DesignWaterLevelCalculation4);
-
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = hydraulicBoundaryLocation.WaveHeightCalculation1;
-            Assert.IsFalse(waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculation);
-
-            waveHeightCalculation = hydraulicBoundaryLocation.WaveHeightCalculation3;
-            Assert.IsFalse(waveHeightCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculation);
-
-            AssertSimpleHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation2);
-            AssertSimpleHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation.WaveHeightCalculation4);
-
             HydraulicBoundaryLocation hydraulicBoundaryLocationWithIllustrationPoints = hydraulicBoundaryDatabase.Locations[1];
             Assert.AreEqual(13002, hydraulicBoundaryLocationWithIllustrationPoints.Id);
             Assert.AreEqual("test2", hydraulicBoundaryLocationWithIllustrationPoints.Name);
             Assert.AreEqual(135.2, hydraulicBoundaryLocationWithIllustrationPoints.Location.X);
             Assert.AreEqual(5293.8, hydraulicBoundaryLocationWithIllustrationPoints.Location.Y);
+        }
 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculationWithIllustrationPoints =
-                hydraulicBoundaryLocationWithIllustrationPoints.DesignWaterLevelCalculation1;
+        #region Hydraulic Boundary Location Calculations
+
+        private static void AssertHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection)
+        {
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[0];
+            AssertHydraulicBoundaryLocationCalculationsWithoutIllustrationPoints(assessmentSection, hydraulicBoundaryLocation);
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocationWithIllustrationPoints = hydraulicBoundaryDatabase.Locations[1];
+            AssertHydraulicBoundaryLocationCalculationWithIllustrationPoints(assessmentSection, hydraulicBoundaryLocationWithIllustrationPoints);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationsWithoutIllustrationPoints(AssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
+                                                                                                .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculation);
+
+            designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                                                           .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculation);
+
+            AssertSimpleHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalingNorm
+                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+            AssertSimpleHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm
+                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
+                                                                                          .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculation);
+
+            waveHeightCalculation = assessmentSection.WaveHeightCalculationsForLowerLimitNorm
+                                                     .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculation);
+
+            AssertSimpleHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForSignalingNorm
+                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+            AssertSimpleHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
+                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationsWithoutIllustrationPoints(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                                                               .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculation);
+
+            AssertSimpleHydraulicBoundaryLocationCalculation(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
+                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+            AssertSimpleHydraulicBoundaryLocationCalculation(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
+                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+
+            HydraulicBoundaryLocationCalculation waveHeightCalculation = failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                                                         .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.IsFalse(designWaterLevelCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculation);
+
+            AssertSimpleHydraulicBoundaryLocationCalculation(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
+                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+            AssertSimpleHydraulicBoundaryLocationCalculation(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationWithIllustrationPoints(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculationWithIllustrationPoints = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                                                                                     .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             Assert.IsTrue(designWaterLevelCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculationWithIllustrationPoints);
             AssertGeneralResultTopLevelSubMechanismIllustrationPoint(designWaterLevelCalculationWithIllustrationPoints.Output.GeneralResult);
 
-            designWaterLevelCalculationWithIllustrationPoints =
-                hydraulicBoundaryLocationWithIllustrationPoints.DesignWaterLevelCalculation3;
+            AssertSimpleHydraulicBoundaryLocationCalculation(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
+                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+            AssertSimpleHydraulicBoundaryLocationCalculation(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
+                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+
+            HydraulicBoundaryLocationCalculation waveHeightCalculationWithIllustrationPoints = failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                                                                               .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.IsTrue(waveHeightCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculationWithIllustrationPoints);
+            AssertGeneralResultTopLevelSubMechanismIllustrationPoint(waveHeightCalculationWithIllustrationPoints.Output.GeneralResult);
+
+            AssertSimpleHydraulicBoundaryLocationCalculation(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
+                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+            AssertSimpleHydraulicBoundaryLocationCalculation(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationWithIllustrationPoints(AssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            HydraulicBoundaryLocationCalculation designWaterLevelCalculationWithIllustrationPoints = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
+                                                                                                                      .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             Assert.IsTrue(designWaterLevelCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculationWithIllustrationPoints);
             AssertGeneralResultTopLevelSubMechanismIllustrationPoint(designWaterLevelCalculationWithIllustrationPoints.Output.GeneralResult);
 
-            AssertSimpleHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocationWithIllustrationPoints.DesignWaterLevelCalculation2);
-            AssertSimpleHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocationWithIllustrationPoints.DesignWaterLevelCalculation4);
+            designWaterLevelCalculationWithIllustrationPoints = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                                                                                 .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.IsTrue(designWaterLevelCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
+            AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(designWaterLevelCalculationWithIllustrationPoints);
+            AssertGeneralResultTopLevelSubMechanismIllustrationPoint(designWaterLevelCalculationWithIllustrationPoints.Output.GeneralResult);
 
-            HydraulicBoundaryLocationCalculation waveHeightCalculationWithIllustrationPoints =
-                hydraulicBoundaryLocationWithIllustrationPoints.WaveHeightCalculation1;
+            AssertSimpleHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalingNorm
+                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+            AssertSimpleHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm
+                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+
+            HydraulicBoundaryLocationCalculation waveHeightCalculationWithIllustrationPoints = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
+                                                                                                                .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             Assert.IsTrue(waveHeightCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculationWithIllustrationPoints);
             AssertGeneralResultTopLevelSubMechanismIllustrationPoint(waveHeightCalculationWithIllustrationPoints.Output.GeneralResult);
 
-            waveHeightCalculationWithIllustrationPoints =
-                hydraulicBoundaryLocationWithIllustrationPoints.WaveHeightCalculation3;
+            waveHeightCalculationWithIllustrationPoints = assessmentSection.WaveHeightCalculationsForLowerLimitNorm
+                                                                           .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             Assert.IsTrue(waveHeightCalculationWithIllustrationPoints.InputParameters.ShouldIllustrationPointsBeCalculated);
             AssertHydraulicBoundaryLocationWaveHeightCalculation(waveHeightCalculationWithIllustrationPoints);
             AssertGeneralResultTopLevelSubMechanismIllustrationPoint(waveHeightCalculationWithIllustrationPoints.Output.GeneralResult);
 
-            AssertSimpleHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocationWithIllustrationPoints.WaveHeightCalculation2);
-            AssertSimpleHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocationWithIllustrationPoints.WaveHeightCalculation4);
+            AssertSimpleHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForSignalingNorm
+                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
+            AssertSimpleHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
+                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation)));
         }
 
         private static void AssertSimpleHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation calculation)

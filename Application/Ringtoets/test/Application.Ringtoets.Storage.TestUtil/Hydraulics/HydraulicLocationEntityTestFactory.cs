@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.TestUtil;
 
 namespace Application.Ringtoets.Storage.TestUtil.Hydraulics
 {
@@ -38,28 +36,9 @@ namespace Application.Ringtoets.Storage.TestUtil.Hydraulics
         /// <returns>A valid <see cref="HydraulicLocationEntity"/>.</returns>
         public static HydraulicLocationEntity CreateHydraulicLocationEntity()
         {
-            var random = new Random(21);
             return new HydraulicLocationEntity
             {
-                Name = "A",
-                HydraulicLocationCalculationEntity = CreateCalculationEntity(random.Next()),
-                HydraulicLocationCalculationEntity1 = CreateCalculationEntity(random.Next()),
-                HydraulicLocationCalculationEntity2 = CreateCalculationEntity(random.Next()),
-                HydraulicLocationCalculationEntity3 = CreateCalculationEntity(random.Next()),
-                HydraulicLocationCalculationEntity4 = CreateCalculationEntity(random.Next()),
-                HydraulicLocationCalculationEntity5 = CreateCalculationEntity(random.Next()),
-                HydraulicLocationCalculationEntity6 = CreateCalculationEntity(random.Next()),
-                HydraulicLocationCalculationEntity7 = CreateCalculationEntity(random.Next())
-            };
-        }
-
-        private static HydraulicLocationCalculationEntity CreateCalculationEntity(int seed)
-        {
-            var random = new Random(seed);
-
-            return new HydraulicLocationCalculationEntity
-            {
-                ShouldIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean())
+                Name = "A"
             };
         }
     }

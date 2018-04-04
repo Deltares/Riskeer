@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadHydraulicDatabase(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection, ReadConversionCollector collector)
+        private static void ReadHydraulicDatabase(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
             if (entity.HydraulicDatabaseLocation != null)
             {
@@ -136,11 +136,31 @@ namespace Application.Ringtoets.Storage.Read
                     hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorEntity.PreprocessorDirectory;
                 }
 
-                hydraulicBoundaryDatabase.Locations.AddRange(entity.HydraulicLocationEntities
-                                                                   .OrderBy(hl => hl.Order)
-                                                                   .Select(hle => hle.Read(collector))
-                                                                   .ToArray());
+                HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities
+                                                                                   .OrderBy(hl => hl.Order)
+                                                                                   .Select(hle => hle.Read(collector))
+                                                                                   .ToArray();
+                hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryLocations);
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
+                assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
+
+                entity.ReadHydraulicBoundaryLocationCalculations(assessmentSection, collector);
             }
+        }
+
+        private static void ReadHydraulicBoundaryLocationCalculations(this AssessmentSectionEntity entity,
+                                                                      IAssessmentSection assessmentSection,
+                                                                      ReadConversionCollector collector)
+        {
+            entity.HydraulicLocationCalculationCollectionEntity7.Read(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity6.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity5.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity4.Read(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, collector);
+
+            entity.HydraulicLocationCalculationCollectionEntity3.Read(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity2.Read(assessmentSection.WaveHeightCalculationsForSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, collector);
         }
 
         private static void ReadPipingFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)

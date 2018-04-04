@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Create
 
             if (registry.Contains(location))
             {
-                return registry.Get<HydraulicLocationEntity>(location);
+                return registry.Get(location);
             }
 
             var entity = new HydraulicLocationEntity
@@ -63,88 +63,11 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
-                HydraulicLocationCalculationEntity = location.WaveHeightCalculation4.Create(),
-                HydraulicLocationCalculationEntity1 = location.WaveHeightCalculation3.Create(),
-                HydraulicLocationCalculationEntity2 = location.WaveHeightCalculation2.Create(),
-                HydraulicLocationCalculationEntity3 = location.WaveHeightCalculation1.Create(),
-                HydraulicLocationCalculationEntity4 = location.DesignWaterLevelCalculation4.Create(),
-                HydraulicLocationCalculationEntity5 = location.DesignWaterLevelCalculation3.Create(),
-                HydraulicLocationCalculationEntity6 = location.DesignWaterLevelCalculation2.Create(),
-                HydraulicLocationCalculationEntity7 = location.DesignWaterLevelCalculation1.Create(),
                 Order = order
             };
 
             registry.Register(entity, location);
             return entity;
         }
-
-        #region Grass CoverErosion Outwards HydraulicLocation
-
-        /// <summary>
-        /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> based on the information of the <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        /// <param name="location">The location to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
-        /// <param name="order">Index at which this instance resides inside its parent container.</param>
-        /// <returns>A new <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> or <param name="location"></param> 
-        /// is <c>null</c>.</exception>
-        internal static GrassCoverErosionOutwardsHydraulicLocationEntity CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(
-            this HydraulicBoundaryLocation location, PersistenceRegistry registry, int order)
-        {
-            if (location == null)
-            {
-                throw new ArgumentNullException(nameof(location));
-            }
-
-            if (registry == null)
-            {
-                throw new ArgumentNullException(nameof(registry));
-            }
-
-            if (registry.Contains(location))
-            {
-                return registry.Get<GrassCoverErosionOutwardsHydraulicLocationEntity>(location);
-            }
-
-            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity
-            {
-                LocationId = location.Id,
-                Name = location.Name.DeepClone(),
-                LocationX = location.Location.X.ToNaNAsNull(),
-                LocationY = location.Location.Y.ToNaNAsNull(),
-                ShouldDesignWaterLevelIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.DesignWaterLevelCalculation1),
-                ShouldWaveHeightIllustrationPointsBeCalculated = GetShouldIllustrationPointsBeCalculated(location.WaveHeightCalculation1),
-                Order = order
-            };
-
-            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.DesignWaterLevelCalculation1.Output,
-                                                                   HydraulicLocationOutputType.DesignWaterLevel);
-            CreateGrassCoverErosionOutwardsHydraulicLocationOutput(entity, location.WaveHeightCalculation1.Output,
-                                                                   HydraulicLocationOutputType.WaveHeight);
-
-            registry.Register(entity, location);
-            return entity;
-        }
-
-        private static void CreateGrassCoverErosionOutwardsHydraulicLocationOutput(GrassCoverErosionOutwardsHydraulicLocationEntity entity,
-                                                                                   HydraulicBoundaryLocationOutput output,
-                                                                                   HydraulicLocationOutputType outputType)
-        {
-            if (output != null)
-            {
-                GrassCoverErosionOutwardsHydraulicLocationOutputEntity grassCoverErosionOutwardsHydraulicLocationOutputEntity =
-                    output.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputEntity(outputType);
-
-                entity.GrassCoverErosionOutwardsHydraulicLocationOutputEntities.Add(grassCoverErosionOutwardsHydraulicLocationOutputEntity);
-            }
-        }
-
-        private static byte GetShouldIllustrationPointsBeCalculated(HydraulicBoundaryLocationCalculation calculation)
-        {
-            return Convert.ToByte(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-        }
-
-        #endregion
     }
 }

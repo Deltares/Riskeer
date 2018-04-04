@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -128,7 +129,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             Assert.IsNull(entity.CalculationGroupEntity);
             Assert.AreEqual(0, entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Count);
             Assert.IsNull(entity.ForeshoreProfileEntity);
-            Assert.IsNull(entity.GrassCoverErosionOutwardsHydraulicLocationEntity);
+            Assert.IsNull(entity.HydraulicLocationEntity);
         }
 
         [Test]
@@ -166,11 +167,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
-
-            var registry = new PersistenceRegistry();
-            GrassCoverErosionOutwardsHydraulicLocationEntity hydraulicLocationEntity =
-                hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
-
+            
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
@@ -179,11 +176,15 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
                 }
             };
 
+            HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
+            var registry = new PersistenceRegistry();
+            registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
+
             // Call
             GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreSame(hydraulicLocationEntity, entity.GrassCoverErosionOutwardsHydraulicLocationEntity);
+            Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
         }
 
         [Test]

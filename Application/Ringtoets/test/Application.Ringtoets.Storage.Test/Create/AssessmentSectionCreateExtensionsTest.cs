@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
@@ -184,6 +185,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+
             var registry = new PersistenceRegistry();
 
             // Call
@@ -194,6 +197,77 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.HydraulicDatabaseVersion);
             CollectionAssert.IsEmpty(entity.HydraulicLocationEntities);
             CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
+
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, 
+                                                               entity.HydraulicLocationCalculationCollectionEntity);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, 
+                                                               entity.HydraulicLocationCalculationCollectionEntity1);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForSignalingNorm, 
+                                                               entity.HydraulicLocationCalculationCollectionEntity2);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, 
+                                                               entity.HydraulicLocationCalculationCollectionEntity3);
+
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, 
+                                                               entity.HydraulicLocationCalculationCollectionEntity4);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, 
+                                                               entity.HydraulicLocationCalculationCollectionEntity5);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity6);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, 
+                                                               entity.HydraulicLocationCalculationCollectionEntity7);
+        }
+
+        [Test]
+        public void Create_HydraulicBoundaryDatabaseLinked_SetsExpectedPropertiesToEntity()
+        {
+            // Setup
+            const string testFilePath = "path";
+            const string testVersion = "1";
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = testFilePath,
+                    Version = testVersion,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(-1, "name", 1, 2)
+                    }
+                }
+            };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationCalculationInputsOfAssessmentSection(assessmentSection);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
+
+            // Assert
+            TestHelper.AssertAreEqualButNotSame(testFilePath, entity.HydraulicDatabaseLocation);
+            TestHelper.AssertAreEqualButNotSame(testVersion, entity.HydraulicDatabaseVersion);
+
+            int expectedNrOfHydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.Count;
+            Assert.AreEqual(expectedNrOfHydraulicBoundaryLocations, entity.HydraulicLocationEntities.Count);
+
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity1);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForSignalingNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity2);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity3);
+
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity4);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity5);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity6);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity7);
         }
 
         [Test]
@@ -215,15 +289,13 @@ namespace Application.Ringtoets.Storage.Test.Create
                     }
                 }
             };
+
             var registry = new PersistenceRegistry();
 
             // Call
             AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
-            Assert.AreEqual(testVersion, entity.HydraulicDatabaseVersion);
-            Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
             CollectionAssert.IsEmpty(entity.HydraRingPreprocessorEntities);
         }
 
@@ -251,15 +323,13 @@ namespace Application.Ringtoets.Storage.Test.Create
                     PreprocessorDirectory = preprocessorDirectory
                 }
             };
+
             var registry = new PersistenceRegistry();
 
             // Call
             AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
-            Assert.AreEqual(testVersion, entity.HydraulicDatabaseVersion);
-            Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
             Assert.AreEqual(1, entity.HydraRingPreprocessorEntities.Count);
             HydraRingPreprocessorEntity preprocessorEntity = entity.HydraRingPreprocessorEntities.First();
             Assert.AreEqual(Convert.ToByte(usePreprocessor), preprocessorEntity.UsePreprocessor);
@@ -291,6 +361,48 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             string expectedXml = new Point2DXmlSerializer().ToXml(points);
             Assert.AreEqual(expectedXml, entity.ReferenceLinePointXml);
+        }
+
+        private static void SetHydraulicBoundaryLocationCalculationInputsOfAssessmentSection(AssessmentSection assessmentSection)
+        {
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, 1);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm, 2);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, 3);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, 4);
+
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, 5);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm, 6);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, 7);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, 8);
+        }
+
+        private static void SetHydraulicBoundaryLocationCalculationInputs(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                          int seed)
+        {
+            var random = new Random(seed);
+            foreach (HydraulicBoundaryLocationCalculation calculation in calculations)
+            {
+                calculation.InputParameters.ShouldIllustrationPointsBeCalculated = random.NextBoolean();
+            }
+        }
+
+        private static void AssertHydraulicLocationCalculationCollectionEntity(IEnumerable<HydraulicBoundaryLocationCalculation> expectedCalculations,
+                                                                               HydraulicLocationCalculationCollectionEntity actualCollectionEntity)
+        {
+            Assert.IsNotNull(actualCollectionEntity);
+
+            HydraulicBoundaryLocationCalculation[] expectedCalculationsArray = expectedCalculations.ToArray();
+            ICollection<HydraulicLocationCalculationEntity> hydraulicLocationCalculationEntities = actualCollectionEntity.HydraulicLocationCalculationEntities;
+            Assert.AreEqual(expectedCalculationsArray.Length, hydraulicLocationCalculationEntities.Count);
+
+            var i = 0;
+            foreach (HydraulicLocationCalculationEntity actualCalculationEntity in hydraulicLocationCalculationEntities)
+            {
+                HydraulicBoundaryLocationCalculation expectedCalculation = expectedCalculationsArray[i];
+                Assert.AreEqual(Convert.ToByte(expectedCalculation.InputParameters.ShouldIllustrationPointsBeCalculated),
+                                actualCalculationEntity.ShouldIllustrationPointsBeCalculated);
+                i++;
+            }
         }
     }
 }
