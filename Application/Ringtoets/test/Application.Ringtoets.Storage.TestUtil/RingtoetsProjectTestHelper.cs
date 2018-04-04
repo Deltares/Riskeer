@@ -38,6 +38,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -895,8 +896,13 @@ namespace Application.Ringtoets.Storage.TestUtil
             var firstSectionResultHasCalculation = false;
             foreach (HeightStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
+                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.ManualAssemblyProbability = random.NextDouble();
+
                 if (!firstSectionResultHasCalculation)
                 {
                     sectionResult.Calculation = calculation;
