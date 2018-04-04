@@ -21,9 +21,13 @@
 
 using System;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Util;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Util;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
 {
@@ -32,6 +36,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
     /// </summary>
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter : IFileExporter
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter));
+        private readonly GrassCoverErosionOutwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
         private readonly string filePath;
 
         /// <summary>
@@ -59,12 +66,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
 
             IOUtils.ValidateFilePath(filePath);
 
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
             this.filePath = filePath;
         }
 
         public bool Export()
         {
-            throw new NotImplementedException();
+            try
+            {
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriter.WriteHydraulicBoundaryLocations(
+                    GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
+                        assessmentSection, failureMechanism),
+                    filePath);
+            }
+            catch (CriticalFileWriteException e)
+            {
+                log.ErrorFormat(RingtoetsCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
+                return false;
+            }
+
+            return true;
         }
     }
 }
