@@ -30,9 +30,8 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -152,17 +151,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             const double signalingNorm = 0.002;
             const double lowerLimitNorm = 0.005;
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.FailureMechanismContribution)
-                             .Return(new FailureMechanismContribution(
-                                         Enumerable.Empty<IFailureMechanism>(),
-                                         10,
-                                         lowerLimitNorm,
-                                         signalingNorm))
-                             .Repeat.Any();
-
-            mocks.ReplayAll();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
+            assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             var calculationsGroupContext = new WaveHeightCalculationsGroupContext(locations, assessmentSection);
@@ -183,23 +174,21 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
 
                 Assert.AreEqual("Categorie A+->A", calculationsContexts[0].CategoryBoundaryName);
-                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation1), calculationsContexts[0].WrappedData);
+                Assert.AreSame(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
                 Assert.AreEqual(signalingNorm / 30, calculationsContexts[0].GetNormFunc());
 
                 Assert.AreEqual("Categorie A->B", calculationsContexts[1].CategoryBoundaryName);
-                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation2), calculationsContexts[1].WrappedData);
+                Assert.AreSame(assessmentSection.WaveHeightCalculationsForSignalingNorm, calculationsContexts[1].WrappedData);
                 Assert.AreEqual(signalingNorm, calculationsContexts[1].GetNormFunc());
 
                 Assert.AreEqual("Categorie B->C", calculationsContexts[2].CategoryBoundaryName);
-                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation3), calculationsContexts[2].WrappedData);
+                Assert.AreSame(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, calculationsContexts[2].WrappedData);
                 Assert.AreEqual(lowerLimitNorm, calculationsContexts[2].GetNormFunc());
 
                 Assert.AreEqual("Categorie C->D", calculationsContexts[3].CategoryBoundaryName);
-                CollectionAssert.AreEqual(locations.Select(loc => loc.WaveHeightCalculation4), calculationsContexts[3].WrappedData);
+                Assert.AreSame(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, calculationsContexts[3].WrappedData);
                 Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[3].GetNormFunc());
             }
-
-            mocks.VerifyAll();
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)

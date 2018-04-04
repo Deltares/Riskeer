@@ -1972,19 +1972,19 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation1),
+                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
                                                         RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
-                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation2),
+                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
                                                         RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
-                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation3),
+                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
                                                         RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
-                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation4),
+                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
                                                         RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
@@ -1995,19 +1995,19 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new WaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation1),
+                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
                                                   RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
-                new WaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation2),
+                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
                                                   RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
-                new WaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation3),
+                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
                                                   RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
-                new WaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation4),
+                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
                                                   RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
