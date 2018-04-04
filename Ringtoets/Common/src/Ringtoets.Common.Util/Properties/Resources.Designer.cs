@@ -100,6 +100,78 @@ namespace Ringtoets.Common.Util.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h(C-&gt;D).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForFactorizedLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForFactorizedLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(A+-&gt;A).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForFactorizedSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForFactorizedSignalingNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(B-&gt;C).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to h(A-&gt;B).
+        /// </summary>
+        public static string MetaData_WaterLevelCalculationForSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculationForSignalingNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(C-&gt;D).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForFactorizedLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForFactorizedLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(A+-&gt;A).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForFactorizedSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForFactorizedSignalingNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(B-&gt;C).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForLowerLimit {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForLowerLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs(A-&gt;B).
+        /// </summary>
+        public static string MetaData_WaveHeightCalculationForSignalingNorm {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeightCalculationForSignalingNorm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is geen geldige Ringtoets versie..
         /// </summary>
         public static string RingtoetsVersionHelper_Version_0_Not_Valid {
