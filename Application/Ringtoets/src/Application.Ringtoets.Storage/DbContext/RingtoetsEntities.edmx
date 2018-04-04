@@ -171,8 +171,12 @@
           <Property Name="ClosingStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="ClosingStructuresCalculationEntityId" Type="integer" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="real" />
+          <Property Name="UseManualAssemblyProbability" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="real" />
         </EntityType>
         <EntityType Name="DikeProfileEntity">
           <Key>
@@ -421,8 +425,12 @@
           <Property Name="GrassCoverErosionInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="integer" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="real" />
+          <Property Name="UseManualAssemblyProbability" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="real" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
           <Key>
@@ -1233,8 +1241,12 @@
           <Property Name="StabilityPointStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="StabilityPointStructuresCalculationEntityId" Type="integer" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="real" />
+          <Property Name="UseManualAssemblyProbability" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="real" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverFailureMechanismMetaEntity">
           <Key>
@@ -4622,7 +4634,7 @@
           <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities4" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_4_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities5" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_5_0" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="HydraulicLocationCalculationEntities" Relationship="RingtoetsEntitiesModel.HydraulicLocationCalculationCollectionToHydraulicCalculationEntity" FromRole="HydraulicLocationCalculationCollectionEntity" ToRole="HydraulicLocationCalculationEntity" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="MacroStabilityOutwardsFailureMechanismMetaEntity">
           <Key>
             <PropertyRef Name="MacroStabilityOutwardsFailureMechanismMetaEntityId" />
@@ -4857,8 +4869,12 @@
           <Property Name="ClosingStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="ClosingStructuresCalculationEntityId" Type="Int64" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="Double" />
+          <Property Name="UseManualAssemblyProbability" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="Double" />
           <NavigationProperty Name="ClosingStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_1_0" FromRole="ClosingStructuresSectionResultEntity" ToRole="ClosingStructuresCalculationEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_0_0" FromRole="ClosingStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -5163,8 +5179,12 @@
           <Property Name="GrassCoverErosionInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="Int64" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="Double" />
+          <Property Name="UseManualAssemblyProbability" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_1_0" FromRole="GrassCoverErosionInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0" FromRole="GrassCoverErosionInwardsSectionResultEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
         </EntityType>
@@ -6027,8 +6047,12 @@
           <Property Name="StabilityPointStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="StabilityPointStructuresCalculationEntityId" Type="Int64" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="Double" />
+          <Property Name="UseManualAssemblyProbability" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_1_0" FromRole="StabilityPointStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="StabilityPointStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0" FromRole="StabilityPointStructuresSectionResultEntity" ToRole="StabilityPointStructuresCalculationEntity" />
         </EntityType>
@@ -8169,8 +8193,12 @@
           <EntitySetMapping Name="ClosingStructuresSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity">
               <MappingFragment StoreEntitySet="ClosingStructuresSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyProbability" ColumnName="ManualAssemblyProbability" />
+                <ScalarProperty Name="UseManualAssemblyProbability" ColumnName="UseManualAssemblyProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentProbability" ColumnName="TailorMadeAssessmentProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="ClosingStructuresCalculationEntityId" ColumnName="ClosingStructuresCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="ClosingStructuresSectionResultEntityId" ColumnName="ClosingStructuresSectionResultEntityId" />
@@ -8404,8 +8432,12 @@
           <EntitySetMapping Name="GrassCoverErosionInwardsSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionInwardsSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyProbability" ColumnName="ManualAssemblyProbability" />
+                <ScalarProperty Name="UseManualAssemblyProbability" ColumnName="UseManualAssemblyProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentProbability" ColumnName="TailorMadeAssessmentProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="GrassCoverErosionInwardsCalculationEntityId" ColumnName="GrassCoverErosionInwardsCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="GrassCoverErosionInwardsSectionResultEntityId" ColumnName="GrassCoverErosionInwardsSectionResultEntityId" />
@@ -9211,8 +9243,12 @@
           <EntitySetMapping Name="StabilityPointStructuresSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityPointStructuresSectionResultEntity">
               <MappingFragment StoreEntitySet="StabilityPointStructuresSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyProbability" ColumnName="ManualAssemblyProbability" />
+                <ScalarProperty Name="UseManualAssemblyProbability" ColumnName="UseManualAssemblyProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentProbability" ColumnName="TailorMadeAssessmentProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="StabilityPointStructuresCalculationEntityId" ColumnName="StabilityPointStructuresCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="StabilityPointStructuresSectionResultEntityId" ColumnName="StabilityPointStructuresSectionResultEntityId" />
