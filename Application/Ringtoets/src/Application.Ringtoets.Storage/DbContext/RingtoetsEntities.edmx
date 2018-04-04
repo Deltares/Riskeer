@@ -596,8 +596,12 @@
           <Property Name="HeightStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="HeightStructuresCalculationEntityId" Type="integer" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="real" />
+          <Property Name="UseManualAssemblyProbability" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="real" />
         </EntityType>
         <EntityType Name="HydraRingPreprocessorEntity">
           <Key>
@@ -5362,8 +5366,12 @@
           <Property Name="HeightStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="HeightStructuresCalculationEntityId" Type="Int64" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="Double" />
+          <Property Name="UseManualAssemblyProbability" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_1_0" FromRole="HeightStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_0_0" FromRole="HeightStructuresSectionResultEntity" ToRole="HeightStructuresCalculationEntity" />
         </EntityType>
@@ -8582,8 +8590,12 @@
           <EntitySetMapping Name="HeightStructuresSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity">
               <MappingFragment StoreEntitySet="HeightStructuresSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyProbability" ColumnName="ManualAssemblyProbability" />
+                <ScalarProperty Name="UseManualAssemblyProbability" ColumnName="UseManualAssemblyProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentProbability" ColumnName="TailorMadeAssessmentProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="HeightStructuresCalculationEntityId" ColumnName="HeightStructuresCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="HeightStructuresSectionResultEntityId" ColumnName="HeightStructuresSectionResultEntityId" />
