@@ -60,6 +60,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
+
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
