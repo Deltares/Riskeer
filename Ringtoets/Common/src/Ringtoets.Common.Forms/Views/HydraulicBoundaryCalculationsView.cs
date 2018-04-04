@@ -39,9 +39,9 @@ namespace Ringtoets.Common.Forms.Views
     public abstract partial class HydraulicBoundaryCalculationsView : CalculationsView<HydraulicBoundaryLocationCalculation>
     {
         private readonly Observer calculationsObserver;
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationObserver;
 
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> calculations;
+        private readonly IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryCalculationsView"/>.
@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <param name="calculations">The calculations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+        protected HydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                     IAssessmentSection assessmentSection)
         {
             if (calculations == null)
@@ -65,7 +65,7 @@ namespace Ringtoets.Common.Forms.Views
             AssessmentSection = assessmentSection;
 
             calculationsObserver = new Observer(UpdateDataGridViewDataSource);
-            calculationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(HandleHydraulicBoundaryLocationCalculationUpdate, list => list);
+            calculationObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(HandleHydraulicBoundaryLocationCalculationUpdate, hblc => hblc);
 
             this.calculations = calculations;
 
