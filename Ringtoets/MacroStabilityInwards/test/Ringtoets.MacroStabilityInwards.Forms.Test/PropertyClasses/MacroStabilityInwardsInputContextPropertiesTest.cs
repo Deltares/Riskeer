@@ -407,14 +407,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                                                        stochasticSoilProfile
                                                                                                    });
 
-            HydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(0.0);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
                     UseAssessmentLevelManualInput = useManualAssessmentLevelInput,
-                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation,
+                    AssessmentLevel = random.NextRoundedDouble(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = stochasticSoilModel,
                     StochasticSoilProfile = stochasticSoilProfile
@@ -438,7 +439,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                         ? inputParameters.AssessmentLevel
                                                         : GetTestNormativeAssessmentLevel();
             Assert.AreEqual(expectedAssessmentLevel, properties.AssessmentLevel);
-            Assert.AreSame(testHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
 
             Assert.AreSame(surfaceLine, properties.SurfaceLine);

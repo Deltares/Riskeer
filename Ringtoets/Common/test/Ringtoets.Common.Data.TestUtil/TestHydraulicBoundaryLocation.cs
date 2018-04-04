@@ -74,29 +74,5 @@ namespace Ringtoets.Common.Data.TestUtil
         {
             return new TestHydraulicBoundaryLocation(4.5, 5.5);
         }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with
-        /// <see cref="HydraulicBoundaryLocationCalculation.Output"/> set for
-        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation1"/>.
-        /// </summary>
-        /// <param name="designWaterLevel">The design water level result to set in the output.</param>
-        /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
-        public static TestHydraulicBoundaryLocation CreateDesignWaterLevelCalculated(double designWaterLevel)
-        {
-            return new TestHydraulicBoundaryLocation(designWaterLevel, null);
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with
-        /// <see cref="HydraulicBoundaryLocationCalculation.Output"/> set for
-        /// <see cref="HydraulicBoundaryLocation.WaveHeightCalculation1"/>.
-        /// </summary>
-        /// <param name="waveHeight">The wave height result to set in the output.</param>
-        /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
-        public static TestHydraulicBoundaryLocation CreateWaveHeightCalculated(double waveHeight)
-        {
-            return new TestHydraulicBoundaryLocation(null, waveHeight);
-        }
     }
 }
