@@ -24,11 +24,10 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.HeightStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
@@ -37,7 +36,18 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
     public class HeightStructuresFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultCreateExtensions.Create(null, new PersistenceRegistry());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -55,38 +65,52 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         {
             // Setup
             var random = new Random(21);
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
+            bool useManualAssemblyProbability = random.NextBoolean();
+            double manualAssemblyProbability = random.NextDouble();
 
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability
+                SimpleAssessmentResult = simpleAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
+                UseManualAssemblyProbability = useManualAssemblyProbability,
+                ManualAssemblyProbability = manualAssemblyProbability
             };
 
             // Call
-            HeightStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
+            HeightStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(tailorMadeAssessmentProbability, result.LayerThree);
-            Assert.IsNull(result.HeightStructuresCalculationEntityId);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
+            Assert.AreEqual(Convert.ToByte(useManualAssemblyProbability), entity.UseManualAssemblyProbability);
+            Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
+            Assert.IsNull(entity.HeightStructuresCalculationEntityId);
         }
 
         [Test]
-        public void Create_WithNaNTailorMadeAssessmentProbability_ReturnsEntityWithExpectedResults()
+        public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = double.NaN
+                TailorMadeAssessmentProbability = double.NaN,
+                ManualAssemblyProbability = double.NaN
             };
 
             // Call
-            HeightStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
+            HeightStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsNull(result.LayerThree);
+            Assert.IsNull(entity.TailorMadeAssessmentProbability);
+            Assert.IsNull(entity.ManualAssemblyProbability);
         }
 
         [Test]
@@ -100,14 +124,14 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             };
 
             var registry = new PersistenceRegistry();
-            var entity = new HeightStructuresCalculationEntity();
-            registry.Register(entity, calculation);
+            var calculationEntity = new HeightStructuresCalculationEntity();
+            registry.Register(calculationEntity, calculation);
 
             // Call
-            HeightStructuresSectionResultEntity result = sectionResult.Create(registry);
+            HeightStructuresSectionResultEntity entity = sectionResult.Create(registry);
 
             // Assert
-            Assert.AreSame(entity, result.HeightStructuresCalculationEntity);
+            Assert.AreSame(calculationEntity, entity.HeightStructuresCalculationEntity);
         }
     }
 }
