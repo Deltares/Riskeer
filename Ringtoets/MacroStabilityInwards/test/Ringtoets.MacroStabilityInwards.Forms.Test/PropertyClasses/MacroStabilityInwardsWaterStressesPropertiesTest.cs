@@ -253,7 +253,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
             // Call

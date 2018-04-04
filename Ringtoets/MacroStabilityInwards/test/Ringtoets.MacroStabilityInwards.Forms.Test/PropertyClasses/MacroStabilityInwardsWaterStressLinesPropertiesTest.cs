@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -72,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters, assessmentLevel);
 
@@ -93,7 +94,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void WaternetDaily_ValidWaternet_ExpectedValue()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters, GetTestNormativeAssessmentLevel());
 

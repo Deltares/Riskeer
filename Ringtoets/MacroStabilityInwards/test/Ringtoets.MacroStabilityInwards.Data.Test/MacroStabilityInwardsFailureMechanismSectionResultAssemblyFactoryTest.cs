@@ -44,7 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
-       private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection,
+        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection,
                                                           AssemblyCategoriesCalculatorStub categoryCalculator,
                                                           MacroStabilityInwardsFailureMechanism failureMechanism)
         {
