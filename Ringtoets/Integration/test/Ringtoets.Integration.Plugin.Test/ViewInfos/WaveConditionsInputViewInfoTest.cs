@@ -520,10 +520,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 DesignWaterLevelCalculation1 =
                 {
                     Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel1)
-                },
-                DesignWaterLevelCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel2)
                 }
             };
 
@@ -533,6 +529,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             };
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel2);
 
             yield return new TestCaseData(
                     new GrassCoverErosionOutwardsWaveConditionsInputContext(
