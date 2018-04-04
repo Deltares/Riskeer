@@ -183,9 +183,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 stochasticSoilModel2
             }, arbitraryFilePath);
 
-            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "test", 3.0, 4.0);
+
+            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation1);
             calculationA.InputParameters.SurfaceLine = surfaceLineA;
-            MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation2);
             calculationB.InputParameters.SurfaceLine = surfaceLineB;
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
@@ -201,9 +204,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
             });
 
             // Call
@@ -500,7 +505,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             });
             surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
 
-            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculationA.InputParameters.SurfaceLine = surfaceLineA;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -518,7 +523,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 });
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-                MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
                 calculationB.InputParameters.SurfaceLine = surfaceLineB;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
@@ -550,7 +555,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             });
             surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
 
-            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculationA.InputParameters.SurfaceLine = surfaceLineA;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -597,7 +602,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             });
             surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
 
-            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculationA.InputParameters.SurfaceLine = surfaceLineA;
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

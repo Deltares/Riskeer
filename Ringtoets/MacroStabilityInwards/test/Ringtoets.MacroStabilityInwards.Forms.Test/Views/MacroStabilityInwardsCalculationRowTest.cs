@@ -24,7 +24,6 @@ using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
@@ -78,7 +77,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
 
             // Call
             var row = new MacroStabilityInwardsCalculationRow(calculation, handler);
@@ -89,7 +90,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             Assert.AreSame(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreSame(calculation.InputParameters.StochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
             Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability.ToString(CultureInfo.CurrentCulture), row.StochasticSoilProfileProbability);
-            Assert.AreSame(calculation.InputParameters.HydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
             mocks.VerifyAll();
         }
 
@@ -127,7 +128,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             const string newValue = "Test new name";
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
             var row = new MacroStabilityInwardsCalculationRow(calculation, handler);
 
             calculation.Attach(observer);
@@ -274,21 +275,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 inputObserver.Expect(o => o.UpdateObserver());
             }
+
             var calculationObserver = mockRepository.StrictMock<IObserver>();
             if (expectUpdates && hasOutput)
             {
                 calculationObserver.Expect(o => o.UpdateObserver());
             }
+
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             MacroStabilityInwardsOutput assignedOutput = null;
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             if (hasOutput)
             {
                 assignedOutput = MacroStabilityInwardsOutputTestFactory.CreateOutput();
             }
+
             calculation.Output = assignedOutput;
 
             var row = new MacroStabilityInwardsCalculationRow(calculation, handler);
@@ -308,34 +312,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             {
                 Assert.AreSame(assignedOutput, calculation.Output);
             }
+
             mockRepository.VerifyAll();
-        }
-
-        private static void SetPropertyToInvalidValueAndVerifyException(
-            Action<MacroStabilityInwardsCalculationRow> setProperty,
-            MacroStabilityInwardsCalculationScenario calculation,
-            string expectedMessage)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(
-                new[]
-                {
-                    observable
-                });
-
-            var row = new MacroStabilityInwardsCalculationRow(calculation, handler);
-
-            // Call
-            TestDelegate test = () => setProperty(row);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-            Assert.IsTrue(handler.Called);
-            mocks.VerifyAll();
         }
 
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
