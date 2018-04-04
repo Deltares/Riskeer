@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -35,6 +36,54 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class RingtoetsCommonDataSynchronizationServiceTest
     {
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculationOutput_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculationOutput_CalculationsWithAndWithoutOutput_ClearsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var calculationWithOutput1 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+            };
+
+            var calculationWithOutput2 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+            };
+
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                calculationWithOutput1,
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                calculationWithOutput2,
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedCalculations = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculations);
+
+            // Assert
+            Assert.IsTrue(calculations.All(c => c.Output == null));
+            CollectionAssert.AreEqual(new[]
+            {
+                calculationWithOutput1,
+                calculationWithOutput2
+            }, affectedCalculations);
+        }
+
         [Test]
         public void ClearHydraulicBoundaryLocationOutput_LocationsNull_ThrowsArgumentNullException()
         {
