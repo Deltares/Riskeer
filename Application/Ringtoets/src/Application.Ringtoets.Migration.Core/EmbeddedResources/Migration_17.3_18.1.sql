@@ -287,6 +287,21 @@ For grass cover erosion outwards:
 - The wave height failure mechanism specific signaling norm = 12.
 - The wave height failure mechanism specific lower limit norm = 13.
 */
+CREATE TEMP TABLE TempCalculationTypes ( 'CalculationType' TINYINT (1) NOT NULL);
+INSERT INTO TempCalculationTypes VALUES (0);
+INSERT INTO TempCalculationTypes VALUES (1);
+INSERT INTO TempCalculationTypes VALUES (2);
+INSERT INTO TempCalculationTypes VALUES (3);
+INSERT INTO TempCalculationTypes VALUES (4);
+INSERT INTO TempCalculationTypes VALUES (5);
+INSERT INTO TempCalculationTypes VALUES (6);
+INSERT INTO TempCalculationTypes VALUES (7);
+INSERT INTO TempCalculationTypes VALUES (8);
+INSERT INTO TempCalculationTypes VALUES (9);
+INSERT INTO TempCalculationTypes VALUES (10);
+INSERT INTO TempCalculationTypes VALUES (11);
+INSERT INTO TempCalculationTypes VALUES (12);
+INSERT INTO TempCalculationTypes VALUES (13);
 
 -- Migrate the hydraulic boundary location calculations on assessment section level
 -- Create the calculation entities
@@ -304,7 +319,6 @@ CREATE TEMP TABLE TempHydraulicLocationCalculationEntity
 );
 
 -- Create the calculations for the Hydraulic Boundary Locations on AssessmentSection level
--- UNION ALL is used to repeate the operation for the calculations eight times
 INSERT INTO TempHydraulicLocationCalculationEntity (
 	[HydraulicLocationEntityId],
 	[AssessmentSectionEntityId],
@@ -312,116 +326,33 @@ INSERT INTO TempHydraulicLocationCalculationEntity (
 SELECT
 	[HydraulicLocationEntityId],
 	[AssessmentSectionEntityId],
-	0
+	[CalculationType]
 FROM HydraulicLocationEntity
-UNION ALL
-SELECT
-	[HydraulicLocationEntityId],
-	[AssessmentSectionEntityId],
-	1
-FROM HydraulicLocationEntity
-UNION ALL
-SELECT
-	[HydraulicLocationEntityId],
-	[AssessmentSectionEntityId],
-	2
-FROM HydraulicLocationEntity
-UNION ALL
-SELECT
-	[HydraulicLocationEntityId],
-	[AssessmentSectionEntityId],
-	3
-FROM HydraulicLocationEntity
-UNION ALL
-SELECT
-	[HydraulicLocationEntityId],
-	[AssessmentSectionEntityId],
-	4
-FROM HydraulicLocationEntity
-UNION ALL
-SELECT
-	[HydraulicLocationEntityId],
-	[AssessmentSectionEntityId],
-	5
-FROM HydraulicLocationEntity
-UNION ALL
-SELECT
-	[HydraulicLocationEntityId],
-	[AssessmentSectionEntityId],
-	6
-FROM HydraulicLocationEntity
-UNION ALL
-SELECT
-	[HydraulicLocationEntityId],
-	[AssessmentSectionEntityId],
-	7
-FROM HydraulicLocationEntity;
+JOIN (
+	SELECT * 
+	FROM TempCalculationTypes
+	WHERE CalculationType >= 0 AND CalculationType <= 7
+);
 
 -- Create the calculations for the Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism level
--- Note: it is assumed that the HBL entities of the grass cover erosion outwards failure mechanism have the same PK value
--- as the HBL entities on assessment section level.
--- Otherwise, joints will have to be used for each
+-- Note: it is assumed that the HBL entities of the grass cover erosion outwards failure mechanism have the same PK value 
+-- as the HBL entities on assessment section level. Otherwise a join needs to be done on each column to find matching results
 INSERT INTO TempHydraulicLocationCalculationEntity (
 	[HydraulicLocationEntityId],
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
 	[CalculationType])
 SELECT
-	GrassCoverErosionOutwardsHydraulicLocationEntityId,
-	GrassCoverErosionOutwardsFailureMechanismMetaEntityId,
-	8
+	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
+	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId], 
+	[CalculationType]
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
 JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId)
 JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING (FailureMechanismEntityId)
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	9
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
-JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId)
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING (FailureMechanismEntityId)
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	10
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
-JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId)
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING (FailureMechanismEntityId)
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	11
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
-JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId)
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING (FailureMechanismEntityId)
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	12
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
-JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId)
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING (FailureMechanismEntityId)
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	13
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
-JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId)
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING (FailureMechanismEntityId);
+JOIN (
+	SELECT * 
+	FROM TempCalculationTypes
+	WHERE CalculationType >= 8 AND CalculationType <= 13
+);
 
 INSERT INTO HydraulicLocationCalculationEntity (
 	[HydraulicLocationCalculationEntityId],
@@ -451,86 +382,26 @@ INSERT INTO TempHydraulicLocationCalculationCollectionEntity (
 	[CalculationType])
 SELECT
 	[AssessmentSectionEntityId],
-	0
+	[CalculationType]
 FROM [SOURCEPROJECT].AssessmentSectionEntity
-UNION ALL
-SELECT
-	[AssessmentSectionEntityId],
-	1
-FROM [SOURCEPROJECT].AssessmentSectionEntity
-UNION ALL
-SELECT
-	[AssessmentSectionEntityId],
-	2
-FROM [SOURCEPROJECT].AssessmentSectionEntity
-UNION ALL
-SELECT
-	[AssessmentSectionEntityId],
-	3
-FROM [SOURCEPROJECT].AssessmentSectionEntity
-UNION ALL
-SELECT
-	[AssessmentSectionEntityId],
-	4
-FROM [SOURCEPROJECT].AssessmentSectionEntity
-UNION ALL
-SELECT
-	[AssessmentSectionEntityId],
-	5
-FROM [SOURCEPROJECT].AssessmentSectionEntity
-UNION ALL
-SELECT
-	[AssessmentSectionEntityId],
-	6
-FROM [SOURCEPROJECT].AssessmentSectionEntity
-UNION ALL
-SELECT
-	[AssessmentSectionEntityId],
-	7
-FROM [SOURCEPROJECT].AssessmentSectionEntity;
+JOIN (
+	SELECT * 
+	FROM TempCalculationTypes
+	WHERE CalculationType >= 0 AND CalculationType <= 7
+);
 
 INSERT INTO TempHydraulicLocationCalculationCollectionEntity (
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
 	[CalculationType])
 SELECT
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	8
+	[CalculationType]
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	9
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	10
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	11
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	12
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
-
-UNION ALL
-
-SELECT
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	13
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
+JOIN (
+	SELECT * 
+	FROM TempCalculationTypes
+	WHERE CalculationType >= 8 AND CalculationType <= 13
+);
 
 INSERT INTO HydraulicLocationCalculationCollectionEntity (
 	[HydraulicLocationCalculationCollectionEntityId])
@@ -1013,6 +884,7 @@ JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity USIN
 WHERE NormativeNormType = 1 AND HydraulicLocationOutputType = 2;
 
 -- Cleanup
+DROP TABLE TempCalculationTypes;
 DROP TABLE TempHydraulicLocationCalculationEntity;
 DROP TABLE TempHydraulicLocationCalculationCollectionEntity;
 
