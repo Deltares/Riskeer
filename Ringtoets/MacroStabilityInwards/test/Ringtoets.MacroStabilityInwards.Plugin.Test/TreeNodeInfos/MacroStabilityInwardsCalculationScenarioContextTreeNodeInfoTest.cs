@@ -518,6 +518,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                         {
                             Assert.AreEqual(Level.Error, tupleArray[2 + i].Item2);
                         }
+
                         CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs[6]);
                     });
@@ -576,13 +577,20 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+                MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 failureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0)
                 }));
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
                 var calculationContext = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                              new CalculationGroup(),
