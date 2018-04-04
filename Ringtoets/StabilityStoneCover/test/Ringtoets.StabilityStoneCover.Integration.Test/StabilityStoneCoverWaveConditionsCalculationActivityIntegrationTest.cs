@@ -39,7 +39,6 @@ using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.Integration.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service;
@@ -58,7 +57,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -98,7 +97,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
@@ -141,7 +140,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -191,7 +190,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             const int nrOfCalculators = 6;
 
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             calculation.InputParameters.BreakWater.Type = breakWaterType;
 
@@ -268,7 +267,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -324,7 +323,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -393,7 +392,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -435,7 +434,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -477,7 +476,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -516,7 +515,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -551,7 +550,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -585,7 +584,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -622,7 +621,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation();
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput(calculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -673,11 +672,9 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             };
         }
 
-        private static AssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            hydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output = new TestHydraulicBoundaryLocationOutput(9.3);
-
-            return new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {
@@ -692,9 +689,18 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     }
                 }
             };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(9.3);
+
+            return assessmentSection;
         }
 
-        private static IEnumerable<RoundedDouble> GetWaterLevels(StabilityStoneCoverWaveConditionsCalculation calculation, AssessmentSection assessmentSection)
+        private static IEnumerable<RoundedDouble> GetWaterLevels(StabilityStoneCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection)
         {
             return calculation.InputParameters.GetWaterLevels(assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
         }
