@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a wave height calculation result.
     /// </summary>
-    public class WaveHeightCalculationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>
+    public class WaveHeightCalculationsContext : ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationsContext"/>.
@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="assessmentSection"/> or
         /// <paramref name="getNormFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        public WaveHeightCalculationsContext(ObservableList<HydraulicBoundaryLocationCalculation> wrappedData,
+        public WaveHeightCalculationsContext(IObservableEnumerable<HydraulicBoundaryLocationCalculation> wrappedData,
                                              IAssessmentSection assessmentSection,
                                              Func<double> getNormFunc,
                                              string categoryBoundaryName)
@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// </summary>
         public string CategoryBoundaryName { get; }
 
-        public override bool Equals(WrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>> other)
+        public override bool Equals(WrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>> other)
         {
             return base.Equals(other)
                    && other is WaveHeightCalculationsContext
