@@ -96,14 +96,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.AreEqual(2, failureMechanism.HydraulicBoundaryLocations.Count);
-
-            for (var i = 0; i < locations.Length; i++)
-            {
-                Assert.AreEqual(locations[i].Id, failureMechanism.HydraulicBoundaryLocations[i].Id);
-                Assert.AreEqual(locations[i].Name, failureMechanism.HydraulicBoundaryLocations[i].Name);
-                Assert.AreEqual(locations[i].Location.X, failureMechanism.HydraulicBoundaryLocations[i].Location.X);
-                Assert.AreEqual(locations[i].Location.Y, failureMechanism.HydraulicBoundaryLocations[i].Location.Y);
-            }
+            CollectionAssert.AreEqual(locations, failureMechanism.HydraulicBoundaryLocations);
         }
     }
 }
