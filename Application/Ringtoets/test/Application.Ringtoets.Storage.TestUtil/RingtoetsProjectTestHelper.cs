@@ -630,8 +630,13 @@ namespace Application.Ringtoets.Storage.TestUtil
             var firstSectionResultHasCalculation = false;
             foreach (StabilityPointStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
+                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.ManualAssemblyProbability = random.NextDouble();
+
                 if (!firstSectionResultHasCalculation)
                 {
                     sectionResult.Calculation = calculation;
@@ -745,8 +750,13 @@ namespace Application.Ringtoets.Storage.TestUtil
             var firstSectionResultHasCalculation = false;
             foreach (ClosingStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
+                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.ManualAssemblyProbability = random.NextDouble();
+
                 if (!firstSectionResultHasCalculation)
                 {
                     sectionResult.Calculation = calculation;
@@ -1792,8 +1802,13 @@ namespace Application.Ringtoets.Storage.TestUtil
             var firstSectionResultHasCalculation = false;
             foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
+                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.ManualAssemblyProbability = random.NextDouble();
+
                 if (!firstSectionResultHasCalculation)
                 {
                     sectionResult.Calculation = calculation;
