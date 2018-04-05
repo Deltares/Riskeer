@@ -161,17 +161,14 @@ namespace Ringtoets.Integration.TestUtil.Test
 
         private static void AssertHydraulicBoundaryLocationOutput(AssessmentSection assessmentSection, bool hasOutput)
         {
-            foreach (HydraulicBoundaryLocation location in assessmentSection.HydraulicBoundaryDatabase.Locations)
-            {
-                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation1.HasOutput);
-                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation2.HasOutput);
-                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation3.HasOutput);
-                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation4.HasOutput);
-                Assert.AreEqual(hasOutput, location.WaveHeightCalculation1.HasOutput);
-                Assert.AreEqual(hasOutput, location.WaveHeightCalculation2.HasOutput);
-                Assert.AreEqual(hasOutput, location.WaveHeightCalculation3.HasOutput);
-                Assert.AreEqual(hasOutput, location.WaveHeightCalculation4.HasOutput);
-            }
+            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForSignalingNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForSignalingNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForLowerLimitNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.All(c => !c.HasOutput));
 
             foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
             {

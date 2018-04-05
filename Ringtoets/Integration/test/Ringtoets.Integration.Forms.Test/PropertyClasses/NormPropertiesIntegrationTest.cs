@@ -335,12 +335,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                            bool expectUpdateObserver = true)
         {
             AttachObserver(mockRepository,
-                           assessmentSection.WaterLevelCalculationsForSignalingNorm
+                           assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
                                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
                            expectUpdateObserver);
 
             AttachObserver(mockRepository,
-                           assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                           assessmentSection.WaterLevelCalculationsForSignalingNorm
                                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
                            expectUpdateObserver);
 
@@ -355,12 +355,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                            expectUpdateObserver);
 
             AttachObserver(mockRepository,
-                           assessmentSection.WaveHeightCalculationsForSignalingNorm
+                           assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
                                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
                            expectUpdateObserver);
 
             AttachObserver(mockRepository,
-                           assessmentSection.WaveHeightCalculationsForLowerLimitNorm
+                           assessmentSection.WaveHeightCalculationsForSignalingNorm
                                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
                            expectUpdateObserver);
 
