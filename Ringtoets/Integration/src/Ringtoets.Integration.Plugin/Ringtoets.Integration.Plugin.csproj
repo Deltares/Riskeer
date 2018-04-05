@@ -244,6 +244,11 @@
       <Name>Ringtoets.Integration.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.IO\Ringtoets.Integration.IO.csproj">
+      <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
+      <Name>Ringtoets.Integration.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
       <Project>{28811c4a-6c18-42c1-88b2-a03a3784e2d0}</Project>
       <Name>Ringtoets.Integration.Service</Name>

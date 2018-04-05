@@ -59,7 +59,6 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.HydraRing;
-using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
@@ -86,9 +85,9 @@ using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using Ringtoets.Integration.IO.Exporters;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.Integration.Plugin.MetaDataAttributeNameProviders;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -625,8 +624,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
-                    context.WrappedData.Locations, filePath, new HydraulicBoundaryLocationMetaDataAttributeNameProvider()),
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.AssessmentSection, filePath),
                 IsEnabled = context => context.WrappedData.IsLinked(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
