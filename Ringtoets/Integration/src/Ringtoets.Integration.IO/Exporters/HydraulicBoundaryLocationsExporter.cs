@@ -21,8 +21,12 @@
 
 using System;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Util;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Util;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.IO.Exporters
 {
@@ -31,6 +35,7 @@ namespace Ringtoets.Integration.IO.Exporters
     /// </summary>
     public class HydraulicBoundaryLocationsExporter : IFileExporter
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsExporter));
         private readonly IAssessmentSection assessmentSection;
         private readonly string filePath;
 
@@ -57,7 +62,19 @@ namespace Ringtoets.Integration.IO.Exporters
 
         public bool Export()
         {
-            throw new NotImplementedException();
+            try
+            {
+                HydraulicBoundaryLocationsWriter.WriteHydraulicBoundaryLocations(
+                    AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection),
+                    filePath);
+            }
+            catch (CriticalFileWriteException e)
+            {
+                log.ErrorFormat(RingtoetsCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
+                return false;
+            }
+
+            return true;
         }
     }
 }
