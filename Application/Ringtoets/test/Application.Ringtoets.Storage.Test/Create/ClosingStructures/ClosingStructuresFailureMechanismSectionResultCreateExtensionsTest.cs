@@ -24,18 +24,28 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.ClosingStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismSectionResultCreateExtensionsTest
     {
+        [Test]
+        public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((ClosingStructuresFailureMechanismSectionResult) null).Create(new PersistenceRegistry());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
@@ -54,22 +64,34 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         {
             // Setup
             var random = new Random(21);
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
+            bool useManualAssemblyProbability = random.NextBoolean();
+            double manualAssemblyProbability = random.NextDouble();
 
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability
+                SimpleAssessmentResult = simpleAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
+                UseManualAssemblyProbability = useManualAssemblyProbability,
+                ManualAssemblyProbability = manualAssemblyProbability
             };
 
             // Call
-            ClosingStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
+            ClosingStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(tailorMadeAssessmentProbability, result.LayerThree);
-            Assert.IsNull(result.ClosingStructuresCalculationEntityId);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
+            Assert.AreEqual(Convert.ToByte(useManualAssemblyProbability), entity.UseManualAssemblyProbability);
+            Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
+            Assert.IsNull(entity.ClosingStructuresCalculationEntityId);
         }
 
         [Test]
@@ -78,14 +100,16 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Setup
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = double.NaN
+                TailorMadeAssessmentProbability = double.NaN,
+                ManualAssemblyProbability = double.NaN
             };
 
             // Call
-            ClosingStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
+            ClosingStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsNull(result.LayerThree);
+            Assert.IsNull(entity.TailorMadeAssessmentProbability);
+            Assert.IsNull(entity.ManualAssemblyProbability);
         }
 
         [Test]
@@ -99,14 +123,14 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             };
 
             var registry = new PersistenceRegistry();
-            var entity = new ClosingStructuresCalculationEntity();
-            registry.Register(entity, calculation);
+            var calculationEntity = new ClosingStructuresCalculationEntity();
+            registry.Register(calculationEntity, calculation);
 
             // Call
-            ClosingStructuresSectionResultEntity result = sectionResult.Create(registry);
+            ClosingStructuresSectionResultEntity entity = sectionResult.Create(registry);
 
             // Assert
-            Assert.AreSame(entity, result.ClosingStructuresCalculationEntity);
+            Assert.AreSame(calculationEntity, entity.ClosingStructuresCalculationEntity);
         }
     }
 }

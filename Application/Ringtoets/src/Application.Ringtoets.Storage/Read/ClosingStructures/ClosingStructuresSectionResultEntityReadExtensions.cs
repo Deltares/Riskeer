@@ -21,9 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 
 namespace Application.Ringtoets.Storage.Read.ClosingStructures
 {
@@ -47,6 +46,11 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                                   ClosingStructuresFailureMechanismSectionResult sectionResult,
                                   ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
@@ -57,8 +61,12 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
+            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
+            sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType) entity.DetailedAssessmentResult;
+            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityCalculationResultType) entity.TailorMadeAssessmentResult;
+            sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
+            sectionResult.UseManualAssemblyProbability = Convert.ToBoolean(entity.UseManualAssemblyProbability);
+            sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
 
             if (entity.ClosingStructuresCalculationEntity != null)
             {
