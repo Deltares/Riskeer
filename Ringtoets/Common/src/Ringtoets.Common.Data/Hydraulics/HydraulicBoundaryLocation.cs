@@ -50,14 +50,7 @@ namespace Ringtoets.Common.Data.Hydraulics
             Location = new Point2D(coordinateX, coordinateY);
 
             DesignWaterLevelCalculation1 = new HydraulicBoundaryLocationCalculation(this);
-            DesignWaterLevelCalculation2 = new HydraulicBoundaryLocationCalculation(this);
-            DesignWaterLevelCalculation3 = new HydraulicBoundaryLocationCalculation(this);
-            DesignWaterLevelCalculation4 = new HydraulicBoundaryLocationCalculation(this);
-
             WaveHeightCalculation1 = new HydraulicBoundaryLocationCalculation(this);
-            WaveHeightCalculation2 = new HydraulicBoundaryLocationCalculation(this);
-            WaveHeightCalculation3 = new HydraulicBoundaryLocationCalculation(this);
-            WaveHeightCalculation4 = new HydraulicBoundaryLocationCalculation(this);
         }
 
         /// <summary>
@@ -81,39 +74,9 @@ namespace Ringtoets.Common.Data.Hydraulics
         public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation1 { get; }
 
         /// <summary>
-        /// Gets the second design water level calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation2 { get; }
-
-        /// <summary>
-        /// Gets the third design water level calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation3 { get; }
-
-        /// <summary>
-        /// Gets the fourth design water level calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation4 { get; }
-
-        /// <summary>
         /// Gets the first wave height calculation.
         /// </summary>
         public HydraulicBoundaryLocationCalculation WaveHeightCalculation1 { get; }
-
-        /// <summary>
-        /// Gets the second wave height calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation WaveHeightCalculation2 { get; }
-
-        /// <summary>
-        /// Gets the third wave height calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation WaveHeightCalculation3 { get; }
-
-        /// <summary>
-        /// Gets the fourth wave height calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation WaveHeightCalculation4 { get; }
 
         public override string ToString()
         {
