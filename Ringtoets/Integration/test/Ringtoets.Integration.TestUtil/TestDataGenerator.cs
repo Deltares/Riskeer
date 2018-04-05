@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -98,7 +99,7 @@ namespace Ringtoets.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityStoneCover, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.DuneErosion, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.DuneErosion);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffInwards);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards);
             SetFullyConfiguredFailureMechanism(assessmentSection.MacroStabilityOutwards);
@@ -993,44 +994,16 @@ namespace Ringtoets.Integration.TestUtil
             AddFailureMechanismSections(failureMechanism);
         }
 
-        private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism)
         {
-            var duneLocation = new DuneLocation(hydraulicBoundaryLocation.Id,
-                                                hydraulicBoundaryLocation.Name,
-                                                new Point2D(hydraulicBoundaryLocation.Location),
-                                                new DuneLocation.ConstructionProperties
-                                                {
-                                                    CoastalAreaId = 7,
-                                                    Offset = 20,
-                                                    Orientation = 180,
-                                                    D50 = 0.00008
-                                                });
-
-            var duneLocationWithOutput = new DuneLocation(hydraulicBoundaryLocation.Id,
-                                                          hydraulicBoundaryLocation.Name,
-                                                          new Point2D(hydraulicBoundaryLocation.Location),
-                                                          new DuneLocation.ConstructionProperties
-                                                          {
-                                                              CoastalAreaId = 7,
-                                                              Offset = 20,
-                                                              Orientation = 180,
-                                                              D50 = 0.00008
-                                                          })
+            failureMechanism.DuneLocations.Add(new TestDuneLocation());
+            failureMechanism.DuneLocations.Add(new TestDuneLocation
             {
                 Calculation =
                 {
-                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
-                    {
-                        WaterLevel = hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output.Result + 0.2,
-                        WaveHeight = hydraulicBoundaryLocation.WaveHeightCalculation1.Output.Result + 0.3,
-                        WavePeriod = 10
-                    })
+                    Output = new TestDuneLocationOutput()
                 }
-            };
-
-            failureMechanism.DuneLocations.Add(duneLocation);
-            failureMechanism.DuneLocations.Add(duneLocationWithOutput);
+            });
 
             AddFailureMechanismSections(failureMechanism);
         }
