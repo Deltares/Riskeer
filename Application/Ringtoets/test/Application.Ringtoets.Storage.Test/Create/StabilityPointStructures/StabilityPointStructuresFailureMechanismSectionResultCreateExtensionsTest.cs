@@ -68,8 +68,8 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
-            bool useManualAssessmentProbability = random.NextBoolean();
-            double manualAssessmentProbability = random.NextDouble();
+            bool useManualAssemblyProbability = random.NextBoolean();
+            double manualAssemblyProbability = random.NextDouble();
 
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
@@ -77,8 +77,8 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
                 DetailedAssessmentResult = detailedAssessmentResult,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,
                 TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
-                UseManualAssemblyProbability = useManualAssessmentProbability,
-                ManualAssemblyProbability = manualAssessmentProbability
+                UseManualAssemblyProbability = useManualAssemblyProbability,
+                ManualAssemblyProbability = manualAssemblyProbability
             };
 
             // Call
@@ -89,8 +89,8 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
             Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
             Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
-            Assert.AreEqual(Convert.ToByte(useManualAssessmentProbability), entity.UseManualAssemblyProbability);
-            Assert.AreEqual(manualAssessmentProbability, entity.ManualAssemblyProbability);
+            Assert.AreEqual(Convert.ToByte(useManualAssemblyProbability), entity.UseManualAssemblyProbability);
+            Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
 
             Assert.IsNull(entity.StabilityPointStructuresCalculationEntityId);
         }

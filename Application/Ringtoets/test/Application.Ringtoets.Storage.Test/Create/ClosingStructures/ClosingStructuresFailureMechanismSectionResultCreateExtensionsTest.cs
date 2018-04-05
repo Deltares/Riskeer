@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         }
 
         [Test]
-        public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
+        public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
