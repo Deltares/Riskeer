@@ -1400,7 +1400,7 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, assessmentSection);
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
         {
             var expectedRemovedObjects = new List<object>();
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Piping));
@@ -1430,7 +1430,7 @@ namespace Ringtoets.Integration.Service.Test
             return expectedRemovedObjects;
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(PipingFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(PipingFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<PipingFailureMechanism>(failureMechanism))
             {
@@ -1453,7 +1453,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(MacroStabilityInwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<MacroStabilityInwardsFailureMechanism>(failureMechanism))
             {
@@ -1476,7 +1476,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<GrassCoverErosionInwardsFailureMechanism>(failureMechanism))
             {
@@ -1494,7 +1494,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityStoneCoverFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityStoneCoverFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<StabilityStoneCoverFailureMechanism>(failureMechanism))
             {
@@ -1512,7 +1512,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<WaveImpactAsphaltCoverFailureMechanism>(failureMechanism))
             {
@@ -1530,7 +1530,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<GrassCoverErosionOutwardsFailureMechanism>(failureMechanism))
             {
@@ -1548,7 +1548,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(HeightStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(HeightStructuresFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<HeightStructuresFailureMechanism>(failureMechanism))
             {
@@ -1571,7 +1571,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(ClosingStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(ClosingStructuresFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<ClosingStructuresFailureMechanism>(failureMechanism))
             {
@@ -1594,7 +1594,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityPointStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityPointStructuresFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<StabilityPointStructuresFailureMechanism>(failureMechanism))
             {
@@ -1617,7 +1617,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
             where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResult>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
@@ -1633,14 +1633,7 @@ namespace Ringtoets.Integration.Service.Test
 
         private static bool HasHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput
-                   || hydraulicBoundaryLocation.DesignWaterLevelCalculation2.HasOutput
-                   || hydraulicBoundaryLocation.DesignWaterLevelCalculation3.HasOutput
-                   || hydraulicBoundaryLocation.DesignWaterLevelCalculation4.HasOutput
-                   || hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput
-                   || hydraulicBoundaryLocation.WaveHeightCalculation2.HasOutput
-                   || hydraulicBoundaryLocation.WaveHeightCalculation3.HasOutput
-                   || hydraulicBoundaryLocation.WaveHeightCalculation4.HasOutput;
+            return hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput || hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput;
         }
 
         #region TestData
@@ -1675,45 +1668,6 @@ namespace Ringtoets.Integration.Service.Test
                     }
                 }
             ).SetName($"GrassAndDuneLocationWithOutput_{testName}");
-        }
-
-        private static HydraulicBoundaryLocation CreateFullyCalculatedHydraulicBoundaryLocation()
-        {
-            return new TestHydraulicBoundaryLocation
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(1.1)
-                },
-                DesignWaterLevelCalculation2 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(2.2)
-                },
-                DesignWaterLevelCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(3.3)
-                },
-                DesignWaterLevelCalculation4 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(4.4)
-                },
-                WaveHeightCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(5.5)
-                },
-                WaveHeightCalculation2 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(6.6)
-                },
-                WaveHeightCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(7.7)
-                },
-                WaveHeightCalculation4 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(8.8)
-                }
-            };
         }
 
         #endregion
