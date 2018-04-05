@@ -69,8 +69,6 @@
     <Compile Include="HydraRing\ReadPreprocessorSettingTest.cs" />
     <Compile Include="HydraRing\TimeIntegrationSettingsProviderTest.cs" />
     <Compile Include="HydraRing\NumericsSettingsProviderTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporterTest.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriterTest.cs" />
     <Compile Include="Configurations\Import\CombinedXmlSchemaDefinitionTest.cs" />
     <Compile Include="Configurations\Helpers\XElementExtensionsTest.cs" />
     <Compile Include="Configurations\Import\CalculationConfigurationReaderTest.cs" />

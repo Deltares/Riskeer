@@ -67,9 +67,6 @@
     <Compile Include="HydraRing\ReadPreprocessorSetting.cs" />
     <Compile Include="HydraRing\TimeIntegrationSettingsProvider.cs" />
     <Compile Include="HydraRing\NumericsSettingsProvider.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryLocationsExporter.cs" />
-    <Compile Include="Hydraulics\IHydraulicBoundaryLocationMetaDataAttributeNameProvider.cs" />
-    <Compile Include="Hydraulics\HydraulicBoundaryLocationsWriter.cs" />
     <Compile Include="IConfirmDataChangeHandler.cs" />
     <Compile Include="Configurations\Import\CalculationConfigurationReader.cs" />
     <Compile Include="Configurations\ConfigurationBreakWaterType.cs" />
