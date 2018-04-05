@@ -41,13 +41,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
 
             Assert.IsNull(testLocation.DesignWaterLevelCalculation1.Output);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation2.Output);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation3.Output);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation4.Output);
             Assert.IsNull(testLocation.WaveHeightCalculation1.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation2.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation3.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation4.Output);
         }
 
         [Test]
@@ -66,13 +60,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
 
             Assert.IsNull(testLocation.DesignWaterLevelCalculation1.Output);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation2.Output);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation3.Output);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation4.Output);
             Assert.IsNull(testLocation.WaveHeightCalculation1.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation2.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation3.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation4.Output);
         }
 
         [Test]
@@ -88,13 +76,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
 
             AssertCalculationHasOutput(4.5, testLocation.DesignWaterLevelCalculation1);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation2.Output);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation3.Output);
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation4.Output);
             AssertCalculationHasOutput(5.5, testLocation.WaveHeightCalculation1);
-            Assert.IsNull(testLocation.WaveHeightCalculation2.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation3.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation4.Output);
         }
 
         private static void AssertCalculationHasOutput(double value, HydraulicBoundaryLocationCalculation calculation)

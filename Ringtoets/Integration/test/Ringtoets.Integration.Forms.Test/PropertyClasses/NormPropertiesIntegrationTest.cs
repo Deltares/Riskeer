@@ -422,13 +422,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private static void AssertHydraulicBoundaryLocationOutputCleared(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation2.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation3.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation4.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation2.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation3.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation4.HasOutput);
         }
 
         private static void AssertNormValues(NormProperties properties, FailureMechanismContribution failureMechanismContribution)
