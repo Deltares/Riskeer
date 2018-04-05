@@ -829,8 +829,12 @@
           </Key>
           <Property Name="MacroStabilityInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="real" />
+          <Property Name="UseManualAssemblyProbability" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="real" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayerOneDEntity">
           <Key>
@@ -1024,8 +1028,12 @@
           </Key>
           <Property Name="PipingSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="real" />
+          <Property Name="UseManualAssemblyProbability" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="real" />
         </EntityType>
         <EntityType Name="PipingSoilLayerEntity">
           <Key>
@@ -5626,8 +5634,12 @@
           </Key>
           <Property Name="MacroStabilityInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="Double" />
+          <Property Name="UseManualAssemblyProbability" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" FromRole="MacroStabilityInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="MacroStabilityInwardsSoilLayerOneDEntity">
@@ -5818,8 +5830,12 @@
           </Key>
           <Property Name="PipingSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentProbability" Type="Double" />
+          <Property Name="UseManualAssemblyProbability" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyProbability" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_PipingSectionResultEntity_0_0" FromRole="PipingSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="PipingSoilLayerEntity">
@@ -8845,8 +8861,12 @@
           <EntitySetMapping Name="MacroStabilityInwardsSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.MacroStabilityInwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="MacroStabilityInwardsSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyProbability" ColumnName="ManualAssemblyProbability" />
+                <ScalarProperty Name="UseManualAssemblyProbability" ColumnName="UseManualAssemblyProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentProbability" ColumnName="TailorMadeAssessmentProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="MacroStabilityInwardsSectionResultEntityId" ColumnName="MacroStabilityInwardsSectionResultEntityId" />
               </MappingFragment>
@@ -9025,8 +9045,12 @@
           <EntitySetMapping Name="PipingSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingSectionResultEntity">
               <MappingFragment StoreEntitySet="PipingSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyProbability" ColumnName="ManualAssemblyProbability" />
+                <ScalarProperty Name="UseManualAssemblyProbability" ColumnName="UseManualAssemblyProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentProbability" ColumnName="TailorMadeAssessmentProbability" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="PipingSectionResultEntityId" ColumnName="PipingSectionResultEntityId" />
               </MappingFragment>
