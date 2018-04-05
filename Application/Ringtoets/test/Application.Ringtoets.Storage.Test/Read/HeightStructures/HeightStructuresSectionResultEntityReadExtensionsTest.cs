@@ -36,6 +36,19 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
     public class HeightStructuresSectionResultEntityReadExtensionsTest
     {
         [Test]
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((HeightStructuresSectionResultEntity) null).Read(
+                new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection()),
+                new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
         public void Read_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup

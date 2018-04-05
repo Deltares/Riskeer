@@ -21,8 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
 
@@ -48,6 +46,11 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
                                   HeightStructuresFailureMechanismSectionResult sectionResult,
                                   ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
@@ -58,16 +61,15 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType)entity.SimpleAssessmentResult;
-            sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType)entity.DetailedAssessmentResult;
-            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityCalculationResultType)entity.TailorMadeAssessmentResult;
+            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
+            sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType) entity.DetailedAssessmentResult;
+            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityCalculationResultType) entity.TailorMadeAssessmentResult;
             sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
             sectionResult.UseManualAssemblyProbability = Convert.ToBoolean(entity.UseManualAssemblyProbability);
             sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
 
             if (entity.HeightStructuresCalculationEntity != null)
             {
-
                 sectionResult.Calculation = entity.HeightStructuresCalculationEntity.Read(collector);
             }
         }
