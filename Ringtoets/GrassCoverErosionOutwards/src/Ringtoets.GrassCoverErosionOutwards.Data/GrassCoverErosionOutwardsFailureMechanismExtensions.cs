@@ -57,11 +57,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 return;
             }
 
-            hydraulicBoundaryLocations.ForEachElementDo(location => failureMechanism.HydraulicBoundaryLocations
-                                                                                    .Add(new HydraulicBoundaryLocation(location.Id,
-                                                                                                                       location.Name,
-                                                                                                                       location.Location.X,
-                                                                                                                       location.Location.Y)));
+            failureMechanism.HydraulicBoundaryLocations.AddRange(hydraulicBoundaryLocations);
         }
     }
 }
