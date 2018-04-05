@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Ringtoets.Integration.IO")]
 [assembly: AssemblyProduct("Ringtoets.Integration.IO")]
+[assembly: InternalsVisibleTo("Ringtoets.Integration.IO.Test")]
