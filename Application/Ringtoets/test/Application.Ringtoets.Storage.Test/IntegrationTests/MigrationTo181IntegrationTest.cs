@@ -97,6 +97,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
 
                     AssertHeightStructuresSectionResultEntity(reader, sourceFilePath);
+                    AssertClosingStructuresSectionResultEntity(reader, sourceFilePath);
+                    AssertStabilityPointStructuresSectionResultEntity(reader, sourceFilePath);
+                    AssertGrassCoverErosionInwardsSectionResultEntity(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -511,6 +514,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
 
+        #region Failure Mechanism Section Result Entities
+
         private static void AssertHeightStructuresSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateSectionResult =
@@ -528,7 +533,70 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "AND NEW.UseManualAssemblyProbability = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
                 "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
         }
+
+        private static void AssertClosingStructuresSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity) " +
+                "FROM ClosingStructuresSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity OLD USING (ClosingStructuresSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.ClosingStructuresCalculationEntityId IS OLD.ClosingStructuresCalculationEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentProbability IS NULL " +
+                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.ManualAssemblyProbability IS NULL; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertStabilityPointStructuresSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity) " +
+                "FROM StabilityPointStructuresSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity OLD USING (StabilityPointStructuresSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.StabilityPointStructuresCalculationEntityId IS OLD.StabilityPointStructuresCalculationEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentProbability IS NULL " +
+                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.ManualAssemblyProbability IS NULL; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertGrassCoverErosionInwardsSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity) " +
+                "FROM GrassCoverErosionInwardsSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity OLD USING (GrassCoverErosionInwardsSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.GrassCoverErosionInwardsCalculationEntityId IS OLD.GrassCoverErosionInwardsCalculationEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentProbability IS NULL " +
+                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.ManualAssemblyProbability IS NULL; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        #endregion
 
         #region  Migrated Hydraulic Boundary Locations on Assessment section
 

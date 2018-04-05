@@ -1,4 +1,4 @@
-/*
+ /*
 Migration script for migrating Ringtoets databases.
 SourceProject version: 17.3
 TargetProject version: 18.1
@@ -24,7 +24,27 @@ SELECT
 	[GeneralResultFaultTreeIllustrationPointEntityId],
 	[Reliability]
 FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
-INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
+INSERT INTO ClosingStructuresSectionResultEntity (
+	[ClosingStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[ClosingStructuresCalculationEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssemblyProbability],
+	[ManualAssemblyProbability])
+SELECT
+	[ClosingStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[ClosingStructuresCalculationEntityId],
+	1,
+	1,
+	1,
+	NULL,
+	0,
+	NULL
+FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
 INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
@@ -61,7 +81,27 @@ SELECT
 	[Reliability]
 FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
 INSERT INTO GrassCoverErosionInwardsOvertoppingRateOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
-INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
+INSERT INTO GrassCoverErosionInwardsSectionResultEntity (
+	[GrassCoverErosionInwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[GrassCoverErosionInwardsCalculationEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssemblyProbability],
+	[ManualAssemblyProbability])
+SELECT
+	[GrassCoverErosionInwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[GrassCoverErosionInwardsCalculationEntityId],
+	1,
+	1,
+	1,
+	NULL,
+	0,
+	NULL
+FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
@@ -224,7 +264,27 @@ SELECT
 	[GeneralResultFaultTreeIllustrationPointEntityId],
 	[Reliability]
 FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
-INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
+INSERT INTO StabilityPointStructuresSectionResultEntity (
+	[StabilityPointStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[StabilityPointStructuresCalculationEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssemblyProbability],
+	[ManualAssemblyProbability])
+SELECT
+	[StabilityPointStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[StabilityPointStructuresCalculationEntityId],
+	1,
+	1,
+	1,
+	NULL,
+	0,
+	NULL
+FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity (
 	[StabilityStoneCoverFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
