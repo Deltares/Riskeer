@@ -24,11 +24,10 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.StabilityPointStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
@@ -36,6 +35,17 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultCreateExtensionsTest
     {
+        [Test]
+        public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((StabilityPointStructuresFailureMechanismSectionResult) null).Create(new PersistenceRegistry());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
@@ -50,43 +60,57 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         }
 
         [Test]
-        [Combinatorial]
         public void Create_VariousResults_ReturnsEntity()
         {
             // Setup
             var random = new Random(21);
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            RoundedDouble assessmentLayerThreeResult = random.NextRoundedDouble();
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
+            double tailorMadeAssessmentProbability = random.NextDouble();
+            bool useManualAssessmentProbability = random.NextBoolean();
+            double manualAssessmentProbability = random.NextDouble();
 
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                TailorMadeAssessmentProbability = assessmentLayerThreeResult
+                SimpleAssessmentResult = simpleAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
+                UseManualAssemblyProbability = useManualAssessmentProbability,
+                ManualAssemblyProbability = manualAssessmentProbability
             };
 
             // Call
-            StabilityPointStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
+            StabilityPointStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
-            Assert.IsNull(result.StabilityPointStructuresCalculationEntityId);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
+            Assert.AreEqual(Convert.ToByte(useManualAssessmentProbability), entity.UseManualAssemblyProbability);
+            Assert.AreEqual(manualAssessmentProbability, entity.ManualAssemblyProbability);
+
+            Assert.IsNull(entity.StabilityPointStructuresCalculationEntityId);
         }
 
         [Test]
-        public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
+        public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = double.NaN
+                TailorMadeAssessmentProbability = double.NaN,
+                ManualAssemblyProbability = double.NaN
             };
 
             // Call
-            StabilityPointStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
+            StabilityPointStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.IsNull(result.LayerThree);
+            Assert.IsNull(entity.TailorMadeAssessmentProbability);
+            Assert.IsNull(entity.ManualAssemblyProbability);
         }
 
         [Test]
@@ -100,14 +124,14 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             };
 
             var registry = new PersistenceRegistry();
-            var entity = new StabilityPointStructuresCalculationEntity();
-            registry.Register(entity, calculation);
+            var calculationEntity = new StabilityPointStructuresCalculationEntity();
+            registry.Register(calculationEntity, calculation);
 
             // Call
-            StabilityPointStructuresSectionResultEntity result = sectionResult.Create(registry);
+            StabilityPointStructuresSectionResultEntity entity = sectionResult.Create(registry);
 
             // Assert
-            Assert.AreSame(entity, result.StabilityPointStructuresCalculationEntity);
+            Assert.AreSame(calculationEntity, entity.StabilityPointStructuresCalculationEntity);
         }
     }
 }

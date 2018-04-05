@@ -37,11 +37,16 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
         /// <param name="result">The result to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StabilityPointStructuresSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static StabilityPointStructuresSectionResultEntity Create(
             this StabilityPointStructuresFailureMechanismSectionResult result,
             PersistenceRegistry registry)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
@@ -49,8 +54,12 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
 
             var sectionResultEntity = new StabilityPointStructuresSectionResultEntity
             {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.TailorMadeAssessmentProbability.ToNaNAsNull()
+                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
+                DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
+                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
+                TailorMadeAssessmentProbability = result.TailorMadeAssessmentProbability.ToNaNAsNull(),
+                UseManualAssemblyProbability = Convert.ToByte(result.UseManualAssemblyProbability),
+                ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
             };
             if (result.Calculation != null)
             {
