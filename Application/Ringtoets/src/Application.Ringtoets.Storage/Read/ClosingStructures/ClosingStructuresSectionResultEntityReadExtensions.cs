@@ -37,10 +37,9 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
         /// <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> 
-        /// to create <see cref="ClosingStructuresFailureMechanismSectionResult"/> for.</param>
+        /// to update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="ClosingStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this ClosingStructuresSectionResultEntity entity,
                                   ClosingStructuresFailureMechanismSectionResult sectionResult,
