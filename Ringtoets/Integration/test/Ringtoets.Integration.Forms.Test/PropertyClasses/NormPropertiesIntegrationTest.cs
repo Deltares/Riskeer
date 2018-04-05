@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -46,10 +47,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
     [TestFixture]
     public class NormPropertiesIntegrationTest : NUnitFormTest
     {
-        private const string messageAllHydraulicBoundaryLocationOutputCleared =
-            "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.";
-
-        private const string messageCalculationsremoved = "De resultaten van {0} berekeningen zijn verwijderd.";
+        private const string messageAllHydraulicBoundaryOutputCleared = "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.";
+        private const string messageCalculationsRemoved = "De resultaten van {0} berekeningen zijn verwijderd.";
         private const NormType newNormativeNorm = NormType.Signaling;
         private const double newLowerLimitNorm = 0.01;
         private const double newSignalingNorm = 0.000001;
@@ -59,8 +58,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             const int numberOfCalculations = 3;
 
-            TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
-
+            var random = new Random();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -71,6 +70,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                     }
                 }
             };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            SetOutputToAllHydraulicBoundaryLocationCalculations(assessmentSection, random);
 
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
@@ -89,7 +95,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             TestHydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
-
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             assessmentSection.Piping.CalculationsGroup.Children.Add(emptyPipingCalculation);
@@ -150,13 +155,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertLogMessages(call, msgs =>
             {
                 string[] messages = msgs.ToArray();
-                Assert.AreEqual(string.Format(messageCalculationsremoved, numberOfCalculations), messages[0]);
-                Assert.AreEqual(messageAllHydraulicBoundaryLocationOutputCleared, messages[1]);
+                Assert.AreEqual(string.Format(messageCalculationsRemoved, numberOfCalculations), messages[0]);
+                Assert.AreEqual(messageAllHydraulicBoundaryOutputCleared, messages[1]);
             });
 
             AssertNormValues(properties, failureMechanismContribution);
 
-            AssertHydraulicBoundaryLocationOutputClear(hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryOutputClear(assessmentSection);
             AssertHydraulicBoundaryLocationOutputClear(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             AssertCalculationOutputClear(pipingCalculation);
@@ -371,10 +376,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Action call = () => setPropertyAction(properties);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryLocationOutputCleared, 1);
+            TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryOutputCleared, 1);
 
             AssertNormValues(properties, failureMechanismContribution);
-            AssertHydraulicBoundaryLocationOutputClear(hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryOutputClear(assessmentSection);
 
             mockRepository.VerifyAll();
         }
@@ -463,7 +468,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Action call = () => setPropertyAction(properties);
 
             // Assert
-            string expectedMessage = string.Format(messageCalculationsremoved,
+            string expectedMessage = string.Format(messageCalculationsRemoved,
                                                    numberOfCalculations);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
@@ -547,7 +552,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Action call = () => setPropertyAction(properties);
 
             // Assert
-            string expectedMessage = string.Format(messageCalculationsremoved,
+            string expectedMessage = string.Format(messageCalculationsRemoved,
                                                    numberOfCalculations);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
@@ -651,6 +656,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertLogMessagesCount(call, 0);
             AssertNormValues(properties, failureMechanismContribution);
             mockRepository.VerifyAll();
+        }
+
+        private static void SetOutputToAllHydraulicBoundaryLocationCalculations(IAssessmentSection assessmentSection, Random random)
+        {
+            assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
+            assessmentSection.WaterLevelCalculationsForSignalingNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
+            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
+            assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
+            assessmentSection.WaveHeightCalculationsForSignalingNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
+            assessmentSection.WaveHeightCalculationsForLowerLimitNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
+            assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
         }
 
         #region AllDataAndOutputSet
@@ -812,6 +829,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private static void AssertCalculationOutputClear(ICalculation calculation)
         {
             Assert.IsFalse(calculation.HasOutput);
+        }
+
+        private static void AssertHydraulicBoundaryOutputClear(IAssessmentSection assessmentSection)
+        {
+            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.Output == null));
+            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForSignalingNorm.All(c => c.Output == null));
+            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.All(c => c.Output == null));
+            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.All(c => c.Output == null));
+            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.All(c => c.Output == null));
+            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForSignalingNorm.All(c => c.Output == null));
+            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForLowerLimitNorm.All(c => c.Output == null));
+            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.All(c => c.Output == null));
         }
 
         private static void AssertHydraulicBoundaryLocationOutputClear(HydraulicBoundaryLocation hydraulicBoundaryLocation)
