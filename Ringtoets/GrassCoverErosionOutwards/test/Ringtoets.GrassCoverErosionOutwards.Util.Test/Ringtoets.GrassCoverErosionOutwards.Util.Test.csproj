@@ -49,9 +49,9 @@
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
-      <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
-      <Name>Ringtoets.Common.Forms.TestUtil</Name>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Util.TestUtil\Ringtoets.Common.Util.TestUtil.csproj">
+      <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
+      <Name>Ringtoets.Common.Util.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>

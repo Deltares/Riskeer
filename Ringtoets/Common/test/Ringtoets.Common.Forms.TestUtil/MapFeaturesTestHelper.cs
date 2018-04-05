@@ -26,6 +26,7 @@ using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Util.TestUtil;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {
@@ -45,52 +46,32 @@ namespace Ringtoets.Common.Forms.TestUtil
                 HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationsArray[i];
                 MapFeature mapFeature = features.ElementAt(i);
 
-                AssertHydraulicBoundaryLocationOutputMetaData(
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "h(A+->A)");
-                AssertHydraulicBoundaryLocationOutputMetaData(
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "h(A->B)");
-                AssertHydraulicBoundaryLocationOutputMetaData(
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "h(B->C)");
-                AssertHydraulicBoundaryLocationOutputMetaData(
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "h(C->D)");
 
-                AssertHydraulicBoundaryLocationOutputMetaData(
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "Hs(A+->A)");
-                AssertHydraulicBoundaryLocationOutputMetaData(
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "Hs(A->B)");
-                AssertHydraulicBoundaryLocationOutputMetaData(
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "Hs(B->C)");
-                AssertHydraulicBoundaryLocationOutputMetaData(
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "Hs(C->D)");
             }
-        }
-
-        /// <summary>
-        /// Asserts whether the meta data for <paramref name="key"/> in <paramref name="feature"/>
-        /// contains the correct output data.
-        /// </summary>
-        /// <param name="expectedValue">The value  to assert against.</param>
-        /// <param name="feature">The <see cref="MapFeature"/> to be asserted.</param>
-        /// <param name="key">The name of the meta data element to retrieve the data from.</param>
-        /// <exception cref="KeyNotFoundException">Thrown when the meta data of <paramref name="feature"/> does not 
-        /// contain a <see cref="KeyValuePair{TKey,TValue}"/> with <paramref name="key"/> as key.</exception>
-        /// <exception cref="AssertionException">Thrown when the wave height or the design water level of a 
-        /// hydraulic boundary location and the  respective meta data value associated with <paramref name="key"/>
-        ///  are not the same.
-        /// </exception>
-        public static void AssertHydraulicBoundaryLocationOutputMetaData(RoundedDouble expectedValue,
-                                                                         MapFeature feature,
-                                                                         string key)
-        {
-            Assert.AreEqual(expectedValue, feature.MetaData[key]);
         }
 
         /// <summary>

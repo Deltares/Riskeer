@@ -74,5 +74,9 @@
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Util.TestUtil\Ringtoets.Common.Util.TestUtil.csproj">
+      <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
+      <Name>Ringtoets.Common.Util.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
