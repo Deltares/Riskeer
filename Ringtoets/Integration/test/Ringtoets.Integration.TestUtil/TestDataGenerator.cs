@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
@@ -60,42 +61,8 @@ namespace Ringtoets.Integration.TestUtil
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurations(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(1.1, CalculationConvergence.CalculatedConverged)
-                },
-                DesignWaterLevelCalculation2 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(2.2, CalculationConvergence.CalculatedConverged)
-                },
-                DesignWaterLevelCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(3.3, CalculationConvergence.CalculatedConverged)
-                },
-                DesignWaterLevelCalculation4 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(4.4, CalculationConvergence.CalculatedConverged)
-                },
-                WaveHeightCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(5.5, CalculationConvergence.CalculatedConverged)
-                },
-                WaveHeightCalculation2 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(6.6, CalculationConvergence.CalculatedConverged)
-                },
-                WaveHeightCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(7.7, CalculationConvergence.CalculatedConverged)
-                },
-                WaveHeightCalculation4 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(8.8, CalculationConvergence.CalculatedConverged)
-                }
-            };
-
+            var random = new Random(21);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSection(composition)
             {
                 ReferenceLine = new ReferenceLine(),
@@ -108,10 +75,24 @@ namespace Ringtoets.Integration.TestUtil
                 }
             };
 
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            assessmentSection.WaveHeightCalculationsForSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            assessmentSection.WaveHeightCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+
             SetFullyConfiguredFailureMechanism(assessmentSection.ClosingStructures, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation);
             MacroStabilityInwardsTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.MacroStabilityInwards, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, random);
             SetFullyConfiguredFailureMechanism(assessmentSection.HeightStructures, hydraulicBoundaryLocation);
             PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.Piping, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
@@ -195,21 +176,8 @@ namespace Ringtoets.Integration.TestUtil
         public static GrassCoverErosionOutwardsFailureMechanism GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new HydraulicBoundaryLocationOutput(
-                        1.1, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged, null)
-                },
-                WaveHeightCalculation1 =
-                {
-                    Output = new HydraulicBoundaryLocationOutput(
-                        2.2, double.NaN, double.NaN, double.NaN, double.NaN, CalculationConvergence.CalculatedConverged, null)
-                }
-            };
 
-            SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation(), new Random(21));
 
             return failureMechanism;
         }
@@ -892,30 +860,18 @@ namespace Ringtoets.Integration.TestUtil
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                               Random random)
         {
-            HydraulicBoundaryLocationOutput waveHeightCalculationOutput = hydraulicBoundaryLocation.WaveHeightCalculation1.Output;
-            HydraulicBoundaryLocationOutput designWaterLevelCalculationOutput = hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output;
+            hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            hydraulicBoundaryLocation.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
 
-            var internalHydroLocation = new HydraulicBoundaryLocation(hydraulicBoundaryLocation.Id,
-                                                                      hydraulicBoundaryLocation.Name,
-                                                                      hydraulicBoundaryLocation.Location.X,
-                                                                      hydraulicBoundaryLocation.Location.Y)
+            failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
+            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                WaveHeightCalculation1 =
-                {
-                    Output = new HydraulicBoundaryLocationOutput(
-                        waveHeightCalculationOutput.Result + 0.2, double.NaN, double.NaN, double.NaN, double.NaN,
-                        waveHeightCalculationOutput.CalculationConvergence, null)
-                },
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new HydraulicBoundaryLocationOutput(
-                        designWaterLevelCalculationOutput.Result + 0.3, double.NaN, double.NaN, double.NaN, double.NaN,
-                        designWaterLevelCalculationOutput.CalculationConvergence, null)
-                }
-            };
-            failureMechanism.HydraulicBoundaryLocations.Add(internalHydroLocation);
+                hydraulicBoundaryLocation
+            });
+
             var profile1 = new ForeshoreProfile(new Point2D(0, 0),
                                                 new[]
                                                 {
