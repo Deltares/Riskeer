@@ -21,8 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
@@ -37,24 +36,37 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// Reads the <see cref="GrassCoverErosionInwardsSectionResultEntity"/> and use the information to construct a 
         /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsSectionResultEntity"/> to create <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsSectionResultEntity"/> 
+        /// to update the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static void Read(this GrassCoverErosionInwardsSectionResultEntity entity, GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
+        internal static void Read(this GrassCoverErosionInwardsSectionResultEntity entity,
+                                  GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
+                                  ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
+            sectionResult.SimpleAssessmentResult = (SimpleAssessmentValidityOnlyResultType) entity.SimpleAssessmentResult;
+            sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType) entity.DetailedAssessmentResult;
+            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityCalculationResultType) entity.TailorMadeAssessmentResult;
+            sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
+            sectionResult.UseManualAssemblyProbability = Convert.ToBoolean(entity.UseManualAssemblyProbability);
+            sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
+
             if (entity.GrassCoverErosionInwardsCalculationEntity != null)
             {
                 sectionResult.Calculation = entity.GrassCoverErosionInwardsCalculationEntity.Read(collector);

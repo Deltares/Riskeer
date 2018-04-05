@@ -24,10 +24,9 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
@@ -35,6 +34,17 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensionsTest
     {
+        [Test]
+        public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((GrassCoverErosionInwardsFailureMechanismSectionResult) null).Create(new PersistenceRegistry());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
@@ -54,13 +64,21 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
+            bool useManualAssessmentProbability = random.NextBoolean();
+            double manualAssessmentProbability = random.NextDouble();
 
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability
+                SimpleAssessmentResult = simpleAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
+                UseManualAssemblyProbability = useManualAssessmentProbability,
+                ManualAssemblyProbability = manualAssessmentProbability
             };
 
             var registry = new PersistenceRegistry();
@@ -69,18 +87,24 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(registry);
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), entity.LayerOne);
-            Assert.AreEqual(tailorMadeAssessmentProbability, entity.LayerThree);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
+            Assert.AreEqual(Convert.ToByte(useManualAssessmentProbability), entity.UseManualAssemblyProbability);
+            Assert.AreEqual(manualAssessmentProbability, entity.ManualAssemblyProbability);
+
             Assert.IsNull(entity.GrassCoverErosionInwardsCalculationEntity);
         }
 
         [Test]
-        public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
+        public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = double.NaN
+                TailorMadeAssessmentProbability = double.NaN,
+                ManualAssemblyProbability = double.NaN
             };
 
             var registry = new PersistenceRegistry();
@@ -89,7 +113,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(registry);
 
             // Assert
-            Assert.IsNull(entity.LayerThree);
+            Assert.IsNull(entity.TailorMadeAssessmentProbability);
+            Assert.IsNull(entity.ManualAssemblyProbability);
         }
 
         [Test]
@@ -103,14 +128,14 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             };
 
             var registry = new PersistenceRegistry();
-            var entity = new GrassCoverErosionInwardsCalculationEntity();
-            registry.Register(entity, calculation);
+            var calculationEntity = new GrassCoverErosionInwardsCalculationEntity();
+            registry.Register(calculationEntity, calculation);
 
             // Call
-            GrassCoverErosionInwardsSectionResultEntity result = sectionResult.Create(registry);
+            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(registry);
 
             // Assert
-            Assert.AreSame(entity, result.GrassCoverErosionInwardsCalculationEntity);
+            Assert.AreSame(calculationEntity, entity.GrassCoverErosionInwardsCalculationEntity);
         }
     }
 }
