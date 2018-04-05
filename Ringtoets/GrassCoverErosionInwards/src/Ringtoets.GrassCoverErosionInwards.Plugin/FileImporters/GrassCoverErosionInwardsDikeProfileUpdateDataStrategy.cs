@@ -45,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporters
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsDikeProfileUpdateDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the dike profiles are updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(GrassCoverErosionInwardsFailureMechanism failureMechanism)
             : base(failureMechanism, failureMechanism?.DikeProfiles, new DikeProfileIdEqualityComparer()) {}
