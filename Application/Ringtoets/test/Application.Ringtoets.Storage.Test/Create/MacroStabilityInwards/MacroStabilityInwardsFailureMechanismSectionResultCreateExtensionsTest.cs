@@ -23,10 +23,9 @@ using System;
 using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
@@ -35,41 +34,66 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
     public class MacroStabilityInwardsFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
+        public void Create_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((MacroStabilityInwardsFailureMechanismSectionResult) null).Create();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
+        [Test]
         public void Create_WithResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var random = new Random();
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            double assessmentLayerThreeResult = random.NextDouble();
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
+            double tailorMadeAssessmentProbability = random.NextDouble();
+            bool useManualAssemblyProbability = random.NextBoolean();
+            double manualAssemblyProbability = random.NextDouble();
 
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                TailorMadeAssessmentProbability = assessmentLayerThreeResult
+                SimpleAssessmentResult = simpleAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
+                UseManualAssemblyProbability = useManualAssemblyProbability,
+                ManualAssemblyProbability = manualAssemblyProbability
             };
 
             // Call
-            MacroStabilityInwardsSectionResultEntity result = sectionResult.Create();
+            MacroStabilityInwardsSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
+            Assert.AreEqual(Convert.ToByte(useManualAssemblyProbability), entity.UseManualAssemblyProbability);
+            Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
         }
 
         [Test]
-        public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
+        public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = double.NaN
+                TailorMadeAssessmentProbability = double.NaN,
+                ManualAssemblyProbability = double.NaN
             };
 
             // Call
             MacroStabilityInwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
-            Assert.IsNull(result.LayerThree);
+            Assert.IsNull(result.TailorMadeAssessmentProbability);
+            Assert.IsNull(result.ManualAssemblyProbability);
         }
     }
 }

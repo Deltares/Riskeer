@@ -21,12 +21,11 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -53,18 +52,21 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         {
             // Setup
             var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            double layerThree = random.NextDouble();
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
+            double tailorMadeAssessmentProbability = random.NextDouble();
+            bool useManualAssemblyProbability = random.NextBoolean();
+            double manualAssemblyProbability = random.NextDouble();
 
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new PipingSectionResultEntity
             {
-                LayerThree = layerThree,
-                LayerOne = Convert.ToByte(layerOne),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
+                SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
+                DetailedAssessmentResult = Convert.ToByte(detailedAssessmentResult),
+                TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
+                UseManualAssemblyProbability = Convert.ToByte(useManualAssemblyProbability),
+                ManualAssemblyProbability = manualAssemblyProbability
             };
 
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -73,36 +75,27 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             entity.Read(sectionResult);
 
             // Assert
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerThree, sectionResult.TailorMadeAssessmentProbability, 1e-6);
+            Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
+            Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentProbability, sectionResult.TailorMadeAssessmentProbability, 1e-6);
+            Assert.AreEqual(useManualAssemblyProbability, sectionResult.UseManualAssemblyProbability);
+            Assert.AreEqual(manualAssemblyProbability, sectionResult.ManualAssemblyProbability, 1e-6);
         }
 
         [Test]
         public void Read_EntityWithNullValues_SectionResultWithNaNValues()
         {
             // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new PipingSectionResultEntity
-            {
-                LayerThree = null,
-                LayerOne = Convert.ToByte(layerOne),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-
+            var entity = new PipingSectionResultEntity();
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
 
             // Assert
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
+            Assert.IsNaN(sectionResult.ManualAssemblyProbability);
         }
     }
 }

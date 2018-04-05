@@ -248,11 +248,6 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-
-            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            MacroStabilityInwardsSectionResultEntity resultEntity = entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).Single();
-            Assert.AreEqual((byte) sectionResult.AssessmentLayerOne, resultEntity.LayerOne);
-            Assert.IsNull(resultEntity.LayerThree);
         }
 
         [Test]
