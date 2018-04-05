@@ -73,5 +73,9 @@
       <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
       <Name>Ringtoets.Common.Forms.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Util.TestUtil\Ringtoets.Common.Util.TestUtil.csproj">
+      <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
+      <Name>Ringtoets.Common.Util.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

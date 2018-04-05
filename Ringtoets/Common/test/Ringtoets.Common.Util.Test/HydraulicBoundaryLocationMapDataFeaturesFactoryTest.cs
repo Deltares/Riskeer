@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Common.Util.TestUtil;
 
 namespace Ringtoets.Common.Util.Test
 {
@@ -46,11 +45,7 @@ namespace Ringtoets.Common.Util.Test
         public void CreateHydraulicBoundaryLocationFeature_WithLocation_ReturnFeature()
         {
             // Setup
-            var location = new AggregatedHydraulicBoundaryLocation(1, "test", new Point2D(0, 0),
-                                                                   (RoundedDouble) 0, (RoundedDouble) 0,
-                                                                   (RoundedDouble) 0, (RoundedDouble) 0,
-                                                                   (RoundedDouble) 0, (RoundedDouble) 0,
-                                                                   (RoundedDouble) 0, (RoundedDouble) 0);
+            AggregatedHydraulicBoundaryLocation location = AggregatedHydraulicBoundaryLocationTestHelper.Create();
 
             // Call
             MapFeature feature = HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(location);
