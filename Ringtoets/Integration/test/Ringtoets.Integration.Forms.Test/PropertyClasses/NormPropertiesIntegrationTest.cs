@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const int numberOfCalculations = 3;
 
             var random = new Random();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -78,6 +78,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             SetOutputToAllHydraulicBoundaryLocationCalculations(assessmentSection, random);
 
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
+            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
@@ -94,9 +100,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Output = new TestStructuresOutput()
             };
 
-            TestHydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
-
             assessmentSection.Piping.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
@@ -104,43 +107,21 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
 
-            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-
             var mockRepository = new MockRepository();
-            var failureMechanismContributionObserver = mockRepository.StrictMock<IObserver>();
-            failureMechanismContributionObserver.Expect(o => o.UpdateObserver());
 
-            var pipingCalculationObserver = mockRepository.StrictMock<IObserver>();
-            pipingCalculationObserver.Expect(o => o.UpdateObserver());
-            var grassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
-            grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
-            var heightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
-            heightStructuresCalculationObserver.Expect(o => o.UpdateObserver());
-            var emptyPipingCalculationObserver = mockRepository.StrictMock<IObserver>();
-            var emptyGrassCoverErosionInwardsCalculationObserver = mockRepository.StrictMock<IObserver>();
-            var emptyHeightStructuresCalculationObserver = mockRepository.StrictMock<IObserver>();
-
-            var hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
-            var grassCoverErosionOutwardsObserver = mockRepository.StrictMock<IObserver>();
+            AttachObserver(mockRepository, assessmentSection.FailureMechanismContribution);
+            AttachObserver(mockRepository, assessmentSection.HydraulicBoundaryDatabase, false);
+            AttachObserver(mockRepository, assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations, false);
+            AttachObserver(mockRepository, pipingCalculation);
+            AttachObserver(mockRepository, emptyPipingCalculation, false);
+            AttachObserver(mockRepository, grassCoverErosionInwardsCalculation);
+            AttachObserver(mockRepository, emptyGrassCoverErosionInwardsCalculation, false);
+            AttachObserver(mockRepository, heightStructuresCalculation);
+            AttachObserver(mockRepository, emptyHeightStructuresCalculation, false);
 
             mockRepository.ReplayAll();
 
-            failureMechanismContribution.Attach(failureMechanismContributionObserver);
-            assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
-
-            emptyPipingCalculation.Attach(emptyPipingCalculationObserver);
-            emptyGrassCoverErosionInwardsCalculation.Attach(emptyGrassCoverErosionInwardsCalculationObserver);
-            emptyHeightStructuresCalculation.Attach(emptyHeightStructuresCalculationObserver);
-
-            pipingCalculation.Attach(pipingCalculationObserver);
-            grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
-            heightStructuresCalculation.Attach(heightStructuresCalculationObserver);
-
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserver);
-
-            var properties = new NormProperties(
-                failureMechanismContribution,
-                new FailureMechanismContributionNormChangeHandler(assessmentSection));
+            var properties = new NormProperties(assessmentSection.FailureMechanismContribution, new FailureMechanismContributionNormChangeHandler(assessmentSection));
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -159,10 +140,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Assert.AreEqual(messageAllHydraulicBoundaryOutputCleared, messages[1]);
             });
 
-            AssertNormValues(properties, failureMechanismContribution);
+            AssertNormValues(properties, assessmentSection.FailureMechanismContribution);
 
             AssertHydraulicBoundaryOutputClear(assessmentSection);
-            AssertHydraulicBoundaryLocationOutputClear(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            AssertHydraulicBoundaryLocationOutputClear(hydraulicBoundaryLocation);
 
             AssertCalculationOutputClear(pipingCalculation);
             AssertCalculationOutputClear(grassCoverErosionInwardsCalculation);
@@ -668,6 +649,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             assessmentSection.WaveHeightCalculationsForSignalingNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
             assessmentSection.WaveHeightCalculationsForLowerLimitNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
             assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ForEachElementDo(c => c.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble()));
+        }
+
+        private static void AttachObserver(MockRepository mockRepository, IObservable observable, bool expectUpdateObserver = true)
+        {
+            var observer = mockRepository.StrictMock<IObserver>();
+
+            if (expectUpdateObserver)
+            {
+                observer.Expect(o => o.UpdateObserver());
+            }
+
+            observable.Attach(observer);
         }
 
         #region AllDataAndOutputSet
