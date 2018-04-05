@@ -52,10 +52,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         private const double newLowerLimitNorm = 0.01;
         private const double newSignalingNorm = 0.000001;
 
-        private void SetPropertyAndVerifyNotificationsAndOutputForAllDataCleared(Action<NormProperties> setPropertyAction)
+        private void SetPropertyAndVerifyNotificationsAndOutputSet(Action<NormProperties> setPropertyAction)
         {
             // Setup
-            const int numberOfCalculations = 3;
+            const int numberOfCalculationsWithOutput = 3;
 
             var random = new Random();
             TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
@@ -133,13 +133,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertLogMessages(call, msgs =>
             {
                 string[] messages = msgs.ToArray();
-                Assert.AreEqual(string.Format(messageCalculationsRemoved, numberOfCalculations), messages[0]);
+                Assert.AreEqual(string.Format(messageCalculationsRemoved, numberOfCalculationsWithOutput), messages[0]);
                 Assert.AreEqual(messageAllHydraulicBoundaryOutputCleared, messages[1]);
             });
 
             AssertNormValues(properties, assessmentSection.FailureMechanismContribution);
             AssertHydraulicBoundaryOutputCleared(assessmentSection);
-            AssertHydraulicBoundaryLocationOutputClear(hydraulicBoundaryLocation);
+            AssertHydraulicBoundaryLocationOutputCleared(hydraulicBoundaryLocation);
             Assert.IsFalse(pipingCalculation.HasOutput);
             Assert.IsFalse(grassCoverErosionInwardsCalculation.HasOutput);
             Assert.IsFalse(heightStructuresCalculation.HasOutput);
@@ -615,19 +615,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [Test]
         public void LowerLimitNorm_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForAllDataCleared(properties => properties.LowerLimitNorm = newLowerLimitNorm);
+            SetPropertyAndVerifyNotificationsAndOutputSet(properties => properties.LowerLimitNorm = newLowerLimitNorm);
         }
 
         [Test]
         public void SignalingNorm_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForAllDataCleared(properties => properties.SignalingNorm = newSignalingNorm);
+            SetPropertyAndVerifyNotificationsAndOutputSet(properties => properties.SignalingNorm = newSignalingNorm);
         }
 
         [Test]
         public void NormativeNorm_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForAllDataCleared(properties => properties.NormativeNorm = newNormativeNorm);
+            SetPropertyAndVerifyNotificationsAndOutputSet(properties => properties.NormativeNorm = newNormativeNorm);
         }
 
         #endregion
@@ -790,7 +790,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.All(c => c.Output != null));
         }
 
-        private static void AssertHydraulicBoundaryLocationOutputClear(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static void AssertHydraulicBoundaryLocationOutputCleared(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation2.HasOutput);
