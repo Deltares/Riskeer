@@ -68,9 +68,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
@@ -98,9 +98,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
