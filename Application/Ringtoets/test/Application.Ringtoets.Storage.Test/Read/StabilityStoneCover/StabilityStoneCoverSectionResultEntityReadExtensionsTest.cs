@@ -21,12 +21,12 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
@@ -35,7 +35,19 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
     public class StabilityStoneCoverSectionResultEntityReadExtensionsTest
     {
         [Test]
-        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((StabilityStoneCoverSectionResultEntity) null).Read(
+                new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new StabilityStoneCoverSectionResultEntity();
@@ -53,56 +65,45 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         {
             // Setup
             var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            var layerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>();
-            double layerThree = random.NextDouble();
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+            var detailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new StabilityStoneCoverSectionResultEntity
             {
-                LayerOne = Convert.ToByte(layerOne),
-                LayerTwoA = Convert.ToByte(layerTwoA),
-                LayerThree = layerThree,
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
+                FailureMechanismSectionEntity = new FailureMechanismSectionEntity(),
+                SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
+                DetailedAssessmentResultForFactorizedSignalingNorm = Convert.ToByte(detailedAssessmentResultForFactorizedSignalingNorm),
+                DetailedAssessmentResultForSignalingNorm = Convert.ToByte(detailedAssessmentResultForSignalingNorm),
+                DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = Convert.ToByte(detailedAssessmentResultForMechanismSpecificLowerLimitNorm),
+                DetailedAssessmentResultForLowerLimitNorm = Convert.ToByte(detailedAssessmentResultForLowerLimitNorm),
+                DetailedAssessmentResultForFactorizedLowerLimitNorm = Convert.ToByte(detailedAssessmentResultForFactorizedLowerLimitNorm),
+                TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
+                UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
+                ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
+
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
 
             // Assert
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-        }
-
-        [Test]
-        public void Read_EntityWithNull_SectionResultWithNaNValues()
-        {
-            // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            var layerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>();
-
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new StabilityStoneCoverSectionResultEntity
-            {
-                LayerOne = Convert.ToByte(layerOne),
-                LayerTwoA = Convert.ToByte(layerTwoA),
-                LayerThree = null,
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult);
-
-            // Assert
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
+            Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
+            Assert.AreEqual(detailedAssessmentResultForFactorizedSignalingNorm, sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm);
+            Assert.AreEqual(detailedAssessmentResultForSignalingNorm, sectionResult.DetailedAssessmentResultForSignalingNorm);
+            Assert.AreEqual(detailedAssessmentResultForMechanismSpecificLowerLimitNorm, sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+            Assert.AreEqual(detailedAssessmentResultForLowerLimitNorm, sectionResult.DetailedAssessmentResultForLowerLimitNorm);
+            Assert.AreEqual(detailedAssessmentResultForFactorizedLowerLimitNorm, sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+            Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
+            Assert.AreEqual(useManualAssemblyCategoryGroup, sectionResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(manualAssemblyCategoryGroup, sectionResult.ManualAssemblyCategoryGroup);
         }
     }
 }
