@@ -208,15 +208,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = GetHydraulicBoundariesGroupContextChildNodeObjects,
+                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase.IsLinked()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
-                                                                                 .Build(),
-                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase.IsLinked()
-                                           ? Color.FromKnownColor(KnownColor.ControlText)
-                                           : Color.FromKnownColor(KnownColor.GrayText)
+                                                                                 .Build()
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
@@ -261,7 +261,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 CreateFileExporter = (context, filePath) =>
                     new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(context.FailureMechanism, context.AssessmentSection,
                                                                                     filePath),
-                IsEnabled = context => context.WrappedData.Count > 0,
+                IsEnabled = context => context.WrappedData.Locations.Count > 0,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIoResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIoResources.Shape_file_filter_Description)
             };
@@ -419,7 +419,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, failureMechanismContext.Parent),
+                new HydraulicBoundariesGroupContext(failureMechanismContext.Parent.HydraulicBoundaryDatabase, failureMechanism, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output)
             };
         }
@@ -487,16 +487,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                           .Build();
         }
 
-        private static object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext hydraulicBoundariesGroupContext)
+        private static object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext context)
         {
-            IAssessmentSection assessmentSection = hydraulicBoundariesGroupContext.AssessmentSection;
+            IAssessmentSection assessmentSection = context.AssessmentSection;
             if (!assessmentSection.HydraulicBoundaryDatabase.IsLinked())
             {
                 return new object[0];
             }
 
-            ObservableList<HydraulicBoundaryLocation> locations = hydraulicBoundariesGroupContext.WrappedData;
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = hydraulicBoundariesGroupContext.FailureMechanism;
+            ObservableList<HydraulicBoundaryLocation> locations = context.WrappedData.Locations;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
             return new object[]
             {
                 new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(locations, hbl => hbl.DesignWaterLevelCalculation1),
@@ -505,9 +505,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 new GrassCoverErosionOutwardsWaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(locations, hbl => hbl.WaveHeightCalculation1),
                                                                            assessmentSection,
                                                                            failureMechanism),
-                new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(hydraulicBoundariesGroupContext.FailureMechanism.WaveConditionsCalculationGroup,
+                new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(context.FailureMechanism.WaveConditionsCalculationGroup,
                                                                                    null,
-                                                                                   hydraulicBoundariesGroupContext.FailureMechanism,
+                                                                                   context.FailureMechanism,
                                                                                    assessmentSection)
             };
         }
