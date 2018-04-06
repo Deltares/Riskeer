@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         }
 
         [Test]
-        public void Create_VariousResults_ReturnsEntity()
+        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var random = new Random(21);
