@@ -100,6 +100,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertClosingStructuresSectionResultEntity(reader, sourceFilePath);
                     AssertStabilityPointStructuresSectionResultEntity(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsSectionResultEntity(reader, sourceFilePath);
+
+                    AssertPipingSectionResultEntity(reader, sourceFilePath);
+                    AssertMacroStabilityInwardsSectionResultEntity(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -586,6 +589,44 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity OLD USING (GrassCoverErosionInwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.GrassCoverErosionInwardsCalculationEntityId IS OLD.GrassCoverErosionInwardsCalculationEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentProbability IS NULL " +
+                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.ManualAssemblyProbability IS NULL; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertPipingSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].PipingSectionResultEntity) " +
+                "FROM PipingSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].PipingSectionResultEntity OLD USING (PipingSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentProbability IS NULL " +
+                "AND NEW.UseManualAssemblyProbability = 0 " +
+                "AND NEW.ManualAssemblyProbability IS NULL; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertMacroStabilityInwardsSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity) " +
+                "FROM MacroStabilityInwardsSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity OLD USING (MacroStabilityInwardsSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +

@@ -21,8 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read.Piping
@@ -37,9 +36,9 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// Reads the <see cref="PipingSectionResultEntity"/> and use the information to construct a 
         /// <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingSectionResultEntity"/> to create <see cref="PipingFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="PipingSectionResultEntity"/> to update 
+        /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="PipingFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         internal static void Read(this PipingSectionResultEntity entity, PipingFailureMechanismSectionResult sectionResult)
         {
@@ -47,8 +46,13 @@ namespace Application.Ringtoets.Storage.Read.Piping
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
-            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
+
+            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
+            sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType) entity.DetailedAssessmentResult;
+            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityCalculationResultType) entity.TailorMadeAssessmentResult;
+            sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
+            sectionResult.UseManualAssemblyProbability = Convert.ToBoolean(entity.UseManualAssemblyProbability);
+            sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
         }
     }
 }

@@ -36,12 +36,22 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="PipingSectionResultEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         internal static PipingSectionResultEntity Create(this PipingFailureMechanismSectionResult result)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             var pipingSectionResultEntity = new PipingSectionResultEntity
             {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.TailorMadeAssessmentProbability.ToNaNAsNull()
+                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
+                DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
+                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
+                TailorMadeAssessmentProbability = result.TailorMadeAssessmentProbability.ToNaNAsNull(),
+                UseManualAssemblyProbability = Convert.ToByte(result.UseManualAssemblyProbability),
+                ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
             };
 
             return pipingSectionResultEntity;

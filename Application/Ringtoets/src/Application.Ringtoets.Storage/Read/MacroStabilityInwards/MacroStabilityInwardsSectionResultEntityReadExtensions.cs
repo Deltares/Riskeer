@@ -21,7 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using Ringtoets.MacroStabilityInwards.Data;
 
 namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="MacroStabilityInwardsSectionResultEntity"/> to 
-        /// update the <paramref name="sectionResult"/> for.</param>
+        /// update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this MacroStabilityInwardsSectionResultEntity entity, MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
@@ -46,13 +46,18 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
+            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
+            sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType) entity.DetailedAssessmentResult;
+            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityCalculationResultType) entity.TailorMadeAssessmentResult;
+            sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
+            sectionResult.UseManualAssemblyProbability = Convert.ToBoolean(entity.UseManualAssemblyProbability);
+            sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
         }
     }
 }

@@ -23,10 +23,9 @@ using System;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.Piping
@@ -35,26 +34,48 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     public class PipingFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        [Combinatorial]
+        public void Create_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((PipingFailureMechanismSectionResult) null).Create();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
+        [Test]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var random = new Random(21);
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
+            bool useManualAssemblyProbability = random.NextBoolean();
+            double manualAssemblyProbability = random.NextDouble();
 
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability
+                SimpleAssessmentResult = simpleAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
+                UseManualAssemblyProbability = useManualAssemblyProbability,
+                ManualAssemblyProbability = manualAssemblyProbability
             };
 
             // Call
-            PipingSectionResultEntity result = sectionResult.Create();
+            PipingSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(tailorMadeAssessmentProbability, result.LayerThree);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
+            Assert.AreEqual(Convert.ToByte(useManualAssemblyProbability), entity.UseManualAssemblyProbability);
+            Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
         }
 
         [Test]
@@ -63,14 +84,16 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = double.NaN
+                TailorMadeAssessmentProbability = double.NaN,
+                ManualAssemblyProbability = double.NaN
             };
 
             // Call
-            PipingSectionResultEntity result = sectionResult.Create();
+            PipingSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.IsNull(result.LayerThree);
+            Assert.IsNull(entity.TailorMadeAssessmentProbability);
+            Assert.IsNull(entity.ManualAssemblyProbability);
         }
     }
 }

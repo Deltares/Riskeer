@@ -1101,8 +1101,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             var random = new Random(21);
             foreach (PipingFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
+                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.ManualAssemblyProbability = random.NextDouble();
             }
         }
 
@@ -1610,8 +1614,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             var random = new Random(21);
             foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
+                sectionResult.UseManualAssemblyProbability = random.NextBoolean();
+                sectionResult.ManualAssemblyProbability = random.NextDouble();
             }
         }
 
