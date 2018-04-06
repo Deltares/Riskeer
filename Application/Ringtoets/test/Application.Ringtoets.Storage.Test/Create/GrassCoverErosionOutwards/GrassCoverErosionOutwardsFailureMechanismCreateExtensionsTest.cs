@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
                 },
                 GeneralInput =
                 {
-                    N = new Random().NextRoundedDouble(1, 20)
+                    N = new Random(39).NextRoundedDouble(1, 20)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -255,19 +255,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
                 entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
 
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity);
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity1);
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity2);
-
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity3);
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity4);
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity5);
+            AssertHydraulicLocationCalculationCollectionEntities(failureMechanism, metaEntity);
         }
 
         [Test]
@@ -292,19 +280,25 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
                 entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
 
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity);
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity1);
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity2);
+            AssertHydraulicLocationCalculationCollectionEntities(failureMechanism, metaEntity);
+        }
 
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity3);
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity4);
-            AssertHydraulicLocationCalculationCollectionEntity(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                                               metaEntity.HydraulicLocationCalculationCollectionEntity5);
+        private static void AssertHydraulicLocationCalculationCollectionEntities(GrassCoverErosionOutwardsFailureMechanism expectedFailureMechanism,
+                                                                                 GrassCoverErosionOutwardsFailureMechanismMetaEntity actualEntity)
+        {
+            AssertHydraulicLocationCalculationCollectionEntity(expectedFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
+                                                               actualEntity.HydraulicLocationCalculationCollectionEntity);
+            AssertHydraulicLocationCalculationCollectionEntity(expectedFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                                                               actualEntity.HydraulicLocationCalculationCollectionEntity1);
+            AssertHydraulicLocationCalculationCollectionEntity(expectedFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                               actualEntity.HydraulicLocationCalculationCollectionEntity2);
+
+            AssertHydraulicLocationCalculationCollectionEntity(expectedFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
+                                                               actualEntity.HydraulicLocationCalculationCollectionEntity3);
+            AssertHydraulicLocationCalculationCollectionEntity(expectedFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
+                                                               actualEntity.HydraulicLocationCalculationCollectionEntity4);
+            AssertHydraulicLocationCalculationCollectionEntity(expectedFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                               actualEntity.HydraulicLocationCalculationCollectionEntity5);
         }
 
         private static void SetHydraulicBoundaryLocationCalculationInputsOfFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
