@@ -88,14 +88,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnName()
         {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
-
             // Call
-            string nodeText = info.Text(context);
+            string nodeText = info.Text(null);
 
             // Assert
             Assert.AreEqual("Hydraulische randvoorwaarden", nodeText);
@@ -104,14 +98,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnFailureMechanismIcon()
         {
-            // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
-
             // Call
-            Image icon = info.Image(context);
+            Image icon = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, icon);
@@ -123,9 +111,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+                assessmentSection.Replay();
+
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
+                var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
                 var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
                 using (mockRepository.Ordered())
@@ -159,7 +149,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
+            var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -180,7 +170,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
+            var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -212,7 +202,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
+            var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
@@ -233,7 +223,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
+            var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
