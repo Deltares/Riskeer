@@ -193,7 +193,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             string validateSoilLayers =
                 $"ATTACH DATABASE[{sourceFilePath}] AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM[SOURCEPROJECT].SoilLayerEntity) " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].SoilLayerEntity) " +
                 "FROM SoilLayerEntity AS NEW " +
                 "LEFT JOIN [SOURCEPROJECT].SoilLayerEntity AS OLD ON NEW.[SoilLayerEntityId] = OLD.[SoilLayerEntityId] " +
                 "WHERE ((NEW.[DiameterD70CoefficientOfVariation] IS NULL AND OLD.[DiameterD70Deviation] IS NULL) " +

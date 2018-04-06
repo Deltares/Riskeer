@@ -30,8 +30,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Hydraulics
     public static class HydraulicLocationEntityTestFactory
     {
         /// <summary>
-        /// Creates a minimal <see cref="HydraulicLocationEntity"/> with a configured
-        /// name and its hydraulic calculation entities set.
+        /// Creates a minimal <see cref="HydraulicLocationEntity"/> with a configured name.
         /// </summary>
         /// <returns>A valid <see cref="HydraulicLocationEntity"/>.</returns>
         public static HydraulicLocationEntity CreateHydraulicLocationEntity()

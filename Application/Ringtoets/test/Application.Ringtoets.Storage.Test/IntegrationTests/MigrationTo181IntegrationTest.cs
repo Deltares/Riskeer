@@ -411,7 +411,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].AssessmentSectionEntity) " +
                 "FROM AssessmentSectionEntity NEW " +
-                "JOIN [SOURCEPROJECT].AssessmentSectionEntity AS OLD USING (AssessmentSectionEntityId) " +
+                "JOIN [SOURCEPROJECT].AssessmentSectionEntity AS OLD USING(AssessmentSectionEntityId) " +
                 "WHERE NEW.ProjectEntityId = OLD.ProjectEntityId " +
                 "AND NEW.Id = OLD.Id " +
                 "AND NEW.Name IS OLD.Name " +
@@ -433,9 +433,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             string validateMigratedHyraulicBoundaryLocations = $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                                                                "SELECT " +
-                                                               "COUNT() = (SELECT COUNT() FROM[SOURCEPROJECT].HydraulicLocationEntity) " +
+                                                               "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationEntity) " +
                                                                "FROM HydraulicLocationEntity NEW " +
-                                                               "JOIN[SourceProject].HydraulicLocationEntity AS OLD USING(HydraulicLocationEntityId) " +
+                                                               "JOIN [SourceProject].HydraulicLocationEntity AS OLD USING(HydraulicLocationEntityId) " +
                                                                "WHERE NEW.AssessmentSectionEntityId = OLD.AssessmentSectionEntityId " +
                                                                "AND NEW.LocationId = OLD.LocationId " +
                                                                "AND NEW.Name = OLD.Name " +
@@ -445,7 +445,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                                "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateMigratedHyraulicBoundaryLocations);
 
-            string validateNrOfHydraulicLocationCalculations =
+            string validateHydraulicLocationCalculationCount =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT " +
                 "COUNT() = 0 " +
@@ -454,12 +454,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT " +
                 "COUNT(distinct HydraulicLocationCalculationEntityId) AS NrOfCalculationsPerLocation " +
                 "FROM [SOURCEPROJECT].HydraulicLocationEntity " +
-                "LEFT JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationEntityId) " +
+                "LEFT JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationEntityId) " +
                 "GROUP BY HydraulicLocationEntityId " +
                 ") " +
                 "WHERE NrOfCalculationsPerLocation IS NOT 14; " +
                 "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateNrOfHydraulicLocationCalculations);
+            reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculationCount);
 
             const string validateHydraulicBoundaryCalculationInputValues = "SELECT " +
                                                                            "COUNT() = 0 " +
@@ -467,7 +467,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                                            "WHERE ShouldIllustrationPointsBeCalculated != 0 AND ShouldIllustrationPointsBeCalculated != 1";
             reader.AssertReturnedDataIsValid(validateHydraulicBoundaryCalculationInputValues);
 
-            string validateNrOfHydraulicLocationCalculationOutputs =
+            string validateHydraulicLocationCalculationOutputCount =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "( " +
@@ -480,7 +480,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 ") " +
                 "FROM HydraulicLocationOutputEntity; " +
                 "DETACH DATABASE SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(validateNrOfHydraulicLocationCalculationOutputs);
+            reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculationOutputCount);
         }
 
         private static void AssertHydraulicBoundaryLocationsOnAssessmentSection(MigratedDatabaseReader reader, string sourceFilePath)
@@ -504,11 +504,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity) " +
-                "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity new " +
-                "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity source USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId) " +
-                "WHERE new.FailureMechanismEntityId = source.FailureMechanismEntityId " +
-                "AND new.N = source.N " +
-                "AND new.ForeshoreProfileCollectionSourcePath IS source.ForeshoreProfileCollectionSourcePath; " +
+                "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity OLD USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId) " +
+                "WHERE new.FailureMechanismEntityId = OLD.FailureMechanismEntityId " +
+                "AND NEW.N = OLD.N " +
+                "AND NEW.ForeshoreProfileCollectionSourcePath IS OLD.ForeshoreProfileCollectionSourcePath; " +
                 "DETACH DATABASE SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateMetaEntity);
@@ -523,7 +523,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity) " +
                 "FROM HeightStructuresSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity OLD USING (HeightStructuresSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity OLD USING(HeightStructuresSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.HeightStructuresCalculationEntityId IS OLD.HeightStructuresCalculationEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
@@ -543,7 +543,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity) " +
                 "FROM ClosingStructuresSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity OLD USING (ClosingStructuresSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity OLD USING(ClosingStructuresSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.ClosingStructuresCalculationEntityId IS OLD.ClosingStructuresCalculationEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
@@ -563,7 +563,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity) " +
                 "FROM StabilityPointStructuresSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity OLD USING (StabilityPointStructuresSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity OLD USING(StabilityPointStructuresSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.StabilityPointStructuresCalculationEntityId IS OLD.StabilityPointStructuresCalculationEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
@@ -603,13 +603,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertWaveHeightCalculationEntitiesOnAssessmentSection(MigratedDatabaseReader reader,
                                                                                    HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator queryGenerator)
         {
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerAssessmentSectionCountValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerAssessmentSectionCountValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaveHeightCalculationsForSignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerAssessmentSectionCountValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaveHeightCalculationsForLowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerAssessmentSectionCountValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType.LowerLimitNorm));
@@ -630,13 +630,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertDesignWaterLevelCalculationEntitiesOnAssessmentSection(MigratedDatabaseReader reader,
                                                                                          HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator queryGenerator)
         {
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerAssessmentSectionCountValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerAssessmentSectionCountValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaterLevelCalculationsForSignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerAssessmentSectionCountValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaterLevelCalculationsForLowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerAssessmentSectionCountValidationQuery(
                                                  HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator.CalculationType.WaterLevelCalculationsForFactorizedLowerLimitNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType.LowerLimitNorm));
@@ -730,7 +730,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// </summary>
             /// <param name="calculationType">The type of calculation that should be validated.</param>
             /// <returns>The query to validate the number of hydraulic boundary location calculations per assessment section.</returns>
-            public string GetNrOfHydraulicBoundaryLocationCalculationsPerAssessmentSectionValidationQuery(CalculationType calculationType)
+            public string GetHydraulicBoundaryLocationCalculationsPerAssessmentSectionCountValidationQuery(CalculationType calculationType)
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT " +
@@ -980,11 +980,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertDesignWaterLevelCalculationEntitiesOnGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader,
                                                                                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator queryGenerator)
         {
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerFailureMechanismCountValidationQuery(
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerFailureMechanismCountValidationQuery(
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificSignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerFailureMechanismCountValidationQuery(
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType.SignalingNorm));
@@ -1001,11 +1001,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertWaveHeightCalculationEntitiesOnGrassCoverErosionOutwardsFailureMechanism(MigratedDatabaseReader reader,
                                                                                                            HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator queryGenerator)
         {
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerFailureMechanismCountValidationQuery(
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerFailureMechanismCountValidationQuery(
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificSignalingNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(
+            reader.AssertReturnedDataIsValid(queryGenerator.GetHydraulicBoundaryLocationCalculationsPerFailureMechanismCountValidationQuery(
                                                  HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator.CalculationType.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm));
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType.SignalingNorm));
@@ -1075,7 +1075,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// </summary>
             /// <param name="calculationType">The type of calculation that should be validated.</param>
             /// <returns>The query to validate the number of hydraulic boundary location calculations per assessment section.</returns>
-            public string GetNrOfHydraulicBoundaryLocationCalculationsPerFailureMechanism(CalculationType calculationType)
+            public string GetHydraulicBoundaryLocationCalculationsPerFailureMechanismCountValidationQuery(CalculationType calculationType)
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT COUNT() = 0 " +

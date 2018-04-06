@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="HydraulicLocationCalculationCollectionEntity"/> based on the information
         /// of the <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="HydraulicBoundaryLocationCalculation"/>
+        /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/>
         /// to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicLocationCalculationCollectionEntity"/>.</returns>

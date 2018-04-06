@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an <see cref="IEnumerable{T}"/> of 
+    /// This class defines extension methods for read operations for a collection of 
     /// <see cref="HydraulicBoundaryLocationCalculation"/> based on the <see cref="HydraulicLocationCalculationCollectionEntity"/>.
     /// </summary>
     internal static class HydraulicLocationCalculationCollectionReadExtensions
@@ -61,13 +61,13 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> dictionary =
+            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> calculationsLookup =
                 calculations.ToDictionary(calc => calc.HydraulicBoundaryLocation, calc => calc);
 
             foreach (HydraulicLocationCalculationEntity calculationEntity in entity.HydraulicLocationCalculationEntities)
             {
                 HydraulicBoundaryLocation hydraulicBoundaryLocation = collector.Get(calculationEntity.HydraulicLocationEntity);
-                HydraulicBoundaryLocationCalculation calculation = dictionary[hydraulicBoundaryLocation];
+                HydraulicBoundaryLocationCalculation calculation = calculationsLookup[hydraulicBoundaryLocation];
 
                 calculationEntity.Read(calculation);
             }

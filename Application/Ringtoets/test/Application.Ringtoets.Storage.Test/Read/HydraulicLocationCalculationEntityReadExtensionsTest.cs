@@ -22,13 +22,13 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
-using Application.Ringtoets.Storage.Read;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            TestDelegate call = () => ((HydraulicLocationCalculationEntity)null).Read(calculation);
+            TestDelegate call = () => ((HydraulicLocationCalculationEntity) null).Read(calculation);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,9 +68,9 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             HydraulicLocationCalculationEntity entity = CreateCalculationEntity(21);
-            
+
             var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
-            
+
             // Call
             entity.Read(calculation);
 
@@ -108,7 +108,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertHydraulicBoundaryLocationCalculation(entity, calculation);
         }
 
-
         private static HydraulicLocationCalculationEntity CreateCalculationEntity(int seed)
         {
             var random = new Random(seed);
@@ -129,7 +128,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 TargetReliability = random.NextDouble(),
                 CalculatedProbability = random.NextDouble(),
                 CalculatedReliability = random.NextDouble(),
-                CalculationConvergence = (byte)CalculationConvergence.NotCalculated
+                CalculationConvergence = (byte) CalculationConvergence.NotCalculated
             };
             return hydraulicLocationOutputEntity;
         }
@@ -179,16 +178,16 @@ namespace Application.Ringtoets.Storage.Test.Read
             }
 
             Assert.IsNotNull(expected.Result);
-            Assert.AreEqual((RoundedDouble)expected.Result, actual.Result, actual.Result.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) expected.Result, actual.Result, actual.Result.GetAccuracy());
             Assert.IsNotNull(expected.TargetReliability);
-            Assert.AreEqual((RoundedDouble)expected.TargetReliability, actual.TargetReliability, actual.TargetReliability.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) expected.TargetReliability, actual.TargetReliability, actual.TargetReliability.GetAccuracy());
             Assert.IsNotNull(expected.TargetProbability);
             Assert.AreEqual(expected.TargetProbability, actual.TargetProbability);
             Assert.IsNotNull(expected.CalculatedReliability);
-            Assert.AreEqual((RoundedDouble)expected.CalculatedReliability, actual.CalculatedReliability, actual.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) expected.CalculatedReliability, actual.CalculatedReliability, actual.CalculatedReliability.GetAccuracy());
             Assert.IsNotNull(expected.CalculatedProbability);
             Assert.AreEqual(expected.CalculatedProbability, actual.CalculatedProbability);
-            Assert.AreEqual((CalculationConvergence)expected.CalculationConvergence, actual.CalculationConvergence);
+            Assert.AreEqual((CalculationConvergence) expected.CalculationConvergence, actual.CalculationConvergence);
 
             AssertGeneralResult(expected.GeneralResultSubMechanismIllustrationPointEntity, actual.GeneralResult);
         }

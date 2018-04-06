@@ -653,7 +653,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "[ClosingStructureCollectionSourcePath] IS NOT NULL AND NOT COUNT([ClosingStructureEntityId]) " +
                 "THEN 1 ELSE 0 END AS [IsInvalid] " +
                 "FROM [ClosingStructuresFailureMechanismMetaEntity] " +
-                "LEFT JOIN [ClosingStructureEntity] USING ([FailureMechanismEntityId]) " +
+                "LEFT JOIN [ClosingStructureEntity] USING([FailureMechanismEntityId]) " +
                 "GROUP BY [FailureMechanismEntityId]);";
             reader.AssertReturnedDataIsValid(validateStructuresCollectionSourcePath);
 
@@ -768,7 +768,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "[HeightStructureCollectionSourcePath] IS NOT NULL AND NOT COUNT([HeightStructureEntityId]) " +
                 "THEN 1 ELSE 0 END AS [IsInvalid] " +
                 "FROM [HeightStructuresFailureMechanismMetaEntity] " +
-                "LEFT JOIN [HeightStructureEntity] USING ([FailureMechanismEntityId]) " +
+                "LEFT JOIN [HeightStructureEntity] USING([FailureMechanismEntityId]) " +
                 "GROUP BY [FailureMechanismEntityId]);";
             reader.AssertReturnedDataIsValid(validateStructuresCollectionSourcePath);
 
@@ -936,7 +936,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "[StabilityPointStructureCollectionSourcePath] IS NOT NULL AND NOT COUNT([StabilityPointStructureEntityId]) " +
                 "THEN 1 ELSE 0 END AS [IsInvalid] " +
                 "FROM [StabilityPointStructuresFailureMechanismMetaEntity] " +
-                "LEFT JOIN [StabilityPointStructureEntity] USING ([FailureMechanismEntityId]) " +
+                "LEFT JOIN [StabilityPointStructureEntity] USING([FailureMechanismEntityId]) " +
                 "GROUP BY [FailureMechanismEntityId]);";
             reader.AssertReturnedDataIsValid(validateStructuresCollectionSourcePath);
 

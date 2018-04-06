@@ -28,7 +28,6 @@ using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;

@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    ///  Extension methods for <see cref="HydraulicBoundaryLocationCalculation"/> related 
+    /// Extension methods for <see cref="HydraulicBoundaryLocationCalculation"/> related 
     /// to creating a <see cref="HydraulicLocationCalculationEntity"/>.
     /// </summary>
     internal static class HydraulicBoundaryLocationCalculationCreateExtensions
@@ -39,8 +39,8 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicLocationCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static HydraulicLocationCalculationEntity Create(this HydraulicBoundaryLocationCalculation calculation,
-                                                                PersistenceRegistry registry)
+        internal static HydraulicLocationCalculationEntity Create(this HydraulicBoundaryLocationCalculation calculation,
+                                                                  PersistenceRegistry registry)
         {
             if (calculation == null)
             {
