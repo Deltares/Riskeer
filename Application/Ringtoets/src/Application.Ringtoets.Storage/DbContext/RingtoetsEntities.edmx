@@ -211,9 +211,15 @@
           </Key>
           <Property Name="DuneErosionSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedSignalingNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForSignalingNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="UseManualAssemblyCategoryGroup" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyCategoryGroup" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="DuneLocationEntity">
           <Key>
@@ -453,9 +459,15 @@
           </Key>
           <Property Name="GrassCoverErosionOutwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedSignalingNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForSignalingNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="UseManualAssemblyCategoryGroup" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyCategoryGroup" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntity">
           <Key>
@@ -1271,9 +1283,15 @@
           </Key>
           <Property Name="StabilityStoneCoverSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedSignalingNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForSignalingNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="UseManualAssemblyCategoryGroup" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyCategoryGroup" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverWaveConditionsCalculationEntity">
           <Key>
@@ -1444,9 +1462,15 @@
           </Key>
           <Property Name="WaveImpactAsphaltCoverSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="real" />
+          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedSignalingNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForSignalingNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" Type="tinyint" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
+          <Property Name="UseManualAssemblyCategoryGroup" Type="tinyint" Nullable="false" />
+          <Property Name="ManualAssemblyCategoryGroup" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
           <Key>
@@ -4922,9 +4946,15 @@
           </Key>
           <Property Name="DuneErosionSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedSignalingNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForSignalingNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="UseManualAssemblyCategoryGroup" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyCategoryGroup" Type="Byte" Nullable="false" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_DuneErosionSectionResultEntity_0_0" FromRole="DuneErosionSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="DuneLocationEntity">
@@ -5224,9 +5254,15 @@
           </Key>
           <Property Name="GrassCoverErosionOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedSignalingNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForSignalingNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="UseManualAssemblyCategoryGroup" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyCategoryGroup" Type="Byte" Nullable="false" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsSectionResultEntity_0_0" FromRole="GrassCoverErosionOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntity">
@@ -6088,9 +6124,15 @@
           </Key>
           <Property Name="StabilityStoneCoverSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedSignalingNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForSignalingNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="UseManualAssemblyCategoryGroup" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyCategoryGroup" Type="Byte" Nullable="false" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverSectionResultEntity_0_0" FromRole="StabilityStoneCoverSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverWaveConditionsCalculationEntity">
@@ -6291,9 +6333,15 @@
           </Key>
           <Property Name="WaveImpactAsphaltCoverSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Double" />
+          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedSignalingNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForSignalingNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" Type="Byte" Nullable="false" />
+          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
+          <Property Name="UseManualAssemblyCategoryGroup" Type="Byte" Nullable="false" />
+          <Property Name="ManualAssemblyCategoryGroup" Type="Byte" Nullable="false" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverSectionResultEntity_0_0" FromRole="WaveImpactAsphaltCoverSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
@@ -8253,9 +8301,15 @@
           <EntitySetMapping Name="DuneErosionSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.DuneErosionSectionResultEntity">
               <MappingFragment StoreEntitySet="DuneErosionSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyCategoryGroup" ColumnName="ManualAssemblyCategoryGroup" />
+                <ScalarProperty Name="UseManualAssemblyCategoryGroup" ColumnName="UseManualAssemblyCategoryGroup" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" ColumnName="DetailedAssessmentResultForFactorizedLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForLowerLimitNorm" ColumnName="DetailedAssessmentResultForLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" ColumnName="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForSignalingNorm" ColumnName="DetailedAssessmentResultForSignalingNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForFactorizedSignalingNorm" ColumnName="DetailedAssessmentResultForFactorizedSignalingNorm" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="DuneErosionSectionResultEntityId" ColumnName="DuneErosionSectionResultEntityId" />
               </MappingFragment>
@@ -8479,9 +8533,15 @@
           <EntitySetMapping Name="GrassCoverErosionOutwardsSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyCategoryGroup" ColumnName="ManualAssemblyCategoryGroup" />
+                <ScalarProperty Name="UseManualAssemblyCategoryGroup" ColumnName="UseManualAssemblyCategoryGroup" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" ColumnName="DetailedAssessmentResultForFactorizedLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForLowerLimitNorm" ColumnName="DetailedAssessmentResultForLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" ColumnName="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForSignalingNorm" ColumnName="DetailedAssessmentResultForSignalingNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForFactorizedSignalingNorm" ColumnName="DetailedAssessmentResultForFactorizedSignalingNorm" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="GrassCoverErosionOutwardsSectionResultEntityId" ColumnName="GrassCoverErosionOutwardsSectionResultEntityId" />
               </MappingFragment>
@@ -9292,9 +9352,15 @@
           <EntitySetMapping Name="StabilityStoneCoverSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityStoneCoverSectionResultEntity">
               <MappingFragment StoreEntitySet="StabilityStoneCoverSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyCategoryGroup" ColumnName="ManualAssemblyCategoryGroup" />
+                <ScalarProperty Name="UseManualAssemblyCategoryGroup" ColumnName="UseManualAssemblyCategoryGroup" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" ColumnName="DetailedAssessmentResultForFactorizedLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForLowerLimitNorm" ColumnName="DetailedAssessmentResultForLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" ColumnName="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForSignalingNorm" ColumnName="DetailedAssessmentResultForSignalingNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForFactorizedSignalingNorm" ColumnName="DetailedAssessmentResultForFactorizedSignalingNorm" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="StabilityStoneCoverSectionResultEntityId" ColumnName="StabilityStoneCoverSectionResultEntityId" />
               </MappingFragment>
@@ -9480,9 +9546,15 @@
           <EntitySetMapping Name="WaveImpactAsphaltCoverSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity">
               <MappingFragment StoreEntitySet="WaveImpactAsphaltCoverSectionResultEntity">
-                <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
-                <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ManualAssemblyCategoryGroup" ColumnName="ManualAssemblyCategoryGroup" />
+                <ScalarProperty Name="UseManualAssemblyCategoryGroup" ColumnName="UseManualAssemblyCategoryGroup" />
+                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
+                <ScalarProperty Name="DetailedAssessmentResultForFactorizedLowerLimitNorm" ColumnName="DetailedAssessmentResultForFactorizedLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForLowerLimitNorm" ColumnName="DetailedAssessmentResultForLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" ColumnName="DetailedAssessmentResultForMechanismSpecificLowerLimitNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForSignalingNorm" ColumnName="DetailedAssessmentResultForSignalingNorm" />
+                <ScalarProperty Name="DetailedAssessmentResultForFactorizedSignalingNorm" ColumnName="DetailedAssessmentResultForFactorizedSignalingNorm" />
+                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="WaveImpactAsphaltCoverSectionResultEntityId" ColumnName="WaveImpactAsphaltCoverSectionResultEntityId" />
               </MappingFragment>
