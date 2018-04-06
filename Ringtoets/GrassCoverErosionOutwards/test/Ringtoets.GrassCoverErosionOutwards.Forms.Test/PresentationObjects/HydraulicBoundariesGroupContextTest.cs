@@ -40,15 +40,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mockRepository.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
+            var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(context);
-            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, context.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(context);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
@@ -60,28 +62,36 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundariesGroupContext(new ObservableList<HydraulicBoundaryLocation>(), null, assessmentSection);
+            TestDelegate call = () => new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            mockRepository.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, null);
+            TestDelegate call = () => new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
+            mockRepository.VerifyAll();
         }
     }
 }
