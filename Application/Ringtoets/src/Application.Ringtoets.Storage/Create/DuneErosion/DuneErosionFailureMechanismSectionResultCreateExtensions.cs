@@ -36,14 +36,27 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="DuneErosionSectionResultEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
+        /// is <c>null</c>.</exception>
         internal static DuneErosionSectionResultEntity Create(this DuneErosionFailureMechanismSectionResult result)
         {
-            var sectionResultEntity = new DuneErosionSectionResultEntity
+            if (result == null)
             {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne)
-            };
+                throw new ArgumentNullException(nameof(result));
+            }
 
-            return sectionResultEntity;
+            return new DuneErosionSectionResultEntity
+            {
+                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
+                DetailedAssessmentResultForFactorizedSignalingNorm = Convert.ToByte(result.DetailedAssessmentResultForFactorizedSignalingNorm),
+                DetailedAssessmentResultForSignalingNorm = Convert.ToByte(result.DetailedAssessmentResultForSignalingNorm),
+                DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = Convert.ToByte(result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm),
+                DetailedAssessmentResultForLowerLimitNorm = Convert.ToByte(result.DetailedAssessmentResultForLowerLimitNorm),
+                DetailedAssessmentResultForFactorizedLowerLimitNorm = Convert.ToByte(result.DetailedAssessmentResultForFactorizedLowerLimitNorm),
+                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
+                UseManualAssemblyCategoryGroup = Convert.ToByte(result.UseManualAssemblyCategoryGroup),
+                ManualAssemblyCategoryGroup = Convert.ToByte(result.ManualAssemblyCategoryGroup)
+            };
         }
     }
 }

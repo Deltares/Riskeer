@@ -25,7 +25,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
@@ -34,21 +35,57 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
     public class DuneErosionFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_ValidData_ReturnsEntityEqualData()
+        public void Create_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((DuneErosionFailureMechanismSectionResult) null).Create();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var random = new Random(21);
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+            var detailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var detailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = random.NextEnumValue<AssessmentLayerOneState>(),
+                SimpleAssessmentResult = simpleAssessmentResult,
+                DetailedAssessmentResultForFactorizedSignalingNorm = detailedAssessmentResultForFactorizedSignalingNorm,
+                DetailedAssessmentResultForSignalingNorm = detailedAssessmentResultForSignalingNorm,
+                DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
+                DetailedAssessmentResultForLowerLimitNorm = detailedAssessmentResultForLowerLimitNorm,
+                DetailedAssessmentResultForFactorizedLowerLimitNorm = detailedAssessmentResultForFactorizedLowerLimitNorm,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup,
+                ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup
             };
 
             // Call
-            DuneErosionSectionResultEntity result = sectionResult.Create();
+            DuneErosionSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerOne), result.LayerOne);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResultForFactorizedSignalingNorm), entity.DetailedAssessmentResultForFactorizedSignalingNorm);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResultForSignalingNorm), entity.DetailedAssessmentResultForSignalingNorm);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResultForMechanismSpecificLowerLimitNorm), entity.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResultForLowerLimitNorm), entity.DetailedAssessmentResultForLowerLimitNorm);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResultForFactorizedLowerLimitNorm), entity.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(useManualAssemblyCategoryGroup), entity.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(Convert.ToByte(manualAssemblyCategoryGroup), entity.ManualAssemblyCategoryGroup);
         }
     }
 }

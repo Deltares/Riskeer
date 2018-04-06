@@ -279,6 +279,10 @@
       <Project>{D08DB9E2-6861-44C8-A725-71A70274CC77}</Project>
       <Name>Migration.Scripts.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>
