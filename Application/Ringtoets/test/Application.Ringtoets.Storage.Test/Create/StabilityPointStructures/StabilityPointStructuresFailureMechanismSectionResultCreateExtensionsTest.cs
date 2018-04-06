@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         }
 
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_PersistencyRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -56,7 +56,8 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             TestDelegate test = () => sectionResult.Create(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]

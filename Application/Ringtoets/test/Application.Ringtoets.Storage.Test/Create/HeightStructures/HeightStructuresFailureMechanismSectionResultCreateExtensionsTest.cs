@@ -56,7 +56,8 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             TestDelegate test = () => sectionResult.Create(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
