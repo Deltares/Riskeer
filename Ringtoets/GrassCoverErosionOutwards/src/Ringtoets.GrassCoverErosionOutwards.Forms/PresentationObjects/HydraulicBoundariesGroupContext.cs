@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -31,28 +30,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for Hydraulic boundary locations and calculations.
     /// </summary>
-    public class HydraulicBoundariesGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+    public class HydraulicBoundariesGroupContext : ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HydraulicBoundariesGroupContext"/> class.
+        /// Initializes a new instance of <see cref="HydraulicBoundariesGroupContext"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The locations from the hydraulic boundaries database made for grass cover erosion outwards.</param>
-        /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism which the locations belong to.</param>
-        /// <param name="assessmentSection">The assessment section the locations belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HydraulicBoundariesGroupContext(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+        /// <param name="wrappedData">The hydraulic boundaries database to wrap.</param>
+        /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism the calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HydraulicBoundariesGroupContext(HydraulicBoundaryDatabase wrappedData,
                                                GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                IAssessmentSection assessmentSection)
-            : base(hydraulicBoundaryLocations)
+            : base(wrappedData)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             AssessmentSection = assessmentSection;
             FailureMechanism = failureMechanism;
         }
