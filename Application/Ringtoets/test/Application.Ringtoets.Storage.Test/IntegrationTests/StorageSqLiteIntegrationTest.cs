@@ -999,7 +999,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     (expectedItem, actualItem) => {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, actualItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         private static void AssertDuneLocations(IEnumerable<DuneLocation> expectedDuneLocations,
@@ -1807,7 +1817,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     (expectedItem, actualItem) => {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, actualItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation expectedCalculation,
@@ -1846,7 +1866,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     (expectedItem, actualItem) => {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, actualItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         private static void AssertStabilityStoneCoverWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation,
@@ -1884,7 +1914,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults,
                                                                  IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
         {
-            AssertCollectionAndItems(expectedSectionResults, actualSectionResults, (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+            AssertCollectionAndItems(expectedSectionResults, actualSectionResults, (expectedItem, actualItem) => {
+                Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
+                Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
+                Assert.AreEqual(expectedItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, actualItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+                Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
+                Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+                Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+            });
         }
 
         private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation expectedCalculation,
