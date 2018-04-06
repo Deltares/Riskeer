@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
@@ -68,10 +69,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
+            var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
@@ -97,10 +99,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
+            var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
@@ -114,23 +117,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
         public void IsEnabled_HydraulicBoundaryLocationsNotEmpty_ReturnTrue()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(new[]
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(0, "aName", 0, 0)
             });
-
-            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new HydraulicBoundariesGroupContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = exportInfo.IsEnabled(context);
 
             // Assert
             Assert.IsTrue(isEnabled);
-            mockRepository.VerifyAll();
         }
     }
 }
