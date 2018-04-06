@@ -204,7 +204,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         {
             var failureMechanismResultView = new ClosingStructuresFailureMechanismResultView(sectionResults,
                                                                                              new ClosingStructuresFailureMechanism(),
-                                                                                             new ObservableTestAssessmentSectionStub());
+                                                                                             new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

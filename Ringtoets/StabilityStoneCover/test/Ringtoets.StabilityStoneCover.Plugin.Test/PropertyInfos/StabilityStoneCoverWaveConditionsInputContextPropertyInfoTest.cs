@@ -54,7 +54,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContextAndNormTypeSignaling_ExpectedProperties()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {
@@ -101,7 +101,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContextAndNormTypeLowerLimit_ExpectedProperties()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {

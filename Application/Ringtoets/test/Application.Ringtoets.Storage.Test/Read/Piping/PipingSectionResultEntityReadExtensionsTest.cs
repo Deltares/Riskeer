@@ -34,7 +34,19 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
     public class PipingSectionResultEntityReadExtensionsTest
     {
         [Test]
-        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((PipingSectionResultEntity) null).Read(
+                new PipingFailureMechanismSectionResult(new TestFailureMechanismSection()));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new PipingSectionResultEntity();

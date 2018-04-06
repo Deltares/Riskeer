@@ -130,7 +130,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         {
             // Call
             IEnumerable<MapFeature> features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
-                new ObservableTestAssessmentSectionStub());
+                new AssessmentSectionStub());
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
         public void CreateHydraulicBoundaryLocationFeatures_GivenLocations_ReturnsLocationFeaturesCollection(bool setOutput)
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "location1", 1, 1),

@@ -562,7 +562,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -619,7 +619,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -793,7 +793,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -868,7 +868,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -947,7 +947,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     calculation2Observer.Expect(o => o.UpdateObserver());
                 }
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]

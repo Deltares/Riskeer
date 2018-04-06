@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.IsInstanceOf<TestWaveConditionsCalculation>(context.Calculation);
-            Assert.IsInstanceOf<ObservableTestAssessmentSectionStub>(context.AssessmentSection);
+            Assert.IsInstanceOf<AssessmentSectionStub>(context.AssessmentSection);
             CollectionAssert.IsEmpty(context.ForeshoreProfiles);
             CollectionAssert.IsEmpty(context.HydraulicBoundaryLocations);
         }
@@ -67,7 +67,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.IsInstanceOf<TestWaveConditionsCalculation>(context.Calculation);
-            Assert.IsInstanceOf<ObservableTestAssessmentSectionStub>(context.AssessmentSection);
+            Assert.IsInstanceOf<AssessmentSectionStub>(context.AssessmentSection);
             Assert.AreSame(profiles, context.ForeshoreProfiles);
             Assert.AreSame(locations, context.HydraulicBoundaryLocations);
         }

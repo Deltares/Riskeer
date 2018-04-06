@@ -608,7 +608,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private static DesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                                                             Form form)
         {
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             return ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "Category", form);
         }

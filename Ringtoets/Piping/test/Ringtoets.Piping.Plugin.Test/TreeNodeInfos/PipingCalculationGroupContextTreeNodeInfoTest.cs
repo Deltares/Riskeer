@@ -576,7 +576,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -633,7 +633,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -768,7 +768,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -983,7 +983,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -1056,7 +1056,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 var mainWindow = mocks.Stub<IMainWindow>();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -1135,7 +1135,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 }
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]

@@ -96,7 +96,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -118,7 +118,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection))
@@ -135,7 +135,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var otherClosingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
 
@@ -153,7 +153,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection))
@@ -194,7 +194,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnClosingStructuresFailureMechanismView()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);

@@ -134,7 +134,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
         public void CreateHydraulicBoundaryLocationsFeatures_GivenLocations_ReturnsLocationFeaturesCollection(bool withOutput)
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var locations = new[]
             {

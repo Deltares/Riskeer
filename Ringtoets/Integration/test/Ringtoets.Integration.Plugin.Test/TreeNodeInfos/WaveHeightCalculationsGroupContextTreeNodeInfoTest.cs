@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             const double signalingNorm = 0.002;
             const double lowerLimitNorm = 0.005;
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
             assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
 

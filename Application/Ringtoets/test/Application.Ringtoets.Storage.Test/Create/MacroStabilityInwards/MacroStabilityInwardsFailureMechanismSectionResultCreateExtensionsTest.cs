@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         }
 
         [Test]
-        public void Create_WithResults_ReturnsEntityWithExpectedResults()
+        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var random = new Random();

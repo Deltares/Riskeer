@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         protected override OvertoppingOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)
         {
             return new OvertoppingOutputContext(calculation, new GrassCoverErosionInwardsFailureMechanism(),
-                                                new ObservableTestAssessmentSectionStub());
+                                                new AssessmentSectionStub());
         }
     }
 }

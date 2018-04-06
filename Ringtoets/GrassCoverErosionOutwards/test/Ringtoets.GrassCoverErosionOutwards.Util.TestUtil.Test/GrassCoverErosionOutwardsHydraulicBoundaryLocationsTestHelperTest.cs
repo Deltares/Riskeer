@@ -38,7 +38,7 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
         public void AddHydraulicBoundaryLocations_Always_AddsLocationsAndCalculations(bool setCalculationOutput)
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var locations = new[]
             {

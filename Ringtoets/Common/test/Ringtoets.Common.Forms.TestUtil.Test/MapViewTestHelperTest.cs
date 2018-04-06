@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
         public void GetCalculationFuncs_Always_ReturnsExpectedCases()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 2, 3)

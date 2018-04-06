@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
             using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
             using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
             var otherPipingFailureMechanism = new PipingFailureMechanism();
 
@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
             using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
@@ -194,7 +194,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnPipingFailureMechanismView()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);

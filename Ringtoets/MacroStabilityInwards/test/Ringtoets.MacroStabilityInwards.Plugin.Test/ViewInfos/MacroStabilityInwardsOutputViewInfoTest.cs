@@ -104,7 +104,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_SetsDataCorrectly()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var calculationOutputContext = new MacroStabilityInwardsOutputContext(calculation,
                                                                                   new MacroStabilityInwardsFailureMechanism(),
@@ -149,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                     Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                     Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                     new MacroStabilityInwardsFailureMechanism(),
-                    new ObservableTestAssessmentSectionStub());
+                    new AssessmentSectionStub());
             }
 
             protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
@@ -166,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                     Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                     Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                     new MacroStabilityInwardsFailureMechanism(),
-                    new ObservableTestAssessmentSectionStub());
+                    new AssessmentSectionStub());
             }
 
             protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
@@ -181,7 +181,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                 new MacroStabilityInwardsCalculationScenario()
                             }
                         }
-                    }, new ObservableTestAssessmentSectionStub());
+                    }, new AssessmentSectionStub());
             }
         }
     }

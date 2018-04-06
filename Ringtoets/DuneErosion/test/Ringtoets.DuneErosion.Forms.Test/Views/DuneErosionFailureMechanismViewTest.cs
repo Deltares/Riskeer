@@ -85,7 +85,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 var failureMechanism = new DuneErosionFailureMechanism();
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
 
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -118,7 +118,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             using (var view = new DuneErosionFailureMechanismView())
             {
@@ -138,7 +138,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Setup
             using (var view = new DuneErosionFailureMechanismView())
             {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
 
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
 
@@ -164,7 +164,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Setup
             using (var view = new DuneErosionFailureMechanismView())
             {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
 
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
 
@@ -201,7 +201,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     new Point2D(2.0, 1.0)
                 });
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub
+                var assessmentSection = new AssessmentSectionStub
                 {
                     ReferenceLine = referenceLine
                 };
@@ -246,7 +246,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var duneLocation1 = new TestDuneLocation();
 
                 var failureMechanism = new DuneErosionFailureMechanism
@@ -282,7 +282,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var duneLocation1 = new TestDuneLocation();
 
                 var failureMechanism = new DuneErosionFailureMechanism
@@ -318,7 +318,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var duneLocation = new TestDuneLocation();
 
                 var failureMechanism = new DuneErosionFailureMechanism
@@ -360,7 +360,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
                     DuneLocations =
@@ -405,7 +405,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     new Point2D(4.0, 3.0)
                 };
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub
+                var assessmentSection = new AssessmentSectionStub
                 {
                     ReferenceLine = new ReferenceLine()
                 };
@@ -438,7 +438,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
+                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, new AssessmentSectionStub());
 
                 view.Data = failureMechanismContext;
 
@@ -475,7 +475,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var failureMechanism = new DuneErosionFailureMechanism();
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -539,8 +539,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
         {
             // Setup
-            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
-            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
+            IAssessmentSection oldAssessmentSection = new AssessmentSectionStub();
+            IAssessmentSection newAssessmentSection = new AssessmentSectionStub();
 
             newAssessmentSection.ReferenceLine = new ReferenceLine();
             newAssessmentSection.ReferenceLine.SetGeometry(new[]

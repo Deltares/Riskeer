@@ -45,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
         /// <param name="setCalculationOutput">Whether to set dummy output for the automatically generated
         /// hydraulic boundary location calculations.</param>
         public static void AddHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                         ObservableTestAssessmentSectionStub assessmentSection,
+                                                         AssessmentSectionStub assessmentSection,
                                                          IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                          bool setCalculationOutput = false)
         {

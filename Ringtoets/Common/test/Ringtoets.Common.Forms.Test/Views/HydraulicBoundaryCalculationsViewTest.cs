@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Call
             TestDelegate call = () => new TestHydraulicBoundaryCalculationsView(null,
-                                                                                new ObservableTestAssessmentSectionStub());
+                                                                                new AssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -236,7 +236,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
-            var view = new TestHydraulicBoundaryCalculationsView(calculations, new ObservableTestAssessmentSectionStub());
+            var view = new TestHydraulicBoundaryCalculationsView(calculations, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();

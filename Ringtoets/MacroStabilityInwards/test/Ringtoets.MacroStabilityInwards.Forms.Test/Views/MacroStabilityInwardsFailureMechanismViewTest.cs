@@ -91,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection))
@@ -115,7 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
@@ -200,7 +200,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point2D(3.0, 0.0)
             });
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = referenceLine
             };
@@ -237,7 +237,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
@@ -278,7 +278,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -313,7 +313,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = new ReferenceLine()
             };
@@ -356,7 +356,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -398,7 +398,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 surfaceLine
             }, "path");
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -428,7 +428,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -465,7 +465,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -511,7 +511,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -561,7 +561,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -608,7 +608,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -642,7 +642,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedStochasticSoilModelsLayerIndex = stochasticSoilModelsIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {

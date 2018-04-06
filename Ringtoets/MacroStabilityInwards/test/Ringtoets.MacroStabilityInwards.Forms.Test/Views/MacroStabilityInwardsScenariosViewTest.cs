@@ -447,7 +447,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
         private MacroStabilityInwardsScenariosView ShowMacroStabilityInwardsScenarioView()
         {
-            var scenarioView = new MacroStabilityInwardsScenariosView(new ObservableTestAssessmentSectionStub());
+            var scenarioView = new MacroStabilityInwardsScenariosView(new AssessmentSectionStub());
 
             testForm.Controls.Add(scenarioView);
             testForm.Show();

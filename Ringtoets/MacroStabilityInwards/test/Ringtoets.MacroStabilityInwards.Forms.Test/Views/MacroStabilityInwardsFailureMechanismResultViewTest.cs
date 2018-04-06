@@ -209,7 +209,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(sectionResults,
                                                                                                  failureMechanism,
-                                                                                                 new ObservableTestAssessmentSectionStub());
+                                                                                                 new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

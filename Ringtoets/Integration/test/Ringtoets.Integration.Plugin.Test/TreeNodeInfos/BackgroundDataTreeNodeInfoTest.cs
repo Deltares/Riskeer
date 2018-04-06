@@ -310,7 +310,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 
                 DialogBoxHandler = (name, wnd) =>
@@ -370,7 +370,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 
@@ -412,7 +412,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             WmtsMapData newMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(newMapData);
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -476,7 +476,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
             var newMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
@@ -565,7 +565,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 assessmentSection.Attach(assessmentSectionObserver);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 

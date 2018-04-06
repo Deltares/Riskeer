@@ -205,7 +205,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         {
             var failureMechanismResultView = new HeightStructuresFailureMechanismResultView(sectionResults,
                                                                                             new HeightStructuresFailureMechanism(),
-                                                                                            new ObservableTestAssessmentSectionStub());
+                                                                                            new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

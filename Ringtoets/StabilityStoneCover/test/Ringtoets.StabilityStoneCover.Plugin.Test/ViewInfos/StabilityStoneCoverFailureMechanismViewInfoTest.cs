@@ -95,7 +95,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -117,7 +117,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
@@ -134,7 +134,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             var otherStabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -152,7 +152,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
@@ -193,7 +193,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnStabilityStoneCoverFailureMechanismView()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);

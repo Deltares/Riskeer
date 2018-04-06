@@ -204,7 +204,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         {
             var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView(sectionResults,
                                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                    new ObservableTestAssessmentSectionStub());
+                                                                                                    new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

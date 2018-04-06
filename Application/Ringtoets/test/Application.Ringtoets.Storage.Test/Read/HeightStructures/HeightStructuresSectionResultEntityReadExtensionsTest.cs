@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
         }
 
         [Test]
-        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new HeightStructuresSectionResultEntity();
@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
         }
 
         [Test]
-        public void Read_CollectorIsNull_ThrowArgumentNullException()
+        public void Read_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new HeightStructuresSectionResultEntity();

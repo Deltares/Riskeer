@@ -209,7 +209,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             var failureMechanismResultView = new PipingFailureMechanismResultView(sectionResults,
                                                                                   failureMechanism,
-                                                                                  new ObservableTestAssessmentSectionStub());
+                                                                                  new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

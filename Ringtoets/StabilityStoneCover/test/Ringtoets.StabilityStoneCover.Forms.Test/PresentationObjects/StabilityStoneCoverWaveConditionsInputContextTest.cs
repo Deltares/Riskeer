@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
                 new TestForeshoreProfile()
             };
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             var context = new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,

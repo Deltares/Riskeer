@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil
                                               IEnumerable<HydraulicBoundaryLocation> locations)
             : this(wrappedData,
                    new TestWaveConditionsCalculation(),
-                   new ObservableTestAssessmentSectionStub(),
+                   new AssessmentSectionStub(),
                    foreshoreProfiles,
                    locations) {}
 
