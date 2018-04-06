@@ -103,6 +103,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                     AssertPipingSectionResultEntity(reader, sourceFilePath);
                     AssertMacroStabilityInwardsSectionResultEntity(reader, sourceFilePath);
+
+                    AssertDuneErosionSectionResultEntity(reader, sourceFilePath);
+                    AssertGrassCoverErosionOutwardsSectionResultEntity(reader, sourceFilePath);
+                    AssertStabilityStoneCoverSectionResultEntity(reader, sourceFilePath);
+                    AssertWaveImpactAsphaltCoverSectionResultEntity(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -633,6 +638,94 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "AND NEW.TailorMadeAssessmentProbability IS NULL " +
                 "AND NEW.UseManualAssemblyProbability = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertDuneErosionSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].DuneErosionSectionResultEntity) " +
+                "FROM DuneErosionSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity OLD USING (DuneErosionSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForLowerLimitNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForFactorizedLowerLimitNorm = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity) " +
+                "FROM GrassCoverErosionOutwardsSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity OLD USING (GrassCoverErosionOutwardsSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForLowerLimitNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForFactorizedLowerLimitNorm = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertStabilityStoneCoverSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity) " +
+                "FROM StabilityStoneCoverSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity OLD USING (StabilityStoneCoverSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForLowerLimitNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForFactorizedLowerLimitNorm = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity) " +
+                "FROM WaveImpactAsphaltCoverSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity OLD USING (WaveImpactAsphaltCoverSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForLowerLimitNorm = 1 " +
+                "AND NEW.DetailedAssessmentResultForFactorizedLowerLimitNorm = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
                 "DETACH DATABASE SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateSectionResult);
         }

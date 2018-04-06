@@ -47,7 +47,31 @@ SELECT
 FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
-INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
+INSERT INTO DuneErosionSectionResultEntity (
+	[DuneErosionSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResultForFactorizedSignalingNorm],
+	[DetailedAssessmentResultForSignalingNorm],
+	[DetailedAssessmentResultForMechanismSpecificLowerLimitNorm],
+	[DetailedAssessmentResultForLowerLimitNorm],
+	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT 
+	[DuneErosionSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
 INSERT INTO DuneLocationOutputEntity SELECT * FROM [SOURCEPROJECT].DuneLocationOutputEntity;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
@@ -102,7 +126,31 @@ SELECT
 	0,
 	NULL
 FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
-INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
+INSERT INTO GrassCoverErosionOutwardsSectionResultEntity (
+	[GrassCoverErosionOutwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResultForFactorizedSignalingNorm],
+	[DetailedAssessmentResultForSignalingNorm],
+	[DetailedAssessmentResultForMechanismSpecificLowerLimitNorm],
+	[DetailedAssessmentResultForLowerLimitNorm],
+	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT 
+	[GrassCoverErosionOutwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
@@ -331,7 +379,31 @@ SELECT [StabilityStoneCoverFailureMechanismMetaEntityId],
 	[ForeshoreProfileCollectionSourcePath],
 	"4"
 FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
-INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
+INSERT INTO StabilityStoneCoverSectionResultEntity (
+	[StabilityStoneCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResultForFactorizedSignalingNorm],
+	[DetailedAssessmentResultForSignalingNorm],
+	[DetailedAssessmentResultForMechanismSpecificLowerLimitNorm],
+	[DetailedAssessmentResultForLowerLimitNorm],
+	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT 
+	[StabilityStoneCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
@@ -364,7 +436,31 @@ SELECT [WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
 	[ForeshoreProfileCollectionSourcePath],
 	"1000"
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
-INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
+INSERT INTO WaveImpactAsphaltCoverSectionResultEntity (
+	[WaveImpactAsphaltCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResultForFactorizedSignalingNorm],
+	[DetailedAssessmentResultForSignalingNorm],
+	[DetailedAssessmentResultForMechanismSpecificLowerLimitNorm],
+	[DetailedAssessmentResultForLowerLimitNorm],
+	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT 
+	[WaveImpactAsphaltCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
