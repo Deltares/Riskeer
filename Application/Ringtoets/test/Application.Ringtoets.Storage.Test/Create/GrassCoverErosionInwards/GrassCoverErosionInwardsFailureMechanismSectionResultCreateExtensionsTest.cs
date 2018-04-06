@@ -59,7 +59,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        [Combinatorial]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup

@@ -1067,6 +1067,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
                                          Assert.AreEqual(expectedItem.UseManualAssemblyProbability, actualItem.UseManualAssemblyProbability);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
+
                                          if (expectedItem.Calculation == null)
                                          {
                                              Assert.IsNull(actualItem.Calculation);

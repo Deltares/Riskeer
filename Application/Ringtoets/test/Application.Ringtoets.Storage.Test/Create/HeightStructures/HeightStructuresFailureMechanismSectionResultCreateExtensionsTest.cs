@@ -60,7 +60,6 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         }
 
         [Test]
-        [Combinatorial]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
