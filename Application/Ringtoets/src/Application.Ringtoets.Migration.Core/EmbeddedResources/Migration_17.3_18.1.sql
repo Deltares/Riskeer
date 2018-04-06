@@ -166,7 +166,25 @@ INSERT INTO MacroStabilityInwardsCalculationOutputEntity SELECT * FROM [SOURCEPR
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
-INSERT INTO MacroStabilityInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity;
+INSERT INTO MacroStabilityInwardsSectionResultEntity (
+	[MacroStabilityInwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssemblyProbability],
+	[ManualAssemblyProbability])
+SELECT
+	[MacroStabilityInwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	1,
+	1,
+	1,
+	NULL,
+	0,
+	NULL
+FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity;
 INSERT INTO MacroStabilityInwardsSoilLayerOneDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerOneDEntity;
 INSERT INTO MacroStabilityInwardsSoilLayerTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerTwoDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileOneDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileOneDEntity;
@@ -179,7 +197,25 @@ INSERT INTO PipingCalculationEntity SELECT * FROM [SOURCEPROJECT].PipingCalculat
 INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
 INSERT INTO PipingFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
-INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
+INSERT INTO PipingSectionResultEntity (
+	[PipingSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssemblyProbability],
+	[ManualAssemblyProbability])
+SELECT
+	[PipingSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	1,
+	1,
+	1,
+	NULL,
+	0,
+	NULL
+FROM [SOURCEPROJECT].PipingSectionResultEntity;
 INSERT INTO PipingSoilLayerEntity(
 	[PipingSoilLayerEntityId],
 	[PipingSoilProfileEntityId],
