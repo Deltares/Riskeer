@@ -114,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, assessmentSection))
@@ -138,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             // Call
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection))
@@ -159,7 +159,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 new Point2D(2.0, 1.0)
             });
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = referenceLine
             };
@@ -243,7 +243,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
@@ -286,7 +286,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
             {
@@ -322,7 +322,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = new ReferenceLine()
             };
@@ -366,7 +366,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Given
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -413,7 +413,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 foreshoreProfile
             }, "path");
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -456,7 +456,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 })
             }, "path");
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -502,7 +502,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -549,7 +549,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -588,7 +588,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -624,7 +624,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             using (var view = new GrassCoverErosionOutwardsFailureMechanismView(failureMechanism, assessmentSection))
             {

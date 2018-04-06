@@ -225,7 +225,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -272,7 +272,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -309,7 +309,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]

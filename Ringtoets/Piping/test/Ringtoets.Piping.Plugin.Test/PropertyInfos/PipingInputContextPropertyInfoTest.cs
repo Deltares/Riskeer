@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContextAndNormTypeSignaling_ExpectedProperties()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContextAndNormTypeLowerLimit_ExpectedProperties()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {

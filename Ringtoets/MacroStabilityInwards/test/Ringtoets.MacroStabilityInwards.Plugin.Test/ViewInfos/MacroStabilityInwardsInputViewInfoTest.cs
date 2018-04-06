@@ -106,7 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_SetsDataCorrectly()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var calculation = new MacroStabilityInwardsCalculationScenario();
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
             var calculationInputContext = new MacroStabilityInwardsInputContext(input,

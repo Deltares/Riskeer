@@ -88,7 +88,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -113,7 +113,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new DuneErosionFailureMechanism();
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
@@ -135,7 +135,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new DuneErosionFailureMechanism();
             var otherDuneErosionFailureMechanism = new DuneErosionFailureMechanism();
@@ -159,7 +159,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new DuneErosionFailureMechanism();
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);

@@ -872,7 +872,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     new Point2D(0, 0)
                 }));
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),
                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
@@ -935,7 +935,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
 
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),
@@ -977,7 +977,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]

@@ -480,7 +480,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private PipingScenariosView ShowPipingScenarioView()
         {
-            var pipingScenarioView = new PipingScenariosView(new ObservableTestAssessmentSectionStub());
+            var pipingScenarioView = new PipingScenariosView(new AssessmentSectionStub());
 
             testForm.Controls.Add(pipingScenarioView);
             testForm.Show();

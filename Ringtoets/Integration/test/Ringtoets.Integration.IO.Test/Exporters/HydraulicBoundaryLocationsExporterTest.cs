@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
         public void Export_ValidData_ReturnsTrueAndWritesCorrectData()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
@@ -125,7 +125,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)

@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
         public void CreateAggregatedHydraulicBoundaryLocations_LocationsWithOutput_ReturnGrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocations()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
@@ -123,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
         public void CreateAggregatedHydraulicBoundaryLocations_LocationsWithoutOutput_ReturnGrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocations()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
 

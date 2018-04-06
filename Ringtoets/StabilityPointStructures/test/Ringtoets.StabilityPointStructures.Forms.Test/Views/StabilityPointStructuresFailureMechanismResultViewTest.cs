@@ -206,7 +206,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         {
             var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultView(sectionResults,
                                                                                                     new StabilityPointStructuresFailureMechanism(),
-                                                                                                    new ObservableTestAssessmentSectionStub());
+                                                                                                    new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

@@ -608,7 +608,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private static WaveHeightCalculationsView ShowFullyConfiguredWaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                                                 Form form)
         {
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             return ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "Category", form);
         }

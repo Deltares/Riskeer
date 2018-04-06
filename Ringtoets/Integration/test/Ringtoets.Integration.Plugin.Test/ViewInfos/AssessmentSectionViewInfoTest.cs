@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithAssessmentSection_ReturnsAssessmentSectionView()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             IView view = info.CreateInstance(assessmentSection);

@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_SetsExpectedProperties()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var mockRepository = new MockRepository();
             var gui = mockRepository.Stub<IGui>();
             var window = mockRepository.Stub<IMainWindow>();

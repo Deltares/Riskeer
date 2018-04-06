@@ -468,7 +468,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -522,7 +522,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -655,7 +655,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -707,7 +707,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]

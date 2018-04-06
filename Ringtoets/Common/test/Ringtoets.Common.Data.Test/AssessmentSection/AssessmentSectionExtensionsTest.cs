@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             // Setup
             const int invalidValue = 9999;
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             assessmentSection.FailureMechanismContribution.NormativeNorm = (NormType) invalidValue;
 
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutputAndNormTypeSignaling_ReturnsCorrespondingAssessmentLevel()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             assessmentSection.FailureMechanismContribution.NormativeNorm = NormType.Signaling;
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutputAndNormTypeLowerLimit_ReturnsCorrespondingAssessmentLevel()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             assessmentSection.FailureMechanismContribution.NormativeNorm = NormType.LowerLimit;
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN(NormType normType)
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(null);
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         [TestCase(NormType.LowerLimit)]
         public void GetNormativeAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN(NormType normType)
         {
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
 
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         [TestCase(NormType.LowerLimit)]
         public void GetNormativeAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN(NormType normType)
         {
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             assessmentSection.FailureMechanismContribution.NormativeNorm = normType;

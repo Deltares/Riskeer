@@ -86,7 +86,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection))
@@ -110,7 +110,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             // Call
             using (var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection))
@@ -180,7 +180,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 new Point2D(2.0, 1.0)
             });
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = referenceLine
             };
@@ -214,7 +214,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
@@ -255,7 +255,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         {
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -290,7 +290,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = new ReferenceLine()
             };
@@ -334,7 +334,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -381,7 +381,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 foreshoreProfile
             }, "path");
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -424,7 +424,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 })
             }, "path");
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -470,7 +470,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -518,7 +518,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -558,7 +558,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -595,7 +595,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection))

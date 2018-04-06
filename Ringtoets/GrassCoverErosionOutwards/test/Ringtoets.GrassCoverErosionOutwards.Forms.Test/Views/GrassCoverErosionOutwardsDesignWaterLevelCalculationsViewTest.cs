@@ -722,7 +722,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
-                return ShowDesignWaterLevelCalculationsView(calculations, new ObservableTestAssessmentSectionStub(), 0.01, form);
+                return ShowDesignWaterLevelCalculationsView(calculations, new AssessmentSectionStub(), 0.01, form);
             }
 
             protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(CalculationsView<HydraulicBoundaryLocationCalculation> view)

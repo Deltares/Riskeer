@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             using (var view = new FailureMechanismView<TestFailureMechanism>(failureMechanism, assessmentSection))
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             // Call
             using (var view = new FailureMechanismView<TestFailureMechanism>(new TestFailureMechanism(), assessmentSection))
@@ -139,7 +139,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(2.0, 1.0)
             });
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = referenceLine
             };
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -214,7 +214,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void UpdateObserver_HydraulicBoundaryLocationsDataUpdated_MapDataUpdated()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
@@ -259,7 +259,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(2.0, 1.0)
             });
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = referenceLine
             };
@@ -298,7 +298,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            using (var view = new FailureMechanismView<TestFailureMechanism>(failureMechanism, new ObservableTestAssessmentSectionStub()))
+            using (var view = new FailureMechanismView<TestFailureMechanism>(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
@@ -339,7 +339,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
 
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new TestFailureMechanism();
 
             using (var view = new FailureMechanismView<TestFailureMechanism>(failureMechanism, assessmentSection))

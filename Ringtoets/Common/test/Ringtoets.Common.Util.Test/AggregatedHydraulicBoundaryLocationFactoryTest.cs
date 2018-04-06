@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Util.Test
         public void CreateAggregatedHydraulicBoundaryLocations_AssessmentSectionWithLocationsWithOutput_ReturnAggregatedHydraulicBoundaryLocations()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "location1", 1, 1),
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Util.Test
         public void CreateAggregatedHydraulicBoundaryLocations_AssessmentSectionWithLocationsWithoutOutput_ReturnAggregatedHydraulicBoundaryLocations()
         {
             // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "location1", 1, 1),

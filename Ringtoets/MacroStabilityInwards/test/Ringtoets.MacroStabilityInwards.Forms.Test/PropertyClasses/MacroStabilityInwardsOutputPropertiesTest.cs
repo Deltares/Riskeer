@@ -95,7 +95,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism, assessmentSection);
