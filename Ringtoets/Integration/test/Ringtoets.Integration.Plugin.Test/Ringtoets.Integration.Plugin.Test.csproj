@@ -46,7 +46,6 @@
     <Compile Include="ImportInfos\FailureMechanismSectionsContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\ForeshoreProfilesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\ReferenceLineContextImportInfoTest.cs" />
-    <Compile Include="MetaDataAttributeNameProviders\HydraulicBoundaryLocationMetaDataAttributeNameProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfos\BackgroundDataPropertyInfoTest .cs" />
     <Compile Include="PropertyInfos\NormContextPropertyInfoTest.cs" />
@@ -337,6 +336,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Forms\Ringtoets.Integration.Forms.csproj">
       <Project>{ad0cdc89-0a00-4068-aeec-9838863c2fe8}</Project>
       <Name>Ringtoets.Integration.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.IO\Ringtoets.Integration.IO.csproj">
+      <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
+      <Name>Ringtoets.Integration.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>

@@ -562,12 +562,19 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
                 var group = new CalculationGroup
                 {
                     Children =
                     {
-                        MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
+                        MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     }
                 };
 
@@ -612,12 +619,19 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
                 var group = new CalculationGroup
                 {
                     Children =
                     {
-                        MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
+                        MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     }
                 };
 
@@ -779,7 +793,15 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                MacroStabilityInwardsCalculationScenario validCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+                MacroStabilityInwardsCalculationScenario validCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 validCalculation.Name = "A";
                 MacroStabilityInwardsCalculationScenario invalidCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
                 invalidCalculation.Name = "B";
@@ -796,7 +818,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(invalidCalculation);
 
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,
@@ -847,7 +868,15 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                MacroStabilityInwardsCalculationScenario validCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+                MacroStabilityInwardsCalculationScenario validCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 validCalculation.Name = "A";
                 MacroStabilityInwardsCalculationScenario invalidCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
                 invalidCalculation.Name = "B";
@@ -865,7 +894,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(invalidCalculation);
 
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -899,6 +927,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
                 }
             }
+
             // Assert
         }
 
@@ -918,11 +947,19 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     calculation2Observer.Expect(o => o.UpdateObserver());
                 }
 
-                MacroStabilityInwardsCalculationScenario calculation1 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+                MacroStabilityInwardsCalculationScenario calculation1 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculation1.Name = "A";
                 calculation1.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
                 calculation1.Attach(calculation1Observer);
-                MacroStabilityInwardsCalculationScenario calculation2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                MacroStabilityInwardsCalculationScenario calculation2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculation2.Name = "B";
                 calculation2.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
                 calculation2.Attach(calculation2Observer);
@@ -939,7 +976,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(calculation2);
 
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,

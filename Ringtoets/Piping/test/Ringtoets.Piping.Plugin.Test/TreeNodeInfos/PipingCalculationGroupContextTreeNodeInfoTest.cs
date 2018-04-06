@@ -576,12 +576,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
                 var group = new CalculationGroup
                 {
                     Children =
                     {
-                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
+                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     }
                 };
 
@@ -626,12 +633,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
                 var group = new CalculationGroup
                 {
                     Children =
                     {
-                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
+                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     }
                 };
 
@@ -754,12 +768,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
                 var group = new CalculationGroup
                 {
                     Children =
                     {
-                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput()
+                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     }
                 };
 
@@ -798,7 +819,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
                 var group = new CalculationGroup
                 {
                     Children =
@@ -961,7 +982,16 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                PipingCalculationScenario validCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+                PipingCalculationScenario validCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 validCalculation.Name = "A";
                 PipingCalculationScenario invalidCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
                 invalidCalculation.Name = "B";
@@ -976,9 +1006,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(childGroup);
                 group.Children.Add(emptyChildGroup);
                 group.Children.Add(invalidCalculation);
-
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
@@ -1028,7 +1055,16 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
 
-                PipingCalculationScenario validCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+                PipingCalculationScenario validCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 validCalculation.Name = "A";
                 PipingCalculationScenario invalidCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
                 invalidCalculation.Name = "B";
@@ -1045,8 +1081,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(emptyChildGroup);
                 group.Children.Add(invalidCalculation);
 
-                var pipingFailureMechanism = new TestPipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,
                                                                  Enumerable.Empty<PipingSurfaceLine>(),
@@ -1100,11 +1134,20 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     calculation2Observer.Expect(o => o.UpdateObserver());
                 }
 
-                PipingCalculationScenario calculation1 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+                var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+                PipingCalculationScenario calculation1 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculation1.Name = "A";
                 calculation1.Output = PipingOutputTestFactory.Create();
                 calculation1.Attach(calculation1Observer);
-                PipingCalculationScenario calculation2 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+                PipingCalculationScenario calculation2 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculation2.Name = "B";
                 calculation2.Output = PipingOutputTestFactory.Create();
                 calculation2.Attach(calculation2Observer);
@@ -1119,9 +1162,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 group.Children.Add(childGroup);
                 group.Children.Add(emptyChildGroup);
                 group.Children.Add(calculation2);
-
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  parentGroup,

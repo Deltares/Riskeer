@@ -363,7 +363,7 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                        .CalculationsGroup.GetCalculations()
                                                                                        .OfType<PipingCalculationScenario>()
                                                                                        .First();
-            AssertCalculationAbleToCalculate(pipingCalculationScenario);
+            AssertCalculationAbleToCalculate(pipingCalculationScenario, demoAssessmentSection);
             AssertCalculationInFailureMechanismSectionResult(
                 pipingCalculationScenario,
                 demoAssessmentSection.Piping.SectionResults.ToArray(),
@@ -430,7 +430,6 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual("PK001_0001_Piping", inputParameters.StochasticSoilModel.Name);
             Assert.AreEqual("W1-6_0_1D1", inputParameters.StochasticSoilProfile.SoilProfile.Name);
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
-            Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output.Result, 1e-3);
 
             Assert.AreEqual(0.875, PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                             inputParameters.DampingFactorExit.GetAccuracy());
@@ -446,12 +445,12 @@ namespace Demo.Ringtoets.Test.Commands
                             inputParameters.DampingFactorExit.GetAccuracy());
         }
 
-        private static void AssertCalculationAbleToCalculate(PipingCalculationScenario calculation)
+        private static void AssertCalculationAbleToCalculate(PipingCalculationScenario calculation, IAssessmentSection assessmentSection)
         {
             PipingInput inputParameters = calculation.InputParameters;
             AssertExpectedPipingInput(inputParameters);
 
-            RoundedDouble assessmentLevel = calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output.Result;
+            RoundedDouble assessmentLevel = assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
 
             Assert.IsTrue(PipingCalculationService.Validate(calculation, assessmentLevel));
 
@@ -613,10 +612,10 @@ namespace Demo.Ringtoets.Test.Commands
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(18, hydraulicBoundaryLocations.Count);
             AssertHydraulicBoundaryLocationCalculations(demoAssessmentSection);
-            AssertDesignWaterLevelsForAssessmentSection(hydraulicBoundaryLocations);
-            AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.DesignWaterLevelCalculation3));
-            AssertWaveHeightsForAssessmentSection(hydraulicBoundaryLocations);
-            AssertCalculationConvergence(hydraulicBoundaryLocations.Select(hbl => hbl.WaveHeightCalculation3));
+            AssertDesignWaterLevelsForAssessmentSection(demoAssessmentSection);
+            AssertCalculationConvergence(demoAssessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            AssertWaveHeightsForAssessmentSection(demoAssessmentSection);
+            AssertCalculationConvergence(demoAssessmentSection.WaveHeightCalculationsForLowerLimitNorm);
         }
 
         private static void AssertHydraulicBoundaryLocationCalculations(IAssessmentSection assessmentSection)
@@ -633,62 +632,59 @@ namespace Demo.Ringtoets.Test.Commands
             CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
         }
 
-        private static void AssertDesignWaterLevelsForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)
+        private static void AssertDesignWaterLevelsForAssessmentSection(IAssessmentSection assessmentSection)
         {
-            AssertDesignWaterLevelForAssessmentSection(5.78, locations[0]);
-            AssertDesignWaterLevelForAssessmentSection(5.77, locations[1]);
-            AssertDesignWaterLevelForAssessmentSection(5.77, locations[2]);
-            AssertDesignWaterLevelForAssessmentSection(5.77, locations[3]);
-            AssertDesignWaterLevelForAssessmentSection(5.77, locations[4]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[5]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[6]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[7]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[8]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[9]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[10]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[11]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[12]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[13]);
-            AssertDesignWaterLevelForAssessmentSection(5.93, locations[14]);
-            AssertDesignWaterLevelForAssessmentSection(5.54, locations[15]);
-            AssertDesignWaterLevelForAssessmentSection(5.86, locations[16]);
-            AssertDesignWaterLevelForAssessmentSection(6.00, locations[17]);
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+
+            AssertHydraulicBoundaryCalculationResult(5.78, calculations, 0);
+            AssertHydraulicBoundaryCalculationResult(5.77, calculations, 1);
+            AssertHydraulicBoundaryCalculationResult(5.77, calculations, 2);
+            AssertHydraulicBoundaryCalculationResult(5.77, calculations, 3);
+            AssertHydraulicBoundaryCalculationResult(5.77, calculations, 4);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 5);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 6);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 7);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 8);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 9);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 10);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 11);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 12);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 13);
+            AssertHydraulicBoundaryCalculationResult(5.93, calculations, 14);
+            AssertHydraulicBoundaryCalculationResult(5.54, calculations, 15);
+            AssertHydraulicBoundaryCalculationResult(5.86, calculations, 16);
+            AssertHydraulicBoundaryCalculationResult(6.00, calculations, 17);
         }
 
-        private static void AssertDesignWaterLevelForAssessmentSection(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static void AssertWaveHeightsForAssessmentSection(IAssessmentSection assessmentSection)
         {
-            RoundedDouble designWaterLevel = hydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output.Result;
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = assessmentSection.WaveHeightCalculationsForLowerLimitNorm;
 
-            Assert.AreEqual(expectedValue, designWaterLevel, designWaterLevel.GetAccuracy());
+            AssertHydraulicBoundaryCalculationResult(4.13, calculations, 0);
+            AssertHydraulicBoundaryCalculationResult(4.19, calculations, 1);
+            AssertHydraulicBoundaryCalculationResult(4.02, calculations, 2);
+            AssertHydraulicBoundaryCalculationResult(3.87, calculations, 3);
+            AssertHydraulicBoundaryCalculationResult(3.73, calculations, 4);
+            AssertHydraulicBoundaryCalculationResult(2.65, calculations, 5);
+            AssertHydraulicBoundaryCalculationResult(3.04, calculations, 6);
+            AssertHydraulicBoundaryCalculationResult(3.20, calculations, 7);
+            AssertHydraulicBoundaryCalculationResult(3.35, calculations, 8);
+            AssertHydraulicBoundaryCalculationResult(3.53, calculations, 9);
+            AssertHydraulicBoundaryCalculationResult(3.62, calculations, 10);
+            AssertHydraulicBoundaryCalculationResult(3.68, calculations, 11);
+            AssertHydraulicBoundaryCalculationResult(3.73, calculations, 12);
+            AssertHydraulicBoundaryCalculationResult(3.75, calculations, 13);
+            AssertHydraulicBoundaryCalculationResult(3.30, calculations, 14);
+            AssertHydraulicBoundaryCalculationResult(9.57, calculations, 15);
+            AssertHydraulicBoundaryCalculationResult(8.02, calculations, 16);
+            AssertHydraulicBoundaryCalculationResult(4.11, calculations, 17);
         }
 
-        private static void AssertWaveHeightsForAssessmentSection(ObservableList<HydraulicBoundaryLocation> locations)
+        private static void AssertHydraulicBoundaryCalculationResult(double expectedResult, IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations, int index)
         {
-            AssertWaveHeightForAssessmentSection(4.13, locations[0]);
-            AssertWaveHeightForAssessmentSection(4.19, locations[1]);
-            AssertWaveHeightForAssessmentSection(4.02, locations[2]);
-            AssertWaveHeightForAssessmentSection(3.87, locations[3]);
-            AssertWaveHeightForAssessmentSection(3.73, locations[4]);
-            AssertWaveHeightForAssessmentSection(2.65, locations[5]);
-            AssertWaveHeightForAssessmentSection(3.04, locations[6]);
-            AssertWaveHeightForAssessmentSection(3.20, locations[7]);
-            AssertWaveHeightForAssessmentSection(3.35, locations[8]);
-            AssertWaveHeightForAssessmentSection(3.53, locations[9]);
-            AssertWaveHeightForAssessmentSection(3.62, locations[10]);
-            AssertWaveHeightForAssessmentSection(3.68, locations[11]);
-            AssertWaveHeightForAssessmentSection(3.73, locations[12]);
-            AssertWaveHeightForAssessmentSection(3.75, locations[13]);
-            AssertWaveHeightForAssessmentSection(3.30, locations[14]);
-            AssertWaveHeightForAssessmentSection(9.57, locations[15]);
-            AssertWaveHeightForAssessmentSection(8.02, locations[16]);
-            AssertWaveHeightForAssessmentSection(4.11, locations[17]);
-        }
+            RoundedDouble result = calculations.ElementAt(index).Output.Result;
 
-        private static void AssertWaveHeightForAssessmentSection(double expectedValue, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            RoundedDouble waveHeight = hydraulicBoundaryLocation.WaveHeightCalculation3.Output.Result;
-
-            Assert.AreEqual(expectedValue, waveHeight, waveHeight.GetAccuracy());
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         #endregion

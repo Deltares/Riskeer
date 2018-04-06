@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -101,7 +102,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Run_ValidMacroStabilityInwardsCalculation_PerformMacroStabilityInwardsValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             validMacroStabilityInwardsCalculation.Output = null;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
@@ -137,7 +138,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             validMacroStabilityInwardsCalculation.Output = null;
             validMacroStabilityInwardsCalculation.Attach(observer);
 

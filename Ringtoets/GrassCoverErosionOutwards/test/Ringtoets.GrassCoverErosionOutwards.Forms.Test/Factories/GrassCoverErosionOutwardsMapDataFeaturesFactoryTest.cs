@@ -22,15 +22,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Common.Util.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Factories;
+using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
 {
@@ -95,60 +99,117 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
+        public void CreateHydraulicBoundaryLocationsFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(
+                null, new GrassCoverErosionOutwardsFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_HydraulicBoundaryLocationsArrayEmpty_ReturnsEmptyFeaturesCollection()
-        {
-            // Call
-            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(new HydraulicBoundaryLocation[0]);
-
-            // Assert
-            CollectionAssert.IsEmpty(features);
-        }
-
-        [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_GivenHydraulicBoundaryLocations_ReturnsLocationFeaturesCollection()
+        public void CreateHydraulicBoundaryLocationsFeatures_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var points = new[]
-            {
-                new Point2D(1.2, 2.3),
-                new Point2D(2.7, 2.0)
-            };
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = points.Select(p => new HydraulicBoundaryLocation(0, "", p.X, p.Y)).ToArray();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
             // Call
-            IEnumerable<MapFeature> features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(hydraulicBoundaryLocations);
+            TestDelegate call = () => GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(
+                assessmentSection, null);
 
             // Assert
-            int expectedHydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
-            Assert.AreEqual(expectedHydraulicBoundaryLocationsCount, features.Count());
-            for (var i = 0; i < expectedHydraulicBoundaryLocationsCount; i++)
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateHydraulicBoundaryLocationsFeatures_GivenLocations_ReturnsLocationFeaturesCollection(bool withOutput)
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var locations = new[]
             {
+                new HydraulicBoundaryLocation(1, "test", 1, 1),
+                new HydraulicBoundaryLocation(2, "test", 2, 2)
+            };
+
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+                failureMechanism, assessmentSection, locations, withOutput);
+
+            // Call
+            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(assessmentSection, failureMechanism).ToArray();
+
+            // Assert
+            AssertHydraulicBoundaryFeaturesData(assessmentSection, failureMechanism, features);
+
+            Point2D[] expectedPoints = assessmentSection.HydraulicBoundaryDatabase.Locations
+                                                        .Select(location => location.Location)
+                                                        .ToArray();
+            AssertEqualFeatureCollections(
+                expectedPoints, features);
+        }
+
+        private static void AssertHydraulicBoundaryFeaturesData(IAssessmentSection assessmentSection, GrassCoverErosionOutwardsFailureMechanism failureMechanism, IEnumerable<MapFeature> features)
+        {
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            int expectedNrOfFeatures = hydraulicBoundaryLocationsArray.Length;
+            Assert.AreEqual(expectedNrOfFeatures, features.Count());
+
+            for (var i = 0; i < expectedNrOfFeatures; i++)
+            {
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationsArray[i];
                 MapFeature mapFeature = features.ElementAt(i);
-                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocations.ElementAt(i);
 
-                Assert.AreEqual(4, mapFeature.MetaData.Keys.Count);
-                Assert.AreEqual(hydraulicBoundaryLocation.Id, mapFeature.MetaData["ID"]);
-                Assert.AreEqual(hydraulicBoundaryLocation.Name, mapFeature.MetaData["Naam"]);
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.DesignWaterLevelCalculation1,
-                                                                                    mapFeature,
-                                                                                    "Waterstand bij doorsnede-eis");
-                MapFeaturesTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(hydraulicBoundaryLocation.WaveHeightCalculation1,
-                                                                                    mapFeature,
-                                                                                    "Golfhoogte bij doorsnede-eis");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(Iv->IIv)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(IIv->IIIv)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(IIIv->IVv)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(IVv->Vv)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(Vv->VIv)");
+
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "hs(Iv->IIv)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "hs(IIv->IIIv)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "hs(IIIv->IVv)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "hs(IVv->Vv)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "hs(Vv->VIv)");
             }
+        }
 
-            AssertEqualFeatureCollections(points, features);
+        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
+                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation1)
+        {
+            return calculationList
+                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation1))
+                   .Select(calculation => calculation.Output?.Result ?? RoundedDouble.NaN)
+                   .Single();
         }
 
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)

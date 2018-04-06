@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -143,9 +142,18 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
         /// <summary>
         /// Creates a scenario with valid input.
         /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
-        public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenarioWithValidInput()
+        /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
+        /// (for instance when it comes to the presence of a normative assessment level).</remarks>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        public static MacroStabilityInwardsCalculationScenario CreateMacroStabilityInwardsCalculationScenarioWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
             const double top = 10.56;
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, new MacroStabilityInwardsSoilProfile1D("Ondergrondschematisatie", 0.0, new[]
             {
@@ -242,18 +250,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
             surfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
             surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
-            {
-                DesignWaterLevelCalculation2 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(1.1)
-                },
-                DesignWaterLevelCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(2.2)
-                }
-            };
-
             return new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -325,17 +321,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                     ZoneBoundaryRight = (RoundedDouble) 0.2
                 }
             };
-        }
-
-        /// <summary>
-        /// Creates a scenario with valid input and output.
-        /// </summary>
-        /// <returns>A new <see cref="MacroStabilityInwardsCalculationScenario"/>.</returns>
-        public static MacroStabilityInwardsCalculationScenario CreateCalculatedMacroStabilityInwardsCalculationScenario()
-        {
-            MacroStabilityInwardsCalculationScenario calculation = CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
-            return calculation;
         }
     }
 }

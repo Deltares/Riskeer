@@ -14,6 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler.cs" />
+    <Compile Include="GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelper.cs" />
     <Compile Include="PresentationObjects\EmptyGrassCoverErosionOutwardsOutput.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContext.cs" />
@@ -124,6 +125,11 @@
       <Name>Ringtoets.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Util</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
@@ -142,6 +148,11 @@
     <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Service\Ringtoets.GrassCoverErosionOutwards.Service.csproj">
       <Project>{18e9f7c8-3170-4e9d-8d9f-1378225eed90}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Util\Ringtoets.GrassCoverErosionOutwards.Util.csproj">
+      <Project>{033ED27D-E806-42B4-9689-8150CFAE1906}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Util</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

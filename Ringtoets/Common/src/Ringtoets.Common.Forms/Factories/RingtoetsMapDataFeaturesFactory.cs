@@ -32,10 +32,11 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Util;
+using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Factories
 {
@@ -82,8 +83,8 @@ namespace Ringtoets.Common.Forms.Factories
             if (referenceLine != null)
             {
                 MapFeature feature = CreateSingleLineMapFeature(referenceLine.Points);
-                feature.MetaData[Resources.MetaData_ID] = id;
-                feature.MetaData[Resources.MetaData_Name] = name;
+                feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = id;
+                feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = name;
                 feature.MetaData[Resources.MetaData_Length_Rounded] = new RoundedDouble(2, referenceLine.Length);
 
                 return new[]
@@ -96,44 +97,21 @@ namespace Ringtoets.Common.Forms.Factories
         }
 
         /// <summary>
-        /// Create hydraulic boundary database location features based on the provided <paramref name="hydraulicBoundaryDatabase"/>.
+        /// Create hydraulic boundary location features based on the provided <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
-        /// to create the location features for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to create the location features for.</param>
         /// <returns>A collection of features.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public static IEnumerable<MapFeature> CreateHydraulicBoundaryDatabaseFeatures(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationFeatures(IAssessmentSection assessmentSection)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = hydraulicBoundaryDatabase.Locations;
-
-            int hydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
-            var features = new MapFeature[hydraulicBoundaryLocationsCount];
-
-            for (var i = 0; i < hydraulicBoundaryLocationsCount; i++)
-            {
-                HydraulicBoundaryLocation location = hydraulicBoundaryLocations.ElementAt(i);
-
-                MapFeature feature = CreateSinglePointMapFeature(location.Location);
-                feature.MetaData[Resources.MetaData_ID] = location.Id;
-                feature.MetaData[Resources.MetaData_Name] = location.Name;
-                feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation1] = GetHydraulicBoundaryLocationOutput(location.DesignWaterLevelCalculation1);
-                feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation2] = GetHydraulicBoundaryLocationOutput(location.DesignWaterLevelCalculation2);
-                feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation3] = GetHydraulicBoundaryLocationOutput(location.DesignWaterLevelCalculation3);
-                feature.MetaData[Resources.MetaData_DesignWaterLevelCalculation4] = GetHydraulicBoundaryLocationOutput(location.DesignWaterLevelCalculation4);
-                feature.MetaData[Resources.MetaData_WaveHeightCalculation1] = GetHydraulicBoundaryLocationOutput(location.WaveHeightCalculation1);
-                feature.MetaData[Resources.MetaData_WaveHeightCalculation2] = GetHydraulicBoundaryLocationOutput(location.WaveHeightCalculation2);
-                feature.MetaData[Resources.MetaData_WaveHeightCalculation3] = GetHydraulicBoundaryLocationOutput(location.WaveHeightCalculation3);
-                feature.MetaData[Resources.MetaData_WaveHeightCalculation4] = GetHydraulicBoundaryLocationOutput(location.WaveHeightCalculation4);
-
-                features[i] = feature;
-            }
-
-            return features;
+            return AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection)
+                                                             .Select(HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature)
+                                                             .ToArray();
         }
 
         /// <summary>
@@ -199,7 +177,7 @@ namespace Ringtoets.Common.Forms.Factories
                 foreach (DikeProfile dikeProfile in dikeProfiles)
                 {
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(dikeProfile));
-                    feature.MetaData[Resources.MetaData_Name] = dikeProfile.Name;
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = dikeProfile.Name;
 
                     mapFeatures[i] = feature;
                     i++;
@@ -230,7 +208,7 @@ namespace Ringtoets.Common.Forms.Factories
                 {
                     ForeshoreProfile foreshoreProfile = foreShoreProfilesWithGeometry[i];
                     MapFeature feature = CreateSingleLineMapFeature(GetWorldPoints(foreshoreProfile));
-                    feature.MetaData[Resources.MetaData_Name] = foreshoreProfile.Name;
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = foreshoreProfile.Name;
 
                     mapFeatures[i] = feature;
                 }
@@ -257,8 +235,8 @@ namespace Ringtoets.Common.Forms.Factories
                 var i = 0;
                 foreach (StructureBase structure in structures)
                 {
-                    MapFeature feature = CreateSinglePointMapFeature(structure.Location);
-                    feature.MetaData[Resources.MetaData_Name] = structure.Name;
+                    MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(structure.Location);
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = structure.Name;
 
                     mapFeatures[i] = feature;
                     i++;
@@ -317,7 +295,7 @@ namespace Ringtoets.Common.Forms.Factories
                         calculationItem.HydraulicBoundaryLocation.Location
                     });
 
-                    feature.MetaData[Resources.MetaData_Name] = calculationItem.Name;
+                    feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = calculationItem.Name;
                     feature.MetaData[Resources.MetaData_Couple_distance] =
                         calculationItem.CalculationLocation.GetEuclideanDistanceTo(
                             calculationItem.HydraulicBoundaryLocation.Location);
@@ -329,36 +307,6 @@ namespace Ringtoets.Common.Forms.Factories
             }
 
             return new MapFeature[0];
-        }
-
-        /// <summary>
-        /// Creates a map feature with one single point.
-        /// </summary>
-        /// <param name="point">The point of the map feature.</param>
-        /// <returns>The map feature with the <paramref name="point"/> as geometry.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
-        public static MapFeature CreateSinglePointMapFeature(Point2D point)
-        {
-            if (point == null)
-            {
-                throw new ArgumentNullException(nameof(point));
-            }
-
-            return new MapFeature(new[]
-            {
-                new MapGeometry(new[]
-                {
-                    new[]
-                    {
-                        point
-                    }
-                })
-            });
-        }
-
-        private static RoundedDouble GetHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationCalculation calculation)
-        {
-            return calculation.Output?.Result ?? RoundedDouble.NaN;
         }
 
         private static MapCalculationData CreateMapCalculationData<TStructuresInput, TStructure>(
@@ -391,7 +339,7 @@ namespace Ringtoets.Common.Forms.Factories
                 })
             });
 
-            feature.MetaData[Resources.MetaData_Name] = section.Name;
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = section.Name;
             feature.MetaData[Resources.MetaData_Length_Rounded] = new RoundedDouble(2, section.Length);
 
             return feature;

@@ -39,12 +39,15 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
@@ -404,14 +407,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                                                        stochasticSoilProfile
                                                                                                    });
 
-            HydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(0.0);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var calculationItem = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
                     UseAssessmentLevelManualInput = useManualAssessmentLevelInput,
-                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation,
+                    AssessmentLevel = random.NextRoundedDouble(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = stochasticSoilModel,
                     StochasticSoilProfile = stochasticSoilProfile
@@ -435,7 +439,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                         ? inputParameters.AssessmentLevel
                                                         : GetTestNormativeAssessmentLevel();
             Assert.AreEqual(expectedAssessmentLevel, properties.AssessmentLevel);
-            Assert.AreSame(testHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
 
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
@@ -444,6 +448,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.DikeSoilScenario, properties.DikeSoilScenario);
 
             Assert.AreSame(inputParameters, properties.WaterStressesProperties.Data);
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                MacroStabilityInwardsWaternetProperties waternetProperties = properties.WaterStressesProperties.WaterStressLines.WaternetExtreme;
+
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+
+                Assert.AreEqual(expectedAssessmentLevel, calculatorFactory.LastCreatedWaternetCalculator.Input.AssessmentLevel);
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, (MacroStabilityInwardsWaternet) waternetProperties.Data);
+            }
 
             Assert.AreEqual(inputParameters.SlipPlaneMinimumDepth, properties.SlipPlaneMinimumDepth);
             Assert.AreEqual(inputParameters.SlipPlaneMinimumLength, properties.SlipPlaneMinimumLength);

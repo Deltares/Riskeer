@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -60,7 +62,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]
@@ -70,17 +71,24 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(waveImpactAsphaltCoverFailureMechanism, assessmentSection);
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
-            {
-                // Call
-                string viewName = info.GetViewName(view, waveImpactAsphaltCoverFailureMechanismContext);
+            // Call
+            string viewName = info.GetViewName(null, waveImpactAsphaltCoverFailureMechanismContext);
 
-                // Assert
-                Assert.AreEqual(waveImpactAsphaltCoverFailureMechanism.Name, viewName);
-            }
+            // Assert
+            Assert.AreEqual(failureMechanism.Name, viewName);
+        }
+
+        [Test]
+        public void Image_Always_ReturnsGenericInputOutputIcon()
+        {
+            // Call
+            Image image = info.Image;
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -91,13 +99,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(waveImpactAsphaltCoverFailureMechanism, assessmentSection);
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView
-            {
-                Data = waveImpactAsphaltCoverFailureMechanismContext
-            })
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -105,6 +109,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -113,14 +118,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(waveImpactAsphaltCoverFailureMechanism, assessmentSection);
-
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView
-            {
-                Data = waveImpactAsphaltCoverFailureMechanismContext
-            })
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -128,6 +128,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -136,16 +137,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var otherWaveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(waveImpactAsphaltCoverFailureMechanism, assessmentSection);
-
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView
-            {
-                Data = waveImpactAsphaltCoverFailureMechanismContext
-            })
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherWaveImpactAsphaltCoverFailureMechanism);
@@ -160,17 +155,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(waveImpactAsphaltCoverFailureMechanism, assessmentSection);
-
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView
-            {
-                Data = waveImpactAsphaltCoverFailureMechanismContext
-            })
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, waveImpactAsphaltCoverFailureMechanism);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -199,6 +189,22 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(isRelevant, result);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_WithContext_ReturnWaveImpactAsphaltCoverFailureMechanismView()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismView>(view);
         }
     }
 }

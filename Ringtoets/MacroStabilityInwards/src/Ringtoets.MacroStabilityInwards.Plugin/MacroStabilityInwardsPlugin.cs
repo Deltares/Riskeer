@@ -209,7 +209,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new ViewInfo<
@@ -245,7 +246,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewData = context => context.MacroStabilityInwardsCalculation,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseInputViewForData
+                CloseForData = CloseInputViewForData,
+                CreateInstance = context => new MacroStabilityInwardsInputView(context.MacroStabilityInwardsCalculation,
+                                                                               () => GetNormativeAssessmentLevel(context.AssessmentSection, context.MacroStabilityInwardsCalculation))
             };
 
             yield return new ViewInfo<MacroStabilityInwardsScenariosContext, CalculationGroup, MacroStabilityInwardsScenariosView>
@@ -263,7 +266,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CreateInstance = context => new MacroStabilityInwardsOutputView(context.WrappedData,
+                                                                               () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
             };
         }
 
@@ -409,12 +414,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
 
-            var viewFailureMechanismContext = (MacroStabilityInwardsFailureMechanismContext) view.Data;
-            MacroStabilityInwardsFailureMechanism viewMacroStabilityInwardsFailureMechanism = viewFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewMacroStabilityInwardsFailureMechanism, failureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion

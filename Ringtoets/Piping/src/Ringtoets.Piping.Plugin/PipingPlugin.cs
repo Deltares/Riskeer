@@ -204,7 +204,8 @@ namespace Ringtoets.Piping.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = ClosePipingFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new ViewInfo<
@@ -399,12 +400,9 @@ namespace Ringtoets.Piping.Plugin
             var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
 
-            var viewPipingFailureMechanismContext = (PipingFailureMechanismContext) view.Data;
-            PipingFailureMechanism viewPipingFailureMechanism = viewPipingFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewPipingFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewPipingFailureMechanism, pipingFailureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
 
         #endregion

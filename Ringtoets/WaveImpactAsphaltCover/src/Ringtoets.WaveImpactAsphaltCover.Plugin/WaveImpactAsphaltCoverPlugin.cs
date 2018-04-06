@@ -81,7 +81,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseWaveImpactAsphaltCoverFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new ViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
@@ -203,12 +204,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as WaveImpactAsphaltCoverFailureMechanism;
 
-            var viewFailureMechanismContext = (WaveImpactAsphaltCoverFailureMechanismContext) view.Data;
-            WaveImpactAsphaltCoverFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion

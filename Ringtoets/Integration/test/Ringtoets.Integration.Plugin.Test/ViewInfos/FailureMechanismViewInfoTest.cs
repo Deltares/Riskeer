@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -60,7 +62,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(IFailureMechanismContext<IFailureMechanism>), info.DataType);
             Assert.AreEqual(typeof(IFailureMechanismContext<IFailureMechanism>), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]
@@ -73,14 +74,21 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>())
-            {
-                // Call
-                string viewName = info.GetViewName(view, failureMechanismContext);
+            // Call
+            string viewName = info.GetViewName(null, failureMechanismContext);
 
-                // Assert
-                Assert.AreEqual(failureMechanism.Name, viewName);
-            }
+            // Assert
+            Assert.AreEqual(failureMechanism.Name, viewName);
+        }
+
+        [Test]
+        public void Image_Always_ReturnsGenericInputOutputIcon()
+        {
+            // Call
+            Image image = info.Image;
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -92,12 +100,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>
-            {
-                Data = failureMechanismContext
-            })
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -114,14 +118,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>
-            {
-                Data = failureMechanismContext
-            })
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -140,12 +139,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var otherTestFailureMechanism = new TestFailureMechanism();
 
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-
-            using (var view = new FailureMechanismView<IFailureMechanism>
-            {
-                Data = failureMechanismContext
-            })
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherTestFailureMechanism);
@@ -164,7 +158,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new FailureMechanismView<IFailureMechanism>
+            using (var view = new FailureMechanismView<IFailureMechanism>(failureMechanism, assessmentSection)
             {
                 Data = failureMechanismContext
             })
@@ -199,6 +193,22 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(isRelevant, result);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_WithData_ReturnFailureMechanismView()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new TestFailureMechanism();
+
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismView<IFailureMechanism>>(view);
         }
 
         private class TestFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>

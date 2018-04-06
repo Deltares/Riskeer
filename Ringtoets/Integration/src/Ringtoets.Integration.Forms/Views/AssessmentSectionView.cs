@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -26,6 +27,7 @@ using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.Views
@@ -35,62 +37,53 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssessmentSectionView : UserControl, IMapView
     {
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly MapDataCollection mapDataCollection;
+        private readonly IAssessmentSection assessmentSection;
+
         private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation> hydraulicBoundaryLocationObserver;
-
-        private IAssessmentSection data;
+        private Observer assessmentSectionObserver;
+        private Observer hydraulicBoundaryLocationsObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionView"/>.
         /// </summary>
-        public AssessmentSectionView()
+        /// <param name="assessmentSection">The assessment section to show the data for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public AssessmentSectionView(IAssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             InitializeComponent();
 
-            assessmentSectionObserver = new Observer(UpdateMapData);
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateMapData);
-            hydraulicBoundaryLocationObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocation>, HydraulicBoundaryLocation>(
-                UpdateMapData, hbl => hbl);
+            this.assessmentSection = assessmentSection;
 
-            mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
+            CreateObservers();
+
+            var mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+
+            SetAllMapDataFeatures();
+            ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
         }
 
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as IAssessmentSection;
-
-                assessmentSectionObserver.Observable = data;
-                hydraulicBoundaryLocationsObserver.Observable = data?.HydraulicBoundaryDatabase.Locations;
-                hydraulicBoundaryLocationObserver.Observable = data?.HydraulicBoundaryDatabase.Locations;
-
-                if (data == null)
-                {
-                    ringtoetsMapControl.RemoveAllData();
-                }
-                else
-                {
-                    SetMapDataFeatures();
-
-                    ringtoetsMapControl.SetAllData(mapDataCollection, data.BackgroundData);
-                }
-            }
-        }
+        public object Data { get; set; }
 
         public IMapControl Map
         {
@@ -103,28 +96,88 @@ namespace Ringtoets.Integration.Forms.Views
         protected override void Dispose(bool disposing)
         {
             assessmentSectionObserver.Dispose();
+            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
+            waterLevelCalculationsForSignalingNormObserver.Dispose();
+            waterLevelCalculationsForLowerLimitNormObserver.Dispose();
+            waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
+            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
+            waveHeightCalculationsForSignalingNormObserver.Dispose();
+            waveHeightCalculationsForLowerLimitNormObserver.Dispose();
+            waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
-            hydraulicBoundaryLocationObserver.Dispose();
 
             if (disposing)
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
-        private void UpdateMapData()
+        private void CreateObservers()
         {
-            SetMapDataFeatures();
+            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
+            {
+                Observable = assessmentSection
+            };
 
+            waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waterLevelCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waveHeightCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waveHeightCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaveHeightCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waveHeightCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaveHeightCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
+
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
+            {
+                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+        }
+
+        private void SetAllMapDataFeatures()
+        {
+            SetReferenceLineMapData();
+            SetHydraulicBoundaryLocationsMapData();
+        }
+
+        #region ReferenceLine MapData
+
+        private void UpdateReferenceLineMapData()
+        {
+            SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();
+        }
+
+        private void SetReferenceLineMapData()
+        {
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(assessmentSection.ReferenceLine, assessmentSection.Id, assessmentSection.Name);
+        }
+
+        #endregion
+
+        #region HydraulicBoundaryLocations MapData
+
+        private void UpdateHydraulicBoundaryLocationsMapData()
+        {
+            SetHydraulicBoundaryLocationsMapData();
             hydraulicBoundaryLocationsMapData.NotifyObservers();
         }
 
-        private void SetMapDataFeatures()
+        private void SetHydraulicBoundaryLocationsMapData()
         {
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data.ReferenceLine, data.Id, data.Name);
-            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(data.HydraulicBoundaryDatabase);
+            hydraulicBoundaryLocationsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection);
         }
+
+        #endregion
     }
 }

@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Util.TestUtil;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {
@@ -32,31 +35,58 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// </summary>
     public static class MapFeaturesTestHelper
     {
-        /// <summary>
-        /// Asserts whether the meta data for <paramref name="key"/> in <paramref name="feature"/>
-        /// contains the correct output data for <paramref name="calculation"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="HydraulicBoundaryLocationCalculation"/>
-        /// to assert against.</param>
-        /// <param name="feature">The <see cref="MapFeature"/> to be asserted.</param>
-        /// <param name="key">The name of the meta data element to retrieve the data from.</param>
-        /// <exception cref="KeyNotFoundException">Thrown when the meta data of <paramref name="feature"/> does not 
-        /// contain a <see cref="KeyValuePair{TKey,TValue}"/> with <paramref name="key"/> as key.</exception>
-        /// <exception cref="AssertionException">Thrown when the wave height or the design water level of a 
-        /// hydraulic boundary location and the  respective meta data value associated with <paramref name="key"/>
-        ///  are not the same.
-        /// </exception>
-        public static void AssertHydraulicBoundaryLocationOutputMetaData(HydraulicBoundaryLocationCalculation calculation,
-                                                                         MapFeature feature,
-                                                                         string key)
+        public static void AssertHydraulicBoundaryFeaturesData(IAssessmentSection assessmentSection, IEnumerable<MapFeature> features)
         {
-            RoundedDouble expectedValue = RoundedDouble.NaN;
-            if (calculation.Output != null)
-            {
-                expectedValue = calculation.Output.Result;
-            }
+            HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            int expectedNrOfFeatures = hydraulicBoundaryLocationsArray.Length;
+            Assert.AreEqual(expectedNrOfFeatures, features.Count());
 
-            Assert.AreEqual(expectedValue, feature.MetaData[key]);
+            for (var i = 0; i < expectedNrOfFeatures; i++)
+            {
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationsArray[i];
+                MapFeature mapFeature = features.ElementAt(i);
+
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(A+->A)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(A->B)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(B->C)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "h(C->D)");
+
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "Hs(A+->A)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, "Hs(A->B)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "Hs(B->C)");
+                MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, "Hs(C->D)");
+            }
+        }
+
+        /// <summary>
+        /// Gets the expected result of a hydraulic boundary location calculation.
+        /// </summary>
+        /// <param name="calculationList">The list to get the calculation from.</param>
+        /// <param name="hydraulicBoundaryLocation">The location to get the calculation for.</param>
+        /// <returns>The result when there is output; <see cref="RoundedDouble.NaN"/> otherwise.</returns>
+        public static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
+                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            return calculationList
+                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
+                   .Select(calculation => calculation.Output?.Result ?? RoundedDouble.NaN)
+                   .Single();
         }
     }
 }

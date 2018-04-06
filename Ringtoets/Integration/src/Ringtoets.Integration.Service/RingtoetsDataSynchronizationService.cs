@@ -250,11 +250,16 @@ namespace Ringtoets.Integration.Service
             }
 
             var affectedObjects = new List<IObservable>();
-            affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection));
 
-            IEnumerable<IObservable> affectedClearedObjects =
-                RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(hydraulicBoundaryDatabase.Locations);
-            affectedObjects.AddRange(affectedClearedObjects);
+            affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForSignalingNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForLowerLimitNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
             return affectedObjects.ToArray();
         }

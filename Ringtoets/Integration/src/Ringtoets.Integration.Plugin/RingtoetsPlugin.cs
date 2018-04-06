@@ -59,7 +59,6 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.HydraRing;
-using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
@@ -86,9 +85,9 @@ using Ringtoets.Integration.Forms.PropertyClasses.StandAlone;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using Ringtoets.Integration.IO.Exporters;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
-using Ringtoets.Integration.Plugin.MetaDataAttributeNameProviders;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -436,7 +435,8 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
             {
                 GetViewName = (view, section) => RingtoetsFormsResources.AssessmentSectionMap_DisplayName,
-                Image = RingtoetsFormsResources.Map
+                Image = RingtoetsFormsResources.Map,
+                CreateInstance = section => new AssessmentSectionView(section)
             };
 
             yield return new ViewInfo<IFailureMechanismContext<IFailureMechanism>, FailureMechanismView<IFailureMechanism>>
@@ -444,7 +444,8 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new FailureMechanismView<IFailureMechanism>(context.WrappedData, context.Parent)
             };
 
             yield return CreateFailureMechanismResultViewInfo<
@@ -623,8 +624,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
-                    context.WrappedData.Locations, filePath, new HydraulicBoundaryLocationMetaDataAttributeNameProvider()),
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.AssessmentSection, filePath),
                 IsEnabled = context => context.WrappedData.IsLinked(),
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIOResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIOResources.Shape_file_filter_Description)
@@ -1002,16 +1002,6 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static ObservableList<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                                                     Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-        {
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
-
-            hydraulicBoundaryLocationCalculations.AddRange(hydraulicBoundaryLocations.Select(getCalculationFunc));
-
-            return hydraulicBoundaryLocationCalculations;
-        }
-
         #region PropertyInfos
 
         private static TopLevelFaultTreeIllustrationPointProperties CreateTopLevelFaultTreeIllustrationPointProperties(SelectedTopLevelFaultTreeIllustrationPoint point)
@@ -1053,12 +1043,9 @@ namespace Ringtoets.Integration.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;
 
-            var viewFailureMechanismContext = (IFailureMechanismContext<IFailureMechanism>) view.Data;
-            IFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion
@@ -1973,19 +1960,19 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation1),
+                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
                                                         RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
-                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation2),
+                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
                                                         RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
-                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation3),
+                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
                                                         RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
-                new DesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.DesignWaterLevelCalculation4),
+                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
                                                         RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
@@ -1996,19 +1983,19 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new WaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation1),
+                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
                                                   RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
-                new WaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation2),
+                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
                                                   RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
-                new WaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation3),
+                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
                                                   RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
-                new WaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(context.WrappedData, hbl => hbl.WaveHeightCalculation4),
+                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
                                                   RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)

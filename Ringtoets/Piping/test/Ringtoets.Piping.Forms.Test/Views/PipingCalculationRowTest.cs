@@ -79,7 +79,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
 
             // Call
             var row = new PipingCalculationRow(calculation, handler);
@@ -90,7 +92,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreSame(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreSame(calculation.InputParameters.StochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
             Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability.ToString(CultureInfo.CurrentCulture), row.StochasticSoilProfileProbability);
-            Assert.AreSame(calculation.InputParameters.HydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
             Assert.AreEqual(calculation.InputParameters.DampingFactorExit.Mean, row.DampingFactorExitMean);
             Assert.AreEqual(calculation.InputParameters.PhreaticLevelExit.Mean, row.PhreaticLevelExitMean);
             Assert.AreEqual(calculation.InputParameters.EntryPointL, row.EntryPointL);
@@ -132,7 +134,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             const string newValue = "Test new name";
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var row = new PipingCalculationRow(calculation, handler);
 
             calculation.Attach(observer);
@@ -350,7 +352,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void EntryPointL_EntryPointNotBeforeExitPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             var entryPointL = (RoundedDouble) newValue;
 
             // Call & Assert
@@ -364,7 +366,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void EntryPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             var entryPointL = (RoundedDouble) (-3.0);
 
             // Call & Assert
@@ -377,7 +379,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void ExitPointL_OnValidChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             var exitPointL = (RoundedDouble) 0.3;
 
             // Call & Assert
@@ -411,7 +413,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void ExitPointL_ExitPointNotBeyondEntryPoint_ThrowsArgumentOutOfRangeExceptionDoesNotNotifyObservers(double newValue)
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             var exitPointL = (RoundedDouble) newValue;
 
             // Call & Assert
@@ -425,7 +427,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void ExitPointL_NotOnSurfaceLine_ThrowsArgumentOutOfRangeExceptionAndDoesNotNotifyObservers()
         {
             // Setup
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             var exitPointL = (RoundedDouble) 3.0;
 
             // Call & Assert
@@ -464,21 +466,24 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 inputObserver.Expect(o => o.UpdateObserver());
             }
+
             var calculationObserver = mockRepository.StrictMock<IObserver>();
             if (expectUpdates && hasOutput)
             {
                 calculationObserver.Expect(o => o.UpdateObserver());
             }
+
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
             PipingOutput assignedOutput = null;
 
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             if (hasOutput)
             {
                 assignedOutput = PipingOutputTestFactory.Create();
             }
+
             calculation.Output = assignedOutput;
 
             var row = new PipingCalculationRow(calculation, handler);
@@ -498,6 +503,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 Assert.AreSame(assignedOutput, calculation.Output);
             }
+
             mockRepository.VerifyAll();
         }
 

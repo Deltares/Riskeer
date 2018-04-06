@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>, <paramref name="assessmentSection"/>
         /// or <paramref name="getNormFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        public WaveHeightCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+        public WaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                           IAssessmentSection assessmentSection,
                                           Func<double> getNormFunc,
                                           string categoryBoundaryName)

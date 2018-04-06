@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
                                                             categoryBoundaryName);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>>(context);
             Assert.AreSame(calculations, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(getNormFunc, context.GetNormFunc);
@@ -140,7 +140,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             private static readonly MockRepository mocks = new MockRepository();
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             private static readonly Func<double> getNormFunc = () => 0.01;
-            private static readonly ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            private static readonly IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
             private static readonly string categoryBoundaryName = "Test name";
 
             [SetUp]
@@ -183,7 +183,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 
         private class DerivedWaveHeightCalculationsContext : WaveHeightCalculationsContext
         {
-            public DerivedWaveHeightCalculationsContext(ObservableList<HydraulicBoundaryLocationCalculation> wrappedData,
+            public DerivedWaveHeightCalculationsContext(IObservableEnumerable<HydraulicBoundaryLocationCalculation> wrappedData,
                                                         IAssessmentSection assessmentSection,
                                                         Func<double> getNormFunc,
                                                         string categoryBoundaryName)

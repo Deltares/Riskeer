@@ -530,14 +530,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 stochasticSoilProfile
             });
 
-            HydraulicBoundaryLocation testHydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateDesignWaterLevelCalculated(0.0);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
                     UseAssessmentLevelManualInput = useManualAssessmentLevelInput,
-                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation,
+                    AssessmentLevel = random.NextRoundedDouble(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = stochasticSoilModel,
                     StochasticSoilProfile = stochasticSoilProfile
@@ -607,7 +608,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfile);
             Assert.AreSame(stochasticSoilModel, properties.StochasticSoilModel);
 
-            Assert.AreSame(testHydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedAssessmentLevel, properties.AssessmentLevel);
             Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
 

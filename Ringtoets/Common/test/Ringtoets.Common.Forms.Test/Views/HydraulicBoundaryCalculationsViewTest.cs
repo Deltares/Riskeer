@@ -234,7 +234,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             ShowTestHydraulicBoundaryCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>());
         }
 
-        private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations)
+        private TestHydraulicBoundaryCalculationsView ShowTestHydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             var view = new TestHydraulicBoundaryCalculationsView(calculations, new ObservableTestAssessmentSectionStub());
 
@@ -265,7 +265,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private sealed class TestHydraulicBoundaryCalculationsView : HydraulicBoundaryCalculationsView
         {
-            public TestHydraulicBoundaryCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+            public TestHydraulicBoundaryCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                          IAssessmentSection assessmentSection)
                 : base(calculations, assessmentSection) {}
 

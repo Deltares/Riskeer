@@ -44,7 +44,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
-using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms;
@@ -52,7 +51,6 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
-using Ringtoets.GrassCoverErosionOutwards.Plugin.MetaDataAttributeNameProviders;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 using Ringtoets.Revetment.Data;
@@ -127,7 +125,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseGrassCoverErosionOutwardsFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new ViewInfo<
@@ -260,8 +259,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 Name = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
-                    new HydraulicBoundaryLocationsExporter(context.WrappedData,
-                                                           filePath, new GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider()),
+                    new GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter(context.FailureMechanism, context.AssessmentSection,
+                                                                                    filePath),
                 IsEnabled = context => context.WrappedData.Count > 0,
                 FileFilterGenerator = new FileFilterGenerator(RingtoetsCommonIoResources.Shape_file_filter_Extension,
                                                               RingtoetsCommonIoResources.Shape_file_filter_Description)
@@ -352,12 +351,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var assessmentSection = data as IAssessmentSection;
             var failureMechanism = data as GrassCoverErosionOutwardsFailureMechanism;
 
-            var viewFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext) view.Data;
-            GrassCoverErosionOutwardsFailureMechanism viewFailureMechanism = viewFailureMechanismContext.WrappedData;
-
             return assessmentSection != null
-                       ? ReferenceEquals(viewFailureMechanismContext.Parent, assessmentSection)
-                       : ReferenceEquals(viewFailureMechanism, failureMechanism);
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion

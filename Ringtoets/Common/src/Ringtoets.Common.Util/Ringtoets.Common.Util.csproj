@@ -11,13 +11,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregatedHydraulicBoundaryLocation.cs" />
+    <Compile Include="AggregatedHydraulicBoundaryLocationFactory.cs" />
     <Compile Include="AssignUnassignCalculations.cs" />
     <Compile Include="CalculationWithLocation.cs" />
+    <Compile Include="HydraulicBoundaryLocationMapDataFeaturesFactory.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RingtoetsMapDataFeaturesFactoryHelper.cs" />
     <Compile Include="RingtoetsVersionComparer.cs" />
     <Compile Include="StructuresHelper.cs" />
     <Compile Include="SectionResultWithCalculationAssignment.cs" />
@@ -51,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

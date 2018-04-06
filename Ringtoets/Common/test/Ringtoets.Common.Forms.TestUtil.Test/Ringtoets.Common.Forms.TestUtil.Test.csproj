@@ -17,6 +17,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MapViewTestHelperTest.cs" />
     <Compile Include="AssemblyCategoryGroupTestHelperTest.cs" />
     <Compile Include="SetPropertyValueAfterConfirmationParameterTesterTest.cs" />
     <Compile Include="ControlTestHelperTest.cs" />
@@ -61,6 +62,10 @@
     <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Ringtoets.AssemblyTool.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Integration\test\Ringtoets.Integration.Forms.Test\Ringtoets.Integration.Forms.Test.csproj">
+      <Project>{96C8FDAE-9F59-4D2F-A66E-BE512BB5EECB}</Project>
+      <Name>Ringtoets.Integration.Forms.Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>

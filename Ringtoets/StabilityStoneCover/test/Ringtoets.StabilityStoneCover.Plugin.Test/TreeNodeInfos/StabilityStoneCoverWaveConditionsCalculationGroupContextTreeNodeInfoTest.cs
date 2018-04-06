@@ -39,6 +39,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
@@ -80,6 +81,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
+
+        private readonly string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, Path.Combine("HydraRingCalculation", "HRD ijsselmeer.sqlite"));
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -817,18 +820,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_TwoCalculationsClickOnValidateAllInGroup_ValidationMessagesLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculationA = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -843,7 +843,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -898,14 +898,19 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_NoValidationErrorsLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -918,14 +923,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism.WaveConditionsCalculationGroup,
@@ -965,14 +963,19 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_NoValidationErrorsLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -985,14 +988,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
@@ -1036,14 +1032,19 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_NoValidationErrorsLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1056,14 +1057,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
@@ -1107,14 +1101,19 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ValidationErrorsLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1127,14 +1126,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
@@ -1179,11 +1171,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_TwoCalculationsClickOnCalculateAllInGroup_MessagesLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var observerA = mocks.StrictMock<IObserver>();
             observerA.Expect(o => o.UpdateObserver());
@@ -1191,9 +1180,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             observerB.Expect(o => o.UpdateObserver());
 
             var group = new CalculationGroup();
-            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationA.Name = "A";
-            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationB.Name = "B";
             calculationA.Attach(observerA);
             calculationB.Attach(observerB);
@@ -1225,7 +1214,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(hrdPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
+                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(Path.GetDirectoryName(validFilePath), string.Empty)).Return(new TestWaveConditionsCosineCalculator());
                 mocks.ReplayAll();
 
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -1260,15 +1249,13 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_NoCalculations_ClearAllOutputItemDisabled()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var group = new CalculationGroup();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+                failureMechanism, mocks, validFilePath);
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism.WaveConditionsCalculationGroup,
@@ -1307,16 +1294,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_TwoCalculationsWithoutOutput_ClearAllOutputItemDisabled()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+                failureMechanism, mocks, validFilePath);
 
             var group = new CalculationGroup();
-            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation();
-            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
@@ -1340,7 +1325,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(hrdPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
+                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(Path.GetDirectoryName(validFilePath), string.Empty)).Return(new TestWaveConditionsCosineCalculator());
                 mocks.ReplayAll();
 
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -1361,11 +1346,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+                failureMechanism, mocks, validFilePath);
 
             var observerA = mocks.StrictMock<IObserver>();
             var observerB = mocks.StrictMock<IObserver>();
@@ -1376,11 +1359,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             }
 
             var group = new CalculationGroup();
-            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationA.Output = new StabilityStoneCoverWaveConditionsOutput(
                 Enumerable.Empty<WaveConditionsOutput>(),
                 Enumerable.Empty<WaveConditionsOutput>());
-            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation();
+            StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationB.Output = new StabilityStoneCoverWaveConditionsOutput(
                 Enumerable.Empty<WaveConditionsOutput>(),
                 Enumerable.Empty<WaveConditionsOutput>());
@@ -1422,7 +1405,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(hrdPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
+                calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(Path.GetDirectoryName(validFilePath), string.Empty)).Return(new TestWaveConditionsCosineCalculator());
                 mocks.ReplayAll();
 
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -1883,24 +1866,43 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             base.TearDown();
         }
 
-        private static TestHydraulicBoundaryLocation CreateHydraulicBoundaryLocationWithNormativeOutput()
+        private IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
         {
-            return new TestHydraulicBoundaryLocation
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub
             {
-                DesignWaterLevelCalculation3 =
+                FailureMechanismContribution =
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(12)
+                    NormativeNorm = NormType.LowerLimit
+                },
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
                 }
             };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(9.3);
+
+            return assessmentSection;
         }
 
-        private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()
+        private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

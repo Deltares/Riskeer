@@ -282,28 +282,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets the derived waternet calculation output under extreme circumstances.
-        /// </summary>
-        public MacroStabilityInwardsWaternet WaternetExtreme
-        {
-            get
-            {
-                return new DerivedMacroStabilityInwardsInput(this).WaternetExtreme;
-            }
-        }
-
-        /// <summary>
-        /// Gets the derived waternet calculation output under daily circumstances.
-        /// </summary>
-        public MacroStabilityInwardsWaternet WaternetDaily
-        {
-            get
-            {
-                return new DerivedMacroStabilityInwardsInput(this).WaternetDaily;
-            }
-        }
-
         #endregion
 
         #region Settings

@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             using (var properties = new TestHydraulicBoundaryLocationCalculationsProperties(hydraulicBoundaryLocationCalculations))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocationCalculation>>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
                 Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
             }
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
         private class TestHydraulicBoundaryLocationCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
         {
-            public TestHydraulicBoundaryLocationCalculationsProperties(ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+            public TestHydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
                 : base(hydraulicBoundaryLocationCalculations) {}
         }
     }

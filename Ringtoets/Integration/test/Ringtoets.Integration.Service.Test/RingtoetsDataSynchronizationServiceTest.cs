@@ -416,65 +416,111 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(HydraulicBoundaryLocationAndGrassAndDuneLocations))]
-        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(
-            HydraulicBoundaryLocation hydraulicBoundaryLocation, HydraulicBoundaryLocation grassCoverErosionLocation, DuneLocation duneLocation)
+        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var random = new Random(21);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation1 = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+            var duneLocation1 = new TestDuneLocation
             {
-                Locations =
+                Calculation =
                 {
-                    hydraulicBoundaryLocation
+                    Output = new TestDuneLocationOutput()
+                }
+            };
+            var duneLocation2 = new TestDuneLocation();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
+                },
+                DuneErosion =
+                {
+                    DuneLocations =
+                    {
+                        duneLocation1,
+                        duneLocation2
+                    }
                 }
             };
 
-            var duneErosionFailureMechanism = new DuneErosionFailureMechanism();
-            duneErosionFailureMechanism.DuneLocations.Add(duneLocation);
-
-            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(grassCoverErosionLocation);
-
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                grassCoverErosionOutwardsFailureMechanism,
-                duneErosionFailureMechanism
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
             });
-            mockRepository.ReplayAll();
 
-            var expectedAffectedItems = new List<IObservable>();
-            if (HasHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation))
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation1);
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation2);
+            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                expectedAffectedItems.Add(hydraulicBoundaryLocation);
-            }
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
 
-            if (HasHydraulicBoundaryLocationOutput(grassCoverErosionLocation))
-            {
-                expectedAffectedItems.Add(grassCoverErosionLocation);
-            }
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
+                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForSignalingNorm
+                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation3 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation4 = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm
+                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation5 = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
+                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation6 = assessmentSection.WaveHeightCalculationsForSignalingNorm
+                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation7 = assessmentSection.WaveHeightCalculationsForLowerLimitNorm
+                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation8 = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
+                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
 
-            if (duneLocation.Calculation.Output != null)
+            hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            hydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            hydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            hydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            hydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            hydraulicBoundaryLocationCalculation7.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            hydraulicBoundaryLocationCalculation8.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+
+            var expectedAffectedItems = new List<IObservable>
             {
-                expectedAffectedItems.Add(duneLocation);
-            }
+                hydraulicBoundaryLocationCalculation1,
+                hydraulicBoundaryLocationCalculation2,
+                hydraulicBoundaryLocationCalculation3,
+                hydraulicBoundaryLocationCalculation4,
+                hydraulicBoundaryLocationCalculation5,
+                hydraulicBoundaryLocationCalculation6,
+                hydraulicBoundaryLocationCalculation7,
+                hydraulicBoundaryLocationCalculation8,
+                hydraulicBoundaryLocation1,
+                duneLocation1
+            };
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
 
             // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
-            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation1.HasOutput);
-            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation1.HasOutput);
-            Assert.IsNull(duneLocation.Calculation.Output);
-
-            mockRepository.VerifyAll();
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation1.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation2.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation3.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation4.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation5.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation6.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation7.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation8.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation1.DesignWaterLevelCalculation1.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocation1.WaveHeightCalculation1.HasOutput);
+            Assert.IsNull(duneLocation1.Calculation.Output);
         }
 
         [Test]
@@ -1354,7 +1400,7 @@ namespace Ringtoets.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, assessmentSection);
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
         {
             var expectedRemovedObjects = new List<object>();
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Piping));
@@ -1384,7 +1430,7 @@ namespace Ringtoets.Integration.Service.Test
             return expectedRemovedObjects;
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(PipingFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(PipingFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<PipingFailureMechanism>(failureMechanism))
             {
@@ -1407,7 +1453,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(MacroStabilityInwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<MacroStabilityInwardsFailureMechanism>(failureMechanism))
             {
@@ -1430,7 +1476,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<GrassCoverErosionInwardsFailureMechanism>(failureMechanism))
             {
@@ -1448,7 +1494,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityStoneCoverFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityStoneCoverFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<StabilityStoneCoverFailureMechanism>(failureMechanism))
             {
@@ -1466,7 +1512,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<WaveImpactAsphaltCoverFailureMechanism>(failureMechanism))
             {
@@ -1484,7 +1530,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<GrassCoverErosionOutwardsFailureMechanism>(failureMechanism))
             {
@@ -1502,7 +1548,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(HeightStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(HeightStructuresFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<HeightStructuresFailureMechanism>(failureMechanism))
             {
@@ -1525,7 +1571,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(ClosingStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(ClosingStructuresFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<ClosingStructuresFailureMechanism>(failureMechanism))
             {
@@ -1548,7 +1594,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityPointStructuresFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityPointStructuresFailureMechanism failureMechanism)
         {
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<StabilityPointStructuresFailureMechanism>(failureMechanism))
             {
@@ -1571,7 +1617,7 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
             where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResult>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
@@ -1587,14 +1633,7 @@ namespace Ringtoets.Integration.Service.Test
 
         private static bool HasHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput
-                   || hydraulicBoundaryLocation.DesignWaterLevelCalculation2.HasOutput
-                   || hydraulicBoundaryLocation.DesignWaterLevelCalculation3.HasOutput
-                   || hydraulicBoundaryLocation.DesignWaterLevelCalculation4.HasOutput
-                   || hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput
-                   || hydraulicBoundaryLocation.WaveHeightCalculation2.HasOutput
-                   || hydraulicBoundaryLocation.WaveHeightCalculation3.HasOutput
-                   || hydraulicBoundaryLocation.WaveHeightCalculation4.HasOutput;
+            return hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput || hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput;
         }
 
         #region TestData
@@ -1629,116 +1668,6 @@ namespace Ringtoets.Integration.Service.Test
                     }
                 }
             ).SetName($"GrassAndDuneLocationWithOutput_{testName}");
-        }
-
-        private static IEnumerable<TestCaseData> HydraulicBoundaryLocationAndGrassAndDuneLocations
-        {
-            get
-            {
-                yield return new TestCaseData(
-                    CreateFullyCalculatedHydraulicBoundaryLocation(),
-                    new TestHydraulicBoundaryLocation(),
-                    new TestDuneLocation
-                    {
-                        Calculation =
-                        {
-                            Output = new TestDuneLocationOutput()
-                        }
-                    }
-                ).SetName("HydraulicBoundaryAndDuneLocationWithOutput");
-                yield return new TestCaseData(
-                    CreateFullyCalculatedHydraulicBoundaryLocation(),
-                    new TestHydraulicBoundaryLocation(),
-                    new TestDuneLocation()
-                ).SetName("HydraulicBoundaryLocationWithOutput");
-                yield return new TestCaseData(
-                    CreateFullyCalculatedHydraulicBoundaryLocation(),
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
-                    new TestDuneLocation
-                    {
-                        Calculation =
-                        {
-                            Output = new TestDuneLocationOutput()
-                        }
-                    }
-                ).SetName("AllTypesWithOutput");
-                yield return new TestCaseData(
-                    CreateFullyCalculatedHydraulicBoundaryLocation(),
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
-                    new TestDuneLocation()
-                ).SetName("HydraulicBoundaryAndGrassLocationWithOutput");
-                yield return new TestCaseData(
-                    new TestHydraulicBoundaryLocation(),
-                    new TestHydraulicBoundaryLocation(),
-                    new TestDuneLocation
-                    {
-                        Calculation =
-                        {
-                            Output = new TestDuneLocationOutput()
-                        }
-                    }
-                ).SetName("HydraulicBoundaryLocationWithoutOutputDuneLocationWithOutput");
-                yield return new TestCaseData(
-                    new TestHydraulicBoundaryLocation(),
-                    new TestHydraulicBoundaryLocation(),
-                    new TestDuneLocation()
-                ).SetName("AllTypesNoOutput");
-                yield return new TestCaseData(
-                    new TestHydraulicBoundaryLocation(),
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
-                    new TestDuneLocation
-                    {
-                        Calculation =
-                        {
-                            Output = new TestDuneLocationOutput()
-                        }
-                    }
-                ).SetName("HydraulicBoundaryLocationWithoutOutputGrassAndDuneLocationWithOutput");
-                yield return new TestCaseData(
-                    new TestHydraulicBoundaryLocation(),
-                    TestHydraulicBoundaryLocation.CreateFullyCalculated(),
-                    new TestDuneLocation()
-                ).SetName("GrassLocationWithOutput");
-            }
-        }
-
-        private static HydraulicBoundaryLocation CreateFullyCalculatedHydraulicBoundaryLocation()
-        {
-            return new TestHydraulicBoundaryLocation
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(1.1)
-                },
-                DesignWaterLevelCalculation2 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(2.2)
-                },
-                DesignWaterLevelCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(3.3)
-                },
-                DesignWaterLevelCalculation4 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(4.4)
-                },
-                WaveHeightCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(5.5)
-                },
-                WaveHeightCalculation2 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(6.6)
-                },
-                WaveHeightCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(7.7)
-                },
-                WaveHeightCalculation4 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(8.8)
-                }
-            };
         }
 
         #endregion

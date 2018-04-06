@@ -21,6 +21,7 @@
 
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -40,9 +41,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             }
         }
 
-        protected override IView GetView()
+        protected override IView GetView(ICalculation data)
         {
-            return new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
+            return new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint())
+            {
+                Data = data
+            };
         }
 
         protected override OvertoppingRateOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
@@ -33,14 +35,14 @@ namespace Ringtoets.Common.Data.AssessmentSection
     public static class AssessmentSectionExtensions
     {
         /// <summary>
-        /// Gets the normative assessment level from a <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the normative assessment level for a <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section.</param>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the normative
-        /// assessment level from.</param>
+        /// <param name="assessmentSection">The assessment section to get the normative assessment level from.</param>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the normative assessment level for.</param>
         /// <returns>The normative assessment level or <see cref="RoundedDouble.NaN"/> when:
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
         /// <item><paramref name="hydraulicBoundaryLocation"/> contains no corresponding calculation output.</item>
         /// </list>
         /// </returns>
@@ -66,15 +68,21 @@ namespace Ringtoets.Common.Data.AssessmentSection
                                                        typeof(NormType));
             }
 
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
+
             switch (normType)
             {
                 case NormType.Signaling:
-                    return hydraulicBoundaryLocation?.DesignWaterLevelCalculation2.Output?.Result ?? RoundedDouble.NaN;
+                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
+                    break;
                 case NormType.LowerLimit:
-                    return hydraulicBoundaryLocation?.DesignWaterLevelCalculation3.Output?.Result ?? RoundedDouble.NaN;
+                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    break;
                 default:
                     throw new NotSupportedException();
             }
+
+            return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))?.Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }

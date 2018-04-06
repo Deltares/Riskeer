@@ -28,9 +28,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationsExporter>(fileExporter);
+            Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter>(fileExporter);
             mockRepository.VerifyAll();
         }
 

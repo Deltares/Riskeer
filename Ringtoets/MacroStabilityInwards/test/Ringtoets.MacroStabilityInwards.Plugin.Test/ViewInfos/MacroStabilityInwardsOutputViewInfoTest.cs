@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -100,13 +101,21 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_Always_CreatesMacroStabilityInwardsOutputView()
+        public void CreateInstance_WithContext_SetsDataCorrectly()
         {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+            var calculationOutputContext = new MacroStabilityInwardsOutputContext(calculation,
+                                                                                  new MacroStabilityInwardsFailureMechanism(),
+                                                                                  assessmentSection);
+
             // Call
-            IView view = info.CreateInstance(null);
+            IView view = info.CreateInstance(calculationOutputContext);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsOutputView>(view);
+            Assert.AreSame(calculation, view.Data);
+            mocks.VerifyAll();
         }
 
         [TestFixture]
@@ -122,9 +131,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                 }
             }
 
-            protected override IView GetView()
+            protected override IView GetView(ICalculation data)
             {
-                return new MacroStabilityInwardsOutputView();
+                return new MacroStabilityInwardsOutputView((MacroStabilityInwardsCalculationScenario) data, () => (RoundedDouble) 1.1);
             }
 
             protected override ICalculation GetCalculation()

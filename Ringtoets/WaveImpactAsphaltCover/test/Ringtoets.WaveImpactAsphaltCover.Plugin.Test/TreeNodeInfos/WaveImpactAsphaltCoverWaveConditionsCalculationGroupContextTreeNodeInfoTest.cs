@@ -39,6 +39,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
@@ -83,6 +84,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         private MockRepository mocks;
         private WaveImpactAsphaltCoverPlugin plugin;
         private TreeNodeInfo info;
+
+        private readonly string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, Path.Combine("HydraRingCalculation", "HRD ijsselmeer.sqlite"));
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -833,18 +836,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_TwoCalculationsClickOnValidateAllInGroup_ValidationMessagesLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
 
             var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -859,7 +861,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -914,14 +916,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_NoValidationErrorsLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -934,14 +941,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                Contribution = 5
-            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism.WaveConditionsCalculationGroup,
@@ -981,14 +981,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_NoValidationErrorsLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1001,14 +1006,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                Contribution = 5
-            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
@@ -1052,14 +1050,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_NoValidationErrorsLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1072,14 +1075,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                Contribution = 5
-            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
@@ -1123,14 +1119,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ValidationErrorsLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1143,14 +1144,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                Contribution = 5
-            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
@@ -1195,21 +1189,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_TwoCalculationsClickOnCalculateAllInGroup_MessagesLogged()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var observerA = mocks.StrictMock<IObserver>();
             observerA.Expect(o => o.UpdateObserver());
             var observerB = mocks.StrictMock<IObserver>();
             observerB.Expect(o => o.UpdateObserver());
 
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+
             var group = new CalculationGroup();
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculationA = GetValidCalculation();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
             calculationA.Name = "A";
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculationB = GetValidCalculation();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
             calculationB.Name = "B";
             calculationA.Attach(observerA);
             calculationB.Attach(observerB);
@@ -1242,7 +1235,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                       .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                       .Sum(c => c.InputParameters.GetWaterLevels(assessmentSection.GetNormativeAssessmentLevel(c.InputParameters.HydraulicBoundaryLocation)).Count());
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(hrdPath, string.Empty))
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Path.GetDirectoryName(validFilePath), string.Empty))
                                  .Return(new TestWaveConditionsCosineCalculator())
                                  .Repeat
                                  .Times(nrOfCalculators);
@@ -1278,11 +1271,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_NoCalculations_ClearAllOutputItemDisabled()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+                failureMechanism, mocks, validFilePath);
 
             var group = new CalculationGroup();
 
@@ -1322,15 +1313,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_TwoCalculationsWithoutOutput_ClearAllOutputItemDisabled()
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+                failureMechanism, mocks, validFilePath);
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
 
             var group = new CalculationGroup();
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculationA = GetValidCalculation();
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculationB = GetValidCalculation();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
@@ -1372,11 +1363,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
         {
             // Setup
-            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(
-                failureMechanism, mocks, Path.Combine(hrdPath, "HRD ijsselmeer.sqlite"));
+                failureMechanism, mocks, validFilePath);
 
             var observerA = mocks.StrictMock<IObserver>();
             var observerB = mocks.StrictMock<IObserver>();
@@ -1386,10 +1375,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 observerB.Expect(o => o.UpdateObserver());
             }
 
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+
             var group = new CalculationGroup();
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculationA = GetValidCalculation();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
             calculationA.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>());
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculationB = GetValidCalculation();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
             calculationB.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>());
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
@@ -1884,24 +1875,43 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             base.TearDown();
         }
 
-        private static TestHydraulicBoundaryLocation CreateHydraulicBoundaryLocationWithNormativeOutput()
+        private IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
         {
-            return new TestHydraulicBoundaryLocation
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub
             {
-                DesignWaterLevelCalculation3 =
+                FailureMechanismContribution =
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(12)
+                    NormativeNorm = NormType.LowerLimit
+                },
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
                 }
             };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(9.3);
+
+            return assessmentSection;
         }
 
-        private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation()
+        private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocationWithNormativeOutput(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

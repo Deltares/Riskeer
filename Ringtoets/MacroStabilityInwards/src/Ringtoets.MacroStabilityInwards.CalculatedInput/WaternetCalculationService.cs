@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.Converters;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
 using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators.Input;
@@ -42,12 +43,14 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
         /// </summary>
         /// <param name="input">The input to get the values from.</param>
+        /// <param name="assessmentLevel">The assessment level to use.</param>
         /// <returns>A calculated <see cref="MacroStabilityInwardsWaternet"/>,
         /// or an empty <see cref="MacroStabilityInwardsWaternet"/> when the Waternet
         /// could not be calculated.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
-        public static MacroStabilityInwardsWaternet CalculateExtreme(IMacroStabilityInwardsWaternetInput input)
+        public static MacroStabilityInwardsWaternet CalculateExtreme(IMacroStabilityInwardsWaternetInput input,
+                                                                     RoundedDouble assessmentLevel)
         {
             if (input == null)
             {
@@ -56,7 +59,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
 
             IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
                                                                                    .CreateWaternetExtremeCalculator(
-                                                                                       CreateExtremeCalculatorInput(input),
+                                                                                       CreateExtremeCalculatorInput(input, assessmentLevel),
                                                                                        MacroStabilityInwardsKernelWrapperFactory.Instance);
 
             try
@@ -116,11 +119,11 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput
             return new WaternetCalculatorInput(properties);
         }
 
-        private static WaternetCalculatorInput CreateExtremeCalculatorInput(IMacroStabilityInwardsWaternetInput input)
+        private static WaternetCalculatorInput CreateExtremeCalculatorInput(IMacroStabilityInwardsWaternetInput input, RoundedDouble assessmentLevel)
         {
             WaternetCalculatorInput.ConstructionProperties properties = CreateCalculatorInputConstructionProperties(input);
             properties.PhreaticLineOffsets = PhreaticLineOffsetsConverter.Convert(input.LocationInputExtreme);
-            properties.AssessmentLevel = input.AssessmentLevel;
+            properties.AssessmentLevel = assessmentLevel;
             properties.WaterLevelPolder = input.LocationInputExtreme.WaterLevelPolder;
             properties.PenetrationLength = input.LocationInputExtreme.PenetrationLength;
 

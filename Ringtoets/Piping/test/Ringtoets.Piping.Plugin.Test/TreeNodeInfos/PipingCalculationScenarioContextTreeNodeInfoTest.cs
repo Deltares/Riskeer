@@ -872,7 +872,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 {
                     new Point2D(0, 0)
                 }));
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),
                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
@@ -918,6 +918,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                         {
                             Assert.AreEqual(Level.Error, tupleArray[2 + i].Item2);
                         }
+
                         CalculationServiceTestHelper.AssertValidationEndMessage(msgs[7]);
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is mislukt.", msgs[8]);
                     });
@@ -975,13 +976,20 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
+                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+                PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0)
                 }));
-                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(pipingFailureMechanism, mocks);
 
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),

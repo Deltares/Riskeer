@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -105,7 +106,7 @@ namespace Ringtoets.Piping.Service.Test
         public void Run_ValidPipingCalculation_PerformPipingValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             validPipingCalculation.Output = null;
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
@@ -139,7 +140,7 @@ namespace Ringtoets.Piping.Service.Test
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput();
+            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observer);
 

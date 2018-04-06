@@ -146,9 +146,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.IsNaN(inputParameters.ZoneBoundaryRight);
             Assert.AreEqual(2, inputParameters.ZoneBoundaryRight.NumberOfDecimalPlaces);
-
-            Assert.IsNotNull(inputParameters.WaternetExtreme);
-            Assert.IsNotNull(inputParameters.WaternetDaily);
         }
 
         [Test]

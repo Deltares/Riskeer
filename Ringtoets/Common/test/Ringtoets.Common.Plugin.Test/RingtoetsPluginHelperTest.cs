@@ -21,6 +21,7 @@
 
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Plugin.TestUtil;
 
@@ -34,9 +35,12 @@ namespace Ringtoets.Common.Service.Test
             return RingtoetsPluginHelper.ShouldCloseViewWithCalculationData(view, o);
         }
 
-        protected override IView GetView()
+        protected override IView GetView(ICalculation data)
         {
-            return new TestView();
+            return new TestView
+            {
+                Data = data
+            };
         }
 
         private class TestView : IView

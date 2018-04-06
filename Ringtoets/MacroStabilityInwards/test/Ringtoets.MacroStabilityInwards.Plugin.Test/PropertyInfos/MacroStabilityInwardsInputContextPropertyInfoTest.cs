@@ -52,39 +52,24 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             plugin.Dispose();
         }
 
-        [TestCase(NormType.Signaling)]
-        [TestCase(NormType.LowerLimit)]
-        public void CreateInstance_WithContext_ExpectedProperties(NormType normType)
+        [Test]
+        public void CreateInstance_WithContextAndNormTypeSignaling_ExpectedProperties()
         {
             // Setup
-            const double designWaterLevelSignaling = 1.1;
-            const double designWaterLevelLowerLimit = 2.2;
-
-            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
-            {
-                DesignWaterLevelCalculation2 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevelSignaling)
-                },
-                DesignWaterLevelCalculation3 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(designWaterLevelLowerLimit)
-                }
-            };
-
             var assessmentSection = new ObservableTestAssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = normType
+                    NormativeNorm = NormType.Signaling
                 }
             };
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var scenario = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
 
@@ -94,7 +79,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
                 scenario,
                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                failureMechanism, assessmentSection);
+                failureMechanism,
+                assessmentSection);
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
@@ -103,9 +94,53 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.PropertyInfos
             Assert.IsInstanceOf<MacroStabilityInwardsInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
-            double expectedAssessmentLevel = normType == NormType.Signaling
-                                                 ? designWaterLevelSignaling
-                                                 : designWaterLevelLowerLimit;
+            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result;
+            Assert.AreEqual(expectedAssessmentLevel, ((MacroStabilityInwardsInputContextProperties) objectProperties).AssessmentLevel);
+        }
+
+        [Test]
+        public void CreateInstance_WithContextAndNormTypeLowerLimit_ExpectedProperties()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = NormType.LowerLimit
+                }
+            };
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var scenario = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var context = new MacroStabilityInwardsInputContext(
+                scenario.InputParameters,
+                scenario,
+                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                failureMechanism,
+                assessmentSection);
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
+
+            // Call
+            IObjectProperties objectProperties = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<MacroStabilityInwardsInputContextProperties>(objectProperties);
+            Assert.AreSame(context, objectProperties.Data);
+
+            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result;
             Assert.AreEqual(expectedAssessmentLevel, ((MacroStabilityInwardsInputContextProperties) objectProperties).AssessmentLevel);
         }
     }

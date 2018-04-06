@@ -40,9 +40,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationsProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationCalculations">The list of hydraulic boundary location calculations to set as data.</param>
+        /// <param name="hydraulicBoundaryLocationCalculations">The enumeration of hydraulic boundary location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationsProperties(ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        public DesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
             : base(hydraulicBoundaryLocationCalculations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]

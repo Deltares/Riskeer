@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
@@ -37,12 +38,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int waternetExtremePropertyIndex = 1;
         private const int waternetDailyPropertyIndex = 2;
 
+        private readonly RoundedDouble assessmentLevel;
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaterStressLinesProperties"/>.
         /// </summary>
         /// <param name="data">The data of the properties.</param>
+        /// <param name="assessmentLevel">The assessment level at stake.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsWaterStressLinesProperties(MacroStabilityInwardsInput data)
+        public MacroStabilityInwardsWaterStressLinesProperties(MacroStabilityInwardsInput data, RoundedDouble assessmentLevel)
         {
             if (data == null)
             {
@@ -50,6 +54,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             }
 
             this.data = data;
+            this.assessmentLevel = assessmentLevel;
         }
 
         [PropertyOrder(waternetExtremePropertyIndex)]
@@ -61,7 +66,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsWaternetProperties(data.WaternetExtreme);
+                return new MacroStabilityInwardsWaternetProperties(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(data, assessmentLevel));
             }
         }
 
@@ -74,7 +79,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new MacroStabilityInwardsWaternetProperties(data.WaternetDaily);
+                return new MacroStabilityInwardsWaternetProperties(DerivedMacroStabilityInwardsInput.GetWaternetDaily(data));
             }
         }
 

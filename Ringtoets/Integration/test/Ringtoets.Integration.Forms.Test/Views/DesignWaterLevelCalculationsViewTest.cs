@@ -242,7 +242,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void DesignWaterLevelCalculationsView_CalculationUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
@@ -267,7 +267,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void DesignWaterLevelCalculationsView_CalculationUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
-            ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
@@ -289,7 +289,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var output = new TestHydraulicBoundaryLocationOutput(generalResult);
 
             // Call
-            HydraulicBoundaryLocationCalculation boundaryLocationCalculation = hydraulicBoundaryLocationCalculations[2];
+            HydraulicBoundaryLocationCalculation boundaryLocationCalculation = hydraulicBoundaryLocationCalculations.ElementAt(2);
             boundaryLocationCalculation.Output = output;
             boundaryLocationCalculation.NotifyObservers();
 
@@ -302,7 +302,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels()
         {
             // Setup
-            ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             DesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
@@ -386,7 +386,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
                                                                                          assessmentSection,
@@ -458,7 +458,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
                                                                                          assessmentSection,
@@ -529,7 +529,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
                                                                                          assessmentSection,
@@ -588,7 +588,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                 });
         }
 
-        private static DesignWaterLevelCalculationsView ShowDesignWaterLevelCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+        private static DesignWaterLevelCalculationsView ShowDesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                                              IAssessmentSection assessmentSection,
                                                                                              double norm,
                                                                                              string categoryBoundaryName,
@@ -605,7 +605,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return view;
         }
 
-        private static DesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+        private static DesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                                                             Form form)
         {
             var assessmentSection = new ObservableTestAssessmentSectionStub();

@@ -31,6 +31,7 @@
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="Helpers\AssemblyCategoryGroupColorHelper.cs" />
+    <Compile Include="Helpers\ObserverHelper.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelper.cs" />
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
     <Compile Include="Helpers\NamingHelper.cs" />

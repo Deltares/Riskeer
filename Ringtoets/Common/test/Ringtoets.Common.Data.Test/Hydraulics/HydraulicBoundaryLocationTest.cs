@@ -63,14 +63,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Assert.AreEqual(y, location.Y);
 
             AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.DesignWaterLevelCalculation1);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.DesignWaterLevelCalculation2);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.DesignWaterLevelCalculation3);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.DesignWaterLevelCalculation4);
-
             AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.WaveHeightCalculation1);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.WaveHeightCalculation2);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.WaveHeightCalculation3);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.WaveHeightCalculation4);
         }
 
         [Test]

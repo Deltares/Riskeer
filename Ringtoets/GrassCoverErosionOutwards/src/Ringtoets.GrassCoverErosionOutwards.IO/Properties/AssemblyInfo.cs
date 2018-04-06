@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Ringtoets.GrassCoverErosionOutwards.IO")]
 [assembly: AssemblyProduct("Ringtoets.GrassCoverErosionOutwards.IO")]
+[assembly: InternalsVisibleTo("Ringtoets.GrassCoverErosionOutwards.IO.Test")]

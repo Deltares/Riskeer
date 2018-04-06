@@ -23,12 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -36,7 +38,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
@@ -53,223 +54,147 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         private const int calculationsIndex = 6;
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new WaveImpactAsphaltCoverFailureMechanismView(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            TestDelegate call = () => new WaveImpactAsphaltCoverFailureMechanismView(new WaveImpactAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            // Call
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IMapView>(view);
-                Assert.IsNotNull(view.Map);
                 Assert.IsNull(view.Data);
-            }
-        }
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
 
-        [Test]
-        public void DefaultConstructor_Always_AddEmptyMapControl()
-        {
-            // Call
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
-            {
-                // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
                 Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                Assert.IsNull(view.Map.Data);
+                AssertEmptyMapData(view.Map.Data);
             }
         }
 
         [Test]
-        public void Data_WaveImpactAsphaltCoverFailureMechanismContext_DataSet()
-        {
-            // Setup
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(
-                    new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanWaveImpactAsphaltCoverFailureMechanismContext_DataNull()
-        {
-            // Setup
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
+        public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             IAssessmentSection assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            // Call
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection))
             {
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(
-                    new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
                 MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
         [Test]
-        public void Data_SetToNull_MapDataCleared()
+        public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(
-                    new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                // Precondition
-                Assert.AreEqual(7, view.Map.Data.Collection.Count());
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.Map.Data);
-                Assert.IsNull(view.Map.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void Data_EmptyWaveImpactAsphaltCoverFailureMechanismContext_NoMapDataSet()
-        {
-            // Setup
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(new Point2D(1.3, 1.3)),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+            var calculationB = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(new Point2D(1.5, 1.5)),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
 
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(
-                    new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
+            var geometryPoints = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(2.0, 0.0),
+                new Point2D(4.0, 4.0),
+                new Point2D(6.0, 4.0)
+            };
 
-                // Call
-                view.Data = failureMechanismContext;
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-                AssertEmptyMapData(view.Map.Data);
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-            }
-        }
+            var profile1 = new TestForeshoreProfile("profile1 ID", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
+            var profile2 = new TestForeshoreProfile("profile2 ID", new[]
+            {
+                new Point2D(2, 2),
+                new Point2D(3, 3)
+            });
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                profile1,
+                profile2
+            }, "path");
 
-        [Test]
-        public void Data_WaveImpactAsphaltCoverFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
-        {
-            // Setup
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                ReferenceLine = referenceLine
+            };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
+
+            // Call
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var geometryPoints = new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(2.0, 0.0),
-                    new Point2D(4.0, 4.0),
-                    new Point2D(6.0, 4.0)
-                };
-
-                var referenceLine = new ReferenceLine();
-                referenceLine.SetGeometry(new[]
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                });
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
-                        }
-                    },
-                    ReferenceLine = referenceLine
-                };
-
-                var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
-                var foreshoreProfileB = new TestForeshoreProfile(new Point2D(1.5, 1.5));
-
-                var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
-                {
-                    InputParameters =
-                    {
-                        ForeshoreProfile = foreshoreProfileA,
-                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                    }
-                };
-                var calculationB = new WaveImpactAsphaltCoverWaveConditionsCalculation
-                {
-                    InputParameters =
-                    {
-                        ForeshoreProfile = foreshoreProfileB,
-                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                    }
-                };
-
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
-
-                var profile1 = new TestForeshoreProfile("profile1 ID", new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                });
-                var profile2 = new TestForeshoreProfile("profile2 ID", new[]
-                {
-                    new Point2D(2, 2),
-                    new Point2D(3, 3)
-                });
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    profile1,
-                    profile2
-                }, "path");
-
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
-
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
@@ -290,24 +215,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-                        }
-                    }
-                };
-
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
@@ -315,59 +236,54 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
                 // When
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0));
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    new HydraulicBoundaryLocation(1, "test", 1.0, 2.0),
+                    new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0)
+                });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
+        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
         {
             // Given
-            var random = new Random(21);
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            hydraulicBoundaryLocation
-                        }
-                    }
-                };
-
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
                 // When
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation4.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation4.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.NotifyObservers();
+                HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+                calculation.Output = new TestHydraulicBoundaryLocationOutput(new Random(21).NextDouble());
+                calculation.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                mocks.ReplayAll();
             }
         }
 
@@ -375,31 +291,24 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                ReferenceLine = new ReferenceLine()
+            };
+            assessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var points1 = new List<Point2D>
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                };
-
-                var points2 = new List<Point2D>
-                {
-                    new Point2D(2.0, 5.0),
-                    new Point2D(4.0, 3.0)
-                };
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    ReferenceLine = new ReferenceLine()
-                };
-                assessmentSection.ReferenceLine.SetGeometry(points1);
-
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
@@ -407,11 +316,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // When
-                assessmentSection.ReferenceLine.SetGeometry(points2);
+                assessmentSection.ReferenceLine.SetGeometry(new[]
+                {
+                    new Point2D(2.0, 5.0),
+                    new Point2D(4.0, 3.0)
+                });
                 assessmentSection.NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -419,14 +333,18 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
@@ -444,6 +362,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -451,24 +370,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var foreshoreProfile = new TestForeshoreProfile("originalProfile ID", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            });
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                foreshoreProfile
+            }, "path");
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var foreshoreProfile = new TestForeshoreProfile("originalProfile ID", new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                });
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    foreshoreProfile
-                }, "path");
-
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
@@ -486,6 +406,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                mocks.VerifyAll();
             }
         }
 
@@ -493,23 +414,24 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenViewWithForeshoreProfilesData_WhenForeshoreProfilesUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                new TestForeshoreProfile("originalProfile ID", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            }, "path");
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
-                {
-                    new TestForeshoreProfile("originalProfile ID", new[]
-                    {
-                        new Point2D(0, 0),
-                        new Point2D(1, 1)
-                    })
-                }, "path");
-
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[foreshoreProfilesIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
 
@@ -529,6 +451,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+                mocks.VerifyAll();
             }
         }
 
@@ -536,35 +459,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(new Point2D(1.3, 1.3)),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
-                var foreshoreProfileB = new TestForeshoreProfile(new Point2D(1.5, 1.5));
-
-                var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
-                {
-                    InputParameters =
-                    {
-                        ForeshoreProfile = foreshoreProfileA,
-                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                    }
-                };
-                var calculationB = new WaveImpactAsphaltCoverWaveConditionsCalculation
-                {
-                    InputParameters =
-                    {
-                        ForeshoreProfile = foreshoreProfileB,
-                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                    }
-                };
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
-
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -572,11 +485,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(), calculationMapData);
 
                 // When
+                var calculationB = new WaveImpactAsphaltCoverWaveConditionsCalculation
+                {
+                    InputParameters =
+                    {
+                        ForeshoreProfile = new TestForeshoreProfile(new Point2D(1.5, 1.5)),
+                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    }
+                };
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
                 failureMechanism.WaveConditionsCalculationGroup.NotifyObservers();
 
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -584,26 +506,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(new Point2D(1.3, 1.3)),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
-                var foreshoreProfileB = new TestForeshoreProfile(new Point2D(1.5, 1.5));
-
-                var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
-                {
-                    InputParameters =
-                    {
-                        ForeshoreProfile = foreshoreProfileA,
-                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                    }
-                };
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -611,11 +532,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(), calculationMapData);
 
                 // When
-                calculationA.InputParameters.ForeshoreProfile = foreshoreProfileB;
+                calculationA.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new Point2D(1.5, 1.5));
                 calculationA.InputParameters.NotifyObservers();
 
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -623,25 +545,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(new Point2D(1.3, 1.3)),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var foreshoreProfileA = new TestForeshoreProfile(new Point2D(1.3, 1.3));
-
-                var calculationA = new WaveImpactAsphaltCoverWaveConditionsCalculation
-                {
-                    InputParameters =
-                    {
-                        ForeshoreProfile = foreshoreProfileA,
-                        HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
-                    }
-                };
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -654,6 +576,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(), calculationMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -669,15 +592,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
-
-                view.Data = failureMechanismContext;
 
                 MapDataCollection mapData = map.Data;
 
@@ -745,40 +665,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
-        {
-            // Setup
-            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
-            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
-
-            newAssessmentSection.ReferenceLine = new ReferenceLine();
-            newAssessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(2, 4),
-                new Point2D(3, 4)
-            });
-
-            var oldWaveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), oldAssessmentSection);
-            var newWaveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), newAssessmentSection);
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                view.Data = oldWaveImpactAsphaltCoverFailureMechanismContext;
-                view.Data = newWaveImpactAsphaltCoverFailureMechanismContext;
-                MapData dataBeforeUpdate = map.Data;
-
-                newAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
-
-                // Call
-                oldAssessmentSection.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(dataBeforeUpdate, map.Data);
-            }
-        }
-
         private static void AssertCalculationsMapData(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
@@ -799,6 +685,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
                     calculation.InputParameters.HydraulicBoundaryLocation.Location
                 }, geometries[0].PointCollections.First());
             }
+
             Assert.AreEqual("Berekeningen", mapData.Name);
         }
 
@@ -833,6 +720,50 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
+        }
+
+        /// <summary>
+        /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
+        /// </summary>
+        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
+        /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
+        /// elements.</param>
+        /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
+        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
+        {
+            MapData[] mapDataArray = mapData.ToArray();
+
+            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
+
+            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsIndex].Attach(sectionsMapDataObserver);
+
+            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
+
+            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
+
+            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
+
+            var foreshoreProfilesMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesMapDataObserver);
+
+            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
+
+            return new[]
+            {
+                referenceLineMapDataObserver,
+                sectionsMapDataObserver,
+                sectionsStartPointMapDataObserver,
+                sectionsEndPointMapDataObserver,
+                hydraulicBoundaryLocationsMapDataObserver,
+                foreshoreProfilesMapDataObserver,
+                calculationsMapDataObserver
+            };
         }
     }
 }

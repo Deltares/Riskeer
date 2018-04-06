@@ -95,9 +95,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                                                                                 true,
                                                                                 actual.Collection.ElementAt(soilProfileIndex));
 
-            AssertWaternetChartData(calculationScenario.InputParameters.WaternetExtreme,
+            AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculationScenario.InputParameters, RoundedDouble.NaN),
                                     (ChartDataCollection) actual.Collection.ElementAt(waternetZonesExtremeIndex));
-            AssertWaternetChartData(calculationScenario.InputParameters.WaternetDaily,
+            AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculationScenario.InputParameters),
                                     (ChartDataCollection) actual.Collection.ElementAt(waternetZonesDailyIndex));
         }
 
@@ -417,6 +417,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.TestUtil
                                 slice.BottomLeftPoint.Y + offset * (slice.BottomLeftPoint.X - slice.BottomRightPoint.X) / length)
                 });
             }
+
             return areas;
         }
 

@@ -21,11 +21,18 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PropertyClasses;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Calculators;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.MacroStabilityInwards.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
@@ -36,7 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null);
+            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null, GetTestNormativeAssessmentLevel());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -50,7 +57,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInput>>(properties);
@@ -62,19 +69,45 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
+        public void WaternetExtreme_ValidWaternet_ExpectedValue()
         {
             // Setup
-            var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
+            RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
-            // Call
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters, assessmentLevel);
 
-            // Assert
-            CollectionAssert.IsEmpty(properties.WaternetExtreme.PhreaticLines);
-            CollectionAssert.IsEmpty(properties.WaternetExtreme.WaternetLines);
-            CollectionAssert.IsEmpty(properties.WaternetDaily.PhreaticLines);
-            CollectionAssert.IsEmpty(properties.WaternetDaily.WaternetLines);
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsWaternetProperties waternetProperties = properties.WaternetExtreme;
+
+                // Assert
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+
+                Assert.AreEqual(assessmentLevel, calculatorFactory.LastCreatedWaternetCalculator.Input.AssessmentLevel);
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, (MacroStabilityInwardsWaternet) waternetProperties.Data);
+            }
+        }
+
+        [Test]
+        public void WaternetDaily_ValidWaternet_ExpectedValue()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters, GetTestNormativeAssessmentLevel());
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsWaternetProperties waternetProperties = properties.WaternetDaily;
+
+                // Assert
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, (MacroStabilityInwardsWaternet) waternetProperties.Data);
+            }
         }
 
         [Test]
@@ -82,7 +115,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel());
 
             // Call
             string name = properties.ToString();
@@ -98,7 +131,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input);
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -120,6 +153,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Dagelijkse omstandigheden",
                                                                             "Eigenschappen van de waterspanningslijnen bij dagelijkse omstandigheden.",
                                                                             true);
+        }
+
+        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
     }
 }

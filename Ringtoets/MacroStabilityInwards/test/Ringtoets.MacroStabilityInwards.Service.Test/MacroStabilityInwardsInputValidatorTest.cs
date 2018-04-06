@@ -41,7 +41,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         [SetUp]
         public void Setup()
         {
-            input = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput().InputParameters;
+            input = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation()).InputParameters;
         }
 
         [Test]
@@ -84,10 +84,9 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Validate_AssessmentLevelNotCalculated_ReturnsError()
+        public void Validate_NormativeAssessmentLevelNotCalculated_LogsErrorAndReturnsFalse()
         {
             // Setup
-            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             input.UseAssessmentLevelManualInput = false;
 
             // Call
@@ -437,8 +436,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                         new Point2D(0.025, 10),
                         new Point2D(0.05, 20),
                         new Point2D(0.2, 20),
-                        new Point2D(0.2, 5), 
-                        new Point2D(0, 5) 
+                        new Point2D(0.2, 5),
+                        new Point2D(0, 5)
                     }))
                 }, new MacroStabilityInwardsPreconsolidationStress[0]);
 

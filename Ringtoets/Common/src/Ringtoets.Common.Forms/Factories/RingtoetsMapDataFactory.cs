@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Factories
 {
@@ -57,7 +58,7 @@ namespace Ringtoets.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = Resources.MetaData_Name
+                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
 
@@ -79,7 +80,7 @@ namespace Ringtoets.Common.Forms.Factories
                                     })
             {
                 ShowLabels = true,
-                SelectedMetaDataAttribute = Resources.MetaData_Name
+                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
 
@@ -97,7 +98,7 @@ namespace Ringtoets.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Dot
                                    })
             {
-                SelectedMetaDataAttribute = Resources.MetaData_Name
+                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
 
@@ -155,7 +156,7 @@ namespace Ringtoets.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = Resources.MetaData_Name
+                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
 
@@ -173,7 +174,7 @@ namespace Ringtoets.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = Resources.MetaData_Name
+                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
 
@@ -194,7 +195,7 @@ namespace Ringtoets.Common.Forms.Factories
                                         StrokeThickness = 1
                                     })
             {
-                SelectedMetaDataAttribute = Resources.MetaData_Name
+                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
 
@@ -213,7 +214,7 @@ namespace Ringtoets.Common.Forms.Factories
                                    })
             {
                 ShowLabels = true,
-                SelectedMetaDataAttribute = Resources.MetaData_Name
+                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
 
@@ -231,7 +232,7 @@ namespace Ringtoets.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = Resources.MetaData_Name
+                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
 
@@ -249,7 +250,7 @@ namespace Ringtoets.Common.Forms.Factories
                                        DashStyle = LineDashStyle.Solid
                                    })
             {
-                SelectedMetaDataAttribute = Resources.MetaData_Name
+                SelectedMetaDataAttribute = RingtoetsCommonUtilResources.MetaData_Name
             };
         }
     }

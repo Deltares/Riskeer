@@ -22,15 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.GrassCoverErosionOutwards.Util;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
 {
@@ -69,37 +67,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create hydraulic boundary location features based on the provided <paramref name="hydraulicBoundaryLocations"/>.
+        /// Create hydraulic boundary location features based on the provided <paramref name="assessmentSection"/>
+        /// and <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The collection of <see cref="HydraulicBoundaryLocation"/>
-        /// to create the location features for.</param>
-        /// <returns>A collection of features or an empty collection when <paramref name="hydraulicBoundaryLocations"/> is empty.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
-        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationsFeatures(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to create the location features for.</param>
+        /// <param name="failureMechanism">The failure mechanism to create the locations for.</param>
+        /// <returns>A collection of features.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationsFeatures(IAssessmentSection assessmentSection,
+                                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            if (hydraulicBoundaryLocations == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            int hydraulicBoundaryLocationsCount = hydraulicBoundaryLocations.Count();
-            var features = new MapFeature[hydraulicBoundaryLocationsCount];
-
-            for (var i = 0; i < hydraulicBoundaryLocationsCount; i++)
+            if (failureMechanism == null)
             {
-                HydraulicBoundaryLocation location = hydraulicBoundaryLocations.ElementAt(i);
-
-                MapFeature feature = RingtoetsMapDataFeaturesFactory.CreateSinglePointMapFeature(location.Location);
-
-                feature.MetaData[RingtoetsCommonFormsResources.MetaData_ID] = location.Id;
-                feature.MetaData[RingtoetsCommonFormsResources.MetaData_Name] = location.Name;
-                feature.MetaData[Resources.DesignWaterLevel_DisplayName] = location.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
-                feature.MetaData[Resources.MetaData_WaveHeight] = location.WaveHeightCalculation1.Output?.Result ?? RoundedDouble.NaN;
-
-                features[i] = feature;
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return features;
+            return GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection, failureMechanism)
+                                                                                      .Select(location => GrassCoverErosionOutwardsHydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(
+                                                                                                  location, new GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider()))
+                                                                                      .ToArray();
         }
     }
 }

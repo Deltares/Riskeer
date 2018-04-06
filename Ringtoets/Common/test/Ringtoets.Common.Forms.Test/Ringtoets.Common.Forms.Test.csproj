@@ -56,6 +56,7 @@
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
     <Compile Include="Helpers\AssemblyCategoryGroupColorHelperTest.cs" />
     <Compile Include="Helpers\NamingHelperTest.cs" />
+    <Compile Include="Helpers\ObserverHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelperTest.cs" />
     <Compile Include="ImportInfos\RingtoetsImportInfoFactoryTest.cs" />

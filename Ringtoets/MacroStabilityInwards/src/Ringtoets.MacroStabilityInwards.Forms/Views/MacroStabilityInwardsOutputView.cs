@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Components.Chart.Forms;
 using Ringtoets.MacroStabilityInwards.Data;
 
@@ -34,17 +36,45 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly Observer calculationObserver;
         private readonly Observer inputObserver;
 
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+
         private MacroStabilityInwardsCalculationScenario data;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputView"/>.
         /// </summary>
-        public MacroStabilityInwardsOutputView()
+        /// <param name="data">The calculation to show the output for.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsOutputView(MacroStabilityInwardsCalculationScenario data,
+                                               Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
+            }
+
+            this.data = data;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+
             InitializeComponent();
 
-            calculationObserver = new Observer(UpdateViewData);
-            inputObserver = new Observer(UpdateViewData);
+            calculationObserver = new Observer(UpdateViewData)
+            {
+                Observable = data
+            };
+
+            inputObserver = new Observer(UpdateViewData)
+            {
+                Observable = data.InputParameters
+            };
+
+            UpdateTableData();
         }
 
         public object Data
@@ -56,12 +86,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             set
             {
                 data = value as MacroStabilityInwardsCalculationScenario;
-
-                calculationObserver.Observable = data;
-                inputObserver.Observable = data?.InputParameters;
-
-                macroStabilityInwardsOutputChartControl.Data = data;
-                UpdateTableData();
             }
         }
 
@@ -82,6 +106,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

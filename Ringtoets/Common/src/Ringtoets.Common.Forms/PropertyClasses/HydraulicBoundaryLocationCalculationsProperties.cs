@@ -29,23 +29,23 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationCalculationsProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocationCalculation>>, IDisposable
+    public abstract class HydraulicBoundaryLocationCalculationsProperties : ObjectProperties<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>, IDisposable
     {
-        private readonly RecursiveObserver<ObservableList<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationCalculations">The list of hydraulic boundary location calculations to set as data.</param>
+        /// <param name="hydraulicBoundaryLocationCalculations">The enumeration of hydraulic boundary location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationCalculationsProperties(ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        protected HydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
         {
             if (hydraulicBoundaryLocationCalculations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculations));
             }
 
-            hydraulicBoundaryLocationCalculationsObserver = new RecursiveObserver<ObservableList<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(OnRefreshRequired, list => list)
+            hydraulicBoundaryLocationCalculationsObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(OnRefreshRequired, hblc => hblc)
             {
                 Observable = hydraulicBoundaryLocationCalculations
             };

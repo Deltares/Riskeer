@@ -869,12 +869,6 @@ handmatig</value>
   <data name="DesignWaterLevel_DisplayName" xml:space="preserve">
     <value>Toetspeil</value>
   </data>
-  <data name="MetaData_ID" xml:space="preserve">
-    <value>ID</value>
-  </data>
-  <data name="MetaData_Name" xml:space="preserve">
-    <value>Naam</value>
-  </data>
   <data name="MetaData_Couple_distance" xml:space="preserve">
     <value>Koppelingsafstand</value>
   </data>
@@ -1316,30 +1310,6 @@ Pf = {1}</value>
   </data>
   <data name="FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName" xml:space="preserve">
     <value>N* [-]</value>
-  </data>
-  <data name="MetaData_DesignWaterLevelCalculation1" xml:space="preserve">
-    <value>h(A+-&gt;A)</value>
-  </data>
-  <data name="MetaData_DesignWaterLevelCalculation2" xml:space="preserve">
-    <value>h(A-&gt;B)</value>
-  </data>
-  <data name="MetaData_DesignWaterLevelCalculation3" xml:space="preserve">
-    <value>h(B-&gt;C)</value>
-  </data>
-  <data name="MetaData_DesignWaterLevelCalculation4" xml:space="preserve">
-    <value>h(C-&gt;D)</value>
-  </data>
-  <data name="MetaData_WaveHeightCalculation1" xml:space="preserve">
-    <value>Hs(A+-&gt;A)</value>
-  </data>
-  <data name="MetaData_WaveHeightCalculation2" xml:space="preserve">
-    <value>Hs(A-&gt;B)</value>
-  </data>
-  <data name="MetaData_WaveHeightCalculation3" xml:space="preserve">
-    <value>Hs(B-&gt;C)</value>
-  </data>
-  <data name="MetaData_WaveHeightCalculation4" xml:space="preserve">
-    <value>Hs(C-&gt;D)</value>
   </data>
   <data name="FailureMechanism_ProbabilityAssessmentInput_A_Description" xml:space="preserve">
     <value>De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.</value>

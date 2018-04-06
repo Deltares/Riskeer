@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -40,14 +43,14 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
         [SetUp]
         public void Setup()
         {
-            testCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            testCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
         }
 
         [Test]
         public void CalculateExtreme_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaternetCalculationService.CalculateExtreme(null);
+            TestDelegate call = () => WaternetCalculationService.CalculateExtreme(null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -58,12 +61,13 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
         public void CalculateExtreme_WithInput_SetsInputOnCalculator()
         {
             // Setup
+            RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
             MacroStabilityInwardsInput input = testCalculation.InputParameters;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                WaternetCalculationService.CalculateExtreme(input);
+                WaternetCalculationService.CalculateExtreme(input, assessmentLevel);
 
                 // Assert
                 var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
@@ -72,7 +76,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
                 CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputExtreme, actualInput.PhreaticLineOffsets);
                 Assert.AreEqual(input.LocationInputExtreme.WaterLevelPolder, actualInput.WaterLevelPolder);
                 Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, actualInput.PenetrationLength);
-                Assert.AreEqual(input.AssessmentLevel, actualInput.AssessmentLevel);
+                Assert.AreEqual(assessmentLevel, actualInput.AssessmentLevel);
 
                 AssertGenericInput(input, actualInput);
             }
@@ -87,7 +91,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
 
                 // Call
-                MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateExtreme(testCalculation.InputParameters);
+                MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateExtreme(testCalculation.InputParameters, RoundedDouble.NaN);
 
                 // Assert
                 CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, output);
@@ -104,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.CalculatedInput.Test
                 calculatorFactory.LastCreatedWaternetCalculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateExtreme(testCalculation.InputParameters);
+                MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateExtreme(testCalculation.InputParameters, RoundedDouble.NaN);
 
                 // Assert
                 Assert.IsNotNull(output);

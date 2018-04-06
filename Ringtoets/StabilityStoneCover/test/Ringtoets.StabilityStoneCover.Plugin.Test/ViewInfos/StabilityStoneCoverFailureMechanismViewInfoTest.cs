@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -60,7 +62,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContext), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]
@@ -73,14 +74,21 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView())
-            {
-                // Call
-                string viewName = info.GetViewName(view, stabilityStoneCoverFailureMechanismContext);
+            // Call
+            string viewName = info.GetViewName(null, stabilityStoneCoverFailureMechanismContext);
 
-                // Assert
-                Assert.AreEqual(stabilityStoneCoverFailureMechanism.Name, viewName);
-            }
+            // Assert
+            Assert.AreEqual(stabilityStoneCoverFailureMechanism.Name, viewName);
+        }
+
+        [Test]
+        public void Image_Always_ReturnsGenericInputOutputIcon()
+        {
+            // Call
+            Image image = info.Image;
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, image);
         }
 
         [Test]
@@ -92,12 +100,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView
-            {
-                Data = stabilityStoneCoverFailureMechanismContext
-            })
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -105,6 +109,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -113,14 +118,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView
-            {
-                Data = stabilityStoneCoverFailureMechanismContext
-            })
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -135,16 +135,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             var otherStabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
-
-            using (var view = new StabilityStoneCoverFailureMechanismView
-            {
-                Data = stabilityStoneCoverFailureMechanismContext
-            })
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherStabilityStoneCoverFailureMechanism);
@@ -159,14 +153,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
-
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView
-            {
-                Data = stabilityStoneCoverFailureMechanismContext
-            })
+            using (var view = new StabilityStoneCoverFailureMechanismView(stabilityStoneCoverFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, stabilityStoneCoverFailureMechanism);
@@ -198,6 +187,22 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(isRelevant, result);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_WithContext_ReturnStabilityStoneCoverFailureMechanismView()
+        {
+            // Setup
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Call
+            IView view = info.CreateInstance(context);
+
+            // Assert
+            Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismView>(view);
         }
     }
 }

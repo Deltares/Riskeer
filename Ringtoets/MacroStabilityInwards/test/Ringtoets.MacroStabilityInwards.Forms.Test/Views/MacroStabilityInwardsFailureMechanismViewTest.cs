@@ -26,12 +26,10 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Components.BruTile.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
-using Core.Components.Gis.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -40,11 +38,9 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Util.TypeConverters;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
@@ -63,258 +59,164 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private const int calculationsIndex = 7;
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismView(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            // Call
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IMapView>(view);
-                Assert.IsNotNull(view.Map);
                 Assert.IsNull(view.Data);
-            }
-        }
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
 
-        [Test]
-        public void DefaultConstructor_Always_AddEmptyMapControl()
-        {
-            // Call
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
-            {
-                // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
                 Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                Assert.IsNull(view.Map.Data);
-            }
-        }
-
-        [Test]
-        public void Data_MacroStabilityInwardsFailureMechanismContext_DataSet()
-        {
-            // Setup
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(
-                    new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanMacroStabilityInwardsFailureMechanismContext_DataNull()
-        {
-            // Setup
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_SetToNull_MapDataCleared()
-        {
-            // Setup
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
-            {
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(
-                    new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                // Precondition
-                Assert.AreEqual(8, view.Map.Data.Collection.Count());
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.Map.Data);
-            }
-        }
-
-        [Test]
-        public void Data_EmptyMacroStabilityInwardsFailureMechanismContext_NoMapDataSet()
-        {
-            // Setup
-            var assessmentSection = new ObservableTestAssessmentSectionStub();
-
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
-            {
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(
-                    new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
                 AssertEmptyMapData(view.Map.Data);
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
         [Test]
-        public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
+        public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             var assessmentSection = new ObservableTestAssessmentSectionStub();
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            // Call
+            using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
                 MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
             }
         }
 
         [Test]
-        public void Data_SetToNull_ClearMapDataProperties()
+        public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
-            var assessmentSection = new ObservableTestAssessmentSectionStub
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel1 =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name1", new[]
+                {
+                    new Point2D(1.0, 2.0),
+                    new Point2D(1.1, 2.2)
+                });
+
+            MacroStabilityInwardsStochasticSoilModel stochasticSoilModel2 =
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name2", new[]
+                {
+                    new Point2D(3.0, 4.0),
+                    new Point2D(3.3, 4.4)
+                });
+
+            var surfaceLineA = new MacroStabilityInwardsSurfaceLine("Line A");
+            surfaceLineA.SetGeometry(new[]
             {
-                BackgroundData = BackgroundDataConverter.ConvertTo(backgroundMapData)
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(3.0, 0.0, 1.7)
+            });
+
+            var surfaceLineB = new MacroStabilityInwardsSurfaceLine("Name B");
+            surfaceLineB.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.5),
+                new Point3D(3.0, 0.0, 1.8)
+            });
+            surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
+            surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
+
+            var geometryPoints = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(2.0, 0.0),
+                new Point2D(4.0, 4.0),
+                new Point2D(6.0, 4.0)
             };
 
-            using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            const string arbitraryFilePath = "path";
+            failureMechanism.SurfaceLines.AddRange(new[]
             {
-                view.Data = new MacroStabilityInwardsFailureMechanismContext(
-                    new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+                surfaceLineA,
+                surfaceLineB
+            }, arbitraryFilePath);
+            failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                stochasticSoilModel1,
+                stochasticSoilModel2
+            }, arbitraryFilePath);
 
-                // Precondition
-                Assert.IsNotNull(view.Map.Data);
-                Assert.IsNotNull(view.Map.BackgroundMapData);
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "test", 3.0, 4.0);
 
-                // Call
-                view.Data = null;
+            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation1);
+            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+            MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation2);
+            calculationB.InputParameters.SurfaceLine = surfaceLineB;
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
-                // Assert
-                Assert.IsNull(view.Map.Data);
-                Assert.IsNull(view.Map.BackgroundMapData);
-            }
-        }
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0.0, 3.0),
+                new Point2D(3.0, 0.0)
+            });
 
-        [Test]
-        public void Data_MacroStabilityInwardsFailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
-        {
-            // Setup
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                ReferenceLine = referenceLine
+            };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
+
+            // Call
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var geometryPoints = new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(2.0, 0.0),
-                    new Point2D(4.0, 4.0),
-                    new Point2D(6.0, 4.0)
-                };
-
-                var referenceLine = new ReferenceLine();
-                referenceLine.SetGeometry(new[]
-                {
-                    new Point2D(0.0, 3.0),
-                    new Point2D(3.0, 0.0)
-                });
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
-                        }
-                    },
-                    ReferenceLine = referenceLine
-                };
-
-                MacroStabilityInwardsStochasticSoilModel stochasticSoilModel1 =
-                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name1", new[]
-                    {
-                        new Point2D(1.0, 2.0),
-                        new Point2D(1.1, 2.2)
-                    });
-
-                MacroStabilityInwardsStochasticSoilModel stochasticSoilModel2 =
-                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name2", new[]
-                    {
-                        new Point2D(3.0, 4.0),
-                        new Point2D(3.3, 4.4)
-                    });
-
-                var surfaceLineA = new MacroStabilityInwardsSurfaceLine("Line A");
-                surfaceLineA.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.0),
-                    new Point3D(3.0, 0.0, 1.7)
-                });
-
-                var surfaceLineB = new MacroStabilityInwardsSurfaceLine("Name B");
-                surfaceLineB.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.5),
-                    new Point3D(3.0, 0.0, 1.8)
-                });
-                surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
-                surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                const string arbitraryFilePath = "path";
-                failureMechanism.SurfaceLines.AddRange(new[]
-                {
-                    surfaceLineA,
-                    surfaceLineB
-                }, arbitraryFilePath);
-                failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
-                failureMechanism.StochasticSoilModels.AddRange(new[]
-                {
-                    stochasticSoilModel1,
-                    stochasticSoilModel2
-                }, arbitraryFilePath);
-
-                MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-                calculationA.InputParameters.SurfaceLine = surfaceLineA;
-                MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-                calculationB.InputParameters.SurfaceLine = surfaceLineB;
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
-                failureMechanism.CalculationsGroup.Children.Add(calculationB);
-
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
@@ -335,22 +237,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-                        }
-                    }
-                };
-
-                view.Data = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -363,7 +258,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
 
                 // When
-                assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    new HydraulicBoundaryLocation(1, "test", 1.0, 2.0),
+                    new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
+                });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then
@@ -373,50 +272,40 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenLocationUpdatedAndNotified_ThenMapDataUpdated()
+        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
         {
             // Given
-            var random = new Random(21);
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    HydraulicBoundaryDatabase =
-                    {
-                        Locations =
-                        {
-                            hydraulicBoundaryLocation
-                        }
-                    }
-                };
-
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
 
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
                 // When
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.DesignWaterLevelCalculation4.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.WaveHeightCalculation4.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-                hydraulicBoundaryLocation.NotifyObservers();
+                HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+                calculation.Output = new TestHydraulicBoundaryLocationOutput(new Random(21).NextDouble());
+                calculation.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                                                hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                mocks.VerifyAll();
             }
         }
 
@@ -424,40 +313,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub
+            {
+                ReferenceLine = new ReferenceLine()
+            };
+            assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var points1 = new List<Point2D>
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                };
-
-                var points2 = new List<Point2D>
-                {
-                    new Point2D(2.0, 5.0),
-                    new Point2D(4.0, 3.0)
-                };
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub
-                {
-                    ReferenceLine = new ReferenceLine()
-                };
-                assessmentSection.ReferenceLine.SetGeometry(points1);
-
-                view.Data = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
-                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
@@ -466,7 +338,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
                 // When
-                assessmentSection.ReferenceLine.SetGeometry(points2);
+                assessmentSection.ReferenceLine.SetGeometry(new List<Point2D>
+                {
+                    new Point2D(2.0, 5.0),
+                    new Point2D(4.0, 3.0)
+                });
                 assessmentSection.NotifyObservers();
 
                 // Then
@@ -479,22 +355,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithSurfaceLinesData_WhenSurfaceLinesUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
-                var geometry1 = new Collection<Point3D>
+                var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+                surfaceLine.SetGeometry(new Collection<Point3D>
                 {
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
-                };
-
-                surfaceLine.SetGeometry(geometry1);
-
-                view.Data = failureMechanismContext;
+                });
 
                 var surfaceLineMapData = (MapLineData) map.Data.Collection.ElementAt(surfaceLinesIndex);
 
@@ -520,18 +391,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithSurfaceLineData_WhenSurfaceLineUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                surfaceLine
+            }, "path");
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-                var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                failureMechanism.SurfaceLines.AddRange(new[]
-                {
-                    surfaceLine
-                }, "path");
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -557,14 +426,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
@@ -572,14 +438,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[stochasticSoilModelsIndex].Expect(obs => obs.UpdateObserver());
-                observers[surfaceLinesIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsStartPointIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsEndPointIndex].Expect(obs => obs.UpdateObserver());
-                observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-                observers[calculationsIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 // When
@@ -602,20 +463,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithStochasticSoilModels_WhenStochasticSoilModelsUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-                MacroStabilityInwardsStochasticSoilModel stochasticSoilModel =
-                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("", new[]
-                    {
-                        new Point2D(1, 2),
-                        new Point2D(1, 2)
-                    });
-
-                view.Data = failureMechanismContext;
 
                 var stochasticSoilModelMapData = (MapLineData) map.Data.Collection.ElementAt(stochasticSoilModelsIndex);
 
@@ -627,7 +479,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // When
                 failureMechanism.StochasticSoilModels.AddRange(new[]
                 {
-                    stochasticSoilModel
+                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("", new[]
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(1, 2)
+                    })
                 }, "path");
                 failureMechanism.StochasticSoilModels.NotifyObservers();
 
@@ -641,19 +497,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var surfaceLineA = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            surfaceLineA.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(3.0, 0.0, 1.7)
+            });
+            surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
+
+            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                var surfaceLineA = new MacroStabilityInwardsSurfaceLine(string.Empty);
-                surfaceLineA.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.0),
-                    new Point3D(3.0, 0.0, 1.7)
-                });
 
                 var surfaceLineB = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
@@ -661,16 +521,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     new Point3D(0.0, 0.0, 1.5),
                     new Point3D(3.0, 0.0, 1.8)
                 });
-                surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
 
-                MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-                calculationA.InputParameters.SurfaceLine = surfaceLineA;
-                MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+                MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
                 calculationB.InputParameters.SurfaceLine = surfaceLineB;
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
-
-                view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -693,16 +547,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var surfaceLineA = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            surfaceLineA.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(3.0, 0.0, 1.7)
+            });
+            surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
+
+            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var surfaceLineA = new MacroStabilityInwardsSurfaceLine(string.Empty);
-                surfaceLineA.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.0),
-                    new Point3D(3.0, 0.0, 1.7)
-                });
 
                 var surfaceLineB = new MacroStabilityInwardsSurfaceLine(string.Empty);
                 surfaceLineB.SetGeometry(new[]
@@ -710,17 +571,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     new Point3D(0.0, 0.0, 1.5),
                     new Point3D(3.0, 0.0, 1.8)
                 });
-                surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
                 surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
-
-                MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-                calculationA.InputParameters.SurfaceLine = surfaceLineA;
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -743,34 +594,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var surfaceLineA = new MacroStabilityInwardsSurfaceLine(string.Empty);
+            surfaceLineA.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(3.0, 0.0, 1.7)
+            });
+            surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
+
+            MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculationA.InputParameters.SurfaceLine = surfaceLineA;
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new ObservableTestAssessmentSectionStub()))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var surfaceLineA = new MacroStabilityInwardsSurfaceLine(string.Empty);
-                surfaceLineA.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.0),
-                    new Point3D(3.0, 0.0, 1.7)
-                });
-
-                var surfaceLineB = new MacroStabilityInwardsSurfaceLine(string.Empty);
-                surfaceLineB.SetGeometry(new[]
-                {
-                    new Point3D(0.0, 0.0, 1.5),
-                    new Point3D(3.0, 0.0, 1.8)
-                });
-                surfaceLineA.ReferenceLineIntersectionWorldPoint = new Point2D(1.3, 1.3);
-                surfaceLineB.ReferenceLineIntersectionWorldPoint = new Point2D(1.5, 1.5);
-
-                MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
-                calculationA.InputParameters.SurfaceLine = surfaceLineA;
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(calculationA);
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, new ObservableTestAssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
 
                 var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
@@ -802,15 +642,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedStochasticSoilModelsLayerIndex = stochasticSoilModelsIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
 
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
+            var assessmentSection = new ObservableTestAssessmentSectionStub();
+
+            using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new ObservableTestAssessmentSectionStub();
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
-
-                view.Data = failureMechanismContext;
 
                 MapDataCollection mapData = map.Data;
 
@@ -884,40 +720,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
-        [Test]
-        public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
-        {
-            // Setup
-            IAssessmentSection oldAssessmentSection = new ObservableTestAssessmentSectionStub();
-            IAssessmentSection newAssessmentSection = new ObservableTestAssessmentSectionStub();
-
-            newAssessmentSection.ReferenceLine = new ReferenceLine();
-            newAssessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(2, 4),
-                new Point2D(3, 4)
-            });
-
-            var oldMacroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), oldAssessmentSection);
-            var newMacroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), newAssessmentSection);
-            using (var view = new MacroStabilityInwardsFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                view.Data = oldMacroStabilityInwardsFailureMechanismContext;
-                view.Data = newMacroStabilityInwardsFailureMechanismContext;
-                MapData dataBeforeUpdate = map.Data;
-
-                newAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
-
-                // Call
-                oldAssessmentSection.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(dataBeforeUpdate, map.Data);
-            }
-        }
-
         private static void AssertSurfaceLinesMapData(IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, MapData mapData)
         {
             Assert.IsInstanceOf<MapLineData>(mapData);
@@ -932,6 +734,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsSurfaceLine surfaceLine = surfaceLinesArray[index];
                 CollectionAssert.AreEquivalent(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)), surfaceLineFeatures[index].MapGeometries.First().PointCollections.First());
             }
+
             Assert.AreEqual("Profielschematisaties", mapData.Name);
         }
 
@@ -949,6 +752,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsStochasticSoilModel stochasticSoilModel = stochasticSoilModelsArray[index];
                 CollectionAssert.AreEquivalent(stochasticSoilModel.Geometry.Select(p => new Point2D(p)), soilModelsFeatures[index].MapGeometries.First().PointCollections.First());
             }
+
             Assert.AreEqual("Stochastische ondergrondmodellen", mapData.Name);
         }
 
@@ -973,6 +777,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                },
                                                geometries[0].PointCollections.First());
             }
+
             Assert.AreEqual("Berekeningen", mapData.Name);
         }
 

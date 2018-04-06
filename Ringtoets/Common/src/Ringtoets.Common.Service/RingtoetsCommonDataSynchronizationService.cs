@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -36,6 +37,26 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public static class RingtoetsCommonDataSynchronizationService
     {
+        /// <summary>
+        /// Clears the output of the provided hydraulic boundary location calculations.
+        /// </summary>
+        /// <param name="calculations">The calculations for which the output needs to be cleared.</param>
+        /// <returns>All objects changed during the clear.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> affectedCalculations = calculations.Where(c => c.HasOutput).ToArray();
+
+            affectedCalculations.ForEachElementDo(c => c.Output = null);
+
+            return affectedCalculations;
+        }
+
         /// <summary>
         /// Clears the output of the hydraulic boundary locations within the collection.
         /// </summary>
@@ -104,23 +125,10 @@ namespace Ringtoets.Common.Service
 
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)
         {
-            if (location.DesignWaterLevelCalculation1.HasOutput
-                || location.DesignWaterLevelCalculation2.HasOutput
-                || location.DesignWaterLevelCalculation3.HasOutput
-                || location.DesignWaterLevelCalculation4.HasOutput
-                || location.WaveHeightCalculation1.HasOutput
-                || location.WaveHeightCalculation2.HasOutput
-                || location.WaveHeightCalculation3.HasOutput
-                || location.WaveHeightCalculation4.HasOutput)
+            if (location.DesignWaterLevelCalculation1.HasOutput || location.WaveHeightCalculation1.HasOutput)
             {
                 location.DesignWaterLevelCalculation1.Output = null;
-                location.DesignWaterLevelCalculation2.Output = null;
-                location.DesignWaterLevelCalculation3.Output = null;
-                location.DesignWaterLevelCalculation4.Output = null;
                 location.WaveHeightCalculation1.Output = null;
-                location.WaveHeightCalculation2.Output = null;
-                location.WaveHeightCalculation3.Output = null;
-                location.WaveHeightCalculation4.Output = null;
 
                 return new[]
                 {

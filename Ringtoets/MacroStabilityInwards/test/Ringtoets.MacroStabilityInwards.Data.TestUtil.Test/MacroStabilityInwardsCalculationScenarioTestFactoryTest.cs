@@ -21,13 +21,9 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
-using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Service;
 
 namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
@@ -186,231 +182,33 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateMacroStabilityInwardsCalculationScenarioWithValidInput_ReturnMacroStabilityInwardsCalculationScenario()
+        public void CreateMacroStabilityInwardsCalculationScenarioWithValidInput_HydraulicBoundaryLocationNull_ThrowsArgumentnullException()
         {
             // Call
-            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(null);
 
             // Assert
-            Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(scenario, (RoundedDouble) 1.1));
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }
 
         [Test]
-        public void CreateCalculatedMacroStabilityInwardsCalculationScenario_ReturnMacroStabilityInwardsCalculationScenario()
+        public void CreateMacroStabilityInwardsCalculationScenarioWithValidInput_HydraulicBoundaryLocation_CreatesPipingCalculationScenarioWithValidInput()
         {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             // Call
-            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateCalculatedMacroStabilityInwardsCalculationScenario();
+            MacroStabilityInwardsCalculationScenario scenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
 
             // Assert
-            AssertInput(scenario.InputParameters);
-
-            MacroStabilityInwardsOutput output = scenario.Output;
-            Assert.IsNotNull(output);
-            Assert.IsTrue(IsValidDouble(output.FactorOfStability));
-            Assert.IsTrue(IsValidDouble(output.ZValue));
-            Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMax));
-            Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMin));
-            Assert.IsNotNull(output.SlidingCurve);
-            Assert.IsNotNull(output.SlipPlane);
+            Assert.AreSame(hydraulicBoundaryLocation, scenario.InputParameters.HydraulicBoundaryLocation);
+            Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(scenario, (RoundedDouble) 1.1));
         }
 
         private static bool IsValidDouble(double value)
         {
             return !double.IsNaN(value) && !double.IsInfinity(value);
-        }
-
-        private static void AssertInput(MacroStabilityInwardsInput inputParameters)
-        {
-            Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
-                            inputParameters.DikeSoilScenario);
-            Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Outwards,
-                            inputParameters.PiezometricHeadPhreaticLine2Outwards.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.PiezometricHeadPhreaticLine2Inwards,
-                            inputParameters.PiezometricHeadPhreaticLine2Inwards.GetAccuracy());
-            Assert.IsTrue(inputParameters.AdjustPhreaticLine3And4ForUplift);
-            Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine3,
-                            inputParameters.LeakageLengthOutwardsPhreaticLine3.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine3,
-                            inputParameters.LeakageLengthInwardsPhreaticLine3.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LeakageLengthInwardsPhreaticLine4,
-                            inputParameters.LeakageLengthInwardsPhreaticLine4.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LeakageLengthOutwardsPhreaticLine4,
-                            inputParameters.LeakageLengthOutwardsPhreaticLine4.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.SlipPlaneMinimumDepth,
-                            inputParameters.SlipPlaneMinimumDepth.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.SlipPlaneMinimumLength,
-                            inputParameters.SlipPlaneMinimumLength.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder,
-                            inputParameters.MinimumLevelPhreaticLineAtDikeTopPolder.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver,
-                            inputParameters.MinimumLevelPhreaticLineAtDikeTopRiver.GetAccuracy());
-
-            Assert.AreEqual(0.5, inputParameters.LocationInputExtreme.WaterLevelPolder,
-                            inputParameters.LocationInputExtreme.WaterLevelPolder.GetAccuracy());
-            Assert.IsFalse(inputParameters.LocationInputExtreme.UseDefaultOffsets);
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver,
-                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder,
-                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder,
-                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside,
-                            inputParameters.LocationInputExtreme.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LocationInputExtreme.PenetrationLength,
-                            inputParameters.LocationInputExtreme.PenetrationLength.GetAccuracy());
-
-            Assert.AreEqual(0.5, inputParameters.LocationInputDaily.WaterLevelPolder);
-            Assert.IsFalse(inputParameters.LocationInputDaily.UseDefaultOffsets);
-            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver,
-                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtRiver.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder,
-                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeToeAtPolder.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder,
-                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowDikeTopAtPolder.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside,
-                            inputParameters.LocationInputDaily.PhreaticLineOffsetBelowShoulderBaseInside.GetAccuracy());
-            Assert.AreEqual(0, inputParameters.LocationInputDaily.PenetrationLength,
-                            inputParameters.LocationInputDaily.PenetrationLength.GetAccuracy());
-
-            Assert.IsTrue(inputParameters.DrainageConstructionPresent);
-            Assert.AreEqual(0.35, inputParameters.XCoordinateDrainageConstruction,
-                            inputParameters.XCoordinateDrainageConstruction.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.ZCoordinateDrainageConstruction,
-                            inputParameters.ZCoordinateDrainageConstruction.GetAccuracy());
-            Assert.AreEqual(MacroStabilityInwardsGridDeterminationType.Manual, inputParameters.GridDeterminationType);
-            Assert.AreEqual(MacroStabilityInwardsTangentLineDeterminationType.Specified, inputParameters.TangentLineDeterminationType);
-            Assert.AreEqual(2, inputParameters.TangentLineZTop,
-                            inputParameters.TangentLineZTop.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.TangentLineZBottom,
-                            inputParameters.TangentLineZBottom.GetAccuracy());
-            Assert.AreEqual(10, inputParameters.TangentLineNumber);
-            Assert.AreEqual(0.3, inputParameters.LeftGrid.XLeft,
-                            inputParameters.LeftGrid.XLeft.GetAccuracy());
-            Assert.AreEqual(0.4, inputParameters.LeftGrid.XRight,
-                            inputParameters.LeftGrid.XRight.GetAccuracy());
-            Assert.AreEqual(2, inputParameters.LeftGrid.ZTop,
-                            inputParameters.LeftGrid.ZTop.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LeftGrid.ZBottom,
-                            inputParameters.LeftGrid.ZBottom.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.LeftGrid.NumberOfVerticalPoints);
-            Assert.AreEqual(1, inputParameters.LeftGrid.NumberOfHorizontalPoints);
-
-            Assert.AreEqual(0.4, inputParameters.RightGrid.XLeft,
-                            inputParameters.RightGrid.XLeft.GetAccuracy());
-            Assert.AreEqual(0.5, inputParameters.RightGrid.XRight,
-                            inputParameters.RightGrid.XRight.GetAccuracy());
-            Assert.AreEqual(2, inputParameters.RightGrid.ZTop,
-                            inputParameters.RightGrid.ZTop.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.RightGrid.ZBottom,
-                            inputParameters.RightGrid.ZBottom.GetAccuracy());
-            Assert.AreEqual(1, inputParameters.RightGrid.NumberOfVerticalPoints);
-            Assert.AreEqual(1, inputParameters.RightGrid.NumberOfHorizontalPoints);
-
-            Assert.IsTrue(inputParameters.CreateZones);
-            Assert.AreEqual(MacroStabilityInwardsZoningBoundariesDeterminationType.Manual, inputParameters.ZoningBoundariesDeterminationType);
-            Assert.AreEqual(0.1, inputParameters.ZoneBoundaryLeft, inputParameters.ZoneBoundaryLeft.GetAccuracy());
-            Assert.AreEqual(0.2, inputParameters.ZoneBoundaryRight, inputParameters.ZoneBoundaryRight.GetAccuracy());
-
-            Assert.AreEqual(0, inputParameters.StochasticSoilProfile.Probability);
-            Assert.AreEqual("Ondergrondschematisatie", inputParameters.StochasticSoilProfile.SoilProfile.Name);
-            Assert.IsInstanceOf<MacroStabilityInwardsSoilProfile1D>(inputParameters.StochasticSoilProfile.SoilProfile);
-            var soilProfile1D = (MacroStabilityInwardsSoilProfile1D) inputParameters.StochasticSoilProfile.SoilProfile;
-            Assert.AreEqual(0, soilProfile1D.Bottom);
-            CollectionAssert.AreEqual(new[]
-            {
-                new MacroStabilityInwardsSoilLayer1D(10.56)
-                {
-                    Data =
-                    {
-                        MaterialName = "Clay",
-                        IsAquifer = false,
-                        Cohesion = new VariationCoefficientLogNormalDistribution(),
-                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
-                        AbovePhreaticLevel =
-                        {
-                            Mean = (RoundedDouble) 0.3,
-                            CoefficientOfVariation = (RoundedDouble) 0.2,
-                            Shift = (RoundedDouble) 0.1
-                        },
-                        BelowPhreaticLevel =
-                        {
-                            Mean = (RoundedDouble) 15,
-                            CoefficientOfVariation = (RoundedDouble) 0.5,
-                            Shift = (RoundedDouble) 0.2
-                        }
-                    }
-                },
-                new MacroStabilityInwardsSoilLayer1D(6.0)
-                {
-                    Data =
-                    {
-                        MaterialName = "Sand",
-                        IsAquifer = true,
-                        Cohesion = new VariationCoefficientLogNormalDistribution(),
-                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
-                        AbovePhreaticLevel =
-                        {
-                            Mean = (RoundedDouble) 0.3,
-                            CoefficientOfVariation = (RoundedDouble) 0.2,
-                            Shift = (RoundedDouble) 0.1
-                        },
-                        BelowPhreaticLevel =
-                        {
-                            Mean = (RoundedDouble) 15,
-                            CoefficientOfVariation = (RoundedDouble) 0.5,
-                            Shift = (RoundedDouble) 0.2
-                        }
-                    }
-                },
-                new MacroStabilityInwardsSoilLayer1D(0.1)
-                {
-                    Data =
-                    {
-                        MaterialName = "Soil",
-                        IsAquifer = false,
-                        Cohesion = new VariationCoefficientLogNormalDistribution(),
-                        FrictionAngle = new VariationCoefficientLogNormalDistribution(),
-                        AbovePhreaticLevel =
-                        {
-                            Mean = (RoundedDouble) 0.3,
-                            CoefficientOfVariation = (RoundedDouble) 0.2,
-                            Shift = (RoundedDouble) 0.1
-                        },
-                        BelowPhreaticLevel =
-                        {
-                            Mean = (RoundedDouble) 15,
-                            CoefficientOfVariation = (RoundedDouble) 0.5,
-                            Shift = (RoundedDouble) 0.2
-                        }
-                    }
-                }
-            }, soilProfile1D.Layers);
-
-            var expectedSurfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
-            var firstCharacteristicPointLocation = new Point3D(0.1, 0.0, 2);
-            var secondCharacteristicPointLocation = new Point3D(0.2, 0.0, 2);
-            var thirdCharacteristicPointLocation = new Point3D(0.3, 0.0, 3);
-            var fourthCharacteristicPointLocation = new Point3D(0.4, 0.0, 3);
-            var fifthCharacteristicPointLocation = new Point3D(0.5, 0.0, 1);
-            var sixthCharacteristicPointLocation = new Point3D(0.6, 0.0, 1);
-
-            expectedSurfaceLine.SetGeometry(new[]
-            {
-                firstCharacteristicPointLocation,
-                secondCharacteristicPointLocation,
-                thirdCharacteristicPointLocation,
-                fourthCharacteristicPointLocation,
-                fifthCharacteristicPointLocation,
-                sixthCharacteristicPointLocation
-            });
-            expectedSurfaceLine.SetSurfaceLevelOutsideAt(firstCharacteristicPointLocation);
-            expectedSurfaceLine.SetDikeToeAtRiverAt(secondCharacteristicPointLocation);
-            expectedSurfaceLine.SetDikeTopAtRiverAt(thirdCharacteristicPointLocation);
-            expectedSurfaceLine.SetDikeTopAtPolderAt(fourthCharacteristicPointLocation);
-            expectedSurfaceLine.SetDikeToeAtPolderAt(fifthCharacteristicPointLocation);
-            expectedSurfaceLine.SetSurfaceLevelInsideAt(sixthCharacteristicPointLocation);
-            expectedSurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
-            Assert.AreEqual(expectedSurfaceLine, inputParameters.SurfaceLine);
         }
     }
 }

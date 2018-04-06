@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using log4net.Core;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -47,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         [SetUp]
         public void Setup()
         {
-            testCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput();
+            testCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
         }
 
         [Test]
@@ -282,31 +283,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
                 // Assert
                 Assert.AreNotSame(output, testCalculation.Output);
-            }
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Calculate_CompleteInput_SetsInputOnCalculator(bool useAssessmentLevelManualInput)
-        {
-            // Setup
-            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
-            MacroStabilityInwardsInput input = testCalculation.InputParameters;
-
-            input.AssessmentLevel = (RoundedDouble) 2.2;
-
-            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
-            using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            {
-                // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
-
-                // Assert
-                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
-                                                            ? testCalculation.InputParameters.AssessmentLevel
-                                                            : normativeAssessmentLevel;
-
-                AssertInput(testCalculation.InputParameters, (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance, expectedAssessmentLevel);
             }
         }
 
@@ -599,6 +575,31 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                                     "* Calculation Warning 2", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
+            }
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_CompleteInput_SetsInputOnCalculator(bool useAssessmentLevelManualInput)
+        {
+            // Setup
+            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+
+            input.AssessmentLevel = (RoundedDouble) 2.2;
+
+            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+
+                // Assert
+                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
+                                                            ? testCalculation.InputParameters.AssessmentLevel
+                                                            : normativeAssessmentLevel;
+
+                AssertInput(testCalculation.InputParameters, (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance, expectedAssessmentLevel);
             }
         }
 

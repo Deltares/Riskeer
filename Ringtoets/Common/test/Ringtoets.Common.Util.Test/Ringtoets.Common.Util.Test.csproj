@@ -19,8 +19,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregatedHydraulicBoundaryLocationFactoryTest.cs" />
+    <Compile Include="AggregatedHydraulicBoundaryLocationTest.cs" />
     <Compile Include="AssignUnassignCalculationsTest.cs" />
     <Compile Include="CalculationWithLocationTest.cs" />
+    <Compile Include="HydraulicBoundaryLocationMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="RingtoetsMapDataFeaturesFactoryHelperTest.cs" />
     <Compile Include="RingtoetsVersionComparerTest.cs" />
     <Compile Include="StructuresHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +72,10 @@
     <ProjectReference Include="..\Ringtoets.Common.Forms.TestUtil\Ringtoets.Common.Forms.TestUtil.csproj">
       <Project>{D24FA2F7-28A7-413B-AFD3-EE10E985630B}</Project>
       <Name>Ringtoets.Common.Forms.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Util.TestUtil\Ringtoets.Common.Util.TestUtil.csproj">
+      <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
+      <Name>Ringtoets.Common.Util.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

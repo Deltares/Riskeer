@@ -46,10 +46,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
 
-            using (IView view = GetView())
+            using (IView view = GetView(calculationContext.WrappedData))
             {
-                view.Data = calculationContext.WrappedData;
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, calculationContext);
 
@@ -64,10 +62,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
 
-            using (IView view = GetView())
+            using (IView view = GetView(GetCalculation()))
             {
-                view.Data = GetCalculation();
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, calculationContext);
 
@@ -82,10 +78,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
 
-            using (IView view = GetView())
+            using (IView view = GetView(calculationGroupContext.WrappedData.GetCalculations().First()))
             {
-                view.Data = calculationGroupContext.WrappedData.GetCalculations().First();
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, calculationGroupContext);
 
@@ -100,10 +94,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
 
-            using (IView view = GetView())
+            using (IView view = GetView(GetCalculation()))
             {
-                view.Data = GetCalculation();
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, calculationGroupContext);
 
@@ -118,10 +110,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
 
-            using (IView view = GetView())
+            using (IView view = GetView(failureMechanismContext.WrappedData.Calculations.First()))
             {
-                view.Data = failureMechanismContext.WrappedData.Calculations.First();
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, failureMechanismContext.WrappedData);
 
@@ -136,10 +126,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
 
-            using (IView view = GetView())
+            using (IView view = GetView(GetCalculation()))
             {
-                view.Data = GetCalculation();
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, failureMechanismContext.WrappedData);
 
@@ -154,10 +142,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
 
-            using (IView view = GetView())
+            using (IView view = GetView(failureMechanismContext.WrappedData.Calculations.First()))
             {
-                view.Data = failureMechanismContext.WrappedData.Calculations.First();
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
 
@@ -172,10 +158,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
 
-            using (IView view = GetView())
+            using (IView view = GetView(GetCalculation()))
             {
-                view.Data = GetCalculation();
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
 
@@ -200,10 +184,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
 
             mocks.ReplayAll();
 
-            using (IView view = GetView())
+            using (IView view = GetView(failureMechanism.Calculations.First()))
             {
-                view.Data = failureMechanism.Calculations.First();
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, assessmentSection);
 
@@ -230,10 +212,8 @@ namespace Ringtoets.Common.Plugin.TestUtil
 
             mocks.ReplayAll();
 
-            using (IView view = GetView())
+            using (IView view = GetView(GetCalculation()))
             {
-                view.Data = GetCalculation();
-
                 // Call
                 bool closeForData = ShouldCloseMethod(view, assessmentSection);
 
@@ -255,8 +235,9 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// <summary>
         /// Gets a view for testing purposes.
         /// </summary>
+        /// <param name="data">The calculation to set as data of the view.</param>
         /// <returns>A view object.</returns>
-        protected abstract IView GetView();
+        protected abstract IView GetView(ICalculation data);
 
         /// <summary>
         /// Gets a calculation for testing purposes.

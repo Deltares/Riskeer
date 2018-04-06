@@ -35,12 +35,6 @@ namespace Ringtoets.MacroStabilityInwards.Primitives
         MacroStabilityInwardsSurfaceLine SurfaceLine { get; }
 
         /// <summary>
-        /// Gets the outside high water level.
-        /// [m+NAP]
-        /// </summary>
-        RoundedDouble AssessmentLevel { get; }
-
-        /// <summary>
         /// Gets the profile which contains a 2 dimensional definition of soil layers with properties.
         /// </summary>
         IMacroStabilityInwardsSoilProfileUnderSurfaceLine SoilProfileUnderSurfaceLine { get; }

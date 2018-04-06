@@ -130,9 +130,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 }
             }
 
-            protected override IView GetView()
+            protected override IView GetView(ICalculation data)
             {
-                return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint());
+                return new GeneralResultFaultTreeIllustrationPointView(() => new TestGeneralResultFaultTreeIllustrationPoint())
+                {
+                    Data = data
+                };
             }
         }
 
