@@ -25,7 +25,6 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -282,6 +281,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             {
                 geometryPoints[i] = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             }
+
             surfaceLine.SetGeometry(geometryPoints);
 
             surfaceLine.SetBottomDitchDikeSideAt(geometryPoints[1]);
