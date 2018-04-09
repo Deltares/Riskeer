@@ -25,7 +25,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
@@ -34,22 +35,42 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_WithResults_ReturnsEntityWithExpectedResults()
+        public void Create_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((WaterPressureAsphaltCoverFailureMechanismSectionResult) null).Create();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var random = new Random();
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
+            var random = new Random(39);
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = assessmentLayerOneResult
+                SimpleAssessmentResult = simpleAssessmentResult,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup,
+                ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup
             };
 
             // Call
-            WaterPressureAsphaltCoverSectionResultEntity result = sectionResult.Create();
+            WaterPressureAsphaltCoverSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(useManualAssemblyCategoryGroup), entity.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(Convert.ToByte(manualAssemblyCategoryGroup), entity.ManualAssemblyCategoryGroup);
         }
     }
 }

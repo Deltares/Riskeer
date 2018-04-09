@@ -36,11 +36,20 @@ namespace Application.Ringtoets.Storage.Create.TechnicalInnovation
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="TechnicalInnovationSectionResultEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         internal static TechnicalInnovationSectionResultEntity Create(this TechnicalInnovationFailureMechanismSectionResult result)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             var sectionResultEntity = new TechnicalInnovationSectionResultEntity
             {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne)
+                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
+                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
+                UseManualAssemblyCategoryGroup = Convert.ToByte(result.UseManualAssemblyCategoryGroup),
+                ManualAssemblyCategoryGroup = Convert.ToByte(result.ManualAssemblyCategoryGroup)
             };
 
             return sectionResultEntity;
