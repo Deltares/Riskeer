@@ -95,17 +95,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnName()
+        public void Text_Always_ReturnCategoryBoundaryName()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
+            const string categoryBoundaryName = "Category";
             var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                            new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                            assessmentSection,
                                                                                            () => 0.01,
-                                                                                           "Category");
+                                                                                           categoryBoundaryName);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -115,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 string nodeText = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("Waterstanden bij doorsnede-eis", nodeText);
+                Assert.AreEqual(categoryBoundaryName, nodeText);
             }
 
             mockRepository.VerifyAll();
