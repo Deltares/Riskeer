@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
             var context = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(calculations,
                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                     assessmentSection);
+                                                                                     assessmentSection, () => 0.1, "Test");
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {

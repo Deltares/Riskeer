@@ -78,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 object calculations = info.GetViewData(new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                                                            expectedCalculations,
                                                            new GrassCoverErosionOutwardsFailureMechanism(),
-                                                           assessmentSection));
+                                                           assessmentSection, () => 0.1, "Test"));
 
                 // Assert
                 Assert.AreSame(calculations, expectedCalculations);
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var context = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                          grassCoverErosionOutwardsFailureMechanism,
-                                                                                         assessmentSection);
+                                                                                         assessmentSection, () => 0.1, "Test");
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -167,7 +167,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var data = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                      failureMechanism, assessmentSection);
+                                                                                      failureMechanism, assessmentSection, () => 0.1, "Test");
                 plugin.Gui = gui;
                 plugin.Activate();
 
