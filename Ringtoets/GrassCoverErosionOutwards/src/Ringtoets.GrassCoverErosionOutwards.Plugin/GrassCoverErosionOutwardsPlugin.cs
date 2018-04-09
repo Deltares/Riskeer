@@ -347,16 +347,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
         }
 
-        private static ObservableList<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                                                     Func<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-        {
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
-
-            hydraulicBoundaryLocationCalculations.AddRange(hydraulicBoundaryLocations.Select(getCalculationFunc));
-
-            return hydraulicBoundaryLocationCalculations;
-        }
-
         #region ViewInfos
 
         #region GrassCoverErosionOutwardsFailureMechanismView ViewInfo
@@ -505,26 +495,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         private static object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext context)
         {
             IAssessmentSection assessmentSection = context.AssessmentSection;
-            if (!assessmentSection.HydraulicBoundaryDatabase.IsLinked())
+            if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
             {
-                return new object[0];
+                ObservableList<HydraulicBoundaryLocation> locations = context.WrappedData.Locations;
+                GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
+                return new object[]
+                {
+                    new GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext(locations, failureMechanism, assessmentSection), 
+                    new GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext(locations, failureMechanism, assessmentSection), 
+                    new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                       null,
+                                                                                       failureMechanism,
+                                                                                       assessmentSection)
+                };
             }
 
-            ObservableList<HydraulicBoundaryLocation> locations = context.WrappedData.Locations;
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
-            return new object[]
-            {
-                new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(GetHydraulicBoundaryLocationCalculations(locations, hbl => hbl.DesignWaterLevelCalculation1),
-                                                                                 assessmentSection,
-                                                                                 failureMechanism),
-                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(GetHydraulicBoundaryLocationCalculations(locations, hbl => hbl.WaveHeightCalculation1),
-                                                                           assessmentSection,
-                                                                           failureMechanism),
-                new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(context.FailureMechanism.WaveConditionsCalculationGroup,
-                                                                                   null,
-                                                                                   context.FailureMechanism,
-                                                                                   assessmentSection)
-            };
+            return new object[0];
         }
 
         #endregion
