@@ -38,6 +38,7 @@
     <Compile Include="Helpers\ProbabilityFormattingHelper.cs" />
     <Compile Include="ImportInfos\RingtoetsImportInfoFactory.cs" />
     <Compile Include="IScenarioRow.cs" />
+    <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContext.cs" />
     <Compile Include="PresentationObjects\NormContext.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationCalculationContext.cs" />
