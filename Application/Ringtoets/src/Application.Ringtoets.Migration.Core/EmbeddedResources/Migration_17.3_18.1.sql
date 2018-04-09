@@ -729,8 +729,8 @@ SELECT
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId], 
 	[CalculationType]
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
-JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId)
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING (FailureMechanismEntityId)
+JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)
+JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING(FailureMechanismEntityId)
 JOIN (
 	SELECT * 
 	FROM TempCalculationTypes
@@ -805,49 +805,49 @@ JOIN (
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFactorizedSignalingNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 0
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForSignalingNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 1
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForLowerLimitNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 2
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFactorizedLowerLimitNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 3
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFactorizedSignalingNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 4
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForSignalingNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 5
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForLowerLimitNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 6
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFactorizedLowerLimitNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 7
-) USING (AssessmentSectionEntityId);
+) USING(AssessmentSectionEntityId);
 
 -- Update the calculation inputs
 UPDATE HydraulicLocationCalculationEntity
@@ -861,8 +861,8 @@ UPDATE HydraulicLocationCalculationEntity
 		OR ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN [SOURCEPROJECT].HydraulicLocationEntity USING (HydraulicLocationEntityId)
+		JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
+		JOIN [SOURCEPROJECT].HydraulicLocationEntity USING(HydraulicLocationEntityId)
 		WHERE(ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 		OR (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 		OR (ShouldWaveHeightIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -894,9 +894,9 @@ ON ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocation
 OR ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-JOIN HydraulicLocationEntity USING (HydraulicLocationEntityId)
-JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity USING (HydraulicLocationEntityId)
+JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
+JOIN HydraulicLocationEntity USING(HydraulicLocationEntityId)
+JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity USING(HydraulicLocationEntityId)
 WHERE (HydraulicLocationOutputType = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 1 AND NormativeNormType = 1 AND ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 2 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -931,37 +931,37 @@ JOIN (
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFailureMechanismSpecificFactorizedSignalingNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 8
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFailureMechanismSpecificSignalingNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 9
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFailureMechanismSpecificLowerLimitNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 10
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFailureMechanismSpecificFactorizedSignalingNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 11
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFailureMechanismSpecificSignalingNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 12
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFailureMechanismSpecificLowerLimitNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 13
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId);
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId);
 
 -- Update the calculation inputs
 UPDATE HydraulicLocationCalculationEntity
@@ -970,14 +970,14 @@ UPDATE HydraulicLocationCalculationEntity
 		SELECT
 			HydraulicLocationCalculationEntityId
 		FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme
-		JOIN FailureMechanismEntity USING (FailureMechanismEntityId)
-		JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+		JOIN FailureMechanismEntity USING(FailureMechanismEntityId)
+		JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId)
 		JOIN HydraulicLocationCalculationCollectionEntity hlcce 
 		ON gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId
 		OR gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
+		JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
 		JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity ON GrassCoverErosionOutwardsHydraulicLocationEntityId = HydraulicLocationEntityId
 		WHERE (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 		OR (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -1005,16 +1005,16 @@ SELECT
 	[CalculatedReliability],
 	[CalculationConvergence]
 FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme
-JOIN FailureMechanismEntity USING (FailureMechanismEntityId)
-JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+JOIN FailureMechanismEntity USING(FailureMechanismEntityId)
+JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId)
 JOIN HydraulicLocationCalculationCollectionEntity hlcce 
 ON gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId
 OR gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
+JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
 JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity ON GrassCoverErosionOutwardsHydraulicLocationEntityId = HydraulicLocationEntityId
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity USING (GrassCoverErosionOutwardsHydraulicLocationEntityId)
+JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId)
 WHERE (HydraulicLocationOutputType = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 1 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 2 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -1084,8 +1084,8 @@ SELECT
 	[FailureMechanismEntityId], 
 	[FailureMechanismName]
 	FROM AssessmentSectionEntity
-	JOIN FailureMechanismEntity USING (AssessmentSectionEntityId)
-	JOIN TempFailureMechanisms USING (FailureMechanismType);
+	JOIN FailureMechanismEntity USING(AssessmentSectionEntityId)
+	JOIN TempFailureMechanisms USING(FailureMechanismType);
 
 CREATE TEMP TABLE TempChanges
 (
@@ -1106,7 +1106,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[BelowPhreaticLevelMean] IS NOT psl.[BelowPhreaticLevelMean];
@@ -1122,7 +1122,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[BelowPhreaticLevelDeviation] IS NOT psl.[BelowPhreaticLevelDeviation];
@@ -1137,7 +1137,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[BelowPhreaticLevelShift] IS NOT psl.[BelowPhreaticLevelShift];
@@ -1152,7 +1152,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[DiameterD70Mean] IS NOT psl.[DiameterD70Mean];
@@ -1167,7 +1167,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[DiameterD70CoefficientOfVariation] IS NOT psl.[DiameterD70CoefficientOfVariation];
@@ -1182,7 +1182,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[PermeabilityMean] IS NOT psl.[PermeabilityMean];
@@ -1197,7 +1197,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[PermeabilityCoefficientOfVariation] IS NOT psl.[PermeabilityCoefficientOfVariation];
