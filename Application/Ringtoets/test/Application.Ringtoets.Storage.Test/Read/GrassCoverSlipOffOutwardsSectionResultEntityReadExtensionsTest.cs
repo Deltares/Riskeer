@@ -41,10 +41,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            TestDelegate test = () => ((GrassCoverSlipOffOutwardsSectionResultEntity) null).Read(sectionResult);
+            TestDelegate call = () => ((GrassCoverSlipOffOutwardsSectionResultEntity) null).Read(sectionResult);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -70,9 +70,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             bool useManualAssemblyCategoryGroup = random.NextBoolean();
-
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            
             var entity = new GrassCoverSlipOffOutwardsSectionResultEntity
             {
                 SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),

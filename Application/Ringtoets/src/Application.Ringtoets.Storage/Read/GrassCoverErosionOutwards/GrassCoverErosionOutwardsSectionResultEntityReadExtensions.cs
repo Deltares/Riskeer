@@ -37,7 +37,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
         /// Reads the <see cref="GrassCoverErosionOutwardsSectionResultEntity"/> and use the information to update a 
         /// <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsSectionResultEntity"/> to update the <paramref name="sectionResult"/>.</param>
+        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsSectionResultEntity"/> used
+        /// to update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this GrassCoverErosionOutwardsSectionResultEntity entity, GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)

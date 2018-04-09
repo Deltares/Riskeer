@@ -37,7 +37,8 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
         /// Reads the <see cref="StabilityStoneCoverSectionResultEntity"/> and use the information to update a 
         /// <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StabilityStoneCoverSectionResultEntity"/> to update <paramref name="sectionResult"/>.</param>
+        /// <param name="entity">The <see cref="StabilityStoneCoverSectionResultEntity"/> used 
+        /// to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this StabilityStoneCoverSectionResultEntity entity, StabilityStoneCoverFailureMechanismSectionResult sectionResult)

@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
         /// Reads the <see cref="StabilityPointStructuresSectionResultEntity"/> and use the information to update a 
         /// <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StabilityPointStructuresSectionResultEntity"/> 
+        /// <param name="entity">The <see cref="StabilityPointStructuresSectionResultEntity"/> used
         /// to update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>

@@ -41,10 +41,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            TestDelegate test = () => ((StrengthStabilityLengthwiseConstructionSectionResultEntity) null).Read(sectionResult);
+            TestDelegate call = () => ((StrengthStabilityLengthwiseConstructionSectionResultEntity) null).Read(sectionResult);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -69,8 +69,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             var random = new Random(31);
             var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             var entity = new StrengthStabilityLengthwiseConstructionSectionResultEntity
             {

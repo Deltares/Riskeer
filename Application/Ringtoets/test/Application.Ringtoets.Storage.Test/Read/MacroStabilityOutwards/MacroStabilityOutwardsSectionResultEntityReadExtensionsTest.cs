@@ -41,10 +41,10 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityOutwards
             var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            TestDelegate test = () => ((MacroStabilityOutwardsSectionResultEntity) null).Read(sectionResult);
+            TestDelegate call = () => ((MacroStabilityOutwardsSectionResultEntity) null).Read(sectionResult);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -72,9 +72,9 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityOutwards
             double detailedAssessmentProbability = random.NextDouble();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
             double tailorMadeAssessmentProbability = random.NextDouble();
-            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             bool useManualAssemblyCategoryGroup = random.NextBoolean();
-
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            
             var entity = new MacroStabilityOutwardsSectionResultEntity
             {
                 SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),

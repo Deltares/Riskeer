@@ -34,13 +34,11 @@ namespace Application.Ringtoets.Storage.Read
     internal static class StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> and use the information to construct a 
+        /// Reads the <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> and use the information to update a 
         /// <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> used to update the
-        /// <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.</param>
+        /// <param name="entity">The <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this StrengthStabilityLengthwiseConstructionSectionResultEntity entity,
                                   StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)

@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Read.DuneErosion
         /// Reads the <see cref="DuneErosionSectionResultEntity"/> and use the information to update a 
         /// <see cref="DuneErosionFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="DuneErosionSectionResultEntity"/> to update <paramref name="sectionResult"/>.</param>
+        /// <param name="entity">The <see cref="DuneErosionSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this DuneErosionSectionResultEntity entity, DuneErosionFailureMechanismSectionResult sectionResult)

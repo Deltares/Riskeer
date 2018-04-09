@@ -37,10 +37,8 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityOutwards
         /// Reads the <see cref="MacroStabilityOutwardsSectionResultEntity"/> and use the information to update a 
         /// <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityOutwardsSectionResultEntity"/> used to update the
-        /// <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.</param>
+        /// <param name="entity">The <see cref="MacroStabilityOutwardsSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this MacroStabilityOutwardsSectionResultEntity entity, MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
         {

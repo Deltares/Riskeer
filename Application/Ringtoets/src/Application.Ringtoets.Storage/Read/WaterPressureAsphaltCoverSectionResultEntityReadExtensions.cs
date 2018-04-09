@@ -34,13 +34,11 @@ namespace Application.Ringtoets.Storage.Read
     internal static class WaterPressureAsphaltCoverSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> and use the information to construct a 
+        /// Reads the <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> and use the information to update a 
         /// <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> used to update the
-        /// <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.</param>
+        /// <param name="entity">The <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this WaterPressureAsphaltCoverSectionResultEntity entity, WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
         {

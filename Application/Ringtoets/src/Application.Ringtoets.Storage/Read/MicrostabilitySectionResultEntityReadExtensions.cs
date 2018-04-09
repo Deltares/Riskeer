@@ -37,10 +37,8 @@ namespace Application.Ringtoets.Storage.Read
         /// Reads the <see cref="MicrostabilitySectionResultEntity"/> and use the information to update a 
         /// <see cref="MicrostabilityFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MicrostabilitySectionResultEntity"/> used to update the
-        /// <see cref="MicrostabilityFailureMechanismSectionResult"/>.</param>
+        /// <param name="entity">The <see cref="MicrostabilitySectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="MicrostabilityFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this MicrostabilitySectionResultEntity entity, MicrostabilityFailureMechanismSectionResult sectionResult)
         {

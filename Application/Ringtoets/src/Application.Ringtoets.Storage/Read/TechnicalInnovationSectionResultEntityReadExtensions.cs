@@ -34,13 +34,11 @@ namespace Application.Ringtoets.Storage.Read
     internal static class TechnicalInnovationSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="TechnicalInnovationSectionResultEntity"/> and use the information to construct a 
+        /// Reads the <see cref="TechnicalInnovationSectionResultEntity"/> and use the information to update a 
         /// <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="TechnicalInnovationSectionResultEntity"/> used to update the
-        /// <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.</param>
+        /// <param name="entity">The <see cref="TechnicalInnovationSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this TechnicalInnovationSectionResultEntity entity, TechnicalInnovationFailureMechanismSectionResult sectionResult)
         {

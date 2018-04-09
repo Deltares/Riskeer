@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
         /// Reads the <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> and use the information to update a 
         /// <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> to update <paramref name="sectionResult"/>.</param>
+        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>

@@ -34,11 +34,10 @@ namespace Application.Ringtoets.Storage.Read.PipingStructure
     internal static class PipingStructureSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="PipingStructureSectionResultEntity"/> and use the information to update the
-        /// <paramref name="sectionResult"/>.
+        /// Read the <see cref="PipingStructureSectionResultEntity"/> and use the information to update a
+        /// <see cref="PipingStructureFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingStructureSectionResultEntity"/> used to update the
-        /// <paramref name="sectionResult"/>.</param>
+        /// <param name="entity">The <see cref="PipingStructureSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The <see cref="PipingStructureFailureMechanismSectionResult"/> to be updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this PipingStructureSectionResultEntity entity,

@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
         /// Reads the <see cref="MacroStabilityInwardsSectionResultEntity"/> and use the information to update a 
         /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityInwardsSectionResultEntity"/> to 
+        /// <param name="entity">The <see cref="MacroStabilityInwardsSectionResultEntity"/> used to 
         /// update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
