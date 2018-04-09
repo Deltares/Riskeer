@@ -591,7 +591,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity) " +
                 "FROM GrassCoverErosionInwardsSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity OLD USING (GrassCoverErosionInwardsSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity OLD USING(GrassCoverErosionInwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.GrassCoverErosionInwardsCalculationEntityId IS OLD.GrassCoverErosionInwardsCalculationEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
@@ -611,7 +611,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].PipingSectionResultEntity) " +
                 "FROM PipingSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].PipingSectionResultEntity OLD USING (PipingSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].PipingSectionResultEntity OLD USING(PipingSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
@@ -630,7 +630,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity) " +
                 "FROM MacroStabilityInwardsSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity OLD USING (MacroStabilityInwardsSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity OLD USING(MacroStabilityInwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
@@ -649,7 +649,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].DuneErosionSectionResultEntity) " +
                 "FROM DuneErosionSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity OLD USING (DuneErosionSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity OLD USING(DuneErosionSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
@@ -671,7 +671,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity) " +
                 "FROM GrassCoverErosionOutwardsSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity OLD USING (GrassCoverErosionOutwardsSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity OLD USING(GrassCoverErosionOutwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
@@ -693,7 +693,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity) " +
                 "FROM StabilityStoneCoverSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity OLD USING (StabilityStoneCoverSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity OLD USING(StabilityStoneCoverSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
@@ -715,7 +715,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "SELECT  " +
                 "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity) " +
                 "FROM WaveImpactAsphaltCoverSectionResultEntity NEW " +
-                "JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity OLD USING (WaveImpactAsphaltCoverSectionResultEntityId) " +
+                "JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity OLD USING(WaveImpactAsphaltCoverSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.SimpleAssessmentResult = 1 " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
@@ -911,9 +911,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "FROM AssessmentSectionEntity ase " +
                        "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
                        $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity NEW USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity OLD USING (HydraulicLocationEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity NEW USING(HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity OLD USING(HydraulicLocationEntityId) " +
                        $"WHERE OLD.ShouldDesignWaterLevelIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
@@ -938,8 +937,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "( " +
                        "SELECT COUNT() " +
                        "FROM [SOURCEPROJECT].HydraulicLocationOutputEntity sourceHlo " +
-                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity USING (HydraulicLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING (AssessmentSectionEntityId) " +
+                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity USING(HydraulicLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING(AssessmentSectionEntityId) " +
                        $"WHERE sourceHlo.HydraulicLocationOutputType = 1 AND sourceAse.NormativeNormType = {(int) normType} " +
                        ") " +
                        GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
@@ -967,9 +966,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "FROM AssessmentSectionEntity ase " +
                        "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
                        $"ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity NEW USING (HydraulicLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity OLD USING (HydraulicLocationEntityId) " +
+                       "JOIN HydraulicLocationCalculationEntity NEW USING(HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity OLD USING(HydraulicLocationEntityId) " +
                        $"WHERE OLD.ShouldWaveHeightIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
@@ -994,8 +992,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "( " +
                        "SELECT COUNT() " +
                        "FROM [SOURCEPROJECT].HydraulicLocationOutputEntity sourceHlo " +
-                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity USING (HydraulicLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING (AssessmentSectionEntityId) " +
+                       "JOIN [SOURCEPROJECT].HydraulicLocationEntity USING(HydraulicLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse USING(AssessmentSectionEntityId) " +
                        $"WHERE sourceHlo.HydraulicLocationOutputType = 2 AND sourceAse.NormativeNormType = {(int) normType} " +
                        ") " +
                        GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
@@ -1027,7 +1025,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 return "SELECT  " +
                        "COUNT() = 0 " +
                        GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
-                       "JOIN HydraulicLocationOutputEntity USING (HydraulicLocationCalculationEntityId); ";
+                       "JOIN HydraulicLocationOutputEntity USING(HydraulicLocationCalculationEntityId); ";
             }
 
             private static string GetHydraulicLocationCalculationsFromCollectionQuery(CalculationType calculationType)
@@ -1035,13 +1033,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 return "FROM AssessmentSectionEntity ase " +
                        $"JOIN HydraulicLocationCalculationCollectionEntity hlcce ON ase.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id " +
                        "= hlcce.HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) ";
+                       "JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId) ";
             }
 
             private static string GetHydraulicLocationCalculationOutputValidationSubQuery()
             {
-                return "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
+                return "JOIN HydraulicLocationOutputEntity NEW USING(HydraulicLocationCalculationEntityId) " +
                        "JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity OLD ON " +
                        "NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
                        "AND NEW.Result IS OLD.Result " +
@@ -1220,16 +1217,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "COUNT(distinct GrassCoverErosionOutwardsHydraulicLocationEntityId) as OldCount, " +
                        "NEWCount " +
                        "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity " +
-                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId) " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
                        "LEFT JOIN " +
                        "( " +
                        "SELECT " +
                        "[FailureMechanismEntityId], " +
                        "COUNT(distinct HydraulicLocationEntityId) AS NewCount " +
                        GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
-                       "JOIN FailureMechanismEntity USING (FailureMechanismEntityId) " +
+                       "JOIN FailureMechanismEntity USING(FailureMechanismEntityId) " +
                        "GROUP BY GrassCoverErosionOutwardsFailureMechanismMetaEntityId " +
-                       ") USING (FailureMechanismEntityId) " +
+                       ") USING(FailureMechanismEntityId) " +
                        "GROUP BY FailureMechanismEntityId " +
                        ") " +
                        "WHERE OldCount IS NOT NewCount; " +
@@ -1256,11 +1253,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme  " +
                        "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
                        $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)  " +
-                       "JOIN HydraulicLocationCalculationEntity NEW USING (HydraulicLocationCalculationEntityId)  " +
+                       "JOIN HydraulicLocationCalculationEntity NEW USING(HydraulicLocationCalculationCollectionEntityId)  " +
                        "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity OLD ON OLD.GrassCoverErosionOutwardsHydraulicLocationEntityId = NEW.HydraulicLocationEntityId  " +
-                       "JOIN FailureMechanismEntity USING (FailureMechanismEntityId) " +
-                       "JOIN AssessmentSectionEntity ase USING (AssessmentSectionEntityId) " +
+                       "JOIN FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       "JOIN AssessmentSectionEntity ase USING(AssessmentSectionEntityId) " +
                        $"WHERE OLD.ShouldDesignWaterLevelIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
@@ -1284,9 +1280,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "COUNT() = ( " +
                        "SELECT COUNT() " +
                        "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING (GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId) " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
                        $"WHERE HydraulicLocationOutputType = 1 AND NormativeNormType = {(int) normType}" +
                        ") " +
                        GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
@@ -1314,11 +1310,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme  " +
                        "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
                        $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)  " +
-                       "JOIN HydraulicLocationCalculationEntity NEW USING (HydraulicLocationCalculationEntityId)  " +
+                       "JOIN HydraulicLocationCalculationEntity NEW USING(HydraulicLocationCalculationCollectionEntityId)  " +
                        "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity OLD ON OLD.GrassCoverErosionOutwardsHydraulicLocationEntityId = NEW.HydraulicLocationEntityId  " +
-                       "JOIN FailureMechanismEntity USING (FailureMechanismEntityId) " +
-                       "JOIN AssessmentSectionEntity ase USING (AssessmentSectionEntityId) " +
+                       "JOIN FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       "JOIN AssessmentSectionEntity ase USING(AssessmentSectionEntityId) " +
                        $"WHERE OLD.ShouldWaveHeightIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
@@ -1342,9 +1337,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "COUNT() = ( " +
                        "SELECT COUNT() " +
                        "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING (GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId) " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING (AssessmentSectionEntityId) " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
                        $"WHERE HydraulicLocationOutputType = 2 AND NormativeNormType = {(int) normType}" +
                        ") " +
                        GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
@@ -1376,7 +1371,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 return "SELECT  " +
                        "COUNT() = 0 " +
                        GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
-                       "JOIN HydraulicLocationOutputEntity USING (HydraulicLocationCalculationEntityId); ";
+                       "JOIN HydraulicLocationOutputEntity USING(HydraulicLocationCalculationEntityId); ";
             }
 
             private static string GetHydraulicLocationCalculationsFromFailureMechanismQuery(CalculationType calculationType)
@@ -1384,13 +1379,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 return "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
                        "JOIN HydraulicLocationCalculationCollectionEntity " +
                        $"ON HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
-                       "JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId) ";
+                       "JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId) ";
             }
 
             private static string GetHydraulicLocationCalculationOutputValidationSubQuery()
             {
-                return "JOIN HydraulicLocationOutputEntity NEW USING (HydraulicLocationCalculationEntityId) " +
+                return "JOIN HydraulicLocationOutputEntity NEW USING(HydraulicLocationCalculationEntityId) " +
                        "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity OLD ON NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
                        "AND NEW.Result IS OLD.Result " +
                        "AND NEW.TargetProbability IS OLD.TargetProbability " +

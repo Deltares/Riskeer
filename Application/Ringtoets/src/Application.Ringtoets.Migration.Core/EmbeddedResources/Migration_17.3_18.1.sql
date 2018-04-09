@@ -642,6 +642,51 @@ INSERT INTO TempCalculationTypes VALUES (12);
 INSERT INTO TempCalculationTypes VALUES (13);
 
 -- Migrate the hydraulic boundary location calculations on assessment section level
+-- Create the calculation collections
+CREATE TEMP TABLE TempHydraulicLocationCalculationCollectionEntity
+(
+	'HydraulicLocationCalculationCollectionEntityId' INTEGER NOT NULL,
+	'AssessmentSectionEntityId' INTEGER,
+	'GrassCoverErosionOutwardsFailureMechanismMetaEntityId' INTEGER,
+	'CalculationType' TINYINT (1) NOT NULL,
+	PRIMARY KEY
+	(
+		'HydraulicLocationCalculationCollectionEntityId' AUTOINCREMENT
+	)
+);
+
+INSERT INTO TempHydraulicLocationCalculationCollectionEntity (
+	[AssessmentSectionEntityId],
+	[CalculationType])
+SELECT
+	[AssessmentSectionEntityId],
+	[CalculationType]
+FROM [SOURCEPROJECT].AssessmentSectionEntity
+JOIN (
+	SELECT * 
+	FROM TempCalculationTypes
+	WHERE CalculationType >= 0 AND CalculationType <= 7
+);
+
+INSERT INTO TempHydraulicLocationCalculationCollectionEntity (
+	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
+	[CalculationType])
+SELECT
+	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
+	[CalculationType]
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
+JOIN (
+	SELECT * 
+	FROM TempCalculationTypes
+	WHERE CalculationType >= 8 AND CalculationType <= 13
+);
+
+INSERT INTO HydraulicLocationCalculationCollectionEntity (
+	[HydraulicLocationCalculationCollectionEntityId])
+SELECT
+	[HydraulicLocationCalculationCollectionEntityId]
+FROM TempHydraulicLocationCalculationCollectionEntity;
+
 -- Create the calculation entities
 CREATE TEMP TABLE TempHydraulicLocationCalculationEntity
 (
@@ -692,83 +737,22 @@ JOIN (
 	WHERE CalculationType >= 8 AND CalculationType <= 13
 );
 
+-- Insert the calculations 
 INSERT INTO HydraulicLocationCalculationEntity (
 	[HydraulicLocationCalculationEntityId],
 	[HydraulicLocationEntityId],
+	[HydraulicLocationCalculationCollectionEntityId],
 	[ShouldIllustrationPointsBeCalculated])
 SELECT
 	[HydraulicLocationCalculationEntityId],
 	[HydraulicLocationEntityId],
+	[HydraulicLocationCalculationCollectionEntityId],
 	0
-FROM TempHydraulicLocationCalculationEntity;
-
--- Create the calculation collections
-CREATE TEMP TABLE TempHydraulicLocationCalculationCollectionEntity
-(
-	'HydraulicLocationCalculationCollectionEntityId' INTEGER NOT NULL,
-	'AssessmentSectionEntityId' INTEGER,
-	'GrassCoverErosionOutwardsFailureMechanismMetaEntityId' INTEGER,
-	'CalculationType' TINYINT (1) NOT NULL,
-	PRIMARY KEY
-	(
-		'HydraulicLocationCalculationCollectionEntityId' AUTOINCREMENT
-	)
-);
-
-INSERT INTO TempHydraulicLocationCalculationCollectionEntity (
-	[AssessmentSectionEntityId],
-	[CalculationType])
-SELECT
-	[AssessmentSectionEntityId],
-	[CalculationType]
-FROM [SOURCEPROJECT].AssessmentSectionEntity
-JOIN (
-	SELECT * 
-	FROM TempCalculationTypes
-	WHERE CalculationType >= 0 AND CalculationType <= 7
-);
-
-INSERT INTO TempHydraulicLocationCalculationCollectionEntity (
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	[CalculationType])
-SELECT
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	[CalculationType]
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity
-JOIN (
-	SELECT * 
-	FROM TempCalculationTypes
-	WHERE CalculationType >= 8 AND CalculationType <= 13
-);
-
-INSERT INTO HydraulicLocationCalculationCollectionEntity (
-	[HydraulicLocationCalculationCollectionEntityId])
-SELECT
-	[HydraulicLocationCalculationCollectionEntityId]
-FROM TempHydraulicLocationCalculationCollectionEntity;
-
--- Map the calculations into the collections and add them to the association table
-INSERT INTO HydraulicLocationCalculationCollectionToHydraulicCalculationEntity (
-	[HydraulicLocationCalculationCollectionEntityId],
-	[HydraulicLocationCalculationEntityId])
-SELECT
-	[HydraulicLocationCalculationCollectionEntityId],
-	[HydraulicLocationCalculationEntityId]
-FROM TempHydraulicLocationCalculationEntity calculationTable
-JOIN TempHydraulicLocationCalculationCollectionEntity calculationCollectionTable
-ON calculationTable.AssessmentSectionEntityId = calculationCollectionTable.AssessmentSectionEntityId
-AND calculationTable.CalculationType = calculationCollectionTable.CalculationType;
-
-INSERT INTO HydraulicLocationCalculationCollectionToHydraulicCalculationEntity (
-	[HydraulicLocationCalculationCollectionEntityId],
-	[HydraulicLocationCalculationEntityId])
-SELECT
-	[HydraulicLocationCalculationCollectionEntityId],
-	[HydraulicLocationCalculationEntityId]
-FROM TempHydraulicLocationCalculationEntity calculationTable
-JOIN TempHydraulicLocationCalculationCollectionEntity calculationCollectionTable
-ON calculationTable.GrassCoverErosionOutwardsFailureMechanismMetaEntityId = calculationCollectionTable.GrassCoverErosionOutwardsFailureMechanismMetaEntityId
-AND calculationTable.CalculationType = calculationCollectionTable.CalculationType;
+FROM TempHydraulicLocationCalculationCollectionEntity collections
+JOIN TempHydraulicLocationCalculationEntity calculations 
+ON calculations.CalculationType = collections.CalculationType
+AND (calculations.AssessmentSectionEntityId = collections.AssessmentSectionEntityId 
+	OR calculations.GrassCoverErosionOutwardsFailureMechanismMetaEntityId = collections.GrassCoverErosionOutwardsFailureMechanismMetaEntityId);
 
 -- Migration for the Hydraulic Boundary Locations on Assessment Section Level
 INSERT INTO AssessmentSectionEntity (
@@ -877,8 +861,7 @@ UPDATE HydraulicLocationCalculationEntity
 		OR ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
 		JOIN [SOURCEPROJECT].HydraulicLocationEntity USING (HydraulicLocationEntityId)
 		WHERE(ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 		OR (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -911,8 +894,7 @@ ON ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocation
 OR ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
 JOIN HydraulicLocationEntity USING (HydraulicLocationEntityId)
 JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity USING (HydraulicLocationEntityId)
 WHERE (HydraulicLocationOutputType = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -995,8 +977,7 @@ UPDATE HydraulicLocationCalculationEntity
 		OR gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
 		JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity ON GrassCoverErosionOutwardsHydraulicLocationEntityId = HydraulicLocationEntityId
 		WHERE (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 		OR (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -1031,8 +1012,7 @@ ON gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLoc
 OR gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
 JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity ON GrassCoverErosionOutwardsHydraulicLocationEntityId = HydraulicLocationEntityId
 JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity USING (GrassCoverErosionOutwardsHydraulicLocationEntityId)
 WHERE (HydraulicLocationOutputType = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
