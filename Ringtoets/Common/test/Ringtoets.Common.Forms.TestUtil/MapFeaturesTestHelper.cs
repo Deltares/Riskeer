@@ -77,16 +77,15 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <summary>
         /// Gets the expected result of a hydraulic boundary location calculation.
         /// </summary>
-        /// <param name="calculationList">The list to get the calculation from.</param>
+        /// <param name="calculations">The enumeration to get the calculation from.</param>
         /// <param name="hydraulicBoundaryLocation">The location to get the calculation for.</param>
         /// <returns>The result when there is output; <see cref="RoundedDouble.NaN"/> otherwise.</returns>
-        public static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
+        public static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return calculationList
-                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
-                   .Select(calculation => calculation.Output?.Result ?? RoundedDouble.NaN)
-                   .Single();
+            return calculations
+                   .Single(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
+                   .Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }

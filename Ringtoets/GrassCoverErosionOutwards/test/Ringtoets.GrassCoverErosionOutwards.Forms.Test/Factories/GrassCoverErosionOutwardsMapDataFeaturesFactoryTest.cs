@@ -203,13 +203,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
             }
         }
 
-        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
-                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation1)
+        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return calculationList
-                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation1))
-                   .Select(calculation => calculation.Output?.Result ?? RoundedDouble.NaN)
-                   .Single();
+            return calculations
+                   .Single(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
+                   .Output?.Result ?? RoundedDouble.NaN;
         }
 
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)

@@ -158,8 +158,7 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Point2D[] expectedPoints = assessmentSection.HydraulicBoundaryDatabase.Locations
                                                         .Select(location => location.Location)
                                                         .ToArray();
-            AssertEqualFeatureCollections(
-                expectedPoints, features);
+            AssertEqualFeatureCollections(expectedPoints, features);
         }
 
         [Test]

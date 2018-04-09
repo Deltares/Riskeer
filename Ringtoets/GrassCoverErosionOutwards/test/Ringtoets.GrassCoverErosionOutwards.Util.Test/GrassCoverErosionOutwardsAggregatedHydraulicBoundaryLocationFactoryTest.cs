@@ -156,13 +156,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
             }
         }
 
-        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
+        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                        HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return calculationList
-                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
-                   .Select(calculation => calculation.Output.Result)
-                   .Single();
+            return calculations
+                   .Single(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
+                   .Output.Result;
         }
     }
 }

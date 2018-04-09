@@ -127,9 +127,8 @@ namespace Ringtoets.Common.Util.Test
                                                        HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return calculations
-                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
-                   .Select(calculation => calculation.Output.Result)
-                   .Single();
+                   .Single(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
+                   .Output.Result;
         }
     }
 }
