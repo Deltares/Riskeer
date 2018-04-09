@@ -39,19 +39,17 @@ namespace Application.Ringtoets.Storage.DbContext
         public HydraulicLocationCalculationEntity()
         {
             HydraulicLocationOutputEntities = new HashSet<HydraulicLocationOutputEntity>();
-            HydraulicLocationCalculationCollectionEntities = new HashSet<HydraulicLocationCalculationCollectionEntity>();
         }
 
         public long HydraulicLocationCalculationEntityId { get; set; }
         public long HydraulicLocationEntityId { get; set; }
+        public long HydraulicLocationCalculationCollectionEntityId { get; set; }
         public byte ShouldIllustrationPointsBeCalculated { get; set; }
 
+        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationCalculationCollectionEntity> HydraulicLocationCalculationCollectionEntities { get; set; }
     }
 }
