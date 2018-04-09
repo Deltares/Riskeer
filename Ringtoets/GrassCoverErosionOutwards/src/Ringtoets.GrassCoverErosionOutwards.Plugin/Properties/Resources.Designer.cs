@@ -98,5 +98,50 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie Vv-&gt;VIv.
+        /// </summary>
+        internal static string Hydraulic_category_boundary_factorizedLowerLimitNorm_name {
+            get {
+                return ResourceManager.GetString("Hydraulic_category_boundary_factorizedLowerLimitNorm_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie IVv-&gt;Vv.
+        /// </summary>
+        internal static string Hydraulic_category_boundary_lowerLimitNorm_name {
+            get {
+                return ResourceManager.GetString("Hydraulic_category_boundary_lowerLimitNorm_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie Iv-&gt;IIv.
+        /// </summary>
+        internal static string Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name {
+            get {
+                return ResourceManager.GetString("Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie IIIv-&gt;IVv.
+        /// </summary>
+        internal static string Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name {
+            get {
+                return ResourceManager.GetString("Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie IIv-&gt;IIIv.
+        /// </summary>
+        internal static string Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name {
+            get {
+                return ResourceManager.GetString("Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name", resourceCulture);
+            }
+        }
     }
 }
