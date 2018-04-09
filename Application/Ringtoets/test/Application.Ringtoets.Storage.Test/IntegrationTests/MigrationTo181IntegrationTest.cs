@@ -108,6 +108,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertGrassCoverErosionOutwardsSectionResultEntity(reader, sourceFilePath);
                     AssertStabilityStoneCoverSectionResultEntity(reader, sourceFilePath);
                     AssertWaveImpactAsphaltCoverSectionResultEntity(reader, sourceFilePath);
+
+                    AssertGrassCoverSlipOffInwardsSectionResultEntity(reader, sourceFilePath);
+                    AssertGrassCoverSlipOffOutwardsSectionResultEntity(reader, sourceFilePath);
+                    AssertMacroStabilityOutwardsSectionResultEntity(reader, sourceFilePath);
+                    AssertMicrostabilitySectionResultEntity(reader, sourceFilePath);
+                    AssertPipingStructureSectionResultEntity(reader, sourceFilePath);
+                    AssertStrengthStabilityLengthwiseConstructionSectionResultEntity(reader, sourceFilePath);
+                    AssertTechnicalInnovationSectionResultEntity(reader, sourceFilePath);
+                    AssertWaterPressureAsphaltCoverSectionResultEntity(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -723,6 +732,149 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForLowerLimitNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForFactorizedLowerLimitNorm = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertGrassCoverSlipOffInwardsSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity) " +
+                "FROM GrassCoverSlipOffInwardsSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity OLD USING (GrassCoverSlipOffInwardsSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertGrassCoverSlipOffOutwardsSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity) " +
+                "FROM GrassCoverSlipOffOutwardsSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity OLD USING (GrassCoverSlipOffOutwardsSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertMacroStabilityOutwardsSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity) " +
+                "FROM MacroStabilityOutwardsSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity OLD USING (MacroStabilityOutwardsSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentProbability IS NULL " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentProbability IS NULL " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertMicrostabilitySectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity) " +
+                "FROM MicrostabilitySectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity OLD USING (MicrostabilitySectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertPipingStructureSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].PipingStructureSectionResultEntity) " +
+                "FROM PipingStructureSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity OLD USING (PipingStructureSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.DetailedAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertStrengthStabilityLengthwiseConstructionSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity) " +
+                "FROM StrengthStabilityLengthwiseConstructionSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity OLD USING (StrengthStabilityLengthwiseConstructionSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertTechnicalInnovationSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity) " +
+                "FROM TechnicalInnovationSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].TechnicalInnovationSectionResultEntity OLD USING (TechnicalInnovationSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.TailorMadeAssessmentResult = 1 " +
+                "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
+                "AND NEW.ManualAssemblyCategoryGroup = 1; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResult);
+        }
+
+        private static void AssertWaterPressureAsphaltCoverSectionResultEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT  " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity) " +
+                "FROM WaterPressureAsphaltCoverSectionResultEntity NEW " +
+                "JOIN [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity OLD USING (WaterPressureAsphaltCoverSectionResultEntityId) " +
+                "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
+                "AND NEW.SimpleAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
