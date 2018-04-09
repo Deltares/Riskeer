@@ -147,10 +147,6 @@
       <Project>{0943dda8-8fab-4d0b-8e9c-8a1a9b3273b4}</Project>
       <Name>Ringtoets.MacroStabilityInwards.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.KernelWrapper\Ringtoets.MacroStabilityInwards.KernelWrapper.csproj">
-      <Project>{3C0D3B38-A9F7-4B22-9705-513DA26AE2CC}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.KernelWrapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Plugin\Ringtoets.MacroStabilityInwards.Plugin.csproj">
       <Project>{b6b27968-6b39-48df-b2e5-cbabf362808c}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Plugin</Name>
@@ -158,10 +154,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.MacroStabilityInwards.Primitives\Ringtoets.MacroStabilityInwards.Primitives.csproj">
       <Project>{e9b39743-2dc9-4922-9e0f-6ba3e0e54189}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Primitives</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil\Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil.csproj">
-      <Project>{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.CalculatedInput.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
       <Project>{2b78cf04-4785-4f27-a6e5-45bddbb7bf04}</Project>

@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.IsFalse(properties.UseBreakWater);
             Assert.IsNull(properties.BreakWaterType);
-            Assert.AreEqual(RoundedDouble.NaN, properties.BreakWaterHeight);
+            Assert.IsNaN(properties.BreakWaterHeight);
             Assert.IsEmpty(properties.ToString());
         }
 
