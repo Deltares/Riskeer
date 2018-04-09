@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(calculations, null, assessmentSection);
+            TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightCalculationsContext(calculations, assessmentSection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

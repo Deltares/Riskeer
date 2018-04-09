@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -32,7 +32,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a design water level calculation result for a given norm.
     /// </summary>
-    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext : ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>
+    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext : DesignWaterLevelCalculationsContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext"/>.
@@ -40,34 +40,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <param name="wrappedData">The calculations for the context belongs to.</param>
         /// <param name="failureMechanism">The failure mechanism the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <param name="getNormFunc"><see cref="Func{TResult}"/> for obtaining the norm to use during calculations.</param>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="failureMechanism"/>,
+        /// <paramref name="assessmentSection"/> or <paramref name="getNormFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(IObservableEnumerable<HydraulicBoundaryLocationCalculation> wrappedData,
                                                                             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                            IAssessmentSection assessmentSection)
-            : base(wrappedData)
+                                                                            IAssessmentSection assessmentSection,
+                                                                            Func<double> getNormFunc,
+                                                                            string categoryBoundaryName)
+            : base(wrappedData, assessmentSection, getNormFunc, categoryBoundaryName)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             FailureMechanism = failureMechanism;
-            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the grass cover erosion outwards failure mechanism.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
-
-        /// <summary>
-        /// Gets the assessment section.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
     }
 }

@@ -78,7 +78,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 object calculations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                                                            expectedCalculations,
                                                            new GrassCoverErosionOutwardsFailureMechanism(),
-                                                           assessmentSection));
+                                                           assessmentSection,
+                                                           () => 0.01,
+                                                           "Category"));
 
                 // Assert
                 Assert.AreSame(calculations, expectedCalculations);
@@ -105,7 +107,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                                grassCoverErosionOutwardsFailureMechanism,
-                                                                                               assessmentSection);
+                                                                                               assessmentSection,
+                                                                                               () => 0.01,
+                                                                                               "Category");
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -170,7 +174,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var data = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                             grassCoverErosionOutwardsFailureMechanism,
-                                                                                            assessmentSection);
+                                                                                            assessmentSection,
+                                                                                            () => 0.01,
+                                                                                            "Category");
 
                 plugin.Gui = gui;
                 plugin.Activate();
