@@ -282,7 +282,7 @@ INSERT INTO MacroStabilityOutwardsSectionResultEntity (
 	[UseManualAssemblyCategoryGroup],
 	[ManualAssemblyCategoryGroup])
 SELECT
-	[MacroStabilityInwardsSectionResultEntityId],
+	[MacroStabilityOutwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	1,
 	1,
@@ -291,7 +291,7 @@ SELECT
 	NULL,
 	0,
 	1
-FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity;
+FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
 INSERT INTO MicrostabilitySectionResultEntity (
 	[MicrostabilitySectionResultEntityId],
 	[FailureMechanismSectionEntityId],
