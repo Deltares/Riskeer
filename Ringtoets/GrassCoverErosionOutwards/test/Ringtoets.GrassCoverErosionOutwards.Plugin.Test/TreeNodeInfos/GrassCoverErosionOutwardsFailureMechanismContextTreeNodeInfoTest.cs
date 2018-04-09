@@ -33,6 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -173,9 +174,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 IsRelevant = true
@@ -206,7 +205,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var hydraulicBoundariesGroupContext = (HydraulicBoundariesGroupContext) children[1];
-            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, hydraulicBoundariesGroupContext.WrappedData);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundariesGroupContext.WrappedData);
             Assert.AreSame(failureMechanism, hydraulicBoundariesGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, hydraulicBoundariesGroupContext.AssessmentSection);
 
