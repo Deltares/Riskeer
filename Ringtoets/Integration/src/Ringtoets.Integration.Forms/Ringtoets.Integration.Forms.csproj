@@ -34,7 +34,6 @@
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationsGroupContext.cs" />
-    <Compile Include="PresentationObjects\WaveHeightCalculationsContext.cs" />
     <Compile Include="PropertyClasses\BackgroundDataProperties.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
