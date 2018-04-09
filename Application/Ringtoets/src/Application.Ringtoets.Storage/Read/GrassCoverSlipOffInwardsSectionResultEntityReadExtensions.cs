@@ -21,7 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Read
@@ -36,18 +37,28 @@ namespace Application.Ringtoets.Storage.Read
         /// Reads the <see cref="GrassCoverSlipOffInwardsSectionResultEntity"/> and use the information to update a 
         /// <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverSlipOffInwardsSectionResultEntity"/> to create <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="GrassCoverSlipOffInwardsSectionResultEntity"/> used to update the
+        /// <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <returns>A new <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this GrassCoverSlipOffInwardsSectionResultEntity entity, GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
+            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
+            sectionResult.DetailedAssessmentResult = (DetailedAssessmentResultType) entity.DetailedAssessmentResult;
+            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentResultType) entity.TailorMadeAssessmentResult;
+            sectionResult.UseManualAssemblyCategoryGroup = Convert.ToBoolean(entity.UseManualAssemblyCategoryGroup);
+            sectionResult.ManualAssemblyCategoryGroup = (FailureMechanismSectionAssemblyCategoryGroup) entity.TailorMadeAssessmentResult;
         }
     }
 }

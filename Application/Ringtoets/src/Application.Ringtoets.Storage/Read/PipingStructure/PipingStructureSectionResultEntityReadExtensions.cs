@@ -21,7 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Read.PipingStructure
@@ -36,19 +37,28 @@ namespace Application.Ringtoets.Storage.Read.PipingStructure
         /// Read the <see cref="PipingStructureSectionResultEntity"/> and use the information to update the
         /// <paramref name="sectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingStructureSectionResultEntity"/> to use to update the
+        /// <param name="entity">The <see cref="PipingStructureSectionResultEntity"/> used to update the
         /// <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The <see cref="PipingStructureFailureMechanismSectionResult"/> to be updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this PipingStructureSectionResultEntity entity,
                                   PipingStructureFailureMechanismSectionResult sectionResult)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
+            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
+            sectionResult.DetailedAssessmentResult = (DetailedAssessmentResultType) entity.DetailedAssessmentResult;
+            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentResultType) entity.TailorMadeAssessmentResult;
+            sectionResult.UseManualAssemblyCategoryGroup = Convert.ToBoolean(entity.UseManualAssemblyCategoryGroup);
+            sectionResult.ManualAssemblyCategoryGroup = (FailureMechanismSectionAssemblyCategoryGroup) entity.TailorMadeAssessmentResult;
         }
     }
 }
