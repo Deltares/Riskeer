@@ -77,8 +77,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Call
                 object calculations = info.GetViewData(new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                                                            expectedCalculations,
-                                                           assessmentSection,
-                                                           new GrassCoverErosionOutwardsFailureMechanism()));
+                                                           new GrassCoverErosionOutwardsFailureMechanism(),
+                                                           assessmentSection));
 
                 // Assert
                 Assert.AreSame(calculations, expectedCalculations);
@@ -104,8 +104,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
                 var context = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                         assessmentSection,
-                                                                                         grassCoverErosionOutwardsFailureMechanism);
+                                                                                         grassCoverErosionOutwardsFailureMechanism,
+                                                                                         assessmentSection);
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -167,8 +167,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var data = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                      assessmentSection,
-                                                                                      failureMechanism);
+                                                                                      failureMechanism, assessmentSection);
                 plugin.Gui = gui;
                 plugin.Activate();
 
