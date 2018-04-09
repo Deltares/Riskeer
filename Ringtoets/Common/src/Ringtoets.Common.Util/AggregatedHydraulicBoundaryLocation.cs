@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Util
     public class AggregatedHydraulicBoundaryLocation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AggregatedHydraulicBoundaryLocation"/>
+        /// Creates a new instance of <see cref="AggregatedHydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="id">The id of the hydraulic boundary location.</param>
         /// <param name="name">The name of the hydraulic boundary location.</param>
