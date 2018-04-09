@@ -28,6 +28,7 @@
     <Compile Include="GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProviderTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelperTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContextTest.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTest.cs" />
