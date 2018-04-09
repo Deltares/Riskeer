@@ -42,13 +42,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
 
             Section = section;
-            AssessmentLayerOne = AssessmentLayerOneState.NotAssessed;
         }
-
-        /// <summary>
-        /// Gets or sets the state of the assessment layer one.
-        /// </summary>
-        public AssessmentLayerOneState AssessmentLayerOne { get; set; }
 
         /// <summary>
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
