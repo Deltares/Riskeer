@@ -223,7 +223,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext>
             {
                 Text = context => Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextMenuStrip
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
@@ -947,6 +948,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     calculationGroupContext.NotifyObservers();
                 }
             }
+        }
+
+        #endregion
+
+        #region GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext TreeNodeInfo
+
+        private ContextMenuStrip GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextMenuStrip(
+            GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .Build();
         }
 
         #endregion
