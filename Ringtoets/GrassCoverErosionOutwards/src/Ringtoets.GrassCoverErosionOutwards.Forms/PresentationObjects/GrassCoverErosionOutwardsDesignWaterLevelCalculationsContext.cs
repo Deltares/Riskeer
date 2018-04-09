@@ -32,44 +32,42 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a design water level calculation result for a given norm.
     /// </summary>
-    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>
+    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext : ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext"/>.
         /// </summary>
-        /// <param name="calculations">The hydraulic boundary location calculations for this context.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which the
-        /// <see cref="GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext"/> belongs to.</param>
-        /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism within
-        /// the <paramref name="assessmentSection"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
-                                                                            IAssessmentSection assessmentSection,
-                                                                            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-            : base(calculations)
+        /// <param name="wrappedData">The calculations for the context belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism the context belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the context belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(IObservableEnumerable<HydraulicBoundaryLocationCalculation> wrappedData,
+                                                                            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                            IAssessmentSection assessmentSection)
+            : base(wrappedData)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            AssessmentSection = assessmentSection;
-            FailureMechanism = failureMechanism;
-        }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
 
-        /// <summary>
-        /// Gets the assessment section.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
+        }
 
         /// <summary>
         /// Gets the grass cover erosion outwards failure mechanism.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

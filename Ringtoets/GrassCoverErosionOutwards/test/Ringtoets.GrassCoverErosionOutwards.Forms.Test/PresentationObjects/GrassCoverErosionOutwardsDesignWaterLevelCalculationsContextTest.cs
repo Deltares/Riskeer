@@ -35,21 +35,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
     public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTest
     {
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(calculations, null, failureMechanism);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
-        }
-
-        [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -60,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(calculations, assessmentSection, null);
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(calculations, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -69,21 +54,36 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_ValidData_ExpectedValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(calculations, assessmentSection, failureMechanism);
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(calculations, failureMechanism, null);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>>(context);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        public void Constructor_ValidData_ExpectedValues()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var calculations = mockRepository.Stub<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(calculations, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>>(context);
             Assert.AreSame(calculations, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);

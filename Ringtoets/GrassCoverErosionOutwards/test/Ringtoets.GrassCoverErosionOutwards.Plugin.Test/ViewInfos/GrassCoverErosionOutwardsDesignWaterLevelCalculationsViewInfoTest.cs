@@ -77,8 +77,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Call
                 object calculations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                                                            expectedCalculations,
-                                                           assessmentSection,
-                                                           new GrassCoverErosionOutwardsFailureMechanism()));
+                                                           new GrassCoverErosionOutwardsFailureMechanism(),
+                                                           assessmentSection));
 
                 // Assert
                 Assert.AreSame(calculations, expectedCalculations);
@@ -104,8 +104,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
                 var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                               assessmentSection,
-                                                                                               grassCoverErosionOutwardsFailureMechanism);
+                                                                                               grassCoverErosionOutwardsFailureMechanism,
+                                                                                               assessmentSection);
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -169,8 +169,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
                 var data = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                            assessmentSection,
-                                                                                            grassCoverErosionOutwardsFailureMechanism);
+                                                                                            grassCoverErosionOutwardsFailureMechanism,
+                                                                                            assessmentSection);
 
                 plugin.Gui = gui;
                 plugin.Activate();
