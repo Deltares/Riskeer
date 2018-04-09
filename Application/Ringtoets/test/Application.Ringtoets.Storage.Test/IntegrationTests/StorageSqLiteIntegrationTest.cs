@@ -370,7 +370,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -379,7 +385,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -388,7 +400,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -397,7 +415,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -406,7 +431,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -415,7 +447,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         private static void AssertFailureMechanism(IFailureMechanism expectedFailureMechanism,
@@ -999,7 +1038,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => {
+                                     (expectedItem, actualItem) =>
+                                     {
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
@@ -1817,7 +1857,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => {
+                                     (expectedItem, actualItem) =>
+                                     {
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
@@ -1866,7 +1907,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
-                                     (expectedItem, actualItem) => {
+                                     (expectedItem, actualItem) =>
+                                     {
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
@@ -1914,7 +1956,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults,
                                                                  IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
         {
-            AssertCollectionAndItems(expectedSectionResults, actualSectionResults, (expectedItem, actualItem) => {
+            AssertCollectionAndItems(expectedSectionResults, actualSectionResults, (expectedItem, actualItem) =>
+            {
                 Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                 Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
                 Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
@@ -1960,7 +2003,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             IEnumerable<PipingStructureFailureMechanismSectionResult> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults, (expectedItem, actualItem) => { Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne); });
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
         }
 
         #endregion
@@ -1981,9 +2032,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      actualSectionResults,
                                      (expectedItem, actualItem) =>
                                      {
-                                         Assert.AreEqual(expectedItem.AssessmentLayerOne, actualItem.AssessmentLayerOne);
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentProbability, actualItem.DetailedAssessmentProbability);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability);
+                                         Assert.AreEqual(expectedItem.UseManualAssemblyCategoryGroup, actualItem.UseManualAssemblyCategoryGroup);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
                                      });
         }
 

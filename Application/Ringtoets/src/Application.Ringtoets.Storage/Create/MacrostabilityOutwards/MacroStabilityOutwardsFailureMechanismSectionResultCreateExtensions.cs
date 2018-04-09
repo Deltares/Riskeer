@@ -36,13 +36,23 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityOutwards
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="MacroStabilityOutwardsSectionResultEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         internal static MacroStabilityOutwardsSectionResultEntity Create(this MacroStabilityOutwardsFailureMechanismSectionResult result)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             var sectionResultEntity = new MacroStabilityOutwardsSectionResultEntity
             {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerTwoA = result.DetailedAssessmentProbability.ToNaNAsNull(),
-                LayerThree = result.TailorMadeAssessmentProbability.ToNaNAsNull()
+                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
+                DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
+                DetailedAssessmentProbability = result.DetailedAssessmentProbability.ToNaNAsNull(),
+                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
+                TailorMadeAssessmentProbability = result.TailorMadeAssessmentProbability.ToNaNAsNull(),
+                UseManualAssemblyCategoryGroup = Convert.ToByte(result.UseManualAssemblyCategoryGroup),
+                ManualAssemblyCategoryGroup =  Convert.ToByte(result.ManualAssemblyCategoryGroup)
             };
 
             return sectionResultEntity;

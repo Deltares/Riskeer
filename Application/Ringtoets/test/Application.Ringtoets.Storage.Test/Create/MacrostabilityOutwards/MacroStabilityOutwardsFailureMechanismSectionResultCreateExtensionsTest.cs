@@ -23,10 +23,10 @@ using System;
 using Application.Ringtoets.Storage.Create.MacroStabilityOutwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityOutwards
@@ -35,60 +35,69 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityOutwards
     public class MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_WithResults_ReturnsEntityWithExpectedResults()
+        public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random();
-            var assessmentLayerOneResult = random.NextEnumValue<AssessmentLayerOneState>();
-            const double assessmentLayerTwoAResult = 0.2;
-            const double assessmentLayerThreeResult = 0.4;
-
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
-            {
-                AssessmentLayerOne = assessmentLayerOneResult,
-                DetailedAssessmentProbability = assessmentLayerTwoAResult,
-                TailorMadeAssessmentProbability = assessmentLayerThreeResult
-            };
-
             // Call
-            MacroStabilityOutwardsSectionResultEntity result = sectionResult.Create();
+            TestDelegate call = () => ((MacroStabilityOutwardsFailureMechanismSectionResult) null).Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerTwoAResult, result.LayerTwoA);
-            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
         }
 
         [Test]
-        public void Create_WithNaNLevel2aResult_ReturnsEntityWithExpectedResults()
+        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
+            var random = new Random(39);
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+            double detailedAssessmentProbability = random.NextDouble();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
+            double tailorMadeAssessmentProbability = random.NextDouble();
+            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
             var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                DetailedAssessmentProbability = RoundedDouble.NaN
+                SimpleAssessmentResult = simpleAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult,
+                DetailedAssessmentProbability = detailedAssessmentProbability,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
+                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup,
+                ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup
             };
 
             // Call
-            MacroStabilityOutwardsSectionResultEntity result = sectionResult.Create();
+            MacroStabilityOutwardsSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.IsNull(result.LayerTwoA);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
+            Assert.AreEqual(detailedAssessmentProbability, entity.DetailedAssessmentProbability);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
+            Assert.AreEqual(Convert.ToByte(useManualAssemblyCategoryGroup), entity.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(Convert.ToByte(manualAssemblyCategoryGroup), entity.ManualAssemblyCategoryGroup);
         }
 
         [Test]
-        public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
+        public void Create_WithNaNProbabilities_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = RoundedDouble.NaN
+                DetailedAssessmentProbability = double.NaN,
+                TailorMadeAssessmentProbability = double.NaN
             };
 
             // Call
             MacroStabilityOutwardsSectionResultEntity result = sectionResult.Create();
 
             // Assert
-            Assert.IsNull(result.LayerThree);
+            Assert.IsNull(result.DetailedAssessmentProbability);
+            Assert.IsNull(result.TailorMadeAssessmentProbability);
         }
     }
 }

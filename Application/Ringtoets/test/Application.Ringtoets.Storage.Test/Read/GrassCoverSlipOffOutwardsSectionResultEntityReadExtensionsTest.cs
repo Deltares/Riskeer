@@ -25,7 +25,8 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -34,7 +35,21 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class GrassCoverSlipOffOutwardsSectionResultEntityReadExtensionsTest
     {
         [Test]
-        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            TestDelegate test = () => ((GrassCoverSlipOffOutwardsSectionResultEntity) null).Read(sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new GrassCoverSlipOffOutwardsSectionResultEntity();
@@ -48,24 +63,23 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_ParameterValues_SectionResultWithParameterValues()
+        public void Read_ParameterValues_SetsSectionResultWithParameterValues()
         {
             // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            var layerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>();
-            double layerThree = random.NextDouble();
+            var random = new Random(31);
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            bool useManualAssemblyCategoryGroup = random.NextBoolean();
 
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new GrassCoverSlipOffOutwardsSectionResultEntity
             {
-                LayerThree = layerThree,
-                LayerTwoA = Convert.ToByte(layerTwoA),
-                LayerOne = Convert.ToByte(layerOne),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
+                SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
+                DetailedAssessmentResult = Convert.ToByte(detailedAssessmentResult),
+                TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
+                UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
+                ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
             var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
 
@@ -73,8 +87,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.Read(sectionResult);
 
             // Assert
-            Assert.IsNotNull(sectionResult);
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
+            Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
+            Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
+            Assert.AreEqual(useManualAssemblyCategoryGroup, sectionResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(manualAssemblyCategoryGroup, sectionResult.ManualAssemblyCategoryGroup);
         }
     }
 }

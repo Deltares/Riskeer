@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var random = new Random();
+            var random = new Random(39);
             var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
             var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
