@@ -89,5 +89,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogtes.
+        /// </summary>
+        internal static string GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName", resourceCulture);
+            }
+        }
     }
 }

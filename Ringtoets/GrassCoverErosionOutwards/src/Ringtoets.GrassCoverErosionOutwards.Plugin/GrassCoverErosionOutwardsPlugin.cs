@@ -227,6 +227,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextMenuStrip
             };
 
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext>
+            {
+                Text = context => Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextMenuStrip
+            };
+
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
             {
                 Text = context => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext_DisplayName,
@@ -956,6 +963,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private ContextMenuStrip GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextMenuStrip(
             GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .Build();
+        }
+
+        #endregion
+
+        #region GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext TreeNodeInfo
+
+        private ContextMenuStrip GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextMenuStrip(
+            GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddCollapseAllItem()
