@@ -40,7 +40,6 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -439,7 +438,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
             GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, norm, testForm);
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -507,7 +505,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             rows[0].Cells[calculateColumnIndex].Value = true;
 
             view.CalculationGuiService = guiService;
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
@@ -569,7 +566,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             rows[0].Cells[calculateColumnIndex].Value = true;
 
             view.CalculationGuiService = guiService;
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = view.FailureMechanism;
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
