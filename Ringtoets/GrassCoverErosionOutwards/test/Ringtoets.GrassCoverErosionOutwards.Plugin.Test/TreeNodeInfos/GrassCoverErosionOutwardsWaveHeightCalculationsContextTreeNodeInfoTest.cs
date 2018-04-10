@@ -38,7 +38,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -423,6 +422,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -439,7 +439,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 new ObservableList<HydraulicBoundaryLocationCalculation>
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                }, failureMechanism, assessmentSection, () => 0.1, "Test");
+                }, failureMechanism, assessmentSection, () => norm, "Test");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -468,11 +468,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanism.Contribution,
-                            failureMechanism.GeneralInput.N);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
                     }
                 }
             }
@@ -484,6 +480,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
@@ -505,7 +502,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 new ObservableList<HydraulicBoundaryLocationCalculation>
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                }, failureMechanism, assessmentSection, () => 0.1, "Test");
+                }, failureMechanism, assessmentSection, () => norm, "Test");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -534,11 +531,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanism.Contribution,
-                            failureMechanism.GeneralInput.N);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
                     }
                 }
             }
@@ -550,6 +543,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -570,7 +564,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 new ObservableList<HydraulicBoundaryLocationCalculation>
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                }, failureMechanism, assessmentSection, () => 0.1, "Test");
+                }, failureMechanism, assessmentSection, () => norm, "Test");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -599,11 +593,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanism.Contribution,
-                            failureMechanism.GeneralInput.N);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
                     }
                 }
             }

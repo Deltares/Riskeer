@@ -584,13 +584,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    double mechanismSpecificNorm = GetFailureMechanismSpecificNorm(assessmentSection, failureMechanism);
-
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                         nodeData.WrappedData,
-                        mechanismSpecificNorm,
+                        nodeData.GetNormFunc(),
                         new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
                 });
 
