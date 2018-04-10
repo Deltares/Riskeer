@@ -31,7 +31,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {
@@ -69,33 +68,6 @@ namespace Ringtoets.Common.Forms.TestUtil
                 FailureMechanismSection failureMechanismSection = sectionsArray[index];
                 CollectionAssert.AreEquivalent(failureMechanismSection.Points, geometry.PointCollections.First());
             }
-        }
-
-        /// <summary>
-        /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the <paramref name="hydraulicBoundaryLocations"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations that contain the original data.</param>
-        /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
-        /// <exception cref="AssertionException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>;</item>
-        /// <item>the name of the <see cref="MapData"/> is not <c>"Hydraulische randvoorwaarden"</c>;</item>
-        /// <item>the number of hydraulic boundary locations and features in <see cref="MapData"/> are not the same;</item>
-        /// <item>the point of a hydraulic boundary location and the geometry of a corresponding feature are not the same.</item>
-        /// </list>
-        /// </exception>
-        public static void AssertHydraulicBoundaryLocationsMapData(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapPointData>(mapData);
-            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
-
-            var hydraulicLocationsMapData = (MapPointData) mapData;
-
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = hydraulicBoundaryLocations.ToArray();
-
-            Assert.AreEqual(hydraulicBoundaryLocationsArray.Length, hydraulicLocationsMapData.Features.Count());
-            CollectionAssert.AreEqual(hydraulicBoundaryLocationsArray.Select(hrp => hrp.Location),
-                                      hydraulicLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
         }
 
         /// <summary>

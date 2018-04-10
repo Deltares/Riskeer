@@ -231,7 +231,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
+                GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
                                           mapDataList[calculationsIndex]);
@@ -262,7 +262,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, hydraulicBoundaryLocationsMapData);
 
                 // When
                 GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
@@ -273,7 +273,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
             }
         }

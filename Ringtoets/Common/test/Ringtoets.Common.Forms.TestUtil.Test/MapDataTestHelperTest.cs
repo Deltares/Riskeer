@@ -32,7 +32,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Util.TypeConverters;
 
@@ -188,108 +187,6 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
 
             // Call
             TestDelegate test = () => MapDataTestHelper.AssertFailureMechanismSectionsMapData(sections, mapData);
-
-            // Assert
-            Assert.DoesNotThrow(test);
-        }
-
-        #endregion
-
-        #region AssertHydraulicBoundaryLocationsMapData
-
-        [Test]
-        public void AssertHydraulicBoundaryLocationsMapData_MapDataNotPointData_ThrowAssertionException()
-        {
-            // Setup
-            var mapData = new MapLineData("Hydraulische randvoorwaarden");
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(Enumerable.Empty<HydraulicBoundaryLocation>(), mapData);
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
-        }
-
-        [Test]
-        public void AssertHydraulicBoundaryLocationsMapData_FeaturesNotSameAsLocations_ThrowAssertionException()
-        {
-            // Setup
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
-            {
-                new HydraulicBoundaryLocation(1, "test1", 1, 0)
-            };
-
-            var mapData = new MapPointData("Hydraulische randvoorwaarden");
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryLocations, mapData);
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
-        }
-
-        [Test]
-        public void AssertHydraulicBoundaryLocationsMapData_FeatureGeometryNotSameAsLocations_ThrowAssertionException()
-        {
-            // Setup
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
-            {
-                new HydraulicBoundaryLocation(1, "test1", 1, 0)
-            };
-
-            var mapData = new MapPointData("Hydraulische randvoorwaarden")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(0, 0)
-                            }
-                        })
-                    })
-                }
-            };
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryLocations, mapData);
-
-            // Assert
-            Assert.Throws<AssertionException>(test);
-        }
-
-        [Test]
-        public void AssertHydraulicBoundaryLocationsMapData_WithHydraulicBoundaryLocationsMapDataCorrect_DoesNotThrow()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1, 0);
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
-            {
-                hydraulicBoundaryLocation
-            };
-
-            var mapData = new MapPointData("Hydraulische randvoorwaarden")
-            {
-                Features = new[]
-                {
-                    new MapFeature(new[]
-                    {
-                        new MapGeometry(new[]
-                        {
-                            new[]
-                            {
-                                new Point2D(1, 0)
-                            }
-                        })
-                    })
-                }
-            };
-
-            // Call
-            TestDelegate test = () => MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(hydraulicBoundaryLocations, mapData);
 
             // Assert
             Assert.DoesNotThrow(test);
