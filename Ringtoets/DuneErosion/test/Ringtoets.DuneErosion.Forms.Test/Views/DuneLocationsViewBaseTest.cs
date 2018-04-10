@@ -28,6 +28,7 @@ using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.Views;
 
 namespace Ringtoets.DuneErosion.Forms.Test.Views
@@ -254,7 +255,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
         private class TestCalculatableRow : DuneLocationRow
         {
-            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base(calculatableObject, dl => new DuneLocationCalculation())
+            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base(calculatableObject, dl => new DuneLocationCalculation(new TestDuneLocation()))
             {
                 ShouldCalculate = calculatableObject.IsChecked;
             }

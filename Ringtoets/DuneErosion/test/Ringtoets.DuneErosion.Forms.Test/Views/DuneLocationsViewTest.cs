@@ -38,6 +38,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -83,7 +84,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Call
             TestDelegate call = () => new DuneLocationsView(null,
-                                                            dl => new DuneLocationCalculation(),
+                                                            dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                             new DuneErosionFailureMechanism(),
                                                             assessmentSection);
 
@@ -119,7 +120,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Call
             TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                            dl => new DuneLocationCalculation(),
+                                                            dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                             null,
                                                             assessmentSection);
 
@@ -133,7 +134,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Call
             TestDelegate call = () => new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                            dl => new DuneLocationCalculation(),
+                                                            dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                             new DuneErosionFailureMechanism(),
                                                             null);
 
@@ -153,7 +154,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Call
             using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                    dl => new DuneLocationCalculation(),
+                                                    dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                     failureMechanism,
                                                     assessmentSection))
             {
@@ -266,7 +267,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Call
             using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                    dl => new DuneLocationCalculation(),
+                                                    dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                     new DuneErosionFailureMechanism(),
                                                     assessmentSection))
             {
