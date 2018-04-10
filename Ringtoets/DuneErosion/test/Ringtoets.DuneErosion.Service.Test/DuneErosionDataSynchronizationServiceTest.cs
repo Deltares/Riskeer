@@ -252,5 +252,43 @@ namespace Ringtoets.DuneErosion.Service.Test
                     location
                 }, affected);
         }
+
+        [Test]
+        public void ClearDuneLocationOutput_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearDuneLocationOutput_CalculationsWithOutput_OutputClearedAndAffectedItemsReturned()
+        {
+            // Setup
+            var calculationWithOutput = new DuneLocationCalculation(new TestDuneLocation())
+            {
+                Output = new TestDuneLocationOutput()
+            };
+            var calculationWithoutOutput = new DuneLocationCalculation(new TestDuneLocation());
+
+            var calculations = new[]
+            {
+                calculationWithOutput,
+                calculationWithoutOutput
+            };
+
+            // Call
+            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(calculations);
+
+            // Assert
+            Assert.IsNull(calculationWithOutput.Output);
+            CollectionAssert.AreEqual(new[]
+            {
+                calculationWithOutput
+            }, affected);
+        }
     }
 }

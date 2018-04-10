@@ -58,10 +58,12 @@ namespace Ringtoets.DuneErosion.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+
             if (duneLocations == null)
             {
                 throw new ArgumentNullException(nameof(duneLocations));
@@ -110,6 +112,32 @@ namespace Ringtoets.DuneErosion.Service
 
             return locations.SelectMany(ClearDuneLocationOutput)
                             .ToArray();
+        }
+
+        /// <summary>
+        /// Clears the output of the dune location calculations within the collection.
+        /// </summary>
+        /// <param name="calculations">The calculations for which the output needs to be cleared.</param>
+        /// <returns>All objects changed during the clear.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearDuneCalculationsOutput(IEnumerable<DuneLocationCalculation> calculations)
+        {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            var affectedCalculations = new List<IObservable>();
+            foreach (DuneLocationCalculation calculation in calculations)
+            {
+                if (calculation.Output != null)
+                {
+                    calculation.Output = null;
+                    affectedCalculations.Add(calculation);
+                }
+            }
+
+            return affectedCalculations;
         }
 
         private static bool DoesHydraulicBoundaryLocationMatchWithDuneLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation,
