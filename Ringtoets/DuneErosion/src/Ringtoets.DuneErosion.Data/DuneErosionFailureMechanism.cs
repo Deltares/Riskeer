@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
@@ -34,6 +35,11 @@ namespace Ringtoets.DuneErosion.Data
     public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResult>
     {
         private readonly ObservableList<DuneErosionFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<DuneLocationCalculation>();
+        private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificSignalingNorm = new ObservableList<DuneLocationCalculation>();
+        private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
+        private readonly ObservableList<DuneLocationCalculation> calculationsForLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
+        private readonly ObservableList<DuneLocationCalculation> calculationsForFactorizedLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.
@@ -44,6 +50,12 @@ namespace Ringtoets.DuneErosion.Data
             sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocations = new ObservableList<DuneLocation>();
+
+            CalculationsForMechanismSpecificFactorizedSignalingNorm = calculationsForMechanismSpecificFactorizedSignalingNorm;
+            CalculationsForMechanismSpecificSignalingNorm = calculationsForMechanismSpecificSignalingNorm;
+            CalculationsForMechanismSpecificLowerLimitNorm = calculationsForMechanismSpecificLowerLimitNorm;
+            CalculationsForLowerLimitNorm = calculationsForLowerLimitNorm;
+            CalculationsForFactorizedLowerLimitNorm = calculationsForFactorizedLowerLimitNorm;
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -64,11 +76,55 @@ namespace Ringtoets.DuneErosion.Data
         /// </summary>
         public ObservableList<DuneLocation> DuneLocations { get; }
 
+        /// <summary>
+        /// Gets the calculations corresponding to the mechanism specific factorized signaling norm.
+        /// </summary>
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificFactorizedSignalingNorm { get; }
+
+        /// <summary>
+        /// Gets the calculations corresponding to the mechanism specific signaling norm.
+        /// </summary>
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificSignalingNorm { get; }
+
+        /// <summary>
+        /// Gets the calculations corresponding to the mechanism specific lower limit norm.
+        /// </summary>
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificLowerLimitNorm { get; }
+
+        /// <summary>
+        /// Gets the calculations corresponding to the lower limit norm.
+        /// </summary>
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForLowerLimitNorm { get; }
+
+        /// <summary>
+        /// Gets the calculations corresponding to the factorized lower limit norm.
+        /// </summary>
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForFactorizedLowerLimitNorm { get; set; }
+
         public IObservableEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
         {
             get
             {
                 return sectionResults;
+            }
+        }
+
+        /// <summary>
+        /// Sets dune location calculations for <paramref name="duneLocations"/>.
+        /// </summary>
+        /// <param name="duneLocations">The dune locations to add calculations for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/> is <c>null</c>.</exception>
+        public void SetDuneLocationCalculations(IEnumerable<DuneLocation> duneLocations)
+        {
+            if (duneLocations == null)
+            {
+                throw new ArgumentNullException(nameof(duneLocations));
+            }
+
+            ClearAllCalculations();
+            foreach (DuneLocation duneLocation in duneLocations)
+            {
+                AddCalculationsForDuneLocation(duneLocation);
             }
         }
 
@@ -83,6 +139,24 @@ namespace Ringtoets.DuneErosion.Data
         {
             base.ClearAllSections();
             sectionResults.Clear();
+        }
+
+        private void ClearAllCalculations()
+        {
+            calculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
+            calculationsForMechanismSpecificSignalingNorm.Clear();
+            calculationsForMechanismSpecificLowerLimitNorm.Clear();
+            calculationsForLowerLimitNorm.Clear();
+            calculationsForFactorizedLowerLimitNorm.Clear();
+        }
+
+        private void AddCalculationsForDuneLocation(DuneLocation duneLocation)
+        {
+            calculationsForMechanismSpecificFactorizedSignalingNorm.Add(new DuneLocationCalculation(duneLocation));
+            calculationsForMechanismSpecificSignalingNorm.Add(new DuneLocationCalculation(duneLocation));
+            calculationsForMechanismSpecificLowerLimitNorm.Add(new DuneLocationCalculation(duneLocation));
+            calculationsForLowerLimitNorm.Add(new DuneLocationCalculation(duneLocation));
+            calculationsForFactorizedLowerLimitNorm.Add(new DuneLocationCalculation(duneLocation));
         }
     }
 }
