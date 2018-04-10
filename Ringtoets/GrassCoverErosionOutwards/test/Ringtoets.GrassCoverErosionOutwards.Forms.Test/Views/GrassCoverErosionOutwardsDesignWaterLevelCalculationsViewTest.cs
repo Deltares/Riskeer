@@ -451,15 +451,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                norm,
-                failureMechanism.Contribution,
-                failureMechanism.GeneralInput.N);
-
             Assert.IsInstanceOf<GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider>(messageProviderValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
-            Assert.AreEqual(expectedNorm, normValue);
+            Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(calculations.First(), performedCalculations.First());
         }
@@ -519,15 +514,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                norm,
-                failureMechanism.Contribution,
-                failureMechanism.GeneralInput.N);
-
             Assert.IsInstanceOf<GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider>(messageProviderValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
-            Assert.AreEqual(expectedNorm, normValue);
+            Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(calculations.First(), performedCalculations.First());
         }
@@ -586,15 +576,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                norm,
-                failureMechanism.Contribution,
-                failureMechanism.GeneralInput.N);
-
             Assert.IsInstanceOf<GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider>(messageProviderValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
-            Assert.AreEqual(expectedNorm, normValue);
+            Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(calculations.First(), performedCalculations.First());
         }
