@@ -173,7 +173,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationsView(context.WrappedData,
                                                                                                     context.FailureMechanism,
                                                                                                     context.AssessmentSection,
-                                                                                                    () => context.AssessmentSection.FailureMechanismContribution.Norm),
+                                                                                                    context.GetNormFunc),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
