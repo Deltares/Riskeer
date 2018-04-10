@@ -38,10 +38,20 @@ SELECT
 	[ClosingStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[ClosingStructuresCalculationEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
@@ -119,10 +129,15 @@ SELECT
 	[GrassCoverErosionInwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[GrassCoverErosionInwardsCalculationEntityId],
+	[LayerOne],
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
@@ -215,10 +230,20 @@ SELECT
 	[HeightStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[HeightStructuresCalculationEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
@@ -446,10 +471,15 @@ SELECT
 	[StabilityPointStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[StabilityPointStructuresCalculationEntityId],
+	[LayerOne],
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
