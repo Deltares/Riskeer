@@ -21,11 +21,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Util.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
@@ -71,37 +71,45 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil
                 Assert.AreEqual(hydraulicBoundaryLocation.Location, mapFeature.MapGeometries.First().PointCollections.First().First());
 
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "h(Iv->IIv)");
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "h(IIv->IIIv)");
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "h(IIIv->IVv)");
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "h(IVv->Vv)");
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "h(Vv->VIv)");
 
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "hs(Iv->IIv)");
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "hs(IIv->IIIv)");
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "hs(IIIv->IVv)");
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "hs(IVv->Vv)");
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                    MapFeaturesTestHelper.GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "hs(Vv->VIv)");
             }
+        }
+
+        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            return calculations
+                   .Single(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
+                   .Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }
