@@ -283,10 +283,20 @@ INSERT INTO MacroStabilityInwardsSectionResultEntity (
 SELECT
 	[MacroStabilityInwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity;
@@ -350,10 +360,20 @@ INSERT INTO PipingSectionResultEntity (
 SELECT
 	[PipingSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].PipingSectionResultEntity;
