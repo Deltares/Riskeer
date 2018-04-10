@@ -102,13 +102,15 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative for the data of
         /// hydraulic boundary locations and calculations in <paramref name="assessmentSection"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section that contain the original data.</param>
+        /// <param name="assessmentSection">The assessment section that contains the original data.</param>
         /// <param name="mapData">The <see cref="MapData"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="mapData"/> is not <see cref="MapPointData"/>;</item>
         /// <item>the number of hydraulic boundary locations and features in <see cref="MapData"/> are not the same;</item>
-        /// <item>the wave height or the design water level calculation results of a hydraulic boundary location and the 
+        /// <item>the general properties (such as id, name and location) of hydraulic boundary locations and features in
+        /// <see cref="MapData"/> are not the same;</item>
+        /// <item>the wave height or the design water level calculation results of a hydraulic boundary location and the
         /// respective outputs of a corresponding feature are not the same.</item>
         /// </list>
         /// </exception>

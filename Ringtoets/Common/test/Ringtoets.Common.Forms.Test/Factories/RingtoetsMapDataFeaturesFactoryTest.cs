@@ -154,11 +154,6 @@ namespace Ringtoets.Common.Forms.Test.Factories
 
             // Assert
             MapFeaturesTestHelper.AssertHydraulicBoundaryFeaturesData(assessmentSection, features);
-
-            Point2D[] expectedPoints = assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                        .Select(location => location.Location)
-                                                        .ToArray();
-            AssertEqualFeatureCollections(expectedPoints, features);
         }
 
         [Test]
@@ -703,18 +698,6 @@ namespace Ringtoets.Common.Forms.Test.Factories
             Assert.AreEqual(expectedNumberOfMetaDataOptions, features.ElementAt(1).MetaData.Count);
             Assert.AreEqual(foreshoreProfiles[0].Name, features.First().MetaData["Naam"]);
             Assert.AreEqual(foreshoreProfiles[2].Name, features.ElementAt(1).MetaData["Naam"]);
-        }
-
-        private static void AssertEqualFeatureCollections(Point2D[] points, IEnumerable<MapFeature> features)
-        {
-            Assert.AreEqual(points.Length, features.Count());
-            for (var i = 0; i < points.Length; i++)
-            {
-                CollectionAssert.AreEqual(new[]
-                {
-                    points[i]
-                }, features.ElementAt(i).MapGeometries.First().PointCollections.First());
-            }
         }
 
         private static void CollectionElementsAlmostEquals(IEnumerable<Point2D> expected, Point2D[] actual)

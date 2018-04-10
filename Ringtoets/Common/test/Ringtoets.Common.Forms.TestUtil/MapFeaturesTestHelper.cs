@@ -35,6 +35,21 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// </summary>
     public static class MapFeaturesTestHelper
     {
+        /// <summary>
+        /// Asserts whether <paramref name="features"/> contains the data that is representative for the data of
+        /// hydraulic boundary locations and calculations in <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section that contains the original data.</param>
+        /// <param name="features">The features that need to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>the number of hydraulic boundary locations and features are not the same;</item>
+        /// <item>the general properties (such as id, name and location) of hydraulic boundary locations and features
+        /// are not the same;</item>
+        /// <item>the wave height or the design water level calculation results of a hydraulic boundary location and the
+        /// respective outputs of a corresponding feature are not the same.</item>
+        /// </list>
+        /// </exception>
         public static void AssertHydraulicBoundaryFeaturesData(IAssessmentSection assessmentSection, IEnumerable<MapFeature> features)
         {
             HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
@@ -45,6 +60,10 @@ namespace Ringtoets.Common.Forms.TestUtil
             {
                 HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationsArray[i];
                 MapFeature mapFeature = features.ElementAt(i);
+
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, mapFeature.MetaData["ID"]);
+                Assert.AreEqual(hydraulicBoundaryLocation.Name, mapFeature.MetaData["Naam"]);
+                Assert.AreEqual(hydraulicBoundaryLocation.Location, mapFeature.MapGeometries.First().PointCollections.First());
 
                 MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
