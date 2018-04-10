@@ -543,9 +543,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity OLD USING(HeightStructuresSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.HeightStructuresCalculationEntityId IS OLD.HeightStructuresCalculationEntityId " +
-                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
-                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
+                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
+                "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
                 "AND NEW.UseManualAssemblyProbability = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
@@ -563,9 +566,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity OLD USING(ClosingStructuresSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.ClosingStructuresCalculationEntityId IS OLD.ClosingStructuresCalculationEntityId " +
-                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
-                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
+                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
+                "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
                 "AND NEW.UseManualAssemblyProbability = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
@@ -585,7 +591,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "AND NEW.StabilityPointStructuresCalculationEntityId IS OLD.StabilityPointStructuresCalculationEntityId " +
                 "AND NEW.SimpleAssessmentResult IS OLD.LayerOne " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
-                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
+                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
+                "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
                 "AND NEW.UseManualAssemblyProbability = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
@@ -605,7 +612,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "AND NEW.GrassCoverErosionInwardsCalculationEntityId IS OLD.GrassCoverErosionInwardsCalculationEntityId " +
                 "AND NEW.SimpleAssessmentResult IS OLD.LayerOne " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
-                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
+                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
+                "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
                 "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
                 "AND NEW.UseManualAssemblyProbability = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
@@ -622,10 +630,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM PipingSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].PipingSectionResultEntity OLD USING(PipingSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
-                "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.TailorMadeAssessmentProbability IS NULL " +
+                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
+                "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
+                "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
                 "AND NEW.UseManualAssemblyProbability = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
                 "DETACH DATABASE SOURCEPROJECT;";
@@ -641,10 +652,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM MacroStabilityInwardsSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity OLD USING(MacroStabilityInwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
-                "AND NEW.TailorMadeAssessmentResult = 1 " +
-                "AND NEW.TailorMadeAssessmentProbability IS NULL " +
+                "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
+                "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
+                "AND NEW.TailorMadeAssessmentProbability IS OLD.LayerThree " +
                 "AND NEW.UseManualAssemblyProbability = 0 " +
                 "AND NEW.ManualAssemblyProbability IS NULL; " +
                 "DETACH DATABASE SOURCEPROJECT;";
@@ -660,7 +674,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM DuneErosionSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity OLD USING(DuneErosionSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.SimpleAssessmentResult IS OLD.LayerOne " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
@@ -682,7 +696,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM GrassCoverErosionOutwardsSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity OLD USING(GrassCoverErosionOutwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
@@ -704,7 +720,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM StabilityStoneCoverSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity OLD USING(StabilityStoneCoverSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND NEW.SimpleAssessmentResult IS OLD.LayerOne " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
@@ -726,7 +742,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM WaveImpactAsphaltCoverSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity OLD USING(WaveImpactAsphaltCoverSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
@@ -748,7 +766,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM GrassCoverSlipOffInwardsSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity OLD USING (GrassCoverSlipOffInwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
@@ -766,7 +786,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM GrassCoverSlipOffOutwardsSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity OLD USING (GrassCoverSlipOffOutwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
@@ -784,9 +806,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM MacroStabilityOutwardsSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity OLD USING (MacroStabilityOutwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
-                "AND NEW.DetailedAssessmentProbability IS NULL " +
+                "AND NEW.DetailedAssessmentProbability IS OLD.LayerTwoA " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentProbability IS NULL " +
                 "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
@@ -804,7 +828,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM MicrostabilitySectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity OLD USING (MicrostabilitySectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
@@ -822,7 +848,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM PipingStructureSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity OLD USING (PipingStructureSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
@@ -840,7 +868,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM StrengthStabilityLengthwiseConstructionSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity OLD USING (StrengthStabilityLengthwiseConstructionSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
@@ -857,7 +887,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM TechnicalInnovationSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].TechnicalInnovationSectionResultEntity OLD USING (TechnicalInnovationSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
@@ -874,7 +906,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM WaterPressureAsphaltCoverSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity OLD USING (WaterPressureAsphaltCoverSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult = 1 " +
+                "AND ((OLD.LayerOne = 1 AND NEW.SimpleAssessmentResult = 1) " +
+                "OR (OLD.LayerOne = 2 AND NEW.SimpleAssessmentResult = 2) " +
+                "OR (OLD.LayerOne = 3 AND NEW.SimpleAssessmentResult = 4)) " +
                 "AND NEW.TailorMadeAssessmentResult = 1 " +
                 "AND NEW.UseManualAssemblyCategoryGroup = 0 " +
                 "AND NEW.ManualAssemblyCategoryGroup = 1; " +
