@@ -87,5 +87,9 @@
       <Project>{D1234D03-76BC-437D-B941-DFF14A2A108D}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Data.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil.csproj">
+      <Project>{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Util.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
