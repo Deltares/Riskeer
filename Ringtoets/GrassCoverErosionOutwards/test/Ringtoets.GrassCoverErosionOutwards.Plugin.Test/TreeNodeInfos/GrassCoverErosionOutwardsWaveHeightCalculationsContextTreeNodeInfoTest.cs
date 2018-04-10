@@ -93,14 +93,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnName()
+        public void Text_Always_ReturnCategoryBoundaryName()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
+
+            const string categoryBoundaryName = "Category";
             var context = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                     assessmentSection, () => 0.1, "Test");
+                                                                                     assessmentSection, () => 0.1,
+                                                                                     categoryBoundaryName);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -109,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 string nodeText = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("Golfhoogtes bij doorsnede-eis", nodeText);
+                Assert.AreEqual(categoryBoundaryName, nodeText);
             }
 
             mockRepository.VerifyAll();
