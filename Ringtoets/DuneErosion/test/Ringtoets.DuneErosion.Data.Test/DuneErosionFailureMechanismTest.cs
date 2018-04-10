@@ -170,7 +170,7 @@ namespace Ringtoets.DuneErosion.Data.Test
             Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.CalculationsForFactorizedLowerLimitNorm.Count());
         }
 
-        private void AssertDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism, int index, DuneLocation expectedDuneLocation)
+        private static void AssertDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism, int index, DuneLocation expectedDuneLocation)
         {
             AssertDefaultDuneLocationCalculation(expectedDuneLocation, failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(index));
             AssertDefaultDuneLocationCalculation(expectedDuneLocation, failureMechanism.CalculationsForMechanismSpecificSignalingNorm.ElementAt(index));

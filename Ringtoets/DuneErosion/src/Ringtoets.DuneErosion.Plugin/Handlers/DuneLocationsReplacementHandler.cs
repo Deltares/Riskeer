@@ -74,6 +74,7 @@ namespace Ringtoets.DuneErosion.Plugin.Handlers
             DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
                                                                    newHydraulicBoundaryLocations,
                                                                    newDuneLocations.ToArray());
+            failureMechanism.SetDuneLocationCalculations(failureMechanism.DuneLocations);
         }
 
         /// <summary>
