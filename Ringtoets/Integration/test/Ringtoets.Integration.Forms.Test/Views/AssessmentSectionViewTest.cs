@@ -120,8 +120,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsNotNull(mapData);
 
                 MapData hydraulicBoundaryLocationsMapData = mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-                AssertHydraulicBoundarLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                       hydraulicBoundaryLocationsMapData);
+                AssertHydraulicBoundarLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
                 MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
                 AssertReferenceLineMapData(referenceLine, referenceLineMapData);
@@ -153,7 +152,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
                 // When
                 HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
@@ -161,7 +160,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 calculation.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
             }
         }
@@ -188,8 +187,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                AssertHydraulicBoundarLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                       hydraulicBoundaryLocationsMapData);
+                AssertHydraulicBoundarLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
                 // When
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -200,8 +198,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then
-                AssertHydraulicBoundarLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations,
-                                                       hydraulicBoundaryLocationsMapData);
+                AssertHydraulicBoundarLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
             }
         }
@@ -308,9 +305,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsTrue(referenceLineMapData.IsVisible);
         }
 
-        private static void AssertHydraulicBoundarLocationsMapData(IEnumerable<HydraulicBoundaryLocation> locations, MapData hydraulicBoundaryLocationsMapData)
+        private static void AssertHydraulicBoundarLocationsMapData(IAssessmentSection assessmentSection, MapData hydraulicBoundaryLocationsMapData)
         {
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(locations, hydraulicBoundaryLocationsMapData);
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
             Assert.IsTrue(hydraulicBoundaryLocationsMapData.IsVisible);
         }
 

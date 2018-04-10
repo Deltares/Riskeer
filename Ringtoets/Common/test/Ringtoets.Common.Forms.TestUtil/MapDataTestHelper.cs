@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// respective outputs of a corresponding feature are not the same.</item>
         /// </list>
         /// </exception>
-        public static void AssertHydraulicBoundaryLocationOutputsMapData(IAssessmentSection assessmentSection, MapData mapData)
+        public static void AssertHydraulicBoundaryLocationsMapData(IAssessmentSection assessmentSection, MapData mapData)
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
             var hydraulicLocationsMapData = (MapPointData) mapData;
