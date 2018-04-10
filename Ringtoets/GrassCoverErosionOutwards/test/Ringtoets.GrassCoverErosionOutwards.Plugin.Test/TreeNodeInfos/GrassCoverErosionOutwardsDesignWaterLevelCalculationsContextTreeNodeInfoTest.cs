@@ -379,6 +379,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void CalculateDesignWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -396,7 +397,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
                 }, failureMechanism, assessmentSection,
-                () => 0.01,
+                () => norm,
                 "Category");
 
             using (var treeViewControl = new TreeViewControl())
@@ -426,11 +427,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanism.Contribution,
-                            failureMechanism.GeneralInput.N);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
                     }
                 }
             }
@@ -442,6 +439,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void CalculateDesignWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
@@ -464,7 +462,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
                 }, failureMechanism, assessmentSection,
-                () => 0.01,
+                () => norm,
                 "Category");
 
             using (var treeViewControl = new TreeViewControl())
@@ -494,11 +492,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanism.Contribution,
-                            failureMechanism.GeneralInput.N);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
                     }
                 }
             }
@@ -510,6 +504,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void CalculateDesignWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -531,7 +526,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
                 }, failureMechanism, assessmentSection,
-                () => 0.01,
+                () => norm,
                 "Category");
 
             using (var treeViewControl = new TreeViewControl())
@@ -561,11 +556,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanism.Contribution,
-                            failureMechanism.GeneralInput.N);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
                     }
                 }
             }
