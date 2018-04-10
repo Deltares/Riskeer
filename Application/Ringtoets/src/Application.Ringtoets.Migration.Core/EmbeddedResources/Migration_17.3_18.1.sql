@@ -72,7 +72,7 @@ INSERT INTO DuneErosionSectionResultEntity (
 SELECT 
 	[DuneErosionSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	[LayerOne],
 	1,
 	1,
 	1,
@@ -156,7 +156,12 @@ INSERT INTO GrassCoverErosionOutwardsSectionResultEntity (
 SELECT 
 	[GrassCoverErosionOutwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
 	1,
 	1,
@@ -528,7 +533,7 @@ INSERT INTO StabilityStoneCoverSectionResultEntity (
 SELECT 
 	[StabilityStoneCoverSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	[LayerOne],
 	1,
 	1,
 	1,
@@ -627,7 +632,12 @@ INSERT INTO WaveImpactAsphaltCoverSectionResultEntity (
 SELECT 
 	[WaveImpactAsphaltCoverSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
 	1,
 	1,
