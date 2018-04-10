@@ -602,6 +602,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver = mocks.StrictMock<IObserver>();
 
             var duneLocationsObserver = mocks.StrictMock<IObserver>();
+            var duneLocationCalculationsForMechanismSpecificFactorizedSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var duneLocationCalculationsForMechanismSpecificSignalingNormObserver = mocks.StrictMock<IObserver>();
+            var duneLocationCalculationsForMechanismSpecificLowerLimitNormObserver = mocks.StrictMock<IObserver>();
+            var duneLocationCalculationsForLowerLimitNormObserver = mocks.StrictMock<IObserver>();
+            var duneLocationCalculationsForFactorizedLowerLimitNormObserver = mocks.StrictMock<IObserver>();
 
             assessmentSection.HydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
             assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(hydraulicBoundaryLocationsObserver);
@@ -625,6 +630,11 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Attach(waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver);
 
             assessmentSection.DuneErosion.DuneLocations.Attach(duneLocationsObserver);
+            assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.Attach(duneLocationCalculationsForMechanismSpecificFactorizedSignalingNormObserver);
+            assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm.Attach(duneLocationCalculationsForMechanismSpecificSignalingNormObserver);
+            assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm.Attach(duneLocationCalculationsForMechanismSpecificLowerLimitNormObserver);
+            assessmentSection.DuneErosion.CalculationsForLowerLimitNorm.Attach(duneLocationCalculationsForLowerLimitNormObserver);
+            assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm.Attach(duneLocationCalculationsForFactorizedLowerLimitNormObserver);
 
             if (expectUpdateObserver)
             {
@@ -650,6 +660,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver.Expect(o => o.UpdateObserver());
 
                 duneLocationsObserver.Expect(o => o.UpdateObserver());
+
+                duneLocationCalculationsForMechanismSpecificFactorizedSignalingNormObserver.Expect(o => o.UpdateObserver());
+                duneLocationCalculationsForMechanismSpecificSignalingNormObserver.Expect(o => o.UpdateObserver());
+                duneLocationCalculationsForMechanismSpecificLowerLimitNormObserver.Expect(o => o.UpdateObserver());
+                duneLocationCalculationsForLowerLimitNormObserver.Expect(o => o.UpdateObserver());
+                duneLocationCalculationsForFactorizedLowerLimitNormObserver.Expect(o => o.UpdateObserver());
             }
         }
 
