@@ -254,41 +254,55 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void ClearDuneLocationOutput_CalculationsNull_ThrowsArgumentNullException()
+        public void ClearDuneCalculationOutputs_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(null);
+            TestDelegate call = () => DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculations", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
-        public void ClearDuneLocationOutput_CalculationsWithOutput_OutputClearedAndAffectedItemsReturned()
+        public void ClearDuneCalculationOutputs_CalculationsWithOutput_OutputClearedAndAffectedItemsReturned()
         {
             // Setup
-            var calculationWithOutput = new DuneLocationCalculation(new TestDuneLocation())
+            var duneLocations = new[]
             {
-                Output = new TestDuneLocationOutput()
+                new TestDuneLocation(),
+                new TestDuneLocation()
             };
-            var calculationWithoutOutput = new DuneLocationCalculation(new TestDuneLocation());
 
-            var calculations = new[]
-            {
-                calculationWithOutput,
-                calculationWithoutOutput
-            };
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocations.AddRange(duneLocations);
+            failureMechanism.SetDuneLocationCalculations(duneLocations);
+
+            failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationOutput();
 
             // Call
-            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(calculations);
+            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(failureMechanism);
 
             // Assert
-            Assert.IsNull(calculationWithOutput.Output);
-            CollectionAssert.AreEqual(new[]
+            var expectedAffectedCalculations = new[]
             {
-                calculationWithOutput
-            }, affected);
+                failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
+                failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First(),
+                failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First(),
+                failureMechanism.CalculationsForLowerLimitNorm.First(),
+                failureMechanism.CalculationsForFactorizedLowerLimitNorm.First()
+            };
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
+
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
         }
     }
 }
