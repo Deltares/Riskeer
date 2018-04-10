@@ -209,6 +209,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismView<IFailureMechanism>>(view);
+
+            var failureMechanismView = (FailureMechanismView<IFailureMechanism>) view;
+            Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
+            Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
         private class TestFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>

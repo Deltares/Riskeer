@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -43,6 +44,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly MapPointData sectionsStartPointMapData;
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
+
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
         private Observer hydraulicBoundaryLocationsObserver;
@@ -60,7 +62,7 @@ namespace Ringtoets.Common.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismView{T}"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
-        /// <param name="assessmentSection">The assessment section to show data for.</param>
+        /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public FailureMechanismView(T failureMechanism, IAssessmentSection assessmentSection)
         {
@@ -94,7 +96,7 @@ namespace Ringtoets.Common.Forms.Views
             mapDataCollection.Add(sectionsEndPointMapData);
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
 
-            SetAllMappDataFeatures();
+            SetAllMapDataFeatures();
             ringtoetsMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
         }
 
@@ -173,7 +175,7 @@ namespace Ringtoets.Common.Forms.Views
                 AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
         }
 
-        private void SetAllMappDataFeatures()
+        private void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
             SetSectionsMapData();
@@ -208,7 +210,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void SetSectionsMapData()
         {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections.ToArray();
 
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
