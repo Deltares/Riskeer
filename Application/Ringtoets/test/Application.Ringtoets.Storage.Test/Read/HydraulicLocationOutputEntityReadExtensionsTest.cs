@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_EntityWithIllustrationPoints_ReturnsHydraulicBoundarLocationOutputWithGeneralResult()
+        public void Read_EntityWithIllustrationPoints_ReturnsHydraulicBoundaryLocationOutputWithGeneralResult()
         {
             // Setup
             var random = new Random(21);

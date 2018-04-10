@@ -218,7 +218,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithHydraulicBoundarLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var assessmentSection = new AssessmentSectionStub();

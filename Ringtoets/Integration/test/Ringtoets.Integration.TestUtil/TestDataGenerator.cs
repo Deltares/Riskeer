@@ -681,7 +681,7 @@ namespace Ringtoets.Integration.TestUtil
             };
 
             var subCalculation = new StabilityStoneCoverWaveConditionsCalculation();
-            var subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile = new StabilityStoneCoverWaveConditionsCalculation
+            var subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -726,7 +726,7 @@ namespace Ringtoets.Integration.TestUtil
                 Children =
                 {
                     subCalculation,
-                    subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile,
+                    subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
                     subCalculationWithHydraulicBoundaryLocation,
                     subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
@@ -807,7 +807,7 @@ namespace Ringtoets.Integration.TestUtil
             };
 
             var subCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            var subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -850,7 +850,7 @@ namespace Ringtoets.Integration.TestUtil
                 Children =
                 {
                     subCalculation,
-                    subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile,
+                    subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
                     subCalculationWithHydraulicBoundaryLocation,
                     subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile
@@ -944,7 +944,7 @@ namespace Ringtoets.Integration.TestUtil
             };
 
             var subCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -987,7 +987,7 @@ namespace Ringtoets.Integration.TestUtil
                 Children =
                 {
                     subCalculation,
-                    subCalculationWithOutputAndHydraulicBoundarLocationAndForeshoreProfile,
+                    subCalculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile,
                     subCalculationWithOutputAndHydraulicBoundaryLocation,
                     subCalculationWithHydraulicBoundaryLocation,
                     subCalculationWithHydraulicBoundaryLocationAndForeshoreProfile

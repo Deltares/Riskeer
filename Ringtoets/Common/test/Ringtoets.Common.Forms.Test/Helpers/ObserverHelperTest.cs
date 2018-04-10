@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> observer = 
+            RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> observer =
                 ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, () => {});
 
             // Assert
