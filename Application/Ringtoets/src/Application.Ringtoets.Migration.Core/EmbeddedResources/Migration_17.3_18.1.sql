@@ -184,7 +184,12 @@ INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity (
 SELECT
 	[GrassCoverSlipOffInwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
 	1,
 	0,
@@ -201,7 +206,12 @@ INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity (
 SELECT
 	[GrassCoverSlipOffOutwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
 	1,
 	0,
@@ -324,9 +334,14 @@ INSERT INTO MacroStabilityOutwardsSectionResultEntity (
 SELECT
 	[MacroStabilityOutwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
-	1,
-	NULL,
+	[LayerTwoA],
 	1,
 	NULL,
 	0,
@@ -343,7 +358,12 @@ INSERT INTO MicrostabilitySectionResultEntity (
 SELECT
 	[MicrostabilitySectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
 	1,
 	0,
@@ -461,7 +481,12 @@ INSERT INTO PipingStructureSectionResultEntity (
 SELECT
 	[PipingStructureSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
 	1,
 	0,
@@ -557,7 +582,12 @@ INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity (
 SELECT
 	[StrengthStabilityLengthwiseConstructionSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
 	0,
 	1
@@ -575,7 +605,12 @@ INSERT INTO TechnicalInnovationSectionResultEntity (
 SELECT
 	[TechnicalInnovationSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
 	0,
 	1
@@ -602,7 +637,12 @@ INSERT INTO WaterPressureAsphaltCoverSectionResultEntity (
 SELECT
 	[WaterPressureAsphaltCoverSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
-	1,
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
 	0,
 	1
