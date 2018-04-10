@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -30,6 +31,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -54,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ExpandOnCreate);
-                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNotNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNull(info.CanRemove);
@@ -141,6 +144,70 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
+        {
+            // Setup
+            const double signalingNorm = 0.002;
+            const double lowerLimitNorm = 0.005;
+
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
+            assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var calculationsGroupContext = new GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext(locations, failureMechanism, assessmentSection);
+
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                object[] childNodeObjects = info.ChildNodeObjects(calculationsGroupContext);
+
+                // Assert
+                Assert.AreEqual(5, childNodeObjects.Length);
+
+                GrassCoverErosionOutwardsWaveHeightCalculationsContext[] calculationsContexts = childNodeObjects.OfType<GrassCoverErosionOutwardsWaveHeightCalculationsContext>().ToArray();
+                Assert.AreEqual(5, calculationsContexts.Length);
+
+                Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
+
+                Assert.AreEqual("Categorie Iv->IIv", calculationsContexts[0].CategoryBoundaryName);
+                Assert.AreSame(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
+                Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm / 30), calculationsContexts[0].GetNormFunc());
+
+                Assert.AreEqual("Categorie IIv->IIIv", calculationsContexts[1].CategoryBoundaryName);
+                Assert.AreSame(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, calculationsContexts[1].WrappedData);
+                Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm), calculationsContexts[1].GetNormFunc());
+
+                Assert.AreEqual("Categorie IIIv->IVv", calculationsContexts[2].CategoryBoundaryName);
+                Assert.AreSame(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, calculationsContexts[2].WrappedData);
+                Assert.AreEqual(GetExpectedNorm(failureMechanism, () => lowerLimitNorm), calculationsContexts[2].GetNormFunc());
+
+                Assert.AreEqual("Categorie IVv->Vv", calculationsContexts[3].CategoryBoundaryName);
+                Assert.AreSame(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, calculationsContexts[3].WrappedData);
+                Assert.AreEqual(lowerLimitNorm, calculationsContexts[3].GetNormFunc());
+
+                Assert.AreEqual("Categorie Vv->VIv", calculationsContexts[4].CategoryBoundaryName);
+                Assert.AreSame(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, calculationsContexts[4].WrappedData);
+                Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[4].GetNormFunc());
+            }
+        }
+
+        private static double GetExpectedNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism, Func<double> getNormFunc)
+        {
+            return RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                getNormFunc(),
+                failureMechanism.Contribution,
+                failureMechanism.GeneralInput.N);
         }
 
         private static TreeNodeInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)

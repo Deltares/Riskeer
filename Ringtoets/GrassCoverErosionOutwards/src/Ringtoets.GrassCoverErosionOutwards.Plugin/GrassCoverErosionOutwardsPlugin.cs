@@ -234,7 +234,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 Text = context => Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextMenuStrip
+                ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextMenuStrip,
+                ChildNodeObjects = WaveHeightCalculationsGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
@@ -270,7 +271,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                  .Build()
             };
         }
-        
+
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
             yield return new ExportInfo<HydraulicBoundariesGroupContext>
@@ -1002,6 +1003,38 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
                       .Build();
+        }
+
+        private static object[] WaveHeightCalculationsGroupContextChildNodeObjects(GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext context)
+        {
+            return new object[]
+            {
+                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
+                    context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                    context.FailureMechanism, context.AssessmentSection, () => GetMechanismSpecificFactorizedSignalingHydraulicBoundaryNorm(
+                        context.AssessmentSection,
+                        context.FailureMechanism), Resources.Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name),
+                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
+                    context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                    context.FailureMechanism, context.AssessmentSection, () => GetMechanismSpecificSignalingHydraulicBoundaryNorm(
+                        context.AssessmentSection,
+                        context.FailureMechanism), Resources.Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name),
+                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
+                    context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
+                    context.FailureMechanism, context.AssessmentSection, () => GetMechanismSpecificLowerLimitHydraulicBoundaryNorm(
+                        context.AssessmentSection,
+                        context.FailureMechanism), Resources.Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name),
+                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
+                    context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
+                    context.FailureMechanism, context.AssessmentSection, () => GetLowerLimitHydraulicBoundaryNorm(
+                        context.AssessmentSection,
+                        context.FailureMechanism), Resources.Hydraulic_category_boundary_lowerLimitNorm_name),
+                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
+                    context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
+                    context.FailureMechanism, context.AssessmentSection, () => GetFactorizedLowerLimitHydraulicBoundaryNorm(
+                        context.AssessmentSection,
+                        context.FailureMechanism), Resources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)
+            };
         }
 
         #endregion
