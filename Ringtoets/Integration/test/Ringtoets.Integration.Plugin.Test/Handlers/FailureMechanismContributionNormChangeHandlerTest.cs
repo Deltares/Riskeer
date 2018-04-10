@@ -308,7 +308,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssertHydraulicBoundaryLocationOutput(assessmentSection, true);
 
-            Assert.IsNotNull(assessmentSection.DuneErosion.DuneLocations[1].Calculation.Output);
+            Assert.IsNotNull(assessmentSection.DuneErosion.DuneLocations[0].Calculation.Output);
             CollectionAssert.IsEmpty(affectedObjects);
         }
 
