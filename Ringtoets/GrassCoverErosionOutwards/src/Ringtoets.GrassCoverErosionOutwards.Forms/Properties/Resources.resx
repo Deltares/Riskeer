@@ -123,9 +123,6 @@
   <data name="GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle waterstanden bij doorsnede-eis berekenen.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext_DisplayName" xml:space="preserve">
-    <value>Waterstanden bij doorsnede-eis</value>
-  </data>
   <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_Description" xml:space="preserve">
     <value>Berekende waterstand bij doorsnede-eis.</value>
   </data>

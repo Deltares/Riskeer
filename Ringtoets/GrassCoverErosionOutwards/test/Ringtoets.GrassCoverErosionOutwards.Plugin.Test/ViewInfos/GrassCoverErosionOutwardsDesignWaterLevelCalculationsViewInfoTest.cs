@@ -141,18 +141,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsViewName()
+        public void GetViewName_WithContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
             // Setup
+            const string categoryBoundaryName = "Category";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
+                
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                               failureMechanism,
+                                                                                               assessmentSection,
+                                                                                               () => 0.01,
+                                                                                               categoryBoundaryName);
 
                 // Call
-                string name = info.GetViewName(null, null);
+                string name = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual("Waterstanden bij doorsnede-eis", name);
+                Assert.AreEqual($"Waterstanden - {categoryBoundaryName}", name);
+                mocks.VerifyAll();
             }
         }
 
