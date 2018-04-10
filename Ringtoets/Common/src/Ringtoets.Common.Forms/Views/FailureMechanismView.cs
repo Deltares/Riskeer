@@ -146,7 +146,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 Observable = FailureMechanism
             };
-            assessmentSectionObserver = new Observer(UpdateRefereceLineMapData)
+            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
             };
@@ -175,20 +175,20 @@ namespace Ringtoets.Common.Forms.Views
 
         private void SetAllMappDataFeatures()
         {
-            SetRefereceLineMapData();
+            SetReferenceLineMapData();
             SetSectionsMapData();
             SetHydraulicBoundaryLocationsMapData();
         }
 
         #region ReferenceLine MapData
 
-        private void UpdateRefereceLineMapData()
+        private void UpdateReferenceLineMapData()
         {
-            SetRefereceLineMapData();
+            SetReferenceLineMapData();
             referenceLineMapData.NotifyObservers();
         }
 
-        private void SetRefereceLineMapData()
+        private void SetReferenceLineMapData()
         {
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(
                 AssessmentSection.ReferenceLine, AssessmentSection.Id, AssessmentSection.Name);
