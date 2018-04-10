@@ -36,8 +36,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsInputContext : WaveConditionsInputContext
     {
-        private readonly GrassCoverErosionOutwardsFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/>.
         /// </summary>
@@ -58,14 +56,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            this.failureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
         }
 
         public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
         {
             get
             {
-                return failureMechanism.HydraulicBoundaryLocations;
+                return FailureMechanism.HydraulicBoundaryLocations;
             }
         }
 
@@ -73,8 +71,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         {
             get
             {
-                return failureMechanism.ForeshoreProfiles;
+                return FailureMechanism.ForeshoreProfiles;
             }
         }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
     }
 }

@@ -57,6 +57,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreSame(input, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, context.HydraulicBoundaryLocations);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
             mocks.VerifyAll();
